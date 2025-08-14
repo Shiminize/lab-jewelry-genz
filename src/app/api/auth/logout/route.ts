@@ -5,8 +5,7 @@
  */
 
 import { NextRequest } from 'next/server'
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from '@/lib/auth'
+import { auth } from '@/lib/auth'
 import {
   createSuccessResponse,
   createErrorResponse,
@@ -17,7 +16,7 @@ import {
 async function logoutHandler(request: NextRequest) {
   try {
     // Get current session to verify user is logged in
-    const session = await getServerSession(authOptions)
+    const session = await auth()
     
     if (!session) {
       return createErrorResponse(

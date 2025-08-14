@@ -101,7 +101,7 @@ export function PriceCalculator({
       </MutedText>
       <BodyText className={cn(
         'text-sm font-medium',
-        isPositive ? 'text-success' : amount > 0 ? 'text-cta' : 'text-muted'
+        isPositive ? 'text-success' : amount > 0 ? 'text-cta' : 'text-gray-600'
       )}>
         {amount === 0 
           ? (isIncluded ? 'Included' : '—')

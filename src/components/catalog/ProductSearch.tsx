@@ -170,15 +170,15 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search Input */}
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-5 h-5" />
             <input
               type="text"
-              placeholder="Search lab-grown diamond jewelry..."
+              placeholder="Find Your Signature Piece"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className={cn(
                 'w-full pl-10 pr-4 py-3 border border-border rounded-lg',
-                'bg-background text-foreground placeholder:text-muted',
+                'bg-background text-foreground placeholder:text-gray-600',
                 'focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent',
                 'transition-all duration-200'
               )}

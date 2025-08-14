@@ -5,9 +5,8 @@
  */
 
 import { NextRequest } from 'next/server'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '@/lib/auth'
 import { LoginSchema } from '@/types/auth'
-import { authOptions } from '@/lib/auth'
 import {
   createSuccessResponse,
   createErrorResponse,

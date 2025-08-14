@@ -15,6 +15,7 @@ import type { Material, StoneQuality, CustomizationOptions, ProductBase } from '
 
 // Full CSS 3D Product Customizer - replacing failing 3D viewer
 import { ProductCustomizer } from '@/components/customizer/ProductCustomizer'
+import { RING_VARIANTS } from '@/data/product-variants'
 
 // CVA variants for the preview section - Mobile first approach
 const previewSectionVariants = cva(
@@ -24,8 +25,8 @@ const previewSectionVariants = cva(
       layout: {
         split: 'flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12',
         stacked: 'flex flex-col space-y-8',
-        // Corrected: flex-col-reverse for mobile, 5-col grid for desktop
-        'mobile-first': 'flex flex-col-reverse lg:grid lg:grid-cols-5 gap-6 lg:gap-6'
+        // Mobile-first: 3D viewer first on mobile, 50/50 desktop split
+        'mobile-first': 'flex flex-col-reverse lg:grid lg:grid-cols-2 gap-6 lg:gap-12'
       },
       padding: {
         standard: 'px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16',
@@ -44,8 +45,8 @@ const quickSelectorVariants = cva(
   {
     variants: {
       state: {
-        default: 'border-border bg-background hover:border-accent/50 hover:bg-accent/5',
-        selected: 'border-accent bg-accent/10 shadow-sm',
+        default: 'border-border bg-background text-foreground hover:border-accent/50 hover:bg-accent/5',
+        selected: 'border-accent bg-white text-foreground shadow-sm',
         disabled: 'opacity-50 cursor-not-allowed'
       },
       size: {
@@ -67,29 +68,10 @@ interface CustomizerPreviewSectionProps extends VariantProps<typeof previewSecti
 }
 
 // Simplified preview options matching existing system
+// Get actual materials from ring variants that have image sequences
 const PREVIEW_MATERIALS: Material[] = [
-  {
-    id: 'silver',
-    name: '925 Silver',
-    description: 'Classic brilliance',
-    priceMultiplier: 1.0,
-    color: 'var(--muted)'
-  },
-  {
-    id: 'gold-14k',
-    name: '14k Gold',
-    description: 'Timeless luxury',
-    priceMultiplier: 1.5,
-    color: 'var(--accent)'
-  },
-  {
-    id: 'gold-18k',
-    name: '18k Gold',
-    description: 'Premium elegance',
-    priceMultiplier: 2.0,
-    color: 'var(--accent)'
-  }
-]
+  ...new Map(RING_VARIANTS.map(variant => [variant.material.id, variant.material])).values()
+].slice(0, 4) // Limit to 4 materials for preview UI
 
 const PREVIEW_STONES: StoneQuality[] = [
   {
@@ -149,8 +131,12 @@ export function CustomizerPreviewSection({
   onStartDesigning,
   onChatWithDesigner
 }: CustomizerPreviewSectionProps) {
+  // Find the rose gold variant as default (the one with your image sequences)
+  const defaultVariant = RING_VARIANTS.find(v => v.id === 'doji-diamond-ring-rose-gold') || RING_VARIANTS[0]
+  const defaultMaterial = defaultVariant.material
+
   const [selectedOptions, setSelectedOptions] = useState<CustomizationOptions>({
-    material: PREVIEW_MATERIALS[0],
+    material: defaultMaterial,
     stoneQuality: PREVIEW_STONES[1], // Default to Moissanite
     size: null,
     engraving: ''
@@ -160,6 +146,7 @@ export function CustomizerPreviewSection({
   const [currentPrice, setCurrentPrice] = useState(299)
   const [is3DLoaded, setIs3DLoaded] = useState(false)
   const [isMobileView, setIsMobileView] = useState(false)
+  const [selectedVariantId, setSelectedVariantId] = useState(defaultVariant.id)
 
   // Detect mobile viewport
   useEffect(() => {
@@ -187,6 +174,12 @@ export function CustomizerPreviewSection({
   const handleOptionSelect = (type: 'material' | 'stone' | 'setting', option: Material | StoneQuality | SettingOption) => {
     if (type === 'material') {
       setSelectedOptions((prev: CustomizationOptions) => ({ ...prev, material: option as Material }))
+      
+      // Find variant with this material and switch to it
+      const newVariant = RING_VARIANTS.find(v => v.material.id === (option as Material).id)
+      if (newVariant) {
+        setSelectedVariantId(newVariant.id)
+      }
     } else if (type === 'stone') {
       setSelectedOptions((prev: CustomizationOptions) => ({ ...prev, stoneQuality: option as StoneQuality }))
     } else if (type === 'setting') {
@@ -251,7 +244,7 @@ export function CustomizerPreviewSection({
                 {type === 'material' && (
                   <div 
                     className="w-5 h-5 rounded-full border border-border flex-shrink-0"
-                    style={{ backgroundColor: (option as Material).color || 'var(--muted)' }}
+                    style={{ backgroundColor: (option as Material).color || '#E8D7D3' }}
                     aria-hidden="true"
                   />
                 )}
@@ -272,7 +265,7 @@ export function CustomizerPreviewSection({
                 )}
                 <div className="text-left flex-1 min-w-0">
                   <div className="font-medium text-foreground truncate">{option.name}</div>
-                  <div className="text-xs text-muted truncate">{option.description}</div>
+                  <div className="text-xs text-gray-600 truncate">{option.description}</div>
                 </div>
               </div>
               {isSelected && (
@@ -289,11 +282,10 @@ export function CustomizerPreviewSection({
 
 
   return (
-    <section className={cn(previewSectionVariants({ layout, padding }), 'bg-background', className)}>
-      <div className="max-w-7xl mx-auto">
-        <div className={cn(previewSectionVariants({ layout }))}>
-          {/* Left (Controls) - 40% on desktop */}
-          <div className="flex flex-col justify-center space-y-6 sm:space-y-8 lg:col-span-2">
+    <section className={cn('bg-background', className)}>
+      <div className={cn(previewSectionVariants({ layout, padding }), 'max-w-7xl mx-auto')}>
+          {/* Left (Controls) - 50% on desktop */}
+          <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
             {/* Hero messaging */}
             <div className="space-y-3 sm:space-y-4">
               <H2 className="text-foreground leading-tight text-2xl sm:text-3xl lg:text-4xl">
@@ -367,9 +359,11 @@ export function CustomizerPreviewSection({
             </div>
           </div>
 
-          {/* Right (3D Preview) - 60% on desktop */}
-          <div className="relative lg:col-span-3" id="customizer-3d-container">
+          {/* Right (3D Preview) - 50% on desktop */}
+          <div className="relative" id="customizer-3d-container">
             <ProductCustomizer
+              key={selectedVariantId}
+              initialVariantId={selectedVariantId}
               layout="compact"
               showControls={false}
               autoRotate={true}
@@ -391,7 +385,6 @@ export function CustomizerPreviewSection({
               </div>
             )}
           </div>
-        </div>
 
         {/* Trust Indicators */}
         <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-border">

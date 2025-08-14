@@ -1,14 +1,15 @@
 # 3D Viewer Status Report
-**Date:** August 13, 2025  
+**Date:** August 14, 2025  
 **Project:** GlowGlitch 3D Customizer Implementation  
 
-## Current Status: IN PROGRESS 🔄
+## Current Status: OPERATIONAL ✅
 
-### 🔄 Current Implementation: CSS 3D Image Sequences
+### ✅ Current Implementation: CSS 3D Image Sequences
 **Revolutionary approach replacing failing Three.js WebGL implementation**
 - ✅ CSS 3D viewer components completed and integrated
 - ✅ Browser-based GLB renderer with professional lighting system
 - ✅ Material preservation system protecting original GLB colors
+- ✅ **FIXED**: Homepage flickering issue resolved (Aug 14, 2025)
 - ⚠️ **Pending**: User needs to generate image sequences from Ringmodel.glb
 
 ## What We've Tested
@@ -100,6 +101,9 @@ Based on CLAUDE_RULES.md priorities (mobile-first, sub-3s loads, error-first), t
 
 ### ✅ Completed Components
 - **ImageSequenceViewer**: Core CSS 3D viewer with drag/touch rotation
+  - **Fixed (Aug 14)**: Eliminated flickering by removing opacity transitions
+  - **Fixed (Aug 14)**: Optimized image loading with eager loading
+  - **Fixed (Aug 14)**: Implemented proper image caching with multiple img elements
 - **ProductCustomizer**: Integration component with material selection
 - **GLB Renderer**: Browser-based 3D model to image sequence converter
 - **Lighting System**: Professional jewelry photography setup
@@ -149,5 +153,24 @@ Based on CLAUDE_RULES.md priorities (mobile-first, sub-3s loads, error-first), t
 - `src/components/customizer/Dynamic3DViewer.tsx` (🗑️ Removed - WebGL dependency)
 - Three.js dependencies removed from package.json
 
+## Recent Fixes (August 14, 2025)
+
+### Homepage Flickering Issue - RESOLVED ✅
+**Problem:** 3D viewer showed flickering when images were rolling/rotating on homepage
+**Root Cause:** 
+- CSS opacity transitions causing fade effects between frames
+- Lazy loading and async decoding causing browser-level conflicts
+- Component re-mounting on variant changes
+
+**Solution Implemented:**
+1. Removed `transition-opacity duration-150` from imageVariants
+2. Changed image loading from `lazy` to `eager`
+3. Removed `decoding="async"` attribute
+4. Implemented multiple img elements with visibility toggling
+5. All frames now pre-rendered and cached in DOM
+
+**Result:** Smooth, flicker-free rotation on homepage 3D viewer
+
 ---
+*Report last updated: August 14, 2025*
 *Report generated during CLAUDE_RULES.md compliant 3D customizer implementation*

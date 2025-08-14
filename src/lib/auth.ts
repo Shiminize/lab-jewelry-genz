@@ -4,7 +4,7 @@
  * Follows CLAUDE_RULES.md security and GDPR requirements
  */
 
-import { NextAuthOptions } from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
@@ -12,7 +12,7 @@ import FacebookProvider from 'next-auth/providers/facebook'
 import AppleProvider from 'next-auth/providers/apple'
 import bcrypt from 'bcryptjs'
 import { z } from 'zod'
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
+import { MongoDBAdapter } from '@auth/mongodb-adapter'
 import { MongoClient } from 'mongodb'
 
 import { LoginSchema } from '@/types/auth'
@@ -391,5 +391,9 @@ export async function requireRole(allowedRoles: UserRole[]): Promise<AuthSession
   }
   return session
 }
+
+// Create auth instance for NextAuth v5
+const { auth, handlers, signIn, signOut } = NextAuth(authOptions)
+export { auth, handlers, signIn, signOut }
 
 export default authOptions

@@ -152,7 +152,7 @@ export function ProductCustomizer({
   const MaterialSelector = () => (
     <div className="space-y-4">
       <div>
-        <H3 className="text-foreground mb-2">Metal Type</H3>
+        <H3 className="text-foreground mb-2">Your Story, Your Shine</H3>
         <MutedText size="sm" className="mb-4">
           Choose your preferred metal for the ring setting
         </MutedText>
@@ -192,7 +192,7 @@ export function ProductCustomizer({
                   <div className="font-medium text-foreground text-sm">
                     {material.name}
                   </div>
-                  <div className="text-xs text-muted truncate">
+                  <div className="text-xs text-gray-600 truncate">
                     {material.description}
                   </div>
                   {material.priceMultiplier !== 1.0 && (
@@ -247,7 +247,7 @@ export function ProductCustomizer({
       </div>
       
       <div className="flex items-center justify-between text-sm">
-        <span className="text-muted">Material:</span>
+        <span className="text-gray-600">Your Story, Your Shine:</span>
         <div className="flex items-center space-x-2">
           <div 
             className="w-3 h-3 rounded-full border border-border"
@@ -260,14 +260,12 @@ export function ProductCustomizer({
         </div>
       </div>
       
-      {currentFrame > 0 && (
-        <div className="flex items-center justify-between text-sm mt-2 pt-2 border-t border-border">
-          <span className="text-muted">View angle:</span>
-          <span className="text-foreground">
-            {Math.round((currentFrame / 36) * 360)}°
-          </span>
-        </div>
-      )}
+      <div className="flex items-center justify-between text-sm mt-2 pt-2 border-t border-border">
+        <span className="text-gray-600">Explore Every Angle:</span>
+        <span className="text-foreground">
+          {Math.round((currentFrame / 36) * 360)}°
+        </span>
+      </div>
     </div>
   )
 
@@ -276,9 +274,9 @@ export function ProductCustomizer({
       {/* 3D Viewer Section */}
       <div className="space-y-4">
         <div>
-          <H3 className="text-foreground mb-2">360° Preview</H3>
+          <H3 className="text-foreground mb-2">Infinite Perspectives</H3>
           <MutedText size="sm">
-            Drag to rotate • Use arrow keys • Auto-rotation available
+            Spin Your Story | Swipe. Tap. Transform.
           </MutedText>
         </div>
 

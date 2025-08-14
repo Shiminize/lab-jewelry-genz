@@ -133,7 +133,7 @@ export function StaticImageViewer({
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
               <MutedText size="sm">Static Preview</MutedText>
             </div>
-            <MutedText size="xs" className="text-muted">
+            <MutedText size="xs" className="text-gray-600">
               Interactive viewer loading...
             </MutedText>
           </div>

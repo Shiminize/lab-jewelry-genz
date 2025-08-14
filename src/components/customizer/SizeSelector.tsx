@@ -92,7 +92,7 @@ export function SizeSelector({
               ? isSelected
                 ? 'border-accent bg-accent text-foreground shadow-md scale-110'
                 : 'border-border bg-background text-foreground hover:border-accent/50 hover:shadow-sm'
-              : 'border-muted bg-muted/30 text-muted cursor-not-allowed opacity-50'
+              : 'border-border bg-background/30 text-gray-600 cursor-not-allowed opacity-50'
           )}
           aria-label={`Select ring size ${size.name}`}
           aria-pressed={isSelected}
@@ -127,7 +127,7 @@ export function SizeSelector({
               className="p-2 hover:bg-muted rounded-full transition-colors"
               aria-label="Close size guide"
             >
-              <svg className="w-5 h-5 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -138,7 +138,7 @@ export function SizeSelector({
               <BodyText className="font-medium text-foreground mb-2">
                 How to Find Your Size
               </BodyText>
-              <ol className="text-sm text-muted space-y-1 list-decimal list-inside">
+              <ol className="text-sm text-gray-600 space-y-1 list-decimal list-inside">
                 <li>Wrap a string around your finger</li>
                 <li>Mark where the string overlaps</li>
                 <li>Measure the string length in mm</li>
@@ -161,8 +161,8 @@ export function SizeSelector({
                   )}
                 >
                   <div className="font-medium">{size}</div>
-                  <div className="text-muted">{measurements.diameter}</div>
-                  <div className="text-muted">{measurements.circumference}</div>
+                  <div className="text-gray-600">{measurements.diameter}</div>
+                  <div className="text-gray-600">{measurements.circumference}</div>
                 </div>
               ))}
             </div>
@@ -171,7 +171,7 @@ export function SizeSelector({
               <BodyText className="text-sm font-medium text-foreground mb-2">
                 Tips for Accurate Sizing
               </BodyText>
-              <ul className="text-sm text-muted space-y-1 list-disc list-inside">
+              <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
                 <li>Measure at the end of the day when fingers are largest</li>
                 <li>Ensure the ring slides over your knuckle comfortably</li>
                 <li>Consider the width - wider bands fit tighter</li>

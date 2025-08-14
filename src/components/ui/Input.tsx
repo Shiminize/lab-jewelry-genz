@@ -29,7 +29,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           className={cn(
             'flex h-11 w-full rounded-md border border-border bg-background px-3 py-2',
-            'text-sm text-foreground placeholder:text-muted',
+            'text-sm text-foreground placeholder:text-gray-600',
             'focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent',
             'disabled:cursor-not-allowed disabled:opacity-50',
             'transition-colors',
@@ -47,7 +47,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {hint && !error && (
           <p 
             id={`${inputId}-hint`}
-            className="mt-2 text-xs text-muted"
+            className="mt-2 text-xs text-gray-600"
           >
             {hint}
           </p>
@@ -112,7 +112,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {hint && !error && (
           <p 
             id={`${textareaId}-hint`}
-            className="mt-2 text-xs text-muted"
+            className="mt-2 text-xs text-gray-600"
           >
             {hint}
           </p>

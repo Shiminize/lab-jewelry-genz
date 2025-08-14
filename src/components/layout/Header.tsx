@@ -111,10 +111,10 @@ export function Header({ className }: HeaderProps) {
           {/* Search bar (desktop) */}
           <div className="hidden lg:block flex-1 max-w-md mx-8">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
               <Input
                 type="search"
-                placeholder="Search jewelry..."
+                placeholder="Find Your Signature Piece"
                 className="pl-10 pr-4"
               />
             </div>
@@ -174,10 +174,10 @@ export function Header({ className }: HeaderProps) {
         {isSearchOpen && (
           <div className="lg:hidden pb-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
               <Input
                 type="search"
-                placeholder="Search jewelry..."
+                placeholder="Find Your Signature Piece"
                 className="pl-10 pr-4"
                 autoFocus
               />
@@ -205,7 +205,7 @@ export function Header({ className }: HeaderProps) {
                       <li key={subcategory}>
                         <Link
                           href={`${category.href}/${subcategory.toLowerCase().replace(' ', '-')}`}
-                          className="block font-body text-sm text-muted hover:text-foreground transition-colors py-1"
+                          className="block font-body text-sm text-gray-600 hover:text-foreground transition-colors py-1"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {subcategory}

@@ -36,7 +36,7 @@ const viewerVariants = cva(
 )
 
 const imageVariants = cva(
-  'absolute inset-0 w-full h-full object-cover transition-opacity duration-150',
+  'absolute inset-0 w-full h-full object-cover',
   {
     variants: {
       visible: {
@@ -284,7 +284,7 @@ export function ImageSequenceViewer({
         <div className="absolute inset-0 flex items-center justify-center bg-background/80">
           <div className="text-center space-y-4">
             <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin mx-auto" />
-            <MutedText size="sm">Loading 360° view...</MutedText>
+            <MutedText size="sm" className="text-gray-600">Loading your perfect view...</MutedText>
             <div className="w-32 h-2 bg-border rounded-full overflow-hidden">
               <div 
                 className="h-full bg-accent transition-all duration-300"
@@ -310,31 +310,46 @@ export function ImageSequenceViewer({
         </div>
       )}
 
-      {/* Main Image */}
+      {/* Main Images - All preloaded and hidden except current */}
       {!hasError && (
-        <img
-          src={currentImageUrl}
-          alt={`Product view frame ${currentFrame + 1}`}
-          className={cn(imageVariants({ visible: !isLoading }))}
-          loading="lazy"
-          decoding="async"
-        />
+        <>
+          {Array.from({ length: imageCount }, (_, i) => {
+            const isCurrentFrame = i === currentFrame
+            const imageUrl = `${imagePath}/${i}.${imageFormat}`
+            return (
+              <img
+                key={i}
+                src={imageUrl}
+                alt={`Product view frame ${i + 1}`}
+                className={cn(
+                  'absolute inset-0 w-full h-full object-cover',
+                  isCurrentFrame ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                )}
+                style={{ display: isCurrentFrame ? 'block' : 'none' }}
+                loading="eager"
+              />
+            )
+          })}
+        </>
       )}
 
-      {/* Controls and Status */}
-      <div className="absolute bottom-4 left-4 right-4">
-        <div className="bg-background/90 backdrop-blur-sm rounded-lg p-3 border border-border">
+      {/* Controls and Status - Always Visible */}
+      <div className="absolute bottom-4 left-4 right-4 opacity-100 transition-opacity duration-300">
+        <div className="bg-background/95 backdrop-blur-sm rounded-lg p-3 border border-border shadow-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              <MutedText size="sm">360° Interactive</MutedText>
+              <MutedText size="sm" className="font-headline font-medium">Infinite Perspectives</MutedText>
             </div>
             <div className="flex items-center space-x-2">
-              <MutedText size="xs" className="text-muted">
-                {currentFrame + 1}/{imageCount}
-              </MutedText>
               {autoRotate && !isInteracting && (
-                <div className="w-1 h-1 bg-accent rounded-full animate-pulse" />
+                <div className="flex items-center space-x-1">
+                  <div className="w-1 h-1 bg-accent rounded-full animate-pulse" />
+                  <MutedText size="xs" className="text-gray-600 font-medium">Auto</MutedText>
+                </div>
+              )}
+              {isInteracting && (
+                <MutedText size="xs" className="text-accent font-medium">Interactive</MutedText>
               )}
             </div>
           </div>
@@ -343,9 +358,9 @@ export function ImageSequenceViewer({
 
       {/* Touch/Drag hints */}
       <div className="absolute bottom-16 left-4 right-4 lg:hidden">
-        <div className="bg-background/90 backdrop-blur-sm rounded-lg p-2">
-          <MutedText size="sm" className="text-center text-xs">
-            {isLoading ? 'Loading...' : 'Drag to rotate • Tap ← → keys'}
+        <div className="bg-background/95 backdrop-blur-sm rounded-lg p-2 border border-border/50">
+          <MutedText size="sm" className="text-center text-xs text-gray-600">
+            {isLoading ? 'Loading...' : 'Swipe to fall in love'}
           </MutedText>
         </div>
       </div>

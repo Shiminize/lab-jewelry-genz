@@ -5,8 +5,7 @@
  */
 
 import { NextRequest } from 'next/server'
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from '@/lib/auth'
+import { auth } from '@/lib/auth'
 import { getUserById } from '@/lib/user-service'
 import {
   createSuccessResponse,
@@ -19,7 +18,7 @@ import type { AuthSession } from '@/types/auth'
 async function getSessionHandler(request: NextRequest) {
   try {
     // Get session from NextAuth
-    const session = await getServerSession(authOptions) as AuthSession | null
+    const session = await auth() as AuthSession | null
     
     if (!session) {
       return createErrorResponse(
@@ -101,7 +100,7 @@ async function getSessionHandler(request: NextRequest) {
 async function updateSessionHandler(request: NextRequest) {
   try {
     // Get current session
-    const session = await getServerSession(authOptions) as AuthSession | null
+    const session = await auth() as AuthSession | null
     
     if (!session) {
       return createErrorResponse(

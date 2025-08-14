@@ -5,8 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from '@/lib/auth'
+import { auth } from '@/lib/auth'
 import { getUserById } from '@/lib/user-service'
 import { createErrorResponse, getClientIP } from '@/lib/api-utils'
 import { checkAPIRateLimit, checkUserAPIRateLimit } from '@/lib/api-utils'
@@ -138,7 +137,7 @@ export async function withAuth(
     }
     
     // Get session
-    const session = await getServerSession(authOptions) as AuthSession | null
+    const session = await auth() as AuthSession | null
     
     // Check if authentication is required
     if (requireAuth && !session) {
