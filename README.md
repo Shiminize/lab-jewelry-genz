@@ -1,4 +1,4 @@
-# GlowGlitch 3D Jewelry Customizer
+# GlowGlitch 3D Jewelry Customizer (lab-jewelry-genz)
 
 A complete React/Next.js component library for GlowGlitch's luxury lab-grown diamond jewelry customization experience.
 
