@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowGlitch - Complete UI Demo</title>
+    <style>
+        /* CSS Custom Properties - Design System */
+        :root {
+            /* Colors */
+            --color-background: #FEFCF9;      /* Ivory mist */
+            --color-foreground: #2D3A32;      /* Graphite green */
+            --color-muted: #E8D7D3;           /* Rose beige */
+            --color-accent: #D4AF37;          /* Champagne gold */
+            --color-cta: #C17B47;             /* Coral gold */
+            --color-cta-hover: #B5653A;       /* Burnt coral */
+            --color-white: #FFFFFF;
+            --color-gray-100: #F7F7F7;
+            --color-gray-200: #E5E5E5;
+            --color-gray-300: #D4D4D4;
+            --color-gray-600: #6B7280;
+            
+            /* Typography */
+            --font-headline: 'Fraunces', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --space-3xl: 64px;
+            --space-4xl: 96px;
+            
+            /* Container widths */
+            --container-sm: 480px;
+            --container-md: 768px;
+            --container-lg: 1024px;
+            --container-xl: 1280px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        /* Google Fonts Import */
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-background);
+            color: var(--color-foreground);
+            line-height: 1.6;
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        /* Container System */
+        .container {
+            max-width: var(--container-xl);
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .container-sm { max-width: var(--container-sm); }
+        .container-md { max-width: var(--container-md); }
+        .container-lg { max-width: var(--container-lg); }
+
+        /* Typography System */
+        .h1 {
+            font-family: var(--font-headline);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--color-foreground);
+            margin-bottom: var(--space-lg);
+        }
+
+        .h2 {
+            font-family: var(--font-headline);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.015em;
+            color: var(--color-foreground);
+            margin-bottom: var(--space-md);
+        }
+
+        .h3 {
+            font-family: var(--font-headline);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--color-foreground);
+            margin-bottom: var(--space-md);
+        }
+
+        .body-lg {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--color-foreground);
+            margin-bottom: var(--space-md);
+        }
+
+        .body-md {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--color-foreground);
+            margin-bottom: var(--space-md);
+        }
+
+        .body-sm {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: var(--color-gray-600);
+            margin-bottom: var(--space-sm);
+        }
+
+        .text-center { text-align: center; }
+        .text-accent { color: var(--color-accent); }
+        .text-muted { color: var(--color-gray-600); }
+
+        /* Button System */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-body);
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 44px;
+            padding: 0 var(--space-lg);
+            font-size: 1rem;
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* Button Variants */
+        .btn-primary {
+            background-color: var(--color-cta);
+            color: var(--color-background);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-cta-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: var(--color-background);
+            color: var(--color-foreground);
+            border: 1px solid var(--color-gray-300);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-muted);
+            border-color: var(--color-accent);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-foreground);
+            border: 2px solid var(--color-foreground);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-foreground);
+            color: var(--color-background);
+        }
+
+        .btn-ghost {
+            background-color: transparent;
+            color: var(--color-foreground);
+        }
+
+        .btn-ghost:hover {
+            background-color: var(--color-muted);
+        }
+
+        .btn-accent {
+            background-color: var(--color-accent);
+            color: var(--color-foreground);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-accent:hover {
+            background-color: var(--color-accent);
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Button Sizes */
+        .btn-sm {
+            min-height: 36px;
+            padding: 0 var(--space-md);
+            font-size: 0.875rem;
+        }
+
+        .btn-lg {
+            min-height: 48px;
+            padding: 0 var(--space-2xl);
+            font-size: 1.125rem;
+        }
+
+        /* Navigation */
+        .nav {
+            background-color: var(--color-background);
+            border-bottom: 1px solid var(--color-gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-md);
+        }
+
+        .logo {
+            font-family: var(--font-headline);
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--color-foreground);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-menu {
+            display: none;
+            align-items: center;
+            gap: var(--space-2xl);
+            list-style: none;
+        }
+
+        @media (min-width: 768px) {
+            .nav-menu {
+                display: flex;
+            }
+        }
+
+        .nav-link {
+            color: var(--color-foreground);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--color-cta);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-cta);
+            transition: width 0.2s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .cart-indicator {
+            position: relative;
+            color: var(--color-foreground);
+            font-size: 1.25rem;
+            padding: var(--space-sm);
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--color-cta);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            padding: var(--space-sm);
+            cursor: pointer;
+            min-height: 44px;
+            min-width: 44px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+
+        .mobile-menu-bar {
+            width: 24px;
+            height: 2px;
+            background-color: var(--color-foreground);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--space-4xl) 0;
+            background: linear-gradient(135deg, var(--color-background) 0%, var(--color-muted) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--color-accent);
+            color: var(--color-accent);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 24px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            justify-content: center;
+            margin-top: var(--space-2xl);
+        }
+
+        @media (min-width: 640px) {
+            .hero-actions {
+                flex-wrap: nowrap;
+            }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: var(--space-3xl) 0;
+        }
+
+        .section-muted {
+            background-color: var(--color-muted);
+        }
+
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: var(--space-lg);
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--color-white);
+            border-radius: 12px;
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-200);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Feature Cards */
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--color-accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+            font-size: 1.5rem;
+        }
+
+        /* Statistics Display */
+        .stat-number {
+            font-family: var(--font-headline);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--color-gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive Utilities */
+        .hidden-mobile {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .hidden-mobile {
+                display: block;
+            }
+        }
+
+        .hidden-desktop {
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .hidden-desktop {
+                display: none;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="#" class="logo">GLOWGLITCH</a>
+            
+            <ul class="nav-menu">
+                <li><a href="#why-lab-grown" class="nav-link">Why Lab Grown</a></li>
+                <li><a href="#sustainability" class="nav-link">Sustainability</a></li>
+                <li><a href="#collections" class="nav-link">Collections</a></li>
+                <li><a href="#customize" class="nav-link">Customize</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="cart-indicator">
+                    🛒
+                    <span class="cart-count">2</span>
+                </div>
+                <div class="cart-indicator">❤️</div>
+                
+                <button class="mobile-menu-toggle">
+                    <span class="mobile-menu-bar"></span>
+                    <span class="mobile-menu-bar"></span>
+                    <span class="mobile-menu-bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content text-center">
+            <div class="hero-badge fade-in">
+                ✨ Now featuring lab-grown diamonds
+            </div>
+            
+            <h1 class="h1 fade-in">
+                Digital Brilliance,<br>
+                <span class="text-accent">Conscious Luxury</span>
+            </h1>
+            
+            <p class="body-lg text-muted fade-in" style="max-width: 600px; margin: 0 auto;">
+                Precision-crafted diamond jewelry through revolutionary 3D customization. 
+                Where innovation meets elegance, and sustainability sparkles brighter than ever.
+            </p>
+            
+            <div class="hero-actions fade-in">
+                <a href="#collections" class="btn btn-primary btn-lg">Explore Collections</a>
+                <a href="#why-lab-grown" class="btn btn-outline btn-lg">Why Lab Grown?</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Button System Showcase -->
+    <section class="section">
+        <div class="container text-center">
+            <h2 class="h2">Complete Button System</h2>
+            <p class="body-lg text-muted" style="max-width: 600px; margin: 0 auto 3rem;">
+                Our design system features five button variants with three sizes, ensuring consistent user experience across all touchpoints.
+            </p>
+            
+            <div class="grid grid-3">
+                <div class="card">
+                    <h3 class="h3" style="margin-bottom: 1.5rem;">Primary Actions</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                        <button class="btn btn-primary btn-sm">Small Primary</button>
+                        <button class="btn btn-primary">Medium Primary</button>
+                        <button class="btn btn-primary btn-lg">Large Primary</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="h3" style="margin-bottom: 1.5rem;">Secondary Actions</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                        <button class="btn btn-secondary btn-sm">Small Secondary</button>
+                        <button class="btn btn-secondary">Medium Secondary</button>
+                        <button class="btn btn-secondary btn-lg">Large Secondary</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="h3" style="margin-bottom: 1.5rem;">Accent & Variants</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                        <button class="btn btn-accent">Champagne Gold</button>
+                        <button class="btn btn-outline">Outlined</button>
+                        <button class="btn btn-ghost">Ghost Button</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Color Palette Showcase -->
+    <section class="section section-muted">
+        <div class="container text-center">
+            <h2 class="h2">Brand Color Palette</h2>
+            <p class="body-lg text-muted" style="max-width: 600px; margin: 0 auto 3rem;">
+                Our carefully curated color system reflects sustainable luxury through warm, earthy tones inspired by natural elements.
+            </p>
+            
+            <div class="grid grid-4">
+                <div class="card">
+                    <div style="width: 80px; height: 80px; background-color: var(--color-accent); border-radius: 12px; margin: 0 auto 1rem; box-shadow: var(--shadow-md);"></div>
+                    <h4 style="font-family: var(--font-headline); font-weight: 600; margin-bottom: 0.5rem;">Champagne Gold</h4>
+                    <code style="background: var(--color-gray-100); padding: 4px 8px; border-radius: 4px; font-size: 0.875rem;">#D4AF37</code>
+                </div>
+                
+                <div class="card">
+                    <div style="width: 80px; height: 80px; background-color: var(--color-cta); border-radius: 12px; margin: 0 auto 1rem; box-shadow: var(--shadow-md);"></div>
+                    <h4 style="font-family: var(--font-headline); font-weight: 600; margin-bottom: 0.5rem;">Coral Gold</h4>
+                    <code style="background: var(--color-gray-100); padding: 4px 8px; border-radius: 4px; font-size: 0.875rem;">#C17B47</code>
+                </div>
+                
+                <div class="card">
+                    <div style="width: 80px; height: 80px; background-color: var(--color-foreground); border-radius: 12px; margin: 0 auto 1rem; box-shadow: var(--shadow-md);"></div>
+                    <h4 style="font-family: var(--font-headline); font-weight: 600; margin-bottom: 0.5rem;">Graphite Green</h4>
+                    <code style="background: var(--color-gray-100); padding: 4px 8px; border-radius: 4px; font-size: 0.875rem;">#2D3A32</code>
+                </div>
+                
+                <div class="card">
+                    <div style="width: 80px; height: 80px; background-color: var(--color-muted); border-radius: 12px; margin: 0 auto 1rem; box-shadow: var(--shadow-md);"></div>
+                    <h4 style="font-family: var(--font-headline); font-weight: 600; margin-bottom: 0.5rem;">Rose Beige</h4>
+                    <code style="background: var(--color-gray-100); padding: 4px 8px; border-radius: 4px; font-size: 0.875rem;">#E8D7D3</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typography Showcase -->
+    <section class="section">
+        <div class="container text-center">
+            <h2 class="h2">Typography System</h2>
+            <p class="body-lg text-muted" style="max-width: 600px; margin: 0 auto 3rem;">
+                Combining Fraunces for headlines with Inter for body text creates a perfect balance of luxury elegance and modern readability.
+            </p>
+            
+            <div class="grid grid-2">
+                <div class="card" style="text-align: left;">
+                    <h3 class="h3" style="text-align: center; margin-bottom: 2rem;">Headlines - Fraunces</h3>
+                    <h1 class="h1" style="margin-bottom: 1rem; font-size: 2.5rem;">H1 Headline</h1>
+                    <h2 class="h2" style="margin-bottom: 1rem; font-size: 2rem;">H2 Headline</h2>
+                    <h3 class="h3" style="margin-bottom: 1rem; font-size: 1.5rem;">H3 Headline</h3>
+                    <p class="body-sm text-muted">Used for page titles, section headers, and brand messaging to convey luxury and elegance.</p>
+                </div>
+                
+                <div class="card" style="text-align: left;">
+                    <h3 class="h3" style="text-align: center; margin-bottom: 2rem;">Body Text - Inter</h3>
+                    <p class="body-lg">Large body text for introductory paragraphs and important information that needs emphasis.</p>
+                    <p class="body-md">Medium body text for regular content, descriptions, and general information throughout the site.</p>
+                    <p class="body-sm">Small body text for captions, metadata, and secondary information that supports the main content.</p>
+                    <p class="body-sm text-muted">Optimized for readability across all devices with proper line height and spacing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spacing System -->
+    <section class="section section-muted">
+        <div class="container text-center">
+            <h2 class="h2">Spacing & Layout System</h2>
+            <p class="body-lg text-muted" style="max-width: 600px; margin: 0 auto 3rem;">
+                Built on an 8px-based spacing scale with responsive containers that adapt beautifully to any screen size.
+            </p>
+            
+            <div class="card" style="text-align: left;">
+                <h3 class="h3" style="text-align: center; margin-bottom: 2rem;">Spacing Scale</h3>
+                <div class="grid grid-4">
+                    <div style="text-align: center;">
+                        <div style="width: 100%; height: 4px; background-color: var(--color-accent); margin-bottom: 1rem;"></div>
+                        <strong>XS - 4px</strong>
+                        <p class="body-sm text-muted">Micro spacing</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 100%; height: 8px; background-color: var(--color-accent); margin-bottom: 1rem;"></div>
+                        <strong>SM - 8px</strong>
+                        <p class="body-sm text-muted">Tight spacing</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 100%; height: 16px; background-color: var(--color-accent); margin-bottom: 1rem;"></div>
+                        <strong>MD - 16px</strong>
+                        <p class="body-sm text-muted">Standard spacing</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 100%; height: 24px; background-color: var(--color-accent); margin-bottom: 1rem;"></div>
+                        <strong>LG - 24px</strong>
+                        <p class="body-sm text-muted">Comfortable spacing</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-4" style="margin-top: 2rem;">
+                    <div style="text-align: center;">
+                        <div style="width: 100%; height: 32px; background-color: var(--color-cta); margin-bottom: 1rem;"></div>
+                        <strong>XL - 32px</strong>
+                        <p class="body-sm text-muted">Generous spacing</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 100%; height: 48px; background-color: var(--color-cta); margin-bottom: 1rem;"></div>
+                        <strong>2XL - 48px</strong>
+                        <p class="body-sm text-muted">Section spacing</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 100%; height: 64px; background-color: var(--color-cta); margin-bottom: 1rem;"></div>
+                        <strong>3XL - 64px</strong>
+                        <p class="body-sm text-muted">Large sections</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 100%; height: 96px; background-color: var(--color-cta); margin-bottom: 1rem;"></div>
+                        <strong>4XL - 96px</strong>
+                        <p class="body-sm text-muted">Hero sections</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Navigation -->
+    <section class="section">
+        <div class="container text-center">
+            <h2 class="h2">Complete Page Demos</h2>
+            <p class="body-lg text-muted" style="max-width: 600px; margin: 0 auto 3rem;">
+                Explore comprehensive page examples with real content and interactive elements.
+            </p>
+            
+            <div class="hero-actions">
+                <a href="why-lab-grown.html" class="btn btn-primary btn-lg">Why Lab Grown Diamonds</a>
+                <a href="sustainability.html" class="btn btn-secondary btn-lg">Sustainability Impact</a>
+                <a href="product-detail.html" class="btn btn-accent btn-lg">Product Detail</a>
+                <a href="shopping-cart.html" class="btn btn-outline btn-lg">Shopping Experience</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--color-foreground); color: var(--color-background); padding: var(--space-3xl) 0; margin-top: var(--space-4xl);">
+        <div class="container text-center">
+            <div class="logo" style="color: var(--color-background); font-size: 2rem; margin-bottom: var(--space-lg);">GLOWGLITCH</div>
+            <p class="body-md" style="color: var(--color-muted); max-width: 500px; margin: 0 auto;">
+                Lab-grown diamonds crafted with intention. Ethical luxury for the conscious collector.
+            </p>
+            <div style="margin-top: var(--space-xl);">
+                <p class="body-sm" style="color: var(--color-muted);">
+                    © 2025 GlowGlitch. All rights reserved. | 
+                    <span style="color: var(--color-accent);">hello@glowglitch.com</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    el.style.animationDelay = '0.1s';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', fadeInOnScroll);
+        fadeInOnScroll(); // Initial check
+
+        // Mobile menu toggle functionality
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileToggle?.addEventListener('click', () => {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>

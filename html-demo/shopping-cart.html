@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - GlowGlitch</title>
+    <style>
+        :root {
+            --color-background: #FEFCF9;
+            --color-foreground: #2D3A32;
+            --color-muted: #E8D7D3;
+            --color-accent: #D4AF37;
+            --color-cta: #C17B47;
+            --color-cta-hover: #B5653A;
+            --color-white: #FFFFFF;
+            --color-gray-100: #F7F7F7;
+            --color-gray-200: #E5E5E5;
+            --color-gray-300: #D4D4D4;
+            --color-gray-600: #6B7280;
+            --color-green: #10B981;
+            --color-green-light: #D1FAE5;
+            --color-red: #EF4444;
+            
+            --font-headline: 'Fraunces', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --space-3xl: 64px;
+            --space-4xl: 96px;
+            
+            --container-xl: 1280px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: var(--color-background); color: var(--color-foreground); line-height: 1.6; }
+        
+        .container { max-width: var(--container-xl); margin: 0 auto; padding: 0 var(--space-md); }
+        .h1 { font-family: var(--font-headline); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .h2 { font-family: var(--font-headline); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 600; line-height: 1.2; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .h3 { font-family: var(--font-headline); font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 600; line-height: 1.3; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .body-lg { font-size: 1.125rem; line-height: 1.7; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .body-md { font-size: 1rem; line-height: 1.6; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .body-sm { font-size: 0.875rem; line-height: 1.5; color: var(--color-gray-600); margin-bottom: var(--space-sm); }
+        .text-center { text-align: center; }
+        .text-accent { color: var(--color-accent); }
+        .text-muted { color: var(--color-gray-600); }
+        
+        .btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body); font-weight: 600; text-decoration: none; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; min-height: 44px; padding: 0 var(--space-lg); font-size: 1rem; }
+        .btn:focus { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+        .btn-primary { background-color: var(--color-cta); color: var(--color-background); box-shadow: var(--shadow-sm); }
+        .btn-primary:hover { background-color: var(--color-cta-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+        .btn-secondary { background-color: var(--color-background); color: var(--color-foreground); border: 1px solid var(--color-gray-300); box-shadow: var(--shadow-sm); }
+        .btn-secondary:hover { background-color: var(--color-muted); border-color: var(--color-accent); }
+        .btn-ghost { background-color: transparent; color: var(--color-foreground); }
+        .btn-ghost:hover { background-color: var(--color-muted); }
+        .btn-lg { min-height: 48px; padding: 0 var(--space-2xl); font-size: 1.125rem; }
+        .btn-sm { min-height: 36px; padding: 0 var(--space-md); font-size: 0.875rem; }
+
+        .nav { background-color: var(--color-background); border-bottom: 1px solid var(--color-gray-200); position: sticky; top: 0; z-index: 100; }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; padding: var(--space-md); }
+        .logo { font-family: var(--font-headline); font-size: 1.5rem; font-weight: 400; color: var(--color-foreground); text-decoration: none; letter-spacing: 0.1em; }
+        .nav-back { color: var(--color-foreground); text-decoration: none; font-weight: 500; }
+        .nav-back:hover { color: var(--color-cta); }
+
+        .demo-controls { background: var(--color-muted); padding: var(--space-lg) 0; text-align: center; }
+        .demo-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-md); margin-top: var(--space-md); }
+
+        .cart-sidebar { position: fixed; top: 0; right: 0; height: 100vh; width: 100%; max-width: 400px; background: var(--color-white); box-shadow: var(--shadow-lg); transform: translateX(100%); transition: transform 0.3s ease; z-index: 1000; display: flex; flex-direction: column; }
+        .cart-sidebar.open { transform: translateX(0); }
+        
+        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 999; }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+
+        .cart-header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-lg); border-bottom: 1px solid var(--color-gray-200); }
+        .cart-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; padding: var(--space-sm); min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+        .cart-close:hover { background: var(--color-gray-100); border-radius: 50%; }
+
+        .cart-content { flex: 1; overflow-y: auto; }
+        .cart-items { padding: var(--space-lg); }
+        .cart-item { display: flex; gap: var(--space-md); padding: var(--space-md) 0; border-bottom: 1px solid var(--color-gray-200); }
+        .cart-item:last-child { border-bottom: none; }
+
+        .item-image { width: 80px; height: 80px; background: var(--color-gray-100); border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+        .item-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        .item-details { flex: 1; min-width: 0; }
+        .item-name { font-weight: 600; margin-bottom: var(--space-xs); }
+        .item-customizations { margin-bottom: var(--space-xs); }
+        .item-customization { font-size: 0.875rem; color: var(--color-gray-600); }
+
+        .item-controls { display: flex; align-items: center; justify-content: space-between; margin-top: var(--space-sm); }
+        .item-price { font-weight: 600; color: var(--color-cta); }
+        .quantity-controls { display: flex; align-items: center; gap: var(--space-sm); }
+        .quantity-btn { width: 32px; height: 32px; border: 1px solid var(--color-gray-300); background: var(--color-background); border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.875rem; font-weight: 600; }
+        .quantity-btn:hover { border-color: var(--color-accent); }
+        .quantity-display { min-width: 32px; text-align: center; font-weight: 600; font-size: 0.875rem; }
+
+        .item-remove { background: none; border: none; color: var(--color-red); font-size: 0.875rem; cursor: pointer; margin-top: var(--space-xs); }
+        .item-remove:hover { text-decoration: underline; }
+
+        .cart-empty { text-align: center; padding: var(--space-4xl) var(--space-lg); }
+        .cart-empty-icon { font-size: 4rem; color: var(--color-gray-300); margin-bottom: var(--space-lg); }
+
+        .cart-footer { border-top: 1px solid var(--color-gray-200); background: var(--color-gray-100); padding: var(--space-lg); }
+        .cart-summary { margin-bottom: var(--space-lg); }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: var(--space-sm); }
+        .summary-row.total { font-weight: 700; font-size: 1.125rem; padding-top: var(--space-sm); border-top: 1px solid var(--color-gray-300); }
+
+        .trust-indicators { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xs); margin-top: var(--space-md); text-align: center; }
+        .trust-item { font-size: 0.75rem; color: var(--color-gray-600); }
+
+        .notification { position: fixed; top: 20px; right: 20px; background: var(--color-green); color: white; padding: var(--space-md) var(--space-lg); border-radius: 8px; box-shadow: var(--shadow-lg); transform: translateX(100%); transition: transform 0.3s ease; z-index: 2000; max-width: 300px; }
+        .notification.show { transform: translateX(0); }
+
+        @media (max-width: 768px) {
+            .cart-sidebar { max-width: 100%; }
+            .demo-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">GLOWGLITCH</a>
+            <a href="index.html" class="nav-back">← Back to Demo</a>
+        </div>
+    </nav>
+
+    <!-- Demo Controls -->
+    <section class="demo-controls">
+        <div class="container">
+            <h1 class="h1">Shopping Cart Experience Demo</h1>
+            <p class="body-lg text-muted">
+                Interactive demonstration of the complete shopping cart system with different states and user interactions.
+            </p>
+            
+            <div class="demo-buttons">
+                <button class="btn btn-primary" onclick="openCart('with-items')">Show Cart with Items</button>
+                <button class="btn btn-secondary" onclick="openCart('empty')">Show Empty Cart</button>
+                <button class="btn btn-ghost" onclick="addItemDemo()">Add Item to Cart</button>
+                <button class="btn btn-ghost" onclick="closeCart()">Close Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section style="padding: var(--space-3xl) 0;">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="h2">Cart Features Showcase</h2>
+                <p class="body-lg text-muted" style="max-width: 600px; margin: 0 auto;">
+                    Our shopping cart system provides a seamless, accessible experience across all devices with real-time updates and secure checkout.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-lg); margin-top: var(--space-3xl);">
+                <div style="background: var(--color-white); padding: var(--space-2xl); border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--color-gray-200);">
+                    <h3 class="h3" style="color: var(--color-accent);">Cart Features</h3>
+                    <ul style="padding-left: var(--space-lg); margin-top: var(--space-md);">
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Slide-out sidebar animation</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Responsive mobile & desktop</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Quantity controls with validation</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Remove items functionality</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Real-time price calculation</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Tax and shipping calculation</li>
+                    </ul>
+                </div>
+
+                <div style="background: var(--color-white); padding: var(--space-2xl); border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--color-gray-200);">
+                    <h3 class="h3" style="color: var(--color-accent);">UI States</h3>
+                    <ul style="padding-left: var(--space-lg); margin-top: var(--space-md);">
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Empty cart state with CTA</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Populated cart with multiple items</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Product customizations display</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Trust indicators and security</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Free shipping threshold</li>
+                        <li class="body-sm" style="margin-bottom: var(--space-sm);">Order summary breakdown</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mobile Demo Note -->
+            <div style="background: var(--color-muted); padding: var(--space-lg); border-radius: 12px; margin-top: var(--space-2xl); text-align: center;">
+                <p class="body-md">
+                    <strong>Mobile Demo:</strong> On mobile devices, the cart appears as a full-screen overlay.
+                    On desktop, it slides out from the right side. Resize your browser window to test responsive behavior.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" onclick="closeCart()"></div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <!-- Cart Header -->
+        <div class="cart-header">
+            <h3 class="h3" style="margin: 0;">Shopping Cart (<span id="cartCount">2</span>)</h3>
+            <button class="cart-close" onclick="closeCart()">×</button>
+        </div>
+
+        <!-- Cart Content -->
+        <div class="cart-content">
+            <div id="cartItems" class="cart-items">
+                <!-- Items will be dynamically inserted here -->
+            </div>
+
+            <div id="emptyCart" class="cart-empty" style="display: none;">
+                <div class="cart-empty-icon">🛒</div>
+                <h4 style="font-weight: 600; margin-bottom: var(--space-sm);">Your cart is empty</h4>
+                <p class="body-md text-muted" style="margin-bottom: var(--space-md);">Add some beautiful jewelry to get started</p>
+                <button class="btn btn-primary" onclick="closeCart()">Continue Shopping</button>
+            </div>
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$3,600</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax:</span>
+                    <span id="tax">$288</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping:</span>
+                    <span id="shipping">FREE</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">$3,888</span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg" style="width: 100%; margin-bottom: var(--space-md);" onclick="checkout()">
+                Proceed to Checkout
+            </button>
+
+            <button class="btn btn-ghost" style="width: 100%; margin-bottom: var(--space-md);" onclick="closeCart()">
+                Continue Shopping
+            </button>
+
+            <div class="trust-indicators">
+                <div class="trust-item">🔒 Secure Checkout</div>
+                <div class="trust-item">↩ 30-Day Returns</div>
+                <div class="trust-item">🚚 Free Shipping $2000+</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div class="notification" id="notification">
+        <span id="notificationText">Item added to cart!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--color-foreground); color: var(--color-background); padding: var(--space-2xl) 0; margin-top: var(--space-4xl);">
+        <div class="container text-center">
+            <div class="logo" style="color: var(--color-background); font-size: 1.5rem; margin-bottom: var(--space-md);">GLOWGLITCH</div>
+            <p class="body-sm" style="color: var(--color-muted);">
+                © 2025 GlowGlitch. All rights reserved. | 
+                <span style="color: var(--color-accent);">hello@glowglitch.com</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let cartData = {
+            items: [
+                {
+                    id: 'eternal-solitaire-ring',
+                    name: 'Eternal Solitaire Ring',
+                    price: 2400,
+                    originalPrice: 2800,
+                    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=200&h=200&fit=crop&crop=center',
+                    quantity: 1,
+                    size: '6',
+                    customizations: {
+                        metal: '14K Yellow Gold',
+                        stone: 'Lab-Grown Diamond'
+                    }
+                },
+                {
+                    id: 'diamond-drop-earrings',
+                    name: 'Diamond Drop Earrings',
+                    price: 1200,
+                    originalPrice: 1500,
+                    image: 'https://images.unsplash.com/photo-1544716278-e513176f20a5?w=200&h=200&fit=crop&crop=center',
+                    quantity: 1,
+                    customizations: {
+                        metal: '14K Yellow Gold',
+                        stone: 'Lab-Grown Diamond'
+                    }
+                }
+            ]
+        };
+
+        function openCart(state = 'with-items') {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.querySelector('.cart-overlay');
+            const emptyCart = document.getElementById('emptyCart');
+            const cartItems = document.getElementById('cartItems');
+            const cartFooter = document.getElementById('cartFooter');
+
+            if (state === 'empty') {
+                emptyCart.style.display = 'block';
+                cartItems.style.display = 'none';
+                cartFooter.style.display = 'none';
+            } else {
+                emptyCart.style.display = 'none';
+                cartItems.style.display = 'block';
+                cartFooter.style.display = 'block';
+                renderCartItems();
+            }
+
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+        }
+
+        function closeCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.querySelector('.cart-overlay');
+            
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+
+            cartData.items.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div class="item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-customizations">
+                            <div class="item-customization">Metal: ${item.customizations.metal}</div>
+                            <div class="item-customization">Stone: ${item.customizations.stone}</div>
+                            ${item.size ? `<div class="item-customization">Size: ${item.size}</div>` : ''}
+                        </div>
+                        <div class="item-controls">
+                            <div class="item-price">
+                                $${item.price.toLocaleString()}
+                                ${item.originalPrice ? `<small style="text-decoration: line-through; color: var(--color-gray-600); margin-left: 8px;">$${item.originalPrice.toLocaleString()}</small>` : ''}
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="item-remove" onclick="removeItem('${item.id}')">Remove</button>
+                    </div>
+                `;
+                container.appendChild(itemElement);
+            });
+
+            updateCartSummary();
+        }
+
+        function updateQuantity(itemId, change) {
+            const item = cartData.items.find(i => i.id === itemId);
+            if (item) {
+                item.quantity = Math.max(1, item.quantity + change);
+                renderCartItems();
+                showNotification(`Updated ${item.name} quantity to ${item.quantity}`);
+            }
+        }
+
+        function removeItem(itemId) {
+            const itemIndex = cartData.items.findIndex(i => i.id === itemId);
+            if (itemIndex > -1) {
+                const item = cartData.items[itemIndex];
+                cartData.items.splice(itemIndex, 1);
+                renderCartItems();
+                showNotification(`${item.name} removed from cart`);
+                
+                // Update cart count
+                document.getElementById('cartCount').textContent = cartData.items.length;
+                
+                // Show empty state if no items
+                if (cartData.items.length === 0) {
+                    openCart('empty');
+                }
+            }
+        }
+
+        function updateCartSummary() {
+            const subtotal = cartData.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.08;
+            const shipping = subtotal > 2000 ? 0 : 50;
+            const total = subtotal + tax + shipping;
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString()}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(0)}`;
+            document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `$${shipping}`;
+            document.getElementById('total').textContent = `$${total.toLocaleString()}`;
+            document.getElementById('cartCount').textContent = cartData.items.length;
+        }
+
+        function addItemDemo() {
+            const newItem = {
+                id: 'classic-wedding-band',
+                name: 'Classic Wedding Band',
+                price: 890,
+                image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=200&h=200&fit=crop&crop=center',
+                quantity: 1,
+                size: '6',
+                customizations: {
+                    metal: '14K Yellow Gold',
+                    stone: 'None'
+                }
+            };
+
+            cartData.items.push(newItem);
+            openCart('with-items');
+            showNotification(`${newItem.name} added to cart!`);
+        }
+
+        function checkout() {
+            showNotification('Proceeding to checkout...');
+            setTimeout(() => {
+                alert('Checkout functionality would be implemented here!\n\nThis demo shows the UI components and interactions.');
+            }, 500);
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize cart count
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('cartCount').textContent = cartData.items.length;
+        });
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('cartSidebar').classList.contains('open')) {
+                closeCart();
+            }
+        });
+    </script>
+</body>
+</html>

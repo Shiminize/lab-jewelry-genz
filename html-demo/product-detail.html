@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eternal Solitaire Ring - GlowGlitch</title>
+    <style>
+        :root {
+            --color-background: #FEFCF9;
+            --color-foreground: #2D3A32;
+            --color-muted: #E8D7D3;
+            --color-accent: #D4AF37;
+            --color-cta: #C17B47;
+            --color-cta-hover: #B5653A;
+            --color-white: #FFFFFF;
+            --color-gray-100: #F7F7F7;
+            --color-gray-200: #E5E5E5;
+            --color-gray-300: #D4D4D4;
+            --color-gray-600: #6B7280;
+            --color-green: #10B981;
+            --color-green-light: #D1FAE5;
+            --color-red: #EF4444;
+            
+            --font-headline: 'Fraunces', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --space-3xl: 64px;
+            --space-4xl: 96px;
+            
+            --container-xl: 1280px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: var(--color-background); color: var(--color-foreground); line-height: 1.6; }
+        
+        .container { max-width: var(--container-xl); margin: 0 auto; padding: 0 var(--space-md); }
+        .h1 { font-family: var(--font-headline); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .h2 { font-family: var(--font-headline); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 600; line-height: 1.2; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .h3 { font-family: var(--font-headline); font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 600; line-height: 1.3; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .body-lg { font-size: 1.125rem; line-height: 1.7; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .body-md { font-size: 1rem; line-height: 1.6; color: var(--color-foreground); margin-bottom: var(--space-md); }
+        .body-sm { font-size: 0.875rem; line-height: 1.5; color: var(--color-gray-600); margin-bottom: var(--space-sm); }
+        .text-center { text-align: center; }
+        .text-accent { color: var(--color-accent); }
+        .text-muted { color: var(--color-gray-600); }
+        .text-cta { color: var(--color-cta); font-weight: 600; }
+        
+        .btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body); font-weight: 600; text-decoration: none; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; min-height: 44px; padding: 0 var(--space-lg); font-size: 1rem; }
+        .btn:focus { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+        .btn-primary { background-color: var(--color-cta); color: var(--color-background); box-shadow: var(--shadow-sm); }
+        .btn-primary:hover { background-color: var(--color-cta-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+        .btn-secondary { background-color: var(--color-background); color: var(--color-foreground); border: 1px solid var(--color-gray-300); box-shadow: var(--shadow-sm); }
+        .btn-secondary:hover { background-color: var(--color-muted); border-color: var(--color-accent); }
+        .btn-outline { background-color: transparent; color: var(--color-foreground); border: 2px solid var(--color-foreground); }
+        .btn-outline:hover { background-color: var(--color-foreground); color: var(--color-background); }
+        .btn-lg { min-height: 48px; padding: 0 var(--space-2xl); font-size: 1.125rem; }
+        .btn-sm { min-height: 36px; padding: 0 var(--space-md); font-size: 0.875rem; }
+
+        .nav { background-color: var(--color-background); border-bottom: 1px solid var(--color-gray-200); position: sticky; top: 0; z-index: 100; }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; padding: var(--space-md); }
+        .logo { font-family: var(--font-headline); font-size: 1.5rem; font-weight: 400; color: var(--color-foreground); text-decoration: none; letter-spacing: 0.1em; }
+        .nav-back { color: var(--color-foreground); text-decoration: none; font-weight: 500; }
+        .nav-back:hover { color: var(--color-cta); }
+
+        .breadcrumb { padding: var(--space-md) 0; color: var(--color-gray-600); font-size: 0.875rem; }
+        .breadcrumb a { color: var(--color-gray-600); text-decoration: none; }
+        .breadcrumb a:hover { color: var(--color-cta); }
+
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: start; }
+        @media (max-width: 768px) {
+            .product-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+        }
+
+        .image-gallery { position: sticky; top: 120px; }
+        .main-image { aspect-ratio: 1; background-color: var(--color-gray-100); border-radius: 12px; overflow: hidden; margin-bottom: var(--space-md); position: relative; cursor: zoom-in; }
+        .main-image img { width: 100%; height: 100%; object-fit: cover; }
+        .image-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.1); opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.25rem; }
+        .main-image:hover .image-overlay { opacity: 1; }
+
+        .thumbnail-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-sm); }
+        .thumbnail { aspect-ratio: 1; background-color: var(--color-gray-100); border-radius: 8px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+        .thumbnail:hover { border-color: var(--color-accent); }
+        .thumbnail.active { border-color: var(--color-accent); }
+        .thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+
+        .product-info { space-y: var(--space-lg); }
+        .price-group { display: flex; align-items: baseline; gap: var(--space-md); margin: var(--space-lg) 0; }
+        .current-price { font-family: var(--font-headline); font-size: 2.5rem; font-weight: 700; color: var(--color-cta); }
+        .original-price { font-size: 1.25rem; color: var(--color-gray-600); text-decoration: line-through; }
+        .savings { background: var(--color-green-light); color: var(--color-green); padding: var(--space-xs) var(--space-sm); border-radius: 4px; font-size: 0.875rem; font-weight: 600; }
+
+        .rating { display: flex; align-items: center; gap: var(--space-sm); margin: var(--space-md) 0; }
+        .stars { color: var(--color-accent); font-size: 1.125rem; }
+        .rating-text { font-size: 0.875rem; color: var(--color-gray-600); }
+
+        .size-selector, .quantity-selector { margin: var(--space-lg) 0; }
+        .size-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-sm); margin-top: var(--space-sm); }
+        .size-option { padding: var(--space-sm); text-align: center; border: 1px solid var(--color-gray-300); border-radius: 6px; cursor: pointer; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+        .size-option:hover { border-color: var(--color-accent); }
+        .size-option.selected { border-color: var(--color-accent); background-color: var(--color-accent); color: var(--color-foreground); }
+
+        .quantity-controls { display: flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-sm); width: 120px; }
+        .quantity-btn { width: 40px; height: 40px; border: 1px solid var(--color-gray-300); background: var(--color-background); border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 600; }
+        .quantity-btn:hover { border-color: var(--color-accent); }
+        .quantity-display { flex: 1; text-align: center; font-weight: 600; }
+
+        .action-buttons { display: flex; flex-direction: column; gap: var(--space-md); margin: var(--space-xl) 0; }
+        .secondary-actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+        @media (max-width: 640px) {
+            .secondary-actions { grid-template-columns: 1fr; }
+        }
+
+        .features { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin: var(--space-xl) 0; padding: var(--space-lg) 0; border-top: 1px solid var(--color-gray-200); }
+        .feature { display: flex; align-items: center; gap: var(--space-sm); }
+        .feature-icon { color: var(--color-green); font-size: 1.125rem; }
+
+        .tabs { margin: var(--space-3xl) 0; }
+        .tab-nav { display: flex; border-bottom: 1px solid var(--color-gray-200); gap: var(--space-xl); overflow-x: auto; }
+        .tab-button { padding: var(--space-md) 0; border-bottom: 2px solid transparent; background: none; border: none; font-family: var(--font-body); font-weight: 500; color: var(--color-gray-600); cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+        .tab-button.active { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+        .tab-button:hover { color: var(--color-cta); }
+
+        .tab-content { display: none; padding: var(--space-xl) 0; }
+        .tab-content.active { display: block; }
+
+        .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+        .spec-item { display: flex; justify-between; align-items: center; padding: var(--space-sm) 0; border-bottom: 1px solid var(--color-gray-200); }
+        .spec-label { font-weight: 500; }
+        .spec-value { color: var(--color-gray-600); }
+
+        .review { border-bottom: 1px solid var(--color-gray-200); padding: var(--space-lg) 0; }
+        .review:last-child { border-bottom: none; }
+        .review-header { display: flex; justify-content: between; align-items: start; margin-bottom: var(--space-sm); }
+        .review-author { font-weight: 600; }
+        .review-date { color: var(--color-gray-600); font-size: 0.875rem; }
+        .review-verified { background: var(--color-green-light); color: var(--color-green); padding: 2px var(--space-xs); border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: var(--space-sm); }
+
+        .related-products { margin: var(--space-4xl) 0; }
+        .product-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-lg); }
+        .product-card { background: var(--color-white); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--color-gray-200); transition: all 0.2s; }
+        .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .product-card-image { aspect-ratio: 1; background: var(--color-gray-100); }
+        .product-card-content { padding: var(--space-lg); }
+        .product-card-title { font-weight: 600; margin-bottom: var(--space-xs); }
+        .product-card-price { color: var(--color-cta); font-weight: 600; margin-bottom: var(--space-md); }
+
+        .wishlist-btn { position: absolute; top: var(--space-md); right: var(--space-md); width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; cursor: pointer; transition: all 0.2s; }
+        .wishlist-btn:hover { background: var(--color-white); transform: scale(1.1); }
+        .wishlist-btn.active { color: var(--color-red); }
+
+        .ar-placeholder { background: linear-gradient(135deg, var(--color-accent), var(--color-cta)); color: var(--color-foreground); padding: var(--space-lg); border-radius: 12px; text-align: center; margin: var(--space-lg) 0; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">GLOWGLITCH</a>
+            <a href="index.html" class="nav-back">← Back to Demo</a>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> / <a href="#rings">Rings</a> / <span>Eternal Solitaire Ring</span>
+        </div>
+    </div>
+
+    <!-- Product Detail -->
+    <section style="padding: var(--space-lg) 0 var(--space-4xl);">
+        <div class="container">
+            <div class="product-grid">
+                <!-- Image Gallery -->
+                <div class="image-gallery">
+                    <div class="main-image">
+                        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&h=800&fit=crop&crop=center" alt="Eternal Solitaire Ring" id="mainImage">
+                        <div class="image-overlay">🔍 Click to zoom</div>
+                        <button class="wishlist-btn" id="wishlistBtn">♡</button>
+                    </div>
+
+                    <div class="thumbnail-grid">
+                        <div class="thumbnail active" onclick="changeImage('https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&h=800&fit=crop&crop=center', this)">
+                            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=200&h=200&fit=crop&crop=center" alt="View 1">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&h=800&fit=crop&crop=center', this)">
+                            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=200&h=200&fit=crop&crop=center" alt="View 2">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('https://images.unsplash.com/photo-1544716278-e513176f20a5?w=800&h=800&fit=crop&crop=center', this)">
+                            <img src="https://images.unsplash.com/photo-1544716278-e513176f20a5?w=200&h=200&fit=crop&crop=center" alt="View 3">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&h=800&fit=crop&crop=center', this)">
+                            <img src="https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=200&h=200&fit=crop&crop=center" alt="View 4">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-outline" style="width: 100%; margin-top: var(--space-lg);">
+                        🔄 360° View (Coming Soon)
+                    </button>
+                </div>
+
+                <!-- Product Information -->
+                <div class="product-info">
+                    <h1 class="h1">Eternal Solitaire Ring</h1>
+                    
+                    <div class="rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="body-sm">4.8</span>
+                        <span class="rating-text">(127 reviews)</span>
+                    </div>
+
+                    <div class="price-group">
+                        <span class="current-price">$2,400</span>
+                        <span class="original-price">$2,800</span>
+                        <span class="savings">Save $400</span>
+                    </div>
+
+                    <!-- AR Try-On Placeholder -->
+                    <div class="ar-placeholder">
+                        <h3 style="margin-bottom: var(--space-sm);">✨ AR Try-On Coming Soon</h3>
+                        <p class="body-sm" style="margin: 0;">See how this ring looks on your hand with augmented reality. Join our waitlist for early access!</p>
+                        <button class="btn btn-secondary" style="margin-top: var(--space-md);">Join AR Waitlist</button>
+                    </div>
+
+                    <!-- Size Selection -->
+                    <div class="size-selector">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-sm);">
+                            <label class="body-md" style="font-weight: 600;">Ring Size</label>
+                            <button class="btn-link" style="color: var(--color-accent); background: none; border: none; text-decoration: underline; cursor: pointer;">Size Guide</button>
+                        </div>
+                        <div class="size-grid">
+                            <div class="size-option" onclick="selectSize(this)">4</div>
+                            <div class="size-option" onclick="selectSize(this)">5</div>
+                            <div class="size-option selected" onclick="selectSize(this)">6</div>
+                            <div class="size-option" onclick="selectSize(this)">7</div>
+                            <div class="size-option" onclick="selectSize(this)">8</div>
+                            <div class="size-option" onclick="selectSize(this)">9</div>
+                        </div>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="quantity-selector">
+                        <label class="body-md" style="font-weight: 600; display: block; margin-bottom: var(--space-sm);">Quantity</label>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                            <span class="quantity-display" id="quantity">1</span>
+                            <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-lg" style="width: 100%;">
+                            Add to Cart - $2,400
+                        </button>
+                        
+                        <div class="secondary-actions">
+                            <button class="btn btn-secondary">Customize Design</button>
+                            <button class="btn btn-outline">Request Consultation</button>
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="features">
+                        <div class="feature">
+                            <span class="feature-icon">✓</span>
+                            <span class="body-sm">Lab-Grown Diamond</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">✓</span>
+                            <span class="body-sm">Conflict-Free</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">✓</span>
+                            <span class="body-sm">Lifetime Warranty</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">✓</span>
+                            <span class="body-sm">30-Day Returns</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Details Tabs -->
+            <div class="tabs">
+                <div class="tab-nav">
+                    <button class="tab-button active" onclick="switchTab('description', this)">Description</button>
+                    <button class="tab-button" onclick="switchTab('specifications', this)">Specifications</button>
+                    <button class="tab-button" onclick="switchTab('reviews', this)">Reviews</button>
+                    <button class="tab-button" onclick="switchTab('size-guide', this)">Size Guide</button>
+                </div>
+
+                <!-- Description Tab -->
+                <div class="tab-content active" id="description">
+                    <div class="body-lg">
+                        A timeless solitaire ring featuring a brilliant lab-grown diamond set in premium recycled gold. This classic design represents eternal love and commitment.
+                    </div>
+                    
+                    <h3 class="h3">Why Choose Lab-Grown Diamonds?</h3>
+                    <ul style="padding-left: var(--space-lg);">
+                        <li class="body-md" style="margin-bottom: var(--space-sm);">Ethically sourced with zero environmental impact</li>
+                        <li class="body-md" style="margin-bottom: var(--space-sm);">Chemically identical to mined diamonds</li>
+                        <li class="body-md" style="margin-bottom: var(--space-sm);">30-40% less expensive than traditional diamonds</li>
+                        <li class="body-md" style="margin-bottom: var(--space-sm);">Certified by leading gemological institutes</li>
+                    </ul>
+                </div>
+
+                <!-- Specifications Tab -->
+                <div class="tab-content" id="specifications">
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">Material</span>
+                            <span class="spec-value">Recycled 14K Yellow Gold</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Center Stone</span>
+                            <span class="spec-value">Lab-Grown Diamond</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Stone Weight</span>
+                            <span class="spec-value">1.2 carats</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Stone Clarity</span>
+                            <span class="spec-value">VS1</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Stone Color</span>
+                            <span class="spec-value">G</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Ring Size</span>
+                            <span class="spec-value">Adjustable (4-9)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Width</span>
+                            <span class="spec-value">2.1mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Sustainability</span>
+                            <span class="spec-value">100% Conflict-Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews Tab -->
+                <div class="tab-content" id="reviews">
+                    <div style="display: flex; align-items: center; gap: var(--space-2xl); margin-bottom: var(--space-2xl); padding: var(--space-lg); background: var(--color-gray-100); border-radius: 12px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; font-weight: 700; font-family: var(--font-headline);">4.8</div>
+                            <div class="stars" style="font-size: 1.5rem;">★★★★★</div>
+                            <div class="body-sm text-muted">127 reviews</div>
+                        </div>
+                        <div style="flex: 1;">
+                            <button class="btn btn-outline">Write a Review</button>
+                        </div>
+                    </div>
+
+                    <div class="review">
+                        <div class="review-header">
+                            <div>
+                                <span class="review-author">Sarah M.</span>
+                                <span class="review-verified">Verified Purchase</span>
+                            </div>
+                            <span class="review-date">2 weeks ago</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                        </div>
+                        <h4 style="font-weight: 600; margin: var(--space-sm) 0;">Absolutely stunning!</h4>
+                        <p class="body-md">The quality exceeded my expectations. The diamond sparkles beautifully and the setting is perfectly crafted. I love knowing it's ethically sourced too.</p>
+                        <div style="margin-top: var(--space-sm);">
+                            <button class="body-sm" style="background: none; border: none; color: var(--color-gray-600); cursor: pointer;">Helpful (12)</button>
+                        </div>
+                    </div>
+
+                    <div class="review">
+                        <div class="review-header">
+                            <div>
+                                <span class="review-author">Michael R.</span>
+                                <span class="review-verified">Verified Purchase</span>
+                            </div>
+                            <span class="review-date">1 month ago</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                        </div>
+                        <h4 style="font-weight: 600; margin: var(--space-sm) 0;">Perfect engagement ring</h4>
+                        <p class="body-md">My fiancée loves it! The customization process was smooth and the result is exactly what we wanted. Great value compared to traditional diamonds.</p>
+                    </div>
+                </div>
+
+                <!-- Size Guide Tab -->
+                <div class="tab-content" id="size-guide">
+                    <div class="text-center">
+                        <h3 class="h3">Ring Size Guide</h3>
+                        <p class="body-md text-muted">Find your perfect fit with our comprehensive sizing guide</p>
+                    </div>
+                    
+                    <div style="max-width: 400px; margin: var(--space-2xl) auto; background: var(--color-gray-100); aspect-ratio: 4/3; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                        📏 Ring Size Chart Visual
+                    </div>
+
+                    <div class="grid" style="grid-template-columns: 1fr 1fr; gap: var(--space-2xl); margin-top: var(--space-2xl);">
+                        <div>
+                            <h4 style="font-weight: 600; margin-bottom: var(--space-md);">How to Measure</h4>
+                            <ol style="padding-left: var(--space-lg);">
+                                <li class="body-sm" style="margin-bottom: var(--space-sm);">Wrap a string around your finger</li>
+                                <li class="body-sm" style="margin-bottom: var(--space-sm);">Mark where the string overlaps</li>
+                                <li class="body-sm" style="margin-bottom: var(--space-sm);">Measure the length with a ruler</li>
+                                <li class="body-sm" style="margin-bottom: var(--space-sm);">Use our chart to find your size</li>
+                            </ol>
+                        </div>
+                        
+                        <div>
+                            <h4 style="font-weight: 600; margin-bottom: var(--space-md);">Size Chart</h4>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                                <span class="body-sm">Size 4</span><span class="body-sm">46.8mm</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                                <span class="body-sm">Size 5</span><span class="body-sm">49.3mm</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                                <span class="body-sm">Size 6</span><span class="body-sm">51.9mm</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                                <span class="body-sm">Size 7</span><span class="body-sm">54.4mm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="related-products">
+                <div class="text-center" style="margin-bottom: var(--space-2xl);">
+                    <h2 class="h2">You Might Also Like</h2>
+                    <p class="body-lg text-muted">Complete your collection with these complementary pieces</p>
+                </div>
+                
+                <div class="product-grid-3">
+                    <div class="product-card">
+                        <div class="product-card-image" style="background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&crop=center'); background-size: cover; background-position: center;"></div>
+                        <div class="product-card-content">
+                            <div class="product-card-title">Classic Wedding Band</div>
+                            <div class="product-card-price">$890</div>
+                            <button class="btn btn-outline btn-sm" style="width: 100%;">Quick View</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card-image" style="background-image: url('https://images.unsplash.com/photo-1544716278-e513176f20a5?w=400&h=400&fit=crop&crop=center'); background-size: cover; background-position: center;"></div>
+                        <div class="product-card-content">
+                            <div class="product-card-title">Diamond Earrings Set</div>
+                            <div class="product-card-price">$1,200</div>
+                            <button class="btn btn-outline btn-sm" style="width: 100%;">Quick View</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-card-image" style="background-image: url('https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&h=400&fit=crop&crop=center'); background-size: cover; background-position: center;"></div>
+                        <div class="product-card-content">
+                            <div class="product-card-title">Matching Pendant</div>
+                            <div class="product-card-price">$950</div>
+                            <button class="btn btn-outline btn-sm" style="width: 100%;">Quick View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--color-foreground); color: var(--color-background); padding: var(--space-2xl) 0;">
+        <div class="container text-center">
+            <div class="logo" style="color: var(--color-background); font-size: 1.5rem; margin-bottom: var(--space-md);">GLOWGLITCH</div>
+            <p class="body-sm" style="color: var(--color-muted);">
+                © 2025 GlowGlitch. All rights reserved. | 
+                <span style="color: var(--color-accent);">hello@glowglitch.com</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let quantity = 1;
+
+        function changeImage(src, thumbnail) {
+            document.getElementById('mainImage').src = src;
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            thumbnail.classList.add('active');
+        }
+
+        function selectSize(element) {
+            document.querySelectorAll('.size-option').forEach(s => s.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function updateQuantity(change) {
+            quantity = Math.max(1, quantity + change);
+            document.getElementById('quantity').textContent = quantity;
+            document.querySelector('.btn-primary').textContent = `Add to Cart - $${(2400 * quantity).toLocaleString()}`;
+        }
+
+        function switchTab(tabName, button) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab and mark button as active
+            document.getElementById(tabName).classList.add('active');
+            button.classList.add('active');
+        }
+
+        // Wishlist toggle
+        document.getElementById('wishlistBtn').addEventListener('click', function() {
+            this.classList.toggle('active');
+            this.textContent = this.classList.contains('active') ? '♥' : '♡';
+        });
+
+        // Zoom functionality
+        document.getElementById('mainImage').addEventListener('click', function() {
+            alert('Full screen zoom would open here');
+        });
+    </script>
+</body>
+</html>

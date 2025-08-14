@@ -1,0 +1,14 @@
+{
+  "sequence": "ringmodel-rose-gold",
+  "material": "rose-gold",
+  "frame": 4,
+  "angle": 40,
+  "note": "Use 3d-renderer.html to generate actual images",
+  "instructions": [
+    "1. Open scripts/3d-renderer.html in browser",
+    "2. Upload public/models/Ringmodel.glb",
+    "3. Select material: rose-gold",
+    "4. Click \"Generate 36 Images\"",
+    "5. Download and place images in this directory"
+  ]
+}

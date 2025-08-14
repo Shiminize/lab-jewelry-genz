@@ -1,0 +1,85 @@
+# GlowGlitch Typography & Accessibility Guide
+
+## Font System
+- Headlines: Fraunces (Luxury Serif)
+  * Weights: Regular, Semibold, Bold
+  * Use for primary headings, emotional statements
+
+- Body Text: Inter (Clean, Accessible)
+  * Weights: Regular, Medium, Semibold
+  * Use for all body copy, instructions, descriptions
+
+## Typography Hierarchy
+1. Hero Headline: 
+   - Fraunces, 36px (Desktop)
+   - 24px (Mobile)
+   - Line height: 1.2
+   - Tracking: -0.02em
+
+2. Subheadline:
+   - Inter Medium, 20px (Desktop)
+   - 16px (Mobile)
+   - Line height: 1.5
+
+3. Body Text:
+   - Inter Regular, 16px (Desktop)
+   - 14px (Mobile)
+   - Line height: 1.6
+
+4. CTA Text:
+   - Inter Semibold, 18px (Desktop)
+   - 16px (Mobile)
+   - Uppercase tracking: 0.05em
+
+## Accessibility Requirements
+- Minimum Contrast Ratio: 4.5:1 (WCAG 2.1 AA)
+- Color Contrast Checker Integration
+- Support for system font size adjustments
+- Screen reader compatibility
+
+## Color Palette
+- Primary Text: #1A1A1A (near-black)
+- Secondary Text: #4A4A4A (dark gray)
+- Accent Color: #6B5CE7 (luxury purple)
+- Background: #FFFFFF (white)
+- Error State: #D8000C (clear red)
+- Success State: #4CAF50 (positive green)
+
+## Text Sizing & Responsive Design
+- Base Font Size: 16px
+- Mobile Scaling: 14px
+- Minimum Touch Target: 44x44px
+- Text Scaling: Fluid typography with min/max values
+
+## Performance Considerations
+- Font Loading: 
+  * Use variable fonts
+  * Implement font-display: swap
+  * Preload critical font weights
+
+## Internationalization
+- Support for extended Latin characters
+- Left-to-right and right-to-left language support
+- Maintain design integrity across scripts
+
+## Interaction States
+- Hover: Subtle text color shift
+- Active: 10% darker shade
+- Disabled: 40% opacity
+
+## Readability Checklist
+- [ ] Maintain 45-75 characters per line
+- [ ] Use left alignment for body text
+- [ ] Provide sufficient line height (1.5-1.6)
+- [ ] Avoid all-caps for long text blocks
+- [ ] Use sentence case for most content
+
+## Implementation Notes
+- Use CSS custom properties for consistent theming
+- Implement responsive type scale
+- Ensure fallback fonts match x-height
+
+Compliance Targets:
+- WCAG 2.1 AA Compliance: 100%
+- Readability Score: Flesch-Kincaid Grade Level 8
+- Performance Budget: Font load < 100ms

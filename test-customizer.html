@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Customizer Page</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fefcf9;
+    }
+    .test-result {
+      padding: 16px;
+      border-radius: 8px;
+      margin: 12px 0;
+      border: 1px solid;
+    }
+    .success {
+      background: #f0f9ff;
+      border-color: #0ea5e9;
+      color: #0c4a6e;
+    }
+    .error {
+      background: #fef2f2;
+      border-color: #ef4444;
+      color: #7f1d1d;
+    }
+    .loading {
+      background: #fffbeb;
+      border-color: #f59e0b;
+      color: #92400e;
+    }
+    iframe {
+      width: 100%;
+      height: 800px;
+      border: 1px solid #e5e4e2;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>GlowGlitch 3D Customizer Test</h1>
+  
+  <div id="test-results">
+    <div class="test-result loading">
+      🔄 Running tests...
+    </div>
+  </div>
+
+  <h2>Live Customizer Page</h2>
+  <iframe src="http://localhost:3001/customizer" title="Customizer Page"></iframe>
+
+  <script>
+    async function runTests() {
+      const results = document.getElementById('test-results');
+      results.innerHTML = '';
+
+      // Test 1: Check API endpoint
+      try {
+        const response = await fetch('http://localhost:3001/api/products/customizable');
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+          results.innerHTML += `
+            <div class="test-result success">
+              ✅ API Endpoint: Working (${data.data.length} products loaded)
+            </div>
+          `;
+        } else {
+          results.innerHTML += `
+            <div class="test-result error">
+              ❌ API Endpoint: Failed - ${data.error?.message || 'Unknown error'}
+            </div>
+          `;
+        }
+      } catch (error) {
+        results.innerHTML += `
+          <div class="test-result error">
+            ❌ API Endpoint: Connection failed - ${error.message}
+          </div>
+        `;
+      }
+
+      // Test 2: Check customizer page
+      try {
+        const response = await fetch('http://localhost:3001/customizer');
+        
+        if (response.ok) {
+          results.innerHTML += `
+            <div class="test-result success">
+              ✅ Customizer Page: Accessible (${response.status})
+            </div>
+          `;
+        } else {
+          results.innerHTML += `
+            <div class="test-result error">
+              ❌ Customizer Page: HTTP ${response.status}
+            </div>
+          `;
+        }
+      } catch (error) {
+        results.innerHTML += `
+          <div class="test-result error">
+            ❌ Customizer Page: Connection failed - ${error.message}
+          </div>
+        `;
+      }
+
+      // Test 3: Check if GLB model exists
+      try {
+        const response = await fetch('http://localhost:3001/Ringmodel.glb');
+        
+        if (response.ok) {
+          results.innerHTML += `
+            <div class="test-result success">
+              ✅ 3D Model: Found (${Math.round(parseInt(response.headers.get('content-length') || '0') / 1024)}KB)
+            </div>
+          `;
+        } else {
+          results.innerHTML += `
+            <div class="test-result error">
+              ❌ 3D Model: Not found (${response.status})
+            </div>
+          `;
+        }
+      } catch (error) {
+        results.innerHTML += `
+          <div class="test-result error">
+            ❌ 3D Model: Connection failed - ${error.message}
+          </div>
+        `;
+      }
+
+      results.innerHTML += `
+        <div class="test-result success">
+          🎉 Test completed! Check the iframe below to interact with the customizer.
+        </div>
+      `;
+    }
+
+    // Run tests on page load
+    runTests();
+  </script>
+</body>
+</html>

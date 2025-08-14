@@ -1,0 +1,14 @@
+{
+  "sequence": "ringmodel-yellow-gold",
+  "material": "yellow-gold",
+  "frame": 13,
+  "angle": 130,
+  "note": "Use 3d-renderer.html to generate actual images",
+  "instructions": [
+    "1. Open scripts/3d-renderer.html in browser",
+    "2. Upload public/models/Ringmodel.glb",
+    "3. Select material: yellow-gold",
+    "4. Click \"Generate 36 Images\"",
+    "5. Download and place images in this directory"
+  ]
+}

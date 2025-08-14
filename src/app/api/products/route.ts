@@ -1,0 +1,148 @@
+/**
+ * Product Catalog API Routes
+ * Handles product search, filtering, and catalog operations
+ * Follows CLAUDE_RULES.md envelope format and PRD requirements for sub-300ms response times
+ */
+
+import { NextRequest } from 'next/server'
+import { ZodError } from 'zod'
+import { productRepository } from '@/lib/database'
+import { ProductSearchParams } from '@/types/product'
+import { 
+  createSuccessResponse, 
+  createErrorResponse, 
+  createValidationErrorResponse,
+  addSecurityHeaders,
+  validateRequestBody
+} from '@/lib/api-utils'
+import { checkRateLimit } from '@/lib/redis-rate-limiter'
+import { requireAdmin, publicRoute } from '@/lib/auth-middleware'
+import { ProductQuerySchema, ProductCreateSchema } from '@/lib/schemas/api-validation'
+
+export async function GET(request: NextRequest) {
+  const startTime = Date.now()
+  
+  try {
+    // Apply authentication middleware for public route with rate limiting
+    const authResult = await publicRoute(request)
+    
+    if (!authResult.success) {
+      return authResult.error!
+    }
+
+    // Parse and validate query parameters
+    const { searchParams: urlSearchParams } = new URL(request.url)
+    const rawParams = Object.fromEntries(urlSearchParams.entries())
+    
+    let validatedParams
+    try {
+      validatedParams = ProductQuerySchema.parse(rawParams)
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return createValidationErrorResponse(error)
+      }
+      return createErrorResponse(
+        'INVALID_PARAMETERS',
+        'Invalid query parameters',
+        [],
+        400
+      )
+    }
+
+    // Build search parameters for repository
+    const searchParamsForRepo: ProductSearchParams = {
+      query: validatedParams.query,
+      page: validatedParams.page,
+      limit: validatedParams.limit,
+      sortBy: validatedParams.sortBy,
+      sortOrder: validatedParams.sortOrder,
+      filters: validatedParams.filters
+    }
+
+    // Execute search with performance tracking
+    const result = await productRepository.searchProducts(searchParamsForRepo)
+    const responseTime = Date.now() - startTime
+
+    // Create CLAUDE_RULES compliant response
+    const response = createSuccessResponse(
+      result.products,
+      {
+        page: result.pagination.page,
+        limit: result.pagination.limit,
+        total: result.pagination.total,
+        totalPages: result.pagination.totalPages
+      }
+    )
+
+    // Add performance and caching headers
+    response.headers.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600')
+    response.headers.set('X-Response-Time', `${responseTime}ms`)
+    response.headers.set('X-Total-Count', result.pagination.total.toString())
+    response.headers.set('X-Page-Count', result.pagination.totalPages.toString())
+    
+    // Add rate limit headers
+    response.headers.set('X-RateLimit-Limit', rateLimitResult.limit.toString())
+    response.headers.set('X-RateLimit-Remaining', rateLimitResult.remaining.toString())
+    response.headers.set('X-RateLimit-Reset', rateLimitResult.reset.toString())
+
+    return addSecurityHeaders(response)
+
+  } catch (error) {
+    console.error('Product search API error:', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      timestamp: new Date().toISOString(),
+      responseTime: Date.now() - startTime
+    })
+    
+    return createErrorResponse(
+      'INTERNAL_ERROR',
+      'An unexpected error occurred while searching products',
+      [],
+      500
+    )
+  }
+}
+
+export async function POST(request: NextRequest) {
+  const startTime = Date.now()
+  
+  try {
+    // Apply admin authentication middleware with rate limiting
+    const authResult = await requireAdmin(request)
+    
+    if (!authResult.success) {
+      return authResult.error!
+    }
+
+    // Validate request body with Zod schema
+    const validation = await validateRequestBody(request, ProductCreateSchema)
+    
+    if (!validation.success) {
+      return validation.response
+    }
+    
+    // Create new product using validated data
+    const newProduct = await productRepository.create(validation.data)
+    
+    const response = createSuccessResponse(newProduct, undefined, 201)
+    response.headers.set('X-Response-Time', `${Date.now() - startTime}ms`)
+    
+    return addSecurityHeaders(response)
+    
+  } catch (error) {
+    console.error('Product creation API error:', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      timestamp: new Date().toISOString(),
+      responseTime: Date.now() - startTime
+    })
+    
+    return createErrorResponse(
+      'INTERNAL_ERROR',
+      'An unexpected error occurred while creating product',
+      [],
+      500
+    )
+  }
+}

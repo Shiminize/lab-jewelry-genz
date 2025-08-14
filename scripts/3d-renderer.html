@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced 3D Model Renderer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        
+        #controls {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        #canvas-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #renderer {
+            border: 2px dashed #ddd;
+        }
+        
+        .control-group {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        
+        select, input[type="file"], button {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="range"] {
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        #progress {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        #download-links {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .download-link {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 Enhanced 3D Sequence Generator</h1>
+    <p>Upload a GLB model, adjust its position, and generate a 360° image sequence.</p>
+    
+    <div id="controls">
+        <div class="control-group">
+            <label>GLB Model:</label>
+            <input type="file" id="modelFile" accept=".glb" />
+        </div>
+        
+        <div class="control-group">
+            <label>Material:</label>
+            <select id="materialSelect">
+                <option value="platinum">Platinum</option>
+                <option value="white-gold">18K White Gold</option>
+                <option value="yellow-gold">18K Yellow Gold</option>
+                <option value="rose-gold">18K Rose Gold</option>
+                <option value="silver">925 Sterling Silver</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label>Image Size:</label>
+            <select id="sizeSelect">
+                <option value="600">600x600 (Recommended)</option>
+                <option value="800">800x800 (High Quality)</option>
+                <option value="400">400x400 (Fast)</option>
+            </select>
+        </div>
+        
+        <div class="control-group">
+            <label>Brightness:</label>
+            <input type="range" id="brightnessSlider" min="0.5" max="4" value="1.2" step="0.05">
+            <span id="brightnessValue">1.20x</span>
+        </div>
+
+        <hr>
+        <div class="control-group">
+            <label style="color: #333;">Position Adjustment</label>
+        </div>
+        <div class="control-group">
+            <label>Offset X:</label>
+            <input type="range" id="offsetX" min="-1" max="1" value="0" step="0.01" />
+            <span id="offsetXValue">0.00</span>
+        </div>
+        <div class="control-group">
+            <label>Offset Y:</label>
+            <input type="range" id="offsetY" min="-1" max="1" value="0" step="0.01" />
+            <span id="offsetYValue">0.00</span>
+        </div>
+        <div class="control-group">
+            <label>Offset Z:</label>
+            <input type="range" id="offsetZ" min="-1" max="1" value="0" step="0.01" />
+            <span id="offsetZValue">0.00</span>
+        </div>
+        <hr>
+        
+        <button id="generateBtn" disabled>Generate 36 Images</button>
+        <button id="downloadAllBtn" style="display: none;">Download All as ZIP</button>
+        
+        <div id="progress"></div>
+    </div>
+    
+    <div id="canvas-container">
+        <canvas id="renderer" width="600" height="600"></canvas>
+    </div>
+    
+    <div id="download-links"></div>
+
+    <!-- Three.js ES6 modules from CDN -->
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
+        class GLBToSequenceGenerator {
+            constructor() {
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.model = null;
+                this.modelFile = null;
+                this.generatedImages = [];
+                this.loader = new GLTFLoader();
+                
+                // State for model transformations
+                this.modelOffset = new THREE.Vector3(0, 0, 0);
+                this.basePosition = new THREE.Vector3(0, 0, 0);
+
+                this.materials = {
+                    'platinum': { metalness: 1.0, roughness: 0.05, color: [0.95, 0.95, 0.98], clearcoat: 0.1 },
+                    'white-gold': { metalness: 1.0, roughness: 0.08, color: [0.98, 0.96, 0.90], clearcoat: 0.1 },
+                    'yellow-gold': { metalness: 1.0, roughness: 0.1, color: [1.0, 0.9, 0.6], clearcoat: 0.1 },
+                    'rose-gold': { metalness: 1.0, roughness: 0.12, color: [0.95, 0.85, 0.80], clearcoat: 0.1 },
+                    'silver': { metalness: 1.0, roughness: 0.15, color: [0.97, 0.97, 1.0], clearcoat: 0.1 }
+                };
+                
+                this.setupRenderer();
+                this.setupEventListeners();
+            }
+            
+            async setupRenderer() {
+                const canvas = document.getElementById('renderer');
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+                this.renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, preserveDrawingBuffer: true });
+                
+                this.renderer.setSize(600, 600);
+                this.renderer.setClearColor(0x000000, 0);
+                this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+                this.renderer.physicallyCorrectLights = true;
+                this.renderer.shadowMap.enabled = true;
+                this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                this.renderer.toneMappingExposure = 1.2;
+                
+                console.log('📸 Renderer upgraded to photorealistic standards.');
+                
+                await this.setupStudioEnvironment();
+                this.setupLighting();
+                this.addGroundPlane();
+                
+                this.camera.position.set(0, 1.5, 6);
+                this.camera.lookAt(0, 0.5, 0);
+            }
+
+            async setupStudioEnvironment() {
+                console.log('🖼️ Loading studio environment map...');
+                const rgbeLoader = new RGBELoader();
+                try {
+                    const texture = await rgbeLoader.loadAsync('https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/studio_small_03_1k.hdr');
+                    texture.mapping = THREE.EquirectangularReflectionMapping;
+                    this.scene.environment = texture;
+                    console.log('✅ Studio environment loaded successfully.');
+                } catch (e) {
+                    console.error('❌ Failed to load HDRI. Using fallback.', e);
+                    this.scene.background = new THREE.Color(0xeeeeee);
+                }
+            }
+            
+            setupLighting() {
+                this.scene.children.filter(child => child.isLight).forEach(light => this.scene.remove(light));
+                console.log('💡 Setting up advanced lighting rig...');
+                
+                const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.5);
+                this.scene.add(hemisphereLight);
+
+                const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
+                keyLight.position.set(5, 5, 5);
+                keyLight.castShadow = true;
+                keyLight.shadow.mapSize.width = 2048;
+                keyLight.shadow.mapSize.height = 2048;
+                this.scene.add(keyLight);
+
+                const fillLight = new THREE.DirectionalLight(0xffffff, 1.0);
+                fillLight.position.set(-5, 3, -5);
+                this.scene.add(fillLight);
+            }
+
+            addGroundPlane() {
+                const groundGeometry = new THREE.PlaneGeometry(20, 20);
+                const groundMaterial = new THREE.ShadowMaterial({ opacity: 0.3 });
+                const groundPlane = new THREE.Mesh(groundGeometry, groundMaterial);
+                groundPlane.rotation.x = -Math.PI / 2;
+                groundPlane.position.y = -1.5;
+                groundPlane.receiveShadow = true;
+                this.scene.add(groundPlane);
+                console.log('🐾 Added ground plane for shadows.');
+            }
+            
+            setupEventListeners() {
+                document.getElementById('modelFile').addEventListener('change', (e) => this.handleFileSelect(e));
+                document.getElementById('generateBtn').addEventListener('click', () => this.generateSequence());
+                document.getElementById('downloadAllBtn').addEventListener('click', () => this.downloadAll());
+                document.getElementById('materialSelect').addEventListener('change', () => this.applyMaterial());
+
+                document.getElementById('brightnessSlider').addEventListener('input', (e) => {
+                    this.renderer.toneMappingExposure = parseFloat(e.target.value);
+                    document.getElementById('brightnessValue').textContent = `${parseFloat(e.target.value).toFixed(2)}x`;
+                    this.render();
+                });
+
+                ['X', 'Y', 'Z'].forEach(axis => {
+                    const slider = document.getElementById(`offset${axis}`);
+                    const valueLabel = document.getElementById(`offset${axis}Value`);
+                    slider.addEventListener('input', (e) => {
+                        this.modelOffset[axis.toLowerCase()] = parseFloat(e.target.value);
+                        valueLabel.textContent = parseFloat(e.target.value).toFixed(2);
+                        this.applyModelTransform();
+                    });
+                });
+            }
+            
+            handleFileSelect(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                this.modelFile = file;
+                document.getElementById('generateBtn').disabled = false;
+                
+                const reader = new FileReader();
+                reader.onload = (e) => this.loadModel(e.target.result, file.name);
+                reader.readAsArrayBuffer(file);
+            }
+            
+            loadModel(arrayBuffer, fileName) {
+                console.log(`🔄 Loading GLB model: ${fileName}`);
+                this.loader.parse(arrayBuffer, '', 
+                    (gltf) => {
+                        console.log('✅ GLB parsed successfully.');
+                        this.onModelLoaded(gltf);
+                    },
+                    (error) => {
+                        console.error('❌ GLB parsing error:', error);
+                        alert(`❌ Failed to parse GLB file\n\nError: ${error.message || error}`);
+                    }
+                );
+            }
+            
+            onModelLoaded(gltf) {
+                if (this.model) {
+                    this.scene.remove(this.model);
+                }
+                this.model = gltf.scene;
+                console.log('📐 Model loaded, calculating base transforms...');
+                
+                // Calculate and apply base transform ONCE
+                const box = new THREE.Box3().setFromObject(this.model);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+                
+                this.model.position.sub(center);
+                this.basePosition.copy(this.model.position);
+
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const scale = 3 / maxDim;
+                this.model.scale.set(scale, scale, scale);
+
+                this.originalMaterials = new Map();
+                this.model.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                        if (child.material) {
+                            this.originalMaterials.set(child.uuid, child.material.clone());
+                        }
+                    }
+                });
+                console.log(`🎨 Stored ${this.originalMaterials.size} original materials.`);
+                
+                this.scene.add(this.model);
+                this.applyModelTransform(); // Apply initial offset (0,0,0)
+                this.applyMaterial();
+                
+                console.log('🎯 Model ready for rendering.');
+            }
+
+            applyModelTransform() {
+                if (!this.model) return;
+                // Apply manual offset to the stored base position
+                this.model.position.copy(this.basePosition).add(this.modelOffset);
+                this.render();
+            }
+            
+            applyMaterial() {
+                if (!this.model || !this.originalMaterials) return;
+                const materialType = document.getElementById('materialSelect').value;
+                const materialConfig = this.materials[materialType];
+                
+                this.model.traverse((child) => {
+                    if (child.isMesh && this.originalMaterials.has(child.uuid)) {
+                        const originalMaterial = this.originalMaterials.get(child.uuid);
+                        const newMaterial = originalMaterial.clone();
+
+                        newMaterial.metalness = materialConfig.metalness;
+                        newMaterial.roughness = materialConfig.roughness;
+                        newMaterial.color.set(new THREE.Color(...materialConfig.color));
+                        newMaterial.clearcoat = materialConfig.clearcoat;
+                        newMaterial.clearcoatRoughness = 0.1;
+                        
+                        child.material = newMaterial;
+                        child.material.needsUpdate = true;
+                    }
+                });
+                this.render();
+            }
+            
+            render() {
+                if (this.renderer) {
+                    this.renderer.render(this.scene, this.camera);
+                }
+            }
+            
+            async generateSequence() {
+                if (!this.model) {
+                    alert('Please load a GLB model first');
+                    return;
+                }
+                
+                const generateBtn = document.getElementById('generateBtn');
+                generateBtn.disabled = true;
+                
+                const imageSize = parseInt(document.getElementById('sizeSelect').value);
+                this.renderer.setSize(imageSize, imageSize);
+                this.generatedImages = [];
+
+                for (let i = 0; i < 36; i++) {
+                    const angle = (i * 360) / 36;
+                    this.model.rotation.y = (angle * Math.PI) / 180;
+                    this.render();
+                    await new Promise(resolve => setTimeout(resolve, 50));
+                    const dataURL = this.renderer.domElement.toDataURL('image/png');
+                    this.generatedImages.push({ filename: `${i}.png`, dataURL });
+                }
+                
+                this.createDownloadLinks();
+                generateBtn.disabled = false;
+            }
+            
+            createDownloadLinks() {
+                const downloadLinks = document.getElementById('download-links');
+                downloadLinks.innerHTML = `<h3>📁 Generated Sequence</h3>`;
+                this.generatedImages.forEach((image) => {
+                    const link = document.createElement('a');
+                    link.href = image.dataURL;
+                    link.download = image.filename;
+                    link.className = 'download-link';
+                    link.textContent = image.filename;
+                    downloadLinks.appendChild(link);
+                });
+                downloadLinks.style.display = 'block';
+                document.getElementById('downloadAllBtn').style.display = 'inline-block';
+            }
+            
+            async downloadAll() {
+                const zip = new JSZip();
+                const modelName = this.modelFile.name.replace('.glb', '');
+                const materialType = document.getElementById('materialSelect').value;
+                const sequenceName = `${modelName}-${materialType}`;
+
+                for (const image of this.generatedImages) {
+                    const response = await fetch(image.dataURL);
+                    zip.file(image.filename, await response.blob());
+                }
+                
+                const content = await zip.generateAsync({ type: 'blob' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = `${sequenceName}-sequence.zip`;
+                link.click();
+                URL.revokeObjectURL(link.href);
+            }
+        }
+        
+        window.addEventListener('load', () => {
+            new GLBToSequenceGenerator();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12"
+      ],
+      "description": "Filesystem operations for the GlowGlitch project"
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y", 
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "GitHub integration for version control"
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "description": "Persistent memory for project context"
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ],
+      "description": "Browser automation for testing the 3D customizer"
+    },
+    "search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-search"
+      ],
+      "description": "Advanced search capabilities across the codebase"
+    }
+  },
+  "globalShortcut": "cmd+m",
+  "alwaysApprove": []
+}
