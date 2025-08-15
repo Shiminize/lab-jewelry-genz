@@ -1,3 +1,8 @@
 export { Button } from './Button'
 export { Input, Textarea } from './Input'
 export { Tooltip } from './Tooltip'
+export { Progress } from './Progress'
+export { Badge } from './Badge'
+export { Card, CardContent, CardHeader, CardTitle } from './Card'
+export { Tabs, TabsContent, TabsList, TabsTrigger } from './Tabs'
+export { Alert } from './Alert'

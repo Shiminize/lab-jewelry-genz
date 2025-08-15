@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { PageContainer } from '@/components/layout/PageContainer'
 import { H1, H2, MutedText } from '@/components/foundation/Typography'
 import { Button } from '@/components/ui/Button'

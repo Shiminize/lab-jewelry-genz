@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
-import { Star, ChevronLeft, ChevronRight, Award, Shield, Truck, Heart, Users, TrendingUp } from 'lucide-react'
+import { Star, ChevronLeft, Award, Shield, Truck, Heart, Users, TrendingUp } from 'lucide-react'
 
 // Interfaces for data types
 interface Testimonial {
@@ -377,7 +377,7 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
               className="p-3 rounded-full border border-border hover:bg-muted transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Next testimonial"
             >
-              <ChevronRight className="w-4 h-4" />
+              <span className="text-sm font-bold">→</span>
             </button>
           </div>
         </div>

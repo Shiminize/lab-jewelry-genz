@@ -19,6 +19,22 @@ const nextConfig = {
       rules: {}
     }
   },
+  compiler: {
+    removeConsole: false,
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Permissions-Policy',
+            value: 'accelerometer=*, gyroscope=*, magnetometer=*, camera=*, microphone=*'
+          }
+        ]
+      }
+    ]
+  },
   webpack: (config) => {
     config.externals = [...(config.externals || []), { canvas: 'canvas' }]
     return config

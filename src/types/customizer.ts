@@ -49,6 +49,7 @@ export interface ProductVariant {
   id: string
   name: string
   assetPath: string  // Path to folder containing image sequence (e.g., /products/rings/ring-solitaire-gold/)
+  modelPath?: string  // Path to GLB model for Three.js premium mode
   imageCount?: number  // Number of images in sequence (default: 36)
   material: Material
   description?: string

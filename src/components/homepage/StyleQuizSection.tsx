@@ -9,11 +9,9 @@ import { ProductCard } from '@/components/products/ProductCard'
 import { 
   Sparkles, 
   ArrowLeft, 
-  ArrowRight, 
   Check, 
   RefreshCw,
   Share2,
-  ChevronRight,
   Heart,
   Gem,
   Crown,
@@ -706,7 +704,6 @@ export function StyleQuizSection({
               className="min-w-48"
             >
               Take the Quiz
-              <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
         )}
@@ -799,7 +796,6 @@ export function StyleQuizSection({
                 className="flex items-center"
               >
                 {progress.currentStep === progress.totalSteps - 1 ? 'Get Results' : 'Next'}
-                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
           </div>
@@ -902,7 +898,6 @@ export function StyleQuizSection({
             <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
               <Button size="lg" className="min-w-48">
                 Shop Your Style
-                <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
               
               {showSocialShare && (

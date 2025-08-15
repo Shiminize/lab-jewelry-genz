@@ -228,7 +228,7 @@ export function getSecurityHeaders(): Record<string, string> {
     'X-XSS-Protection': '1; mode=block',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'Content-Security-Policy': cspPolicy,
-    'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), gyroscope=(), magnetometer=(), accelerometer=()'
+    'Permissions-Policy': 'camera=*, microphone=(), geolocation=(), gyroscope=*, magnetometer=*, accelerometer=*'
   }
   
   if (process.env.NODE_ENV === 'production') {

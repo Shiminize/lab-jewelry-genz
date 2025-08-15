@@ -49,7 +49,7 @@ function getSecurityHeaders(request: NextRequest): Record<string, string> {
     
     // Permissions Policy (Feature Policy)
     'Permissions-Policy': [
-      'camera=()',
+      'camera=*',           // Allow for AR features
       'microphone=()',
       'geolocation=(self)',
       'interest-cohort=()',
@@ -57,9 +57,9 @@ function getSecurityHeaders(request: NextRequest): Record<string, string> {
       'usb=()',
       'serial=()',
       'bluetooth=()',
-      'magnetometer=()',
-      'accelerometer=()',
-      'gyroscope=()',
+      'magnetometer=*',     // Allow for AR features
+      'accelerometer=*',    // Allow for AR features
+      'gyroscope=*',        // Allow for AR features
       'fullscreen=(self)',
       'picture-in-picture=(self)'
     ].join(', ')

@@ -1,6 +1,7 @@
 export { JewelryCustomizer } from './JewelryCustomizer'
 export { CustomizerContainer } from './CustomizerContainer'
-export { CustomizerPreviewSection } from './CustomizerPreviewSection'
+export { HybridViewer } from './HybridViewer'
+export { ThreeJSViewer } from './ThreeJSViewer'
 export { MaterialSelector } from './MaterialSelector'
 export { StoneQualityPicker } from './StoneQualityPicker'
 export { SizeSelector } from './SizeSelector'

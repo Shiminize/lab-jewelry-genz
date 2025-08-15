@@ -11,7 +11,9 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { H3, BodyText, MutedText } from '@/components/foundation/Typography'
 import { Button } from '@/components/ui/Button'
-import { ImageSequenceViewer } from './ImageSequenceViewer'
+import { HybridViewer } from './HybridViewer'
+import { WithViewerErrorBoundary } from './ViewerErrorBoundary'
+import { AdvancedMaterialEditor } from './AdvancedMaterialEditor'
 import type { ProductVariant, Material } from '@/types/customizer'
 import { RING_VARIANTS, DEFAULT_VARIANT, getVariantById } from '@/data/product-variants'
 
@@ -93,6 +95,9 @@ export function ProductCustomizer({
   const [isLoading, setIsLoading] = useState(false)
   const [currentFrame, setCurrentFrame] = useState(0)
   const [viewerError, setViewerError] = useState<Error | null>(null)
+  const [showAdvancedEditor, setShowAdvancedEditor] = useState(false)
+  const [customMaterial, setCustomMaterial] = useState<any>(null)
+  const [currentViewerMode, setCurrentViewerMode] = useState<'sequences' | 'threejs' | 'ar'>('sequences')
 
   // Get current variant
   const selectedVariant = getVariantById(selectedVariantId) || DEFAULT_VARIANT
@@ -113,15 +118,10 @@ export function ProductCustomizer({
     const newVariant = getVariantById(variantId)
     if (!newVariant) return
 
-    setIsLoading(true)
+    // Don't set global loading for quick material switches
     setViewerError(null)
-    
-    // Simulate switching delay for UX (remove in production)
-    await new Promise(resolve => setTimeout(resolve, 200))
-    
     setSelectedVariantId(variantId)
     setCurrentFrame(0) // Reset to first frame
-    setIsLoading(false)
     
     onVariantChange?.(newVariant)
     
@@ -148,6 +148,18 @@ export function ProductCustomizer({
     setCurrentFrame(frame)
   }, [])
 
+  // Handle advanced material changes
+  const handleAdvancedMaterialChange = useCallback((material: any) => {
+    setCustomMaterial(material)
+  }, [])
+
+  // Handle viewer mode changes to show/hide advanced editor
+  const handleViewerModeChange = useCallback((mode: 'sequences' | 'threejs' | 'ar') => {
+    setCurrentViewerMode(mode)
+    // Show advanced editor for Three.js and AR modes
+    setShowAdvancedEditor(mode !== 'sequences')
+  }, [])
+
   // Material selector component
   const MaterialSelector = () => (
     <div className="space-y-4">
@@ -172,7 +184,7 @@ export function ProductCustomizer({
               key={material.id}
               variant="ghost"
               onClick={() => handleVariantSelect(variantWithMaterial.id)}
-              disabled={isLoading}
+              disabled={isLoadingThis}
               className={cn(
                 materialButtonVariants({ 
                   state: isLoadingThis ? 'loading' : (isSelected ? 'selected' : 'default')
@@ -180,7 +192,9 @@ export function ProductCustomizer({
                 'w-full'
               )}
               aria-label={`Select ${material.name} - ${material.description}`}
-              aria-pressed={isSelected}
+              aria-pressed={isSelected ? 'true' : 'false'}
+              data-material={material.id}
+              data-selected={isSelected}
             >
               <div className="flex items-center space-x-3 w-full">
                 <div 
@@ -280,16 +294,28 @@ export function ProductCustomizer({
           </MutedText>
         </div>
 
-        <ImageSequenceViewer
-          imagePath={selectedVariant.assetPath}
-          imageCount={selectedVariant.imageCount || 36}
-          size="lg"
-          autoRotate={autoRotate}
-          onLoad={handleViewerLoad}
-          onError={handleViewerError}
-          onFrameChange={handleFrameChange}
-          className="shadow-lg"
-        />
+        <WithViewerErrorBoundary 
+          onError={(error, errorInfo) => {
+            console.error('3D Viewer Error:', error, errorInfo)
+            setViewerError(error)
+            setIsLoading(false)
+          }}
+        >
+          <HybridViewer
+            imagePath={selectedVariant.assetPath}
+            modelPath={selectedVariant.modelPath}
+            imageCount={selectedVariant.imageCount || 36}
+            material={customMaterial || (selectedVariant.material ? {
+              metalness: selectedVariant.material.properties?.metalness || 1.0,
+              roughness: selectedVariant.material.properties?.roughness || 0.1,
+              color: selectedVariant.material.properties?.color || selectedVariant.material.color || '#ffffff'
+            } : undefined)}
+            onLoad={handleViewerLoad}
+            onError={handleViewerError}
+            onModeChange={handleViewerModeChange}
+            className="shadow-lg h-[400px] sm:h-[500px] lg:h-[600px]"
+          />
+        </WithViewerErrorBoundary>
         
         <SelectionSummary />
       </div>
@@ -299,12 +325,40 @@ export function ProductCustomizer({
         <div className={cn(controlsVariants())}>
           <MaterialSelector />
           
-          {/* Additional Controls Placeholder */}
-          <div className="pt-4 border-t border-border">
-            <MutedText size="sm" className="text-center">
-              Additional customization options coming soon
-            </MutedText>
-          </div>
+          {/* Advanced Material Editor for Premium Modes */}
+          {showAdvancedEditor && (currentViewerMode === 'threejs' || currentViewerMode === 'ar') && (
+            <div className="pt-4 border-t border-border">
+              <AdvancedMaterialEditor
+                initialMaterial={{
+                  metalness: selectedVariant.material.properties?.metalness || 1.0,
+                  roughness: selectedVariant.material.properties?.roughness || 0.1,
+                  color: selectedVariant.material.properties?.color || selectedVariant.material.color || '#ffffff',
+                  reflectivity: 0.8,
+                  clearcoat: 0.5,
+                  clearcoatRoughness: 0.2,
+                  envMapIntensity: 1.0
+                }}
+                onMaterialChange={handleAdvancedMaterialChange}
+                disabled={isLoading}
+              />
+            </div>
+          )}
+          
+          {/* Additional Controls for Non-Premium Modes */}
+          {!showAdvancedEditor && (
+            <div className="pt-4 border-t border-border">
+              <div className="text-center space-y-2">
+                <MutedText size="sm">
+                  Switch to Premium 3D or AR mode for advanced material customization
+                </MutedText>
+                {currentViewerMode === 'sequences' && (
+                  <MutedText size="sm" className="text-accent">
+                    Advanced material editor available in Premium 3D mode
+                  </MutedText>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

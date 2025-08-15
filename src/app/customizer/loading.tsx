@@ -1,3 +1,4 @@
+import React from 'react'
 import { PageContainer } from '@/components/layout/PageContainer'
 import { H1, MutedText } from '@/components/foundation/Typography'
 

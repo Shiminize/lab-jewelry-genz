@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Heart, Star } from 'lucide-react'
+import { Heart, Star } from 'lucide-react'
 import { ProductGrid } from '@/components/products/ProductGrid'
 import { Button } from '@/components/ui/Button'
 import { PageContainer, Section } from '@/components/layout'
@@ -217,7 +217,6 @@ export function FeaturedProductsSection({
             >
               <Link href="/catalog">
                 <span>View All Products</span>
-                <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
             
@@ -263,7 +262,7 @@ export function FeaturedProductsSection({
             
             <div className="space-y-3">
               <div className="w-12 h-12 mx-auto bg-accent/10 rounded-full flex items-center justify-center">
-                <ArrowRight className="w-6 h-6 text-accent" />
+                <span className="text-2xl">🛡️</span>
               </div>
               <BodyText size="md" weight="semibold">
                 Lifetime Warranty

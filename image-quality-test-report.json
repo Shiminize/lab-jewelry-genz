@@ -1,0 +1,63 @@
+{
+  "timestamp": "2025-08-14T14:23:34.528Z",
+  "summary": {
+    "formatsSupported": 3,
+    "totalFormats": 3,
+    "sequencesTested": 3
+  },
+  "results": {
+    "formatSupport": {
+      "avif": true,
+      "webp": true,
+      "png": true
+    },
+    "fileSizes": {
+      "Black_Stone_Ring-platinum": {
+        "avif": 6725,
+        "webp": 7250,
+        "png": 29942
+      },
+      "Black_Stone_Ring-rose-gold": {
+        "avif": 0,
+        "webp": 0,
+        "png": 0
+      },
+      "Ringmodel-platinum": {
+        "avif": 0,
+        "webp": 0,
+        "png": 0
+      }
+    },
+    "loadTimes": {
+      "Black_Stone_Ring-platinum": {
+        "avif": 1,
+        "webp": 1,
+        "png": 0
+      },
+      "Black_Stone_Ring-rose-gold": {
+        "avif": 0,
+        "webp": 0,
+        "png": 0
+      },
+      "Ringmodel-platinum": {
+        "avif": 0,
+        "webp": 0,
+        "png": 0
+      }
+    },
+    "qualityScores": {
+      "compressionRatios": {
+        "avif": "77.5%",
+        "webp": "75.8%"
+      },
+      "qualityMetrics": {}
+    }
+  },
+  "recommendations": [
+    "Use AVIF format for premium devices with fast connections",
+    "Fallback to WebP for standard devices and compatibility",
+    "PNG as final fallback for universal support",
+    "Implement progressive loading for better perceived performance",
+    "Consider device-aware quality adjustments"
+  ]
+}

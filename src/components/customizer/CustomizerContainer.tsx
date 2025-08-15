@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react'
 import { cn } from '@/lib/utils'
 import { H1, H2, BodyText, MutedText } from '@/components/foundation/Typography'
-import { HybridCustomizer } from './HybridCustomizer'
+import { JewelryCustomizer } from './JewelryCustomizer'
 import type { ProductBase, CustomizationOptions } from '@/types/customizer'
 import type { ProductCustomization } from '@/lib/schemas/product-customization'
 
@@ -151,7 +151,7 @@ export function CustomizerContainer({
         aria-label={`3D preview of ${product.name}`}
       >
         {/* Hybrid 3D Customizer */}
-        <HybridCustomizer 
+        <JewelryCustomizer 
           product={product}
           productCustomization={productCustomization}
           modelPath={productCustomization?.product.modelPath || "/Ringmodel.glb"}

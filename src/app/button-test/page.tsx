@@ -191,7 +191,7 @@ export default function ButtonTestPage() {
             <Button variant="accent" size="md" icon={<span>👑</span>}>
               With Icon
             </Button>
-            <Button variant="outline" size="md" icon={<span>→</span>} iconPosition="right">
+            <Button variant="outline" size="md">
               Icon Right
             </Button>
           </div>

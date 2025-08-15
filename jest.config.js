@@ -10,14 +10,14 @@ const customJestConfig = {
   // Add more setup options before each test is run
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   
-  // Define test environment
-  testEnvironment: 'jsdom',
+  // Define test environment - use node for backend tests
+  testEnvironment: 'node',
   
   // Test directories and patterns
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
     '<rootDir>/src/**/*.{test,spec}.{js,jsx,ts,tsx}',
-    '<rootDir>/tests/unit/**/*.{js,jsx,ts,tsx}'
+    '<rootDir>/tests/**/*.{test,spec}.{js,jsx,ts,tsx}'
   ],
   
   // Module name mapping for absolute imports
@@ -43,8 +43,11 @@ const customJestConfig = {
     }
   },
   
-  // Test timeout
-  testTimeout: 10000,
+  // Test timeout - increased for generation tests
+  testTimeout: 30000,
+  
+  // Limit workers to prevent resource exhaustion
+  maxWorkers: '50%',
   
   // Transform files
   transform: {

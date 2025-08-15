@@ -53,7 +53,8 @@ const imageVariants = cva(
 interface ImageSequenceViewerProps extends VariantProps<typeof viewerVariants> {
   imagePath: string
   imageCount?: number
-  imageFormat?: 'webp' | 'jpg' | 'png'
+  imageFormat?: 'avif' | 'webp' | 'jpg' | 'png'
+  preferredFormats?: ('avif' | 'webp' | 'png')[]  // Format priority order
   className?: string
   autoRotate?: boolean
   frameRate?: number
@@ -65,7 +66,8 @@ interface ImageSequenceViewerProps extends VariantProps<typeof viewerVariants> {
 export function ImageSequenceViewer({
   imagePath,
   imageCount = 36,
-  imageFormat = 'png',
+  imageFormat = 'avif',  // Default to AVIF for best quality
+  preferredFormats = ['webp', 'png', 'avif'],  // Safari-friendly format fallback order
   size = 'md',
   className,
   autoRotate = false,
@@ -78,8 +80,11 @@ export function ImageSequenceViewer({
   const [currentFrame, setCurrentFrame] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
+  const [errorDetails, setErrorDetails] = useState<string>('')
   const [preloadedImages, setPreloadedImages] = useState<Set<number>>(new Set())
   const [isInteracting, setIsInteracting] = useState(false)
+  const [detectedFormat, setDetectedFormat] = useState<string>(imageFormat)
+  const [isMetadataOnly, setIsMetadataOnly] = useState(false)
   
   // Refs for interaction handling
   const containerRef = useRef<HTMLDivElement>(null)
@@ -88,26 +93,196 @@ export function ImageSequenceViewer({
   const startFrame = useRef(0)
   const autoRotateTimer = useRef<NodeJS.Timeout>()
 
-  // Preload images for smooth interaction
+  // Check if path contains only metadata files (JSON)
+  const checkForMetadataOnly = async (path: string): Promise<boolean> => {
+    // Circuit breaker: Cache results to prevent repeated requests
+    const cacheKey = `metadata_check_${path}`
+    const cached = sessionStorage.getItem(cacheKey)
+    if (cached !== null) {
+      return cached === 'true'
+    }
+
+    let requestCount = 0
+    const maxRequests = 3 // Limit to 3 total requests per path
+    
+    try {
+      // Check if actual image files exist (not just JSON metadata)
+      // Try to load the first image in the preferred formats
+      for (const format of ['avif', 'webp', 'png']) {
+        if (requestCount >= maxRequests) break
+        
+        try {
+          requestCount++
+          const controller = new AbortController()
+          const timeoutId = setTimeout(() => controller.abort(), 5000) // 5s timeout
+          
+          const imageResponse = await fetch(`${path}/0.${format}`, { 
+            method: 'HEAD',
+            signal: controller.signal
+          })
+          
+          clearTimeout(timeoutId)
+          
+          if (imageResponse.ok) {
+            // Found an actual image file, not metadata-only
+            console.log(`✅ Found ${format} images in: ${path}`)
+            sessionStorage.setItem(cacheKey, 'false')
+            return false
+          }
+        } catch (error) {
+          if (error.name === 'AbortError') {
+            console.warn(`⏰ Timeout checking ${format} in ${path}`)
+          }
+          // Continue checking other formats
+        }
+      }
+      
+      // Circuit breaker: Don't check JSON if we've already made too many requests
+      if (requestCount < maxRequests) {
+        requestCount++
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 5000)
+        
+        const jsonResponse = await fetch(`${path}/0.json`, { 
+          method: 'HEAD',
+          signal: controller.signal 
+        })
+        
+        clearTimeout(timeoutId)
+        
+        if (jsonResponse.ok) {
+          console.log(`📋 Detected metadata-only directory (no images found): ${path}`)
+          sessionStorage.setItem(cacheKey, 'true')
+          return true
+        }
+      }
+    } catch (error) {
+      console.warn(`Error checking metadata for ${path}:`, error)
+      // Cache negative result to prevent retries
+      sessionStorage.setItem(cacheKey, 'false')
+    }
+    
+    // Cache negative result
+    sessionStorage.setItem(cacheKey, 'false')
+    return false
+  }
+
+  // Detect optimal image format and preload images
   useEffect(() => {
-    const preloadImages = async () => {
+    const detectFormatAndPreload = async () => {
       setIsLoading(true)
+      setHasError(false)
+      setErrorDetails('')
+      
+      // Circuit breaker: Check cache first to prevent repeated requests
+      const cacheKey = `format_detection_${imagePath}`
+      const cachedFormat = sessionStorage.getItem(cacheKey)
+      
+      // First check if this is a metadata-only directory
+      const isMetadata = await checkForMetadataOnly(imagePath)
+      if (isMetadata) {
+        setIsMetadataOnly(true)
+        setHasError(true)
+        setErrorDetails('Images are being generated. Please check back soon!')
+        setIsLoading(false)
+        onError?.(new Error('Metadata-only directory - images not yet generated'))
+        return
+      }
+      
+      let workingFormat = imageFormat
+      let formatFound = false
+      let requestCount = 0
+      const maxFormatRequests = 3 // Circuit breaker: Limit format detection requests
+      
+      // Use cached format if available and current
+      if (cachedFormat && preferredFormats.includes(cachedFormat)) {
+        workingFormat = cachedFormat
+        setDetectedFormat(cachedFormat)
+        formatFound = true
+        console.log(`🚀 Using cached ${cachedFormat.toUpperCase()} format`)
+      } else {
+        // Test format availability in priority order with circuit breaker
+        for (const format of preferredFormats) {
+          if (requestCount >= maxFormatRequests) {
+            console.warn(`⚠️ Circuit breaker: Max format requests (${maxFormatRequests}) reached for ${imagePath}`)
+            break
+          }
+          
+          try {
+            requestCount++
+            const controller = new AbortController()
+            const timeoutId = setTimeout(() => controller.abort(), 3000) // 3s timeout
+            
+            const testUrl = `${imagePath}/0.${format}`
+            const response = await fetch(testUrl, { 
+              method: 'HEAD',
+              signal: controller.signal 
+            })
+            
+            clearTimeout(timeoutId)
+            
+            if (response.ok) {
+              workingFormat = format
+              setDetectedFormat(format)
+              formatFound = true
+              // Cache successful format for 5 minutes
+              sessionStorage.setItem(cacheKey, format)
+              sessionStorage.setItem(`${cacheKey}_timestamp`, Date.now().toString())
+              console.log(`✅ Using ${format.toUpperCase()} format for optimal quality`)
+              break
+            }
+          } catch (error) {
+            if (error.name === 'AbortError') {
+              console.warn(`⏰ Timeout testing ${format} format for ${imagePath}`)
+            } else {
+              console.log(`❌ ${format.toUpperCase()} not available for ${imagePath}, trying next format`)
+            }
+          }
+        }
+      }
+      
+      if (!formatFound) {
+        setHasError(true)
+        setErrorDetails('No compatible image format found')
+        setIsLoading(false)
+        // Cache the failure to prevent immediate retries
+        sessionStorage.setItem(`${cacheKey}_failed`, 'true')
+        onError?.(new Error('No compatible image format found'))
+        return
+      }
+      
+      // Preload images with detected format
       const imagePromises: Promise<void>[] = []
       const loadedSet = new Set<number>()
+      let successCount = 0
+      let errorCount = 0
 
       for (let i = 0; i < imageCount; i++) {
-        const imageUrl = `${imagePath}/${i}.${imageFormat}`
+        const imageUrl = `${imagePath}/${i}.${workingFormat}`
         
         const promise = new Promise<void>((resolve, reject) => {
           const img = new Image()
+          
+          // Add timeout for image loading to prevent hanging
+          const timeoutId = setTimeout(() => {
+            errorCount++
+            console.warn(`⏰ Timeout loading image: ${imageUrl}`)
+            resolve()
+          }, 10000) // 10s timeout per image
+          
           img.onload = () => {
+            clearTimeout(timeoutId)
             loadedSet.add(i)
+            successCount++
             setPreloadedImages(new Set(loadedSet))
             resolve()
           }
           img.onerror = () => {
+            clearTimeout(timeoutId)
+            errorCount++
             console.warn(`Failed to load image: ${imageUrl}`)
-            reject(new Error(`Failed to load image: ${imageUrl}`))
+            // Don't reject immediately - allow partial loading
+            resolve()
           }
           img.src = imageUrl
         })
@@ -117,27 +292,39 @@ export function ImageSequenceViewer({
 
       try {
         await Promise.allSettled(imagePromises)
-        setIsLoading(false)
-        // Defer onLoad call
-        setTimeout(() => {
-          onLoad?.()
-        }, 0)
+        
+        // Check if we have enough images loaded (at least 50% success rate)
+        const successRate = successCount / imageCount
+        if (successRate >= 0.5) {
+          setIsLoading(false)
+          console.log(`✅ Loaded ${successCount}/${imageCount} images (${Math.round(successRate * 100)}% success rate)`)
+          setTimeout(() => {
+            onLoad?.()
+          }, 0)
+        } else {
+          setHasError(true)
+          setErrorDetails(`Only ${successCount}/${imageCount} images loaded. Please try refreshing.`)
+          setIsLoading(false)
+          setTimeout(() => {
+            onError?.(new Error(`Insufficient images loaded: ${successCount}/${imageCount}`))
+          }, 0)
+        }
       } catch (error) {
         setHasError(true)
+        setErrorDetails('Failed to load image sequence')
         setIsLoading(false)
-        // Defer onError call
         setTimeout(() => {
           onError?.(error as Error)
         }, 0)
       }
     }
 
-    preloadImages()
-  }, [imagePath, imageCount, imageFormat, onLoad, onError])
+    detectFormatAndPreload()
+  }, [imagePath, imageCount, imageFormat, preferredFormats, onLoad, onError])
 
   // Auto-rotation functionality
   useEffect(() => {
-    if (autoRotate && !isInteracting && !isLoading) {
+    if (autoRotate && !isInteracting && !isLoading && !hasError) {
       autoRotateTimer.current = setInterval(() => {
         setCurrentFrame((prev) => {
           const nextFrame = (prev + 1) % imageCount
@@ -157,18 +344,19 @@ export function ImageSequenceViewer({
         clearInterval(autoRotateTimer.current)
       }
     }
-  }, [autoRotate, isInteracting, isLoading, imageCount, frameRate, onFrameChange])
+  }, [autoRotate, isInteracting, isLoading, hasError, imageCount, frameRate, onFrameChange])
 
   // Handle drag interactions
   const handleInteractionStart = useCallback((clientX: number) => {
+    if (hasError) return
     isDragging.current = true
     startX.current = clientX
     startFrame.current = currentFrame
     setIsInteracting(true)
-  }, [currentFrame])
+  }, [currentFrame, hasError])
 
   const handleInteractionMove = useCallback((clientX: number) => {
-    if (!isDragging.current) return
+    if (!isDragging.current || hasError) return
 
     const deltaX = clientX - startX.current
     const sensitivity = 2 // Adjust sensitivity (pixels per frame)
@@ -178,11 +366,11 @@ export function ImageSequenceViewer({
     let newFrame = (startFrame.current + frameChange) % imageCount
     if (newFrame < 0) newFrame += imageCount
 
-    if (newFrame !== currentFrame) {
+    if (newFrame !== currentFrame && preloadedImages.has(newFrame)) {
       setCurrentFrame(newFrame)
       onFrameChange?.(newFrame)
     }
-  }, [currentFrame, imageCount, onFrameChange])
+  }, [currentFrame, imageCount, onFrameChange, hasError, preloadedImages])
 
   const handleInteractionEnd = useCallback(() => {
     isDragging.current = false
@@ -253,29 +441,33 @@ export function ImageSequenceViewer({
   }, [handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd])
 
   const currentState = hasError ? 'error' : (isLoading ? 'loading' : 'loaded')
-  const currentImageUrl = `${imagePath}/${currentFrame}.${imageFormat}`
+  const currentImageUrl = `${imagePath}/${currentFrame}.${detectedFormat}`
 
   return (
     <div
       ref={containerRef}
       className={cn(viewerVariants({ size, state: currentState }), className)}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleTouchStart}
-      role="img"
-      aria-label={`Interactive 360° product view - frame ${currentFrame + 1} of ${imageCount}`}
-      tabIndex={0}
+      onMouseDown={!hasError ? handleMouseDown : undefined}
+      onTouchStart={!hasError ? handleTouchStart : undefined}
+      data-testid="image-sequence-viewer"
+      aria-hidden="true"
       onKeyDown={(e) => {
+        if (hasError) return
         // Keyboard navigation support
         if (e.key === 'ArrowLeft') {
           e.preventDefault()
           const newFrame = currentFrame === 0 ? imageCount - 1 : currentFrame - 1
-          setCurrentFrame(newFrame)
-          onFrameChange?.(newFrame)
+          if (preloadedImages.has(newFrame)) {
+            setCurrentFrame(newFrame)
+            onFrameChange?.(newFrame)
+          }
         } else if (e.key === 'ArrowRight') {
           e.preventDefault()
           const newFrame = (currentFrame + 1) % imageCount
-          setCurrentFrame(newFrame)
-          onFrameChange?.(newFrame)
+          if (preloadedImages.has(newFrame)) {
+            setCurrentFrame(newFrame)
+            onFrameChange?.(newFrame)
+          }
         }
       }}
     >
@@ -295,16 +487,27 @@ export function ImageSequenceViewer({
         </div>
       )}
 
-      {/* Error State */}
+      {/* Error State - Enhanced with specific messaging */}
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-background/80">
-          <div className="text-center space-y-4 p-6">
+          <div className="text-center space-y-4 p-6 max-w-md">
             <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center mx-auto">
-              <span className="text-destructive text-xl" role="img" aria-label="Error">⚠</span>
+              <span className="text-destructive text-xl" role="img" aria-label="Error">
+                {isMetadataOnly ? '🚧' : '⚠'}
+              </span>
             </div>
             <div>
-              <MutedText className="font-medium mb-2 text-foreground">360° view unavailable</MutedText>
-              <MutedText size="sm">Please try refreshing the page</MutedText>
+              <MutedText className="font-medium mb-2 text-foreground">
+                {isMetadataOnly ? 'Coming Soon' : '360° view unavailable'}
+              </MutedText>
+              <MutedText size="sm" className="text-gray-600">
+                {errorDetails || 'Please try refreshing the page'}
+              </MutedText>
+              {isMetadataOnly && (
+                <MutedText size="sm" className="mt-2 text-accent">
+                  Our artisans are crafting the perfect view for you
+                </MutedText>
+              )}
             </div>
           </div>
         </div>
@@ -315,14 +518,19 @@ export function ImageSequenceViewer({
         <>
           {Array.from({ length: imageCount }, (_, i) => {
             const isCurrentFrame = i === currentFrame
-            const imageUrl = `${imagePath}/${i}.${imageFormat}`
+            const isImageLoaded = preloadedImages.has(i)
+            const imageUrl = `${imagePath}/${i}.${detectedFormat}`
+            
+            // Only render loaded images
+            if (!isImageLoaded) return null
+            
             return (
               <img
                 key={i}
                 src={imageUrl}
                 alt={`Product view frame ${i + 1}`}
                 className={cn(
-                  'absolute inset-0 w-full h-full object-cover',
+                  'absolute inset-0 w-full h-full object-cover transition-opacity duration-200',
                   isCurrentFrame ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 )}
                 style={{ display: isCurrentFrame ? 'block' : 'none' }}
@@ -334,45 +542,46 @@ export function ImageSequenceViewer({
       )}
 
       {/* Controls and Status - Always Visible */}
-      <div className="absolute bottom-4 left-4 right-4 opacity-100 transition-opacity duration-300">
-        <div className="bg-background/95 backdrop-blur-sm rounded-lg p-3 border border-border shadow-lg">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              <MutedText size="sm" className="font-headline font-medium">Infinite Perspectives</MutedText>
-            </div>
-            <div className="flex items-center space-x-2">
-              {autoRotate && !isInteracting && (
-                <div className="flex items-center space-x-1">
-                  <div className="w-1 h-1 bg-accent rounded-full animate-pulse" />
-                  <MutedText size="xs" className="text-gray-600 font-medium">Auto</MutedText>
-                </div>
-              )}
-              {isInteracting && (
-                <MutedText size="xs" className="text-accent font-medium">Interactive</MutedText>
-              )}
+      {!hasError && (
+        <div className="absolute bottom-4 left-4 right-4 opacity-100 transition-opacity duration-300">
+          <div className="bg-background/95 backdrop-blur-sm rounded-lg p-3 border border-border shadow-lg">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+                <MutedText size="sm" className="font-headline font-medium">
+                  Infinite Perspectives • {detectedFormat.toUpperCase()}
+                </MutedText>
+              </div>
+              <div className="flex items-center space-x-2">
+                {autoRotate && !isInteracting && (
+                  <div className="flex items-center space-x-1">
+                    <div className="w-1 h-1 bg-accent rounded-full animate-pulse" />
+                    <MutedText size="sm" className="text-gray-600 font-medium">Auto</MutedText>
+                  </div>
+                )}
+                {isInteracting && (
+                  <MutedText size="sm" className="text-accent font-medium">Interactive</MutedText>
+                )}
+                <MutedText size="sm" className="text-gray-600">
+                  {preloadedImages.size}/{imageCount}
+                </MutedText>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Touch/Drag hints */}
-      <div className="absolute bottom-16 left-4 right-4 lg:hidden">
-        <div className="bg-background/95 backdrop-blur-sm rounded-lg p-2 border border-border/50">
-          <MutedText size="sm" className="text-center text-xs text-gray-600">
-            {isLoading ? 'Loading...' : 'Swipe to fall in love'}
-          </MutedText>
+      {!hasError && (
+        <div className="absolute bottom-16 left-4 right-4 lg:hidden">
+          <div className="bg-background/95 backdrop-blur-sm rounded-lg p-2 border border-border/50">
+            <MutedText size="sm" className="text-center text-xs text-gray-600">
+              {isLoading ? 'Loading...' : 'Swipe to fall in love'}
+            </MutedText>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Accessibility Enhancement */}
-      <div className="sr-only">
-        <p>
-          Interactive 360-degree product viewer. Use left and right arrow keys or drag to rotate the view.
-          Currently showing frame {currentFrame + 1} of {imageCount}.
-          {hasError && ' Image sequence failed to load, please refresh the page.'}
-        </p>
-      </div>
     </div>
   )
 }
