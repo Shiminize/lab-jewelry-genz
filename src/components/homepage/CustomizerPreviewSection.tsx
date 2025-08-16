@@ -19,7 +19,7 @@ import { RING_VARIANTS } from '@/data/product-variants'
 
 // CVA variants for the preview section - Mobile first approach
 const previewSectionVariants = cva(
-  'relative w-full overflow-hidden',
+  'relative w-full',
   {
     variants: {
       layout: {
@@ -283,7 +283,7 @@ export function CustomizerPreviewSection({
 
   return (
     <section className={cn('bg-background', className)}>
-      <div className={cn(previewSectionVariants({ layout, padding }), 'max-w-7xl mx-auto')}>
+      <div className={cn(previewSectionVariants({ layout, padding }), 'max-w-7xl mx-auto lg:items-start')}>
           {/* Left (Controls) - 50% on desktop */}
           <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
             {/* Hero messaging */}
@@ -360,7 +360,7 @@ export function CustomizerPreviewSection({
           </div>
 
           {/* Right (3D Preview) - 50% on desktop */}
-          <div className="relative" id="customizer-3d-container">
+          <div className="lg:sticky lg:top-20 lg:self-start" id="customizer-3d-container">
             <ProductCustomizer
               key={selectedVariantId}
               initialVariantId={selectedVariantId}
