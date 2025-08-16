@@ -1,0 +1,525 @@
+'use client'
+
+import React, { useState, useEffect } from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
+import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
+import { 
+  EthicalSourcingIcon, 
+  CustomVisionIcon, 
+  PlanetPositiveIcon,
+  ConflictFreeIcon,
+  LabGrownIcon,
+  RecycledMetalIcon,
+  CarbonNeutralIcon,
+  PremiumQualityIcon,
+  UnlimitedCustomizationIcon
+} from '@/components/ui/ValuesIcons'
+
+const enhancedValueVariants = cva(
+  'bg-background',
+  {
+    variants: {
+      spacing: {
+        comfortable: 'py-16 sm:py-20 lg:py-24',
+        compact: 'py-12 sm:py-16 lg:py-20',
+        spacious: 'py-20 sm:py-24 lg:py-32'
+      },
+      layout: {
+        default: 'px-4 sm:px-6 lg:px-8',
+        wide: 'px-6 sm:px-8 lg:px-12',
+        contained: 'px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto'
+      }
+    },
+    defaultVariants: {
+      spacing: 'comfortable',
+      layout: 'contained'
+    }
+  }
+)
+
+const valueCardVariants = cva(
+  'enhanced-value-card group relative overflow-hidden transition-all duration-700 ease-out',
+  {
+    variants: {
+      style: {
+        glassmorphism: 'bg-gradient-to-br from-background/95 to-background/85 backdrop-blur-lg border border-accent/25 rounded-2xl shadow-2xl shadow-accent/15 hover:shadow-accent/25',
+        minimal: 'space-y-8 bg-background/50 rounded-xl border border-accent/10',
+        bordered: 'border-2 border-accent/40 rounded-2xl shadow-xl bg-background/98 hover:border-accent/60'
+      },
+      state: {
+        default: 'hover:shadow-3xl hover:shadow-accent/30 hover:scale-[1.03] hover:-translate-y-2',
+        active: 'shadow-3xl shadow-accent/30 scale-[1.03] -translate-y-2 border-accent/50 bg-gradient-to-br from-accent/5 to-accent/10',
+        dimmed: 'opacity-60 scale-98 translate-y-1'
+      }
+    },
+    defaultVariants: {
+      style: 'glassmorphism',
+      state: 'default'
+    }
+  }
+)
+
+const iconContainerVariants = cva(
+  'enhanced-value-icon relative flex items-center justify-center transition-all duration-300 ease-out',
+  {
+    variants: {
+      size: {
+        small: 'w-16 h-16',
+        medium: 'w-20 h-20',
+        large: 'w-24 h-24'
+      },
+      style: {
+        glassmorphism: 'bg-background/30 backdrop-blur-md rounded-full border border-accent/40 shadow-xl shadow-accent/20',
+        gradient: 'bg-gradient-to-br from-accent/20 to-accent/10 rounded-full border border-accent/30',
+        minimal: 'bg-accent/10 rounded-full'
+      },
+      state: {
+        default: 'group-hover:scale-110 group-hover:shadow-2xl group-hover:shadow-accent/30',
+        floating: 'hover:shadow-2xl hover:shadow-accent/40 hover:scale-115'
+      }
+    },
+    defaultVariants: {
+      size: 'large',
+      style: 'glassmorphism',
+      state: 'default'
+    }
+  }
+)
+
+const trustBadgeVariants = cva(
+  'enhanced-trust-badge inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 shadow-md',
+  {
+    variants: {
+      style: {
+        glassmorphism: 'bg-gradient-to-r from-background/90 to-background/70 backdrop-blur-md border border-accent/40 shadow-lg shadow-accent/10',
+        accent: 'bg-gradient-to-r from-accent/15 to-accent/10 border border-accent/30 text-accent shadow-accent/20',
+        minimal: 'bg-muted/40 border border-muted/60'
+      },
+      state: {
+        default: 'hover:scale-110 hover:shadow-xl hover:shadow-accent/20 hover:border-accent/60 hover:-translate-y-0.5',
+        interactive: 'cursor-pointer hover:bg-accent/25 hover:scale-110 hover:shadow-xl active:scale-105'
+      }
+    },
+    defaultVariants: {
+      style: 'accent',
+      state: 'default'
+    }
+  }
+)
+
+interface EnhancedValueProp {
+  id: string
+  icon: React.ComponentType<{ className?: string; size?: number }>
+  headline: string
+  description: string
+  trustSignals: Array<{
+    icon: React.ComponentType<{ className?: string; size?: number }>
+    text: string
+    description?: string
+  }>
+  details?: string
+}
+
+interface EnhancedValuePropositionProps extends React.HTMLAttributes<HTMLElement> {
+  /** Main section headline */
+  headline?: string
+  /** Section description/subtitle */
+  description?: string
+  /** Custom value propositions */
+  valueProps?: EnhancedValueProp[]
+  /** Show trust signals section */
+  showTrustSignals?: boolean
+  /** Enable animation system */
+  enableAnimation?: boolean
+  /** Animation delay between cards */
+  animationDelay?: number
+  /** Mobile breakpoint for responsive behavior */
+  mobileBreakpoint?: 'sm' | 'md' | 'lg'
+  /** Enable interactive features */
+  enableInteraction?: boolean
+}
+
+const defaultEnhancedValueProps: EnhancedValueProp[] = [
+  {
+    id: 'ethical-sourcing',
+    icon: EthicalSourcingIcon,
+    headline: 'Ethically Sourced & Conflict-Free',
+    description: 'Every piece tells a story of responsibility. Our lab-grown diamonds and ethically sourced materials mean you can wear your values with pride, knowing your jewelry creates positive impact.',
+    trustSignals: [
+      { 
+        icon: ConflictFreeIcon, 
+        text: '100% Conflict-Free',
+        description: 'Certified conflict-free diamonds from controlled laboratory environments'
+      },
+      { 
+        icon: LabGrownIcon, 
+        text: 'Lab-Grown Certified',
+        description: 'IGI and GIA certified lab-grown diamonds with full traceability'
+      }
+    ],
+    details: 'Our certification process includes third-party verification and complete supply chain transparency.'
+  },
+  {
+    id: 'custom-vision',
+    icon: CustomVisionIcon,
+    headline: 'Your Vision, Your Voice',
+    description: 'Self-expression shouldn\'t be limited by what\'s on the shelf. Design jewelry that speaks your language - from subtle statements to bold declarations of who you are.',
+    trustSignals: [
+      { 
+        icon: UnlimitedCustomizationIcon, 
+        text: 'Unlimited Customization',
+        description: 'Complete design freedom with our advanced 3D modeling tools'
+      },
+      { 
+        icon: PremiumQualityIcon, 
+        text: 'Premium Quality',
+        description: 'Master craftsmen ensure every custom piece meets luxury standards'
+      }
+    ],
+    details: 'Work with our design team to create truly one-of-a-kind pieces that reflect your personal style.'
+  },
+  {
+    id: 'planet-positive',
+    icon: PlanetPositiveIcon,
+    headline: 'Planet-Positive Luxury',
+    description: 'True luxury means caring about tomorrow. Our sustainable practices and recycled metals prove that conscious choices can be absolutely stunning.',
+    trustSignals: [
+      { 
+        icon: CarbonNeutralIcon, 
+        text: 'Carbon Neutral',
+        description: 'Offset all emissions from production to delivery'
+      },
+      { 
+        icon: RecycledMetalIcon, 
+        text: 'Recycled Metals',
+        description: '80% recycled precious metals in all our jewelry settings'
+      }
+    ],
+    details: 'Our environmental impact is 95% lower than traditional mining operations.'
+  }
+]
+
+export function EnhancedValueProposition({
+  className,
+  headline = 'Luxury That Aligns With Your Values',
+  description = 'We believe true luxury comes from knowing your choices make a positive impact. Every piece is crafted with ethical sourcing, sustainable practices, and the freedom to express your authentic self.',
+  valueProps = defaultEnhancedValueProps,
+  showTrustSignals = true,
+  enableAnimation = true,
+  animationDelay = 200,
+  mobileBreakpoint = 'lg',
+  enableInteraction = true,
+  ...props
+}: EnhancedValuePropositionProps) {
+  const [activeCard, setActiveCard] = useState<string | null>(null)
+  const [animatedCards, setAnimatedCards] = useState<Set<string>>(new Set())
+  const [isInView, setIsInView] = useState(false)
+
+  // Intersection Observer for animation trigger
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && enableAnimation) {
+          setIsInView(true)
+        }
+      },
+      { threshold: 0.2 }
+    )
+
+    const element = document.getElementById('enhanced-values-section')
+    if (element) observer.observe(element)
+
+    return () => observer.disconnect()
+  }, [enableAnimation])
+
+  // Staggered animation for cards
+  useEffect(() => {
+    if (!isInView || !enableAnimation) return
+
+    valueProps.forEach((prop, index) => {
+      setTimeout(() => {
+        setAnimatedCards(prev => new Set(Array.from(prev).concat(prop.id)))
+      }, index * animationDelay)
+    })
+  }, [isInView, enableAnimation, animationDelay, valueProps])
+
+  const handleCardInteraction = (cardId: string, type: 'enter' | 'leave') => {
+    if (!enableInteraction) return
+    
+    if (type === 'enter') {
+      setActiveCard(cardId)
+    } else {
+      setActiveCard(null)
+    }
+  }
+
+  const handleKeyboardNavigation = (event: React.KeyboardEvent, cardId: string) => {
+    if (!enableInteraction) return
+
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      setActiveCard(activeCard === cardId ? null : cardId)
+    }
+  }
+
+  return (
+    <section
+      id="enhanced-values-section"
+      className={cn(enhancedValueVariants({ spacing: 'comfortable', layout: 'contained' }), className)}
+      aria-labelledby="enhanced-values-heading"
+      {...props}
+    >
+      {/* Section Header */}
+      <div className="text-center max-w-5xl mx-auto mb-16 lg:mb-20">
+        {/* Decorative accent line */}
+        <div className="w-24 h-1 bg-gradient-to-r from-accent/50 via-accent to-accent/50 mx-auto mb-6 rounded-full" />
+        
+        <H2 
+          id="enhanced-values-heading"
+          className="mb-6 lg:mb-8 font-headline text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight bg-gradient-to-br from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent"
+        >
+          {headline}
+        </H2>
+        
+        <BodyText 
+          size="lg" 
+          className="text-foreground/80 max-w-4xl mx-auto leading-relaxed text-lg sm:text-xl lg:text-2xl font-light"
+        >
+          {description}
+        </BodyText>
+        
+        {/* Subtle separator */}
+        <div className="mt-8 lg:mt-12 flex justify-center">
+          <div className="flex space-x-1">
+            <div className="w-2 h-2 bg-accent/60 rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-accent/40 rounded-full animate-pulse delay-75"></div>
+            <div className="w-2 h-2 bg-accent/60 rounded-full animate-pulse delay-150"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Value Propositions Grid */}
+      <div 
+        className={cn(
+          'enhanced-values-grid grid gap-6 lg:gap-8',
+          // Mobile: Single column with full width cards
+          'grid-cols-1',
+          // Tablet: Two columns, auto rows to prevent gaps
+          'md:grid-cols-2',
+          // Desktop: Three columns with equal spacing
+          `${mobileBreakpoint}:grid-cols-3`,
+          // Improved touch targets and spacing
+          'px-2 md:px-0'
+        )}
+        role="tablist"
+        aria-label="Core values and benefits"
+      >
+        {valueProps.map((prop, index) => {
+          const IconComponent = prop.icon
+          const isAnimated = animatedCards.has(prop.id)
+          const isActive = activeCard === prop.id
+          const isDimmed = activeCard !== null && activeCard !== prop.id
+          
+          // Simple responsive classes - no complex spanning to avoid gaps
+          const getResponsiveClasses = (index: number) => {
+            // On tablet, third card spans full width for better balance
+            if (index === 2) return 'md:col-span-2'
+            return ''
+          }
+
+          return (
+            <article
+              key={prop.id}
+              className={cn(
+                valueCardVariants({
+                  style: 'glassmorphism',
+                  state: isActive ? 'active' : isDimmed ? 'dimmed' : 'default'
+                }),
+                'space-y-6 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2',
+                // Mobile optimization
+                'min-h-[400px] sm:min-h-[420px] lg:min-h-[400px]',
+                'touch-manipulation', // Improves touch responsiveness
+                // Better mobile spacing
+                'p-6 sm:p-8 lg:p-10',
+                getResponsiveClasses(index),
+                `${mobileBreakpoint}:col-span-1`, // Reset on desktop
+                isAnimated ? 'animate-in slide-in-from-bottom-6 duration-600' : 'opacity-0',
+                {
+                  [`delay-${index * animationDelay}`]: enableAnimation
+                }
+              )}
+              role="tab"
+              tabIndex={enableInteraction ? 0 : -1}
+              aria-selected={isActive}
+              aria-label={`${prop.headline}: ${prop.description}`}
+              onMouseEnter={() => handleCardInteraction(prop.id, 'enter')}
+              onMouseLeave={() => handleCardInteraction(prop.id, 'leave')}
+              onFocus={() => handleCardInteraction(prop.id, 'enter')}
+              onBlur={() => handleCardInteraction(prop.id, 'leave')}
+              onKeyDown={(e) => handleKeyboardNavigation(e, prop.id)}
+            >
+              {/* Floating gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Icon Container */}
+              <div className="relative flex justify-center">
+                <div className={cn(iconContainerVariants())}>
+                  <IconComponent 
+                    className="enhanced-value-icon-svg text-accent transition-all duration-300 group-hover:scale-110" 
+                    size={40}
+                  />
+                  
+                  {/* Pulsing ring effect */}
+                  <div className="absolute inset-0 rounded-full border-2 border-accent/30 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500" />
+                  
+                  {/* Sparkle effect */}
+                  <div className="absolute inset-0 rounded-full bg-accent/20 scale-0 group-hover:scale-150 transition-transform duration-700 opacity-0 group-hover:opacity-30" />
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="relative space-y-4 text-center">
+                <H3 className="text-foreground group-hover:text-accent transition-colors duration-300">
+                  {prop.headline}
+                </H3>
+                <BodyText 
+                  className="text-foreground leading-relaxed"
+                  size="sm"
+                >
+                  {prop.description}
+                </BodyText>
+
+                {/* Additional Details (shown on interaction) */}
+                {prop.details && (
+                  <div 
+                    className={cn(
+                      'transition-all duration-300 overflow-hidden',
+                      isActive 
+                        ? 'max-h-20 opacity-100 mt-4' 
+                        : 'max-h-0 opacity-0 mt-0'
+                    )}
+                  >
+                    <div className="pt-3 border-t border-accent/20">
+                      <BodyText 
+                        size="sm" 
+                        className="text-accent font-medium"
+                      >
+                        {prop.details}
+                      </BodyText>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Trust Signals */}
+              <div className="relative mt-6 pt-4 border-t border-accent/15">
+                <div className="flex flex-wrap gap-3 justify-center">
+                  {prop.trustSignals.map((signal, signalIndex) => {
+                    const SignalIcon = signal.icon
+                    
+                    return (
+                      <div 
+                        key={signalIndex}
+                        className={cn(
+                          trustBadgeVariants({ style: 'accent', state: 'interactive' }),
+                          'group relative overflow-hidden'
+                        )}
+                        title={signal.description}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        {/* Background glow effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
+                        
+                        <SignalIcon 
+                          className="text-accent group-hover:text-accent/90 transition-colors duration-300 relative z-10" 
+                          size={16} 
+                        />
+                        <span className="font-semibold text-accent group-hover:text-accent/90 transition-colors duration-300 relative z-10">
+                          {signal.text}
+                        </span>
+                        
+                        {/* Shimmer effect */}
+                        <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-500 rounded-full" />
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+
+      {/* Mobile Flow Indicators */}
+      <div className={`${mobileBreakpoint}:hidden flex justify-center mt-8 space-x-2`}>
+        {valueProps.map((_, index) => (
+          <div key={index} className="flex items-center">
+            <div className="w-8 h-1 bg-accent/30 rounded-full" />
+            {index < valueProps.length - 1 && (
+              <div className="w-4 h-1 bg-accent/60 mx-1" />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Global Trust Signals Section */}
+      {showTrustSignals && (
+        <div className="mt-16 lg:mt-20 text-center">
+          <div className="bg-background/30 backdrop-blur-md border border-accent/30 rounded-3xl p-6 lg:p-8 max-w-5xl mx-auto shadow-2xl shadow-accent/10">
+            <MutedText className="mb-6 block text-lg">
+              Join thousands who choose conscious luxury
+            </MutedText>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+              {[
+                { icon: ConflictFreeIcon, text: '100% Conflict-Free', subtitle: 'Certified diamonds' },
+                { icon: RecycledMetalIcon, text: 'Recycled Metal', subtitle: '80% recycled content' },
+                { icon: LabGrownIcon, text: 'Lab-Grown Certified', subtitle: 'IGI & GIA verified' },
+                { icon: CarbonNeutralIcon, text: 'Carbon Neutral', subtitle: 'Offset emissions' }
+              ].map((item, index) => {
+                const ItemIcon = item.icon
+                
+                return (
+                  <div 
+                    key={index}
+                    className="group p-4 rounded-2xl bg-background/20 backdrop-blur-sm border border-accent/20 hover:border-accent/40 transition-all duration-300 hover:scale-105"
+                  >
+                    <div className="flex flex-col items-center space-y-2">
+                      <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <ItemIcon className="text-accent" size={20} />
+                      </div>
+                      <div className="text-center">
+                        <div className="font-semibold text-foreground text-sm">
+                          {item.text}
+                        </div>
+                        <MutedText size="xs" className="text-foreground/70">
+                          {item.subtitle}
+                        </MutedText>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Screen Reader Enhancement */}
+      <div className="sr-only">
+        <h3>Enhanced Values Summary</h3>
+        <p>
+          GlowGlitch offers ethical luxury jewelry with three core values: 
+          100% conflict-free and ethically sourced materials, unlimited customization 
+          for personal expression, and planet-positive practices including carbon 
+          neutrality and 80% recycled metals. All our lab-grown diamonds are 
+          certified by international gemological institutes.
+        </p>
+      </div>
+    </section>
+  )
+}
+
+export type { EnhancedValuePropositionProps }

@@ -4,7 +4,7 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 import { 
   HeroSection, 
-  ValuePropositionSection, 
+  EnhancedValueProposition, 
   FeaturedProductsSection,
   CustomizerPreviewSection,
   StyleQuizSection,
@@ -36,7 +36,7 @@ export default function HomePage() {
       />
       
       {/* Value Proposition - Sustainability Focus */}
-      <ValuePropositionSection />
+      <EnhancedValueProposition />
       
       {/* Featured Products Showcase */}
       <FeaturedProductsSection 

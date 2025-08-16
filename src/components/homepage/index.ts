@@ -5,6 +5,7 @@
 
 export { HeroSection } from './HeroSection'
 export { ValuePropositionSection } from './ValuePropositionSection'
+export { EnhancedValueProposition } from './EnhancedValueProposition'
 export { FeaturedProductsSection } from './FeaturedProductsSection'
 export { CustomizerPreviewSection } from './CustomizerPreviewSection'
 export { default as StyleQuizSection } from './StyleQuizSection'
@@ -17,6 +18,7 @@ export { FeaturedProductsCompact } from './FeaturedProductsSection'
 // Type exports
 export type { HeroSectionProps } from './HeroSection'
 export type { ValuePropositionSectionProps } from './ValuePropositionSection'
+export type { EnhancedValuePropositionProps } from './EnhancedValueProposition'
 export type { FeaturedProductsSectionProps } from './FeaturedProductsSection'
 export type { CustomizerPreviewSectionProps } from './CustomizerPreviewSection'
 export type { StyleQuizSectionProps } from './StyleQuizSection'

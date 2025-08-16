@@ -5,6 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
 import { Button } from '@/components/ui/Button'
+import { EnhancedDiamondProcess } from '@/components/customizer/EnhancedDiamondProcess'
 
 // Component variants following design system
 const sustainabilityVariants = cva(
@@ -493,57 +494,16 @@ export function SustainabilityStorySection({
         </div>
       )}
 
-      {/* Lab Diamond Creation Process */}
+      {/* Enhanced Lab Diamond Creation Process */}
       {showProcess && (
-        <div className="mt-16 lg:mt-20">
-          <div className="text-center mb-12">
-            <H3 className="mb-4">How Lab Diamonds Are Created</H3>
-            <BodyText className="text-foreground max-w-2xl mx-auto">
-              Science meets artistry. Our diamonds grow using the same process as nature, 
-              just faster and more sustainable. No mining required.
-            </BodyText>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-            {processSteps.map((step, index) => (
-              <div 
-                key={index}
-                className={cn(processStepVariants())}
-              >
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center text-2xl mb-4">
-                  {step.icon}
-                </div>
-                <div className="space-y-2">
-                  <H3 className="text-lg font-semibold text-foreground">
-                    {step.title}
-                  </H3>
-                  <BodyText 
-                    size="sm" 
-                    className="text-foreground leading-relaxed"
-                  >
-                    {step.description}
-                  </BodyText>
-                </div>
-                
-                {/* Step Number */}
-                <div className="absolute -top-2 -left-2 w-8 h-8 bg-accent text-background rounded-full flex items-center justify-center text-sm font-bold">
-                  {index + 1}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Process Summary */}
-          <div className="mt-12 text-center">
-            <div className="bg-muted/30 rounded-2xl p-6 max-w-3xl mx-auto">
-              <BodyText className="text-foreground">
-                <span className="font-semibold text-accent">The result?</span> Diamonds with identical 
-                physical, chemical, and optical properties to mined diamonds—but with a story 
-                you can feel good about sharing.
-              </BodyText>
-            </div>
-          </div>
-        </div>
+        <EnhancedDiamondProcess 
+          showTechnicalDetails={true}
+          enableAnimation={true}
+          animationDelay={200}
+          showDuration={false}
+          enableKeyboardNav={true}
+          className="mt-16 lg:mt-20"
+        />
       )}
 
       {/* Certifications & Partnerships */}
