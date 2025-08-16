@@ -43,13 +43,13 @@ const valueCardVariants = cva(
   {
     variants: {
       style: {
-        glassmorphism: 'bg-gradient-to-br from-background/95 to-background/85 backdrop-blur-lg border border-accent/25 rounded-2xl shadow-2xl shadow-accent/15 hover:shadow-accent/25',
-        minimal: 'space-y-8 bg-background/50 rounded-xl border border-accent/10',
-        bordered: 'border-2 border-accent/40 rounded-2xl shadow-xl bg-background/98 hover:border-accent/60'
+        glassmorphism: 'bg-white border border-accent rounded-2xl shadow-xl',
+        minimal: 'space-y-8 bg-white rounded-xl border border-accent',
+        bordered: 'border-2 border-accent rounded-2xl shadow-xl bg-white hover:border-accent'
       },
       state: {
-        default: 'hover:shadow-3xl hover:shadow-accent/30 hover:scale-[1.03] hover:-translate-y-2',
-        active: 'shadow-3xl shadow-accent/30 scale-[1.03] -translate-y-2 border-accent/50 bg-gradient-to-br from-accent/5 to-accent/10',
+        default: 'hover:shadow-xl hover:scale-[1.03] hover:-translate-y-2',
+        active: 'shadow-xl scale-[1.03] -translate-y-2 border-accent bg-muted',
         dimmed: 'opacity-60 scale-98 translate-y-1'
       }
     },
@@ -70,13 +70,13 @@ const iconContainerVariants = cva(
         large: 'w-24 h-24'
       },
       style: {
-        glassmorphism: 'bg-background/30 backdrop-blur-md rounded-full border border-accent/40 shadow-xl shadow-accent/20',
-        gradient: 'bg-gradient-to-br from-accent/20 to-accent/10 rounded-full border border-accent/30',
-        minimal: 'bg-accent/10 rounded-full'
+        glassmorphism: 'bg-white rounded-full border border-accent shadow-xl',
+        gradient: 'bg-muted rounded-full border border-accent',
+        minimal: 'bg-muted rounded-full'
       },
       state: {
-        default: 'group-hover:scale-110 group-hover:shadow-2xl group-hover:shadow-accent/30',
-        floating: 'hover:shadow-2xl hover:shadow-accent/40 hover:scale-115'
+        default: 'group-hover:scale-110 group-hover:shadow-xl',
+        floating: 'hover:shadow-xl hover:scale-115'
       }
     },
     defaultVariants: {
@@ -92,13 +92,13 @@ const trustBadgeVariants = cva(
   {
     variants: {
       style: {
-        glassmorphism: 'bg-gradient-to-r from-background/90 to-background/70 backdrop-blur-md border border-accent/40 shadow-lg shadow-accent/10',
-        accent: 'bg-gradient-to-r from-accent/15 to-accent/10 border border-accent/30 text-accent shadow-accent/20',
-        minimal: 'bg-muted/40 border border-muted/60'
+        glassmorphism: 'bg-white border border-accent shadow-lg',
+        accent: 'bg-white border border-accent text-accent',
+        minimal: 'bg-muted border border-accent'
       },
       state: {
-        default: 'hover:scale-110 hover:shadow-xl hover:shadow-accent/20 hover:border-accent/60 hover:-translate-y-0.5',
-        interactive: 'cursor-pointer hover:bg-accent/25 hover:scale-110 hover:shadow-xl active:scale-105'
+        default: 'hover:scale-110 hover:shadow-xl hover:border-accent hover:-translate-y-0.5',
+        interactive: 'cursor-pointer hover:bg-muted hover:scale-110 hover:shadow-xl active:scale-105'
       }
     },
     defaultVariants: {
@@ -273,18 +273,18 @@ export function EnhancedValueProposition({
       {/* Section Header */}
       <div className="text-center max-w-5xl mx-auto mb-16 lg:mb-20">
         {/* Decorative accent line */}
-        <div className="w-24 h-1 bg-gradient-to-r from-accent/50 via-accent to-accent/50 mx-auto mb-6 rounded-full" />
+        <div className="w-24 h-1 bg-accent mx-auto mb-6 rounded-full" />
         
         <H2 
           id="enhanced-values-heading"
-          className="mb-6 lg:mb-8 font-headline text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight bg-gradient-to-br from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent"
+          className="mb-6 lg:mb-8 font-headline text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-foreground"
         >
           {headline}
         </H2>
         
         <BodyText 
           size="lg" 
-          className="text-foreground/80 max-w-4xl mx-auto leading-relaxed text-lg sm:text-xl lg:text-2xl font-light"
+          className="text-gray-600 max-w-4xl mx-auto leading-relaxed text-lg sm:text-xl lg:text-2xl font-light"
         >
           {description}
         </BodyText>
@@ -292,9 +292,9 @@ export function EnhancedValueProposition({
         {/* Subtle separator */}
         <div className="mt-8 lg:mt-12 flex justify-center">
           <div className="flex space-x-1">
-            <div className="w-2 h-2 bg-accent/60 rounded-full animate-pulse"></div>
-            <div className="w-2 h-2 bg-accent/40 rounded-full animate-pulse delay-75"></div>
-            <div className="w-2 h-2 bg-accent/60 rounded-full animate-pulse delay-150"></div>
+            <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-accent rounded-full animate-pulse delay-75"></div>
+            <div className="w-2 h-2 bg-accent rounded-full animate-pulse delay-150"></div>
           </div>
         </div>
       </div>
@@ -359,8 +359,8 @@ export function EnhancedValueProposition({
               onBlur={() => handleCardInteraction(prop.id, 'leave')}
               onKeyDown={(e) => handleKeyboardNavigation(e, prop.id)}
             >
-              {/* Floating gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Floating background */}
+              <div className="absolute inset-0 bg-muted rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               {/* Icon Container */}
               <div className="relative flex justify-center">
@@ -371,10 +371,10 @@ export function EnhancedValueProposition({
                   />
                   
                   {/* Pulsing ring effect */}
-                  <div className="absolute inset-0 rounded-full border-2 border-accent/30 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500" />
+                  <div className="absolute inset-0 rounded-full border-2 border-accent scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500" />
                   
                   {/* Sparkle effect */}
-                  <div className="absolute inset-0 rounded-full bg-accent/20 scale-0 group-hover:scale-150 transition-transform duration-700 opacity-0 group-hover:opacity-30" />
+                  <div className="absolute inset-0 rounded-full bg-muted scale-0 group-hover:scale-150 transition-transform duration-700 opacity-0 group-hover:opacity-30" />
                 </div>
               </div>
 
@@ -400,10 +400,10 @@ export function EnhancedValueProposition({
                         : 'max-h-0 opacity-0 mt-0'
                     )}
                   >
-                    <div className="pt-3 border-t border-accent/20">
+                    <div className="pt-3 border-t border-accent">
                       <BodyText 
                         size="sm" 
-                        className="text-accent font-medium"
+                        className="text-foreground font-medium"
                       >
                         {prop.details}
                       </BodyText>
@@ -413,7 +413,7 @@ export function EnhancedValueProposition({
               </div>
 
               {/* Trust Signals */}
-              <div className="relative mt-6 pt-4 border-t border-accent/15">
+              <div className="relative mt-6 pt-4 border-t border-accent">
                 <div className="flex flex-wrap gap-3 justify-center">
                   {prop.trustSignals.map((signal, signalIndex) => {
                     const SignalIcon = signal.icon
@@ -430,18 +430,18 @@ export function EnhancedValueProposition({
                         tabIndex={0}
                       >
                         {/* Background glow effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
+                        <div className="absolute inset-0 bg-muted opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
                         
                         <SignalIcon 
-                          className="text-accent group-hover:text-accent/90 transition-colors duration-300 relative z-10" 
+                          className="text-accent transition-colors duration-300 relative z-10" 
                           size={16} 
                         />
-                        <span className="font-semibold text-accent group-hover:text-accent/90 transition-colors duration-300 relative z-10">
+                        <span className="font-semibold text-accent transition-colors duration-300 relative z-10">
                           {signal.text}
                         </span>
                         
                         {/* Shimmer effect */}
-                        <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-500 rounded-full" />
+                        <div className="absolute inset-0 -skew-x-12 bg-white opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-500 rounded-full" />
                       </div>
                     )
                   })}
@@ -456,9 +456,9 @@ export function EnhancedValueProposition({
       <div className={`${mobileBreakpoint}:hidden flex justify-center mt-8 space-x-2`}>
         {valueProps.map((_, index) => (
           <div key={index} className="flex items-center">
-            <div className="w-8 h-1 bg-accent/30 rounded-full" />
+            <div className="w-8 h-1 bg-accent rounded-full" />
             {index < valueProps.length - 1 && (
-              <div className="w-4 h-1 bg-accent/60 mx-1" />
+              <div className="w-4 h-1 bg-accent mx-1" />
             )}
           </div>
         ))}
@@ -467,7 +467,7 @@ export function EnhancedValueProposition({
       {/* Global Trust Signals Section */}
       {showTrustSignals && (
         <div className="mt-16 lg:mt-20 text-center">
-          <div className="bg-background/30 backdrop-blur-md border border-accent/30 rounded-3xl p-6 lg:p-8 max-w-5xl mx-auto shadow-2xl shadow-accent/10">
+          <div className="bg-muted border border-accent rounded-3xl p-6 lg:p-8 max-w-5xl mx-auto shadow-xl">
             <MutedText className="mb-6 block text-lg">
               Join thousands who choose conscious luxury
             </MutedText>
@@ -484,17 +484,17 @@ export function EnhancedValueProposition({
                 return (
                   <div 
                     key={index}
-                    className="group p-4 rounded-2xl bg-background/20 backdrop-blur-sm border border-accent/20 hover:border-accent/40 transition-all duration-300 hover:scale-105"
+                    className="group p-4 rounded-2xl bg-white border border-accent hover:border-accent transition-all duration-300 hover:scale-105"
                   >
                     <div className="flex flex-col items-center space-y-2">
-                      <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                         <ItemIcon className="text-accent" size={20} />
                       </div>
                       <div className="text-center">
                         <div className="font-semibold text-foreground text-sm">
                           {item.text}
                         </div>
-                        <MutedText size="xs" className="text-foreground/70">
+                        <MutedText size="xs" className="text-gray-600">
                           {item.subtitle}
                         </MutedText>
                       </div>
