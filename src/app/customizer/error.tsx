@@ -49,10 +49,10 @@ export default function CustomizerError({
 
         {/* Error Content */}
         <div className="space-y-4">
-          <H1 className="text-foreground">Oops! Something went wrong</H1>
+          <H1 className="text-foreground">Hang tight! The customizer is taking a moment</H1>
           <MutedText className="text-lg">
-            We're having trouble loading the jewelry customizer. 
-            This might be a temporary issue with our 3D viewer or network connectivity.
+            Our 3D design tools are having a brief hiccup. 
+            No worries - this usually fixes itself in a few seconds.
           </MutedText>
         </div>
 

@@ -11,6 +11,8 @@ import { H1, H2, BodyText } from '@/components/foundation/Typography'
 import type { ProductBase } from '@/types/customizer'
 
 // Enhanced mock product data with more details
+import Image from 'next/image'
+
 const sampleProducts: ProductBase[] = [
   {
     _id: 'eternal-solitaire-ring',

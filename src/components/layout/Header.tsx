@@ -1,233 +1,265 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Search, ShoppingCart, User, Menu, X, Heart } from 'lucide-react'
+import { 
+  Search, 
+  ShoppingCart, 
+  Heart, 
+  Menu,
+  User,
+  Sparkles,
+  Star,
+  Package,
+  Shield,
+  Award,
+  ChevronDown
+} from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
-import { H4, BodyText } from '@/components/foundation/Typography'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+import { LuxuryMegaMenu } from '@/components/navigation/LuxuryMegaMenu'
+import { MobileLuxuryDrawer } from '@/components/navigation/MobileLuxuryDrawer'
+import { WishlistButton } from '@/components/wishlist/WishlistButton'
+import { useWishlist } from '@/hooks/useWishlist'
 
 interface HeaderProps {
   className?: string
 }
 
+// Maintain current navigation hierarchy with value-focused icons
 const navigationCategories = [
-  { name: 'Rings', href: '/rings', subcategories: ['Engagement', 'Wedding', 'Fashion', 'Men\'s'] },
-  { name: 'Necklaces', href: '/necklaces', subcategories: ['Pendants', 'Chains', 'Chokers', 'Statement'] },
-  { name: 'Earrings', href: '/earrings', subcategories: ['Studs', 'Hoops', 'Drop', 'Climbers'] },
-  { name: 'Bracelets', href: '/bracelets', subcategories: ['Tennis', 'Chain', 'Cuff', 'Charm'] },
+  { 
+    name: 'Rings', 
+    href: '/rings', 
+    subcategories: ['Engagement', 'Wedding', 'Fashion', 'Men\'s'],
+    featured: 'New: Lab Diamond Solitaires',
+    icon: '✨'
+  },
+  { 
+    name: 'Necklaces', 
+    href: '/necklaces', 
+    subcategories: ['Pendants', 'Chains', 'Chokers', 'Statement'],
+    featured: 'Trending: Layered Sets',
+    icon: '🎨'
+  },
+  { 
+    name: 'Earrings', 
+    href: '/earrings', 
+    subcategories: ['Studs', 'Hoops', 'Drop', 'Climbers'],
+    featured: 'Bestseller: Diamond Studs',
+    icon: '💎'
+  },
+  { 
+    name: 'Bracelets', 
+    href: '/bracelets', 
+    subcategories: ['Tennis', 'Chain', 'Cuff', 'Charm'],
+    featured: 'Popular: Tennis Bracelets',
+    icon: '🌱'
+  },
+  { 
+    name: 'Sustainability', 
+    href: '/sustainability',
+    subcategories: [],
+    featured: 'Our Commitment',
+    icon: '♻️'
+  }
 ]
 
 export function Header({ className }: HeaderProps) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
+  const [scrolled, setScrolled] = useState(false)
+  const [cartCount, setCartCount] = useState(2)
+  const { getWishlistCount } = useWishlist()
+  const wishlistCount = getWishlistCount()
 
-  const cartItemCount = 0 // TODO: Connect to cart state
-  const wishlistCount = 0 // TODO: Connect to wishlist state
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const handleCategoryHover = (category: string) => {
+    setHoveredCategory(category)
+    setActiveMegaMenu(category)
+  }
+
+  const handleMouseLeave = () => {
+    setHoveredCategory(null)
+    setActiveMegaMenu(null)
+  }
 
   return (
-    <header className={cn(
-      'sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
-      className
-    )}>
-      {/* Top announcement bar */}
-      <div className="w-full bg-accent text-foreground">
+    <>
+      {/* Top Announcement Bar */}
+      <div className="bg-foreground text-background">
         <div className="container mx-auto px-4 py-2">
-          <BodyText size="sm" className="text-center font-medium">
-            Free shipping on orders over $500 • Lab-grown diamonds • Sustainable luxury
-          </BodyText>
+          <div className="flex items-center justify-center gap-6 text-xs">
+            <div className="flex items-center gap-1">
+              <Package className="w-3 h-3" />
+              <span>Free Shipping on Orders $500+</span>
+            </div>
+            <div className="hidden md:flex items-center gap-1">
+              <Shield className="w-3 h-3" />
+              <span>Lifetime Warranty</span>
+            </div>
+            <div className="hidden md:flex items-center gap-1">
+              <Award className="w-3 h-3" />
+              <span>Certified Lab Diamonds</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Star className="w-3 h-3 fill-current" />
+              <span>4.9/5 from 12,000+ Reviews</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Main header */}
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          {/* Mobile menu button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </Button>
+      {/* Navigation Container */}
+      <div className="relative">
+        {/* Main Header */}
+        <header 
+          className={cn(
+            "sticky top-0 z-50 bg-background transition-all duration-300",
+            scrolled ? "shadow-lg py-0" : "py-0",
+            className
+          )}
+        >
 
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="block">
-              <H4 className="font-headline font-bold text-foreground">
-                GlowGlitch
-              </H4>
-            </Link>
-          </div>
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between">
+              {/* Mobile Menu */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                onClick={() => setMobileMenuOpen(true)}
+                aria-label="Open menu"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
 
-          {/* Desktop navigation */}
-          <nav className="hidden md:block">
-            <ul className="flex items-center space-x-8">
-              {navigationCategories.map((category) => (
-                <li
-                  key={category.name}
-                  className="relative"
-                  onMouseEnter={() => setHoveredCategory(category.name)}
-                  onMouseLeave={() => setHoveredCategory(null)}
-                >
-                  <Link
-                    href={category.href}
-                    className="font-body font-medium text-foreground hover:text-cta transition-colors"
+              {/* Logo */}
+              <Link href="/" className="flex items-center space-x-2">
+                <img src="/glitchglow_logo_empty_green.png" alt="GlowGlitch Logo" className="h-32" />
+              </Link>
+
+              {/* Desktop Navigation */}
+              <nav 
+                className="hidden md:flex items-center space-x-1"
+                onMouseLeave={handleMouseLeave}
+              >
+                {navigationCategories.map((category) => (
+                  <div
+                    key={category.name}
+                    className="relative"
+                    onMouseEnter={() => handleCategoryHover(category.name)}
                   >
-                    {category.name}
-                  </Link>
-                  
-                  {/* Dropdown menu */}
-                  {hoveredCategory === category.name && (
-                    <div className="absolute top-full left-0 mt-2 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50">
-                      {category.subcategories.map((subcategory) => (
-                        <Link
-                          key={subcategory}
-                          href={`${category.href}/${subcategory.toLowerCase().replace(' ', '-')}`}
-                          className="block px-4 py-2 text-sm font-body text-foreground hover:bg-muted transition-colors"
-                        >
-                          {subcategory}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </li>
-              ))}
-              <li>
-                <Link
-                  href="/sustainability"
-                  className="font-body font-medium text-foreground hover:text-cta transition-colors"
+                    <Button
+                      variant="ghost"
+                      className={cn(
+                        "px-4 py-2 rounded-none border-b-2 transition-all duration-200",
+                        hoveredCategory === category.name
+                          ? "border-accent text-accent bg-muted"
+                          : "border-transparent hover:text-accent"
+                      )}
+                    >
+                      <span className="text-sm font-medium tracking-wide">
+                        {category.name.toUpperCase()}
+                      </span>
+                      <ChevronDown className={cn(
+                        "ml-1 h-3 w-3 transition-transform duration-200",
+                        hoveredCategory === category.name && "rotate-180"
+                      )} />
+                    </Button>
+                    
+                    {/* Featured Badge */}
+                    {hoveredCategory === category.name && category.featured && (
+                      <div className="absolute top-full left-0 mt-2 z-10">
+                        <Badge className="bg-accent text-foreground text-xs whitespace-nowrap">
+                          {category.featured}
+                        </Badge>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </nav>
+
+              {/* Right Actions */}
+              <div className="flex items-center space-x-3">
+                {/* Search */}
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="hover:bg-muted hover:text-accent"
+                  aria-label="Search"
                 >
-                  Sustainability
-                </Link>
-              </li>
-            </ul>
-          </nav>
+                  <Search className="h-5 w-5" />
+                </Button>
 
-          {/* Search bar (desktop) */}
-          <div className="hidden lg:block flex-1 max-w-md mx-8">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
-              <Input
-                type="search"
-                placeholder="Find Your Signature Piece"
-                className="pl-10 pr-4"
-              />
+                {/* Account */}
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="hidden md:flex hover:bg-muted hover:text-accent"
+                  aria-label="Account"
+                >
+                  <User className="h-5 w-5" />
+                </Button>
+
+                {/* Wishlist */}
+                <WishlistButton 
+                  showCount={true}
+                  variant="icon"
+                  className="hover:bg-muted hover:text-accent"
+                />
+
+                {/* Cart */}
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="relative hover:bg-muted hover:text-accent"
+                  aria-label={`Cart - ${cartCount} items`}
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  {cartCount > 0 && (
+                    <Badge 
+                      className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-accent text-foreground"
+                    >
+                      {cartCount}
+                    </Badge>
+                  )}
+                </Button>
+
+                {/* CTA Button */}
+                <Button 
+                  variant="primary"
+                  className="hidden md:flex"
+                >
+                  Start Designing
+                </Button>
+              </div>
             </div>
           </div>
-
-          {/* Action buttons */}
-          <div className="flex items-center space-x-2">
-            {/* Mobile search toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden"
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              aria-label="Toggle search"
-            >
-              <Search size={20} />
-            </Button>
-
-            {/* Wishlist */}
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/wishlist" aria-label={`Wishlist (${wishlistCount} items)`}>
-                <div className="relative">
-                  <Heart size={20} />
-                  {wishlistCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-cta text-background text-2xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                      {wishlistCount > 9 ? '9+' : wishlistCount}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            </Button>
-
-            {/* Shopping cart */}
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/cart" aria-label={`Shopping cart (${cartItemCount} items)`}>
-                <div className="relative">
-                  <ShoppingCart size={20} />
-                  {cartItemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-cta text-background text-2xs font-semibold rounded-full w-4 h-4 flex items-center justify-center">
-                      {cartItemCount > 9 ? '9+' : cartItemCount}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            </Button>
-
-            {/* User account */}
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/account" aria-label="User account">
-                <User size={20} />
-              </Link>
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile search bar */}
-        {isSearchOpen && (
-          <div className="lg:hidden pb-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
-              <Input
-                type="search"
-                placeholder="Find Your Signature Piece"
-                className="pl-10 pr-4"
-                autoFocus
-              />
-            </div>
-          </div>
-        )}
+        </header>
+        
+        {/* Luxury Mega Menu */}
+        <LuxuryMegaMenu 
+          activeCategory={activeMegaMenu}
+          onClose={() => setActiveMegaMenu(null)}
+        />
       </div>
-
-      {/* Mobile menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background">
-          <nav className="container mx-auto px-4 py-4">
-            <ul className="space-y-4">
-              {navigationCategories.map((category) => (
-                <li key={category.name}>
-                  <Link
-                    href={category.href}
-                    className="block font-body font-medium text-foreground hover:text-cta transition-colors py-2"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {category.name}
-                  </Link>
-                  <ul className="ml-4 mt-2 space-y-2">
-                    {category.subcategories.map((subcategory) => (
-                      <li key={subcategory}>
-                        <Link
-                          href={`${category.href}/${subcategory.toLowerCase().replace(' ', '-')}`}
-                          className="block font-body text-sm text-gray-600 hover:text-foreground transition-colors py-1"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          {subcategory}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-              <li>
-                <Link
-                  href="/sustainability"
-                  className="block font-body font-medium text-foreground hover:text-cta transition-colors py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Sustainability
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      )}
-    </header>
+      
+      {/* Mobile Luxury Drawer */}
+      <MobileLuxuryDrawer 
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+      />
+    </>
   )
 }
+

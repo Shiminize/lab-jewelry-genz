@@ -25,6 +25,10 @@ const ProductSubcategorySchema = z.enum([
 const SortBySchema = z.enum(['price', 'name', 'popularity', 'newest', 'rating'])
 const SortOrderSchema = z.enum(['asc', 'desc'])
 
+// Valid material types for filtering
+const MetalTypeSchema = z.enum(['silver', '14k-gold', '18k-gold', 'platinum'])
+const StoneTypeSchema = z.enum(['lab-diamond', 'moissanite', 'lab-emerald', 'lab-ruby', 'lab-sapphire'])
+
 // Product search/filter query parameters schema
 export const ProductQuerySchema = z.object({
   // Search
@@ -60,7 +64,24 @@ export const ProductQuerySchema = z.object({
   minPrice: z.coerce.number().min(0).optional(),
   maxPrice: z.coerce.number().min(0).optional(),
   
-  // Material and customization filters
+  // Enhanced Material Filtering (CLAUDE_RULES compliant)
+  metals: z.string().optional().transform((val) => 
+    val ? val.split(',').filter(Boolean).filter((metal) => 
+      MetalTypeSchema.safeParse(metal).success
+    ) : undefined
+  ),
+  stones: z.string().optional().transform((val) => 
+    val ? val.split(',').filter(Boolean).filter((stone) => 
+      StoneTypeSchema.safeParse(stone).success
+    ) : undefined
+  ),
+  caratMin: z.coerce.number().positive().optional(),
+  caratMax: z.coerce.number().positive().optional(),
+  materialTags: z.string().optional().transform((val) => 
+    val ? val.split(',').filter(Boolean) : undefined
+  ),
+  
+  // Legacy material and customization filters (maintained for backward compatibility)
   materials: z.string().optional().transform((val) => 
     val ? val.split(',').filter(Boolean) : undefined
   ),
@@ -95,6 +116,11 @@ export const ProductQuerySchema = z.object({
     throw new Error('minPrice cannot be greater than maxPrice')
   }
   
+  // Validate carat range logic
+  if (data.caratMin && data.caratMax && data.caratMin > data.caratMax) {
+    throw new Error('caratMin cannot be greater than caratMax')
+  }
+  
   return {
     ...data,
     // Merge q and query for backward compatibility
@@ -106,6 +132,15 @@ export const ProductQuerySchema = z.object({
         min: data.minPrice || 0,
         max: data.maxPrice || Number.MAX_SAFE_INTEGER
       } : undefined,
+      // Enhanced material filtering
+      metals: data.metals,
+      stones: data.stones,
+      caratRange: (data.caratMin !== undefined || data.caratMax !== undefined) ? {
+        min: data.caratMin || 0,
+        max: data.caratMax || Number.MAX_SAFE_INTEGER
+      } : undefined,
+      materialTags: data.materialTags,
+      // Legacy filters (backward compatibility)
       materials: data.materials,
       gemstones: data.gemstones,
       sizes: data.sizes,

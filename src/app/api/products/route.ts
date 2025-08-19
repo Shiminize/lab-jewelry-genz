@@ -6,8 +6,8 @@
 
 import { NextRequest } from 'next/server'
 import { ZodError } from 'zod'
-import { productRepository } from '@/lib/database'
-import { ProductSearchParams } from '@/types/product'
+import { productRepository } from '@/lib/repositories/product.repository'
+import { ProductSearchParams } from '@/types/product-dto'
 import { 
   createSuccessResponse, 
   createErrorResponse, 
@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
     const result = await productRepository.searchProducts(searchParamsForRepo)
     const responseTime = Date.now() - startTime
 
-    // Create CLAUDE_RULES compliant response
+    // Create CLAUDE_RULES compliant response with enhanced metadata
     const response = createSuccessResponse(
       result.products,
       {
@@ -71,6 +71,29 @@ export async function GET(request: NextRequest) {
         limit: result.pagination.limit,
         total: result.pagination.total,
         totalPages: result.pagination.totalPages
+      },
+      // Enhanced meta information for material filtering
+      {
+        timestamp: new Date().toISOString(),
+        version: '2.0.0',
+        responseTime: `${responseTime}ms`,
+        filters: {
+          applied: {
+            metals: validatedParams.filters?.metals,
+            stones: validatedParams.filters?.stones,
+            caratRange: validatedParams.filters?.caratRange,
+            materialTags: validatedParams.filters?.materialTags,
+            category: validatedParams.filters?.category,
+            priceRange: validatedParams.filters?.priceRange
+          },
+          available: result.filters?.available || {}
+        },
+        materialFilteringSupported: true,
+        performance: {
+          query: `${responseTime}ms`,
+          target: '<300ms',
+          compliant: responseTime < 300
+        }
       }
     )
 

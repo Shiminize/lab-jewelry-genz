@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Moissanite Hero - Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#ffffff',
+                        foreground: '#0f172a',
+                        muted: '#f1f5f9',
+                        accent: '#e2e8f0',
+                        cta: '#3b82f6'
+                    },
+                    fontFamily: {
+                        headline: ['Inter', 'system-ui', 'sans-serif'],
+                        body: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .group:hover .group-hover\:translate-x-1 {
+            transform: translateX(0.25rem);
+        }
+        .group:hover .group-hover\:rotate-12 {
+            transform: rotate(12deg);
+        }
+        .hover\:scale-110:hover {
+            transform: scale(1.1);
+        }
+        .transition-transform {
+            transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .transition-colors {
+            transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-background">
+    <section class="relative min-h-screen bg-background overflow-hidden">
+        <!-- Background Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-background via-muted/20 to-background"></div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-accent/20 rounded-full animate-pulse"></div>
+            <div class="absolute top-3/4 right-1/3 w-1 h-1 bg-cta/30 rounded-full animate-pulse" style="animation-delay: 1000ms;"></div>
+            <div class="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-accent/20 rounded-full animate-pulse" style="animation-delay: 500ms;"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-4 h-screen flex items-center">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
+                <!-- Content Side -->
+                <div class="space-y-8">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center space-x-2 bg-cta/10 text-cta px-4 py-2 rounded-full text-sm font-medium">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>Volume Collection: Moissanite + 925 Silver</span>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <div class="space-y-4">
+                        <h1 class="text-foreground bg-background font-headline font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight">
+                            Sustainable Sparkle,
+                            <br>
+                            <span class="text-cta">Accessible Luxury</span>
+                        </h1>
+                        
+                        <p class="text-gray-600 bg-background font-body text-lg sm:text-xl leading-relaxed max-w-xl">
+                            Discover our signature Moissanite collection in premium 925 silver. 
+                            <strong class="text-foreground bg-background"> 90% more sustainable</strong> than mined diamonds, 
+                            <strong class="text-foreground bg-background"> 70% more affordable</strong> than traditional luxury.
+                        </p>
+                    </div>
+
+                    <!-- Key Benefits -->
+                    <div class="grid grid-cols-3 gap-4 py-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-cta bg-background">2.5x</div>
+                            <div class="text-sm text-gray-600 bg-background">Brighter Than Diamond</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-cta bg-background">925</div>
+                            <div class="text-sm text-gray-600 bg-background">Premium Silver</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-cta bg-background">3D</div>
+                            <div class="text-sm text-gray-600 bg-background">Custom Design</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="group bg-cta text-white px-6 py-3 rounded-lg font-medium transition-colors hover:bg-cta/90 flex items-center justify-center">
+                            <span>Explore Moissanite Collection</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                        
+                        <button class="group bg-gray-100 text-foreground px-6 py-3 rounded-lg font-medium transition-colors hover:bg-gray-200 flex items-center justify-center">
+                            <i data-lucide="sparkles" class="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform"></i>
+                            <span>Design Your Piece</span>
+                        </button>
+                    </div>
+
+                    <!-- Social Proof -->
+                    <div class="pt-4 border-t border-gray-200">
+                        <div class="flex items-center space-x-6 text-sm text-gray-600 bg-background">
+                            <div class="flex items-center space-x-2">
+                                <div class="flex -space-x-1">
+                                    <div class="w-6 h-6 rounded-full bg-cta/20 border-2 border-background"></div>
+                                    <div class="w-6 h-6 rounded-full bg-accent/20 border-2 border-background"></div>
+                                    <div class="w-6 h-6 rounded-full bg-cta/30 border-2 border-background"></div>
+                                </div>
+                                <span>12k+ happy customers</span>
+                            </div>
+                            <div>★★★★★ 4.9/5 rating</div>
+                            <div>500+ creators earning 30%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Side -->
+                <div class="relative">
+                    <!-- Main Product Showcase -->
+                    <div class="relative">
+                        <div class="aspect-square bg-gradient-to-br from-muted to-background rounded-3xl p-8 shadow-lg">
+                            <div class="w-full h-full bg-white rounded-2xl flex items-center justify-center relative overflow-hidden">
+                                
+                                <!-- Placeholder for 3D Model/Product Image -->
+                                <div class="text-center space-y-4">
+                                    <div class="w-32 h-32 mx-auto bg-gradient-to-br from-accent/20 to-cta/20 rounded-full flex items-center justify-center">
+                                        <i data-lucide="sparkles" class="w-16 h-16 text-cta"></i>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <h3 class="text-foreground bg-white font-semibold text-lg">Moissanite Solitaire Ring</h3>
+                                        <p class="text-gray-600 bg-white text-sm">Premium 925 Silver • 1.5ct Equivalent</p>
+                                        <p class="text-cta bg-white font-bold text-xl">$299</p>
+                                    </div>
+                                </div>
+
+                                <!-- 3D Demo Button -->
+                                <button class="absolute top-4 right-4 w-10 h-10 bg-foreground text-background rounded-full flex items-center justify-center hover:scale-110 transition-transform" aria-label="Watch 3D customization demo">
+                                    <i data-lucide="play" class="w-5 h-5 ml-0.5"></i>
+                                </button>
+
+                                <!-- Interactive Badge -->
+                                <div class="absolute bottom-4 left-4 bg-foreground text-background px-3 py-1 rounded-full text-xs font-medium">
+                                    ↻ Rotate to view 360°
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Action Cards -->
+                        <div class="absolute -bottom-4 -left-4 bg-white shadow-lg rounded-xl p-4 border border-gray-100">
+                            <div class="text-center space-y-1">
+                                <div class="text-cta bg-white font-bold text-lg">70%</div>
+                                <div class="text-gray-600 bg-white text-xs">More Affordable</div>
+                            </div>
+                        </div>
+
+                        <div class="absolute -top-4 -right-4 bg-white shadow-lg rounded-xl p-4 border border-gray-100">
+                            <div class="text-center space-y-1">
+                                <div class="text-accent bg-white font-bold text-lg">0g</div>
+                                <div class="text-gray-600 bg-white text-xs">Carbon Footprint</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Secondary Products -->
+                    <div class="mt-8 grid grid-cols-3 gap-4">
+                        <div class="aspect-square bg-muted rounded-xl p-4 flex flex-col items-center justify-center space-y-2 hover:bg-gray-100 transition-colors cursor-pointer">
+                            <div class="w-8 h-8 bg-cta/20 rounded-full flex items-center justify-center">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-cta"></i>
+                            </div>
+                            <span class="text-foreground bg-muted text-xs font-medium">Earrings</span>
+                        </div>
+                        <div class="aspect-square bg-muted rounded-xl p-4 flex flex-col items-center justify-center space-y-2 hover:bg-gray-100 transition-colors cursor-pointer">
+                            <div class="w-8 h-8 bg-cta/20 rounded-full flex items-center justify-center">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-cta"></i>
+                            </div>
+                            <span class="text-foreground bg-muted text-xs font-medium">Necklace</span>
+                        </div>
+                        <div class="aspect-square bg-muted rounded-xl p-4 flex flex-col items-center justify-center space-y-2 hover:bg-gray-100 transition-colors cursor-pointer">
+                            <div class="w-8 h-8 bg-cta/20 rounded-full flex items-center justify-center">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-cta"></i>
+                            </div>
+                            <span class="text-foreground bg-muted text-xs font-medium">Bracelet</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+            <div class="text-gray-600 bg-background text-sm mb-2">Discover More</div>
+            <div class="w-px h-8 bg-gray-300 mx-auto animate-pulse"></div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Add click handlers for demo purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('Demo: ' + this.textContent.trim() + ' clicked!');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

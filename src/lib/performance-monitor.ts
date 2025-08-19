@@ -1,239 +1,439 @@
 /**
- * Performance Monitoring System for 3D/AR Viewers
- * Real-time tracking of rendering performance and user experience
+ * Performance Monitoring System - Phase 4C Production Optimization
+ * Comprehensive performance tracking, alerts, and optimization for customizer system
+ * Implements CLAUDE_RULES <300ms response time requirements
  */
 
-export interface PerformanceMetrics {
+// Performance metrics interfaces
+export interface PerformanceMetric {
+  name: string
+  value: number
+  unit: 'ms' | 'bytes' | 'count' | 'percentage' | 'score'
+  timestamp: Date
+  labels: Record<string, string>
+  threshold?: {
+    warning: number
+    critical: number
+  }
+}
+
+export interface ComponentPerformance {
+  componentName: string
+  mountTime: number
   renderTime: number
-  frameRate: number
-  memoryUsage: number
-  textureLoadTime: number
-  interactionLatency: number
-  errors: number
-  mode: 'sequences' | 'threejs' | 'ar'
-  deviceTier: string
-  timestamp: number
+  updateCount: number
+  errorCount: number
+  memoryUsage?: number
+  childComponents: string[]
+  customMetrics: Record<string, number>
 }
 
-export interface PerformanceThresholds {
-  maxRenderTime: number
-  minFrameRate: number
-  maxMemoryUsage: number
-  maxInteractionLatency: number
+export interface APIPerformance {
+  endpoint: string
+  method: string
+  responseTime: number
+  status: number
+  cached: boolean
+  dataSize: number
+  retryCount: number
+  errorType?: string
 }
 
+export interface CustomizerPerformance {
+  sessionId: string
+  mode: 'database' | 'hardcoded' | 'hybrid'
+  variantLoadTime: number
+  materialSwitchTime: number
+  priceCalculationTime: number
+  assetLoadTime: number
+  totalInteractions: number
+  errorRate: number
+  cacheHitRate: number
+}
+
+// Performance thresholds based on CLAUDE_RULES
+export const PERFORMANCE_THRESHOLDS = {
+  API_RESPONSE_TIME: {
+    warning: 200, // ms
+    critical: 300  // ms - CLAUDE_RULES requirement
+  },
+  COMPONENT_MOUNT: {
+    warning: 100,
+    critical: 200
+  },
+  COMPONENT_RENDER: {
+    warning: 16.67, // 60fps
+    critical: 33.33  // 30fps
+  },
+  VARIANT_SWITCH: {
+    warning: 150,
+    critical: 250
+  },
+  ASSET_LOAD: {
+    warning: 1000,
+    critical: 2000
+  },
+  MEMORY_USAGE: {
+    warning: 50 * 1024 * 1024, // 50MB
+    critical: 100 * 1024 * 1024 // 100MB
+  },
+  ERROR_RATE: {
+    warning: 0.01, // 1%
+    critical: 0.05  // 5%
+  },
+  CACHE_HIT_RATE: {
+    warning: 0.7,  // 70%
+    critical: 0.5  // 50%
+  }
+}
+
+// Alert interface
+export interface PerformanceAlert {
+  severity: 'warning' | 'critical'
+  type: 'performance' | 'error' | 'availability'
+  message: string
+  metric: string
+  value: number
+  threshold: number
+  timestamp: Date
+  labels?: Record<string, string>
+}
+
+/**
+ * Performance monitoring service
+ */
 export class PerformanceMonitor {
-  private metrics: PerformanceMetrics[] = []
-  private currentMetrics: Partial<PerformanceMetrics> = {}
-  private frameCount = 0
-  private lastFrameTime = 0
-  private observers: ((metrics: PerformanceMetrics) => void)[] = []
-  
-  private thresholds: PerformanceThresholds = {
-    maxRenderTime: 16.67, // 60fps target
-    minFrameRate: 30,
-    maxMemoryUsage: 100, // MB
-    maxInteractionLatency: 100 // ms
-  }
+  private static instance: PerformanceMonitor
+  private metrics: Map<string, PerformanceMetric[]> = new Map()
+  private componentMetrics: Map<string, ComponentPerformance> = new Map()
+  private apiMetrics: APIPerformance[] = []
+  private customizerMetrics: Map<string, CustomizerPerformance> = new Map()
+  private observers: PerformanceObserver[] = []
+  private alertCallbacks: Array<(alert: PerformanceAlert) => void> = []
+  private isEnabled: boolean = true
+  private maxMetricsAge: number = 30 * 60 * 1000 // 30 minutes
+  private maxMetricsCount: number = 1000
+  private recentAlerts: PerformanceAlert[] = []
 
-  startTracking(mode: 'sequences' | 'threejs' | 'ar', deviceTier: string) {
-    this.currentMetrics = {
-      mode,
-      deviceTier,
-      timestamp: performance.now(),
-      errors: 0,
-      frameRate: 0,
-      renderTime: 0,
-      memoryUsage: 0,
-      textureLoadTime: 0,
-      interactionLatency: 0
+  constructor() {
+    if (typeof window !== 'undefined') {
+      this.initializeBrowserMonitoring()
     }
-    
-    this.frameCount = 0
-    this.lastFrameTime = performance.now()
-    
-    // Start frame rate monitoring
-    this.monitorFrameRate()
-    
-    console.log(`📊 Performance tracking started for ${mode} mode`)
   }
 
-  recordRenderTime(time: number) {
-    this.currentMetrics.renderTime = time
+  public static getInstance(): PerformanceMonitor {
+    if (!PerformanceMonitor.instance) {
+      PerformanceMonitor.instance = new PerformanceMonitor()
+    }
+    return PerformanceMonitor.instance
   }
 
-  recordTextureLoadTime(time: number) {
-    this.currentMetrics.textureLoadTime = time
-  }
-
-  recordInteractionLatency(time: number) {
-    this.currentMetrics.interactionLatency = time
-  }
-
-  recordError() {
-    this.currentMetrics.errors = (this.currentMetrics.errors || 0) + 1
-  }
-
-  private monitorFrameRate() {
-    const measureFrame = () => {
-      const now = performance.now()
-      const frameDelta = now - this.lastFrameTime
-      this.lastFrameTime = now
-      this.frameCount++
-      
-      // Calculate FPS every 60 frames
-      if (this.frameCount % 60 === 0) {
-        const fps = 1000 / frameDelta
-        this.currentMetrics.frameRate = Math.round(fps)
+  /**
+   * Initialize browser-specific performance monitoring
+   */
+  private initializeBrowserMonitoring(): void {
+    try {
+      // Memory monitoring (if available)
+      if ('memory' in performance) {
+        setInterval(() => {
+          this.recordMemoryMetrics()
+        }, 10000) // Every 10 seconds
       }
-      
-      // Record render time
-      this.recordRenderTime(frameDelta)
-      
-      // Continue monitoring if tracking is active
-      if (this.currentMetrics.timestamp) {
-        requestAnimationFrame(measureFrame)
-      }
-    }
-    
-    requestAnimationFrame(measureFrame)
-  }
-
-  recordMemoryUsage() {
-    if ('memory' in (performance as any)) {
-      const memory = (performance as any).memory
-      this.currentMetrics.memoryUsage = Math.round(memory.usedJSHeapSize / (1024 * 1024))
+    } catch (error) {
+      console.warn('[PerformanceMonitor] Browser monitoring initialization failed:', error)
     }
   }
 
-  stopTracking(): PerformanceMetrics | null {
-    if (!this.currentMetrics.timestamp) return null
+  /**
+   * Record a performance metric
+   */
+  public recordMetric(metric: PerformanceMetric): void {
+    if (!this.isEnabled) return
+
+    const key = `${metric.name}_${Object.values(metric.labels).join('_')}`
     
-    // Record final memory usage
-    this.recordMemoryUsage()
-    
-    const finalMetrics: PerformanceMetrics = {
-      renderTime: this.currentMetrics.renderTime || 0,
-      frameRate: this.currentMetrics.frameRate || 0,
-      memoryUsage: this.currentMetrics.memoryUsage || 0,
-      textureLoadTime: this.currentMetrics.textureLoadTime || 0,
-      interactionLatency: this.currentMetrics.interactionLatency || 0,
-      errors: this.currentMetrics.errors || 0,
-      mode: this.currentMetrics.mode || 'sequences',
-      deviceTier: this.currentMetrics.deviceTier || 'unknown',
-      timestamp: this.currentMetrics.timestamp
+    if (!this.metrics.has(key)) {
+      this.metrics.set(key, [])
     }
-    
-    this.metrics.push(finalMetrics)
-    this.notifyObservers(finalMetrics)
-    
-    // Reset current tracking
-    this.currentMetrics = {}
-    
-    console.log('📈 Performance tracking stopped:', finalMetrics)
-    return finalMetrics
+
+    const metrics = this.metrics.get(key)!
+    metrics.push(metric)
+
+    // Maintain metrics size
+    if (metrics.length > this.maxMetricsCount) {
+      metrics.shift()
+    }
+
+    // Check thresholds and alert
+    this.checkThresholds(metric)
+
+    // Clean old metrics
+    this.cleanOldMetrics()
   }
 
-  getMetrics(): PerformanceMetrics[] {
-    return [...this.metrics]
+  /**
+   * Record component performance
+   */
+  public recordComponentMetrics(metrics: ComponentPerformance): void {
+    if (!this.isEnabled) return
+
+    this.componentMetrics.set(metrics.componentName, metrics)
+
+    // Record as general metrics
+    this.recordMetric({
+      name: 'component_mount_time',
+      value: metrics.mountTime,
+      unit: 'ms',
+      timestamp: new Date(),
+      labels: { component: metrics.componentName },
+      threshold: PERFORMANCE_THRESHOLDS.COMPONENT_MOUNT
+    })
+
+    this.recordMetric({
+      name: 'component_render_time',
+      value: metrics.renderTime,
+      unit: 'ms',
+      timestamp: new Date(),
+      labels: { component: metrics.componentName },
+      threshold: PERFORMANCE_THRESHOLDS.COMPONENT_RENDER
+    })
   }
 
-  getLatestMetrics(): PerformanceMetrics | null {
-    return this.metrics[this.metrics.length - 1] || null
+  /**
+   * Record API performance
+   */
+  public recordAPIMetrics(metrics: APIPerformance): void {
+    if (!this.isEnabled) return
+
+    this.apiMetrics.push(metrics)
+
+    // Maintain API metrics size
+    if (this.apiMetrics.length > this.maxMetricsCount) {
+      this.apiMetrics.shift()
+    }
+
+    // Record as general metrics
+    this.recordMetric({
+      name: 'api_response_time',
+      value: metrics.responseTime,
+      unit: 'ms',
+      timestamp: new Date(),
+      labels: { 
+        endpoint: metrics.endpoint,
+        method: metrics.method,
+        status: metrics.status.toString(),
+        cached: metrics.cached.toString()
+      },
+      threshold: PERFORMANCE_THRESHOLDS.API_RESPONSE_TIME
+    })
   }
 
-  analyzePerformance(): {
-    status: 'excellent' | 'good' | 'poor' | 'critical'
-    issues: string[]
-    recommendations: string[]
+  /**
+   * Start timing a performance measurement
+   */
+  public startTiming(name: string, labels: Record<string, string> = {}): () => void {
+    const startTime = performance.now()
+    
+    return () => {
+      const duration = performance.now() - startTime
+
+      this.recordMetric({
+        name,
+        value: duration,
+        unit: 'ms',
+        timestamp: new Date(),
+        labels
+      })
+
+      return duration
+    }
+  }
+
+  /**
+   * Get performance summary
+   */
+  public getPerformanceSummary(): {
+    overall: any
+    components: ComponentPerformance[]
+    apis: { endpoint: string; avgResponseTime: number; errorRate: number; cacheHitRate: number }[]
+    customizers: CustomizerPerformance[]
+    alerts: PerformanceAlert[]
   } {
-    const latest = this.getLatestMetrics()
-    if (!latest) return { status: 'good', issues: [], recommendations: [] }
-    
-    const issues: string[] = []
-    const recommendations: string[] = []
-    
-    // Check render time
-    if (latest.renderTime > this.thresholds.maxRenderTime) {
-      issues.push(`Slow rendering: ${latest.renderTime.toFixed(1)}ms (target: <${this.thresholds.maxRenderTime}ms)`)
-      recommendations.push('Consider reducing model complexity or switching to image sequences')
+    const now = Date.now()
+    const recentMetrics = Array.from(this.metrics.values())
+      .flat()
+      .filter(m => now - m.timestamp.getTime() < 5 * 60 * 1000) // Last 5 minutes
+
+    // API summary
+    const recentAPIs = this.apiMetrics.filter(api => now - new Date().getTime() < 5 * 60 * 1000)
+    const apiSummary = this.groupAPIsByEndpoint(recentAPIs)
+
+    return {
+      overall: {
+        totalMetrics: recentMetrics.length,
+        avgResponseTime: this.calculateAverage(recentMetrics.filter(m => m.name.includes('response_time')).map(m => m.value)),
+        errorRate: this.calculateErrorRate(recentAPIs),
+        memoryUsage: this.getCurrentMemoryUsage(),
+        performanceScore: this.calculatePerformanceScore(recentMetrics)
+      },
+      components: Array.from(this.componentMetrics.values()),
+      apis: apiSummary,
+      customizers: Array.from(this.customizerMetrics.values()),
+      alerts: this.getRecentAlerts()
     }
-    
-    // Check frame rate
-    if (latest.frameRate < this.thresholds.minFrameRate) {
-      issues.push(`Low frame rate: ${latest.frameRate}fps (target: >${this.thresholds.minFrameRate}fps)`)
-      recommendations.push('Enable performance mode or switch to a lower quality setting')
-    }
-    
-    // Check memory usage
-    if (latest.memoryUsage > this.thresholds.maxMemoryUsage) {
-      issues.push(`High memory usage: ${latest.memoryUsage}MB (target: <${this.thresholds.maxMemoryUsage}MB)`)
-      recommendations.push('Consider texture compression or model optimization')
-    }
-    
-    // Check interaction latency
-    if (latest.interactionLatency > this.thresholds.maxInteractionLatency) {
-      issues.push(`Slow interactions: ${latest.interactionLatency}ms (target: <${this.thresholds.maxInteractionLatency}ms)`)
-      recommendations.push('Optimize event handlers or enable hardware acceleration')
-    }
-    
-    // Check errors
-    if (latest.errors > 0) {
-      issues.push(`${latest.errors} error(s) occurred during session`)
-      recommendations.push('Check console for detailed error information')
-    }
-    
-    // Determine overall status
-    let status: 'excellent' | 'good' | 'poor' | 'critical'
-    if (issues.length === 0) status = 'excellent'
-    else if (issues.length <= 2) status = 'good'
-    else if (issues.length <= 4) status = 'poor'
-    else status = 'critical'
-    
-    return { status, issues, recommendations }
   }
 
-  addObserver(callback: (metrics: PerformanceMetrics) => void) {
-    this.observers.push(callback)
+  /**
+   * Get real-time performance status
+   */
+  public getPerformanceStatus(): 'excellent' | 'good' | 'fair' | 'poor' | 'critical' {
+    const summary = this.getPerformanceSummary()
+    
+    if (summary.overall.avgResponseTime > PERFORMANCE_THRESHOLDS.API_RESPONSE_TIME.critical) {
+      return 'critical'
+    }
+    if (summary.overall.errorRate > PERFORMANCE_THRESHOLDS.ERROR_RATE.critical) {
+      return 'critical'
+    }
+    if (summary.overall.avgResponseTime > PERFORMANCE_THRESHOLDS.API_RESPONSE_TIME.warning) {
+      return 'poor'
+    }
+    if (summary.overall.errorRate > PERFORMANCE_THRESHOLDS.ERROR_RATE.warning) {
+      return 'fair'
+    }
+    if (summary.overall.avgResponseTime < 100 && summary.overall.errorRate < 0.001) {
+      return 'excellent'
+    }
+    
+    return 'good'
   }
 
-  removeObserver(callback: (metrics: PerformanceMetrics) => void) {
-    this.observers = this.observers.filter(obs => obs !== callback)
+  // Private helper methods
+  private recordMemoryMetrics(): void {
+    if ('memory' in performance) {
+      const memory = (performance as any).memory
+      
+      this.recordMetric({
+        name: 'memory_used',
+        value: memory.usedJSHeapSize,
+        unit: 'bytes',
+        timestamp: new Date(),
+        labels: { type: 'js_heap' },
+        threshold: PERFORMANCE_THRESHOLDS.MEMORY_USAGE
+      })
+    }
   }
 
-  private notifyObservers(metrics: PerformanceMetrics) {
-    this.observers.forEach(callback => {
+  private checkThresholds(metric: PerformanceMetric): void {
+    if (!metric.threshold) return
+
+    let severity: 'warning' | 'critical' | null = null
+
+    if (metric.value >= metric.threshold.critical) {
+      severity = 'critical'
+    } else if (metric.value >= metric.threshold.warning) {
+      severity = 'warning'
+    }
+
+    if (severity) {
+      this.triggerAlert({
+        severity,
+        type: 'performance',
+        message: `${metric.name} threshold exceeded: ${metric.value}${metric.unit}`,
+        metric: metric.name,
+        value: metric.value,
+        threshold: severity === 'critical' ? metric.threshold.critical : metric.threshold.warning,
+        timestamp: new Date(),
+        labels: metric.labels
+      })
+    }
+  }
+
+  private triggerAlert(alert: PerformanceAlert): void {
+    this.recentAlerts.push(alert)
+    
+    // Keep only recent alerts (last 30 minutes)
+    const cutoff = Date.now() - 30 * 60 * 1000
+    this.recentAlerts = this.recentAlerts.filter(a => a.timestamp.getTime() > cutoff)
+    
+    this.alertCallbacks.forEach(callback => {
       try {
-        callback(metrics)
+        callback(alert)
       } catch (error) {
-        console.error('Performance observer error:', error)
+        console.error('[PerformanceMonitor] Alert callback error:', error)
       }
     })
   }
 
-  clearMetrics() {
-    this.metrics = []
-    this.currentMetrics = {}
+  private cleanOldMetrics(): void {
+    const cutoff = Date.now() - this.maxMetricsAge
+
+    this.metrics.forEach((metrics, key) => {
+      const filtered = metrics.filter(m => m.timestamp.getTime() > cutoff)
+      if (filtered.length !== metrics.length) {
+        this.metrics.set(key, filtered)
+      }
+    })
   }
 
-  exportMetrics(): string {
-    return JSON.stringify({
-      timestamp: new Date().toISOString(),
-      metrics: this.metrics,
-      thresholds: this.thresholds,
-      summary: this.analyzePerformance()
-    }, null, 2)
+  private calculateAverage(values: number[]): number {
+    if (values.length === 0) return 0
+    return values.reduce((sum, val) => sum + val, 0) / values.length
+  }
+
+  private calculateErrorRate(apis: APIPerformance[]): number {
+    if (apis.length === 0) return 0
+    const errors = apis.filter(api => api.status >= 400).length
+    return errors / apis.length
+  }
+
+  private getCurrentMemoryUsage(): number {
+    if (typeof window !== 'undefined' && 'memory' in performance) {
+      return (performance as any).memory.usedJSHeapSize
+    }
+    return 0
+  }
+
+  private calculatePerformanceScore(metrics: PerformanceMetric[]): number {
+    // Simplified performance score calculation (0-100)
+    let score = 100
+    
+    const responseTimes = metrics.filter(m => m.name.includes('response_time')).map(m => m.value)
+    if (responseTimes.length > 0) {
+      const avgResponseTime = this.calculateAverage(responseTimes)
+      if (avgResponseTime > 300) score -= 50
+      else if (avgResponseTime > 200) score -= 25
+      else if (avgResponseTime > 100) score -= 10
+    }
+
+    return Math.max(0, Math.min(100, score))
+  }
+
+  private groupAPIsByEndpoint(apis: APIPerformance[]): any[] {
+    const grouped = new Map<string, APIPerformance[]>()
+    
+    apis.forEach(api => {
+      const key = `${api.method} ${api.endpoint}`
+      if (!grouped.has(key)) {
+        grouped.set(key, [])
+      }
+      grouped.get(key)!.push(api)
+    })
+
+    return Array.from(grouped.entries()).map(([endpoint, apis]) => ({
+      endpoint,
+      avgResponseTime: this.calculateAverage(apis.map(api => api.responseTime)),
+      errorRate: this.calculateErrorRate(apis),
+      cacheHitRate: apis.filter(api => api.cached).length / apis.length
+    }))
+  }
+
+  private getRecentAlerts(): PerformanceAlert[] {
+    return this.recentAlerts
   }
 }
 
-// Global performance monitor instance
-export const performanceMonitor = new PerformanceMonitor()
+// Export singleton instances
+export const performanceMonitor = PerformanceMonitor.getInstance()
 
-// Simple performance tracking helpers
-export function trackModeSwitch(mode: 'sequences' | 'threejs' | 'ar', deviceTier: string) {
-  performanceMonitor.startTracking(mode, deviceTier)
-}
-
-export function getPerformanceReport() {
-  return performanceMonitor.analyzePerformance()
-}
+export default PerformanceMonitor

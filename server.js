@@ -53,6 +53,24 @@ app.prepare().then(() => {
       console.log(`📤 Client ${socket.id} left job room: ${jobId}`)
     })
 
+    // Handle joining creator analytics rooms
+    socket.on('join-creator-analytics', (creatorId) => {
+      socket.join(`creator-${creatorId}`)
+      console.log(`📊 Client ${socket.id} joined creator analytics: ${creatorId}`)
+    })
+
+    // Handle joining admin analytics room
+    socket.on('join-admin-analytics', () => {
+      socket.join('admin-analytics')
+      console.log(`👨‍💼 Client ${socket.id} joined admin analytics room`)
+    })
+
+    // Handle joining conversion tracking room
+    socket.on('join-conversion-tracking', () => {
+      socket.join('conversion-tracking')
+      console.log(`💰 Client ${socket.id} joined conversion tracking room`)
+    })
+
     socket.on('disconnect', (reason) => {
       console.log(`🔌 WebSocket client disconnected: ${socket.id} (${reason})`)
     })

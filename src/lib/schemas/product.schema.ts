@@ -207,6 +207,16 @@ export interface IProduct extends Document {
     approved: boolean
     featured: boolean
   }[]
+  
+  // Instance methods for inventory management
+  getAvailableQuantity(): number
+  reserveInventory(quantityToReserve: number): Promise<boolean>
+  releaseReservedInventory(quantityToRelease: number): Promise<boolean>
+  fulfillInventory(quantityToFulfill: number): Promise<boolean>
+  isInStock(): boolean
+  getStockStatus(): 'in-stock' | 'low-stock' | 'out-of-stock'
+  calculatePrice(customizations?: any): number
+  getVariantSKU(customizations?: any): string
 }
 
 // 3D Asset subdocument schema
@@ -345,7 +355,7 @@ const ProductSchema = new Schema<IProduct>({
     metaTitle: String,
     metaDescription: String,
     keywords: [String],
-    slug: { type: String, required: true, unique: true },
+    slug: { type: String, required: true },
     canonicalUrl: String,
     openGraphImage: String,
     structuredData: { type: Map, of: Schema.Types.Mixed }
@@ -433,7 +443,7 @@ ProductSchema.virtual('isAvailable').get(function() {
 })
 
 ProductSchema.virtual('totalInventory').get(function() {
-  return this.inventory.reduce((total, item) => total + item.quantity, 0)
+  return this.inventory.reduce((total: number, item: InventoryItem) => total + item.quantity, 0)
 })
 
 ProductSchema.virtual('averageRating').get(function() {
@@ -542,6 +552,144 @@ ProductSchema.statics.searchProducts = function(searchTerm: string, filters?: an
   return this.find(query)
     .populate('categories collections')
     .sort({ score: { $meta: 'textScore' } })
+}
+
+// Instance methods for inventory management
+ProductSchema.methods.getAvailableQuantity = function(): number {
+  return this.inventory.reduce((total, item) => {
+    return total + (item.quantity - item.reserved)
+  }, 0)
+}
+
+ProductSchema.methods.reserveInventory = async function(quantityToReserve: number): Promise<boolean> {
+  try {
+    const availableQuantity = this.getAvailableQuantity()
+    
+    if (availableQuantity < quantityToReserve) {
+      return false
+    }
+    
+    let remainingToReserve = quantityToReserve
+    
+    // Reserve inventory from available items (FIFO approach)
+    for (const inventoryItem of this.inventory) {
+      const availableInItem = inventoryItem.quantity - inventoryItem.reserved
+      
+      if (availableInItem > 0 && remainingToReserve > 0) {
+        const toReserveFromItem = Math.min(availableInItem, remainingToReserve)
+        inventoryItem.reserved += toReserveFromItem
+        remainingToReserve -= toReserveFromItem
+      }
+      
+      if (remainingToReserve === 0) break
+    }
+    
+    await this.save()
+    return remainingToReserve === 0
+  } catch (error) {
+    console.error('Error reserving inventory:', error)
+    return false
+  }
+}
+
+ProductSchema.methods.releaseReservedInventory = async function(quantityToRelease: number): Promise<boolean> {
+  try {
+    let remainingToRelease = quantityToRelease
+    
+    // Release reserved inventory (FIFO approach)
+    for (const inventoryItem of this.inventory) {
+      if (inventoryItem.reserved > 0 && remainingToRelease > 0) {
+        const toReleaseFromItem = Math.min(inventoryItem.reserved, remainingToRelease)
+        inventoryItem.reserved -= toReleaseFromItem
+        remainingToRelease -= toReleaseFromItem
+      }
+      
+      if (remainingToRelease === 0) break
+    }
+    
+    await this.save()
+    return remainingToRelease === 0
+  } catch (error) {
+    console.error('Error releasing reserved inventory:', error)
+    return false
+  }
+}
+
+ProductSchema.methods.fulfillInventory = async function(quantityToFulfill: number): Promise<boolean> {
+  try {
+    let remainingToFulfill = quantityToFulfill
+    
+    // Fulfill inventory by reducing both reserved and quantity
+    for (const inventoryItem of this.inventory) {
+      if (inventoryItem.reserved > 0 && remainingToFulfill > 0) {
+        const toFulfillFromItem = Math.min(inventoryItem.reserved, remainingToFulfill)
+        inventoryItem.reserved -= toFulfillFromItem
+        inventoryItem.quantity -= toFulfillFromItem
+        remainingToFulfill -= toFulfillFromItem
+      }
+      
+      if (remainingToFulfill === 0) break
+    }
+    
+    await this.save()
+    return remainingToFulfill === 0
+  } catch (error) {
+    console.error('Error fulfilling inventory:', error)
+    return false
+  }
+}
+
+ProductSchema.methods.isInStock = function(): boolean {
+  return this.getAvailableQuantity() > 0 && this.status === 'active'
+}
+
+ProductSchema.methods.getStockStatus = function(): 'in-stock' | 'low-stock' | 'out-of-stock' {
+  const availableQuantity = this.getAvailableQuantity()
+  
+  if (availableQuantity === 0) {
+    return 'out-of-stock'
+  }
+  
+  // Check if any inventory item is below low stock threshold
+  const hasLowStock = this.inventory.some((item: InventoryItem) => {
+    const available = item.quantity - item.reserved
+    return available > 0 && available <= item.lowStockThreshold
+  })
+  
+  return hasLowStock ? 'low-stock' : 'in-stock'
+}
+
+ProductSchema.methods.calculatePrice = function(customizations?: any): number {
+  let price = this.basePrice
+  
+  if (customizations && this.customizationOptions) {
+    this.customizationOptions.forEach((option: CustomizationOption) => {
+      const selectedValue = customizations[option.name]
+      if (selectedValue) {
+        const selectedOption = option.options.find((opt: any) => opt.value === selectedValue)
+        if (selectedOption) {
+          price += selectedOption.priceModifier
+        }
+      }
+    })
+  }
+  
+  return Math.max(0, price)
+}
+
+ProductSchema.methods.getVariantSKU = function(customizations: any = {}): string {
+  if (!this.isCustomizable || !customizations) {
+    return this.inventory[0]?.sku || this.sku
+  }
+  
+  // Generate variant SKU based on customizations
+  const variant = Object.keys(customizations)
+    .sort()
+    .map(key => `${key}:${customizations[key]}`)
+    .join('|')
+  
+  const basesku = this.inventory[0]?.sku || this.sku
+  return variant ? `${basesku}-${Buffer.from(variant).toString('base64').slice(0, 8)}` : basesku
 }
 
 // Export the model

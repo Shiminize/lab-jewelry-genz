@@ -9,15 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // HTML Demo Exact Mappings
-        primary: 'bg-cta text-background hover:bg-cta-hover hover:transform hover:-translate-y-0.5 shadow-sm hover:shadow-md',
-        secondary: 'bg-background text-foreground border border hover:bg-muted hover:border-accent shadow-sm',
-        outline: 'bg-transparent text-foreground border-2 border-foreground hover:bg-foreground hover:text-background',
+        // CLAUDE_RULES Compliant Button System
+        primary: 'bg-cta text-high-contrast hover:bg-cta-hover hover:transform hover:-translate-y-0.5 shadow-sm hover:shadow-md',
+        secondary: 'bg-background text-foreground border border-border hover:bg-muted shadow-sm',
+        outline: 'bg-transparent text-foreground border border-foreground hover:bg-foreground hover:text-background',
         ghost: 'bg-transparent text-foreground hover:bg-muted',
-        accent: 'bg-accent text-foreground hover:opacity-90 hover:transform hover:-translate-y-0.5 shadow-sm'
+        accent: 'bg-accent text-foreground hover:opacity-90 shadow-sm'
       },
       size: {
-        // HTML Demo Exact Sizes
+        // CLAUDE_RULES Button Sizes: Primary/Secondary (3 sizes) + Outline/Ghost/Accent (flexible)
         sm: 'min-h-9 px-4 text-sm', // 36px min-height, 16px padding
         md: 'min-h-11 px-6 text-base', // 44px min-height, 24px padding  
         lg: 'min-h-12 px-12 text-lg', // 48px min-height, 48px padding
@@ -69,6 +69,7 @@ export function Button({
 
   return (
     <button
+      type="button"
       className={cn(buttonVariants({ variant, size }), className)}
       disabled={isDisabled}
       aria-busy={isLoading}

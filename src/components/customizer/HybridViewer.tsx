@@ -3,11 +3,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { cn } from '@/lib/utils'
 import { MutedText } from '@/components/foundation/Typography'
-import { ImageSequenceViewer } from './ImageSequenceViewer'
-import { ThreeJSViewer } from './ThreeJSViewer'
-import { ARTryOnViewer } from './ARTryOnViewer'
+import { SimpleImageViewer } from './SimpleImageViewer'
+import { Dynamic3DViewer } from './Dynamic3DViewer'
 import { detectDeviceCapabilities, shouldUsePremiumMode, type DeviceCapabilities } from '@/lib/device-capabilities'
-import { detectARCapabilities, shouldEnableARMode, type ARCapabilities } from '@/lib/ar-capabilities'
 import { performanceMonitor } from '@/lib/performance-monitor'
 
 interface HybridViewerProps {
@@ -20,10 +18,11 @@ interface HybridViewerProps {
     color: string
   }
   className?: string
-  forceMode?: 'sequences' | 'threejs' | 'ar'
-  onModeChange?: (mode: 'sequences' | 'threejs' | 'ar') => void
+  forceMode?: 'sequences' | 'threejs'
+  onModeChange?: (mode: 'sequences' | 'threejs') => void
   onLoad?: () => void
   onError?: (error: Error) => void
+  onFrameChange?: (frame: number) => void
 }
 
 export function HybridViewer({
@@ -35,11 +34,11 @@ export function HybridViewer({
   forceMode,
   onModeChange,
   onLoad,
-  onError
+  onError,
+  onFrameChange
 }: HybridViewerProps) {
-  const [currentMode, setCurrentMode] = useState<'sequences' | 'threejs' | 'ar'>('sequences')
+  const [currentMode, setCurrentMode] = useState<'sequences' | 'threejs'>('sequences')
   const [capabilities, setCapabilities] = useState<DeviceCapabilities | null>(null)
-  const [arCapabilities, setArCapabilities] = useState<ARCapabilities | null>(null)
   const [isCapabilityDetectionDone, setIsCapabilityDetectionDone] = useState(false)
   const [showModeToggle, setShowModeToggle] = useState(false)
   const [switchingMode, setSwitchingMode] = useState(false)
@@ -49,13 +48,9 @@ export function HybridViewer({
   useEffect(() => {
     const detectCapabilities = async () => {
       try {
-        const [caps, arCaps] = await Promise.all([
-          detectDeviceCapabilities(),
-          detectARCapabilities()
-        ])
+        const caps = await detectDeviceCapabilities()
         
         setCapabilities(caps)
-        setArCapabilities(arCaps)
         
         // Determine initial mode
         if (forceMode) {
@@ -65,8 +60,8 @@ export function HybridViewer({
           setShowModeToggle(true)
         } else {
           setCurrentMode('sequences')
-          // Show toggle for capable devices
-          setShowModeToggle((caps.tier === 'high' && caps.isDesktop && modelPath) || arCaps.isARReady)
+          // Show toggle for capable devices with 3D models
+          setShowModeToggle(caps.tier === 'high' && caps.isDesktop && modelPath)
         }
         
         setIsCapabilityDetectionDone(true)
@@ -81,7 +76,7 @@ export function HybridViewer({
   }, [forceMode, modelPath])
 
   // Handle mode switching
-  const switchMode = useCallback(async (newMode: 'sequences' | 'threejs' | 'ar') => {
+  const switchMode = useCallback(async (newMode: 'sequences' | 'threejs') => {
     if (newMode === currentMode || switchingMode) return
     
     setSwitchingMode(true)
@@ -155,56 +150,32 @@ export function HybridViewer({
 
       {/* Image Sequences Viewer */}
       {currentMode === 'sequences' && (
-        <ImageSequenceViewer
+        <SimpleImageViewer
           imagePath={imagePath}
           imageCount={imageCount}
-          preferredFormats={['webp', 'png', 'avif']}
           onLoad={handleSequencesLoad}
           onError={onError}
           className="w-full h-full"
+          onFrameChange={onFrameChange}
         />
       )}
 
-      {/* Three.js Viewer */}
+      {/* Three.js Viewer - Dynamic Loading for Performance */}
       {currentMode === 'threejs' && modelPath && (
-        <React.Suspense 
-          fallback={
-            <div className="w-full h-full flex items-center justify-center">
-              <div className="text-center space-y-2">
-                <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin mx-auto" />
-                <MutedText size="sm">Loading Three.js...</MutedText>
-              </div>
-            </div>
-          }
-        >
-          <ThreeJSViewer
-            modelPath={modelPath}
-            material={material || { metalness: 1.0, roughness: 0.1, color: '#ffffff' }}
-            onLoad={handleThreeJSLoad}
-            onError={(error) => {
-              console.error('Three.js viewer failed, falling back to sequences:', error)
-              switchMode('sequences')
-              onError?.(error)
-            }}
-            autoRotate={false}
-            className="w-full h-full"
-          />
-        </React.Suspense>
-      )}
-
-      {/* AR Viewer */}
-      {currentMode === 'ar' && modelPath && arCapabilities?.isARReady && (
-        <ARTryOnViewer
+        <Dynamic3DViewer
           modelPath={modelPath}
           material={material || { metalness: 1.0, roughness: 0.1, color: '#ffffff' }}
+          onLoad={handleThreeJSLoad}
           onError={(error) => {
-            console.error('AR viewer failed, falling back to sequences:', error)
+            console.error('Three.js viewer failed, falling back to sequences:', error)
             switchMode('sequences')
             onError?.(error)
           }}
+          autoRotate={false}
           className="w-full h-full"
         />
       )}
+
 
       {/* Mode Toggle Controls */}
       {showModeToggle && !switchingMode && (
@@ -234,20 +205,6 @@ export function HybridViewer({
               >
                 Premium 3D
               </button>
-              {arCapabilities?.isARReady && (
-                <button
-                  onClick={() => switchMode('ar')}
-                  className={cn(
-                    'px-3 py-1 rounded text-xs font-medium transition-all duration-200',
-                    currentMode === 'ar'
-                      ? 'bg-accent text-accent-foreground'
-                      : 'bg-muted text-muted-foreground hover:bg-accent/20'
-                  )}
-                  disabled={!modelPath}
-                >
-                  AR Try-On
-                </button>
-              )}
             </div>
           </div>
         </div>

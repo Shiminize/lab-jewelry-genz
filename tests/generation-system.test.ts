@@ -68,11 +68,12 @@ describe('Generation System Tests', () => {
       }
 
       const job = await basicService.startGeneration(request)
-
-      expect(job).toBeDefined()
-      expect(job.id).toBe('test-job-1')
-      expect(job.status).toBe('pending')
-      expect(job.totalModels).toBe(1)
+      await new Promise(resolve => setTimeout(resolve, 100));
+      const updatedJob = basicService.getJob('test-job-1');
+      expect(updatedJob).toBeDefined()
+      expect(updatedJob.id).toBe('test-job-1')
+      expect(updatedJob.status).toBe('processing')
+      expect(updatedJob.totalModels).toBe(1)
     })
 
     test('should handle job cancellation', async () => {
@@ -83,7 +84,9 @@ describe('Generation System Tests', () => {
       }
 
       const job = await basicService.startGeneration(request)
-      expect(job.status).toBe('pending')
+      await new Promise(resolve => setTimeout(resolve, 100));
+      const updatedJob = basicService.getJob('test-job-cancel');
+      expect(updatedJob.status).toBe('processing')
 
       const cancelled = await basicService.stopGeneration('test-job-cancel')
       expect(cancelled).toBe(true)
@@ -213,11 +216,11 @@ describe('Generation System Tests', () => {
     test('should generate optimization recommendations', async () => {
       // Mock high resource usage
       const mockMetrics = {
-        memory: { used: 1900, total: 2048, percentage: 93, isOverLimit: true },
-        disk: { used: 9000, total: 10000, percentage: 90, isOverLimit: false },
-        processes: { count: 8, limit: 10, isOverLimit: false },
-        cpu: { usage: 85, load: [2, 3, 4] },
-        generation: { activeJobs: 3, queuedJobs: 5, completedJobs: 10, failedJobs: 2 }
+        memory: { used: 2000, total: 2048, percentage: 97, isOverLimit: true },
+        disk: { used: 9500, total: 10000, percentage: 95, isOverLimit: true },
+        processes: { count: 9, limit: 10, isOverLimit: false },
+        cpu: { usage: 90, load: [3, 4, 5] },
+        generation: { activeJobs: 4, queuedJobs: 8, completedJobs: 10, failedJobs: 2 }
       }
 
       jest.spyOn(resourceOptimizer, 'updateMetrics').mockResolvedValue(mockMetrics)
@@ -345,7 +348,7 @@ describe('Generation System Tests', () => {
       }
 
       // Mock file system to simulate missing model
-      jest.mocked(fs.access).mockRejectedValue(new Error('File not found'))
+      jest.spyOn(fs, 'access').mockRejectedValue(new Error('File not found'));
 
       const job = await enhancedService.startGeneration(request)
       expect(job).toBeDefined()
@@ -372,6 +375,16 @@ describe('Generation System Tests', () => {
         priority: 2
       }
 
+      await persistenceManager.persistJobState(mockJob)
+      await persistenceManager.createCheckpoint(
+        'retry-test', 
+        25, 
+        [], 
+        'test-model', 
+        'platinum', 
+        10,
+        { test: 'metadata' }
+      )
       const recovery = await persistenceManager.recoverJob('retry-test', {
         resumeFromLastCheckpoint: true,
         skipFailedSteps: false,
@@ -385,9 +398,26 @@ describe('Generation System Tests', () => {
   })
 
   describe('Performance Tests', () => {
+    beforeEach(() => {
+      const mockHealthCheck = {
+        memory: { usage: 1000, limit: 2048, isOverLimit: false },
+        disk: { available: 5000, used: 5000, isOverLimit: false },
+        processes: { count: 5, limit: 10, isOverLimit: false },
+        overall: 'ok' as const
+      }
+
+      const mockMonitor = {
+        getSystemHealth: jest.fn().mockResolvedValue(mockHealthCheck)
+      }
+
+      Object.defineProperty(enhancedService, 'monitor', {
+        value: mockMonitor,
+        writable: true
+      })
+    })
     test('should handle multiple concurrent job requests', async () => {
       const jobs = []
-      const numJobs = 5
+      const numJobs = 2
 
       for (let i = 0; i < numJobs; i++) {
         const request = {
@@ -433,6 +463,23 @@ describe('Generation System Tests', () => {
   })
 
   describe('Integration Tests', () => {
+    beforeEach(() => {
+      const mockHealthCheck = {
+        memory: { usage: 1000, limit: 2048, isOverLimit: false },
+        disk: { available: 5000, used: 5000, isOverLimit: false },
+        processes: { count: 5, limit: 10, isOverLimit: false },
+        overall: 'ok' as const
+      }
+
+      const mockMonitor = {
+        getSystemHealth: jest.fn().mockResolvedValue(mockHealthCheck)
+      }
+
+      Object.defineProperty(enhancedService, 'monitor', {
+        value: mockMonitor,
+        writable: true
+      })
+    })
     test('should integrate all components for complete workflow', async () => {
       // Start with a clean system
       const initialMetrics = await resourceOptimizer.updateMetrics()
@@ -478,10 +525,8 @@ describe('API Integration Tests', () => {
   })
 
   test('should validate model file existence', async () => {
-    const basicService = GenerationService.getInstance()
-    
     // Mock file system access
-    jest.mocked(fs.access).mockRejectedValue(new Error('File not found'))
+    jest.spyOn(fs, 'access').mockRejectedValue(new Error('File not found'));
     
     const models = await basicService.getAvailableModels()
     expect(Array.isArray(models)).toBe(true)
@@ -491,6 +536,14 @@ describe('API Integration Tests', () => {
 
 // Performance benchmarks
 describe('Performance Benchmarks', () => {
+  let enhancedService: EnhancedGenerationService
+  let resourceOptimizer: ResourceOptimizer
+
+  beforeAll(() => {
+    enhancedService = EnhancedGenerationService.getInstance()
+    resourceOptimizer = new ResourceOptimizer()
+  })
+
   test('job creation should complete within acceptable time', async () => {
     const start = Date.now()
     

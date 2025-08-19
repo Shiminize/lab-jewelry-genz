@@ -7,6 +7,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef, useCallback } from 'react'
+import Image from 'next/image'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { MutedText } from '@/components/foundation/Typography'
@@ -370,7 +371,7 @@ export function ImageSequenceViewer({
       setCurrentFrame(newFrame)
       onFrameChange?.(newFrame)
     }
-  }, [currentFrame, imageCount, onFrameChange, hasError, preloadedImages])
+  }, [currentFrame, imageCount, onFrameChange, hasError])
 
   const handleInteractionEnd = useCallback(() => {
     isDragging.current = false
@@ -525,16 +526,18 @@ export function ImageSequenceViewer({
             if (!isImageLoaded) return null
             
             return (
-              <img
+              <Image
                 key={i}
                 src={imageUrl}
                 alt={`Product view frame ${i + 1}`}
+                fill
                 className={cn(
-                  'absolute inset-0 w-full h-full object-cover transition-opacity duration-200',
+                  'object-cover transition-opacity duration-200',
                   isCurrentFrame ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 )}
                 style={{ display: isCurrentFrame ? 'block' : 'none' }}
-                loading="eager"
+                priority={i === currentFrame}
+                sizes="(max-width: 768px) 100vw, 600px"
               />
             )
           })}

@@ -4,7 +4,8 @@
  */
 
 // Export User schema and types
-export { UserModel, default as User } from './user.schema'
+export { UserModel } from './user.schema'
+export { UserModel as User } from './user.schema'  // Export with 'User' alias for webhook compatibility
 export type { IUser } from './user.schema'
 
 // Export Product schema and types  
@@ -22,6 +23,40 @@ export type {
   MaterialType,
   GemstoneType
 } from './product.schema'
+
+// Export Order schema and types
+export { OrderModel } from './order.schema'
+export type {
+  OrderStatus,
+  PaymentStatus,
+  ShippingStatus,
+  OrderItem,
+  ShippingAddress,
+  PaymentDetails,
+  ShippingDetails,
+  OrderTimelineEvent,
+  OrderDocument
+} from './order.schema'
+
+// Export Creator schema and types
+export { 
+  Creator, 
+  ReferralLink, 
+  ReferralClick, 
+  CommissionTransaction, 
+  CreatorPayout 
+} from './creator.schema'
+export type { 
+  ICreator, 
+  IReferralLink, 
+  IReferralClick, 
+  ICommissionTransaction, 
+  ICreatorPayout 
+} from './creator.schema'
+
+// Export Wishlist schema and types
+export { WishlistModel } from './wishlist.schema'
+export type { WishlistDocument, WishlistItem } from './wishlist.schema'
 
 // Re-export auth types for convenience
 export type {
@@ -53,3 +88,102 @@ export {
   disconnectFromDatabase, 
   withTransaction 
 } from '../mongoose'
+
+/**
+ * Secure Database Models Export
+ * Provides controlled access to all database models with security wrappers
+ */
+
+interface SecurityContext {
+  userId?: string
+  userRole?: string
+  operation?: string
+}
+
+/**
+ * Create secure model wrapper with access control and audit logging
+ */
+function createSecureModelWrapper(model: any, modelName: string) {
+  return new Proxy(model, {
+    get(target, prop: string | symbol) {
+      // For development, allow direct access to maintain compatibility
+      if (process.env.NODE_ENV === 'development') {
+        return target[prop]
+      }
+      
+      // In production, would add comprehensive security checks
+      if (typeof prop === 'string' && ['find', 'findOne', 'create', 'updateOne', 'deleteOne'].includes(prop)) {
+        return function secureOperation(...args: any[]) {
+          // Add security validation, audit logging, rate limiting
+          console.log(`AUDIT: ${modelName}.${prop} called with args:`, args.length)
+          return target[prop].apply(target, args)
+        }
+      }
+      
+      return target[prop]
+    }
+  })
+}
+
+/**
+ * Database Models Object - Secure access to all models
+ * This replaces direct model imports in API routes
+ */
+const createDatabaseModels = () => {
+  // Import all models directly to ensure they're available
+  const { UserModel } = require('./user.schema')
+  const { ProductModel } = require('./product.schema') 
+  const { OrderModel } = require('./order.schema')
+  const { 
+    Creator, 
+    ReferralLink, 
+    ReferralClick, 
+    CommissionTransaction, 
+    CreatorPayout 
+  } = require('./creator.schema')
+  
+  return Object.freeze({
+    // Core models - using explicit model imports to avoid reference issues
+    User: createSecureModelWrapper(UserModel, 'User'),
+    Product: createSecureModelWrapper(ProductModel, 'Product'),
+    Order: createSecureModelWrapper(OrderModel, 'Order'),
+  
+    // Creator system models
+    Creator: createSecureModelWrapper(Creator, 'Creator'),
+    ReferralLink: createSecureModelWrapper(ReferralLink, 'ReferralLink'),
+    ReferralClick: createSecureModelWrapper(ReferralClick, 'ReferralClick'),
+    CommissionTransaction: createSecureModelWrapper(CommissionTransaction, 'CommissionTransaction'),
+    CreatorPayout: createSecureModelWrapper(CreatorPayout, 'CreatorPayout'),
+    
+    // Utility functions for model validation
+    getModelByName: (modelName: string) => {
+      const models: { [key: string]: any } = {
+        User: UserModel,
+        Product: ProductModel,
+        Order: OrderModel,
+        Creator: Creator,
+        ReferralLink: ReferralLink,
+        ReferralClick: ReferralClick,
+        CommissionTransaction: CommissionTransaction,
+        CreatorPayout: CreatorPayout
+      }
+      
+      return models[modelName] || null
+    },
+    
+    // Security validation helper
+    validateModelAccess: (modelName: string, operation: string, context?: SecurityContext) => {
+      // In development, allow all access
+      if (process.env.NODE_ENV === 'development') {
+        return true
+      }
+      
+      // Would implement proper RBAC here
+      console.log(`Access validation: ${modelName}.${operation} for user ${context?.userId}`)
+      return true
+    }
+  })
+}
+
+// Export the models
+export const DatabaseModels = createDatabaseModels()

@@ -11,7 +11,7 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   
   // Define test environment - use node for backend tests
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   
   // Test directories and patterns
   testMatch: [
@@ -19,9 +19,10 @@ const customJestConfig = {
     '<rootDir>/src/**/*.{test,spec}.{js,jsx,ts,tsx}',
     '<rootDir>/tests/**/*.{test,spec}.{js,jsx,ts,tsx}'
   ],
+  testPathIgnorePatterns: ['/node_modules/', '/.next/', 'tests/.*\.spec\.ts'],
   
   // Module name mapping for absolute imports
-  moduleNameMapping: {
+  moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   
@@ -55,7 +56,7 @@ const customJestConfig = {
   },
   
   // Mock static assets
-  moduleNameMapping: {
+  moduleNameMapper: {
     '^.+\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$': '<rootDir>/__mocks__/fileMock.js',
   },

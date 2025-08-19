@@ -173,8 +173,8 @@ const defaultEnhancedValueProps: EnhancedValueProp[] = [
       },
       { 
         icon: PremiumQualityIcon, 
-        text: 'Premium Quality',
-        description: 'Master craftsmen ensure every custom piece meets luxury standards'
+        text: 'Master-Crafted Luxury',
+        description: 'Expert craftsmanship ensures every custom piece meets our luxury standards'
       }
     ],
     details: 'Work with our design team to create truly one-of-a-kind pieces that reflect your personal style.'

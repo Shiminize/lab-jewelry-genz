@@ -13,9 +13,9 @@ import { H3, BodyText, MutedText } from '@/components/foundation/Typography'
 import { Button } from '@/components/ui/Button'
 import { HybridViewer } from './HybridViewer'
 import { WithViewerErrorBoundary } from './ViewerErrorBoundary'
-import { AdvancedMaterialEditor } from './AdvancedMaterialEditor'
 import type { ProductVariant, Material } from '@/types/customizer'
 import { RING_VARIANTS, DEFAULT_VARIANT, getVariantById } from '@/data/product-variants'
+import { logDeprecationWarning } from '@/lib/migration-utils'
 
 // CVA variants for layout and spacing
 const customizerVariants = cva(
@@ -90,12 +90,18 @@ export function ProductCustomizer({
   onVariantChange,
   onPriceChange
 }: ProductCustomizerProps) {
+  // Log deprecation warning for hardcoded customizer usage
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      logDeprecationWarning('ProductCustomizer', 'Using hardcoded variants - consider migrating to DatabaseProductCustomizer')
+    }
+  }, [])
+
   // State management
   const [selectedVariantId, setSelectedVariantId] = useState(initialVariantId)
   const [isLoading, setIsLoading] = useState(false)
   const [currentFrame, setCurrentFrame] = useState(0)
   const [viewerError, setViewerError] = useState<Error | null>(null)
-  const [showAdvancedEditor, setShowAdvancedEditor] = useState(false)
   const [customMaterial, setCustomMaterial] = useState<any>(null)
   const [currentViewerMode, setCurrentViewerMode] = useState<'sequences' | 'threejs' | 'ar'>('sequences')
 
@@ -148,17 +154,23 @@ export function ProductCustomizer({
     setCurrentFrame(frame)
   }, [])
 
-  // Handle advanced material changes
-  const handleAdvancedMaterialChange = useCallback((material: any) => {
-    setCustomMaterial(material)
-  }, [])
 
   // Handle viewer mode changes to show/hide advanced editor
   const handleViewerModeChange = useCallback((mode: 'sequences' | 'threejs' | 'ar') => {
     setCurrentViewerMode(mode)
-    // Show advanced editor for Three.js and AR modes
-    setShowAdvancedEditor(mode !== 'sequences')
   }, [])
+
+  // Memoize material props to prevent infinite re-renders
+  const materialProps = React.useMemo(() => {
+    if (customMaterial) return customMaterial
+    if (!selectedVariant?.material) return undefined
+    
+    return {
+      metalness: selectedVariant.material.properties?.metalness ?? 1.0,
+      roughness: selectedVariant.material.properties?.roughness ?? 0.1,
+      color: selectedVariant.material.properties?.color ?? selectedVariant.material.color ?? '#ffffff'
+    }
+  }, [customMaterial, selectedVariant?.material])
 
   // Material selector component
   const MaterialSelector = () => (
@@ -199,20 +211,20 @@ export function ProductCustomizer({
               <div className="flex items-center space-x-3 w-full">
                 <div 
                   className="w-6 h-6 rounded-full border-2 border-border flex-shrink-0 shadow-sm"
-                  style={{ backgroundColor: material.color }}
+                  style={{ backgroundColor: material?.color ?? '#cccccc' }}
                   aria-hidden="true"
                 />
                 <div className="flex-1 text-left min-w-0">
                   <div className="font-medium text-foreground text-sm">
-                    {material.name}
+                    {material?.name ?? 'Unknown Material'}
                   </div>
                   <div className="text-xs text-gray-600 truncate">
-                    {material.description}
+                    {material?.description ?? 'No description available'}
                   </div>
-                  {material.priceMultiplier !== 1.0 && (
+                  {(material?.priceMultiplier ?? 1.0) !== 1.0 && (
                     <div className="text-xs text-accent mt-1">
-                      {material.priceMultiplier > 1.0 ? '+' : ''}
-                      {((material.priceMultiplier - 1.0) * 100).toFixed(0)}%
+                      {(material?.priceMultiplier ?? 1.0) > 1.0 ? '+' : ''}
+                      {(((material?.priceMultiplier ?? 1.0) - 1.0) * 100).toFixed(0)}%
                     </div>
                   )}
                 </div>
@@ -250,7 +262,7 @@ export function ProductCustomizer({
             Current Selection
           </BodyText>
           <MutedText size="sm">
-            {selectedVariant.name}
+            {selectedVariant?.name ?? 'Default Selection'}
           </MutedText>
         </div>
         {viewerError && (
@@ -265,11 +277,11 @@ export function ProductCustomizer({
         <div className="flex items-center space-x-2">
           <div 
             className="w-3 h-3 rounded-full border border-border"
-            style={{ backgroundColor: selectedVariant.material.color }}
+            style={{ backgroundColor: selectedVariant?.material?.color ?? '#cccccc' }}
             aria-hidden="true"
           />
           <span className="text-foreground font-medium">
-            {selectedVariant.material.name}
+            {selectedVariant?.material?.name ?? 'Default Material'}
           </span>
         </div>
       </div>
@@ -302,17 +314,14 @@ export function ProductCustomizer({
           }}
         >
           <HybridViewer
-            imagePath={selectedVariant.assetPath}
-            modelPath={selectedVariant.modelPath}
-            imageCount={selectedVariant.imageCount || 36}
-            material={customMaterial || (selectedVariant.material ? {
-              metalness: selectedVariant.material.properties?.metalness || 1.0,
-              roughness: selectedVariant.material.properties?.roughness || 0.1,
-              color: selectedVariant.material.properties?.color || selectedVariant.material.color || '#ffffff'
-            } : undefined)}
+            imagePath={selectedVariant?.assetPath ?? ''}
+            modelPath={selectedVariant?.modelPath}
+            imageCount={selectedVariant?.imageCount ?? 36}
+            material={materialProps}
             onLoad={handleViewerLoad}
             onError={handleViewerError}
             onModeChange={handleViewerModeChange}
+            onFrameChange={handleFrameChange}
             className="shadow-lg h-[400px] sm:h-[500px] lg:h-[600px]"
           />
         </WithViewerErrorBoundary>
@@ -325,40 +334,14 @@ export function ProductCustomizer({
         <div className={cn(controlsVariants())}>
           <MaterialSelector />
           
-          {/* Advanced Material Editor for Premium Modes */}
-          {showAdvancedEditor && (currentViewerMode === 'threejs' || currentViewerMode === 'ar') && (
-            <div className="pt-4 border-t border-border">
-              <AdvancedMaterialEditor
-                initialMaterial={{
-                  metalness: selectedVariant.material.properties?.metalness || 1.0,
-                  roughness: selectedVariant.material.properties?.roughness || 0.1,
-                  color: selectedVariant.material.properties?.color || selectedVariant.material.color || '#ffffff',
-                  reflectivity: 0.8,
-                  clearcoat: 0.5,
-                  clearcoatRoughness: 0.2,
-                  envMapIntensity: 1.0
-                }}
-                onMaterialChange={handleAdvancedMaterialChange}
-                disabled={isLoading}
-              />
+          {/* Material Information */}
+          <div className="pt-4 border-t border-border">
+            <div className="text-center space-y-2">
+              <MutedText size="sm">
+                Current viewer mode: {currentViewerMode}
+              </MutedText>
             </div>
-          )}
-          
-          {/* Additional Controls for Non-Premium Modes */}
-          {!showAdvancedEditor && (
-            <div className="pt-4 border-t border-border">
-              <div className="text-center space-y-2">
-                <MutedText size="sm">
-                  Switch to Premium 3D or AR mode for advanced material customization
-                </MutedText>
-                {currentViewerMode === 'sequences' && (
-                  <MutedText size="sm" className="text-accent">
-                    Advanced material editor available in Premium 3D mode
-                  </MutedText>
-                )}
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       )}
 

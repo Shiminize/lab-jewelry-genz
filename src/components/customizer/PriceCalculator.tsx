@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useMemo, useEffect, useState } from 'react'
-import { cn, formatPrice, calculateDiscount } from '@/lib/utils'
+import { cn, calculateDiscount } from '@/lib/utils'
+import { formatPrice } from '@/lib/pricing'
 import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
 import type { ProductBase, CustomizationOptions, PriceBreakdown } from '@/types/customizer'
 import type { PriceCalculation } from '@/lib/schemas/product-customization'

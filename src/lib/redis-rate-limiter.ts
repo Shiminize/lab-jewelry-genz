@@ -51,6 +51,66 @@ export const RateLimitConfigs = {
   ADMIN: {
     limit: 200,
     windowMs: 60 * 1000,
+  },
+  // Payment endpoints: 10/min/user per CLAUDE_RULES
+  PAYMENT: {
+    limit: 10,
+    windowMs: 60 * 1000,
+  },
+  // Order management: 10/min/user per CLAUDE_RULES
+  ORDER: {
+    limit: 10,
+    windowMs: 60 * 1000,
+  },
+  // Order status updates: 20/min/user per CLAUDE_RULES
+  ORDER_STATUS: {
+    limit: 20,
+    windowMs: 60 * 1000,
+  },
+  // Creator endpoints: 50/min/user per CLAUDE_RULES
+  CREATOR_PAYOUTS: {
+    limit: 50,
+    windowMs: 60 * 1000,
+  },
+  // Creator payout details: 100/min/user per CLAUDE_RULES
+  CREATOR_PAYOUT_DETAILS: {
+    limit: 100,
+    windowMs: 60 * 1000,
+  },
+  // Creator payout updates: 10/min/user per CLAUDE_RULES
+  CREATOR_PAYOUT_UPDATE: {
+    limit: 10,
+    windowMs: 60 * 1000,
+  },
+  // Creator payout requests: 5/min/user per CLAUDE_RULES
+  CREATOR_PAYOUT_REQUEST: {
+    limit: 5,
+    windowMs: 60 * 1000,
+  },
+  // Admin commission management: 100/min/user per CLAUDE_RULES
+  ADMIN_COMMISSIONS: {
+    limit: 100,
+    windowMs: 60 * 1000,
+  },
+  // Admin commission approval: 20/min/user per CLAUDE_RULES
+  ADMIN_COMMISSION_APPROVE: {
+    limit: 20,
+    windowMs: 60 * 1000,
+  },
+  // Admin creators management: 500/min/user for development (100/min for production)
+  ADMIN_CREATORS: {
+    limit: process.env.NODE_ENV === 'production' ? 100 : 500,
+    windowMs: 60 * 1000,
+  },
+  // Creator link creation: 20/min/user per CLAUDE_RULES
+  CREATE_LINK: {
+    limit: 20,
+    windowMs: 60 * 1000,
+  },
+  // Creator application: 3/hour/user per CLAUDE_RULES
+  CREATOR_APPLY: {
+    limit: 3,
+    windowMs: 60 * 60 * 1000, // 1 hour
   }
 } as const
 

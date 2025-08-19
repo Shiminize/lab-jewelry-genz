@@ -440,6 +440,417 @@ export class PerformanceUtils {
   }
 }
 
+/**
+ * Audit logging interface for security compliance
+ */
+interface AuditContext {
+  eventType: string
+  actorType: 'user' | 'system' | 'admin'
+  userId?: string
+  targetType?: string
+  targetId?: string
+  details?: any
+}
+
+/**
+ * Security audit logging utility
+ */
+class AuditLogger {
+  static async logEvent(auditContext: AuditContext): Promise<void> {
+    try {
+      const timestamp = new Date().toISOString()
+      const logEntry = {
+        timestamp,
+        ...auditContext,
+        environment: process.env.NODE_ENV || 'development'
+      }
+      
+      // Log to console in development, would integrate with logging service in production
+      console.log('AUDIT:', JSON.stringify(logEntry))
+      
+      // TODO: Integrate with proper audit logging service (e.g., AWS CloudTrail, DataDog)
+    } catch (error) {
+      console.error('Audit logging failed:', error)
+      // Don't throw - audit logging failure shouldn't break operations
+    }
+  }
+}
+
+/**
+ * Access validation utility for security controls
+ */
+class AccessValidator {
+  static async validateAccess(
+    auditContext: AuditContext | undefined,
+    modelName: string,
+    operation: 'create' | 'read' | 'update' | 'delete'
+  ): Promise<boolean> {
+    // In development, allow all operations
+    if (process.env.NODE_ENV === 'development') {
+      return true
+    }
+    
+    // Basic validation - would be enhanced with proper RBAC in production
+    if (!auditContext?.userId) {
+      console.warn(`Access validation: No user context for ${operation} on ${modelName}`)
+      return false
+    }
+    
+    // Log access attempt
+    await AuditLogger.logEvent({
+      eventType: `database.access_check`,
+      actorType: auditContext.actorType || 'user',
+      userId: auditContext.userId,
+      targetType: modelName,
+      details: { operation, granted: true }
+    })
+    
+    return true
+  }
+}
+
+/**
+ * SECURE ALIAS FUNCTIONS
+ * These provide the functional interface while routing to existing class methods
+ * Maintains backward compatibility and adds security controls
+ */
+
+/**
+ * Secure find operation with audit logging and access control
+ */
+export async function safeFind(
+  model: mongoose.Model<any>,
+  query: any,
+  options: any = {},
+  auditContext?: AuditContext
+): Promise<DatabaseResult> {
+  try {
+    // Validate access
+    const hasAccess = await AccessValidator.validateAccess(
+      auditContext,
+      model.modelName,
+      'read'
+    )
+    
+    if (!hasAccess) {
+      return {
+        success: false,
+        error: 'Access denied'
+      }
+    }
+
+    // Route to appropriate existing class method based on model
+    switch (model.modelName) {
+      case 'User':
+        if (query.email) {
+          return UserUtils.findByEmail(query.email)
+        }
+        break
+      case 'Product':
+        if (query['seo.slug']) {
+          return ProductUtils.findBySlug(query['seo.slug'])
+        }
+        break
+    }
+
+    // Fallback to generic find with existing safeDbOperation wrapper
+    return safeDbOperation(async () => {
+      const result = await model.find(query, null, options).exec()
+      
+      // Log the operation
+      if (auditContext) {
+        await AuditLogger.logEvent({
+          eventType: 'database.find',
+          actorType: auditContext.actorType || 'user',
+          userId: auditContext.userId,
+          targetType: model.modelName,
+          details: { queryKeys: Object.keys(query), resultCount: result?.length || 0 }
+        })
+      }
+      
+      return result
+    })
+  } catch (error) {
+    console.error('safeFind error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Find operation failed'
+    }
+  }
+}
+
+/**
+ * Secure create operation with audit logging and validation
+ */
+export async function safeCreate(
+  model: mongoose.Model<any>,
+  data: any,
+  auditContext?: AuditContext
+): Promise<DatabaseResult> {
+  try {
+    // Validate access
+    const hasAccess = await AccessValidator.validateAccess(
+      auditContext,
+      model.modelName,
+      'create'
+    )
+    
+    if (!hasAccess) {
+      return {
+        success: false,
+        error: 'Access denied'
+      }
+    }
+
+    // Input validation and sanitization
+    if (typeof data === 'object' && data !== null) {
+      // Sanitize string inputs
+      Object.keys(data).forEach(key => {
+        if (typeof data[key] === 'string') {
+          data[key] = ValidationUtils.sanitizeInput(data[key])
+        }
+      })
+    }
+
+    // Route to appropriate existing class method based on model
+    switch (model.modelName) {
+      case 'User':
+        const userResult = await UserUtils.createUser(data)
+        if (auditContext) {
+          await AuditLogger.logEvent({
+            eventType: 'database.create',
+            actorType: auditContext.actorType || 'user',
+            userId: auditContext.userId,
+            targetType: 'User',
+            targetId: userResult.data?._id,
+            details: { email: data.email }
+          })
+        }
+        return userResult
+    }
+
+    // Fallback to generic create with existing safeDbOperation wrapper
+    return safeDbOperation(async () => {
+      const document = new model(data)
+      const result = await document.save()
+      
+      // Log the operation
+      if (auditContext) {
+        await AuditLogger.logEvent({
+          eventType: 'database.create',
+          actorType: auditContext.actorType || 'user',
+          userId: auditContext.userId,
+          targetType: model.modelName,
+          targetId: result._id?.toString(),
+          details: { dataKeys: Object.keys(data) }
+        })
+      }
+      
+      return result
+    })
+  } catch (error) {
+    console.error('safeCreate error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Create operation failed'
+    }
+  }
+}
+
+/**
+ * Secure update operation with audit logging and validation
+ */
+export async function safeUpdate(
+  model: mongoose.Model<any>,
+  filter: any,
+  update: any,
+  options: any = {},
+  auditContext?: AuditContext
+): Promise<DatabaseResult> {
+  try {
+    // Validate access
+    const hasAccess = await AccessValidator.validateAccess(
+      auditContext,
+      model.modelName,
+      'update'
+    )
+    
+    if (!hasAccess) {
+      return {
+        success: false,
+        error: 'Access denied'
+      }
+    }
+
+    // Input validation and sanitization
+    if (typeof update === 'object' && update !== null) {
+      // Sanitize string inputs in update data
+      Object.keys(update).forEach(key => {
+        if (typeof update[key] === 'string') {
+          update[key] = ValidationUtils.sanitizeInput(update[key])
+        }
+      })
+    }
+
+    // Route to appropriate existing class method based on model
+    switch (model.modelName) {
+      case 'User':
+        if (filter._id) {
+          const userResult = await UserUtils.updateUser(filter._id, update)
+          if (auditContext) {
+            await AuditLogger.logEvent({
+              eventType: 'database.update',
+              actorType: auditContext.actorType || 'user',
+              userId: auditContext.userId,
+              targetType: 'User',
+              targetId: filter._id,
+              details: { updateKeys: Object.keys(update) }
+            })
+          }
+          return userResult
+        }
+        break
+      case 'Product':
+        if (filter._id && update.$inc) {
+          return ProductUtils.updateAnalytics(filter._id, update.$inc)
+        }
+        break
+    }
+
+    // Fallback to generic update with existing safeDbOperation wrapper
+    return safeDbOperation(async () => {
+      const result = await model.findOneAndUpdate(
+        filter,
+        update,
+        { new: true, runValidators: true, ...options }
+      ).exec()
+      
+      // Log the operation
+      if (auditContext) {
+        await AuditLogger.logEvent({
+          eventType: 'database.update',
+          actorType: auditContext.actorType || 'user',
+          userId: auditContext.userId,
+          targetType: model.modelName,
+          targetId: result?._id?.toString(),
+          details: { 
+            filterKeys: Object.keys(filter),
+            updateKeys: Object.keys(update)
+          }
+        })
+      }
+      
+      return result
+    })
+  } catch (error) {
+    console.error('safeUpdate error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Update operation failed'
+    }
+  }
+}
+
+/**
+ * Secure delete operation with audit logging
+ */
+export async function safeDelete(
+  model: mongoose.Model<any>,
+  filter: any,
+  auditContext?: AuditContext
+): Promise<DatabaseResult> {
+  try {
+    // Validate access
+    const hasAccess = await AccessValidator.validateAccess(
+      auditContext,
+      model.modelName,
+      'delete'
+    )
+    
+    if (!hasAccess) {
+      return {
+        success: false,
+        error: 'Access denied'
+      }
+    }
+
+    return safeDbOperation(async () => {
+      const result = await model.findOneAndDelete(filter).exec()
+      
+      // Log the operation
+      if (auditContext) {
+        await AuditLogger.logEvent({
+          eventType: 'database.delete',
+          actorType: auditContext.actorType || 'user',
+          userId: auditContext.userId,
+          targetType: model.modelName,
+          targetId: result?._id?.toString(),
+          details: { filterKeys: Object.keys(filter) }
+        })
+      }
+      
+      return result
+    })
+  } catch (error) {
+    console.error('safeDelete error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Delete operation failed'
+    }
+  }
+}
+
+/**
+ * Database utilities object for backward compatibility
+ */
+export const dbUtils = {
+  UserUtils,
+  ProductUtils,
+  TransactionUtils,
+  ValidationUtils,
+  PerformanceUtils,
+  
+  // Advanced operations
+  advancedSearch: (model: mongoose.Model<any>, searchParams: any) => {
+    return ProductUtils.search(searchParams.term || '', searchParams.filters || {}, searchParams.pagination || {})
+  },
+  
+  // Transaction wrapper
+  executeTransaction: async <T>(
+    operation: (context: { session: mongoose.ClientSession }) => Promise<T>,
+    auditContext?: AuditContext
+  ): Promise<DatabaseResult<T>> => {
+    return safeDbOperation(async () => {
+      return withTransaction(async (session) => {
+        if (auditContext) {
+          await AuditLogger.logEvent({
+            eventType: 'database.transaction_start',
+            actorType: auditContext.actorType || 'user',
+            userId: auditContext.userId,
+            details: { transactionType: auditContext.eventType }
+          })
+        }
+        
+        const result = await operation({ session })
+        
+        if (auditContext) {
+          await AuditLogger.logEvent({
+            eventType: 'database.transaction_complete',
+            actorType: auditContext.actorType || 'user',
+            userId: auditContext.userId,
+            details: { transactionType: auditContext.eventType }
+          })
+        }
+        
+        return result
+      })
+    })
+  },
+  
+  // Audit logging
+  logAuditEvent: AuditLogger.logEvent
+}
+
 export default {
   UserUtils,
   ProductUtils,
@@ -447,5 +858,10 @@ export default {
   ValidationUtils,
   PerformanceUtils,
   safeDbOperation,
-  paginatedQuery
+  paginatedQuery,
+  safeFind,
+  safeCreate,
+  safeUpdate,
+  safeDelete,
+  dbUtils
 }

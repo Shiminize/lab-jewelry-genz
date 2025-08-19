@@ -1,7 +1,58 @@
 /**
  * API Test Utilities
  * Helper functions for testing API endpoints
+ * Includes URL validation to prevent SSRF attacks
  */
+
+// SECURITY NOTE: This file contains test utilities that should NOT be included in production builds
+// Consider excluding this file from production bundles or moving to a separate test directory
+
+// URL validation for SSRF protection
+function validateBaseUrl(baseUrl: string): boolean {
+  try {
+    const url = new URL(baseUrl)
+    
+    // Allowlist of permitted hosts for API testing
+    const allowedHosts = [
+      'localhost',
+      '127.0.0.1',
+      '0.0.0.0',
+      process.env.VERCEL_URL?.replace('https://', ''),
+      process.env.NEXT_PUBLIC_APP_URL?.replace(/https?:\/\//, ''),
+      'api.stripe.com' // Required for Stripe integration testing
+    ].filter(Boolean)
+    
+    // Check if hostname is in allowlist
+    const isAllowedHost = allowedHosts.some(host => 
+      url.hostname === host || url.hostname.endsWith(`.${host}`)
+    )
+    
+    if (!isAllowedHost) {
+      throw new Error(`Unauthorized host: ${url.hostname}. Allowed hosts: ${allowedHosts.join(', ')}`)
+    }
+    
+    // Additional security checks
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+      throw new Error(`Unsupported protocol: ${url.protocol}`)
+    }
+    
+    // Prevent access to private IP ranges (additional protection)
+    const hostname = url.hostname
+    if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+      if (hostname.match(/^10\./) || 
+          hostname.match(/^192\.168\./) || 
+          hostname.match(/^172\.(1[6-9]|2[0-9]|3[0-1])\./) ||
+          hostname.match(/^169\.254\./)) {
+        throw new Error(`Access to private IP ranges is not allowed: ${hostname}`)
+      }
+    }
+    
+    return true
+  } catch (error) {
+    console.error('URL validation failed:', error.message)
+    return false
+  }
+}
 
 export interface ApiResponse<T = any> {
   success: boolean
@@ -32,6 +83,15 @@ export interface ApiResponse<T = any> {
 
 export async function testProductsApi(baseUrl: string = 'http://localhost:3000') {
   console.log('Testing Product API endpoints...\n')
+  
+  // Validate baseUrl to prevent SSRF attacks
+  if (!validateBaseUrl(baseUrl)) {
+    console.error('❌ Security Error: Invalid or unauthorized baseUrl provided')
+    console.error('Allowed hosts: localhost, 127.0.0.1, 0.0.0.0, Vercel domains, api.stripe.com')
+    return
+  }
+  
+  console.log(`✅ URL validation passed for: ${baseUrl}\n`)
 
   // Test 1: GET /api/products (basic)
   console.log('1. Testing GET /api/products (basic):')

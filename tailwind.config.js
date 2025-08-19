@@ -23,7 +23,9 @@ module.exports = {
         
         // Essential colors
         white: '#FFFFFF', // Pure white for cards and text on colored backgrounds
-        'gray-600': '#6B7280', // Muted text gray
+        'high-contrast': '#FFFFFF', // High contrast text for colored backgrounds (CLAUDE_RULES)
+        'gray-600': '#6B7280', // Muted text gray (legacy)
+        'gray-700': '#374151', // WCAG AA compliant muted text
         
         // Border colors
         border: '#E5E5E5', // Standard borders

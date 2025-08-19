@@ -6,7 +6,7 @@
 
 import { NextRequest } from 'next/server'
 import { ZodError } from 'zod'
-import { productRepository } from '@/lib/database'
+import { productRepository } from '@/lib/repositories/product.repository'
 import { 
   createSuccessResponse, 
   createErrorResponse, 
@@ -63,10 +63,11 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     const { id } = validatedParams
     
     // Try to get product by ID first, then by slug
-    let product = await productRepository.getById(id)
+    let product = await productRepository.getProductById(id)
     
+    // If not found by ID, try by slug
     if (!product) {
-      product = await productRepository.getBySlug(id)
+      product = await productRepository.getProductBySlug(id)
     }
     
     if (!product) {
@@ -78,21 +79,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       )
     }
 
-    // Filter sensitive data before sending to client
-    const publicProduct = {
-      ...product,
-      // Remove internal fields that shouldn't be exposed - only expose non-sensitive analytics
-      analytics: product.analytics ? {
-        views: product.analytics.views,
-        customizations: product.analytics.customizations,
-        purchases: product.analytics.purchases,
-        conversionRate: product.analytics.conversionRate
-        // averageTimeOnPage is kept internal for privacy
-      } : undefined
-    }
-    
     const responseTime = Date.now() - startTime
-    const response = createSuccessResponse(publicProduct)
+    const response = createSuccessResponse(product)
 
     // Add performance and cache headers
     response.headers.set('Cache-Control', 'public, max-age=600, stale-while-revalidate=1800') // 10min cache
@@ -170,7 +158,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     const { id } = validatedParams
     const updates = await request.json()
     
-    const updatedProduct = await productRepository.update(id, updates)
+    const updatedProduct = await productRepository.updateProduct(id, updates)
     
     if (!updatedProduct) {
       return createErrorResponse(

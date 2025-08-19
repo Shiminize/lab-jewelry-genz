@@ -5,7 +5,6 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
 import { Button } from '@/components/ui/Button'
-import { EnhancedDiamondProcess } from '@/components/customizer/EnhancedDiamondProcess'
 
 // Component variants following design system
 const sustainabilityVariants = cva(
@@ -494,16 +493,39 @@ export function SustainabilityStorySection({
         </div>
       )}
 
-      {/* Enhanced Lab Diamond Creation Process */}
+      {/* Lab Diamond Creation Process */}
       {showProcess && (
-        <EnhancedDiamondProcess 
-          showTechnicalDetails={true}
-          enableAnimation={true}
-          animationDelay={200}
-          showDuration={false}
-          enableKeyboardNav={true}
-          className="mt-16 lg:mt-20"
-        />
+        <div className="mt-16 lg:mt-20">
+          <div className="text-center mb-12">
+            <H3 className="mb-4">How Lab-Grown Diamonds Are Created</H3>
+            <BodyText className="text-foreground max-w-2xl mx-auto">
+              Discover the fascinating science behind lab-grown diamond creation. 
+              In just weeks, we recreate millions of years of natural formation.
+            </BodyText>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {processSteps.map((step, index) => (
+              <div 
+                key={index}
+                className={cn(processStepVariants())}
+              >
+                <div className="w-20 h-20 mx-auto bg-accent/10 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                  {step.icon}
+                </div>
+                <H3 className="text-lg font-semibold text-foreground mb-2">
+                  {step.title}
+                </H3>
+                <BodyText 
+                  size="sm" 
+                  className="text-foreground leading-relaxed"
+                >
+                  {step.description}
+                </BodyText>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
 
       {/* Certifications & Partnerships */}

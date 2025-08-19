@@ -6,6 +6,7 @@ export { Badge } from './Badge'
 export { Card, CardContent, CardHeader, CardTitle } from './Card'
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './Tabs'
 export { Alert } from './Alert'
+export { MaterialTagChip } from './MaterialTagChip'
 
 // Icon exports
 export { CarbonSeedIcon, PressureHeatIcon, CrystalGrowthIcon, CutPolishIcon, AnimatedArrow } from './DiamondProcessIcons'

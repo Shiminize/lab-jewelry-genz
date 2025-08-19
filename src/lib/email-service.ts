@@ -411,6 +411,439 @@ The GlowGlitch Team
   }
 }
 
+// Send order confirmation email
+export async function sendOrderConfirmation(
+  order: any,
+  customerName: string
+): Promise<boolean> {
+  if (!transporter || !emailConfig) {
+    console.warn('Email service not configured. Order confirmation email not sent.')
+    // For development, log the email content
+    console.log('\n📧 ORDER CONFIRMATION EMAIL (Development Mode)')
+    console.log('='.repeat(50))
+    console.log(`To: ${order.email}`)
+    console.log(`Order: ${order.orderNumber}`)
+    console.log(`Total: $${order.total.toFixed(2)}`)
+    console.log(`Items: ${order.items.length}`)
+    console.log('='.repeat(50))
+    return true
+  }
+  
+  const content = `
+    <h1>🎉 Order Confirmed!</h1>
+    
+    <p>Hi ${customerName},</p>
+    
+    <p>Thank you for your purchase! Your order has been confirmed and is being processed.</p>
+    
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="color: #d4af37; margin-bottom: 15px;">Order Details</h3>
+        <p><strong>Order Number:</strong> ${order.orderNumber}</p>
+        <p><strong>Order Date:</strong> ${new Date(order.createdAt).toLocaleDateString()}</p>
+        <p><strong>Status:</strong> ${order.status}</p>
+        ${order.shipping?.estimatedDelivery ? `<p><strong>Estimated Delivery:</strong> ${new Date(order.shipping.estimatedDelivery).toLocaleDateString()}</p>` : ''}
+    </div>
+    
+    <div style="background: white; border: 1px solid #eee; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="margin-bottom: 15px;">Order Summary</h3>
+        ${order.items.map((item: any) => `
+            <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                <strong>${item.productName}</strong><br>
+                Quantity: ${item.quantity} × $${item.unitPrice.toFixed(2)} = $${item.totalPrice.toFixed(2)}
+                ${item.customizations ? `<br><em style="color: #666;">Customizations: ${JSON.stringify(item.customizations)}</em>` : ''}
+            </div>
+        `).join('')}
+        
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #d4af37;">
+            <p>Subtotal: $${order.subtotal.toFixed(2)}</p>
+            <p>Shipping: $${order.shipping?.cost?.toFixed(2) || order.shipping.toFixed(2)}</p>
+            <p>Tax: $${order.tax.toFixed(2)}</p>
+            ${order.discount > 0 ? `<p>Discount: -$${order.discount.toFixed(2)}</p>` : ''}
+            <p style="font-size: 18px; font-weight: bold; color: #d4af37;">Total: $${order.total.toFixed(2)}</p>
+        </div>
+    </div>
+    
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="margin-bottom: 15px;">Shipping Address</h3>
+        <p>
+            ${order.shippingAddress.firstName} ${order.shippingAddress.lastName}<br>
+            ${order.shippingAddress.address1}<br>
+            ${order.shippingAddress.address2 ? order.shippingAddress.address2 + '<br>' : ''}
+            ${order.shippingAddress.city}, ${order.shippingAddress.state} ${order.shippingAddress.postalCode}<br>
+            ${order.shippingAddress.country}
+        </p>
+    </div>
+    
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="${emailConfig.BASE_URL}/orders/${order._id}" class="button">Track Your Order</a>
+    </div>
+    
+    <p>We'll send you shipping updates as your order progresses. If you have any questions, please don't hesitate to contact our support team.</p>
+    
+    <div class="highlight">
+        <strong>What's Next?</strong> We'll start processing your order within 24 hours and send you tracking information once it ships.
+    </div>
+  `
+  
+  try {
+    await transporter.sendMail({
+      from: `"${emailConfig.FROM_NAME}" <${emailConfig.FROM_EMAIL}>`,
+      to: order.email,
+      subject: `Order Confirmation - ${order.orderNumber}`,
+      html: getEmailTemplate(content, `Order Confirmation - ${order.orderNumber}`),
+      text: `
+Order Confirmation - ${order.orderNumber}
+
+Hi ${customerName},
+
+Thank you for your purchase! Your order has been confirmed and is being processed.
+
+Order Details:
+- Order Number: ${order.orderNumber}
+- Total: $${order.total.toFixed(2)}
+- Items: ${order.items.length}
+- Status: ${order.status}
+
+We'll send you shipping updates as your order progresses.
+
+Track your order: ${emailConfig.BASE_URL}/orders/${order._id}
+
+Best regards,
+The GlowGlitch Team
+      `.trim()
+    })
+    
+    console.log(`Order confirmation email sent to ${order.email}`)
+    return true
+  } catch (error) {
+    console.error('Error sending order confirmation email:', error)
+    return false
+  }
+}
+
+// Send order status update email
+export async function sendOrderStatusUpdate(
+  order: any,
+  statusMessage: string,
+  customerName: string
+): Promise<boolean> {
+  if (!transporter || !emailConfig) {
+    console.warn('Email service not configured. Order status update email not sent.')
+    // For development, log the email content
+    console.log('\n📧 ORDER STATUS UPDATE EMAIL (Development Mode)')
+    console.log('='.repeat(50))
+    console.log(`To: ${order.email}`)
+    console.log(`Order: ${order.orderNumber}`)
+    console.log(`Status: ${order.status}`)
+    console.log(`Message: ${statusMessage}`)
+    console.log('='.repeat(50))
+    return true
+  }
+  
+  const statusConfig = getStatusEmailConfig(order.status)
+  
+  const content = `
+    <h1>${statusConfig.icon} ${statusConfig.title}</h1>
+    
+    <p>Hi ${customerName},</p>
+    
+    <p>${statusMessage}</p>
+    
+    <div style="background: ${statusConfig.bgColor}; border-left: 4px solid ${statusConfig.borderColor}; padding: 20px; margin: 20px 0;">
+        <h3 style="color: ${statusConfig.textColor}; margin-bottom: 10px;">Order Update</h3>
+        <p><strong>Order Number:</strong> ${order.orderNumber}</p>
+        <p><strong>New Status:</strong> ${order.status}</p>
+        <p><strong>Updated:</strong> ${new Date().toLocaleDateString()}</p>
+    </div>
+    
+    ${order.shipping?.trackingNumber ? `
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="margin-bottom: 15px;">Tracking Information</h3>
+        <p><strong>Carrier:</strong> ${order.shipping.carrier}</p>
+        <p><strong>Tracking Number:</strong> ${order.shipping.trackingNumber}</p>
+        ${order.shipping.trackingUrl ? `<p><a href="${order.shipping.trackingUrl}" class="button" style="margin-top: 10px;">Track Package</a></p>` : ''}
+    </div>
+    ` : ''}
+    
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="${emailConfig.BASE_URL}/orders/${order._id}" class="button">View Order Details</a>
+    </div>
+    
+    <p>Thank you for choosing GlowGlitch. We appreciate your business!</p>
+  `
+  
+  try {
+    await transporter.sendMail({
+      from: `"${emailConfig.FROM_NAME}" <${emailConfig.FROM_EMAIL}>`,
+      to: order.email,
+      subject: `${statusConfig.title} - ${order.orderNumber}`,
+      html: getEmailTemplate(content, `${statusConfig.title} - ${order.orderNumber}`),
+      text: `
+${statusConfig.title} - ${order.orderNumber}
+
+Hi ${customerName},
+
+${statusMessage}
+
+Order Details:
+- Order Number: ${order.orderNumber}
+- Status: ${order.status}
+- Updated: ${new Date().toLocaleDateString()}
+
+${order.shipping?.trackingNumber ? `Tracking Number: ${order.shipping.trackingNumber}` : ''}
+
+View order details: ${emailConfig.BASE_URL}/orders/${order._id}
+
+Best regards,
+The GlowGlitch Team
+      `.trim()
+    })
+    
+    console.log(`Order status update email sent to ${order.email}`)
+    return true
+  } catch (error) {
+    console.error('Error sending order status update email:', error)
+    return false
+  }
+}
+
+// Send guest account invitation email
+export async function sendGuestAccountInvitation(
+  order: any,
+  inviteToken: string
+): Promise<boolean> {
+  if (!transporter || !emailConfig) {
+    console.warn('Email service not configured. Guest invitation email not sent.')
+    // For development, log the email content
+    console.log('\n📧 GUEST INVITATION EMAIL (Development Mode)')
+    console.log('='.repeat(50))
+    console.log(`To: ${order.email}`)
+    console.log(`Order: ${order.orderNumber}`)
+    console.log(`Invite Token: ${inviteToken}`)
+    console.log('='.repeat(50))
+    return true
+  }
+  
+  const inviteUrl = `${emailConfig.BASE_URL}/auth/register-guest?token=${inviteToken}&order=${order.orderNumber}`
+  const customerName = `${order.shippingAddress.firstName} ${order.shippingAddress.lastName}`
+  
+  const content = `
+    <h1>💎 Create Your GlowGlitch Account</h1>
+    
+    <p>Hi ${customerName},</p>
+    
+    <p>Thanks for your recent order <strong>${order.orderNumber}</strong>! We'd love to help you track your order and discover more amazing jewelry.</p>
+    
+    <p>Create a GlowGlitch account to unlock exclusive features:</p>
+    
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="color: #d4af37; margin-bottom: 15px;">Member Benefits</h3>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>Track all your orders in one place</li>
+            <li>Access to exclusive member-only designs</li>
+            <li>Early access to new collections</li>
+            <li>Personalized recommendations</li>
+            <li>Faster checkout process</li>
+            <li>Order history and reorder favorites</li>
+            <li>Join our creator program for rewards</li>
+        </ul>
+    </div>
+    
+    <div style="text-align: center; margin: 30px 0;">
+        <a href="${inviteUrl}" class="button">Create Account</a>
+    </div>
+    
+    <div class="highlight">
+        <strong>Special Offer:</strong> Create your account within 7 days and get 15% off your next order!
+    </div>
+    
+    <p><small>This invitation is valid for 30 days. No spam, ever - we respect your privacy.</small></p>
+  `
+  
+  try {
+    await transporter.sendMail({
+      from: `"${emailConfig.FROM_NAME}" <${emailConfig.FROM_EMAIL}>`,
+      to: order.email,
+      subject: `Create your account to track order ${order.orderNumber}`,
+      html: getEmailTemplate(content, 'Join GlowGlitch'),
+      text: `
+Create your GlowGlitch account - Order ${order.orderNumber}
+
+Hi ${customerName},
+
+Thanks for your recent order! Create a GlowGlitch account to track your order and unlock exclusive features:
+
+Benefits:
+- Track all your orders in one place
+- Access to exclusive member-only designs
+- Early access to new collections
+- Personalized recommendations
+- Faster checkout process
+
+Create account: ${inviteUrl}
+
+Special offer: Create your account within 7 days and get 15% off your next order!
+
+Best regards,
+The GlowGlitch Team
+      `.trim()
+    })
+    
+    console.log(`Guest invitation email sent to ${order.email}`)
+    return true
+  } catch (error) {
+    console.error('Error sending guest invitation email:', error)
+    return false
+  }
+}
+
+// Helper function to get status-specific email configuration
+function getStatusEmailConfig(status: string) {
+  const configs: Record<string, any> = {
+    'confirmed': {
+      icon: '✅',
+      title: 'Order Confirmed',
+      bgColor: '#d4edda',
+      borderColor: '#28a745',
+      textColor: '#155724'
+    },
+    'processing': {
+      icon: '⚙️',
+      title: 'Order Processing',
+      bgColor: '#d1ecf1',
+      borderColor: '#17a2b8',
+      textColor: '#0c5460'
+    },
+    'shipped': {
+      icon: '📦',
+      title: 'Order Shipped',
+      bgColor: '#d1ecf1',
+      borderColor: '#17a2b8',
+      textColor: '#0c5460'
+    },
+    'delivered': {
+      icon: '🎉',
+      title: 'Order Delivered',
+      bgColor: '#d4edda',
+      borderColor: '#28a745',
+      textColor: '#155724'
+    },
+    'cancelled': {
+      icon: '❌',
+      title: 'Order Cancelled',
+      bgColor: '#f8d7da',
+      borderColor: '#dc3545',
+      textColor: '#721c24'
+    },
+    'refunded': {
+      icon: '💳',
+      title: 'Order Refunded',
+      bgColor: '#ffeaa7',
+      borderColor: '#fdcb6e',
+      textColor: '#8b6914'
+    }
+  }
+  
+  return configs[status] || configs['confirmed']
+}
+
+// Send account conversion email
+export async function sendAccountConversionEmail(
+  email: string,
+  user: { 
+    firstName: string; 
+    lastName: string; 
+    orderCount: number; 
+    orderNumbers: string[] 
+  }
+): Promise<boolean> {
+  if (!transporter || !emailConfig) {
+    console.warn('Email service not configured. Account conversion email not sent.')
+    // For development, log the email content
+    console.log('\n📧 ACCOUNT CONVERSION EMAIL (Development Mode)')
+    console.log('='.repeat(50))
+    console.log(`To: ${email}`)
+    console.log(`Name: ${user.firstName} ${user.lastName}`)
+    console.log(`Orders Converted: ${user.orderCount}`)
+    console.log(`Order Numbers: ${user.orderNumbers.join(', ')}`)
+    console.log('='.repeat(50))
+    return true
+  }
+  
+  const content = `
+    <h1>🎉 Welcome to GlowGlitch!</h1>
+    
+    <p>Hi ${user.firstName},</p>
+    
+    <p>Great news! Your account has been successfully created and your previous order(s) have been added to your account history.</p>
+    
+    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <h3 style="color: #d4af37; margin-bottom: 15px;">Account Summary</h3>
+      <p><strong>Orders Added:</strong> ${user.orderCount} order${user.orderCount > 1 ? 's' : ''}</p>
+      <p><strong>Order Numbers:</strong></p>
+      <ul style="margin-left: 20px;">
+        ${user.orderNumbers.map(orderNumber => `<li>${orderNumber}</li>`).join('')}
+      </ul>
+    </div>
+    
+    <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <h3 style="color: #d4af37; margin-bottom: 15px;">🔐 Important: Verify Your Email</h3>
+      <p>To secure your account and access all features, please verify your email address. Check your inbox for the verification email.</p>
+    </div>
+    
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="${emailConfig.BASE_URL}/account/orders" class="button">View Your Orders</a>
+    </div>
+    
+    <div style="margin: 30px 0;">
+      <h3 style="color: #d4af37; margin-bottom: 15px;">Your Member Benefits</h3>
+      <ul style="margin-left: 20px; line-height: 1.8;">
+        <li>Track all your orders in one place</li>
+        <li>Faster checkout with saved addresses</li>
+        <li>Access to exclusive member-only designs</li>
+        <li>Early access to new collections</li>
+        <li>Personalized recommendations</li>
+        <li>Join our creator program for rewards</li>
+      </ul>
+    </div>
+    
+    <p>Welcome to the GlowGlitch family! We're excited to have you as a member.</p>
+  `
+  
+  try {
+    await transporter.sendMail({
+      from: `"${emailConfig.FROM_NAME}" <${emailConfig.FROM_EMAIL}>`,
+      to: email,
+      subject: 'Welcome to GlowGlitch - Your Account is Ready!',
+      html: getEmailTemplate(content, 'Account Created - GlowGlitch'),
+      text: `
+Welcome to GlowGlitch!
+
+Hi ${user.firstName},
+
+Your account has been successfully created and ${user.orderCount} order(s) have been added to your account history.
+
+Order Numbers: ${user.orderNumbers.join(', ')}
+
+Please verify your email address to secure your account and access all features.
+
+Visit your account: ${emailConfig.BASE_URL}/account/orders
+
+Welcome to the GlowGlitch family!
+
+Best regards,
+The GlowGlitch Team
+      `.trim()
+    })
+    
+    console.log(`Account conversion email sent to ${email}`)
+    return true
+  } catch (error) {
+    console.error('Error sending account conversion email:', error)
+    return false
+  }
+}
+
 // Test email configuration
 export async function testEmailConfiguration(): Promise<boolean> {
   if (!transporter) {

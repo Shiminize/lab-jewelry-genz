@@ -10,7 +10,7 @@ import { dbUtils, safeFind, safeCreate, safeUpdate, safeDelete } from './databas
 import { OptimizedQueries } from './database-performance'
 
 // User operations
-export class UserAPI {
+class UserAPI {
   /**
    * Create a new user with validation
    */
@@ -86,7 +86,7 @@ export class UserAPI {
 }
 
 // Product operations
-export class ProductAPI {
+class ProductAPI {
   /**
    * Get featured products
    */
@@ -141,7 +141,7 @@ export class ProductAPI {
 }
 
 // Cart operations
-export class CartAPI {
+class CartAPI {
   /**
    * Get user's cart
    */
@@ -226,7 +226,7 @@ export class CartAPI {
 }
 
 // Order operations
-export class OrderAPI {
+class OrderAPI {
   /**
    * Create new order
    */
@@ -317,7 +317,7 @@ export class OrderAPI {
 }
 
 // Review operations
-export class ReviewAPI {
+class ReviewAPI {
   /**
    * Create product review
    */
@@ -388,7 +388,7 @@ export class ReviewAPI {
 }
 
 // Creator operations
-export class CreatorAPI {
+class CreatorAPI {
   /**
    * Track referral click
    */
@@ -445,7 +445,7 @@ export class CreatorAPI {
 }
 
 // Customization operations
-export class CustomizationAPI {
+class CustomizationAPI {
   /**
    * Save customization
    */
@@ -492,7 +492,7 @@ export class CustomizationAPI {
 }
 
 // Analytics operations
-export class AnalyticsAPI {
+class AnalyticsAPI {
   /**
    * Get dashboard analytics
    */

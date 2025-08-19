@@ -6,6 +6,7 @@
 
 import mongoose, { Schema, Document, Model } from 'mongoose'
 import bcrypt from 'bcryptjs'
+import crypto from 'crypto'
 import { User, UserRole, AuthProvider, AccountStatus, UserAddress, UserPreferences, CreatorProfile } from '@/types/auth'
 
 // Mongoose document interface
@@ -67,7 +68,7 @@ const CreatorProfileSchema = new Schema<CreatorProfile>({
     enum: ['pending', 'approved', 'rejected', 'suspended'], 
     default: 'pending' 
   },
-  referralCode: { type: String, required: true, unique: true, uppercase: true },
+  referralCode: { type: String, required: true, uppercase: true },
   commissionRate: { type: Number, min: 0, max: 100, default: 5.0 },
   bankDetails: {
     accountHolder: String,
@@ -107,7 +108,6 @@ const UserSchema = new Schema<IUser>({
   email: { 
     type: String, 
     required: true, 
-    unique: true, 
     lowercase: true,
     match: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/
   },
@@ -239,14 +239,14 @@ UserSchema.methods.comparePassword = async function(candidatePassword: string): 
 }
 
 UserSchema.methods.generateEmailVerificationToken = function(): string {
-  const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+  const token = crypto.randomBytes(32).toString('hex')
   this.emailVerificationToken = token
   this.emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
   return token
 }
 
 UserSchema.methods.generatePasswordResetToken = function(): string {
-  const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+  const token = crypto.randomBytes(32).toString('hex')
   this.passwordResetToken = token
   this.passwordResetExpires = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
   return token
@@ -254,9 +254,10 @@ UserSchema.methods.generatePasswordResetToken = function(): string {
 
 UserSchema.methods.generateReferralCode = function(): string {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  const randomBytes = crypto.randomBytes(8)
   let result = ''
   for (let i = 0; i < 8; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length))
+    result += characters.charAt(randomBytes[i] % characters.length)
   }
   return result
 }

@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
@@ -77,9 +79,9 @@ export function HeroSection({
   spacing,
   headline = "Your Story, Our Sparkle. Jewelry That's Authentically You.",
   subHeadline = "Conflict-free, brilliantly crafted lab gems, Moissanite, and diamonds for every style and milestone. Because true luxury is a clear conscience.",
-  primaryCtaText = "Find Your Signature Piece",
+  primaryCtaText = "Start Designing",
   onPrimaryCtaClick,
-  secondaryCtaText = "Start Your Design Journey", 
+  secondaryCtaText = "Explore Collection", 
   onSecondaryCtaClick,
   videoSrc = "/hero_section_video.mp4",
   fallbackImageSrc = "/hero_fallback.jpg",
@@ -90,6 +92,7 @@ export function HeroSection({
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [videoError, setVideoError] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [loadingProgress, setLoadingProgress] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   // Check for reduced motion preference
@@ -104,21 +107,58 @@ export function HeroSection({
     }
   }, [respectReducedMotion])
 
-  // Handle video loading and error states
+  // Enhanced video loading and error handling
   const handleVideoLoad = () => {
+    console.log('✅ Hero video loaded successfully')
     setVideoLoaded(true)
     setVideoError(false)
+    setLoadingProgress(100)
   }
 
-  const handleVideoError = () => {
+  const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+    const video = e.currentTarget
+    const error = video.error
+    
+    console.error('❌ Hero video loading failed:', {
+      error: error?.message || 'Unknown error',
+      code: error?.code,
+      networkState: video.networkState,
+      readyState: video.readyState,
+      src: videoSrc,
+      currentSrc: video.currentSrc
+    })
+    
     setVideoError(true)
     setVideoLoaded(false)
+    setLoadingProgress(0)
+  }
+
+  const handleVideoProgress = () => {
+    if (videoRef.current) {
+      const video = videoRef.current
+      if (video.duration > 0) {
+        const progress = (video.buffered.length > 0 ? video.buffered.end(0) / video.duration : 0) * 100
+        setLoadingProgress(progress)
+        console.log(`📊 Video loading progress: ${progress.toFixed(1)}%`)
+      }
+    }
+  }
+
+  const handleVideoLoadStart = () => {
+    console.log('🎬 Hero video loading started:', videoSrc)
+    setLoadingProgress(5)
+  }
+
+  const handleVideoCanPlay = () => {
+    console.log('▶️ Hero video can start playing')
+    setLoadingProgress(90)
   }
 
   // Auto-play video when loaded (respecting user preferences)
   useEffect(() => {
     if (videoRef.current && videoLoaded && !prefersReducedMotion) {
-      videoRef.current.play().catch(() => {
+      videoRef.current.play().catch((playError) => {
+        console.warn('⚠️ Auto-play failed (expected behavior):', playError.message)
         // Auto-play failed, but this is expected in many browsers
         // The video will still be available for user interaction
       })
@@ -144,34 +184,60 @@ export function HeroSection({
       {/* Video Background with Overlay */}
       <div className="absolute inset-0 z-0">
         {!videoError && (
-          <video
-            ref={videoRef}
-            className={cn(
-              "absolute inset-0 w-full h-full object-cover",
-              !videoLoaded && "opacity-0"
+          <>
+            <video
+              ref={videoRef}
+              className={cn(
+                "absolute inset-0 w-full h-full object-cover transition-opacity duration-500",
+                !videoLoaded && "opacity-0"
+              )}
+              autoPlay={!prefersReducedMotion}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              onLoadedData={handleVideoLoad}
+              onError={handleVideoError}
+              onLoadStart={handleVideoLoadStart}
+              onCanPlay={handleVideoCanPlay}
+              onProgress={handleVideoProgress}
+              aria-hidden="true"
+            >
+              <source src={videoSrc} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            
+            {/* Video Loading Progress Indicator */}
+            {!videoLoaded && loadingProgress > 0 && loadingProgress < 100 && (
+              <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-sm z-30">
+                <div className="flex flex-col items-center space-y-4">
+                  <div className="w-24 h-24 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+                  <div className="text-white/80 font-medium">
+                    Loading video... {loadingProgress.toFixed(0)}%
+                  </div>
+                  <div className="w-48 h-2 bg-white/20 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-primary transition-all duration-300" 
+                      style={{ width: `${loadingProgress}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
             )}
-            autoPlay={!prefersReducedMotion}
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            onLoadedData={handleVideoLoad}
-            onError={handleVideoError}
-            aria-hidden="true"
-          >
-            <source src={videoSrc} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          </>
         )}
         
         {/* Fallback Image */}
         {(videoError || !videoLoaded) && (
-          <img
+          <Image
             src={fallbackImageSrc}
             alt={fallbackImageAlt}
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+            onLoad={() => console.log('✅ Hero fallback image loaded successfully')}
+            onError={() => console.error('❌ Hero fallback image failed to load')}
           />
         )}
         
@@ -188,76 +254,80 @@ export function HeroSection({
         />
       </div>
 
-      {/* Content */}
-      <div className={cn(contentVariants({ spacing }))}>
-        <div className="space-y-8 sm:space-y-10">
-          {/* Main Headline */}
-          <h1 className={cn(
-            "font-headline text-foreground font-bold leading-tight",
-            "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl",
-            "max-w-4xl",
-            textPosition === 'center' && "mx-auto",
-            textPosition === 'right' && "ml-auto"
-          )}>
+      {/* Hero Content */}
+      <div 
+        className={cn(
+          "relative z-20 flex min-h-screen items-center",
+          contentVariants({ spacing })
+        )}
+      >
+        <motion.div
+          className="max-w-4xl mx-auto text-center"
+          initial="hidden"
+          animate="visible"
+        >
+          {/* Headline */}
+          <motion.h1 
+            className={cn(
+              "font-headline text-background",
+              "text-4xl md:text-6xl lg:text-7xl",
+              "leading-tight tracking-tight mb-6"
+            )}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { delay: 0.2, duration: 0.8 } }
+            }}
+          >
             {headline}
-          </h1>
+          </motion.h1>
 
           {/* Sub-headline */}
-          <p className={cn(
-            "font-body text-foreground text-lg sm:text-xl lg:text-2xl leading-relaxed",
-            "max-w-3xl",
-            textPosition === 'center' && "mx-auto",
-            textPosition === 'right' && "ml-auto"
-          )}>
+          <motion.p 
+            className={cn(
+              "font-body text-background",
+              "text-lg md:text-xl lg:text-2xl leading-relaxed mb-8",
+              "max-w-3xl mx-auto"
+            )}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { delay: 0.4, duration: 0.8 } }
+            }}
+          >
             {subHeadline}
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div className={cn(
-            "flex flex-col sm:flex-row gap-4 sm:gap-6",
-            textPosition === 'center' && "justify-center",
-            textPosition === 'right' && "justify-end"
-          )}>
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.8 } }
+            }}
+          >
             <Button
               variant="primary"
               size="lg"
               onClick={handlePrimaryCta}
-              className="min-w-44 touch-manipulation"
-              aria-label={`${primaryCtaText} - Browse our jewelry collection`}
             >
               {primaryCtaText}
             </Button>
             
             <Button
-              variant="secondary"
+              variant="outline"
               size="lg"
+              className="text-background border-background hover:bg-background hover:text-foreground"
               onClick={handleSecondaryCta}
-              className="min-w-44 touch-manipulation"
-              aria-label={`${secondaryCtaText} - Begin custom jewelry design process`}
             >
               {secondaryCtaText}
             </Button>
-          </div>
-        </div>
-
-        {/* Accessibility Enhancement: Screen Reader Context */}
-        <div className="sr-only">
-          <p>
-            Welcome to GlowGlitch, where we create authentic jewelry with conflict-free lab-grown gems, 
-            Moissanite, and diamonds. Our collection is designed for Gen Z and Young Millennials who 
-            value ethical luxury and personal expression.
-          </p>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
-      {/* Video Loading Indicator */}
-      {!videoLoaded && !videoError && (
-        <div className="absolute inset-0 z-30 flex items-center justify-center bg-background/10">
-          <div 
-            className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin"
-            role="status"
-            aria-label="Loading hero video"
-          />
+      {/* Video Error Notification */}
+      {videoError && (
+        <div className="absolute top-4 right-4 z-50 bg-red-500/90 text-white px-4 py-2 rounded-md text-sm">
+          Video failed to load. Using fallback image.
         </div>
       )}
     </section>

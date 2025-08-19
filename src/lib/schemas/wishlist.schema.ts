@@ -72,8 +72,7 @@ export interface WishlistDocument extends Document {
 // Wishlist item subdocument schema
 const wishlistItemSchema = new Schema({
   productId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Product',
+    type: String, // Support both ObjectId and string IDs
     required: true
   },
   productName: {
@@ -151,8 +150,7 @@ const sharedWithSchema = new Schema({
 // Main Wishlist schema
 const wishlistSchema = new Schema<WishlistDocument>({
   userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: String, // Support both ObjectId and guest string IDs
     required: true
   },
   name: {
@@ -179,7 +177,6 @@ const wishlistSchema = new Schema<WishlistDocument>({
   },
   shareUrl: {
     type: String,
-    unique: true,
     sparse: true
   },
   sharedWith: [sharedWithSchema],
@@ -208,7 +205,7 @@ const wishlistSchema = new Schema<WishlistDocument>({
 
 // Indexes for performance optimization
 wishlistSchema.index({ userId: 1, createdAt: -1 })
-wishlistSchema.index({ shareUrl: 1 }, { unique: true, sparse: true })
+wishlistSchema.index({ shareUrl: 1 }, { sparse: true })
 wishlistSchema.index({ isPublic: 1, createdAt: -1 })
 wishlistSchema.index({ 'items.productId': 1 })
 wishlistSchema.index({ 'items.priceAlert.enabled': 1, 'items.priceAlert.notified': 1 })
@@ -253,28 +250,14 @@ wishlistSchema.methods.addItem = async function(
     throw new Error('Item already exists in wishlist')
   }
   
-  // Get product details
-  const ProductModel = mongoose.model('Product')
-  const product = await ProductModel.findById(productId)
-  
-  if (!product) {
-    throw new Error('Product not found')
-  }
-  
-  // Calculate price with customizations
-  const currentPrice = product.calculatePrice(customizations)
-  const variantSKU = product.getVariantSKU(customizations || {})
-  
-  // Add new item
+  // Add new item with basic info (will be enriched later)
   this.items.push({
     productId,
-    productName: product.name,
-    productImage: product.media.thumbnail,
-    productSKU: product.inventory.sku,
-    currentPrice,
-    originalPrice: product.pricing.originalPrice,
+    productName: `Product ${productId}`,
+    productImage: '/images/placeholder-product.jpg',
+    productSKU: `SKU_${productId}`,
+    currentPrice: 0, // Will be updated when product is fetched
     customizations,
-    variantSKU,
     addedAt: new Date(),
     notes
   })

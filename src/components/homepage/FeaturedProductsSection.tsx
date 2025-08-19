@@ -216,7 +216,7 @@ export function FeaturedProductsSection({
               className="min-w-48"
             >
               <Link href="/catalog">
-                <span>View All Products</span>
+                <span>Explore Collection</span>
               </Link>
             </Button>
             
@@ -227,7 +227,7 @@ export function FeaturedProductsSection({
               className="min-w-48"
             >
               <Link href="/customizer">
-                <span>Design Your Own</span>
+                <span>Start Designing</span>
               </Link>
             </Button>
           </div>

@@ -11,7 +11,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Search, Filter, X, ChevronDown, Star, Heart } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
-import { ProductCard } from './ProductCard'
+import { ProductCard } from '../products/ProductCard'
+import { useWishlist } from '@/hooks/useWishlist'
 import { 
   Product, 
   ProductSearchParams, 
@@ -28,6 +29,7 @@ interface ProductSearchProps {
 export function ProductSearch({ initialResults, className }: ProductSearchProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { isInWishlist, toggleWishlist } = useWishlist()
   
   // Search state
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '')
@@ -95,7 +97,27 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
         throw new Error('Search request failed')
       }
 
-      const searchResult: ProductSearchResult = await response.json()
+      const apiResponse = await response.json()
+      
+      // Transform API response to ProductSearchResult format
+      const searchResult: ProductSearchResult = {
+        products: apiResponse.data || [],
+        pagination: apiResponse.pagination || {
+          page: 1,
+          limit: 20,
+          total: 0,
+          totalPages: 1
+        },
+        filters: {
+          applied: {},
+          available: {
+            categories: [],
+            priceRange: { min: 0, max: 10000 },
+            materials: []
+          }
+        }
+      }
+      
       setResults(searchResult)
 
       // Update URL without triggering navigation
@@ -110,8 +132,9 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
     }
   }, [])
 
-  // Debounced search effect
+  // Effect to handle search logic
   useEffect(() => {
+    // Always run initial search after mount
     const timeoutId = setTimeout(() => {
       const searchParams: ProductSearchParams = {
         query: searchQuery || undefined,
@@ -130,14 +153,14 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
       }
 
       performSearch(searchParams)
-    }, 300) // 300ms debounce
+    }, 50) // Small delay to prevent mount issues
 
     return () => clearTimeout(timeoutId)
   }, [
     searchQuery, currentPage, sortBy, sortOrder,
     selectedCategories, selectedSubcategories, priceRange,
     selectedMaterials, onlyInStock, onlyFeatured,
-    performSearch
+    performSearch // Include performSearch since it's stable
   ])
 
   // Active filter count
@@ -173,11 +196,12 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-5 h-5" />
             <input
               type="text"
-              placeholder="Find Your Signature Piece"
+              placeholder="Search products, collections, materials..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              data-testid="product-search-input"
               className={cn(
-                'w-full pl-10 pr-4 py-3 border border-border rounded-lg',
+                'w-full pl-10 pr-4 py-3 border border rounded-lg',
                 'bg-background text-foreground placeholder:text-gray-600',
                 'focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent',
                 'transition-all duration-200'
@@ -189,8 +213,8 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
           <button
             onClick={() => setShowFilters(!showFilters)}
             className={cn(
-              'flex items-center gap-2 px-4 py-3 border border-border rounded-lg',
-              'bg-background hover:bg-border-muted transition-colors',
+              'flex items-center gap-2 px-4 py-3 border border rounded-lg',
+              'bg-background hover:bg-muted transition-colors',
               'md:w-auto w-full justify-center'
             )}
           >
@@ -215,7 +239,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="border border-border rounded px-3 py-1 bg-background text-foreground"
+              className="border border rounded px-3 py-1 bg-background text-foreground"
             >
               <option value="popularity">Popularity</option>
               <option value="price">Price</option>
@@ -225,7 +249,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
             <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value as any)}
-              className="border border-border rounded px-3 py-1 bg-background text-foreground"
+              className="border border rounded px-3 py-1 bg-background text-foreground"
             >
               <option value="desc">High to Low</option>
               <option value="asc">Low to High</option>
@@ -242,7 +266,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
 
       {/* Filter Panel */}
       {showFilters && (
-        <div className="bg-border-muted border border-border rounded-lg p-6 mb-6">
+        <div className="bg-muted border border rounded-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <H3>Filters</H3>
             {activeFilterCount > 0 && (
@@ -272,7 +296,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
                           setSelectedCategories(selectedCategories.filter(c => c !== category))
                         }
                       }}
-                      className="rounded border-border"
+                      className="rounded border"
                     />
                     <MutedText className="capitalize">{category}</MutedText>
                   </label>
@@ -292,7 +316,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
                     ...priceRange,
                     min: e.target.value ? parseInt(e.target.value) : undefined
                   })}
-                  className="w-full px-3 py-2 border border-border rounded text-sm"
+                  className="w-full px-3 py-2 border border rounded text-sm"
                 />
                 <input
                   type="number"
@@ -302,7 +326,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
                     ...priceRange,
                     max: e.target.value ? parseInt(e.target.value) : undefined
                   })}
-                  className="w-full px-3 py-2 border border-border rounded text-sm"
+                  className="w-full px-3 py-2 border border rounded text-sm"
                 />
               </div>
             </div>
@@ -316,7 +340,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
                     type="checkbox"
                     checked={onlyInStock}
                     onChange={(e) => setOnlyInStock(e.target.checked)}
-                    className="rounded border-border"
+                    className="rounded border"
                   />
                   <MutedText>In Stock</MutedText>
                 </label>
@@ -325,7 +349,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
                     type="checkbox"
                     checked={onlyFeatured}
                     onChange={(e) => setOnlyFeatured(e.target.checked)}
-                    className="rounded border-border"
+                    className="rounded border"
                   />
                   <MutedText>Featured</MutedText>
                 </label>
@@ -358,7 +382,12 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
             {results.products.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {results.products.map((product) => (
-                  <ProductCard key={product._id} product={product} />
+                  <ProductCard 
+                    key={product._id} 
+                    product={product}
+                    isWishlisted={isInWishlist(product._id)}
+                    onAddToWishlist={(productId) => toggleWishlist(productId)}
+                  />
                 ))}
               </div>
             ) : (
@@ -382,7 +411,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="px-3 py-2 border border-border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-2 border border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Previous
                 </button>
@@ -395,10 +424,10 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
                         key={pageNum}
                         onClick={() => setCurrentPage(pageNum)}
                         className={cn(
-                          'px-3 py-2 border border-border rounded-lg',
+                          'px-3 py-2 border border rounded-lg',
                           currentPage === pageNum 
                             ? 'bg-accent text-background' 
-                            : 'hover:bg-border-muted'
+                            : 'hover:bg-muted'
                         )}
                       >
                         {pageNum}
@@ -410,7 +439,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
                 <button
                   onClick={() => setCurrentPage(Math.min(results.pagination.totalPages, currentPage + 1))}
                   disabled={currentPage === results.pagination.totalPages}
-                  className="px-3 py-2 border border-border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-2 border border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next
                 </button>

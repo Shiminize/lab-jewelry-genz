@@ -182,11 +182,77 @@ X-RateLimit-Reset: 1692710400
 
 - **Always use Serena**
 
+- **Use Context7 MCP whenever is available**
+
 - **Always Assign UI deisgner Sub agent to design new UI using tailwind as single source of truth**
 
 - **Always Assign Copywriter sub agent to generate new content matching our target audience's emotional appeal: Gen Z and Young millenium**
 
 - **Always ask users if the instructions aren't clear enough or you think there's a better approach**
+
+- **When prompts are provided, always think in big picture if you have better approach or options. Let users know**
+
+- **The orders of implementation plan provided should always consider system health and smooth functionality with risks/bugs/errors mitigated driven**
+
+- **Whenever a new feature is going to be implemented, call relevant agents to review current structure and artechit to evaluate what ncessary components/codes are missing for this feature to complete in a big picture scope**
+
+- **Material-Only Tag System Implementation Rules (MANDATORY)**
+  - **System Health-Driven Implementation Order (STRICT)**
+    - Phase 1: Data layer foundation (DTOs, schemas, types)
+    - Phase 2: Database layer (indexes, queries, performance)
+    - Phase 3: API layer (endpoints, filtering, validation)
+    - Phase 4: UI layer (components, integration, interactions)
+    - **NEVER proceed to next phase without E2E validation passing**
+    - **ALWAYS implement E2E tests after each phase before moving forward**
+  
+  - **Material-Only Focus Enforcement (NON-NEGOTIABLE)**
+    - **EXCLUSIVE FOCUS**: Lab-grown diamonds, moissanite, and lab gems ONLY
+    - **FORBIDDEN**: Natural diamonds, mined gems, feature-based tags
+    - **REQUIRED CATEGORIES**: Stone Type, Carat Weight, Metal & Purity ONLY
+    - **NO FEATURE TAGS**: Eliminate sustainability, eco-friendly, or marketing tags
+    - **VALIDATION**: Every implementation must verify material-only constraint
+  
+  - **Phase-Based Development Methodology (ENFORCED)**
+    - Break complex features into discrete 15-20 phases maximum
+    - Each phase must include: Implementation + E2E Testing + Success Validation
+    - Use TodoWrite tool for ALL multi-step implementations
+    - Mark phases complete ONLY after E2E success criteria met
+    - **MANDATORY**: Call specialized agents for domain expertise validation
+  
+  - **Performance Compliance Framework (STRICT)**
+    - API responses: <300ms (use <50ms for material extraction services)
+    - Page loads: <3000ms for catalog with material filtering
+    - Material tag clicks: <300ms response time
+    - Database queries: <300ms with proper MongoDB indexing
+    - **VALIDATION**: Performance testing required for every implementation
+  
+  - **Type Safety & Security Boundaries (CRITICAL)**
+    - TypeScript strict mode with NO `any` types anywhere
+    - Proper client/server boundary separation (no server imports in client)
+    - Database credentials isolated to server-only environments
+    - Material filtering must use Zod validation for all parameters
+    - **FORBIDDEN**: Raw database records exposed to client
+  
+  - **Component Architecture Patterns (VALIDATED)**
+    - MaterialTagChip: Use CLAUDE_RULES approved color combinations only
+    - ProductCard: Integrate material tags using extraction service
+    - URL Parameters: Support shareable material filter states
+    - Error Boundaries: Graceful degradation for invalid material data
+    - **PATTERN**: UI components consume material data via services, not direct DB
+  
+  - **Testing & Validation Requirements (MANDATORY)**
+    - E2E tests with Playwright for complete material filtering workflow
+    - API integration tests for material parameter validation
+    - Performance tests validating <300ms response requirements
+    - Cross-browser compatibility for material tag interactions
+    - **COVERAGE**: Material tag click → URL update → API filter → results display
+  
+  - **Specialized Agent Integration (PROACTIVE)**
+    - Architecture Reviewer: Validate system design before implementation
+    - Performance Engineer: Optimize material query performance
+    - Security Auditor: Review client/server boundaries and data exposure
+    - UI/UX Designer: Ensure material tag components meet design standards
+    - **TIMING**: Call agents BEFORE implementation, not after issues arise
 
 Keep this as the single source of truth for implementation decisions. When in doubt, choose the path that:
 - Adheres to design tokens

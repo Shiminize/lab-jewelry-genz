@@ -1,12 +1,26 @@
 'use client'
 
 import React, { useState, useCallback, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import { H1, H2, MutedText } from '@/components/foundation/Typography'
 import { Button } from '@/components/ui/Button'
 import { PageContainer } from '@/components/layout/PageContainer'
 
-// Full CSS 3D Product Customizer replacement for 3D viewer
-import { ProductCustomizer } from '@/components/customizer/ProductCustomizer'
+// Core 3D customizer component (PRD requirement - single customizer only)
+const ProductCustomizer = dynamic(
+  () => import('@/components/customizer/ProductCustomizer').then(mod => ({ default: mod.ProductCustomizer })),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center h-96 bg-background/50 rounded-lg animate-pulse">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 border-2 border-accent border-t-transparent rounded-full animate-spin mx-auto" />
+          <MutedText className="font-medium">Loading 3D Customizer...</MutedText>
+        </div>
+      </div>
+    ),
+    ssr: false, // Disable SSR for 3D components
+  }
+)
 
 // Types following CLAUDE_RULES TypeScript requirements
 interface ProductSelection {
@@ -185,11 +199,12 @@ export default function CustomizerPage() {
       <div className="grid lg:grid-cols-2 gap-8">
         {/* 3D Viewer Section */}
         <div className="space-y-6">
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left space-y-3">
             <H2 className="text-foreground mb-2">Live Preview</H2>
             <MutedText>Interact with your design in 3D</MutedText>
           </div>
 
+          {/* Core 3D Customizer */}
           <ProductCustomizer
             layout="stacked"
             showControls={true}
@@ -247,8 +262,8 @@ export default function CustomizerPage() {
 
             {/* Error State */}
             {apiError && (
-              <div className="bg-cta/10 border border-cta/20 rounded-lg p-4 text-center">
-                <MutedText className="text-cta">{apiError}</MutedText>
+              <div className="bg-background border border-border rounded-lg p-4 text-center">
+                <MutedText className="text-foreground">{apiError}</MutedText>
                 <Button 
                   variant="ghost" 
                   size="sm" 
@@ -289,7 +304,7 @@ export default function CustomizerPage() {
                     {/* Gen Z Appeal Badge */}
                     {product.metadata.genZAppeal && (
                       <div className="mt-1">
-                        <div className="text-xs text-muted bg-accent/10 rounded px-1 py-0.5 line-clamp-1">
+                        <div className="text-accent bg-white rounded px-1 py-0.5 line-clamp-1 text-xs">
                           ✨ {product.targetEmotion}
                         </div>
                       </div>
@@ -307,7 +322,7 @@ export default function CustomizerPage() {
               {MATERIALS.map((material) => (
                 <Button
                   key={material.id}
-                  variant={customization.selectedMaterial?.id === material.id ? 'default' : 'ghost'}
+                  variant={customization.selectedMaterial?.id === material.id ? 'primary' : 'ghost'}
                   onClick={() => handleMaterialSelect(material)}
                   className="justify-start h-auto p-4"
                 >
@@ -318,7 +333,7 @@ export default function CustomizerPage() {
                     />
                     <div className="text-left">
                       <div className="text-sm font-medium">{material.name}</div>
-                      <div className="text-xs text-muted">
+                      <div className="text-xs text-gray-600">
                         {material.priceModifier >= 0 ? '+' : ''}${material.priceModifier}
                       </div>
                     </div>
@@ -335,12 +350,12 @@ export default function CustomizerPage() {
               {STONE_OPTIONS.map((stone) => (
                 <Button
                   key={stone.id}
-                  variant={customization.selectedStone?.id === stone.id ? 'default' : 'ghost'}
+                  variant={customization.selectedStone?.id === stone.id ? 'primary' : 'ghost'}
                   onClick={() => handleStoneSelect(stone)}
                   className="w-full justify-between h-auto p-4"
                 >
                   <span className="text-sm font-medium">{stone.name}</span>
-                  <span className="text-xs text-muted">
+                  <span className="text-xs text-gray-600">
                     {stone.priceModifier >= 0 ? '+' : ''}${stone.priceModifier}
                   </span>
                 </Button>
@@ -355,7 +370,7 @@ export default function CustomizerPage() {
               {SIZES.map((size) => (
                 <Button
                   key={size}
-                  variant={customization.selectedSize === size ? 'default' : 'ghost'}
+                  variant={customization.selectedSize === size ? 'primary' : 'ghost'}
                   onClick={() => handleSizeSelect(size)}
                   className="aspect-square"
                 >

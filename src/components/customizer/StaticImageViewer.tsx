@@ -7,6 +7,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { MutedText } from '@/components/foundation/Typography'
@@ -115,14 +116,14 @@ export function StaticImageViewer({
       )}
 
       {/* Main Image */}
-      <img
+      <Image
         src={imageUrl}
         alt={alt}
+        fill
         className={cn(imageVariants({ loaded: isLoaded && !hasError }))}
         onLoad={handleImageLoad}
         onError={handleImageError}
-        loading="lazy"
-        decoding="async"
+        sizes="(max-width: 768px) 100vw, 600px"
       />
 
       {/* Placeholder Indicator */}

@@ -20,7 +20,7 @@ export interface QueryPerformance {
 }
 
 // Aggregation pipeline builder
-export class AggregationBuilder {
+class AggregationBuilder {
   private pipeline: any[] = []
   private collection: string
 
@@ -183,7 +183,7 @@ export class AggregationBuilder {
 }
 
 // Pre-built aggregation pipelines for common operations
-export class OptimizedQueries {
+class OptimizedQueries {
   /**
    * Get product analytics with performance optimization
    */
@@ -575,7 +575,7 @@ export class OptimizedQueries {
 }
 
 // Query optimization utilities
-export class QueryOptimizer {
+class QueryOptimizer {
   /**
    * Analyze query performance
    */
@@ -653,7 +653,7 @@ export class QueryOptimizer {
 }
 
 // Caching utilities
-export class QueryCache {
+class QueryCache {
   private static cache = new Map<string, { data: any; timestamp: number; ttl: number }>()
 
   /**

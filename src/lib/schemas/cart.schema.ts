@@ -42,6 +42,9 @@ export interface CartDocument extends Document {
   estimatedTotal: number
   currency: string
   
+  // Payment processing
+  paymentIntentId?: string // Stripe payment intent ID
+  
   // Cart metadata
   lastUpdated: Date
   expiresAt: Date
@@ -203,6 +206,12 @@ const cartSchema = new Schema<CartDocument>({
   currency: {
     type: String,
     default: 'USD'
+  },
+  
+  // Payment processing
+  paymentIntentId: {
+    type: String,
+    sparse: true // Index only documents that have this field
   },
   
   lastUpdated: {

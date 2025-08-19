@@ -78,7 +78,7 @@ export function ProductSelector({
                     className={cn(
                       'text-xs px-2 py-1 rounded-full',
                       selectedProductId === product.id
-                        ? 'bg-accent/20 text-accent'
+                        ? 'bg-muted/30 text-foreground'
                         : 'bg-muted text-foreground'
                     )}
                   >
@@ -169,7 +169,7 @@ export function CompactProductSelector({
               {selectedProduct.tags.slice(0, 2).map((tag, index) => (
                 <span
                   key={index}
-                  className="text-xs px-2 py-1 rounded-full bg-accent/20 text-accent"
+                  className="text-xs px-2 py-1 rounded-full bg-muted/30 text-foreground"
                 >
                   {tag}
                 </span>

@@ -124,8 +124,16 @@ export interface OrderTimelineEvent {
 // Extend Order interface with Mongoose Document
 export interface OrderDocument extends Document {
   orderNumber: string
-  userId: string
+  userId?: string
+  guestSessionId?: string
   email: string
+  isGuest?: boolean
+  guestDetails?: {
+    email: string
+    firstName: string
+    lastName: string
+    marketingOptIn: boolean
+  }
   
   // Order items and pricing
   items: OrderItem[]
@@ -430,18 +438,31 @@ const orderSchema = new Schema<OrderDocument>({
   orderNumber: {
     type: String,
     required: true,
-    unique: true,
     uppercase: true
   },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: false
+  },
+  guestSessionId: {
+    type: String,
+    required: false
   },
   email: {
     type: String,
     required: true,
     lowercase: true
+  },
+  isGuest: {
+    type: Boolean,
+    default: false
+  },
+  guestDetails: {
+    email: String,
+    firstName: String,
+    lastName: String,
+    marketingOptIn: { type: Boolean, default: false }
   },
   
   // Order items and pricing
@@ -564,8 +585,11 @@ const orderSchema = new Schema<OrderDocument>({
 
 // Indexes for performance optimization
 orderSchema.index({ orderNumber: 1 }, { unique: true })
-orderSchema.index({ userId: 1, createdAt: -1 })
+orderSchema.index({ userId: 1, createdAt: -1 }, { sparse: true })
+orderSchema.index({ guestSessionId: 1, createdAt: -1 }, { sparse: true })
 orderSchema.index({ email: 1 })
+orderSchema.index({ email: 1, isGuest: 1 })
+orderSchema.index({ isGuest: 1 })
 orderSchema.index({ status: 1 })
 orderSchema.index({ paymentStatus: 1 })
 orderSchema.index({ shippingStatus: 1 })
@@ -691,6 +715,26 @@ orderSchema.statics.findPendingCommissions = function(creatorId?: string) {
     query['creatorCommissions.creatorId'] = creatorId
   }
   return this.find(query)
+}
+
+orderSchema.statics.findGuestOrders = function(email?: string, guestSessionId?: string) {
+  const query: any = { isGuest: true, userId: null }
+  if (email) {
+    query.email = email.toLowerCase()
+  }
+  if (guestSessionId) {
+    query.guestSessionId = guestSessionId
+  }
+  return this.find(query).sort({ createdAt: -1 })
+}
+
+orderSchema.statics.findConvertibleGuestOrders = function(email: string) {
+  return this.find({
+    email: email.toLowerCase(),
+    isGuest: true,
+    userId: null,
+    status: { $in: ['confirmed', 'processing', 'shipped', 'delivered'] }
+  }).sort({ createdAt: -1 })
 }
 
 // Virtual for order total with commission

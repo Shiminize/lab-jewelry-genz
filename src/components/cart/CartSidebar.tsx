@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/Button'
 import { H3, BodyText, MutedText, CTAText } from '@/components/foundation/Typography'
 import type { ProductBase } from '@/types/customizer'
@@ -111,10 +112,13 @@ export function CartSidebar({
                 <div key={item._id} className="flex gap-4">
                   {/* Product Image */}
                   <div className="w-20 h-20 bg-border-muted rounded-lg overflow-hidden flex-shrink-0">
-                    <img 
-                      src={item.images.primary} 
+                    <Image 
+                      src={item.media?.primary || item.images?.primary || '/images/placeholder-product.jpg'} 
                       alt={item.name}
-                      className="w-full h-full object-cover"
+                      width={80}
+                      height={80}
+                      className="object-cover"
+                      sizes="80px"
                     />
                   </div>
 
@@ -224,7 +228,7 @@ export function CartSidebar({
             <div className="grid grid-cols-3 gap-2 text-center text-xs text-muted pt-4 border-t">
               <div>🔒 Secure Checkout</div>
               <div>↩ 30-Day Returns</div>
-              <div>🚚 Free Shipping $2000+</div>
+              <div>🚚 Free Shipping $500+</div>
             </div>
           </div>
         )}

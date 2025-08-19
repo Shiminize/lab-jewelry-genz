@@ -7,21 +7,42 @@
 import { MongoClient, Db, Collection } from 'mongodb'
 import { Product, ProductFilters, ProductSearchParams, ProductSearchResult } from '@/types/product'
 import { User, UserRole, AccountStatus } from '@/types/auth'
+import { Collections } from './constants'
 
 // Database configuration
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017'
 const DATABASE_NAME = process.env.DATABASE_NAME || 'glowglitch'
 
 // Global connection promise to avoid multiple connections
-let cachedClient: MongoClient | null = null
-let cachedDb: Db | null = null
+// CRITICAL: Use global object in development to persist across hot reloads
+interface MongoConnection {
+  client: MongoClient | null
+  db: Db | null
+}
+
+// In development, use global to persist connection across hot reloads
+let cached: MongoConnection = (global as any).mongo
+
+if (!cached) {
+  cached = (global as any).mongo = { client: null, db: null }
+}
 
 /**
  * Connect to MongoDB with optimized connection pooling for CLAUDE_RULES <300ms target
  */
 export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db }> {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb }
+  // Return cached connection if available and connected
+  if (cached.client && cached.db) {
+    // Verify the connection is still alive
+    try {
+      await cached.client.db('admin').command({ ping: 1 })
+      return { client: cached.client, db: cached.db }
+    } catch (error) {
+      // Connection lost, reset cache
+      console.log('MongoDB connection lost, reconnecting...')
+      cached.client = null
+      cached.db = null
+    }
   }
 
   try {
@@ -33,7 +54,6 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 30000,
       connectTimeoutMS: 10000,
-      bufferMaxEntries: 0,
       retryWrites: true,
       w: 'majority',
       // Connection compression for improved performance
@@ -50,9 +70,9 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
     
     const db = client.db(DATABASE_NAME)
     
-    // Cache the connection
-    cachedClient = client
-    cachedDb = db
+    // Cache the connection globally
+    cached.client = client
+    cached.db = db
 
     // Set up connection monitoring for CLAUDE_RULES compliance
     client.on('connectionPoolCreated', (event) => {
@@ -63,16 +83,19 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
       console.log('Connection pool closed:', event.address)
     })
 
-    client.on('connectionCreated', (event) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log('Connection created:', event.connectionId)
+    // Remove verbose connection logging to reduce console noise
+    // Connection pool events are still monitored but not logged individually
+    let connectionCount = 0
+    client.on('connectionCreated', () => {
+      connectionCount++
+      // Log only when connections exceed expected pool size
+      if (connectionCount > 15 && process.env.NODE_ENV === 'development') {
+        console.warn(`High connection count: ${connectionCount} connections created`)
       }
     })
 
-    client.on('connectionClosed', (event) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.log('Connection closed:', event.connectionId)
-      }
+    client.on('connectionClosed', () => {
+      connectionCount = Math.max(0, connectionCount - 1)
     })
 
     // Monitor slow operations for CLAUDE_RULES compliance
@@ -92,6 +115,18 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
     })
 
     console.log('Successfully connected to MongoDB with optimized pooling')
+    
+    // Handle process termination to close connections gracefully
+    if (process.env.NODE_ENV !== 'production') {
+      process.once('SIGINT', async () => {
+        await client.close()
+        process.exit(0)
+      })
+      process.once('SIGTERM', async () => {
+        await client.close()
+        process.exit(0)
+      })
+    }
     return { client, db }
   } catch (error) {
     console.error('Failed to connect to MongoDB:', error)
@@ -107,19 +142,7 @@ export async function getCollection<T = any>(collectionName: string): Promise<Co
   return db.collection<T>(collectionName)
 }
 
-/**
- * Database collections enum for type safety
- */
-export const Collections = {
-  PRODUCTS: 'products',
-  USERS: 'users',
-  ORDERS: 'orders',
-  CREATORS: 'creators',
-  REVIEWS: 'reviews',
-  MATERIALS: 'materials',
-  GEMSTONES: 'gemstones',
-  SIZES: 'sizes'
-} as const
+// Collections moved to @/lib/constants for better organization
 
 /**
  * Product-specific database operations
@@ -296,7 +319,7 @@ export class ProductRepository {
                 subcategory: 1,
                 pricing: 1,
                 inventory: { available: 1, sku: 1 },
-                images: { $slice: ['$images', 2] }, // Only first 2 images
+                media: { primary: 1, gallery: { $slice: ['$media.gallery', 2] } }, // Media with limited gallery
                 metadata: {
                   status: 1,
                   featured: 1,

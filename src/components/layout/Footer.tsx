@@ -58,12 +58,10 @@ export function Footer({ className }: FooterProps) {
     <footer className={cn('bg-foreground border-t border-foreground', className)}>
       <div className="container mx-auto px-4">
         {/* Main footer content */}
-        <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+        <div className="py-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Company info and newsletter */}
           <div className="lg:col-span-2">
-            <H4 className="font-headline font-bold text-background mb-4">
-              GlowGlitch
-            </H4>
+            <img src="/glitchglow_logo_empty_gold.png" alt="GlowGlitch Logo" className="h-32 mb-4" />
             <BodyText size="sm" className="text-background mb-6 max-w-md">
               Sustainable luxury jewelry crafted with lab-grown diamonds. 
               Customize your perfect piece with our 3D technology and join 

@@ -21,7 +21,7 @@ export function generateRequestId(): string {
   return generateId()
 }
 
-// Success response helper
+// Success response helper with optional enhanced meta
 export function createSuccessResponse<T>(
   data: T,
   pagination?: {
@@ -30,8 +30,20 @@ export function createSuccessResponse<T>(
     total: number
     totalPages: number
   },
-  status: number = 200
+  metaOrStatus?: any | number,
+  status?: number
 ): NextResponse {
+  // Determine if third parameter is meta object or status number
+  let enhancedMeta: any = {}
+  let responseStatus = 200
+
+  if (typeof metaOrStatus === 'number') {
+    responseStatus = metaOrStatus
+  } else if (metaOrStatus && typeof metaOrStatus === 'object') {
+    enhancedMeta = metaOrStatus
+    responseStatus = status || 200
+  }
+
   const response: AuthApiResponse<T> = {
     success: true,
     data,
@@ -39,11 +51,12 @@ export function createSuccessResponse<T>(
     meta: {
       timestamp: new Date().toISOString(),
       requestId: generateRequestId(),
-      version: '1.0.0'
+      version: '1.0.0',
+      ...enhancedMeta // Merge enhanced meta information
     }
   }
   
-  return NextResponse.json(response, { status })
+  return NextResponse.json(response, { status: responseStatus })
 }
 
 // Error response helper
@@ -83,19 +96,30 @@ export function createErrorResponse(
   return NextResponse.json(response, { status, headers })
 }
 
-// Validation error response
-export function createValidationErrorResponse(error: ZodError): NextResponse {
-  const details = error.errors.map(err => ({
-    field: err.path.join('.'),
-    message: err.message,
-    code: err.code
-  }))
+// Validation error response with type safety
+export function createValidationErrorResponse(error: unknown): NextResponse {
+  // Type guard for ZodError with proper error array check
+  if (error instanceof ZodError && error.errors && Array.isArray(error.errors)) {
+    const details = error.errors.map(err => ({
+      field: err.path.join('.'),
+      message: err.message,
+      code: err.code
+    }))
+    
+    return createErrorResponse(
+      'VALIDATION_ERROR',
+      'Invalid input data',
+      details,
+      422
+    )
+  }
   
+  // Fallback for non-ZodError or malformed error objects
   return createErrorResponse(
-    'VALIDATION_ERROR',
-    'Invalid input data',
-    details,
-    422
+    'INVALID_INPUT',
+    'Invalid request',
+    [],
+    400
   )
 }
 
@@ -110,6 +134,18 @@ export async function checkAPIRateLimit(
   request: NextRequest,
   configName: keyof typeof RateLimitConfigs
 ): Promise<RateLimitResult> {
+  // Development bypass - skip rate limiting in development
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV !== 'production') {
+    const config = RateLimitConfigs[configName]
+    console.log(`[DEV] Rate limit bypass for ${configName}`)
+    return {
+      limit: config.limit,
+      remaining: config.limit,
+      reset: Math.floor(Date.now() / 1000) + Math.ceil(config.windowMs / 1000),
+      allowed: true
+    }
+  }
+  
   // Initialize Redis on first use to avoid module loading issues
   initializeRedisRateLimit()
   

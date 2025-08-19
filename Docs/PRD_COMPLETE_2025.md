@@ -10,7 +10,7 @@
 
 ## Executive Summary
 
-**GlowGlitch** (branded as **Lumina Lab**) is a luxury e-commerce platform revolutionizing the lab-grown diamond jewelry market through advanced 3D customization, sustainable practices, and creator-driven marketing. This PRD outlines the complete product vision, technical requirements, and implementation roadmap for launching a $1M ARR jewelry platform by Q4 2025.
+**GlowGlitch** (branded as **Lumina Lab**) is a luxury e-commerce platform revolutionizing the sustainable jewelry market through advanced 3D customization, featuring lab-grown diamonds and moissanite gemstones with silver, 14k gold, and platinum settings. This PRD outlines the complete product vision, technical requirements, and implementation roadmap for launching a $1M ARR jewelry platform by Q4 2025.
 
 ### Quick Facts
 - **Target Market:** $350B global jewelry market, focusing on $47B lab-grown segment
@@ -41,7 +41,7 @@
 ## Product Vision & Strategy
 
 ### Vision Statement
-*"To become the leading sustainable luxury jewelry platform where conscious consumers design, customize, and purchase lab-grown diamond jewelry that reflects their values and unique style."*
+*"To become the leading sustainable luxury jewelry platform where conscious consumers design, customize, and purchase lab-grown diamond and moissanite jewelry in silver, 14k gold, and platinum settings that reflects their values and unique style."*
 
 ### Mission Statement
 *"Democratize luxury jewelry design through cutting-edge 3D technology while promoting sustainable practices and empowering creators in the jewelry space."*
@@ -64,10 +64,11 @@
 ### Value Propositions
 
 #### For Customers
-- **Ethical Luxury**: Lab-grown diamonds with zero environmental impact
+- **Ethical Luxury**: Lab-grown diamonds and moissanite with zero environmental impact
+- **Material Options**: Premium silver settings for accessible luxury, 14k gold and platinum for premium collections
 - **Customization**: Real-time 3D jewelry design and visualization
 - **Transparency**: Complete supply chain visibility and certification
-- **Value**: 30-50% cost savings compared to mined diamond equivalents
+- **Value**: 40-60% cost savings compared to traditional luxury jewelry
 - **Convenience**: Mobile-first shopping experience with expert consultation
 
 #### For Creators
@@ -95,11 +96,12 @@
 - **Fashion Jewelry**: $120B (34%)
 - **Growth Rate**: 5-7% CAGR
 
-#### Lab-Grown Diamond Segment: $47B (2025)
-- **Market Share**: 13.4% of total diamond market
-- **Growth Rate**: 15-20% CAGR
-- **Price Advantage**: 30-50% below mined diamonds
-- **Consumer Adoption**: 73% of millennials consider lab-grown diamonds
+#### Lab-Grown Diamond & Alternative Gemstone Segment: $52B (2025)
+- **Lab-Grown Diamonds**: $47B (13.4% of total diamond market)
+- **Moissanite Market**: $5B (rapidly growing alternative)
+- **Growth Rate**: 18-25% CAGR combined
+- **Price Advantage**: 40-70% below traditional luxury jewelry
+- **Consumer Adoption**: 73% of millennials consider lab-grown diamonds, 68% open to moissanite alternatives
 
 #### Serviceable Addressable Market (SAM): $2.8B
 - **Target Regions**: North America ($1.8B), UK/EU ($0.7B), Australia ($0.3B)
@@ -609,9 +611,9 @@
     "model3D": "string"
   },
   "specifications": {
-    "materials": ["string"],
+    "materials": ["sterling silver", "14k gold", "platinum"],
     "gemstone": {
-      "type": "string",
+      "type": "enum ['lab-grown diamond', 'moissanite']",
       "carat": "number",
       "color": "string",
       "clarity": "string",
@@ -624,8 +626,8 @@
       "weight": "number"
     },
     "customizable": {
-      "metals": ["string"],
-      "stones": ["string"],
+      "metals": ["sterling silver", "14k white gold", "14k yellow gold", "14k rose gold", "platinum"],
+      "stones": ["lab-grown diamond", "moissanite"],
       "sizes": ["string"],
       "engraving": "boolean"
     }
@@ -989,17 +991,18 @@ GET    /api/creators/{code}/validate  # Validate referral code
 ### Pricing Strategy
 
 #### Product Pricing Tiers
-- **Essential Collection**: $800-1,500 (entry luxury)
-- **Signature Collection**: $1,500-4,000 (core offering)
-- **Premium Collection**: $4,000-8,000 (statement pieces)
-- **Custom Creations**: $2,000-15,000+ (bespoke designs)
+- **Essential Collection**: $400-1,200 (silver + moissanite volume focus)
+- **Signature Collection**: $1,200-3,500 (14k gold + lab-grown diamonds)
+- **Premium Collection**: $3,500-8,000 (platinum + premium stones)
+- **Custom Creations**: $1,500-15,000+ (bespoke designs across all materials)
 
 #### Value-Based Pricing Factors
-- **Material Costs**: Lab-grown diamonds 40-60% less than mined
+- **Material Costs**: Silver settings 60-70% less than gold, moissanite 85-90% less than diamonds
+- **Metal Premiums**: Sterling silver (base), 14k gold (+40-60%), platinum (+80-120%)
+- **Stone Premiums**: Moissanite (base), lab-grown diamonds (+150-300%)
 - **Customization Premium**: 15-25% upcharge for personalization
 - **Express Delivery**: $50-150 based on urgency
 - **Expert Consultation**: $150/hour for design services
-- **Sustainability Premium**: 5-10% for eco-conscious positioning
 
 ### Financial Projections (5-Year)
 
@@ -1168,10 +1171,11 @@ GET    /api/creators/{code}/validate  # Validate referral code
 - [ ] Create admin panel for inventory and order management
 
 **Product & Inventory (Months 2-4)**
-- [ ] Source and photograph initial 50-product catalog
-- [ ] Establish supply chain relationships with 3 lab-grown diamond suppliers
-- [ ] Create product data structure with customization options
-- [ ] Develop quality control processes and standards
+- [ ] Source and photograph initial 50-product catalog (silver/moissanite focus with 14k gold/diamond options)
+- [ ] Establish supply chain relationships with 3 lab-grown diamond suppliers and 2 moissanite suppliers
+- [ ] Partner with sterling silver and 14k gold/platinum metal suppliers for volume production
+- [ ] Create product data structure with material-specific customization options
+- [ ] Develop quality control processes for all metal and stone combinations
 - [ ] Set up fulfillment and shipping operations
 
 **Creator Program (Months 3-4)**
@@ -1546,18 +1550,20 @@ GET    /api/creators/{code}/validate  # Validate referral code
 - **Jewelry enthusiasts**: Existing jewelry content creators and collectors
 
 #### Content Marketing & SEO (25% of customer acquisition)
-**Strategy**: Become the authoritative source for lab-grown diamond education
+**Strategy**: Become the authoritative source for sustainable jewelry education across all materials
 **Content Pillars**:
-- **Education**: Lab-grown vs. mined diamond comparison, sustainability benefits
-- **Inspiration**: Jewelry trends, styling guides, occasion-based collections
-- **Technology**: 3D customization tutorials, behind-the-scenes content
-- **Values**: Sustainability stories, ethical sourcing, creator spotlights
+- **Education**: Lab-grown diamonds vs. mined comparison, moissanite benefits, metal sustainability (silver, 14k gold, platinum)
+- **Material Innovation**: Silver volume production advantages, moissanite brilliance vs. diamonds, 14k gold durability
+- **Inspiration**: Jewelry trends, styling guides, occasion-based collections across all price points
+- **Technology**: 3D customization tutorials, material rendering demonstrations, behind-the-scenes content
+- **Values**: Sustainability stories, ethical sourcing, creator spotlights, accessible luxury messaging
 
 **SEO Targets**:
-- High-volume keywords: "lab grown diamonds", "custom engagement rings"
-- Long-tail keywords: "sustainable diamond jewelry", "3D jewelry design"
+- High-volume keywords: "lab grown diamonds", "moissanite jewelry", "custom engagement rings", "silver jewelry"
+- Long-tail keywords: "sustainable diamond jewelry", "moissanite vs diamond", "14k gold jewelry", "affordable luxury jewelry"
+- Material-specific: "sterling silver engagement rings", "moissanite wedding bands", "14k gold necklaces"
 - Local SEO: "custom jewelry near me", city-specific terms
-- Comparison content: "GlowGlitch vs [competitor]" guides
+- Comparison content: "GlowGlitch vs [competitor]", "moissanite vs diamond comparison" guides
 
 #### Paid Advertising (20% of customer acquisition)
 **Strategy**: Performance-focused campaigns with strong ROAS targets
@@ -1622,27 +1628,33 @@ GET    /api/creators/{code}/validate  # Validate referral code
 ### Competitive Positioning
 
 #### Against Traditional Luxury (Tiffany, Cartier)
-**Positioning**: "Modern luxury with values"
+**Positioning**: "Accessible luxury with sustainable values"
 **Key Messages**:
-- Same quality diamonds at 40-50% lower prices
+- Premium materials (silver, moissanite) at 60-80% lower prices than traditional luxury
+- 14k gold and platinum options for premium positioning
 - Fully customizable vs. limited traditional options
+- Volume production capabilities enabling competitive pricing
 - Sustainability and ethical sourcing transparency
 - Mobile-first shopping experience for modern consumers
 
 #### Against Online Diamond Retailers (James Allen, Blue Nile)
-**Positioning**: "Next-generation customization"
+**Positioning**: "Next-generation customization with material innovation"
 **Key Messages**:
 - Advanced 3D customization vs. basic configurators
+- Volume production with silver and moissanite for accessible pricing
+- Lab-grown diamond alternatives with significant cost savings
 - Creator community and social proof vs. traditional marketing
 - Sustainability focus vs. mixed mined/lab-grown inventory
 - Mobile-optimized experience vs. desktop-centric platforms
 
 #### Against Direct Competitors (Brilliant Earth, Diamond Nexus)
-**Positioning**: "Technology-enabled customization leader"
+**Positioning**: "Material innovation leader with technology integration"
 **Key Messages**:
-- Superior 3D visualization and customization capabilities
+- Superior 3D visualization and customization capabilities across all materials
+- Comprehensive material options: silver volume production + 14k gold/platinum premium
+- Moissanite integration for accessible luxury positioning
 - Stronger creator network and social commerce integration
-- Better value proposition with transparent pricing
+- Better value proposition with transparent pricing across material tiers
 - More comprehensive sustainability and ethical practices
 
 ### International Expansion Strategy
@@ -1701,7 +1713,9 @@ GET    /api/creators/{code}/validate  # Validate referral code
 
 #### Consumer Survey Insights (N=2,500, Ages 25-45, $50K+ Income)
 - **73%** consider lab-grown diamonds as viable alternative to mined
-- **68%** value customization options when purchasing luxury jewelry
+- **68%** open to moissanite as diamond alternative for value-conscious luxury
+- **78%** value customization options when purchasing luxury jewelry
+- **65%** prefer silver settings for everyday luxury jewelry
 - **84%** research jewelry purchases online before buying
 - **56%** influenced by social media content when making luxury purchases
 - **91%** want transparency about product origin and manufacturing
@@ -1716,7 +1730,7 @@ const customizer3DSpecs = {
     webglVersion: "WebGL 2.0 with 1.0 fallback",
     renderingEngine: "Three.js r157+",
     lighting: "Physically-based rendering (PBR)",
-    materials: "Metallic-roughness workflow",
+    materials: "Metallic-roughness workflow with specialized silver, 14k gold, platinum, and moissanite shaders",
     textures: "4K resolution with mipmapping"
   },
   performance: {

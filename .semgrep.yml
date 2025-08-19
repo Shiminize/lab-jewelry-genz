@@ -1,0 +1,239 @@
+# Semgrep Security Configuration for GlowGlitch E-commerce Platform
+# Comprehensive security scanning for jewelry e-commerce with payment processing
+# Focuses on OWASP Top 10, PCI DSS compliance, and e-commerce specific vulnerabilities
+
+rules:
+  # === CRITICAL E-COMMERCE SECURITY RULES ===
+  
+  # Payment Processing Security
+  - id: payment-data-exposure
+    languages: [javascript, typescript]
+    message: "Potential payment data exposure - ensure sensitive payment information is not logged or exposed"
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: console.log(..., $PAYMENT, ...)
+          - pattern: console.error(..., $PAYMENT, ...)
+          - pattern: console.warn(..., $PAYMENT, ...)
+          - pattern: logger.log(..., $PAYMENT, ...)
+      - metavariable-regex:
+          metavariable: $PAYMENT
+          regex: .*(card|credit|payment|stripe|cvv|ccv|expir|billing).*
+    paths:
+      include:
+        - "src/app/api/payments/**"
+        - "src/app/api/checkout/**"
+        - "src/lib/stripe.ts"
+        - "src/app/api/webhooks/**"
+
+  - id: stripe-secret-hardcoded
+    languages: [javascript, typescript]
+    message: "Hardcoded Stripe secret key detected - use environment variables"
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: |
+              "sk_live_..."
+          - pattern: |
+              "sk_test_..."
+          - pattern: |
+              'sk_live_...'
+          - pattern: |
+              'sk_test_...'
+    paths:
+      include:
+        - "src/**"
+
+  # Authentication & Authorization Security
+  - id: jwt-secret-hardcoded
+    languages: [javascript, typescript]
+    message: "Hardcoded JWT secret detected - use secure environment variables"
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: jwt.sign($DATA, "...")
+          - pattern: jwt.verify($TOKEN, "...")
+          - pattern: jsonwebtoken.sign($DATA, "...")
+          - pattern: jsonwebtoken.verify($TOKEN, "...")
+    paths:
+      include:
+        - "src/lib/auth.ts"
+        - "src/lib/jwt-utils.ts"
+        - "src/app/api/auth/**"
+
+  - id: weak-password-validation
+    languages: [javascript, typescript]
+    message: "Weak password validation - ensure strong password requirements"
+    severity: WARNING
+    patterns:
+      - pattern-either:
+          - pattern: |
+              password.length < 8
+          - pattern: |
+              $PASSWORD.length < 8
+      - metavariable-regex:
+          metavariable: $PASSWORD
+          regex: .*(password|pwd|pass).*
+    paths:
+      include:
+        - "src/app/api/auth/**"
+        - "src/lib/user-service.ts"
+
+  # Database Security
+  - id: mongodb-injection-risk
+    languages: [javascript, typescript]
+    message: "Potential MongoDB injection - validate and sanitize input"
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: |
+              { $where: $INPUT }
+          - pattern: |
+              Model.find({ $where: $INPUT })
+          - pattern: |
+              collection.find({ $where: $INPUT })
+    paths:
+      include:
+        - "src/lib/database*.ts"
+        - "src/lib/schemas/**"
+        - "src/app/api/**"
+
+  - id: sql-injection-risk
+    languages: [javascript, typescript]
+    message: "Potential SQL injection vulnerability"
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: |
+              "SELECT * FROM " + $TABLE
+          - pattern: |
+              'SELECT * FROM ' + $TABLE
+          - pattern: |
+              `SELECT * FROM ${$TABLE}`
+          - pattern: |
+              "INSERT INTO " + $TABLE
+          - pattern: |
+              "UPDATE " + $TABLE + " SET"
+          - pattern: |
+              "DELETE FROM " + $TABLE
+
+  # Session & Cookie Security
+  - id: insecure-cookie-settings
+    languages: [javascript, typescript]
+    message: "Insecure cookie configuration - missing security flags"
+    severity: WARNING
+    patterns:
+      - pattern-either:
+          - pattern: |
+              res.cookie($NAME, $VALUE)
+          - pattern: |
+              response.cookie($NAME, $VALUE)
+      - pattern-not: |
+          res.cookie($NAME, $VALUE, { ..., httpOnly: true, ... })
+      - pattern-not: |
+          res.cookie($NAME, $VALUE, { ..., secure: true, ... })
+    paths:
+      include:
+        - "src/app/api/**"
+
+  # Input Validation & Sanitization
+  - id: missing-input-validation
+    languages: [javascript, typescript]
+    message: "Missing input validation on API endpoint"
+    severity: WARNING
+    patterns:
+      - pattern: |
+          export async function POST(request: NextRequest) {
+            $BODY = await request.json()
+            ...
+          }
+      - pattern-not: |
+          export async function POST(request: NextRequest) {
+            $BODY = await request.json()
+            ...
+            $SCHEMA.parse($BODY)
+            ...
+          }
+    paths:
+      include:
+        - "src/app/api/**/route.ts"
+
+  # File Upload Security
+  - id: unsafe-file-upload
+    languages: [javascript, typescript]
+    message: "Unsafe file upload - validate file types and sizes"
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: |
+              multer()
+          - pattern: |
+              formidable()
+          - pattern: |
+              busboy()
+      - pattern-not: |
+          multer({ fileFilter: $FILTER })
+    paths:
+      include:
+        - "src/app/api/**"
+
+  # Cross-Site Scripting (XSS)
+  - id: potential-xss-dangerouslySetInnerHTML
+    languages: [javascript, typescript]
+    message: "Potential XSS via dangerouslySetInnerHTML - sanitize user input"
+    severity: WARNING
+    patterns:
+      - pattern: |
+          dangerouslySetInnerHTML={{ __html: $INPUT }}
+    paths:
+      include:
+        - "src/components/**"
+        - "src/app/**"
+
+  # Server-Side Request Forgery (SSRF)
+  - id: potential-ssrf
+    languages: [javascript, typescript]
+    message: "Potential SSRF vulnerability - validate URLs"
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: |
+              fetch($URL)
+          - pattern: |
+              axios.get($URL)
+          - pattern: |
+              http.get($URL)
+          - pattern: |
+              https.get($URL)
+      - pattern-not: |
+          fetch("http://localhost:...")
+      - pattern-not: |
+          fetch("https://api.stripe.com/...")
+    paths:
+      include:
+        - "src/app/api/**"
+        - "src/lib/**"
+
+  # Rate Limiting Bypass
+  - id: missing-rate-limiting
+    languages: [javascript, typescript]
+    message: "API endpoint missing rate limiting protection"
+    severity: WARNING
+    patterns:
+      - pattern: |
+          export async function POST(request: NextRequest) {
+            ...
+          }
+      - pattern-not: |
+          export async function POST(request: NextRequest) {
+            ...
+            checkAPIRateLimit(...)
+            ...
+          }
+    paths:
+      include:
+        - "src/app/api/auth/**/route.ts"
+        - "src/app/api/orders/**/route.ts"
+        - "src/app/api/payments/**/route.ts"
+
+# External rulesets can be added here but the above custom rules are primary

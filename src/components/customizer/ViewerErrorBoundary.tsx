@@ -59,19 +59,19 @@ export class ViewerErrorBoundary extends Component<ViewerErrorBoundaryProps, Err
       // Default fallback UI following design system standards
       return (
         <div className={cn(
-          'relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-xl border border-destructive bg-destructive/5 flex items-center justify-center',
+          'relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-xl border bg-muted flex items-center justify-center',
           this.props.className
         )}>
           <div className="text-center space-y-4 p-6 max-w-md">
-            <div className="w-12 h-12 bg-destructive/10 rounded-full flex items-center justify-center mx-auto">
-              <span className="text-destructive text-xl" role="img" aria-label="Error">⚠</span>
+            <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto">
+              <span className="text-foreground text-xl" role="img" aria-label="Error">⚠</span>
             </div>
             <div>
               <MutedText className="font-medium mb-2 text-foreground">
-                3D Viewer Error
+                3D Preview Loading
               </MutedText>
-              <MutedText size="sm" className="text-gray-600 mb-4">
-                Something went wrong with the 3D viewer. Please try again.
+              <MutedText size="sm" className="text-gray-600 bg-background mb-4">
+                The 3D preview is taking a moment to load. Let's give it another try.
               </MutedText>
               <button
                 onClick={this.handleRetry}

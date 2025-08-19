@@ -1,0 +1,176 @@
+# Page snapshot
+
+```yaml
+- img
+- text: Free Shipping on Orders $500+
+- img
+- text: Lifetime Warranty
+- img
+- text: Certified Lab Diamonds
+- img
+- text: 4.9/5 from 12,000+ Reviews
+- banner:
+  - button "Open menu":
+    - img
+  - link "GlowGlitch Logo":
+    - /url: /
+    - img "GlowGlitch Logo"
+  - navigation:
+    - button "RINGS":
+      - text: RINGS
+      - img
+    - button "NECKLACES":
+      - text: NECKLACES
+      - img
+    - button "EARRINGS":
+      - text: EARRINGS
+      - img
+    - button "BRACELETS":
+      - text: BRACELETS
+      - img
+    - button "SUSTAINABILITY":
+      - text: SUSTAINABILITY
+      - img
+  - button "Search":
+    - img
+  - button "Account":
+    - img
+  - link "Wishlist (0 items)":
+    - /url: /wishlist
+    - img
+  - button "Cart - 2 items":
+    - img
+    - text: "2"
+  - button "Start Designing"
+- main:
+  - heading "Lab-Grown Diamond Jewelry Collection" [level=1]
+  - paragraph: "Your jewelry, reimagined: From sterling silver to platinum, we offer lab-grown diamonds, moissanite, and sustainable gems that spark conversation and change. Customize your piece, support ethical innovation, and wear a story that's uniquely yours."
+  - img
+  - textbox "Search products, collections, materials..."
+  - button "Filters":
+    - img
+    - text: Filters
+  - text: Enter search terms
+  - button "Clear all (2)"
+  - button:
+    - img
+  - button:
+    - img
+  - button:
+    - img
+  - combobox:
+    - option "Popularity" [selected]
+    - 'option "Price: Low to High"'
+    - option "Newest First"
+    - option "Highest Rated"
+    - option "Name A-Z"
+  - heading "Shop by Category" [level=1]
+  - paragraph: Find the perfect piece for any occasion
+  - link "Engagement Rings Engagement Rings":
+    - /url: /catalog?categories=rings&subcategories=engagement-rings&stones=lab-diamond
+    - paragraph: Engagement Rings
+    - paragraph: Engagement Rings
+  - link "Wedding Bands Wedding Bands":
+    - /url: /catalog?categories=rings&subcategories=wedding-bands&metals=14k-gold,platinum
+    - paragraph: Wedding Bands
+    - paragraph: Wedding Bands
+  - link "Necklaces Necklaces":
+    - /url: /catalog?categories=necklaces&stones=moissanite&metals=silver
+    - paragraph: Necklaces
+    - paragraph: Necklaces
+  - link "Earrings Earrings":
+    - /url: /catalog?categories=earrings&stones=lab-diamond&caratMin=0.5
+    - paragraph: Earrings
+    - paragraph: Earrings
+- contentinfo:
+  - img "GlowGlitch Logo"
+  - paragraph: Sustainable luxury jewelry crafted with lab-grown diamonds. Customize your perfect piece with our 3D technology and join the ethical jewelry revolution.
+  - heading "Stay Connected" [level=4]
+  - paragraph: Get exclusive access to new collections and sustainability updates.
+  - textbox "Enter your email"
+  - button "Subscribe"
+  - paragraph: Follow Us
+  - link "Follow us on Instagram":
+    - /url: https://instagram.com/glowglitch
+    - img
+  - link "Follow us on YouTube":
+    - /url: https://youtube.com/@glowglitch
+    - img
+  - heading "Shop" [level=4]
+  - list:
+    - listitem:
+      - link "Rings":
+        - /url: /rings
+    - listitem:
+      - link "Necklaces":
+        - /url: /necklaces
+    - listitem:
+      - link "Earrings":
+        - /url: /earrings
+    - listitem:
+      - link "Bracelets":
+        - /url: /bracelets
+    - listitem:
+      - link "Gift Cards":
+        - /url: /gift-cards
+  - heading "Company" [level=4]
+  - list:
+    - listitem:
+      - link "About Us":
+        - /url: /about
+    - listitem:
+      - link "Sustainability":
+        - /url: /sustainability
+    - listitem:
+      - link "Creator Program":
+        - /url: /creators
+    - listitem:
+      - link "Press":
+        - /url: /press
+    - listitem:
+      - link "Careers":
+        - /url: /careers
+  - heading "Support" [level=4]
+  - list:
+    - listitem:
+      - link "Contact Us":
+        - /url: /contact
+    - listitem:
+      - link "Size Guide":
+        - /url: /size-guide
+    - listitem:
+      - link "Care Instructions":
+        - /url: /care
+    - listitem:
+      - link "Shipping & Returns":
+        - /url: /shipping
+    - listitem:
+      - link "FAQ":
+        - /url: /faq
+  - heading "Contact" [level=4]
+  - img
+  - paragraph:
+    - link "hello@glowglitch.com":
+      - /url: mailto:hello@glowglitch.com
+  - img
+  - paragraph:
+    - link "+1 (555) GLOW-GEM":
+      - /url: tel:+1-555-GLOW-GEM
+  - img
+  - paragraph: Available 24/7 Virtual consultations
+  - heading "🌱 100% Sustainable" [level=4]
+  - paragraph: Lab-grown diamonds with zero environmental impact
+  - heading "✨ Ethically Sourced" [level=4]
+  - paragraph: Conflict-free materials and fair labor practices
+  - heading "🎨 Fully Customizable" [level=4]
+  - paragraph: Design your perfect piece with our 3D customizer
+  - link "Privacy Policy":
+    - /url: /privacy
+  - link "Terms of Service":
+    - /url: /terms
+  - link "Cookie Policy":
+    - /url: /cookies
+  - link "Accessibility":
+    - /url: /accessibility
+  - text: © 2025 GlowGlitch (Lumina Lab). All rights reserved.
+```

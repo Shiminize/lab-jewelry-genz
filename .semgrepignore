@@ -1,0 +1,81 @@
+# Semgrep Ignore Configuration
+# Files and patterns to exclude from security scanning
+
+# Build outputs and dependencies
+node_modules/
+.next/
+dist/
+build/
+coverage/
+*.min.js
+*.bundle.js
+
+# Test files (security rules may not apply to test code)
+**/*.test.ts
+**/*.test.js
+**/*.spec.ts
+**/*.spec.js
+__tests__/
+__mocks__/
+test*/
+tests/
+*.test.*
+*.spec.*
+
+# Development and configuration files
+.env*
+.git/
+.github/
+.vscode/
+.idea/
+*.log
+*.lock
+package-lock.json
+yarn.lock
+
+# Documentation
+docs/
+Docs/
+README*
+*.md
+*.txt
+
+# Image and media files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.webp
+*.avif
+*.mp4
+*.mov
+*.avi
+
+# 3D model files
+*.glb
+*.gltf
+*.obj
+
+# Scripts and utilities (may contain test/demo code)
+scripts/
+temp/
+html-demo/
+
+# Known false positives (add specific files here)
+# Example: src/components/ui/Button.tsx:jwt-secret-hardcoded
+
+# Third-party components and libraries
+src/components/ui/shadcn/
+public/models/
+
+# Development server and configuration
+server.js
+next.config.js
+tailwind.config.js
+postcss.config.js
+jest.config.js
+playwright.config.ts
+
+# TypeScript build cache
+*.tsbuildinfo

@@ -8,7 +8,7 @@ const { MongoClient } = require('mongodb')
 require('dotenv').config({ path: '.env.local' })
 
 // Import seed data (converted to CommonJS format)
-const { SEED_PRODUCTS, STANDARD_MATERIALS, STANDARD_GEMSTONES } = require('../src/data/seed-products-cjs')
+const { SEED_PRODUCTS, STANDARD_MATERIALS, STANDARD_GEMSTONES } = require('./generate-full-seed-cjs')
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017'
 const DATABASE_NAME = process.env.DATABASE_NAME || 'glowglitch'
@@ -82,30 +82,52 @@ async function seedDatabase() {
     // Create indexes for optimal performance
     console.log('📊 Creating database indexes...')
     
-    // Text search index
-    await productsCollection.createIndex({
-      'name': 'text',
-      'description': 'text',
-      'seo.keywords': 'text',
-      'metadata.tags': 'text'
-    }, {
-      name: 'product_text_search',
-      weights: {
-        'name': 10,
-        'description': 5,
-        'seo.keywords': 8,
-        'metadata.tags': 3
+    // Text search index (skip if already exists)
+    try {
+      await productsCollection.createIndex({
+        'name': 'text',
+        'description': 'text',
+        'seo.keywords': 'text',
+        'metadata.tags': 'text'
+      }, {
+        name: 'product_text_search',
+        weights: {
+          'name': 10,
+          'description': 5,
+          'seo.keywords': 8,
+          'metadata.tags': 3
+        }
+      })
+    } catch (error) {
+      if (error.code === 85) {
+        console.log('ℹ️  Text search index already exists with different options')
+      } else {
+        throw error
       }
-    })
+    }
 
-    // Category and filtering indexes
-    await productsCollection.createIndex({ 'category': 1, 'subcategory': 1 })
-    await productsCollection.createIndex({ 'pricing.basePrice': 1 })
-    await productsCollection.createIndex({ 'metadata.featured': 1, 'metadata.status': 1 })
-    await productsCollection.createIndex({ 'metadata.bestseller': 1 })
-    await productsCollection.createIndex({ 'inventory.available': 1 })
-    await productsCollection.createIndex({ 'seo.slug': 1 }, { unique: true })
-    await productsCollection.createIndex({ 'inventory.sku': 1 }, { unique: true })
+    // Category and filtering indexes (create if not exists)
+    const indexesToCreate = [
+      { keys: { 'category': 1, 'subcategory': 1 }, options: {} },
+      { keys: { 'pricing.basePrice': 1 }, options: {} },
+      { keys: { 'metadata.featured': 1, 'metadata.status': 1 }, options: {} },
+      { keys: { 'metadata.bestseller': 1 }, options: {} },
+      { keys: { 'inventory.available': 1 }, options: {} },
+      { keys: { 'seo.slug': 1 }, options: { unique: true } },
+      { keys: { 'inventory.sku': 1 }, options: { unique: true } }
+    ]
+
+    for (const { keys, options } of indexesToCreate) {
+      try {
+        await productsCollection.createIndex(keys, options)
+      } catch (error) {
+        if (error.code === 85 || error.code === 11000) {
+          console.log(`ℹ️  Index ${JSON.stringify(keys)} already exists`)
+        } else {
+          console.warn(`⚠️  Could not create index ${JSON.stringify(keys)}:`, error.message)
+        }
+      }
+    }
 
     console.log('✅ Database indexes created')
 

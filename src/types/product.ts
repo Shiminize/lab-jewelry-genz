@@ -5,7 +5,7 @@
  */
 
 // Base product category types
-export type ProductCategory = 'rings' | 'necklaces' | 'earrings' | 'bracelets'
+export type ProductCategory = 'rings' | 'necklaces' | 'earrings' | 'bracelets' | 'jewelry'
 
 export type ProductSubcategory = 
   // Rings
@@ -16,6 +16,8 @@ export type ProductSubcategory =
   | 'studs' | 'hoops' | 'drops' | 'climbers'
   // Bracelets
   | 'tennis-bracelets' | 'bangles' | 'chain-bracelets' | 'charm-bracelets'
+  // Jewelry & Accessories
+  | 'accessories'
 
 // Material specifications
 export interface Material {
@@ -204,6 +206,12 @@ export interface Product {
     collections?: string[] // "Signature", "Bridal", "Everyday"
     tags: string[] // "sustainable", "minimalist", "vintage"
     difficulty?: 'beginner' | 'intermediate' | 'advanced' // For customization
+    sustainabilityImpact?: {
+      carbonOffset?: number // kg CO2
+      oceanPlasticRemoved?: number // pounds
+      treesPlanted?: number
+      artisansFunded?: number
+    }
   }
   
   // Timestamps
