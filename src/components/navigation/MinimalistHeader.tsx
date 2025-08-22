@@ -132,14 +132,13 @@ export function MinimalistHeader({ className }: MinimalistHeaderProps) {
               size="icon"
               className="lg:hidden"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              aria-label="Toggle search"
             >
               <Search size={20} />
             </Button>
 
             {/* Wishlist */}
             <Button variant="ghost" size="icon" asChild>
-              <Link href="/wishlist" aria-label={`Wishlist (${wishlistCount} items)`}>
+              <Link href="/wishlist">
                 <div className="relative">
                   <Heart size={20} />
                   {wishlistCount > 0 && (
@@ -153,7 +152,7 @@ export function MinimalistHeader({ className }: MinimalistHeaderProps) {
 
             {/* Cart */}
             <Button variant="ghost" size="icon" asChild>
-              <Link href="/cart" aria-label={`Shopping cart (${cartItemCount} items)`}>
+              <Link href="/cart">
                 <div className="relative">
                   <ShoppingCart size={20} />
                   {cartItemCount > 0 && (
@@ -167,7 +166,7 @@ export function MinimalistHeader({ className }: MinimalistHeaderProps) {
 
             {/* Account */}
             <Button variant="ghost" size="icon" asChild>
-              <Link href="/account" aria-label="User account">
+              <Link href="/account">
                 <User size={20} />
               </Link>
             </Button>

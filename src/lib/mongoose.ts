@@ -15,27 +15,37 @@ if (!MONGODB_URI) {
 // Connection options optimized for CLAUDE_RULES <300ms response target
 const mongooseOptions: mongoose.ConnectOptions = {
   bufferCommands: false,
-  maxPoolSize: process.env.NODE_ENV === 'production' ? 50 : 5, // Reduced pool for development
-  minPoolSize: process.env.NODE_ENV === 'production' ? 5 : 1, // Minimum connections
-  maxIdleTimeMS: 30000, // Close connections after 30 seconds idle
-  serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-  socketTimeoutMS: 30000, // Reduced from 45s for faster timeouts
-  connectTimeoutMS: 10000, // Connection establishment timeout
+  // CRITICAL FIX: Reduced connection pool to prevent 50+ connection explosion
+  maxPoolSize: process.env.NODE_ENV === 'production' ? 10 : 5, // Reduced from 50/10 to 10/5
+  minPoolSize: process.env.NODE_ENV === 'production' ? 3 : 1, // Reduced minimum connections
+  maxIdleTimeMS: 60000, // Increased from 30s to reduce connection churn
+  serverSelectionTimeoutMS: 3000, // Reduced from 5s for faster failures
+  socketTimeoutMS: 20000, // Reduced from 30s for faster timeout detection
+  connectTimeoutMS: 5000, // Reduced from 10s for faster connection establishment
   family: 4, // Use IPv4, skip trying IPv6
   retryWrites: true,
   retryReads: true,
+  
+  // Enhanced connection settings for E2E test stability
+  heartbeatFrequencyMS: 10000, // Reduced frequency to prevent connection spam
+  localThresholdMS: 15, // Faster server selection
+  maxConnecting: 3, // CRITICAL: Reduced from 10 to 3 to prevent connection explosion
+  
   // Connection compression for performance
   compressors: ['snappy', 'zlib'],
-  // Read preference for performance
-  readPreference: 'secondaryPreferred',
-  // Write concern for performance vs durability balance
+  
+  // Optimized read preference for consistent performance
+  readPreference: process.env.NODE_ENV === 'test' ? 'primary' : 'secondaryPreferred',
+  
+  // Write concern optimized for E2E test performance
   writeConcern: {
-    w: 'majority',
+    w: process.env.NODE_ENV === 'test' ? 1 : 'majority', // Faster writes in test environment
     j: true, // Journal for durability
-    wtimeout: 5000 // Write timeout
+    wtimeout: 3000 // Reduced from 5s for faster timeout
   },
-  // Connection pool monitoring
-  monitorCommands: process.env.NODE_ENV === 'development',
+  
+  // Enhanced monitoring for development and testing
+  monitorCommands: process.env.NODE_ENV !== 'production',
 }
 
 // Global mongoose instance for connection caching
@@ -55,34 +65,87 @@ if (!cached) {
  * Uses connection caching to prevent multiple connections in serverless environments
  */
 export async function connectToDatabase(): Promise<typeof mongoose> {
-  // Return existing connection if available
-  if (cached.conn) {
+  // Return existing connection if available and healthy
+  if (cached.conn && cached.conn.connection.readyState === 1) {
     return cached.conn
+  }
+
+  // Reset cached connection if it's in a bad state
+  if (cached.conn && cached.conn.connection.readyState !== 1) {
+    console.log('Resetting stale MongoDB connection')
+    cached.conn = null
+    cached.promise = null
   }
 
   // Create new connection promise if none exists
   if (!cached.promise) {
+    console.log('Creating new MongoDB connection...')
+    
     cached.promise = mongoose.connect(MONGODB_URI, mongooseOptions)
-      .then((mongoose) => {
+      .then(async (mongoose) => {
         console.log('MongoDB connected successfully')
+        
+        // Connection warmup strategy for E2E test performance
+        try {
+          await warmupConnection(mongoose)
+          console.log('MongoDB connection warmed up successfully')
+        } catch (warmupError) {
+          console.warn('MongoDB warmup failed, continuing:', warmupError.message)
+        }
+        
         return mongoose
       })
       .catch((error) => {
         console.error('MongoDB connection error:', error)
+        DatabaseMonitor.trackConnectionError()
         // Reset promise to allow retry
         cached.promise = null
+        cached.conn = null
         throw error
       })
   }
 
   try {
     cached.conn = await cached.promise
+    
+    // Verify connection health after establishment
+    const health = await checkDatabaseHealth()
+    if (!health.isHealthy) {
+      console.warn('Database health check failed after connection')
+    }
+    
   } catch (error) {
+    console.error('Failed to establish MongoDB connection:', error)
     cached.promise = null
+    cached.conn = null
+    DatabaseMonitor.trackConnectionError()
     throw error
   }
 
   return cached.conn
+}
+
+/**
+ * Warmup connection strategy for improved E2E test performance
+ */
+async function warmupConnection(mongoose: typeof import('mongoose')): Promise<void> {
+  const startTime = Date.now()
+  
+  try {
+    // Perform lightweight operations to warm up the connection pool
+    await mongoose.connection.db.admin().ping()
+    await mongoose.connection.db.collection('products').estimatedDocumentCount()
+    
+    const warmupTime = Date.now() - startTime
+    console.log(`Connection warmup completed in ${warmupTime}ms`)
+    
+    // Track warmup performance
+    DatabaseMonitor.trackQuery(warmupTime, 'connection_warmup')
+  } catch (error) {
+    const warmupTime = Date.now() - startTime
+    console.warn(`Connection warmup failed after ${warmupTime}ms:`, error.message)
+    throw error
+  }
 }
 
 /**
@@ -160,7 +223,9 @@ export class DatabaseMonitor {
     slowQueries: 0,
     totalQueries: 0,
     connectionErrors: 0,
-    lastHealthCheck: new Date()
+    connectionRetries: 0,
+    lastHealthCheck: new Date(),
+    warmupTimes: [] as number[]
   }
 
   /**
@@ -180,6 +245,30 @@ export class DatabaseMonitor {
       this.metrics.slowQueries++
       console.warn(`Slow query detected: ${operation} took ${executionTime}ms (exceeds 300ms CLAUDE_RULES target)`)
     }
+    
+    // Track warmup performance separately
+    if (operation === 'connection_warmup') {
+      this.metrics.warmupTimes.push(executionTime)
+      if (this.metrics.warmupTimes.length > 100) {
+        this.metrics.warmupTimes.shift()
+      }
+    }
+  }
+
+  /**
+   * Track connection errors for monitoring
+   */
+  static trackConnectionError(): void {
+    this.metrics.connectionErrors++
+    console.error(`Database connection error count: ${this.metrics.connectionErrors}`)
+  }
+
+  /**
+   * Track connection retry attempts
+   */
+  static trackConnectionRetry(): void {
+    this.metrics.connectionRetries++
+    console.log(`Database connection retry count: ${this.metrics.connectionRetries}`)
   }
 
   /**
@@ -190,19 +279,63 @@ export class DatabaseMonitor {
       ? this.metrics.queryTimes.reduce((sum, time) => sum + time, 0) / this.metrics.queryTimes.length
       : 0
 
+    const avgWarmupTime = this.metrics.warmupTimes.length > 0
+      ? this.metrics.warmupTimes.reduce((sum, time) => sum + time, 0) / this.metrics.warmupTimes.length
+      : 0
+
     const slowQueryRate = this.metrics.totalQueries > 0 
       ? (this.metrics.slowQueries / this.metrics.totalQueries) * 100
       : 0
 
     return {
       averageQueryTime: Math.round(avgQueryTime),
+      averageWarmupTime: Math.round(avgWarmupTime),
       totalQueries: this.metrics.totalQueries,
       slowQueries: this.metrics.slowQueries,
       slowQueryRate: Math.round(slowQueryRate * 100) / 100,
       connectionErrors: this.metrics.connectionErrors,
+      connectionRetries: this.metrics.connectionRetries,
       claudeRulesCompliant: avgQueryTime < 300 && slowQueryRate < 5,
+      connectionHealthy: this.metrics.connectionErrors < 5,
       lastHealthCheck: this.metrics.lastHealthCheck
     }
+  }
+
+  /**
+   * Get E2E test specific metrics
+   */
+  static getE2EMetrics() {
+    const metrics = this.getPerformanceMetrics()
+    return {
+      ...metrics,
+      e2eReady: metrics.claudeRulesCompliant && metrics.connectionHealthy && metrics.averageWarmupTime < 1000,
+      recommendations: this.getOptimizationRecommendations(metrics)
+    }
+  }
+
+  /**
+   * Get optimization recommendations based on current metrics
+   */
+  private static getOptimizationRecommendations(metrics: any): string[] {
+    const recommendations: string[] = []
+    
+    if (metrics.averageQueryTime > 300) {
+      recommendations.push('Optimize database queries - average response time exceeds 300ms')
+    }
+    
+    if (metrics.slowQueryRate > 10) {
+      recommendations.push('Review query performance - high percentage of slow queries')
+    }
+    
+    if (metrics.connectionErrors > 2) {
+      recommendations.push('Investigate connection stability - multiple connection errors detected')
+    }
+    
+    if (metrics.averageWarmupTime > 2000) {
+      recommendations.push('Optimize connection warmup - taking longer than 2 seconds')
+    }
+    
+    return recommendations
   }
 
   /**
@@ -214,7 +347,9 @@ export class DatabaseMonitor {
       slowQueries: 0,
       totalQueries: 0,
       connectionErrors: 0,
-      lastHealthCheck: new Date()
+      connectionRetries: 0,
+      lastHealthCheck: new Date(),
+      warmupTimes: []
     }
   }
 }
@@ -266,31 +401,43 @@ export async function withTransaction<T>(
 
 /**
  * Database connection event handlers with CLAUDE_RULES performance monitoring
- * Provides comprehensive logging and monitoring for connection events
+ * Enhanced memory leak prevention and connection management
  */
-mongoose.connection.on('connected', () => {
-  console.log('Mongoose connected to MongoDB')
-  // Add performance monitoring middleware
-  mongoose.plugin(createPerformanceMiddleware())
-  console.log('Database performance monitoring enabled for CLAUDE_RULES compliance')
-})
 
-mongoose.connection.on('error', (err) => {
-  console.error('Mongoose connection error:', err)
-  DatabaseMonitor['metrics'].connectionErrors++
-})
+// Prevent memory leaks by setting max listeners (CLAUDE_RULES.md Line 8: Error-first coding)
+mongoose.connection.setMaxListeners(15)
 
-mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose disconnected from MongoDB')
-})
+let listenersSetup = false
 
-mongoose.connection.on('reconnected', () => {
-  console.log('Mongoose reconnected to MongoDB')
-})
+if (!listenersSetup) {
+  mongoose.connection.once('connected', () => {
+    console.log('Mongoose connected to MongoDB')
+    // Add performance monitoring middleware only once
+    if (!mongoose.plugins.some(plugin => plugin.fn === createPerformanceMiddleware)) {
+      mongoose.plugin(createPerformanceMiddleware())
+    }
+    console.log('Database performance monitoring enabled for CLAUDE_RULES compliance')
+  })
 
-mongoose.connection.on('fullsetup', () => {
-  console.log('MongoDB replica set fully connected')
-})
+  mongoose.connection.on('error', (err) => {
+    console.error('Mongoose connection error:', err)
+    DatabaseMonitor['metrics'].connectionErrors++
+  })
+
+  mongoose.connection.on('disconnected', () => {
+    console.log('Mongoose disconnected from MongoDB')
+  })
+
+  mongoose.connection.on('reconnected', () => {
+    console.log('Mongoose reconnected to MongoDB')
+  })
+
+  mongoose.connection.on('fullsetup', () => {
+    console.log('MongoDB replica set fully connected')
+  })
+
+  listenersSetup = true
+}
 
 // Monitor slow operations (>300ms violates CLAUDE_RULES)
 if (process.env.NODE_ENV === 'production') {

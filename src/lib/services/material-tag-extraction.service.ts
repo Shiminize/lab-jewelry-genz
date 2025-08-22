@@ -15,10 +15,14 @@
 
 import type { 
   ProductListDTO, 
+  ProductDisplayDTO,
   MetalType, 
   StoneType,
   ProductListMaterialSpecs 
 } from '@/types/product-dto'
+
+// Union type for flexible product data handling (CLAUDE_RULES.md TypeScript strict mode)
+type ProductWithMaterialSpecs = ProductListDTO | ProductDisplayDTO
 import type {
   MaterialTag,
   TagCategory,
@@ -223,7 +227,7 @@ const validateMaterialSpecs = (
  * @returns Tag extraction result with performance metrics
  */
 export function extractMaterialTags(
-  product: ProductListDTO,
+  product: ProductWithMaterialSpecs,
   options: TagExtractionOptions = {},
   config: TagDisplayConfig = DEFAULT_TAG_CONFIG
 ): TagExtractionResult<MaterialTag[]> {
@@ -367,7 +371,7 @@ export function extractMaterialTags(
  * @returns Batch processing result with aggregated metrics
  */
 export function extractMaterialTagsBatch(
-  products: ProductListDTO[],
+  products: ProductWithMaterialSpecs[],
   options: TagExtractionOptions = {},
   config: TagDisplayConfig = DEFAULT_TAG_CONFIG
 ): BatchTagExtractionResult {

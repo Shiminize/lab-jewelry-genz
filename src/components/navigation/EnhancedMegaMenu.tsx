@@ -77,7 +77,6 @@ export function EnhancedMegaMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       role="menu"
-      aria-label={`${item.label} navigation menu`}
     >
       <div className="container mx-auto px-4 py-8">
         {/* Special Full Genome Scan Header */}

@@ -1,0 +1,125 @@
+/* Performance-optimized Footer CSS */
+
+/* GPU-accelerated animations for footer collapsible sections */
+.footer-section-content {
+  /* Force hardware acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  
+  /* Optimize repaints */
+  will-change: transform, opacity;
+  
+  /* Smooth transitions using only composite properties */
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Collapsed state - uses transform instead of max-height */
+.footer-section-content--collapsed {
+  transform: translateZ(0) scaleY(0);
+  transform-origin: top;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Expanded state */
+.footer-section-content--expanded {
+  transform: translateZ(0) scaleY(1);
+  transform-origin: top;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Optimized icon rotation */
+.footer-chevron {
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.footer-chevron--rotated {
+  transform: translateZ(0) rotate(180deg);
+}
+
+/* Touch optimization for mobile */
+.footer-button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  
+  /* Improve touch response */
+  min-height: 44px; /* iOS minimum touch target */
+  min-width: 44px;
+}
+
+/* Prevent layout shifts during animations */
+.footer-container {
+  contain: layout style paint;
+}
+
+/* Optimize hover states for desktop only */
+@media (hover: hover) and (pointer: fine) {
+  .footer-link:hover {
+    color: var(--accent);
+    transition: color 200ms ease-out;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .footer-section-content,
+  .footer-chevron,
+  .footer-link {
+    transition-duration: 0ms;
+  }
+  
+  .footer-section-content--collapsed,
+  .footer-section-content--expanded {
+    transform: none;
+  }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Reduce composite layer size on mobile */
+  .footer-section-content {
+    max-height: 80vh; /* Prevent extremely tall sections */
+  }
+  
+  /* Optimize touch scrolling */
+  .footer-section-list {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1024px) {
+  /* Enable subpixel antialiasing on desktop */
+  .footer-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Loading state optimizations */
+.footer-skeleton {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Intersection observer optimizations */
+.footer-lazy-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 400px; /* Estimated height */
+}

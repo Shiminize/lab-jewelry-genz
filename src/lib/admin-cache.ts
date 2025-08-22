@@ -28,8 +28,22 @@ export class AdminCacheManager {
       ...config
     }
 
-    // Auto-cleanup expired entries every minute
-    setInterval(() => this.cleanup(), 60000)
+    // CRITICAL FIX: Use GlobalHealthMonitor instead of creating duplicate intervals
+    const GlobalHealthMonitor = require('./global-health-monitor').default
+    const healthMonitor = GlobalHealthMonitor.getInstance()
+    
+    // Register cache cleanup service with the global monitor
+    healthMonitor.registerService('admin-cache-cleanup', async () => {
+      try {
+        this.cleanup()
+        return { status: 'admin-cache-cleanup-completed' }
+      } catch (error) {
+        console.error('Admin cache cleanup failed:', error)
+        throw error
+      }
+    }, 60000) // Every minute
+    
+    console.log('💾 AdminCacheManager: Registered with GlobalHealthMonitor')
   }
 
   // Cache key generation

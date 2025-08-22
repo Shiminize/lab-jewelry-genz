@@ -12,11 +12,12 @@ import SetupConfiguration from '@/components/dashboard/SetupConfiguration'
 import { QualityAnalytics } from '@/components/dashboard/QualityAnalytics'
 import { SequencePreview } from '@/components/dashboard/SequencePreview'
 import { PerformanceMonitor } from '@/components/dashboard/PerformanceMonitor'
+import { CustomizableProductsPanel } from '@/components/dashboard/CustomizableProductsPanel'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
 import { Badge } from '@/components/ui/Badge'
-import { Play, Pause, Settings, BarChart3, Folder, Palette, Wifi, WifiOff, Activity } from 'lucide-react'
+import { Play, Pause, Settings, BarChart3, Folder, Palette, Wifi, WifiOff, Activity, Package } from 'lucide-react'
 import useWebSocket from '@/hooks/useWebSocket'
 
 interface DashboardState {
@@ -292,7 +293,12 @@ export default function Dashboard3D() {
 
         {/* Main Dashboard Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:grid-cols-6 bg-white shadow-sm border">
+          <TabsList className="grid w-full grid-cols-7 lg:w-auto lg:grid-cols-7 bg-white shadow-sm border">
+            <TabsTrigger value="customizable" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
+              <Package className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="sm:hidden">Products</span>
+              <span className="hidden sm:inline">Customizable</span>
+            </TabsTrigger>
             <TabsTrigger value="setup" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
               <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="sm:hidden">Setup</span>
@@ -356,6 +362,10 @@ export default function Dashboard3D() {
 
           <TabsContent value="performance" className="mt-6">
             <PerformanceMonitor />
+          </TabsContent>
+
+          <TabsContent value="customizable" className="mt-6">
+            <CustomizableProductsPanel />
           </TabsContent>
         </Tabs>
 

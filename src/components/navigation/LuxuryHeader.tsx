@@ -128,7 +128,6 @@ export function LuxuryHeader({ onMegaMenuOpen, onMobileMenuOpen }: LuxuryHeaderP
               size="icon"
               className="md:hidden"
               onClick={onMobileMenuOpen}
-              aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
             </Button>
@@ -197,7 +196,6 @@ export function LuxuryHeader({ onMegaMenuOpen, onMobileMenuOpen }: LuxuryHeaderP
                 variant="ghost" 
                 size="icon"
                 className="hover:bg-muted hover:text-accent"
-                aria-label="Search"
               >
                 <Search className="h-5 w-5" />
               </Button>
@@ -207,7 +205,6 @@ export function LuxuryHeader({ onMegaMenuOpen, onMobileMenuOpen }: LuxuryHeaderP
                 variant="ghost" 
                 size="icon"
                 className="hidden md:flex hover:bg-muted hover:text-accent"
-                aria-label="Account"
               >
                 <User className="h-5 w-5" />
               </Button>
@@ -217,7 +214,6 @@ export function LuxuryHeader({ onMegaMenuOpen, onMobileMenuOpen }: LuxuryHeaderP
                 variant="ghost" 
                 size="icon"
                 className="relative hover:bg-muted hover:text-accent"
-                aria-label={`Wishlist - ${wishlistCount} items`}
               >
                 <Heart className="h-5 w-5" />
                 {wishlistCount > 0 && (
@@ -234,7 +230,6 @@ export function LuxuryHeader({ onMegaMenuOpen, onMobileMenuOpen }: LuxuryHeaderP
                 variant="ghost" 
                 size="icon"
                 className="relative hover:bg-muted hover:text-accent"
-                aria-label={`Cart - ${cartCount} items`}
               >
                 <ShoppingCart className="h-5 w-5" />
                 {cartCount > 0 && (

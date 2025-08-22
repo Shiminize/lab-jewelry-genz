@@ -22,7 +22,7 @@ interface ProductPageProps {
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   try {
     // Use absolute URL for server-side fetching
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001'
     const response = await fetch(`${baseUrl}/api/products/${params.slug}`, {
       next: { revalidate: 3600 } // Revalidate every hour
     })
@@ -81,7 +81,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 async function getProduct(slug: string) {
   try {
     // Use absolute URL for server-side fetching
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001'
     const response = await fetch(`${baseUrl}/api/products/${slug}`, {
       next: { revalidate: 3600 }
     })
@@ -102,7 +102,7 @@ async function getProduct(slug: string) {
 async function getRelatedProducts(productId: string, category: string) {
   try {
     // Use absolute URL for server-side fetching
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001'
     const response = await fetch(
       `${baseUrl}/api/products/related?productId=${productId}&category=${category}&limit=4`,
       {

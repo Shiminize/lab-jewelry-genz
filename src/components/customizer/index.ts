@@ -1,12 +1,10 @@
-// Core customizer components (PRD compliant - single customizer architecture)
-export { ProductCustomizer } from './ProductCustomizer'
-export { HybridViewer } from './HybridViewer'
-export { ThreeJSViewer } from './ThreeJSViewer'
-export { Dynamic3DViewer } from './Dynamic3DViewer'
-export { MaterialSelector } from './MaterialSelector'
-export { StoneQualityPicker } from './StoneQualityPicker'
-export { SizeSelector } from './SizeSelector'
-export { EngravingInput } from './EngravingInput'
-export { PriceCalculator } from './PriceCalculator'
-export { ActionButtons } from './ActionButtons'
-export { MobileTouchControls } from './MobileTouchControls'
+/**
+ * 3D Customizer - Streamlined 5-Component Architecture
+ * CLAUDE_RULES.md compliant exports
+ */
+
+export { default as ProductCustomizer } from './ProductCustomizer'
+export { default as ImageViewer } from './ImageViewer'
+export { default as MaterialControls } from './MaterialControls'
+export { default as ViewerControls } from './ViewerControls'
+export * from './types'

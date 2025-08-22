@@ -1,293 +1,327 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
-import { X, ChevronRight, ChevronDown, Sparkles, Heart, Users, Search } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
+import { Badge } from '@/components/ui/badge'
+import { 
+  X, 
+  ChevronDown,
+  Heart,
+  ShoppingCart,
+  User,
+  Search,
+  Home
+} from 'lucide-react'
 import { Input } from '@/components/ui/Input'
-import { H3, BodyText } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
-import { genZMobileNavigation, trustSignals } from '@/data/navigation-genz'
+import { useNavigation, useMobileMenu, useNavigationSearch } from '@/contexts/NavigationProvider'
 
 interface SimpleMobileDrawerProps {
-  isOpen: boolean
-  onClose: () => void
+  // No props needed - uses context
 }
 
-export function SimpleMobileDrawer({ isOpen, onClose }: SimpleMobileDrawerProps) {
+export function SimpleMobileDrawer({}: SimpleMobileDrawerProps) {
+  const { config } = useNavigation()
+  const { isOpen, close } = useMobileMenu()
+  const { query, setQuery, handleSearch: performSearch } = useNavigationSearch()
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [cartCount] = useState(2)
+  const [wishlistCount] = useState(5)
+  const [isMounted, setIsMounted] = useState(false)
+  const router = useRouter()
+  const drawerRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
+  const lastFocusedElement = useRef<HTMLElement | null>(null)
 
-  // Handle escape key
+  // Hydration-safe mounting check
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose()
+    setIsMounted(true)
+  }, [])
+
+  // Use Gen Z-optimized labels from navigation config
+  const getDisplayLabel = (item: any, isMobile = true) => {
+    return isMobile && item.metadata?.genZLabel ? item.metadata.genZLabel : item.label
+  }
+
+  const toggleCategory = useCallback((categoryName: string) => {
+    setExpandedCategory(expandedCategory === categoryName ? null : categoryName)
+  }, [expandedCategory])
+
+  // Handle search submission
+  const handleSearch = useCallback((e?: React.FormEvent) => {
+    if (e) e.preventDefault()
+    if (query.trim()) {
+      performSearch(query.trim())
+      close()
+    }
+  }, [query, performSearch, close])
+
+  // Handle search input key press
+  const handleSearchKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
+  }, [handleSearch])
+
+  // Focus management (body scroll handled by NavigationProvider)
+  useEffect(() => {
+    if (isOpen) {
+      lastFocusedElement.current = document.activeElement as HTMLElement
+      
+      setTimeout(() => {
+        searchInputRef.current?.focus()
+      }, 350)
+    } else {
+      if (lastFocusedElement.current) {
+        lastFocusedElement.current.focus()
+      }
+    }
+  }, [isOpen])
+
+  // Handle escape key and focus trap
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!isOpen) return
+      
+      if (event.key === 'Escape') {
+        close()
+        return
+      }
+      
+      if (event.key === 'Tab') {
+        const drawer = drawerRef.current
+        if (!drawer) return
+        
+        const focusableElements = drawer.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        
+        const firstElement = focusableElements[0] as HTMLElement
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+        
+        if (event.shiftKey) {
+          if (document.activeElement === firstElement) {
+            event.preventDefault()
+            lastElement?.focus()
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            event.preventDefault()
+            firstElement?.focus()
+          }
+        }
       }
     }
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape)
-      document.body.style.overflow = 'hidden'
-    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, close])
 
-    return () => {
-      document.removeEventListener('keydown', handleEscape)
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen, onClose])
-
-  const toggleCategory = (categoryName: string) => {
-    setExpandedCategory(prev => prev === categoryName ? null : categoryName)
+  if (!isMounted) {
+    return null
   }
 
-  if (!isOpen) return null
-
   return (
-    <>
-      {/* Simple backdrop */}
-      <div
-        className="fixed inset-0 bg-foreground/30 z-40 md:hidden"
-        onClick={onClose}
-        aria-hidden="true"
+    <div 
+      className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 ease-out ${
+        isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      }`}
+    >
+      {/* Backdrop - CLAUDE_RULES: backdrop with smooth fade */}
+      <div 
+        className={`absolute inset-0 backdrop-blur-sm transition-opacity duration-300 ease-out cursor-pointer bg-foreground/50 ${
+          isOpen ? 'opacity-100' : 'opacity-0'
+        }`}
+        onClick={close}
       />
-
-      {/* Main drawer - solid and simple */}
-      <div
-        className={cn(
-          'fixed top-0 right-0 h-full w-[90vw] max-w-xs bg-background shadow-lg z-50 transform transition-transform duration-250 ease-out md:hidden',
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        )}
+      
+      {/* Drawer - CLAUDE_RULES compliant smooth slide */}
+      <div 
+        ref={drawerRef}
+        className={`absolute inset-y-0 left-0 w-80 max-w-[85vw] bg-white shadow-2xl transition-transform duration-300 ease-out will-change-transform ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
         role="dialog"
-        aria-modal="true"
-        aria-label="Mobile navigation menu"
       >
-        <div className="flex flex-col h-full">
-          {/* Fixed Header */}
-          <div className="flex-shrink-0 border-b border-border">
-            {/* Top bar with logo and close */}
-            <div className="flex items-center justify-between p-4">
-              <H3 className="font-headline font-bold text-foreground">
-                ✨ GlowGlitch
-              </H3>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={onClose}
-                aria-label="Close navigation menu"
-                className="text-foreground hover:bg-muted rounded-full"
-              >
-                <X size={24} />
-              </Button>
+        <div className="flex flex-col h-full overflow-y-auto">
+          {/* Header - CLAUDE_RULES: text-background bg-foreground */}
+          <div className="flex items-center justify-between px-6 py-4 bg-foreground text-background flex-shrink-0">
+            <div className="flex items-center space-x-3">
+              <img 
+                src="/glitchglow_logo_empty_gold.png" 
+                alt="GlowGlitch - Uniquely Yours. Consciously Made" 
+                className="h-8 w-auto font-headline"
+              />
             </div>
-
-            {/* Search bar */}
-            <div className="px-4 pb-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-cta" />
-                <Input
-                  type="search"
-                  placeholder="Find your perfect piece..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 bg-muted border-0 rounded-full text-foreground placeholder:text-foreground/60 focus:ring-2 focus:ring-cta"
-                  aria-label="Search jewelry"
-                />
-              </div>
-            </div>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={close}
+              className="text-background hover:bg-background/10 min-w-11 min-h-11"
+            >
+              <X className="h-5 w-5" />
+            </Button>
           </div>
 
-          {/* Scrollable content */}
-          <div className="flex-1 overflow-y-auto">
-            {/* Quick actions */}
-            <div className="p-4 border-b border-border">
-              <div className="space-y-3">
-                <Link
-                  href="/customizer"
-                  onClick={onClose}
-                  className="flex items-center p-3 bg-cta/10 rounded-lg border border-cta/20 hover:bg-cta/20 transition-colors duration-200"
-                >
-                  <div className="w-10 h-10 bg-cta rounded-full flex items-center justify-center mr-3">
-                    <Sparkles className="w-5 h-5 text-background" />
-                  </div>
-                  <div className="flex-1">
-                    <BodyText className="font-medium text-foreground">
-                      Design Your Story
-                    </BodyText>
-                    <BodyText size="sm" className="text-foreground/70">
-                      Start creating in 3D
-                    </BodyText>
-                  </div>
-                  <ChevronRight className="w-5 h-5 text-cta" />
-                </Link>
+          {/* Search Bar - CLAUDE_RULES: text-foreground bg-background */}
+          <div className="px-6 py-5 bg-background flex-shrink-0">
+            <form onSubmit={handleSearch} className="relative">
+              <button
+                type="submit"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-accent hover:text-foreground transition-colors duration-200"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+              <Input
+                ref={searchInputRef}
+                type="search"
+                placeholder="Find your next obsession..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleSearchKeyDown}
+                className="pl-10 pr-4 bg-background border-0 text-foreground placeholder:text-foreground/60 focus:ring-2 focus:ring-accent font-body min-h-11"
+              />
+            </form>
+          </div>
 
-                <Link
-                  href="/creators"
-                  onClick={onClose}
-                  className="flex items-center p-3 bg-purple-50 rounded-lg border border-purple-200 hover:bg-purple-100 transition-colors duration-200"
-                >
-                  <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center mr-3">
-                    <Users className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <BodyText className="font-medium text-foreground">
-                      Creator Collective
-                    </BodyText>
-                    <BodyText size="sm" className="text-foreground/70">
-                      Join & earn 30%
-                    </BodyText>
-                  </div>
-                  <ChevronRight className="w-5 h-5 text-purple-500" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Navigation categories */}
-            <div className="p-4">
-              <nav>
-                <ul className="space-y-1">
-                  {genZMobileNavigation.map((category) => (
-                    <li key={category.name}>
-                      <div>
-                        {/* Main category */}
-                        <div className="flex items-center">
-                          <Link
-                            href={category.href}
-                            className="flex-1 flex items-center py-3 text-foreground hover:text-cta transition-colors duration-200"
-                            onClick={onClose}
-                          >
-                            {category.name === 'Design Your Story' && <Sparkles className="w-5 h-5 text-cta mr-3" />}
-                            {category.name === 'Shop by Values' && <Heart className="w-5 h-5 text-green-500 mr-3" />}
-                            {category.name === 'Creator Collective' && <Users className="w-5 h-5 text-purple-500 mr-3" />}
-                            <span className="font-medium">{category.name}</span>
-                          </Link>
-                          
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => toggleCategory(category.name)}
-                            aria-label={`Toggle ${category.name} subcategories`}
-                            className="text-foreground hover:bg-muted rounded-full p-2"
-                          >
-                            {expandedCategory === category.name ? (
-                              <ChevronDown size={16} />
-                            ) : (
-                              <ChevronRight size={16} />
-                            )}
-                          </Button>
-                        </div>
-
-                        {/* Subcategories */}
-                        {expandedCategory === category.name && (
-                          <div className="ml-8 space-y-2 py-2">
-                            {category.subcategories.map((subcategory) => (
-                              <Link
-                                key={subcategory.name}
-                                href={subcategory.href}
-                                className="flex items-center justify-between py-2 text-foreground/80 hover:text-foreground transition-colors duration-200"
-                                onClick={onClose}
-                              >
-                                <span>{subcategory.name}</span>
-                                {subcategory.name === '3D Ring Designer' && (
-                                  <span className="text-xs bg-cta/20 text-cta px-2 py-1 rounded-full">
-                                    Popular
-                                  </span>
-                                )}
-                                {subcategory.name === 'Apply to Create' && (
-                                  <span className="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">
-                                    Earn 30%
-                                  </span>
-                                )}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-
-            {/* Social proof */}
-            <div className="p-4 border-t border-border bg-muted/30">
-              <div className="text-center space-y-3">
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="flex -space-x-1">
-                    {[1, 2, 3, 4].map((i) => (
+          {/* Navigation Content - CLAUDE_RULES: text-foreground bg-background */}
+          <div className="flex-1 bg-background">
+            <nav className="py-2 font-body">
+              {config.navigation.map((category, index) => (
+                <div key={category.id}>
+                  {category.children && category.children.length > 0 ? (
+                    <div>
+                      {/* Category with subcategories */}
+                      <button
+                        onClick={() => toggleCategory(category.id)}
+                        className="w-full px-6 py-5 text-left flex items-center justify-between text-foreground bg-background hover:bg-muted transition-colors duration-200 min-h-11"
+                      >
+                        <span className="font-body text-base font-medium tracking-wide">
+                          {getDisplayLabel(category).toUpperCase()}
+                        </span>
+                        <ChevronDown className={`w-4 h-4 text-accent transition-transform duration-200 ${
+                          expandedCategory === category.id ? 'rotate-180' : ''
+                        }`} />
+                      </button>
+                      
+                      {/* Subcategories with smooth animation */}
                       <div 
-                        key={i} 
-                        className="w-6 h-6 bg-cta rounded-full border-2 border-background"
-                      />
-                    ))}
-                  </div>
-                  <BodyText size="sm" className="text-foreground font-medium">
-                    {trustSignals.socialProof.totalCustomers} customers
-                  </BodyText>
+                        id={`${category.id}-submenu`}
+                        className={`overflow-hidden transition-all duration-200 ease-out ${
+                          expandedCategory === category.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                        }`}
+                        role="menu"
+                      >
+                        <div className="bg-background">
+                          {category.children?.map((subcategory) => (
+                            <Link
+                              key={subcategory.id}
+                              href={subcategory.href}
+                              className="block px-8 py-4 text-sm text-foreground/70 hover:text-foreground hover:bg-muted/50 transition-colors duration-200 font-body min-h-11 flex items-center"
+                              onClick={close}
+                              role="menuitem"
+                            >
+                              {getDisplayLabel(subcategory)}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    // Simple category link
+                    <Link
+                      href={category.href}
+                      className="block px-6 py-5 text-left text-foreground bg-background hover:bg-muted transition-colors duration-200 min-h-11 flex items-center"
+                      onClick={close}
+                    >
+                      <span className="font-body text-base font-medium tracking-wide">
+                        {getDisplayLabel(category).toUpperCase()}
+                      </span>
+                    </Link>
+                  )}
+                  
+                  {/* Separator line except for last item */}
+                  {index < config.navigation.length - 1 && (
+                    <div className="border-b border-border/20 mx-6" />
+                  )}
                 </div>
-                
-                <div className="flex items-center justify-center space-x-6">
-                  <div className="text-center">
-                    <BodyText className="font-bold text-cta">
-                      {trustSignals.socialProof.averageRating}★
-                    </BodyText>
-                    <BodyText size="sm" className="text-foreground/70">
-                      Rating
-                    </BodyText>
-                  </div>
-                  <div className="text-center">
-                    <BodyText className="font-bold text-accent">
-                      {trustSignals.socialProof.creatorNetwork}
-                    </BodyText>
-                    <BodyText size="sm" className="text-foreground/70">
-                      Creators
-                    </BodyText>
-                  </div>
+              ))}
+            </nav>
+
+            {/* Featured Section - CLAUDE_RULES: text-foreground bg-background */}
+            <div className="px-6 py-5 bg-background text-foreground">
+              <h3 className="font-headline text-base font-medium text-foreground mb-3">Create Your Main Character Moment</h3>
+              <div className="space-y-3">
+                <div className="p-4 bg-background text-foreground rounded-lg border border-border">
+                  <h4 className="font-body font-medium mb-1">Make It Yours</h4>
+                  <p className="text-sm text-foreground/70 mb-3 font-body">
+                    Design jewelry that tells your story - your values, your vibe, your vision. Lab-grown diamonds that shine as bright as your future.
+                  </p>
+                  <Button variant="primary" size="sm" className="w-full min-h-11" asChild>
+                    <Link href="/customizer" onClick={close}>
+                      Start Your Story
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Fixed footer */}
-          <div className="flex-shrink-0 p-4 border-t border-border bg-background">
-            <div className="space-y-3">
-              <Button
-                asChild
-                size="lg"
-                className="w-full bg-cta hover:bg-cta-hover text-background font-medium"
-              >
-                <Link href="/customizer" onClick={onClose}>
-                  <Sparkles className="w-5 h-5 mr-2" />
-                  Start Designing Now
-                </Link>
-              </Button>
-              
-              <div className="flex items-center justify-center space-x-6">
-                <Link
-                  href="/account"
-                  className="text-foreground hover:text-cta transition-colors duration-200 font-medium"
-                  onClick={onClose}
-                >
-                  My Account
-                </Link>
-                <Link
-                  href="/support"
-                  className="text-foreground hover:text-cta transition-colors duration-200 font-medium"
-                  onClick={onClose}
-                >
-                  Get Help
-                </Link>
-              </div>
+          {/* Footer - CLAUDE_RULES: text-foreground bg-background */}
+          <div className="bg-background text-foreground px-6 py-5 border-t border-border flex-shrink-0">
+            {/* Quick Action Buttons - CLAUDE_RULES: Using context config */}
+            <div className="grid grid-cols-4 gap-2 mb-5">
+              {config.quickActions.map((action) => {
+                const getIcon = (iconName: string) => {
+                  const iconMap: { [key: string]: any } = {
+                    '🏠': Home,
+                    '💖': Heart,
+                    '🛍️': ShoppingCart,
+                    '👤': User
+                  }
+                  return iconMap[iconName] || Home
+                }
+                
+                const Icon = getIcon(action.metadata?.icon || '🏠')
+                const badge = action.metadata?.badge === 'dynamic' ? 
+                  (action.id === 'wishlist' ? wishlistCount : action.id === 'cart' ? cartCount : 0) : 
+                  0
 
-              <div className="flex items-center justify-center space-x-4 pt-2">
-                <BodyText size="sm" className="text-foreground/60">🌱 Sustainable</BodyText>
-                <BodyText size="sm" className="text-foreground/60">💎 Lab-Grown</BodyText>
-                <BodyText size="sm" className="text-foreground/60">📱 Mobile-First</BodyText>
-              </div>
+                return (
+                  <Link
+                    key={action.id}
+                    href={action.href}
+                    className="flex flex-col items-center justify-center p-3 rounded-md hover:bg-muted/50 transition-colors relative text-foreground min-h-11"
+                    onClick={close}
+                  >
+                    <Icon className="w-5 h-5 mb-1" />
+                    <span className="text-xs font-body">{getDisplayLabel(action)}</span>
+                    {badge > 0 && (
+                      <Badge 
+                        className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-accent text-foreground"
+                      >
+                        {badge}
+                      </Badge>
+                    )}
+                  </Link>
+                )
+              })}
             </div>
+
+            {/* Main CTA - CLAUDE_RULES: Primary variant */}
+            <Button 
+              variant="primary"
+              className="w-full min-h-11 font-body"
+              asChild
+            >
+              <Link href="/catalog" onClick={close}>
+                Find Your Vibe
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

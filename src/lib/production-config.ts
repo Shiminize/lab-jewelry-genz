@@ -89,7 +89,7 @@ const DEFAULT_PRODUCTION_CONFIG: ProductionConfig = {
   
   files: {
     tempDirectory: process.env.TEMP_DIR || '/tmp/3d-generation',
-    outputDirectory: process.env.OUTPUT_DIR || './public/images/products/3d-sequences',
+    outputDirectory: process.env.OUTPUT_DIR || './public/images/products/sequences', // Updated to optimized structure
     modelsDirectory: process.env.MODELS_DIR || './public/models',
     retentionDays: parseInt(process.env.RETENTION_DAYS || '30'),
     enableCompression: process.env.ENABLE_COMPRESSION !== 'false',

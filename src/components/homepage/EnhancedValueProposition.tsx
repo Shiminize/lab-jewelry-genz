@@ -267,7 +267,6 @@ export function EnhancedValueProposition({
     <section
       id="enhanced-values-section"
       className={cn(enhancedValueVariants({ spacing: 'comfortable', layout: 'contained' }), className)}
-      aria-labelledby="enhanced-values-heading"
       {...props}
     >
       {/* Section Header */}
@@ -313,7 +312,6 @@ export function EnhancedValueProposition({
           'px-2 md:px-0'
         )}
         role="tablist"
-        aria-label="Core values and benefits"
       >
         {valueProps.map((prop, index) => {
           const IconComponent = prop.icon
@@ -351,8 +349,6 @@ export function EnhancedValueProposition({
               )}
               role="tab"
               tabIndex={enableInteraction ? 0 : -1}
-              aria-selected={isActive}
-              aria-label={`${prop.headline}: ${prop.description}`}
               onMouseEnter={() => handleCardInteraction(prop.id, 'enter')}
               onMouseLeave={() => handleCardInteraction(prop.id, 'leave')}
               onFocus={() => handleCardInteraction(prop.id, 'enter')}

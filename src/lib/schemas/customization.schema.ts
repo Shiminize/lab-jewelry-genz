@@ -522,9 +522,7 @@ const customizationSchema = new Schema<CustomizationDocument>({
     default: false
   },
   shareUrl: {
-    type: String,
-    unique: true,
-    sparse: true
+    type: String
   },
   sharedWith: [{
     userId: {

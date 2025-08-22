@@ -150,7 +150,7 @@ export interface TagDisplayConfig {
 export const DEFAULT_TAG_CONFIG: TagDisplayConfig = {
   stoneTypePriority: ['lab-diamond', 'moissanite', 'lab-emerald', 'lab-ruby', 'lab-sapphire'],
   metalTypePriority: ['platinum', '18k-gold', '14k-gold', 'silver'],
-  caratWeightPriority: [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
+  caratWeightPriority: [0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
   customDisplayNames: {
     'lab-diamond': 'Lab Diamond',
     'moissanite': 'Moissanite',
@@ -199,7 +199,7 @@ export const TAG_EXTRACTION_CONSTANTS = {
   /** Maximum batch size for performance */
   MAX_BATCH_SIZE: 1000,
   /** Default carat rounding increment */
-  DEFAULT_CARAT_INCREMENT: 0.5,
+  DEFAULT_CARAT_INCREMENT: 0.25,
   /** Minimum valid carat weight */
   MIN_CARAT_WEIGHT: 0.1,
   /** Maximum valid carat weight for tagging */

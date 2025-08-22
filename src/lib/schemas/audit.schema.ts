@@ -328,8 +328,7 @@ export interface DataBreachLogDocument extends Document {
 const auditLogSchema = new Schema<AuditLogDocument>({
   eventType: {
     type: String,
-    required: true,
-    index: true
+    required: true
   },
   eventId: {
     type: String,
@@ -337,8 +336,7 @@ const auditLogSchema = new Schema<AuditLogDocument>({
     unique: true
   },
   correlationId: {
-    type: String,
-    index: true
+    type: String
   },
   
   userId: {
@@ -347,8 +345,7 @@ const auditLogSchema = new Schema<AuditLogDocument>({
     sparse: true
   },
   sessionId: {
-    type: String,
-    index: true
+    type: String
   },
   actorType: {
     type: String,
@@ -369,12 +366,10 @@ const auditLogSchema = new Schema<AuditLogDocument>({
   
   targetType: {
     type: String,
-    enum: ['user', 'product', 'order', 'cart', 'wishlist', 'customization', 'review'],
-    index: true
+    enum: ['user', 'product', 'order', 'cart', 'wishlist', 'customization', 'review']
   },
   targetId: {
-    type: String,
-    index: true
+    type: String
   },
   targetDetails: Schema.Types.Mixed,
   
@@ -417,21 +412,18 @@ const auditLogSchema = new Schema<AuditLogDocument>({
   severity: {
     type: String,
     enum: ['low', 'medium', 'high', 'critical'],
-    required: true,
-    index: true
+    required: true
   },
   isGDPRRelevant: {
     type: Boolean,
-    default: false,
-    index: true
+    default: false
   },
   dataCategories: [String],
   legalBasis: String,
   
   timestamp: {
     type: Date,
-    default: Date.now,
-    index: true
+    default: Date.now
   },
   timeZone: {
     type: String,

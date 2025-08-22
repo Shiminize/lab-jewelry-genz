@@ -70,7 +70,6 @@ export function AccessibleHeroExample() {
       respectReducedMotion={true}
       fallbackImageSrc="/hero-static-jewelry.jpg"
       fallbackImageAlt="Beautiful display of ethically-sourced diamond and moissanite jewelry pieces arranged on elegant marble surface"
-      aria-label="Welcome section highlighting GlowGlitch's ethical jewelry collection"
     />
   )
 }

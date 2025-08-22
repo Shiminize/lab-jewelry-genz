@@ -1,14 +1,12 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { 
   Search, 
   ShoppingCart, 
-  Heart, 
-  Menu,
   User,
-  Sparkles,
+  Menu,
   Star,
   Package,
   Shield,
@@ -19,61 +17,28 @@ import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { LuxuryMegaMenu } from '@/components/navigation/LuxuryMegaMenu'
-import { MobileLuxuryDrawer } from '@/components/navigation/MobileLuxuryDrawer'
+import { SimpleMobileDrawer } from '@/components/navigation/SimpleMobileDrawer'
 import { WishlistButton } from '@/components/wishlist/WishlistButton'
 import { useWishlist } from '@/hooks/useWishlist'
+import { useNavigation, useMobileMenu, useCategoryNavigation } from '@/contexts/NavigationProvider'
 
 interface HeaderProps {
   className?: string
 }
 
-// Maintain current navigation hierarchy with value-focused icons
-const navigationCategories = [
-  { 
-    name: 'Rings', 
-    href: '/rings', 
-    subcategories: ['Engagement', 'Wedding', 'Fashion', 'Men\'s'],
-    featured: 'New: Lab Diamond Solitaires',
-    icon: '✨'
-  },
-  { 
-    name: 'Necklaces', 
-    href: '/necklaces', 
-    subcategories: ['Pendants', 'Chains', 'Chokers', 'Statement'],
-    featured: 'Trending: Layered Sets',
-    icon: '🎨'
-  },
-  { 
-    name: 'Earrings', 
-    href: '/earrings', 
-    subcategories: ['Studs', 'Hoops', 'Drop', 'Climbers'],
-    featured: 'Bestseller: Diamond Studs',
-    icon: '💎'
-  },
-  { 
-    name: 'Bracelets', 
-    href: '/bracelets', 
-    subcategories: ['Tennis', 'Chain', 'Cuff', 'Charm'],
-    featured: 'Popular: Tennis Bracelets',
-    icon: '🌱'
-  },
-  { 
-    name: 'Sustainability', 
-    href: '/sustainability',
-    subcategories: [],
-    featured: 'Our Commitment',
-    icon: '♻️'
-  }
-]
-
 export function Header({ className }: HeaderProps) {
-  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
-  const [scrolled, setScrolled] = useState(false)
-  const [cartCount, setCartCount] = useState(2)
+  const { config } = useNavigation()
+  const { isOpen: mobileMenuOpen, toggle: toggleMobileMenu } = useMobileMenu()
+  const { 
+    activeMegaMenu, 
+    hoveredCategory, 
+    handleHover, 
+    handleLeave 
+  } = useCategoryNavigation()
   const { getWishlistCount } = useWishlist()
   const wishlistCount = getWishlistCount()
+  const [cartCount] = useState(2)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,36 +48,46 @@ export function Header({ className }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleCategoryHover = (category: string) => {
-    setHoveredCategory(category)
-    setActiveMegaMenu(category)
-  }
-
-  const handleMouseLeave = () => {
-    setHoveredCategory(null)
-    setActiveMegaMenu(null)
+  // Keyboard navigation support
+  const handleKeyDown = (event: React.KeyboardEvent, categoryId: string) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      handleHover(categoryId)
+    }
+    if (event.key === 'Escape') {
+      handleLeave()
+    }
   }
 
   return (
     <>
+      {/* Skip to main content link for screen readers */}
+      <Link 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-foreground text-background px-4 py-2 z-[100] font-body"
+        tabIndex={1}
+      >
+        Skip to main content
+      </Link>
+
       {/* Top Announcement Bar */}
-      <div className="bg-foreground text-background">
+      <div className="bg-foreground text-background" role="banner" aria-label="Site announcements">
         <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-center gap-6 text-xs">
             <div className="flex items-center gap-1">
-              <Package className="w-3 h-3" />
+              <Package className="w-3 h-3" aria-hidden="true" />
               <span>Free Shipping on Orders $500+</span>
             </div>
             <div className="hidden md:flex items-center gap-1">
-              <Shield className="w-3 h-3" />
+              <Shield className="w-3 h-3" aria-hidden="true" />
               <span>Lifetime Warranty</span>
             </div>
             <div className="hidden md:flex items-center gap-1">
-              <Award className="w-3 h-3" />
+              <Award className="w-3 h-3" aria-hidden="true" />
               <span>Certified Lab Diamonds</span>
             </div>
             <div className="flex items-center gap-1">
-              <Star className="w-3 h-3 fill-current" />
+              <Star className="w-3 h-3 fill-current" aria-hidden="true" />
               <span>4.9/5 from 12,000+ Reviews</span>
             </div>
           </div>
@@ -128,60 +103,89 @@ export function Header({ className }: HeaderProps) {
             scrolled ? "shadow-lg py-0" : "py-0",
             className
           )}
+          role="banner"
         >
-
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between">
               {/* Mobile Menu */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden"
-                onClick={() => setMobileMenuOpen(true)}
-                aria-label="Open menu"
+                className="md:hidden hover:bg-muted hover:text-accent min-h-11 min-w-11"
+                onClick={toggleMobileMenu}
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-navigation"
+                tabIndex={2}
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-5 w-5" aria-hidden="true" />
               </Button>
 
               {/* Logo */}
-              <Link href="/" className="flex items-center space-x-2">
-                <img src="/glitchglow_logo_empty_green.png" alt="GlowGlitch Logo" className="h-32" />
+              <Link 
+                href="/" 
+                className="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded"
+                tabIndex={3}
+                aria-label="GlowGlitch homepage"
+              >
+                <img 
+                  src="/glitchglow_logo_empty_green.png" 
+                  alt="GlowGlitch - Custom Lab-Grown Diamond Jewelry" 
+                  className="h-32" 
+                />
               </Link>
 
-              {/* Desktop Navigation */}
+              {/* Desktop Navigation - WCAG 2.1 AA Compliant */}
               <nav 
                 className="hidden md:flex items-center space-x-1"
-                onMouseLeave={handleMouseLeave}
+                onMouseLeave={handleLeave}
+                role="navigation"
+                aria-label="Main navigation"
               >
-                {navigationCategories.map((category) => (
+                {config.navigation.map((category, index) => (
                   <div
-                    key={category.name}
+                    key={category.id}
                     className="relative"
-                    onMouseEnter={() => handleCategoryHover(category.name)}
+                    onMouseEnter={() => handleHover(category.id)}
                   >
                     <Button
                       variant="ghost"
                       className={cn(
-                        "px-4 py-2 rounded-none border-b-2 transition-all duration-200",
-                        hoveredCategory === category.name
+                        "px-4 py-2 rounded-none border-b-2 transition-all duration-200 min-h-11 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2",
+                        hoveredCategory === category.id
                           ? "border-accent text-accent bg-muted"
-                          : "border-transparent hover:text-accent"
+                          : "border-transparent hover:text-accent hover:bg-muted/50"
                       )}
+                      aria-expanded={hoveredCategory === category.id}
+                      aria-haspopup={category.children && category.children.length > 0}
+                      aria-describedby={category.metadata?.description ? `${category.id}-desc` : undefined}
+                      onKeyDown={(e) => handleKeyDown(e, category.id)}
+                      tabIndex={4 + index}
                     >
-                      <span className="text-sm font-medium tracking-wide">
-                        {category.name.toUpperCase()}
+                      <span className="text-sm font-body font-medium tracking-wide">
+                        {category.label}
                       </span>
-                      <ChevronDown className={cn(
-                        "ml-1 h-3 w-3 transition-transform duration-200",
-                        hoveredCategory === category.name && "rotate-180"
-                      )} />
+                      {category.children && category.children.length > 0 && (
+                        <ChevronDown 
+                          className={cn(
+                            "ml-1 h-3 w-3 transition-transform duration-200",
+                            hoveredCategory === category.id && "rotate-180"
+                          )} 
+                          aria-hidden="true"
+                        />
+                      )}
                     </Button>
                     
-                    {/* Featured Badge */}
-                    {hoveredCategory === category.name && category.featured && (
+                    {/* Featured Badge with improved accessibility */}
+                    {hoveredCategory === category.id && category.metadata?.featured && (
                       <div className="absolute top-full left-0 mt-2 z-10">
-                        <Badge className="bg-accent text-foreground text-xs whitespace-nowrap">
-                          {category.featured}
+                        <Badge 
+                          className="text-accent bg-white text-xs whitespace-nowrap border border-accent/20"
+                          id={`${category.id}-desc`}
+                          role="tooltip"
+                          aria-live="polite"
+                        >
+                          {category.metadata.description}
                         </Badge>
                       </div>
                     )}
@@ -189,76 +193,88 @@ export function Header({ className }: HeaderProps) {
                 ))}
               </nav>
 
-              {/* Right Actions */}
-              <div className="flex items-center space-x-3">
+              {/* Right Actions - WCAG 2.1 AA Compliant */}
+              <div className="flex items-center space-x-2" role="toolbar" aria-label="User actions">
                 {/* Search */}
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="hover:bg-muted hover:text-accent"
-                  aria-label="Search"
+                  className="hover:bg-muted hover:text-accent min-h-11 min-w-11 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                  aria-label="Search jewelry"
+                  tabIndex={8}
                 >
-                  <Search className="h-5 w-5" />
+                  <Search className="h-5 w-5" aria-hidden="true" />
                 </Button>
 
                 {/* Account */}
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="hidden md:flex hover:bg-muted hover:text-accent"
-                  aria-label="Account"
+                  className="hidden md:flex hover:bg-muted hover:text-accent min-h-11 min-w-11 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                  aria-label="My account"
+                  tabIndex={9}
                 >
-                  <User className="h-5 w-5" />
+                  <User className="h-5 w-5" aria-hidden="true" />
                 </Button>
 
-                {/* Wishlist */}
+                {/* Wishlist with improved accessibility */}
                 <WishlistButton 
                   showCount={true}
                   variant="icon"
-                  className="hover:bg-muted hover:text-accent"
+                  className="hover:bg-muted hover:text-accent min-h-11 min-w-11 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                  tabIndex={10}
+                  aria-label={`Wishlist with ${wishlistCount} items`}
                 />
 
-                {/* Cart */}
+                {/* Cart with improved accessibility */}
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="relative hover:bg-muted hover:text-accent"
-                  aria-label={`Cart - ${cartCount} items`}
+                  className="relative hover:bg-muted hover:text-accent min-h-11 min-w-11 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                  aria-label={`Shopping cart with ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
+                  tabIndex={11}
                 >
-                  <ShoppingCart className="h-5 w-5" />
+                  <ShoppingCart className="h-5 w-5" aria-hidden="true" />
                   {cartCount > 0 && (
                     <Badge 
-                      className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-accent text-foreground"
+                      className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-accent text-foreground text-xs"
+                      aria-hidden="true"
                     >
                       {cartCount}
                     </Badge>
                   )}
                 </Button>
 
-                {/* CTA Button */}
+                {/* CTA Button with improved accessibility */}
                 <Button 
                   variant="primary"
-                  className="hidden md:flex"
+                  className="hidden md:flex font-body focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                  asChild
+                  tabIndex={12}
                 >
-                  Start Designing
+                  <Link href="/customizer" aria-label="Start designing custom jewelry">
+                    Start Designing
+                  </Link>
                 </Button>
               </div>
             </div>
           </div>
         </header>
         
-        {/* Luxury Mega Menu */}
+        {/* Luxury Mega Menu with accessibility */}
         <LuxuryMegaMenu 
           activeCategory={activeMegaMenu}
-          onClose={() => setActiveMegaMenu(null)}
+          onClose={handleLeave}
         />
       </div>
       
-      {/* Mobile Luxury Drawer */}
-      <MobileLuxuryDrawer 
-        isOpen={mobileMenuOpen}
-        onClose={() => setMobileMenuOpen(false)}
-      />
+      {/* Simple Mobile Drawer with accessibility */}
+      <SimpleMobileDrawer />
+
+      {/* Main content landmark for skip link */}
+      <div id="main-content" tabIndex={-1} className="sr-only">
+        Main content starts here
+      </div>
     </>
   )
 }

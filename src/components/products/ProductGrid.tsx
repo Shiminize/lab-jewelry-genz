@@ -6,9 +6,13 @@ import { Grid } from '@/components/layout'
 import { BodyText, MutedText } from '@/components/foundation/Typography'
 import { cn } from '@/lib/utils'
 import type { ProductBase } from '@/types/customizer'
+import type { ProductListDTO, ProductDisplayDTO } from '@/types/product-dto'
+
+// Union type for flexible product data handling (CLAUDE_RULES.md TypeScript strict mode)
+type ProductGridData = ProductBase | ProductListDTO | ProductDisplayDTO
 
 interface ProductGridProps {
-  products: ProductBase[]
+  products: ProductGridData[]
   loading?: boolean
   variant?: 'standard' | 'featured' | 'compact'
   columns?: 2 | 3 | 4

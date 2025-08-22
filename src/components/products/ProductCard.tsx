@@ -10,11 +10,14 @@ import { MaterialTagChip } from '@/components/ui/MaterialTagChip'
 import { StockIndicator, LiveStockCounter } from '@/components/inventory/InventoryStatus'
 import { extractMaterialTags } from '@/lib/services/material-tag-extraction.service'
 import { cn } from '@/lib/utils'
-import type { ProductListDTO } from '@/types/product-dto'
+import type { ProductListDTO, ProductDisplayDTO } from '@/types/product-dto'
 import type { MaterialTag } from '@/types/material-tags'
 
+// Union type for flexible product data handling (CLAUDE_RULES.md TypeScript strict mode)
+type ProductCardData = ProductListDTO | ProductDisplayDTO
+
 interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  product: ProductListDTO
+  product: ProductCardData
   variant?: 'standard' | 'featured' | 'compact'
   onAddToWishlist?: (productId: string) => void
   onQuickView?: (productId: string) => void
@@ -106,17 +109,42 @@ export function ProductCard({
     }
   }, [onMaterialTagClick, onTagClick])
 
-  const formatPrice = (price: number) => {
+  // Type-safe price extraction (handles both ProductDisplayDTO and ProductListDTO)
+  const extractPrice = (product: ProductCardData) => {
+    // ProductDisplayDTO has direct basePrice property
+    if ('basePrice' in product && typeof product.basePrice === 'number') {
+      return {
+        basePrice: product.basePrice,
+        originalPrice: product.originalPrice,
+        currency: product.currency || 'USD'
+      }
+    }
+    // ProductListDTO has nested pricing object
+    if ('pricing' in product && product.pricing) {
+      return {
+        basePrice: product.pricing.basePrice || 0,
+        originalPrice: undefined, // ProductListDTO doesn't have originalPrice
+        currency: product.pricing.currency || 'USD'
+      }
+    }
+    // Fallback for malformed data
+    return { basePrice: 0, originalPrice: undefined, currency: 'USD' }
+  }
+
+  const formatPrice = (price: number, currency: string = 'USD') => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency,
       minimumFractionDigits: 0,
     }).format(price)
   }
 
-  const basePrice = product.pricing?.basePrice || 0
-  const hasDiscount = false // ProductListDTO doesn't have originalPrice
-  const discountPercentage = 0
+  const priceData = extractPrice(product)
+  const basePrice = priceData.basePrice
+  const originalPrice = priceData.originalPrice
+  const currency = priceData.currency
+  const hasDiscount = originalPrice && originalPrice > basePrice
+  const discountPercentage = hasDiscount ? Math.round(((originalPrice - basePrice) / originalPrice) * 100) : 0
 
   return (
     <div 
@@ -265,14 +293,14 @@ export function ProductCard({
                 weight="semibold" 
                 className="text-foreground"
               >
-                {formatPrice(basePrice)}
+                {formatPrice(basePrice, currency)}
               </BodyText>
-              {hasDiscount && (
+              {hasDiscount && originalPrice && (
                 <MutedText 
                   size="sm" 
                   className="line-through"
                 >
-                  {/* Discount placeholder - would need originalPrice in DTO */}
+                  {formatPrice(originalPrice, currency)}
                 </MutedText>
               )}
             </div>

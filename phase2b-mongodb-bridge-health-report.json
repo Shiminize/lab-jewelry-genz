@@ -1,0 +1,245 @@
+{
+  "timestamp": "2025-08-21T00:09:44.164Z",
+  "analysis": {
+    "scope": "useCustomizableProduct hook and bridge service health",
+    "target": "Validate database connectivity stability and performance characteristics",
+    "testScenarios": [
+      "initial load",
+      "material switching",
+      "concurrent operations"
+    ]
+  },
+  "findings": {
+    "connectionStability": {
+      "totalConnectionErrors": 0,
+      "totalBridgeServiceLogs": 0,
+      "totalDatabaseLogs": 0,
+      "stabilityScore": "EXCELLENT"
+    },
+    "performanceCharacteristics": {
+      "averageResponseTime": 2071,
+      "totalApiCalls": 20,
+      "apiSuccessRate": 100,
+      "responseTimeDistribution": [
+        {
+          "scenario": "material_switching",
+          "operation": "switch_1",
+          "duration": 2074,
+          "timestamp": "2025-08-21T00:10:03.882Z"
+        },
+        {
+          "scenario": "material_switching",
+          "operation": "switch_2",
+          "duration": 2071,
+          "timestamp": "2025-08-21T00:10:05.953Z"
+        },
+        {
+          "scenario": "material_switching",
+          "operation": "switch_3",
+          "duration": 2069,
+          "timestamp": "2025-08-21T00:10:08.022Z"
+        }
+      ]
+    },
+    "errorPatterns": {
+      "errorsByScenario": {},
+      "criticalErrors": 0,
+      "highSeverityErrors": 0
+    },
+    "bridgeServiceIntegrity": {
+      "messageVolume": 0,
+      "databaseIntegration": 0,
+      "overallHealth": "HEALTHY"
+    }
+  },
+  "rawData": {
+    "bridgeServiceLogs": [],
+    "databaseConnectionLogs": [],
+    "performanceMetrics": {
+      "bridgeServiceCalls": [
+        {
+          "timestamp": "2025-08-21T00:09:45.580Z",
+          "scenario": "initial_load",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:09:45.581Z",
+          "scenario": "initial_load",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:09:45.581Z",
+          "scenario": "initial_load",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:09:45.583Z",
+          "scenario": "initial_load",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:09:56.362Z",
+          "scenario": "material_switching",
+          "url": "http://localhost:3001/api/products/customizable",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:09:56.363Z",
+          "scenario": "material_switching",
+          "url": "http://localhost:3001/api/products/customizable",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:09:56.400Z",
+          "scenario": "material_switching",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:09:56.400Z",
+          "scenario": "material_switching",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:03.927Z",
+          "scenario": "material_switching",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=platinum",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:03.931Z",
+          "scenario": "material_switching",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=platinum",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:05.999Z",
+          "scenario": "material_switching",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-white-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:06.003Z",
+          "scenario": "material_switching",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-white-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:09.523Z",
+          "scenario": "concurrent_operations",
+          "url": "http://localhost:3001/api/products/customizable",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:09.523Z",
+          "scenario": "concurrent_operations",
+          "url": "http://localhost:3001/api/products/customizable",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:09.562Z",
+          "scenario": "concurrent_operations",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:09.562Z",
+          "scenario": "concurrent_operations",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:14.214Z",
+          "scenario": "concurrent_operations",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=platinum",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:14.218Z",
+          "scenario": "concurrent_operations",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=platinum",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:14.614Z",
+          "scenario": "concurrent_operations",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        },
+        {
+          "timestamp": "2025-08-21T00:10:14.618Z",
+          "scenario": "concurrent_operations",
+          "url": "http://localhost:3001/api/products/customizable/ring-001/assets?materialId=18k-rose-gold",
+          "status": 200,
+          "responseTime": 0,
+          "success": true
+        }
+      ],
+      "responseTimesMs": [
+        {
+          "scenario": "material_switching",
+          "operation": "switch_1",
+          "duration": 2074,
+          "timestamp": "2025-08-21T00:10:03.882Z"
+        },
+        {
+          "scenario": "material_switching",
+          "operation": "switch_2",
+          "duration": 2071,
+          "timestamp": "2025-08-21T00:10:05.953Z"
+        },
+        {
+          "scenario": "material_switching",
+          "operation": "switch_3",
+          "duration": 2069,
+          "timestamp": "2025-08-21T00:10:08.022Z"
+        }
+      ],
+      "connectionErrors": [],
+      "dataIntegrityChecks": []
+    }
+  }
+}

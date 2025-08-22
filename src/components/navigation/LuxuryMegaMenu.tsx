@@ -18,8 +18,13 @@ import {
   TrendingUp,
   Gem,
   Timer,
-  Package2
+  Package2,
+  Palette,
+  Recycle,
+  HeadphonesIcon
 } from 'lucide-react'
+import { useNavigation } from '@/contexts/NavigationProvider'
+import { getNavigationItem, FEATURED_CONTENT } from '@/lib/navigation/NavigationConfig'
 
 interface LuxuryMegaMenuProps {
   activeCategory: string | null
@@ -28,96 +33,100 @@ interface LuxuryMegaMenuProps {
 
 export function LuxuryMegaMenu({ activeCategory, onClose }: LuxuryMegaMenuProps) {
   const [featuredProducts, setFeaturedProducts] = useState<any[]>([])
+  const { config } = useNavigation()
 
   useEffect(() => {
-    // Simulate loading featured products based on category
+    // Load featured content based on active category
     if (activeCategory) {
-      setFeaturedProducts(generateFeaturedProducts(activeCategory))
+      setFeaturedProducts(generateFeaturedContent(activeCategory))
     }
   }, [activeCategory])
 
-  const generateFeaturedProducts = (category: string) => {
-    const baseProducts = {
-      'Rings': [
-        { id: 1, name: 'Classic Solitaire', price: '$2,890', rating: 4.9, reviews: 342, image: '💍', badge: 'Bestseller', oldPrice: '$3,200' },
-        { id: 2, name: 'Vintage Halo', price: '$3,450', rating: 4.8, reviews: 287, image: '🔮', badge: 'New' },
-        { id: 3, name: 'Modern Band', price: '$1,890', rating: 4.9, reviews: 456, image: '⭐', badge: 'Sale' },
-        { id: 4, name: 'Custom Design', price: 'From $2,500', rating: 5.0, reviews: 123, image: '✨', badge: 'Featured' },
-        { id: 5, name: 'Eternity Ring', price: '$2,190', rating: 4.8, reviews: 289, image: '🌟', badge: 'Popular' },
-        { id: 6, name: 'Promise Ring', price: '$890', rating: 4.7, reviews: 445, image: '💫', badge: 'Trending' }
+  const generateFeaturedContent = (categoryId: string) => {
+    const featuredItems = {
+      'shop': [
+        { id: 1, name: 'Lab Diamond Solitaire', price: '$2,890', rating: 4.9, reviews: 342, image: '💍', badge: 'Bestseller', category: 'rings' },
+        { id: 2, name: 'Layered Gold Chain', price: '$1,290', rating: 4.8, reviews: 234, image: '📿', badge: 'Trending', category: 'necklaces' },
+        { id: 3, name: 'Diamond Studs', price: '$1,490', rating: 4.9, reviews: 567, image: '💫', badge: 'Classic', category: 'earrings' },
+        { id: 4, name: 'Tennis Bracelet', price: '$2,890', rating: 4.9, reviews: 234, image: '🎾', badge: 'Luxury', category: 'bracelets' },
+        { id: 5, name: 'Custom Engagement Ring', price: 'From $2,500', rating: 5.0, reviews: 123, image: '✨', badge: 'Featured', category: 'rings' },
+        { id: 6, name: 'Statement Hoops', price: '$790', rating: 4.8, reviews: 423, image: '⭕', badge: 'Popular', category: 'earrings' }
       ],
-      'Necklaces': [
-        { id: 7, name: 'Diamond Pendant', price: '$1,650', rating: 4.9, reviews: 278, image: '💎', badge: 'Trending' },
-        { id: 8, name: 'Pearl Strand', price: '$890', rating: 4.7, reviews: 189, image: '🔗', badge: 'Classic' },
-        { id: 9, name: 'Layered Chain', price: '$1,290', rating: 4.8, reviews: 234, image: '📿', badge: 'New' },
-        { id: 10, name: 'Statement Piece', price: '$2,890', rating: 4.9, reviews: 167, image: '🌟', badge: 'Luxury' },
-        { id: 11, name: 'Tennis Necklace', price: '$3,190', rating: 4.8, reviews: 203, image: '✨', badge: 'Elite' },
-        { id: 12, name: 'Choker Set', price: '$1,450', rating: 4.7, reviews: 334, image: '🎀', badge: 'Trendy' }
+      'create': [
+        { id: 11, name: '3D Ring Designer', price: 'Free Tool', rating: 4.9, reviews: 892, image: '🎨', badge: 'Popular', category: 'customizer' },
+        { id: 12, name: 'Engraving Service', price: 'From $50', rating: 4.8, reviews: 456, image: '✍️', badge: 'Personal', category: 'personalization' },
+        { id: 13, name: 'Custom Wedding Set', price: 'From $3,500', rating: 5.0, reviews: 234, image: '💕', badge: 'Luxury', category: 'custom-orders' },
+        { id: 14, name: 'Name Necklace', price: 'From $150', rating: 4.7, reviews: 678, image: '🏷️', badge: 'Trending', category: 'personalization' },
+        { id: 15, name: 'Birthstone Ring', price: 'From $400', rating: 4.8, reviews: 345, image: '🌈', badge: 'Classic', category: 'customizer' },
+        { id: 16, name: 'Photo Locket', price: 'From $200', rating: 4.9, reviews: 567, image: '📸', badge: 'Meaningful', category: 'personalization' }
       ],
-      'Earrings': [
-        { id: 13, name: 'Diamond Studs', price: '$1,490', rating: 4.9, reviews: 567, image: '💫', badge: 'Bestseller' },
-        { id: 14, name: 'Gold Hoops', price: '$790', rating: 4.8, reviews: 423, image: '⭕', badge: 'Popular' },
-        { id: 15, name: 'Drop Earrings', price: '$1,890', rating: 4.7, reviews: 298, image: '💧', badge: 'Elegant' },
-        { id: 16, name: 'Ear Climbers', price: '$1,190', rating: 4.8, reviews: 156, image: '🎯', badge: 'Trendy' },
-        { id: 17, name: 'Pearl Studs', price: '$690', rating: 4.9, reviews: 412, image: '🦪', badge: 'Classic' },
-        { id: 18, name: 'Statement Drops', price: '$2,290', rating: 4.8, reviews: 187, image: '🌙', badge: 'Bold' }
+      'impact': [
+        { id: 21, name: 'Lab-Grown Diamond', price: '70% Savings', rating: 5.0, reviews: 1234, image: '🌱', badge: 'Sustainable', category: 'sustainability' },
+        { id: 22, name: 'Recycled Gold', price: 'Same Beauty', rating: 4.9, reviews: 789, image: '♻️', badge: 'Eco-Friendly', category: 'sustainability' },
+        { id: 23, name: 'Creator Partnership', price: 'Earn 15%', rating: 4.8, reviews: 456, image: '🤝', badge: 'Rewarding', category: 'creators' },
+        { id: 24, name: 'Carbon Neutral Shipping', price: 'Free', rating: 4.9, reviews: 2345, image: '🌍', badge: 'Green', category: 'sustainability' },
+        { id: 25, name: 'Ethical Sourcing', price: '100% Certified', rating: 5.0, reviews: 3456, image: '✅', badge: 'Verified', category: 'ethics' },
+        { id: 26, name: 'Community Impact', price: '1M+ Trees', rating: 4.9, reviews: 5678, image: '🌳', badge: 'Impact', category: 'sustainability' }
       ],
-      'Bracelets': [
-        { id: 19, name: 'Tennis Bracelet', price: '$2,890', rating: 4.9, reviews: 234, image: '🎾', badge: 'Classic' },
-        { id: 20, name: 'Chain Bracelet', price: '$690', rating: 4.8, reviews: 345, image: '🔗', badge: 'Versatile' },
-        { id: 21, name: 'Cuff Bracelet', price: '$1,290', rating: 4.7, reviews: 178, image: '⚡', badge: 'Bold' },
-        { id: 22, name: 'Charm Bracelet', price: '$890', rating: 4.9, reviews: 289, image: '🎭', badge: 'Personal' },
-        { id: 23, name: 'Bangle Set', price: '$1,590', rating: 4.8, reviews: 256, image: '🌀', badge: 'Set' },
-        { id: 24, name: 'Link Bracelet', price: '$2,190', rating: 4.7, reviews: 198, image: '🔄', badge: 'Modern' }
+      'support': [
+        { id: 31, name: 'Perfect Fit Guide', price: 'Free', rating: 4.9, reviews: 2345, image: '📏', badge: 'Essential', category: 'sizing' },
+        { id: 32, name: 'Jewelry Care Kit', price: '$25', rating: 4.8, reviews: 1234, image: '🧼', badge: 'Popular', category: 'care' },
+        { id: 33, name: 'Lifetime Warranty', price: 'Included', rating: 5.0, reviews: 4567, image: '🛡️', badge: 'Premium', category: 'quality' },
+        { id: 34, name: '24/7 Expert Help', price: 'Free', rating: 4.9, reviews: 3456, image: '💬', badge: 'Support', category: 'help' },
+        { id: 35, name: 'Free Resizing', price: 'Forever', rating: 4.8, reviews: 2345, image: '🔄', badge: 'Service', category: 'sizing' },
+        { id: 36, name: 'Professional Cleaning', price: '$15', rating: 4.9, reviews: 1789, image: '✨', badge: 'Care', category: 'care' }
       ]
     }
-    return baseProducts[category as keyof typeof baseProducts] || []
+    return featuredItems[categoryId as keyof typeof featuredItems] || []
   }
 
-  const getCategoryData = (category: string) => {
-    const categoryInfo = {
-      'Rings': {
-        subcategories: ['Engagement', 'Wedding', 'Fashion', 'Men\'s'],
-        description: 'Discover our collection of handcrafted rings',
-        features: ['Free Ring Sizing', '30-Day Returns', 'Lifetime Warranty', 'Lab Certified'],
-        quickLinks: ['Size Guide', 'Custom Design', 'Ring Care', 'Certification']
-      },
-      'Necklaces': {
-        subcategories: ['Pendants', 'Chains', 'Chokers', 'Statement'],
-        description: 'Elegant necklaces for every occasion',
-        features: ['Adjustable Length', 'Anti-Tarnish', 'Gift Wrapping', 'Layering Guide'],
-        quickLinks: ['Length Guide', 'Chain Types', 'Care Tips', 'Styling Ideas']
-      },
-      'Earrings': {
-        subcategories: ['Studs', 'Hoops', 'Drop', 'Climbers'],
-        description: 'From everyday studs to statement pieces',
-        features: ['Secure Backings', 'Hypoallergenic', 'Matching Sets', 'Piercing Guide'],
-        quickLinks: ['Style Guide', 'Ear Care', 'Piercing Info', 'Size Chart']
-      },
-      'Bracelets': {
-        subcategories: ['Tennis', 'Chain', 'Cuff', 'Charm'],
-        description: 'Beautiful bracelets to complement any look',
-        features: ['Custom Sizing', 'Stackable Sets', 'Repair Service', 'Gift Options'],
-        quickLinks: ['Size Guide', 'Stacking Tips', 'Care Guide', 'Personalization']
-      },
-      'Sustainability': {
-        subcategories: [],
-        description: 'Our commitment to ethical and sustainable practices',
-        features: ['Recycled Metals', 'Lab Diamonds', 'Carbon Neutral', 'Fair Trade'],
-        quickLinks: ['Our Mission', 'Certifications', 'Impact Report', 'Learn More']
-      }
+  const getCategoryContent = (categoryId: string) => {
+    if (!categoryId) return null
+    
+    // Get category data from NavigationConfig
+    const categoryItem = getNavigationItem(categoryId)
+    if (!categoryItem) return null
+
+    // Get featured content for this category
+    const featuredContent = FEATURED_CONTENT[categoryId as keyof typeof FEATURED_CONTENT]
+
+    return {
+      ...categoryItem,
+      featuredContent,
+      subcategories: categoryItem.children || [],
+      quickLinks: getQuickLinksForCategory(categoryId),
+      features: getFeaturesForCategory(categoryId)
     }
-    return categoryInfo[category as keyof typeof categoryInfo]
+  }
+
+  const getQuickLinksForCategory = (categoryId: string) => {
+    const quickLinks = {
+      'shop': ['New Arrivals', 'Bestsellers', 'Sale Items', 'Gift Guide'],
+      'create': ['3D Designer', 'Style Quiz', 'Inspiration Gallery', 'Expert Consultation'],
+      'impact': ['Sustainability Report', 'Certifications', 'Community Impact', 'Partner Programs'],
+      'support': ['Size Guide', 'Care Instructions', 'Warranty Info', 'Contact Support']
+    }
+    return quickLinks[categoryId as keyof typeof quickLinks] || []
+  }
+
+  const getFeaturesForCategory = (categoryId: string) => {
+    const features = {
+      'shop': ['Free Shipping $500+', '30-Day Returns', 'Lab Certified Diamonds', 'Lifetime Warranty'],
+      'create': ['Free 3D Preview', 'Expert Guidance', 'Unlimited Revisions', 'Rush Orders Available'],
+      'impact': ['Carbon Neutral', '70% Cost Savings', 'Ethical Sourcing', '1% Donated to Ocean Cleanup'],
+      'support': ['24/7 Expert Help', 'Free Resizing Forever', 'Professional Cleaning', 'Repair Services']
+    }
+    return features[categoryId as keyof typeof features] || []
   }
 
   if (!activeCategory) return null
 
-  const categoryData = getCategoryData(activeCategory)
+  const categoryData = getCategoryContent(activeCategory)
   if (!categoryData) return null
 
   return (
     <div 
-      className="absolute top-full left-0 w-full bg-white shadow-2xl border-t border z-[60]"
+      className="absolute top-full left-0 w-full bg-white shadow-2xl border-t border-border z-[60]"
       onMouseLeave={onClose}
     >
       <div className="container mx-auto px-4 py-8">
@@ -126,22 +135,24 @@ export function LuxuryMegaMenu({ activeCategory, onClose }: LuxuryMegaMenuProps)
           <div className="col-span-3">
             {/* Category Header */}
             <div className="mb-6">
-              <h3 className="text-xl font-headline text-foreground mb-2">{activeCategory}</h3>
-              <p className="text-sm text-gray-600 font-body">{categoryData.description}</p>
+              <h3 className="text-xl font-headline text-foreground mb-2">{categoryData.label}</h3>
+              <p className="text-sm text-foreground/70 font-body">{categoryData.metadata?.description}</p>
             </div>
 
             {/* Subcategories */}
             {categoryData.subcategories.length > 0 && (
               <div className="mb-6">
-                <h4 className="font-medium text-foreground mb-3 font-body">Shop by Style</h4>
+                <h4 className="font-medium text-foreground mb-3 font-body">
+                  {activeCategory === 'shop' ? 'Shop by Category' : 'Explore'}
+                </h4>
                 <div className="space-y-2">
-                  {categoryData.subcategories.map((subcategory) => (
+                  {categoryData.subcategories.map((subcategory: any) => (
                     <Link
-                      key={subcategory}
-                      href={`/${activeCategory.toLowerCase()}/${subcategory.toLowerCase()}`}
-                      className="block text-sm text-gray-600 hover:text-accent hover:bg-muted px-3 py-2 rounded-lg transition-all duration-200 font-body"
+                      key={subcategory.id}
+                      href={subcategory.href}
+                      className="block text-sm text-foreground/70 hover:text-accent hover:bg-muted px-3 py-2 rounded-lg transition-all duration-200 font-body"
                     >
-                      {subcategory}
+                      {subcategory.metadata?.genZLabel || subcategory.label}
                     </Link>
                   ))}
                 </div>
@@ -152,11 +163,11 @@ export function LuxuryMegaMenu({ activeCategory, onClose }: LuxuryMegaMenuProps)
             <div className="mb-6">
               <h4 className="font-medium text-foreground mb-3 font-body">Quick Links</h4>
               <div className="space-y-2">
-                {categoryData.quickLinks.map((link) => (
+                {categoryData.quickLinks.map((link: string) => (
                   <Link
                     key={link}
                     href="#"
-                    className="block text-sm text-gray-600 hover:text-accent hover:bg-muted px-3 py-2 rounded-lg transition-all duration-200 flex items-center justify-between font-body"
+                    className="block text-sm text-foreground/70 hover:text-accent hover:bg-muted px-3 py-2 rounded-lg transition-all duration-200 flex items-center justify-between font-body"
                   >
                     {link}
                     <ArrowRight className="w-3 h-3" />
@@ -165,7 +176,7 @@ export function LuxuryMegaMenu({ activeCategory, onClose }: LuxuryMegaMenuProps)
               </div>
             </div>
 
-            {/* Features */}
+            {/* Features - CLAUDE_RULES: bg-accent text-foreground */}
             <Card className="border bg-accent text-foreground">
               <CardContent className="p-4">
                 <h4 className="font-medium text-foreground mb-3 flex items-center gap-2 font-body">
@@ -173,7 +184,7 @@ export function LuxuryMegaMenu({ activeCategory, onClose }: LuxuryMegaMenuProps)
                   Why Choose Us
                 </h4>
                 <div className="space-y-2">
-                  {categoryData.features.map((feature) => (
+                  {categoryData.features.map((feature: string) => (
                     <div key={feature} className="flex items-center gap-2 text-sm text-foreground font-body">
                       <div className="w-1.5 h-1.5 bg-foreground rounded-full" />
                       {feature}
@@ -184,15 +195,19 @@ export function LuxuryMegaMenu({ activeCategory, onClose }: LuxuryMegaMenuProps)
             </Card>
           </div>
 
-          {/* Center Column - Featured Products */}
+          {/* Center Column - Featured Content */}
           <div className="col-span-6">
             <div className="mb-4 flex items-center justify-between">
-              <h4 className="text-lg font-medium text-foreground font-headline">Featured {activeCategory}</h4>
+              <h4 className="text-lg font-medium text-foreground font-headline">
+                {activeCategory === 'shop' ? 'Featured Products' : 
+                 activeCategory === 'create' ? 'Design Tools' :
+                 activeCategory === 'impact' ? 'Our Impact' : 'Support Resources'}
+              </h4>
               <Link 
-                href={`/${activeCategory.toLowerCase()}`}
+                href={categoryData.href}
                 className="text-sm text-accent hover:text-foreground flex items-center gap-1 font-body"
               >
-                View All <ArrowRight className="w-3 h-3" />
+                {activeCategory === 'shop' ? 'Shop All' : 'Learn More'} <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
 
@@ -265,56 +280,87 @@ export function LuxuryMegaMenu({ activeCategory, onClose }: LuxuryMegaMenuProps)
             </div>
           </div>
 
-          {/* Right Column - Promotions & CTA */}
+          {/* Right Column - Category-Specific CTAs */}
           <div className="col-span-3">
-            {/* Trending Now */}
+            {/* Primary CTA */}
             <Card className="mb-6 border bg-muted">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <TrendingUp className="w-4 h-4 text-foreground" />
-                  <h4 className="font-medium text-foreground font-body">Trending Now</h4>
+                  {activeCategory === 'shop' && <TrendingUp className="w-4 h-4 text-foreground" />}
+                  {activeCategory === 'create' && <Palette className="w-4 h-4 text-foreground" />}
+                  {activeCategory === 'impact' && <Recycle className="w-4 h-4 text-foreground" />}
+                  {activeCategory === 'support' && <HeadphonesIcon className="w-4 h-4 text-foreground" />}
+                  <h4 className="font-medium text-foreground font-body">
+                    {activeCategory === 'shop' && 'Trending Now'}
+                    {activeCategory === 'create' && '3D Designer'}
+                    {activeCategory === 'impact' && 'Sustainability'}
+                    {activeCategory === 'support' && 'Expert Help'}
+                  </h4>
                 </div>
-                <p className="text-sm text-gray-600 mb-3 font-body">
-                  Most popular {activeCategory.toLowerCase()} this week
+                <p className="text-sm text-foreground/70 mb-3 font-body">
+                  {activeCategory === 'shop' && 'Most popular items this week'}
+                  {activeCategory === 'create' && 'Design your perfect piece in 3D'}
+                  {activeCategory === 'impact' && 'Lab-grown diamonds save 70%'}
+                  {activeCategory === 'support' && 'Get help from jewelry experts'}
                 </p>
                 <Button variant="secondary" size="sm" className="w-full">
-                  Shop Trending
+                  {activeCategory === 'shop' && 'Shop Trending'}
+                  {activeCategory === 'create' && 'Start Designing'}
+                  {activeCategory === 'impact' && 'Learn More'}
+                  {activeCategory === 'support' && 'Get Help'}
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Limited Time Offer */}
+            {/* Featured Promotion - CLAUDE_RULES: bg-foreground text-background */}
             <Card className="mb-6 border bg-foreground">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Timer className="w-4 h-4 text-background" />
-                  <h4 className="font-medium text-background font-body">Limited Time</h4>
+                  <h4 className="font-medium text-background font-body">Special Offer</h4>
                 </div>
                 <p className="text-sm text-background mb-3 font-body">
-                  Save 20% on all {activeCategory.toLowerCase()}
+                  {activeCategory === 'shop' && 'Save 20% on all jewelry'}
+                  {activeCategory === 'create' && 'Free 3D design consultation'}
+                  {activeCategory === 'impact' && 'Plant a tree with every order'}
+                  {activeCategory === 'support' && 'Free lifetime maintenance'}
                 </p>
                 <div className="text-xs text-background mb-3 font-body">
-                  Ends in 2 days 14h 32m
+                  {activeCategory === 'support' ? 'Always included' : 'Limited time offer'}
                 </div>
                 <Button variant="primary" size="sm" className="w-full">
-                  Shop Sale
+                  {activeCategory === 'shop' && 'Shop Sale'}
+                  {activeCategory === 'create' && 'Book Call'}
+                  {activeCategory === 'impact' && 'Shop Sustainable'}
+                  {activeCategory === 'support' && 'Learn More'}
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Custom Design CTA */}
-            <Card className="border bg-accent">
+            {/* Action CTA - CLAUDE_RULES: bg-accent text-foreground */}
+            <Card className="border bg-accent text-foreground">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Gem className="w-4 h-4 text-foreground" />
-                  <h4 className="font-medium text-foreground font-body">Custom Design</h4>
+                  <h4 className="font-medium text-foreground font-body">
+                    {activeCategory === 'shop' && 'Custom Design'}
+                    {activeCategory === 'create' && 'Style Quiz'}
+                    {activeCategory === 'impact' && 'Join Movement'}
+                    {activeCategory === 'support' && 'Live Chat'}
+                  </h4>
                 </div>
                 <p className="text-sm text-foreground mb-4 font-body">
-                  Create a unique piece just for you
+                  {activeCategory === 'shop' && 'Create a unique piece just for you'}
+                  {activeCategory === 'create' && 'Find your perfect style in 2 minutes'}
+                  {activeCategory === 'impact' && 'Be part of the sustainable jewelry revolution'}
+                  {activeCategory === 'support' && 'Talk to an expert right now'}
                 </p>
                 <Button variant="primary" size="sm" className="w-full">
                   <Sparkles className="w-3 h-3 mr-1" />
-                  Start Designing
+                  {activeCategory === 'shop' && 'Start Designing'}
+                  {activeCategory === 'create' && 'Take Quiz'}
+                  {activeCategory === 'impact' && 'Learn Impact'}
+                  {activeCategory === 'support' && 'Start Chat'}
                 </Button>
               </CardContent>
             </Card>

@@ -229,7 +229,7 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
   }
 
   const StarRating = ({ rating }: { rating: number }) => (
-    <div className="flex items-center gap-1" aria-label={`${rating} out of 5 stars`}>
+    <div className="flex items-center gap-1">
       {[...Array(5)].map((_, i) => (
         <Star
           key={i}
@@ -252,7 +252,7 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
             <div className="flex items-center gap-2">
               <BodyText className="font-semibold">{testimonial.name}</BodyText>
               {testimonial.verified && (
-                <Shield className="w-4 h-4 text-accent" aria-label="Verified customer" />
+                <Shield className="w-4 h-4 text-accent" />
               )}
             </div>
             <MutedText className="text-sm">
@@ -280,7 +280,6 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
   return (
     <section 
       className={socialProofVariants({ layout, background, className })}
-      aria-labelledby="social-proof-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -302,7 +301,7 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
             className="text-center p-4 rounded-lg bg-muted/20 hover:bg-muted/30 transition-colors"
           >
             <div className="flex items-center justify-center mb-2">
-              <signal.icon className="w-8 h-8 text-accent" aria-hidden="true" />
+              <signal.icon className="w-8 h-8 text-accent" />
             </div>
             <H3 className="text-sm font-semibold mb-1">{signal.title}</H3>
             <MutedText className="text-xs mb-1">{signal.description}</MutedText>
@@ -335,7 +334,6 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
             </div>
             <button 
               className="bg-cta text-background px-6 py-3 rounded-lg font-semibold hover:bg-cta/90 transition-colors"
-              aria-label="Apply to join creator program"
             >
               Apply Now
             </button>
@@ -351,7 +349,7 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
                 'Custom discount codes for followers'
               ].map((benefit, index) => (
                 <li key={index} className="flex items-center gap-2 text-foreground">
-                  <Star className="w-4 h-4 fill-accent text-accent" aria-hidden="true" />
+                  <Star className="w-4 h-4 fill-accent text-accent" />
                   <BodyText className="text-sm">{benefit}</BodyText>
                 </li>
               ))}
@@ -368,14 +366,12 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
             <button
               onClick={prevTestimonial}
               className="p-3 rounded-full border border-border hover:bg-muted transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextTestimonial}
               className="p-3 rounded-full border border-border hover:bg-muted transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label="Next testimonial"
             >
               <span className="text-sm font-bold">→</span>
             </button>

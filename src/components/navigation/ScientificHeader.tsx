@@ -108,7 +108,6 @@ export function ScientificHeader({ onMegaMenuToggle, onMobileMenuToggle, showMeg
             size="icon"
             className="md:hidden"
             onClick={() => onMobileMenuToggle(true)}
-            aria-label="Open navigation menu"
           >
             <Menu className="h-5 w-5" />
           </Button>
@@ -138,7 +137,7 @@ export function ScientificHeader({ onMegaMenuToggle, onMobileMenuToggle, showMeg
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center space-x-8">
             {navigationItems.map((item) => {
               const Icon = item.icon
               return (
@@ -162,8 +161,6 @@ export function ScientificHeader({ onMegaMenuToggle, onMobileMenuToggle, showMeg
                         ? "bg-amber-50 text-amber-700 scale-105" 
                         : "text-slate-700 hover:text-amber-600"
                     )}
-                    aria-expanded={showMegaMenu && hoveredItem === item.id}
-                    aria-haspopup="true"
                   >
                     <Icon className="w-4 h-4" />
                     <span className="font-medium">{item.name}</span>
@@ -206,7 +203,6 @@ export function ScientificHeader({ onMegaMenuToggle, onMobileMenuToggle, showMeg
             <Button 
               variant="ghost" 
               size="icon" 
-              aria-label="Search genetic matches"
               className="focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
             >
               <Search className="h-4 w-4" />
@@ -225,13 +221,11 @@ export function ScientificHeader({ onMegaMenuToggle, onMobileMenuToggle, showMeg
               variant="ghost" 
               size="icon" 
               className="relative focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2" 
-              aria-label="Wishlist - 3 items"
             >
               <Heart className="h-4 w-4" />
               <Badge 
                 variant="destructive" 
                 className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs"
-                aria-hidden="true"
               >
                 3
               </Badge>
@@ -242,13 +236,11 @@ export function ScientificHeader({ onMegaMenuToggle, onMobileMenuToggle, showMeg
               variant="ghost" 
               size="icon" 
               className="relative focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2" 
-              aria-label="Shopping cart - 2 items"
             >
               <ShoppingCart className="h-4 w-4" />
               <Badge 
                 variant="default" 
                 className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-amber-500"
-                aria-hidden="true"
               >
                 2
               </Badge>
@@ -257,7 +249,6 @@ export function ScientificHeader({ onMegaMenuToggle, onMobileMenuToggle, showMeg
             {/* Genetic Match CTA */}
             <Button 
               className="hidden md:flex bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2"
-              aria-label="Claim your genetic match - View personalized recommendations"
             >
               <Sparkles className="w-4 h-4 mr-2" />
               Claim Your Match

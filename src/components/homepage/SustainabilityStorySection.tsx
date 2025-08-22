@@ -322,7 +322,6 @@ export function SustainabilityStorySection({
   return (
     <section
       className={cn(sustainabilityVariants({ spacing, layout }), className)}
-      aria-labelledby="sustainability-heading"
       {...props}
     >
       {/* Hero Section */}

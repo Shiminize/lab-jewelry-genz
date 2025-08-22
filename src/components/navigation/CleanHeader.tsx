@@ -125,19 +125,19 @@ export function CleanHeader() {
 
             {/* User Actions */}
             <Button variant="ghost" size="icon" asChild className="text-foreground hover:text-cta">
-              <Link href="/account" aria-label="Account">
+              <Link href="/account">
                 <User className="w-5 h-5" />
               </Link>
             </Button>
 
             <Button variant="ghost" size="icon" asChild className="text-foreground hover:text-cta">
-              <Link href="/wishlist" aria-label="Wishlist">
+              <Link href="/wishlist">
                 <Heart className="w-5 h-5" />
               </Link>
             </Button>
 
             <Button variant="ghost" size="icon" asChild className="text-foreground hover:text-cta relative">
-              <Link href="/cart" aria-label="Shopping Cart">
+              <Link href="/cart">
                 <ShoppingBag className="w-5 h-5" />
                 {/* Cart count badge */}
                 <span className="absolute -top-1 -right-1 bg-cta text-background text-xs w-5 h-5 rounded-full flex items-center justify-center font-body font-semibold">
@@ -152,7 +152,6 @@ export function CleanHeader() {
               size="icon"
               className="lg:hidden text-foreground hover:text-cta"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
@@ -179,7 +178,6 @@ export function CleanHeader() {
                   size="icon"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-foreground hover:text-cta"
-                  aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />
                 </Button>

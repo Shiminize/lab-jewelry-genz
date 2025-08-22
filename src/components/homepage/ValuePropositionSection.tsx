@@ -188,7 +188,6 @@ export function ValuePropositionSection({
   return (
     <section
       className={cn(valuePropositionVariants({ spacing, layout }), className)}
-      aria-labelledby="value-proposition-heading"
       {...props}
     >
       {/* Section Header */}
@@ -213,14 +212,13 @@ export function ValuePropositionSection({
           <article 
             key={index}
             className={cn(valueCardVariants({ style, emphasis }))}
-            aria-labelledby={`value-prop-${index}-heading`}
           >
             {/* Icon */}
             <div className={cn(
               iconVariants({ size: iconSize, style: iconStyle }),
               alignment === 'center' ? 'mx-auto' : ''
             )}>
-              <span role="img" aria-hidden="true" className={cn(
+              <span className={cn(
                 iconSize === 'sm' ? 'text-lg' : 
                 iconSize === 'md' ? 'text-xl' : 'text-2xl'
               )}>
@@ -249,7 +247,7 @@ export function ValuePropositionSection({
                     key={signalIndex}
                     className={cn(trustSignalVariants({ variant: signal.variant }))}
                   >
-                    <span role="img" aria-hidden="true">
+                    <span>
                       {signal.icon}
                     </span>
                     <MutedText size="sm" className="font-medium">
@@ -271,19 +269,19 @@ export function ValuePropositionSection({
           </MutedText>
           <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
             <div className={cn(trustSignalVariants({ variant: 'accent' }))}>
-              <span role="img" aria-hidden="true">🌱</span>
+              <span>🌱</span>
               <span className="font-semibold">100% Conflict-Free</span>
             </div>
             <div className={cn(trustSignalVariants({ variant: 'accent' }))}>
-              <span role="img" aria-hidden="true">♻️</span>
+              <span>♻️</span>
               <span className="font-semibold">Recycled Metal</span>
             </div>
             <div className={cn(trustSignalVariants({ variant: 'accent' }))}>
-              <span role="img" aria-hidden="true">🔬</span>
+              <span>🔬</span>
               <span className="font-semibold">Lab-Grown Certified</span>
             </div>
             <div className={cn(trustSignalVariants({ variant: 'accent' }))}>
-              <span role="img" aria-hidden="true">🌍</span>
+              <span>🌍</span>
               <span className="font-semibold">Carbon Neutral</span>
             </div>
           </div>

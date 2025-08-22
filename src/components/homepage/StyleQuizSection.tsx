@@ -664,7 +664,6 @@ export function StyleQuizSection({
   return (
     <section 
       className={cn(quizSectionVariants({ variant, background }), className)}
-      aria-labelledby="style-quiz-heading"
       {...props}
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -747,7 +746,6 @@ export function StyleQuizSection({
                         selected: currentAnswer === answer.value 
                       })
                     )}
-                    aria-pressed={currentAnswer === answer.value}
                   >
                     <div className="flex items-center space-x-4">
                       {answer.icon && (

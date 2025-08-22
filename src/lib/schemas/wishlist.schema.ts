@@ -176,8 +176,7 @@ const wishlistSchema = new Schema<WishlistDocument>({
     default: false
   },
   shareUrl: {
-    type: String,
-    sparse: true
+    type: String
   },
   sharedWith: [sharedWithSchema],
   

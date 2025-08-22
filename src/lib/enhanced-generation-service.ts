@@ -7,6 +7,7 @@ import { spawn, ChildProcess } from 'child_process'
 import { promises as fs, existsSync } from 'fs'
 import path from 'path'
 import { getProductionConfig, ResourceMonitor, ProductionLogger, CircuitBreaker } from './production-config'
+import { ResourceOptimizer } from './resource-optimizer'
 import { GenerationRequest, GenerationStatus, GenerationProgress, ProgressCallback } from './generation-service'
 import { JobPersistenceManager, RecoveryOptions } from './job-persistence'
 
@@ -52,6 +53,7 @@ export class EnhancedGenerationService {
   private logger = new ProductionLogger(this.config)
   private circuitBreaker = new CircuitBreaker(5, 60000) // 5 failures, 1 minute timeout
   private persistenceManager = new JobPersistenceManager()
+  private optimizer = new ResourceOptimizer() // Enhanced resource optimization
   
   private jobs = new Map<string, EnhancedGenerationStatus>()
   private activeProcesses = new Map<string, ChildProcess>()
@@ -85,31 +87,63 @@ export class EnhancedGenerationService {
   }
   
   private setupHealthChecks(): void {
-    setInterval(async () => {
+    // CRITICAL FIX: Use GlobalHealthMonitor instead of creating duplicate intervals
+    const GlobalHealthMonitor = require('./global-health-monitor').default
+    const healthMonitor = GlobalHealthMonitor.getInstance()
+    
+    // Register this service with the global monitor instead of creating a new interval
+    healthMonitor.registerService('enhanced-generation', async () => {
       try {
-        await this.performHealthCheck()
+        return await this.performHealthCheck()
       } catch (error) {
         this.logger.error('Health check failed', { error: error instanceof Error ? error.message : error })
+        throw error
       }
     }, this.config.monitoring.healthCheckInterval)
+    
+    // Start the global monitor if not already running
+    healthMonitor.start()
+    
+    console.log('📊 EnhancedGenerationService: Registered with GlobalHealthMonitor')
   }
   
   private setupCleanupTasks(): void {
-    setInterval(async () => {
+    // CRITICAL FIX: Use GlobalHealthMonitor instead of creating duplicate intervals
+    const GlobalHealthMonitor = require('./global-health-monitor').default
+    const healthMonitor = GlobalHealthMonitor.getInstance()
+    
+    // Register cleanup service with the global monitor
+    healthMonitor.registerService('generation-cleanup', async () => {
       try {
         await this.cleanupOldJobs()
         await this.cleanupTempFiles()
+        return { status: 'cleanup-completed' }
       } catch (error) {
         this.logger.error('Cleanup task failed', { error: error instanceof Error ? error.message : error })
+        throw error
       }
     }, this.config.generation.cleanupIntervalMinutes * 60 * 1000)
+    
+    console.log('🧹 EnhancedGenerationService: Cleanup registered with GlobalHealthMonitor')
   }
   
   private setupJobPersistence(): void {
-    // Setup periodic job state persistence
-    setInterval(async () => {
-      await this.persistJobStates()
+    // CRITICAL FIX: Use GlobalHealthMonitor instead of creating duplicate intervals
+    const GlobalHealthMonitor = require('./global-health-monitor').default
+    const healthMonitor = GlobalHealthMonitor.getInstance()
+    
+    // Register job persistence service with the global monitor
+    healthMonitor.registerService('job-persistence', async () => {
+      try {
+        await this.persistJobStates()
+        return { status: 'persistence-completed' }
+      } catch (error) {
+        this.logger.error('Job persistence failed', { error: error instanceof Error ? error.message : error })
+        throw error
+      }
     }, 30000) // Every 30 seconds
+    
+    console.log('💾 EnhancedGenerationService: Job persistence registered with GlobalHealthMonitor')
   }
 
   private async recoverInterruptedJobs(): Promise<void> {

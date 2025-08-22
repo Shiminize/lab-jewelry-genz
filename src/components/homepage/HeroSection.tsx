@@ -93,7 +93,9 @@ export function HeroSection({
   const [videoError, setVideoError] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const [loadingProgress, setLoadingProgress] = useState(0)
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const intersectionRef = useRef<HTMLDivElement>(null)
 
   // Check for reduced motion preference
   useEffect(() => {
@@ -106,6 +108,17 @@ export function HeroSection({
       return () => mediaQuery.removeEventListener('change', handler)
     }
   }, [respectReducedMotion])
+
+  // Delayed video loading for performance
+  useEffect(() => {
+    // Use a timer-based approach instead of intersection observer for above-the-fold hero
+    const timer = setTimeout(() => {
+      console.log('🎬 Starting deferred video load after page stabilization')
+      setShouldLoadVideo(true)
+    }, 1500) // Load video 1.5s after page load
+
+    return () => clearTimeout(timer)
+  }, [])
 
   // Enhanced video loading and error handling
   const handleVideoLoad = () => {
@@ -178,12 +191,11 @@ export function HeroSection({
   return (
     <section
       className={cn(heroVariants({ overlay, textPosition }), className)}
-      aria-label="Hero section showcasing GlowGlitch jewelry collection"
       {...props}
     >
-      {/* Video Background with Overlay */}
-      <div className="absolute inset-0 z-0">
-        {!videoError && (
+      {/* Video Background with Lazy Loading */}
+      <div ref={intersectionRef} className="absolute inset-0 z-0">
+        {!videoError && shouldLoadVideo && (
           <>
             <video
               ref={videoRef}
@@ -195,13 +207,12 @@ export function HeroSection({
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               onLoadedData={handleVideoLoad}
               onError={handleVideoError}
               onLoadStart={handleVideoLoadStart}
               onCanPlay={handleVideoCanPlay}
               onProgress={handleVideoProgress}
-              aria-hidden="true"
             >
               <source src={videoSrc} type="video/mp4" />
               Your browser does not support the video tag.
@@ -227,8 +238,8 @@ export function HeroSection({
           </>
         )}
         
-        {/* Fallback Image */}
-        {(videoError || !videoLoaded) && (
+        {/* Fallback Image - Always show until video loads */}
+        {(videoError || !videoLoaded || !shouldLoadVideo) && (
           <Image
             src={fallbackImageSrc}
             alt={fallbackImageAlt}

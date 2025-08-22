@@ -116,6 +116,21 @@ const STANDARD_GEMSTONES = [
   }
 ]
 
+// Helper function to get randomized gemstones for variety (deterministic based on product ID)
+function getRandomGemstones(productId, count = 2) {
+  // Create deterministic "random" selection based on product ID for consistency
+  const seedValue = productId * 73 // Simple hash for deterministic randomness
+  const shuffled = [...STANDARD_GEMSTONES]
+  
+  // Fisher-Yates shuffle with deterministic seed
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor((seedValue * (i + 1)) % shuffled.length) % (i + 1)
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  
+  return shuffled.slice(0, count)
+}
+
 // Product generator function
 function createProduct(id, name, category, subcategory, basePrice, description, collections = [], sustainabilityImpact = null) {
   const sku = `GG-${category.toUpperCase()}-${id.toString().padStart(3, '0')}`
@@ -151,7 +166,7 @@ function createProduct(id, name, category, subcategory, basePrice, description, 
     },
     customization: {
       materials: STANDARD_MATERIALS.slice(0, 3),
-      gemstones: STANDARD_GEMSTONES.slice(0, 2),
+      gemstones: getRandomGemstones(id, 2),
       sizes: [{
         id: 'size-6',
         category,

@@ -1,14 +1,14 @@
 'use client'
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { H1, H2, MutedText } from '@/components/foundation/Typography'
 import { Button } from '@/components/ui/Button'
 import { PageContainer } from '@/components/layout/PageContainer'
 
-// Core 3D customizer component (PRD requirement - single customizer only)
+// Streamlined 5-component 3D customizer - CLAUDE_RULES compliant
 const ProductCustomizer = dynamic(
-  () => import('@/components/customizer/ProductCustomizer').then(mod => ({ default: mod.ProductCustomizer })),
+  () => import('@/components/customizer/ProductCustomizer'),
   {
     loading: () => (
       <div className="flex items-center justify-center h-96 bg-background/50 rounded-lg animate-pulse">
@@ -46,50 +46,13 @@ interface ProductSelection {
   }
 }
 
-interface MaterialOption {
-  id: string
-  name: string
-  priceModifier: number
-  color: string
-}
-
-interface CustomizationState {
-  selectedProduct: ProductSelection | null
-  selectedMaterial: MaterialOption | null
-  selectedStone: MaterialOption | null
-  selectedSize: string
-  totalPrice: number
-}
-
-const MATERIALS: MaterialOption[] = [
-  { id: 'platinum', name: 'Platinum', priceModifier: 0, color: 'rgb(229, 228, 226)' }, // material-platinum
-  { id: '18k-white-gold', name: '18K White Gold', priceModifier: -200, color: 'rgb(248, 248, 255)' }, // material-white-gold
-  { id: '18k-yellow-gold', name: '18K Yellow Gold', priceModifier: -300, color: 'rgb(255, 215, 0)' }, // material-gold
-  { id: '18k-rose-gold', name: '18K Rose Gold', priceModifier: -250, color: 'rgb(232, 180, 184)' } // material-rose-gold
-]
-
-const STONE_OPTIONS: MaterialOption[] = [
-  { id: 'lab-diamond-1ct', name: '1 Carat Lab Diamond', priceModifier: 0, color: 'rgb(255, 255, 255)' }, // stone-diamond
-  { id: 'lab-diamond-075ct', name: '0.75 Carat Lab Diamond', priceModifier: -400, color: 'rgb(255, 255, 255)' }, // stone-diamond
-  { id: 'lab-diamond-125ct', name: '1.25 Carat Lab Diamond', priceModifier: 600, color: 'rgb(255, 255, 255)' }, // stone-diamond
-  { id: 'lab-diamond-15ct', name: '1.5 Carat Lab Diamond', priceModifier: 1200, color: 'rgb(255, 255, 255)' } // stone-diamond
-]
-
-const SIZES = ['5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9']
-
 export default function CustomizerPage() {
   const [products, setProducts] = useState<ProductSelection[]>([])
+  const [selectedProductId, setSelectedProductId] = useState<string>('ring-001')
+  const [selectedMaterialId, setSelectedMaterialId] = useState<string>('18k-rose-gold')
   const [isLoading, setIsLoading] = useState(true)
   const [apiError, setApiError] = useState<string | null>(null)
-  
-  const [customization, setCustomization] = useState<CustomizationState>({
-    selectedProduct: null,
-    selectedMaterial: MATERIALS[0],
-    selectedStone: STONE_OPTIONS[0],
-    selectedSize: '7',
-    totalPrice: 0
-  })
-
+  const [currentPrice, setCurrentPrice] = useState<number>(0)
   const [isSaving, setIsSaving] = useState(false)
 
   // Fetch products from API on component mount
@@ -104,12 +67,8 @@ export default function CustomizerPage() {
           setProducts(data.data)
           // Set first product as default selection
           if (data.data.length > 0) {
-            const firstProduct = data.data[0]
-            setCustomization(prev => ({
-              ...prev,
-              selectedProduct: firstProduct,
-              totalPrice: firstProduct.basePrice
-            }))
+            setSelectedProductId(data.data[0].id)
+            setCurrentPrice(data.data[0].basePrice)
           }
         } else {
           setApiError(data.error?.message || 'Failed to load products')
@@ -125,51 +84,27 @@ export default function CustomizerPage() {
     fetchProducts()
   }, [])
 
-  // Calculate total price when customization changes
-  const updatePrice = useCallback((newState: Partial<CustomizationState>) => {
-    const updated = { ...customization, ...newState }
-    
-    if (updated.selectedProduct && updated.selectedMaterial && updated.selectedStone) {
-      const totalPrice = updated.selectedProduct.basePrice + 
-                        updated.selectedMaterial.priceModifier + 
-                        updated.selectedStone.priceModifier
-      
-      setCustomization({ ...updated, totalPrice })
-    }
-  }, [customization])
+  const handleProductSelect = (product: ProductSelection) => {
+    setSelectedProductId(product.id)
+    setCurrentPrice(product.basePrice)
+  }
 
-  const handleProductSelect = useCallback((product: ProductSelection) => {
-    updatePrice({ selectedProduct: product })
-  }, [updatePrice])
+  const handleVariantChange = (variant: { materialId: string; price: number }) => {
+    setSelectedMaterialId(variant.materialId)
+    setCurrentPrice(variant.price)
+  }
 
-  const handleMaterialSelect = useCallback((material: MaterialOption) => {
-    updatePrice({ selectedMaterial: material })
-  }, [updatePrice])
-
-  const handleStoneSelect = useCallback((stone: MaterialOption) => {
-    updatePrice({ selectedStone: stone })
-  }, [updatePrice])
-
-  const handleSizeSelect = useCallback((size: string) => {
-    updatePrice({ selectedSize: size })
-  }, [updatePrice])
-
-  const handleSaveDesign = useCallback(async () => {
+  const handleSaveDesign = async () => {
     setIsSaving(true)
     
     try {
-      // TODO: Implement save to API with CLAUDE_RULES envelope format
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Mock API call
-      
       // Generate shareable URL
       const designParams = new URLSearchParams({
-        product: customization.selectedProduct?.id || '',
-        material: customization.selectedMaterial?.id || '',
-        stone: customization.selectedStone?.id || '',
-        size: customization.selectedSize
+        product: selectedProductId,
+        material: selectedMaterialId
       })
       
-      const shareUrl = `${window.location.origin}/customize?${designParams.toString()}`
+      const shareUrl = `${window.location.origin}/customizer?${designParams.toString()}`
       
       // Copy to clipboard
       await navigator.clipboard.writeText(shareUrl)
@@ -183,7 +118,9 @@ export default function CustomizerPage() {
     } finally {
       setIsSaving(false)
     }
-  }, [customization])
+  }
+
+  const selectedProduct = products.find(p => p.id === selectedProductId)
 
   return (
     <PageContainer className="py-6 space-y-8">
@@ -197,38 +134,39 @@ export default function CustomizerPage() {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
-        {/* 3D Viewer Section */}
+        {/* 3D Viewer Section - Delegated to ProductCustomizer */}
         <div className="space-y-6">
           <div className="text-center lg:text-left space-y-3">
             <H2 className="text-foreground mb-2">Live Preview</H2>
             <MutedText>Interact with your design in 3D</MutedText>
           </div>
 
-          {/* Core 3D Customizer */}
-          <ProductCustomizer
-            layout="stacked"
-            showControls={true}
-            autoRotate={false}
-            onVariantChange={(variant) => {
-              console.log('Customizer variant changed:', variant.name)
-            }}
-            onPriceChange={(price) => {
-              console.log('Customizer price changed:', price)
-            }}
-            className="shadow-lg"
-          />
+          {/* Core 3D Customizer - All material/stone logic handled internally */}
+          <div data-testid="product-customizer">
+            <ProductCustomizer
+              productId={selectedProductId}
+              initialMaterialId={selectedMaterialId}
+              useOptimizedViewer={true}
+              layout="stacked"
+              showControls={true}
+              autoRotate={false}
+              onVariantChange={handleVariantChange}
+              onPriceChange={setCurrentPrice}
+              className="shadow-lg"
+            />
+          </div>
 
           {/* Product Info Display */}
-          {customization.selectedProduct && (
+          {selectedProduct && (
             <div className="bg-muted/10 rounded-lg p-4 space-y-2">
               <h3 className="font-headline text-lg text-foreground">
-                {customization.selectedProduct.name}
+                {selectedProduct.name}
               </h3>
               <MutedText className="text-sm">
-                {customization.selectedProduct.description}
+                {selectedProduct.description}
               </MutedText>
               <div className="text-xs text-accent">
-                {customization.selectedProduct.socialAppeal}
+                {selectedProduct.socialAppeal}
               </div>
             </div>
           )}
@@ -241,9 +179,9 @@ export default function CustomizerPage() {
           </div>
         </div>
 
-        {/* Customization Controls */}
+        {/* Product Selection and Actions */}
         <div className="space-y-6">
-          {/* Ring Design Selection */}
+          {/* Product Selection */}
           <div className="space-y-4">
             <H2 className="text-foreground">Choose Your Style</H2>
             
@@ -277,7 +215,7 @@ export default function CustomizerPage() {
 
             {/* Products Grid */}
             {!isLoading && !apiError && (
-              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3" data-testid="product-selection">
                 {products.map((product) => (
                   <button
                     key={product.id}
@@ -285,7 +223,7 @@ export default function CustomizerPage() {
                     className={`
                       relative p-3 rounded-lg border-2 transition-all duration-200
                       hover:shadow-md focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2
-                      ${customization.selectedProduct?.id === product.id 
+                      ${selectedProductId === product.id 
                         ? 'border-cta bg-cta/10' 
                         : 'border-border bg-background hover:border-cta/50'
                       }
@@ -315,77 +253,12 @@ export default function CustomizerPage() {
             )}
           </div>
 
-          {/* Material Selection */}
-          <div className="space-y-4">
-            <H2 className="text-foreground">Metal Type</H2>
-            <div className="grid grid-cols-2 gap-3">
-              {MATERIALS.map((material) => (
-                <Button
-                  key={material.id}
-                  variant={customization.selectedMaterial?.id === material.id ? 'primary' : 'ghost'}
-                  onClick={() => handleMaterialSelect(material)}
-                  className="justify-start h-auto p-4"
-                >
-                  <div className="flex items-center space-x-3">
-                    <div 
-                      className="w-4 h-4 rounded-full border border-border"
-                      style={{ backgroundColor: material.color }}
-                    />
-                    <div className="text-left">
-                      <div className="text-sm font-medium">{material.name}</div>
-                      <div className="text-xs text-gray-600">
-                        {material.priceModifier >= 0 ? '+' : ''}${material.priceModifier}
-                      </div>
-                    </div>
-                  </div>
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Stone Selection */}
-          <div className="space-y-4">
-            <H2 className="text-foreground">Diamond Size</H2>
-            <div className="space-y-2">
-              {STONE_OPTIONS.map((stone) => (
-                <Button
-                  key={stone.id}
-                  variant={customization.selectedStone?.id === stone.id ? 'primary' : 'ghost'}
-                  onClick={() => handleStoneSelect(stone)}
-                  className="w-full justify-between h-auto p-4"
-                >
-                  <span className="text-sm font-medium">{stone.name}</span>
-                  <span className="text-xs text-gray-600">
-                    {stone.priceModifier >= 0 ? '+' : ''}${stone.priceModifier}
-                  </span>
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Size Selection */}
-          <div className="space-y-4">
-            <H2 className="text-foreground">Ring Size</H2>
-            <div className="grid grid-cols-5 gap-2">
-              {SIZES.map((size) => (
-                <Button
-                  key={size}
-                  variant={customization.selectedSize === size ? 'primary' : 'ghost'}
-                  onClick={() => handleSizeSelect(size)}
-                  className="aspect-square"
-                >
-                  {size}
-                </Button>
-              ))}
-            </div>
-          </div>
-
           {/* Price Display */}
           <div className="bg-muted/20 rounded-lg p-6 space-y-4">
             <div className="flex justify-between items-center">
               <span className="text-foreground font-medium">Total Price:</span>
               <span className="text-2xl font-headline text-cta">
-                ${customization.totalPrice.toLocaleString()}
+                ${currentPrice.toLocaleString()}
               </span>
             </div>
             <MutedText className="text-sm text-center">

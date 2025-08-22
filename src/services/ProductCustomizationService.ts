@@ -426,7 +426,7 @@ export class ProductCustomizationService {
    */
   private generateAssetPath(product: IProduct, material: Material): string {
     const productSlug = product.seo?.slug || product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-    return `${this.config.defaultImagePath}/${productSlug}-${material.id}-sequence`
+    return `${this.config.defaultImagePath}/${productSlug}-${material.id}`
   }
 
   /**

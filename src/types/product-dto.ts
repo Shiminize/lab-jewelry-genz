@@ -455,3 +455,161 @@ export const createMaterialSpecs = (
     primaryStone: stone ? createStoneSpec(stone.type, stone.carat) : undefined
   }
 }
+
+/**
+ * ProductDisplayDTO - Unified Interface for UI Components
+ * Eliminates ProductBase vs ProductListDTO conflicts
+ * CLAUDE_RULES.md compliant: Material-only focus, TypeScript strict mode
+ * 
+ * This interface serves as the single source of truth for all UI components,
+ * ensuring consistent data structure and eliminating runtime type errors.
+ */
+export interface ProductDisplayDTO {
+  // Core identification
+  _id: string
+  name: string
+  description: string
+  category: ProductCategory
+  subcategory: ProductSubcategory
+  slug: string
+  
+  // Pricing (unified structure)
+  basePrice: number
+  originalPrice?: number // For displaying discounts
+  currency: string
+  
+  // Images (unified structure compatible with both systems)
+  primaryImage: string
+  images: {
+    primary: string
+    gallery: string[]
+  }
+  
+  // Material specifications (CLAUDE_RULES.md material-only compliance)
+  materialSpecs: ProductListMaterialSpecs
+  
+  // Inventory status (simplified for UI)
+  inventory: {
+    available: boolean
+    quantity?: number
+    isCustomMade?: boolean
+  }
+  
+  // Metadata for UI logic
+  metadata: {
+    featured: boolean
+    bestseller: boolean
+    newArrival: boolean
+    tags: string[] // Material-only tags only
+  }
+  
+  // Creator attribution (if applicable)
+  creator?: {
+    handle: string
+    name: string
+  }
+  
+  // SEO and routing
+  seo?: {
+    slug: string
+    metaTitle?: string
+    metaDescription?: string
+  }
+}
+
+/**
+ * Type guard for ProductDisplayDTO
+ * CLAUDE_RULES.md compliant: TypeScript strict mode, no any types
+ */
+export const isProductDisplayDTO = (obj: unknown): obj is ProductDisplayDTO => {
+  return Boolean(
+    obj &&
+    typeof obj === 'object' &&
+    typeof (obj as ProductDisplayDTO)._id === 'string' &&
+    typeof (obj as ProductDisplayDTO).name === 'string' &&
+    typeof (obj as ProductDisplayDTO).basePrice === 'number' &&
+    typeof (obj as ProductDisplayDTO).primaryImage === 'string' &&
+    (obj as ProductDisplayDTO).images &&
+    typeof (obj as ProductDisplayDTO).images.primary === 'string' &&
+    Array.isArray((obj as ProductDisplayDTO).images.gallery) &&
+    (obj as ProductDisplayDTO).materialSpecs &&
+    isValidMaterialSpecs((obj as ProductDisplayDTO).materialSpecs)
+  )
+}
+
+/**
+ * Helper function to transform ProductListDTO to ProductDisplayDTO
+ * Server-side only transformation following CLAUDE_RULES.md patterns
+ */
+export const transformToProductDisplayDTO = (product: ProductListDTO): ProductDisplayDTO => {
+  return {
+    _id: product._id,
+    name: product.name,
+    description: product.description,
+    category: product.category,
+    subcategory: product.subcategory,
+    slug: product.slug,
+    basePrice: product.pricing.basePrice,
+    currency: product.pricing.currency,
+    primaryImage: product.primaryImage,
+    images: {
+      primary: product.primaryImage,
+      gallery: [product.primaryImage] // Fallback to primary if gallery not available
+    },
+    materialSpecs: product.materialSpecs,
+    inventory: {
+      available: product.inventory.available,
+      quantity: product.inventory.quantity
+    },
+    metadata: {
+      featured: product.metadata.featured,
+      bestseller: product.metadata.bestseller,
+      newArrival: product.metadata.newArrival,
+      tags: product.metadata.tags
+    },
+    creator: product.creator,
+    seo: {
+      slug: product.slug
+    }
+  }
+}
+
+/**
+ * Helper function to transform legacy ProductBase to ProductDisplayDTO
+ * For backward compatibility during migration
+ */
+export const transformProductBaseToDisplayDTO = (product: any): ProductDisplayDTO => {
+  return {
+    _id: product._id,
+    name: product.name,
+    description: product.description || '',
+    category: product.category,
+    subcategory: product.subcategory || 'accessories',
+    slug: product.slug || product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    basePrice: product.basePrice,
+    originalPrice: product.originalPrice,
+    currency: 'USD',
+    primaryImage: product.images?.primary || '/images/placeholder-product.jpg',
+    images: {
+      primary: product.images?.primary || '/images/placeholder-product.jpg',
+      gallery: product.images?.gallery || []
+    },
+    materialSpecs: {
+      primaryMetal: {
+        type: '14k-gold' as MetalType,
+        purity: '14K',
+        displayName: '14K Gold'
+      }
+    },
+    inventory: {
+      available: true,
+      isCustomMade: true
+    },
+    metadata: {
+      featured: true,
+      bestseller: false,
+      newArrival: true,
+      tags: ['lab-grown', 'customizable']
+    }
+  }
+}

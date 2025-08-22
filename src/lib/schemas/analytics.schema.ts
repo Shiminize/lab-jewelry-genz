@@ -124,9 +124,9 @@ const analyticsEventMongoSchema = new mongoose.Schema({
       'error_occurred'
     ]
   },
-  userId: { type: String, index: true },
-  sessionId: { type: String, required: true, index: true },
-  timestamp: { type: Date, required: true, index: true },
+  userId: { type: String },
+  sessionId: { type: String, required: true },
+  timestamp: { type: Date, required: true },
   properties: { type: mongoose.Schema.Types.Mixed },
   metadata: {
     userAgent: String,
@@ -149,15 +149,15 @@ const performanceMetricsMongoSchema = new mongoose.Schema({
   renderTime: Number,
   memoryUsage: Number,
   errorRate: { type: Number, required: true },
-  endpoint: { type: String, required: true, index: true },
-  timestamp: { type: Date, required: true, index: true }
+  endpoint: { type: String, required: true },
+  timestamp: { type: Date, required: true }
 }, {
   timestamps: true,
   collection: 'performanceMetrics'
 })
 
 const businessMetricsMongoSchema = new mongoose.Schema({
-  date: { type: Date, required: true, unique: true, index: true },
+  date: { type: Date, required: true, unique: true },
   revenue: { type: Number, required: true },
   orders: { type: Number, required: true },
   newUsers: { type: Number, required: true },
@@ -173,24 +173,24 @@ const businessMetricsMongoSchema = new mongoose.Schema({
 
 const databaseQueryMetricsMongoSchema = new mongoose.Schema({
   query: { type: String, required: true },
-  collection: { type: String, required: true, index: true },
+  collection: { type: String, required: true },
   duration: { type: Number, required: true },
   recordsAffected: { type: Number, required: true },
-  timestamp: { type: Date, required: true, index: true }
+  timestamp: { type: Date, required: true }
 }, {
   timestamps: true,
   collection: 'databaseQueryMetrics'
 })
 
 const userJourneyMongoSchema = new mongoose.Schema({
-  userId: { type: String, index: true },
-  sessionId: { type: String, required: true, index: true },
-  startTime: { type: Date, required: true, index: true },
+  userId: { type: String },
+  sessionId: { type: String, required: true },
+  startTime: { type: Date, required: true },
   endTime: Date,
   events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AnalyticsEvent' }],
   conversionEvent: String,
   sourceChannel: String,
-  creatorReferral: { type: String, index: true },
+  creatorReferral: { type: String },
   totalValue: { type: Number, default: 0 }
 }, {
   timestamps: true,
@@ -210,11 +210,10 @@ const conversionFunnelMongoSchema = new mongoose.Schema({
       'checkout_start',
       'payment_complete'
     ],
-    index: true
   },
-  timestamp: { type: Date, required: true, index: true },
-  sessionId: { type: String, required: true, index: true },
-  userId: { type: String, index: true },
+  timestamp: { type: Date, required: true },
+  sessionId: { type: String, required: true },
+  userId: { type: String },
   metadata: mongoose.Schema.Types.Mixed
 }, {
   timestamps: true,

@@ -26,6 +26,7 @@ import { Button } from '@/components/ui/Button'
 import { ProductCard } from '../products/ProductCard'
 import { ProductFilters } from '../products/ProductFilters'
 import { useWishlist } from '@/hooks/useWishlist'
+import { useAPIErrorHandler } from '@/contexts/ErrorContext'
 import {
   encodeMaterialFilters,
   decodeMaterialFilters,
@@ -87,6 +88,7 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
   const router = useRouter()
   const searchParams = useSearchParams()
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist()
+  const apiErrorHandler = useAPIErrorHandler()
   const searchInputRef = useRef<HTMLInputElement>(null)
   
   // Search state
@@ -162,68 +164,77 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
     clarities: ['FL', 'IF', 'VVS1', 'VVS2', 'VS1', 'VS2', 'SI1', 'SI2']
   }), [])
 
-  // Debounced search function
+  // Enhanced search function with error notifications
   const performSearch = useCallback(async (searchParams: any = {}) => {
     setIsLoading(true)
     setError(null)
 
-    try {
-      // Build query parameters
-      const queryParams = new URLSearchParams()
-      
-      if (searchQuery) queryParams.set('q', searchQuery)
-      if (currentPage > 1) queryParams.set('page', currentPage.toString())
-      queryParams.set('limit', itemsPerPage.toString())
-      queryParams.set('sortBy', sortBy)
+    // Build query parameters
+    const queryParams = new URLSearchParams()
+    
+    if (searchQuery) queryParams.set('q', searchQuery)
+    if (currentPage > 1) queryParams.set('page', currentPage.toString())
+    queryParams.set('limit', itemsPerPage.toString())
+    queryParams.set('sortBy', sortBy)
 
-      // Add material filters to query
-      if (materialFilters.metals.length > 0) {
-        queryParams.set('metals', materialFilters.metals.join(','))
-      }
-      if (materialFilters.stones.length > 0) {
-        queryParams.set('stones', materialFilters.stones.join(','))
-      }
-      if (materialFilters.materialTags.length > 0) {
-        queryParams.set('materialTags', materialFilters.materialTags.join(','))
-      }
-      if (materialFilters.categories.length > 0) {
-        queryParams.set('categories', materialFilters.categories.join(','))
-      }
-      if (materialFilters.subcategories.length > 0) {
-        queryParams.set('subcategories', materialFilters.subcategories.join(','))
-      }
-      if (materialFilters.caratRange.min) {
-        queryParams.set('caratMin', materialFilters.caratRange.min.toString())
-      }
-      if (materialFilters.caratRange.max) {
-        queryParams.set('caratMax', materialFilters.caratRange.max.toString())
-      }
-      if (materialFilters.priceRange.min) {
-        queryParams.set('minPrice', materialFilters.priceRange.min.toString())
-      }
-      if (materialFilters.priceRange.max) {
-        queryParams.set('maxPrice', materialFilters.priceRange.max.toString())
-      }
-      if (materialFilters.inStock) {
-        queryParams.set('inStock', 'true')
-      }
-      if (materialFilters.featured) {
-        queryParams.set('featured', 'true')
-      }
+    // Add material filters to query
+    if (materialFilters.metals.length > 0) {
+      queryParams.set('metals', materialFilters.metals.join(','))
+    }
+    if (materialFilters.stones.length > 0) {
+      queryParams.set('stones', materialFilters.stones.join(','))
+    }
+    if (materialFilters.materialTags.length > 0) {
+      queryParams.set('materialTags', materialFilters.materialTags.join(','))
+    }
+    if (materialFilters.categories.length > 0) {
+      queryParams.set('categories', materialFilters.categories.join(','))
+    }
+    if (materialFilters.subcategories.length > 0) {
+      queryParams.set('subcategories', materialFilters.subcategories.join(','))
+    }
+    if (materialFilters.caratRange.min) {
+      queryParams.set('caratMin', materialFilters.caratRange.min.toString())
+    }
+    if (materialFilters.caratRange.max) {
+      queryParams.set('caratMax', materialFilters.caratRange.max.toString())
+    }
+    if (materialFilters.priceRange.min) {
+      queryParams.set('minPrice', materialFilters.priceRange.min.toString())
+    }
+    if (materialFilters.priceRange.max) {
+      queryParams.set('maxPrice', materialFilters.priceRange.max.toString())
+    }
+    if (materialFilters.inStock) {
+      queryParams.set('inStock', 'true')
+    }
+    if (materialFilters.featured) {
+      queryParams.set('featured', 'true')
+    }
 
-      const startTime = performance.now()
-      
-      // Fetch results
-      const response = await fetch(`/api/products?${queryParams.toString()}`)
-      
-      if (!response.ok) {
-        throw new Error('Search request failed')
-      }
+    const apiUrl = `/api/products?${queryParams.toString()}`
+    const startTime = performance.now()
+    
+    // Use enhanced error handling with automatic retry
+    const apiResponse = await apiErrorHandler(
+      async () => {
+        const response = await fetch(apiUrl)
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+        }
+        return response.json()
+      },
+      'Product Search API',
+      () => performSearch(searchParams) // Retry handler
+    )
 
-      const apiResponse = await response.json()
+    setIsLoading(false)
+
+    // Handle successful response
+    if (apiResponse) {
       const searchTime = performance.now() - startTime
 
-      // Transform API response to our format
+      // Transform API response to our format  
       const searchResult: SearchResult = {
         products: apiResponse.data || [],
         pagination: apiResponse.pagination || {
@@ -251,14 +262,12 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
       // Update URL without triggering navigation
       const newUrl = `${window.location.pathname}?${queryParams.toString()}`
       window.history.replaceState({}, '', newUrl)
-
-    } catch (error) {
-      console.error('Search error:', error)
-      setError('Failed to search products. Please try again.')
-    } finally {
-      setIsLoading(false)
+    } else {
+      // apiErrorHandler already showed user-friendly notification
+      // Just set a generic error state for component fallback
+      setError('Unable to load products at the moment.')
     }
-  }, [searchQuery, currentPage, itemsPerPage, sortBy, activeFilters, filterOptions])
+  }, [searchQuery, currentPage, itemsPerPage, sortBy, activeFilters, filterOptions, materialFilters, apiErrorHandler])
 
   // Debounced search effect
   useEffect(() => {

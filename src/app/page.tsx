@@ -1,7 +1,5 @@
-'use client'
-
 import React from 'react'
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { 
   HeroSection, 
   EnhancedValueProposition, 
@@ -11,25 +9,37 @@ import {
   SocialProofSection,
   SustainabilityStorySection
 } from '@/components/homepage'
+import type { ProductDisplayDTO } from '@/types/product-dto'
 
-export default function HomePage() {
-  const router = useRouter()
-
-  const handleNavigateToCustomizer = () => {
-    router.push('/customizer')
+// Server-side data fetching function
+async function getFeaturedProducts(): Promise<ProductDisplayDTO[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const response = await fetch(`${baseUrl}/api/featured-products?limit=6`, {
+      next: { revalidate: 300 } // Cache for 5 minutes
+    })
+    
+    if (!response.ok) {
+      console.error('Failed to fetch featured products:', response.status)
+      return []
+    }
+    
+    const data = await response.json()
+    return data.success ? data.data : []
+  } catch (error) {
+    console.error('Error fetching featured products:', error)
+    return []
   }
+}
 
-  const handleNavigateToCatalog = () => {
-    router.push('/catalog')
-  }
-
+export default async function HomePage() {
+  // Fetch featured products on the server
+  const featuredProducts = await getFeaturedProducts()
 
   return (
     <div className="min-h-screen">
       {/* Hero Section with Video Background */}
       <HeroSection 
-        onPrimaryCtaClick={handleNavigateToCatalog}
-        onSecondaryCtaClick={handleNavigateToCustomizer}
         overlay="gradient"
         textPosition="center"
         spacing="comfortable"
@@ -38,18 +48,10 @@ export default function HomePage() {
       {/* Value Proposition - Sustainability Focus */}
       <EnhancedValueProposition />
       
-      {/* Featured Products Showcase */}
+      {/* Featured Products Showcase with Real Data */}
       <FeaturedProductsSection 
         productCount={6}
-        onAddToWishlist={(productId) => {
-          console.log('Added to wishlist:', productId)
-        }}
-        onQuickView={(productId) => {
-          console.log('Quick view:', productId)
-        }}
-        onAddToCart={(productId) => {
-          console.log('Added to cart:', productId)
-        }}
+        products={featuredProducts}
       />
       
       {/* 3D Customizer Preview */}

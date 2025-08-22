@@ -8,11 +8,19 @@ import fs from 'fs'
 import path from 'path'
 import { EnhancedGenerationService } from '@/lib/enhanced-generation-service'
 import { ResourceOptimizer } from '@/lib/resource-optimizer'
+import { getProductionConfig, ProductionLogger, CircuitBreaker } from '@/lib/production-config'
 
-// Types
+// Types - Enhanced for optimized asset structure
 interface GenerationRequest {
   modelIds: string[]
   materials?: string[]
+  assetStructure?: 'optimized' | 'legacy' // New optimized structure support
+  outputFormats?: string[] // Multi-format support
+  performance?: {
+    targetSwitchTime?: number // CLAUDE_RULES <100ms requirement
+    preloadStrategy?: 'intelligent' | 'aggressive' | 'lazy'
+    compressionLevel?: 'low' | 'medium' | 'high'
+  }
   settings?: {
     imageCount?: number
     imageSize?: { width: number; height: number }
@@ -38,34 +46,69 @@ interface GenerationStatus {
   error?: string
 }
 
-// In-memory store for generation status (use Redis in production)
+// Production configuration and logging
+const config = getProductionConfig()
+const logger = new ProductionLogger(config)
+const circuitBreaker = new CircuitBreaker(5, 60000) // 5 failures, 1 minute timeout
+
+// In-memory store for generation status (use Redis in production)  
 // Generation jobs are now handled by GenerationService
 
-// GET: Get all models or generation status
+// GET: Get all models or generation status  
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const action = searchParams.get('action')
   const jobId = searchParams.get('jobId')
+  
+  logger.info('3D Generator API GET request', { action, jobId })
 
   try {
-    switch (action) {
-      case 'models':
-        return getAvailableModels()
+    return await circuitBreaker.execute(async () => {
+      const startTime = Date.now()
       
-      case 'status':
-        if (jobId) {
-          return getGenerationStatus(jobId)
-        }
-        return getAllGenerationStatus()
+      let result: NextResponse
+      switch (action) {
+        case 'models':
+          result = await getAvailableModels()
+          break
+        
+        case 'status':
+          if (jobId) {
+            result = await getGenerationStatus(jobId)
+          } else {
+            result = await getAllGenerationStatus()
+          }
+          break
+        
+        case 'sequences':
+          result = await getExistingSequences()
+          break
+        
+        default:
+          logger.warn('Invalid action requested', { action })
+          result = NextResponse.json({ error: 'Invalid action' }, { status: 400 })
+      }
       
-      case 'sequences':
-        return getExistingSequences()
+      const responseTime = Date.now() - startTime
+      logger.info('3D Generator API response', { action, responseTime, status: result.status })
       
-      default:
-        return NextResponse.json({ error: 'Invalid action' }, { status: 400 })
-    }
+      // Check CLAUDE_RULES compliance (<300ms)
+      if (responseTime > 300) {
+        logger.warn('API response time exceeds CLAUDE_RULES target', { 
+          action, 
+          responseTime, 
+          target: 300 
+        })
+      }
+      
+      return result
+    })
   } catch (error) {
-    console.error('API Error:', error)
+    logger.error('API Error in GET handler', { 
+      action, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    })
+    
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -139,43 +182,56 @@ async function getAvailableModels() {
 }
 
 async function getExistingSequences() {
-  const sequencesDir = path.join(process.cwd(), 'public/images/products/3d-sequences')
+  // Updated to use optimized structure: /sequences/{model-id}/{material-id}/
+  const sequencesDir = path.join(process.cwd(), 'public/images/products/sequences')
   
   if (!fs.existsSync(sequencesDir)) {
     return NextResponse.json({ sequences: [] })
   }
 
   const sequences = []
-  const dirs = fs.readdirSync(sequencesDir, { withFileTypes: true })
+  const modelDirs = fs.readdirSync(sequencesDir, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
 
-  for (const dir of dirs) {
-    const sequencePath = path.join(sequencesDir, dir.name)
-    const files = fs.readdirSync(sequencePath)
-    
-    // Count frames and formats
-    const frames = new Set()
-    const formats = new Set()
-    let totalSize = 0
+  for (const modelDir of modelDirs) {
+    const modelPath = path.join(sequencesDir, modelDir.name)
+    const materialDirs = fs.readdirSync(modelPath, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory())
 
-    files.forEach(file => {
-      const [frame, format] = file.split('.')
-      if (frame && format && !isNaN(parseInt(frame))) {
-        frames.add(parseInt(frame))
-        formats.add(format)
-        
-        const filePath = path.join(sequencePath, file)
-        totalSize += fs.statSync(filePath).size
-      }
-    })
+    for (const materialDir of materialDirs) {
+      const sequencePath = path.join(modelPath, materialDir.name)
+      
+      if (!fs.existsSync(sequencePath)) continue
+      
+      const files = fs.readdirSync(sequencePath)
+      
+      // Count frames and formats
+      const frames = new Set()
+      const formats = new Set()
+      let totalSize = 0
 
-    sequences.push({
-      id: dir.name,
-      frameCount: frames.size,
-      formats: Array.from(formats),
-      totalSize,
-      lastModified: fs.statSync(sequencePath).mtime.toISOString()
-    })
+      files.forEach(file => {
+        const [frame, format] = file.split('.')
+        if (frame && format && !isNaN(parseInt(frame))) {
+          frames.add(parseInt(frame))
+          formats.add(format)
+          
+          const filePath = path.join(sequencePath, file)
+          totalSize += fs.statSync(filePath).size
+        }
+      })
+
+      sequences.push({
+        id: `${modelDir.name}-${materialDir.name}`,
+        modelId: modelDir.name,
+        materialId: materialDir.name,
+        frameCount: frames.size,
+        formats: Array.from(formats),
+        totalSize,
+        lastModified: fs.statSync(sequencePath).mtime.toISOString(),
+        path: `/images/products/sequences/${modelDir.name}/${materialDir.name}/` // New optimized path
+      })
+    }
   }
 
   return NextResponse.json({ sequences })
@@ -185,12 +241,55 @@ async function startGeneration(request: GenerationRequest) {
   const service = EnhancedGenerationService.getInstance()
   const optimizer = new ResourceOptimizer()
   
+  logger.info('Starting 3D generation', { 
+    modelCount: request.modelIds?.length || 0,
+    materials: request.materials?.length || 0
+  })
+  
+  // Check production config limits
+  const currentJobs = service.getMetrics().activeJobs
+  if (currentJobs >= config.generation.maxConcurrentJobs) {
+    logger.warn('Generation rejected: too many concurrent jobs', { 
+      currentJobs, 
+      limit: config.generation.maxConcurrentJobs 
+    })
+    return NextResponse.json({
+      error: 'Too many concurrent generation jobs. Please try again later.',
+      details: {
+        currentJobs,
+        maxAllowed: config.generation.maxConcurrentJobs
+      }
+    }, { status: 429 })
+  }
+  
   // Pre-generation system optimization
   await optimizer.optimizeForGeneration()
   
-  // Check system health before starting generation
+  // Check system health with production config thresholds
   const metrics = await optimizer.updateMetrics()
+  const memoryUsageMB = metrics.memory.used
+  const maxMemoryMB = config.resources.maxMemoryMB
+  
+  if (memoryUsageMB > maxMemoryMB * 0.9) { // 90% threshold
+    logger.warn('Generation rejected: memory usage too high', { 
+      memoryUsageMB, 
+      maxMemoryMB,
+      percentage: (memoryUsageMB / maxMemoryMB) * 100
+    })
+    return NextResponse.json({
+      error: 'System memory usage is too high. Please try again later.',
+      details: {
+        memoryUsage: `${memoryUsageMB}MB / ${maxMemoryMB}MB`,
+        threshold: '90%'
+      }
+    }, { status: 503 })
+  }
+  
   if (optimizer.getMemoryPressure() === 'critical' || optimizer.getDiskPressure() === 'critical') {
+    logger.warn('Generation rejected: critical resource pressure', {
+      memoryPressure: optimizer.getMemoryPressure(),
+      diskPressure: optimizer.getDiskPressure()
+    })
     return NextResponse.json({
       error: 'System resources are critically low. Please try again later.',
       details: {
@@ -205,12 +304,24 @@ async function startGeneration(request: GenerationRequest) {
   try {
     const jobStatus = await service.startGeneration({
       ...request,
-      jobId
+      jobId,
+      // Apply production config settings
+      settings: {
+        ...request.settings,
+        timeout: config.generation.timeoutMinutes * 60 * 1000, // Convert to milliseconds
+        retryAttempts: config.generation.retryAttempts,
+        retryDelay: config.generation.retryDelaySeconds * 1000
+      }
     })
+    
+    logger.info('3D generation started successfully', { jobId, modelCount: request.modelIds.length })
     
     return NextResponse.json({ jobId, status: jobStatus })
   } catch (error) {
-    console.error('Failed to start generation:', error)
+    logger.error('Failed to start generation', { 
+      jobId,
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    })
     return NextResponse.json({
       error: 'Failed to start generation',
       details: error instanceof Error ? error.message : 'Unknown error'
@@ -277,16 +388,14 @@ async function deleteModel(modelId: string) {
   try {
     fs.unlinkSync(modelPath)
     
-    // Also remove associated sequences
-    const sequencesDir = path.join(process.cwd(), 'public/images/products/3d-sequences')
-    const materials = ['platinum', 'white-gold', 'yellow-gold', 'rose-gold']
+    // Also remove associated sequences using optimized structure
+    const sequencesDir = path.join(process.cwd(), 'public/images/products/sequences')
+    const modelSequencePath = path.join(sequencesDir, modelId)
     
-    materials.forEach(material => {
-      const sequencePath = path.join(sequencesDir, `${modelId}-${material}`)
-      if (fs.existsSync(sequencePath)) {
-        fs.rmSync(sequencePath, { recursive: true, force: true })
-      }
-    })
+    if (fs.existsSync(modelSequencePath)) {
+      // Remove entire model directory (contains all materials)
+      fs.rmSync(modelSequencePath, { recursive: true, force: true })
+    }
 
     return NextResponse.json({ message: 'Model deleted successfully' })
   } catch (error) {
@@ -359,11 +468,23 @@ async function handleModelUpload(request: NextRequest) {
 }
 
 function checkSequencesExist(modelId: string): boolean {
-  const sequencesDir = path.join(process.cwd(), 'public/images/products/3d-sequences')
-  const materials = ['platinum', 'white-gold', 'yellow-gold', 'rose-gold']
+  // Updated to use optimized structure: /sequences/{model-id}/{material-id}/
+  const sequencesDir = path.join(process.cwd(), 'public/images/products/sequences')
+  const modelSequencePath = path.join(sequencesDir, modelId)
+  
+  if (!fs.existsSync(modelSequencePath)) {
+    return false
+  }
+  
+  // Check if any material directories exist with sequences
+  const materials = ['platinum', '18k-white-gold', '18k-yellow-gold', '18k-rose-gold']
   
   return materials.some(material => {
-    const sequencePath = path.join(sequencesDir, `${modelId}-${material}`)
-    return fs.existsSync(sequencePath)
+    const materialPath = path.join(modelSequencePath, material)
+    if (!fs.existsSync(materialPath)) return false
+    
+    // Check if directory has image files
+    const files = fs.readdirSync(materialPath)
+    return files.some(file => /\.(webp|avif|png|jpg|jpeg)$/i.test(file))
   })
 }

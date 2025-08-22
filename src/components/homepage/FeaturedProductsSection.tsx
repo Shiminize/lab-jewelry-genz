@@ -8,88 +8,43 @@ import { Button } from '@/components/ui/Button'
 import { PageContainer, Section } from '@/components/layout'
 import { H2, BodyText, MutedText } from '@/components/foundation/Typography'
 import { cn } from '@/lib/utils'
-import type { ProductBase } from '@/types/customizer'
+import type { ProductDisplayDTO } from '@/types/product-dto'
 
-// Mock featured products data representing different categories
-const FEATURED_PRODUCTS: ProductBase[] = [
+// Fallback products for error states (minimal, material-only compliant)
+const FALLBACK_PRODUCTS: ProductDisplayDTO[] = [
   {
-    _id: 'featured-1',
-    name: 'Eternal Solitaire Ring',
-    basePrice: 2499,
-    originalPrice: 2899,
+    _id: 'fallback-1',
+    name: 'Lab Diamond Ring',
+    description: 'Premium lab-grown diamond ring',
     category: 'rings',
-    images: {
-      primary: '/images/products/eternal-solitaire-ring.jpg',
-      gallery: [
-        '/images/products/eternal-solitaire-ring.jpg',
-        '/images/products/eternal-solitaire-ring-side.jpg'
-      ]
-    }
-  },
-  {
-    _id: 'featured-2', 
-    name: 'Celestial Stacking Set',
-    basePrice: 899,
-    category: 'rings',
-    images: {
-      primary: '/images/products/celestial-stacking-set.jpg',
-      gallery: [
-        '/images/products/celestial-stacking-set.jpg',
-        '/images/products/celestial-stacking-set-worn.jpg'
-      ]
-    }
-  },
-  {
-    _id: 'featured-3',
-    name: 'Aurora Drop Earrings',
+    subcategory: 'engagement-rings',
+    slug: 'lab-diamond-ring',
     basePrice: 1299,
-    originalPrice: 1599,
-    category: 'earrings',
+    currency: 'USD',
+    primaryImage: '/images/placeholder-product.jpg',
     images: {
-      primary: '/images/products/aurora-drop-earrings.jpg',
-      gallery: [
-        '/images/products/aurora-drop-earrings.jpg',
-        '/images/products/aurora-drop-earrings-worn.jpg'
-      ]
-    }
-  },
-  {
-    _id: 'featured-4',
-    name: 'Infinity Pendant Necklace',
-    basePrice: 799,
-    category: 'necklaces',
-    images: {
-      primary: '/images/products/infinity-pendant-necklace.jpg',
-      gallery: [
-        '/images/products/infinity-pendant-necklace.jpg',
-        '/images/products/infinity-pendant-necklace-detail.jpg'
-      ]
-    }
-  },
-  {
-    _id: 'featured-5',
-    name: 'Tennis Bracelet',
-    basePrice: 1899,
-    category: 'bracelets',
-    images: {
-      primary: '/images/products/tennis-bracelet.jpg',
-      gallery: [
-        '/images/products/tennis-bracelet.jpg',
-        '/images/products/tennis-bracelet-worn.jpg'
-      ]
-    }
-  },
-  {
-    _id: 'featured-6',
-    name: 'Custom Design Starter',
-    basePrice: 999,
-    category: 'rings',
-    images: {
-      primary: '/images/products/custom-design-starter.jpg',
-      gallery: [
-        '/images/products/custom-design-starter.jpg',
-        '/images/products/custom-design-options.jpg'
-      ]
+      primary: '/images/placeholder-product.jpg',
+      gallery: ['/images/placeholder-product.jpg']
+    },
+    materialSpecs: {
+      primaryMetal: {
+        type: '14k-gold',
+        purity: '14K',
+        displayName: '14K Gold'
+      }
+    },
+    inventory: {
+      available: true,
+      isCustomMade: true
+    },
+    metadata: {
+      featured: true,
+      bestseller: false,
+      newArrival: true,
+      tags: ['lab-grown', 'customizable']
+    },
+    seo: {
+      slug: 'lab-diamond-ring'
     }
   }
 ]
@@ -100,9 +55,9 @@ interface FeaturedProductsSectionProps {
   productCount?: number
   /** Show loading state */
   loading?: boolean
-  /** Override products data */
-  products?: ProductBase[]
-  /** Callback handlers */
+  /** Products data (unified ProductDisplayDTO format) */
+  products?: ProductDisplayDTO[]
+  /** Callback handlers - optional for graceful degradation */
   onAddToWishlist?: (productId: string) => void
   onQuickView?: (productId: string) => void
   onAddToCart?: (productId: string) => void
@@ -114,7 +69,7 @@ export function FeaturedProductsSection({
   className,
   productCount = 6,
   loading = false,
-  products = FEATURED_PRODUCTS,
+  products = FALLBACK_PRODUCTS,
   onAddToWishlist,
   onQuickView,
   onAddToCart,
@@ -155,7 +110,7 @@ export function FeaturedProductsSection({
     }
   }, [onAddToCart])
 
-  // Get featured products subset
+  // Get featured products subset (no normalization needed with unified ProductDisplayDTO)
   const featuredProducts = products.slice(0, productCount)
   const activeWishlist = onAddToWishlist ? wishlistedItems : localWishlist
 
@@ -298,5 +253,5 @@ export function FeaturedProductsCompact({
   )
 }
 
-// Export the mock data for testing/development
-export { FEATURED_PRODUCTS }
+// Export the fallback data for testing/development
+export { FALLBACK_PRODUCTS }

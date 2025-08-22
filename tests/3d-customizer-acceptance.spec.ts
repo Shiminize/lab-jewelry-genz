@@ -66,6 +66,30 @@ async function getCurrentFrame(page: Page): Promise<number> {
 test.describe('CSS 3D Customizer Core Functionality', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/customizer');
+    
+    // Wait for dynamic loading to complete - look for the ProductCustomizer to be loaded
+    // The page starts with a loading spinner, wait for actual content
+    await page.waitForSelector('text="Design Your Perfect Ring"', { timeout: 10000 });
+    
+    // Wait for the dynamic ProductCustomizer component to load (it has ssr: false)
+    // We'll wait for either the actual viewer or confirm loading is done
+    try {
+      await page.waitForFunction(() => {
+        // Check if loading text is gone (component loaded)
+        const loadingElement = document.querySelector('[class*="animate-pulse"]');
+        const loadingText = Array.from(document.querySelectorAll('*')).find(el => 
+          el.textContent?.includes('Loading 3D Customizer')
+        );
+        
+        // Check if viewer is present
+        const viewer = document.querySelector('[role="img"][aria-label*="Interactive 360°"]');
+        
+        // Return true if loading is done (either viewer found or loading elements gone)
+        return viewer || (!loadingElement && !loadingText);
+      }, { timeout: 15000 });
+    } catch (error) {
+      console.log('Dynamic component may still be loading, proceeding with extended timeouts');
+    }
   });
 
   test('CSS 3D viewer initializes successfully', async ({ page }) => {

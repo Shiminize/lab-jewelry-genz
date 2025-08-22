@@ -1,6 +1,11 @@
 /**
  * Device Capabilities Detection for Three.js Premium Mode
+ * Implements caching to prevent redundant detection calls
  */
+
+// Global cache for device capabilities
+let capabilitiesCache: DeviceCapabilities | null = null
+let capabilitiesPromise: Promise<DeviceCapabilities> | null = null
 
 export interface DeviceCapabilities {
   tier: 'premium' | 'high' | 'standard' | 'low'
@@ -17,6 +22,51 @@ export interface DeviceCapabilities {
 }
 
 export async function detectDeviceCapabilities(): Promise<DeviceCapabilities> {
+  // Return cached result if available
+  if (capabilitiesCache) {
+    return capabilitiesCache
+  }
+  
+  // Return existing promise if detection is in progress
+  if (capabilitiesPromise) {
+    return capabilitiesPromise
+  }
+  
+  // Start new detection with timeout
+  capabilitiesPromise = Promise.race([
+    performDeviceCapabilityDetection(),
+    new Promise<DeviceCapabilities>((_, reject) => 
+      setTimeout(() => reject(new Error('Device capabilities detection timeout')), 3000)
+    )
+  ])
+  
+  try {
+    capabilitiesCache = await capabilitiesPromise
+    return capabilitiesCache
+  } catch (error) {
+    // Reset promise on failure so it can be retried
+    capabilitiesPromise = null
+    console.error('Device capabilities detection failed:', error)
+    
+    // Return fallback capabilities
+    const fallback: DeviceCapabilities = {
+      tier: 'standard',
+      isDesktop: !(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)),
+      supportsWebGL: true,
+      supportsWebGL2: false,
+      memoryGB: 4,
+      cpuCores: 4,
+      pixelRatio: window.devicePixelRatio || 1,
+      connectionSpeed: 'medium',
+      gpuTier: 'medium'
+    }
+    
+    capabilitiesCache = fallback
+    return fallback
+  }
+}
+
+async function performDeviceCapabilityDetection(): Promise<DeviceCapabilities> {
   const isDesktop = !(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
   const cpuCores = navigator.hardwareConcurrency || 4
   const pixelRatio = window.devicePixelRatio || 1
@@ -130,14 +180,21 @@ function detectConnectionSpeed(): 'fast' | 'medium' | 'slow' {
 async function detectBatteryStatus(): Promise<{ batteryLevel?: number; isLowPowerMode?: boolean }> {
   try {
     if ('getBattery' in navigator) {
-      const battery = await (navigator as any).getBattery()
+      // Add timeout to prevent hanging
+      const batteryPromise = (navigator as any).getBattery()
+      const timeoutPromise = new Promise<never>((_, reject) => 
+        setTimeout(() => reject(new Error('Battery API timeout')), 1000)
+      )
+      
+      const battery = await Promise.race([batteryPromise, timeoutPromise])
       return {
         batteryLevel: battery.level * 100,
         isLowPowerMode: battery.level < 0.2 || !battery.charging
       }
     }
-  } catch {
-    // Battery API not available
+  } catch (error) {
+    // Battery API not available or timed out
+    console.warn('Battery API detection failed or timed out:', error)
   }
   
   return {}
@@ -187,4 +244,10 @@ export function shouldUsePremiumMode(capabilities: DeviceCapabilities): boolean 
          capabilities.isDesktop && 
          capabilities.supportsWebGL2 &&
          !capabilities.isLowPowerMode
+}
+
+// Debug function to reset cache (useful for development)
+export function resetDeviceCapabilitiesCache(): void {
+  capabilitiesCache = null
+  capabilitiesPromise = null
 }

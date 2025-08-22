@@ -1,360 +1,308 @@
 /**
- * ProductCustomizer - Complete CSS 3D Integration Component
- * Combines ImageSequenceViewer with material selection controls
- * Follows CLAUDE_RULES design system and accessibility standards
+ * ProductCustomizer - Main 3D Customizer Container
+ * Single responsibility: Orchestrate the 5-component architecture
+ * CLAUDE_RULES.md compliant with system health-driven implementation
  */
 
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
-import { cva, type VariantProps } from 'class-variance-authority'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { cn } from '@/lib/utils'
-import { H3, BodyText, MutedText } from '@/components/foundation/Typography'
-import { Button } from '@/components/ui/Button'
-import { HybridViewer } from './HybridViewer'
-import { WithViewerErrorBoundary } from './ViewerErrorBoundary'
-import type { ProductVariant, Material } from '@/types/customizer'
-import { RING_VARIANTS, DEFAULT_VARIANT, getVariantById } from '@/data/product-variants'
-import { logDeprecationWarning } from '@/lib/migration-utils'
+import ImageViewer from './ImageViewer'
+import MaterialControls from './MaterialControls'
+import ViewerControls from './ViewerControls'
+import type { 
+  ProductCustomizerProps, 
+  CustomizerState, 
+  Material, 
+  MaterialId,
+  AssetResponse 
+} from './types'
 
-// CVA variants for layout and spacing
-const customizerVariants = cva(
-  'w-full space-y-6',
+// CLAUDE_RULES: Material-only focus with lab-grown gems
+const AVAILABLE_MATERIALS: Material[] = [
   {
-    variants: {
-      layout: {
-        stacked: 'flex flex-col',
-        split: 'grid lg:grid-cols-2 gap-8',
-        compact: 'space-y-4'
-      }
-    },
-    defaultVariants: {
-      layout: 'stacked'
+    id: 'platinum',
+    name: 'platinum',
+    displayName: 'Platinum',
+    priceModifier: 0,
+    pbrProperties: {
+      metalness: 0.9,
+      roughness: 0.05,
+      reflectivity: 0.8,
+      color: 'rgb(229, 228, 226)'
+    }
+  },
+  {
+    id: '18k-white-gold',
+    name: '18k-white-gold',
+    displayName: '18K White Gold',
+    priceModifier: -200,
+    pbrProperties: {
+      metalness: 0.85,
+      roughness: 0.08,
+      reflectivity: 0.75,
+      color: 'rgb(248, 248, 255)'
+    }
+  },
+  {
+    id: '18k-yellow-gold',
+    name: '18k-yellow-gold',
+    displayName: '18K Yellow Gold',
+    priceModifier: -300,
+    pbrProperties: {
+      metalness: 0.88,
+      roughness: 0.06,
+      reflectivity: 0.82,
+      color: 'rgb(255, 215, 0)'
+    }
+  },
+  {
+    id: '18k-rose-gold',
+    name: '18k-rose-gold',
+    displayName: '18K Rose Gold',
+    priceModifier: -250,
+    pbrProperties: {
+      metalness: 0.86,
+      roughness: 0.07,
+      reflectivity: 0.78,
+      color: 'rgb(232, 180, 184)'
     }
   }
-)
+]
 
-const controlsVariants = cva(
-  'space-y-4',
-  {
-    variants: {
-      position: {
-        below: 'order-2',
-        side: 'order-1 lg:order-2',
-        above: 'order-1'
-      }
-    },
-    defaultVariants: {
-      position: 'below'
-    }
-  }
-)
-
-const materialButtonVariants = cva(
-  'group relative flex items-center justify-start h-auto p-4 transition-all duration-200 border-2',
-  {
-    variants: {
-      state: {
-        default: 'border-border bg-background hover:border-accent/50 hover:bg-accent/5',
-        selected: 'border-accent bg-accent/10 shadow-sm',
-        loading: 'border-border bg-background opacity-75 cursor-wait'
-      },
-      size: {
-        compact: 'p-3',
-        standard: 'p-4',
-        large: 'p-5'
-      }
-    },
-    defaultVariants: {
-      state: 'default',
-      size: 'standard'
-    }
-  }
-)
-
-interface ProductCustomizerProps extends VariantProps<typeof customizerVariants> {
-  initialVariantId?: string
-  className?: string
-  showControls?: boolean
-  autoRotate?: boolean
-  onVariantChange?: (variant: ProductVariant) => void
-  onPriceChange?: (price: number) => void
-}
-
-export function ProductCustomizer({
-  initialVariantId = DEFAULT_VARIANT.id,
-  layout = 'stacked',
-  className,
-  showControls = true,
-  autoRotate = false,
+export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
+  productId = 'ring-001',
+  initialMaterialId = '18k-rose-gold',
   onVariantChange,
-  onPriceChange
-}: ProductCustomizerProps) {
-  // Log deprecation warning for hardcoded customizer usage
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      logDeprecationWarning('ProductCustomizer', 'Using hardcoded variants - consider migrating to DatabaseProductCustomizer')
+  onPriceChange,
+  className
+}) => {
+  // Centralized state management - single source of truth
+  const [state, setState] = useState<CustomizerState>({
+    product: null,
+    selectedMaterial: initialMaterialId,
+    rotationState: {
+      currentFrame: 0,
+      isRotating: false,
+      totalFrames: 36
+    },
+    assets: null,
+    isLoading: true,
+    error: null
+  })
+
+  // Memoized current material to prevent unnecessary re-renders
+  const currentMaterial = useMemo(
+    () => AVAILABLE_MATERIALS.find(m => m.id === state.selectedMaterial),
+    [state.selectedMaterial]
+  )
+
+  // Stable asset fetching function
+  const fetchAssets = useCallback(async (materialId: MaterialId) => {
+    try {
+      setState(prev => ({ ...prev, isLoading: true, error: null }))
+      
+      const startTime = performance.now()
+      const response = await fetch(
+        `/api/products/customizable/${productId}/assets?materialId=${materialId}`,
+        { cache: 'no-store' }
+      )
+      
+      const responseTime = performance.now() - startTime
+      console.log(`[CUSTOMIZER DEBUG] Asset fetch: ${responseTime.toFixed(2)}ms`)
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch assets: ${response.status}`)
+      }
+      
+      const data: AssetResponse = await response.json()
+      
+      if (data.success && data.data.assets.available) {
+        setState(prev => ({
+          ...prev,
+          assets: data.data.assets,
+          isLoading: false,
+          error: null
+        }))
+      } else {
+        throw new Error('Assets not available')
+      }
+    } catch (error) {
+      console.error('[CUSTOMIZER ERROR]', error)
+      setState(prev => ({
+        ...prev,
+        isLoading: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }))
     }
-  }, [])
+  }, [productId])
 
-  // State management
-  const [selectedVariantId, setSelectedVariantId] = useState(initialVariantId)
-  const [isLoading, setIsLoading] = useState(false)
-  const [currentFrame, setCurrentFrame] = useState(0)
-  const [viewerError, setViewerError] = useState<Error | null>(null)
-  const [customMaterial, setCustomMaterial] = useState<any>(null)
-  const [currentViewerMode, setCurrentViewerMode] = useState<'sequences' | 'threejs' | 'ar'>('sequences')
-
-  // Get current variant
-  const selectedVariant = getVariantById(selectedVariantId) || DEFAULT_VARIANT
-  
-  // Get unique materials for controls
-  const availableMaterials = React.useMemo(() => {
-    const materialMap = new Map<string, Material>()
-    RING_VARIANTS.forEach(variant => {
-      materialMap.set(variant.material.id, variant.material)
-    })
-    return Array.from(materialMap.values())
-  }, [])
-
-  // Handle variant selection
-  const handleVariantSelect = useCallback(async (variantId: string) => {
-    if (variantId === selectedVariantId) return
-
-    const newVariant = getVariantById(variantId)
-    if (!newVariant) return
-
-    // Don't set global loading for quick material switches
-    setViewerError(null)
-    setSelectedVariantId(variantId)
-    setCurrentFrame(0) // Reset to first frame
+  // Handle material change with performance tracking
+  const handleMaterialChange = useCallback((materialId: MaterialId) => {
+    const switchStartTime = performance.now()
     
-    onVariantChange?.(newVariant)
+    setState(prev => ({
+      ...prev,
+      selectedMaterial: materialId,
+      rotationState: {
+        ...prev.rotationState,
+        isRotating: false // Stop auto-rotation when switching materials
+      }
+    }))
     
-    // Calculate and report price change
-    const basePrice = 1000 // Base price (will come from product data)
-    const newPrice = Math.round(basePrice * newVariant.material.priceMultiplier)
-    onPriceChange?.(newPrice)
-  }, [selectedVariantId, onVariantChange, onPriceChange])
+    // Fetch new assets for the material
+    fetchAssets(materialId)
+    
+    // CLAUDE_RULES: <100ms material switch requirement
+    const switchTime = performance.now() - switchStartTime
+    console.log(`[MATERIAL SWITCH] ${materialId}: ${switchTime.toFixed(2)}ms`)
+    
+    // Notify parent components
+    if (currentMaterial && onVariantChange) {
+      onVariantChange({
+        materialId,
+        price: 1500 + currentMaterial.priceModifier // Base price calculation
+      })
+    }
+    
+    if (currentMaterial && onPriceChange) {
+      onPriceChange(1500 + currentMaterial.priceModifier)
+    }
+  }, [fetchAssets, currentMaterial, onVariantChange, onPriceChange])
 
-  // Handle viewer events
-  const handleViewerLoad = useCallback(() => {
-    // Defer the state update to avoid "setState in render" warning
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 0)
-  }, [])
-
-  const handleViewerError = useCallback((error: Error) => {
-    setViewerError(error)
-    setIsLoading(false)
-  }, [])
-
+  // Handle frame navigation
   const handleFrameChange = useCallback((frame: number) => {
-    setCurrentFrame(frame)
+    setState(prev => ({
+      ...prev,
+      rotationState: {
+        ...prev.rotationState,
+        currentFrame: Math.max(0, Math.min(frame, prev.rotationState.totalFrames - 1))
+      }
+    }))
   }, [])
 
-
-  // Handle viewer mode changes to show/hide advanced editor
-  const handleViewerModeChange = useCallback((mode: 'sequences' | 'threejs' | 'ar') => {
-    setCurrentViewerMode(mode)
+  // Handle next frame
+  const handleNext = useCallback(() => {
+    setState(prev => ({
+      ...prev,
+      rotationState: {
+        ...prev.rotationState,
+        currentFrame: (prev.rotationState.currentFrame + 1) % prev.rotationState.totalFrames
+      }
+    }))
   }, [])
 
-  // Memoize material props to prevent infinite re-renders
-  const materialProps = React.useMemo(() => {
-    if (customMaterial) return customMaterial
-    if (!selectedVariant?.material) return undefined
-    
-    return {
-      metalness: selectedVariant.material.properties?.metalness ?? 1.0,
-      roughness: selectedVariant.material.properties?.roughness ?? 0.1,
-      color: selectedVariant.material.properties?.color ?? selectedVariant.material.color ?? '#ffffff'
-    }
-  }, [customMaterial, selectedVariant?.material])
+  // Handle previous frame
+  const handlePrevious = useCallback(() => {
+    setState(prev => ({
+      ...prev,
+      rotationState: {
+        ...prev.rotationState,
+        currentFrame: prev.rotationState.currentFrame === 0 
+          ? prev.rotationState.totalFrames - 1 
+          : prev.rotationState.currentFrame - 1
+      }
+    }))
+  }, [])
 
-  // Material selector component
-  const MaterialSelector = () => (
-    <div className="space-y-4">
-      <div>
-        <H3 className="text-foreground mb-2">Your Story, Your Shine</H3>
-        <MutedText size="sm" className="mb-4">
-          Choose your preferred metal for the ring setting
-        </MutedText>
-      </div>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {availableMaterials.map((material) => {
-          // Find variant with this material
-          const variantWithMaterial = RING_VARIANTS.find(v => v.material.id === material.id)
-          if (!variantWithMaterial) return null
+  // Handle auto-rotation toggle
+  const handleAutoRotate = useCallback((enabled: boolean) => {
+    setState(prev => ({
+      ...prev,
+      rotationState: {
+        ...prev.rotationState,
+        isRotating: enabled
+      }
+    }))
+  }, [])
 
-          const isSelected = selectedVariant.material.id === material.id
-          const isLoadingThis = isLoading && variantWithMaterial.id === selectedVariantId
+  // Initial asset loading
+  useEffect(() => {
+    fetchAssets(state.selectedMaterial)
+  }, [fetchAssets, state.selectedMaterial])
 
-          return (
-            <Button
-              key={material.id}
-              variant="ghost"
-              onClick={() => handleVariantSelect(variantWithMaterial.id)}
-              disabled={isLoadingThis}
-              className={cn(
-                materialButtonVariants({ 
-                  state: isLoadingThis ? 'loading' : (isSelected ? 'selected' : 'default')
-                }),
-                'w-full'
-              )}
-              aria-label={`Select ${material.name} - ${material.description}`}
-              aria-pressed={isSelected ? 'true' : 'false'}
-              data-material={material.id}
-              data-selected={isSelected}
+  // CLAUDE_RULES: Error-first coding with clear recovery paths
+  if (state.error) {
+    return (
+      <div className={cn("space-y-6", className)}>
+        <div className="flex items-center justify-center aspect-square bg-background/50 rounded-lg border border-border">
+          <div className="text-center space-y-4 p-8">
+            <div className="w-16 h-16 bg-muted/20 rounded-full flex items-center justify-center mx-auto">
+              <div className="text-2xl">⚠️</div>
+            </div>
+            <div>
+              <h3 className="font-headline text-lg text-foreground mb-2">
+                Customizer Unavailable
+              </h3>
+              <p className="text-sm text-muted-foreground max-w-md">
+                Unable to load 3D customization. Please try refreshing the page.
+              </p>
+            </div>
+            <button 
+              onClick={() => fetchAssets(state.selectedMaterial)}
+              className="text-sm text-accent hover:text-accent/80"
             >
-              <div className="flex items-center space-x-3 w-full">
-                <div 
-                  className="w-6 h-6 rounded-full border-2 border-border flex-shrink-0 shadow-sm"
-                  style={{ backgroundColor: material?.color ?? '#cccccc' }}
-                  aria-hidden="true"
-                />
-                <div className="flex-1 text-left min-w-0">
-                  <div className="font-medium text-foreground text-sm">
-                    {material?.name ?? 'Unknown Material'}
-                  </div>
-                  <div className="text-xs text-gray-600 truncate">
-                    {material?.description ?? 'No description available'}
-                  </div>
-                  {(material?.priceMultiplier ?? 1.0) !== 1.0 && (
-                    <div className="text-xs text-accent mt-1">
-                      {(material?.priceMultiplier ?? 1.0) > 1.0 ? '+' : ''}
-                      {(((material?.priceMultiplier ?? 1.0) - 1.0) * 100).toFixed(0)}%
-                    </div>
-                  )}
-                </div>
-                {isSelected && (
-                  <div className="flex-shrink-0 ml-2">
-                    <svg 
-                      className="w-5 h-5 text-accent" 
-                      fill="currentColor" 
-                      viewBox="0 0 20 20"
-                      aria-hidden="true"
-                    >
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                )}
-                {isLoadingThis && (
-                  <div className="flex-shrink-0 ml-2">
-                    <div className="w-5 h-5 border-2 border-accent border-t-transparent rounded-full animate-spin" />
-                  </div>
-                )}
-              </div>
-            </Button>
-          )
-        })}
-      </div>
-    </div>
-  )
-
-  // Current selection display
-  const SelectionSummary = () => (
-    <div className="bg-accent/5 border border-accent/20 rounded-lg p-4">
-      <div className="flex items-start justify-between mb-3">
-        <div>
-          <BodyText className="font-medium text-foreground mb-1">
-            Current Selection
-          </BodyText>
-          <MutedText size="sm">
-            {selectedVariant?.name ?? 'Default Selection'}
-          </MutedText>
-        </div>
-        {viewerError && (
-          <div className="text-destructive text-xs bg-destructive/10 px-2 py-1 rounded">
-            Preview Error
+              Try Again
+            </button>
           </div>
-        )}
-      </div>
-      
-      <div className="flex items-center justify-between text-sm">
-        <span className="text-gray-600">Your Story, Your Shine:</span>
-        <div className="flex items-center space-x-2">
-          <div 
-            className="w-3 h-3 rounded-full border border-border"
-            style={{ backgroundColor: selectedVariant?.material?.color ?? '#cccccc' }}
-            aria-hidden="true"
-          />
-          <span className="text-foreground font-medium">
-            {selectedVariant?.material?.name ?? 'Default Material'}
-          </span>
         </div>
       </div>
-      
-      <div className="flex items-center justify-between text-sm mt-2 pt-2 border-t border-border">
-        <span className="text-gray-600">Explore Every Angle:</span>
-        <span className="text-foreground">
-          {Math.round((currentFrame / 36) * 360)}°
-        </span>
-      </div>
-    </div>
-  )
+    )
+  }
 
   return (
-    <div className={cn(customizerVariants({ layout }), className)}>
-      {/* 3D Viewer Section */}
+    <div className={cn("space-y-6", className)}>
+      {/* Main 3D viewer */}
       <div className="space-y-4">
-        <div>
-          <H3 className="text-foreground mb-2">Infinite Perspectives</H3>
-          <MutedText size="sm">
-            Spin Your Story | Swipe. Tap. Transform.
-          </MutedText>
-        </div>
-
-        <WithViewerErrorBoundary 
-          onError={(error, errorInfo) => {
-            console.error('3D Viewer Error:', error, errorInfo)
-            setViewerError(error)
-            setIsLoading(false)
-          }}
-        >
-          <HybridViewer
-            imagePath={selectedVariant?.assetPath ?? ''}
-            modelPath={selectedVariant?.modelPath}
-            imageCount={selectedVariant?.imageCount ?? 36}
-            material={materialProps}
-            onLoad={handleViewerLoad}
-            onError={handleViewerError}
-            onModeChange={handleViewerModeChange}
-            onFrameChange={handleFrameChange}
-            className="shadow-lg h-[400px] sm:h-[500px] lg:h-[600px]"
-          />
-        </WithViewerErrorBoundary>
+        <ImageViewer
+          assetPath={state.assets?.assetPaths[0] || ''}
+          currentFrame={state.rotationState.currentFrame}
+          totalFrames={state.rotationState.totalFrames}
+          onFrameChange={handleFrameChange}
+          isLoading={state.isLoading}
+          error={state.error}
+          className="mx-auto max-w-md"
+        />
         
-        <SelectionSummary />
+        {/* Viewer controls */}
+        <ViewerControls
+          currentFrame={state.rotationState.currentFrame}
+          totalFrames={state.rotationState.totalFrames}
+          onFrameChange={handleFrameChange}
+          onNext={handleNext}
+          onPrevious={handlePrevious}
+          onAutoRotate={handleAutoRotate}
+          isAutoRotating={state.rotationState.isRotating}
+        />
       </div>
 
-      {/* Controls Section */}
-      {showControls && (
-        <div className={cn(controlsVariants())}>
-          <MaterialSelector />
-          
-          {/* Material Information */}
-          <div className="pt-4 border-t border-border">
-            <div className="text-center space-y-2">
-              <MutedText size="sm">
-                Current viewer mode: {currentViewerMode}
-              </MutedText>
-            </div>
+      {/* Material selection */}
+      <MaterialControls
+        materials={AVAILABLE_MATERIALS}
+        selectedMaterial={state.selectedMaterial}
+        onMaterialChange={handleMaterialChange}
+        isDisabled={state.isLoading}
+      />
+
+      {/* Current price display */}
+      {currentMaterial && (
+        <div className="bg-muted/10 rounded-lg p-4">
+          <div className="flex justify-between items-center">
+            <span className="text-sm font-medium text-foreground">
+              {currentMaterial.displayName}
+            </span>
+            <span className="text-lg font-headline text-cta">
+              ${(1500 + currentMaterial.priceModifier).toLocaleString()}
+            </span>
+          </div>
+          <div className="text-xs text-muted-foreground mt-1">
+            Lab-grown gems • Ethically sourced • Lifetime warranty
           </div>
         </div>
       )}
-
-      {/* Accessibility Enhancement */}
-      <div className="sr-only">
-        <p>
-          Product customizer with 360-degree view. Currently showing {selectedVariant.name}.
-          {viewerError && ' 3D preview is currently unavailable.'}
-          Use the material selector to change the metal type.
-        </p>
-      </div>
     </div>
   )
 }
 
-export type ProductCustomizerVariant = VariantProps<typeof customizerVariants>
+export default ProductCustomizer

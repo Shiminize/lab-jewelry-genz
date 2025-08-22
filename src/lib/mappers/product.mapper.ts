@@ -364,10 +364,15 @@ function generateSlug(name?: string): string {
 
 /**
  * Generates material specifications from product data
- * Supports multiple database formats and material tag extraction
+ * CLAUDE_RULES compliant: Uses pre-computed materialSpecs from migration
  */
 function generateMaterialSpecs(product: any): ProductListMaterialSpecs {
-  // Extract primary metal from various sources
+  // Priority 1: Use pre-computed materialSpecs (post-migration)
+  if (product.materialSpecs) {
+    return product.materialSpecs
+  }
+  
+  // Priority 2: Fallback to legacy extraction (for backward compatibility)
   const primaryMetal = extractPrimaryMetal(product)
   const primaryStone = extractPrimaryStone(product)
   
@@ -400,16 +405,19 @@ function extractPrimaryMetal(product: any): MetalType {
 
 /**
  * Extracts primary stone from product data
+ * CLAUDE_RULES fix: Proper carat extraction without fallback
  */
 function extractPrimaryStone(product: any): { type: StoneType; carat: number } | undefined {
   // Check customization gemstones first
   if (product.customization?.gemstones?.length > 0) {
     const gemstone = product.customization.gemstones[0]
-    const stoneType = mapToStandardStoneType(gemstone.type)
-    if (stoneType) {
+    const stoneType = mapToStandardStoneType(gemstone.type, gemstone.isLabGrown)
+    
+    // CRITICAL FIX: Only return if we have valid carat data
+    if (stoneType && gemstone.carat && gemstone.carat > 0) {
       return {
         type: stoneType,
-        carat: gemstone.carat || 1.0
+        carat: gemstone.carat
       }
     }
   }
@@ -417,7 +425,7 @@ function extractPrimaryStone(product: any): { type: StoneType; carat: number } |
   // Check gemstones array (MongoDB format)
   if (product.gemstones?.length > 0) {
     const gemstone = product.gemstones[0]
-    const stoneType = mapToStandardStoneType(gemstone.type)
+    const stoneType = mapToStandardStoneType(gemstone.type, gemstone.isLabGrown)
     if (stoneType) {
       return {
         type: stoneType,
@@ -454,18 +462,29 @@ function mapToStandardMetalType(metalValue: string): MetalType {
 
 /**
  * Maps various stone naming conventions to standard StoneType
+ * Now supports composite logic for type + isLabGrown properties
  */
-function mapToStandardStoneType(stoneValue: string): StoneType | null {
+function mapToStandardStoneType(stoneValue: string, isLabGrown?: boolean): StoneType | null {
   if (!stoneValue || typeof stoneValue !== 'string') return null
   
   const stone = stoneValue.toLowerCase()
   
-  // Direct mapping
+  // Direct mapping (existing logic preserved)
   if (['lab-diamond', 'moissanite', 'lab-emerald', 'lab-ruby', 'lab-sapphire'].includes(stone)) {
     return stone as StoneType
   }
   
-  // Handle various naming conventions
+  // Composite logic: handle type + isLabGrown properties (seed data format)
+  if (isLabGrown === true) {
+    if (stone.includes('diamond')) return 'lab-diamond'
+    if (stone.includes('emerald')) return 'lab-emerald'
+    if (stone.includes('ruby')) return 'lab-ruby'
+    if (stone.includes('sapphire')) return 'lab-sapphire'
+    // Handle "other" type which is often moissanite in our seed data
+    if (stone === 'other') return 'moissanite'
+  }
+  
+  // Handle various naming conventions (existing logic preserved)
   if (stone.includes('diamond') && stone.includes('lab')) return 'lab-diamond'
   if (stone.includes('moissanite') || stone.includes('silicon')) return 'moissanite'
   if (stone.includes('emerald') && stone.includes('lab')) return 'lab-emerald'

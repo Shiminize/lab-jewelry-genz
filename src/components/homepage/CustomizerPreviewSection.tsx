@@ -13,9 +13,9 @@ import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
 import { Button } from '@/components/ui/Button'
 import type { Material, StoneQuality, CustomizationOptions, ProductBase } from '@/types/customizer'
 
-// Full CSS 3D Product Customizer - replacing failing 3D viewer
+// Full CSS 3D Product Customizer - Pure Bridge Service Mode
 import { ProductCustomizer } from '@/components/customizer/ProductCustomizer'
-import { RING_VARIANTS } from '@/data/product-variants'
+import { useCustomizableProduct } from '@/hooks/useCustomizableProduct'
 
 // CVA variants for the preview section - Mobile first approach
 const previewSectionVariants = cva(
@@ -67,11 +67,49 @@ interface CustomizerPreviewSectionProps extends VariantProps<typeof previewSecti
   onChatWithDesigner?: () => void
 }
 
-// Simplified preview options matching existing system
-// Get actual materials from ring variants that have image sequences
+// Bridge service materials for preview UI
 const PREVIEW_MATERIALS: Material[] = [
-  ...new Map(RING_VARIANTS.map(variant => [variant.material.id, variant.material])).values()
-].slice(0, 4) // Limit to 4 materials for preview UI
+  {
+    id: '18k-rose-gold',
+    name: '18K Rose Gold',
+    displayName: '18K Rose Gold',
+    color: '#e8b4b8',
+    metalness: 0.8,
+    roughness: 0.2,
+    priceMultiplier: 1.2,
+    description: 'Modern romance meets timeless elegance'
+  },
+  {
+    id: 'platinum',
+    name: 'Platinum',
+    displayName: 'Platinum',
+    color: '#e5e4e2',
+    metalness: 0.9,
+    roughness: 0.1,
+    priceMultiplier: 1.5,
+    description: 'Premium white metal for lasting beauty'
+  },
+  {
+    id: '18k-white-gold',
+    name: '18K White Gold',
+    displayName: '18K White Gold',
+    color: '#f8f8f8',
+    metalness: 0.85,
+    roughness: 0.15,
+    priceMultiplier: 1.1,
+    description: 'Classic elegance with contemporary appeal'
+  },
+  {
+    id: '18k-yellow-gold',
+    name: '18K Yellow Gold',
+    displayName: '18K Yellow Gold',
+    color: '#ffd700',
+    metalness: 0.8,
+    roughness: 0.2,
+    priceMultiplier: 1.0,
+    description: 'Timeless warmth and traditional luxury'
+  }
+]
 
 const PREVIEW_STONES: StoneQuality[] = [
   {
@@ -131,9 +169,18 @@ export function CustomizerPreviewSection({
   onStartDesigning,
   onChatWithDesigner
 }: CustomizerPreviewSectionProps) {
-  // Find the rose gold variant as default (the one with your image sequences)
-  const defaultVariant = RING_VARIANTS.find(v => v.id === 'doji-diamond-ring-rose-gold') || RING_VARIANTS[0]
-  const defaultMaterial = defaultVariant.material
+  // Use bridge service for product data
+  const { 
+    currentVariant, 
+    availableMaterials, 
+    changeMaterial, 
+    isLoading: isProductLoading 
+  } = useCustomizableProduct({
+    productId: 'ring-001',
+    initialMaterialId: '18k-rose-gold'
+  })
+  
+  const defaultMaterial = PREVIEW_MATERIALS[0] // Rose gold as default
 
   const [selectedOptions, setSelectedOptions] = useState<CustomizationOptions>({
     material: defaultMaterial,
@@ -146,7 +193,7 @@ export function CustomizerPreviewSection({
   const [currentPrice, setCurrentPrice] = useState(299)
   const [is3DLoaded, setIs3DLoaded] = useState(false)
   const [isMobileView, setIsMobileView] = useState(false)
-  const [selectedVariantId, setSelectedVariantId] = useState(defaultVariant.id)
+  const [selectedVariantId, setSelectedVariantId] = useState('ring-001-18k-rose-gold')
 
   // Detect mobile viewport
   useEffect(() => {
@@ -171,14 +218,16 @@ export function CustomizerPreviewSection({
   }, [selectedOptions])
 
 
-  const handleOptionSelect = (type: 'material' | 'stone' | 'setting', option: Material | StoneQuality | SettingOption) => {
+  const handleOptionSelect = async (type: 'material' | 'stone' | 'setting', option: Material | StoneQuality | SettingOption) => {
     if (type === 'material') {
       setSelectedOptions((prev: CustomizationOptions) => ({ ...prev, material: option as Material }))
       
-      // Find variant with this material and switch to it
-      const newVariant = RING_VARIANTS.find(v => v.material.id === (option as Material).id)
-      if (newVariant) {
-        setSelectedVariantId(newVariant.id)
+      // Change material through bridge service
+      try {
+        await changeMaterial((option as Material).id)
+        setSelectedVariantId(`ring-001-${(option as Material).id}`)
+      } catch (error) {
+        console.error('Failed to change material:', error)
       }
     } else if (type === 'stone') {
       setSelectedOptions((prev: CustomizationOptions) => ({ ...prev, stoneQuality: option as StoneQuality }))
@@ -236,27 +285,23 @@ export function CustomizerPreviewSection({
                 }),
                 'w-full touch-manipulation' // Optimize for touch
               )}
-              aria-label={`Select ${option.name} - ${option.description}`}
-              role="radio"
-              aria-checked={isSelected}
             >
               <div className="flex items-center space-x-3 flex-1">
                 {type === 'material' && (
                   <div 
                     className="w-5 h-5 rounded-full border border-border flex-shrink-0"
                     style={{ backgroundColor: (option as Material).color || '#E8D7D3' }}
-                    aria-hidden="true"
                   />
                 )}
                 {type === 'stone' && (
-                  <div className="w-5 h-5 flex-shrink-0" aria-hidden="true">
+                  <div className="w-5 h-5 flex-shrink-0">
                     <svg viewBox="0 0 20 20" fill="currentColor" className="text-accent">
                       <path d="M10 2L13 7L19 8L14.5 12L16 18L10 15L4 18L5.5 12L1 8L7 7L10 2Z" />
                     </svg>
                   </div>
                 )}
                 {type === 'setting' && (
-                  <div className="w-5 h-5 flex-shrink-0" aria-hidden="true">
+                  <div className="w-5 h-5 flex-shrink-0">
                     <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" className="text-accent">
                       <circle cx="10" cy="10" r="8" strokeWidth="2" />
                       <circle cx="10" cy="10" r="3" strokeWidth="2" />
@@ -363,7 +408,8 @@ export function CustomizerPreviewSection({
           <div className="lg:sticky lg:top-20 lg:self-start" id="customizer-3d-container">
             <ProductCustomizer
               key={selectedVariantId}
-              initialVariantId={selectedVariantId}
+              productId="ring-001"
+              useBridgeService={true}
               layout="compact"
               showControls={false}
               autoRotate={true}
@@ -376,7 +422,6 @@ export function CustomizerPreviewSection({
                 <button
                   className="bg-background/90 backdrop-blur-sm rounded-lg p-2 shadow-lg"
                   onClick={() => document.getElementById('customizer-3d-container')?.requestFullscreen()}
-                  aria-label="Enter fullscreen mode"
                 >
                   <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
@@ -397,7 +442,7 @@ export function CustomizerPreviewSection({
             ].map((item, index) => (
               <div key={index} className="flex items-center space-x-2 sm:space-x-3">
                 <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0">
-                  <span className="text-lg sm:text-xl" role="img" aria-hidden="true">{item.icon}</span>
+                  <span className="text-lg sm:text-xl">{item.icon}</span>
                 </div>
                 <MutedText size="sm" className="font-medium text-xs sm:text-sm">{item.text}</MutedText>
               </div>

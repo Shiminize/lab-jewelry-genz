@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-08-19T11:43:48.934Z",
+  "stats": {
+    "bundle": {
+      "totalLines": 403,
+      "codeLines": 373,
+      "componentCount": 2,
+      "stateVariables": 2,
+      "callbackCount": 5,
+      "jsxElements": 90,
+      "imports": 7,
+      "estimatedBundleImpact": 16
+    },
+    "animation": {
+      "transitionCount": 9,
+      "durationCount": 3,
+      "animatedElements": 4,
+      "hoverEffects": 8,
+      "conditionalClasses": 1
+    },
+    "mobile": {
+      "breakpoints": 12,
+      "mobileFirstPatterns": 2,
+      "gridResponsive": 2,
+      "flexResponsive": 2
+    },
+    "memory": {
+      "estimatedStaticDataSize": 2,
+      "stateObjectSize": 24,
+      "callbackClosureSize": 48
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "category": "Bundle Size",
+      "issue": "Large component size may impact initial load",
+      "solution": "Consider code-splitting collapsible sections"
+    }
+  ],
+  "summary": {
+    "overallScore": "NEEDS_OPTIMIZATION",
+    "criticalIssues": 1,
+    "totalRecommendations": 1
+  }
+}

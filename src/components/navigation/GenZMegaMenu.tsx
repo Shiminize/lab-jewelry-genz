@@ -25,7 +25,6 @@ export function GenZMegaMenu({ content, isVisible, onMouseEnter, onMouseLeave }:
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       role="menu"
-      aria-label="Navigation menu"
     >
       <div className="container mx-auto px-4 py-8">
         {/* Social Proof Header */}

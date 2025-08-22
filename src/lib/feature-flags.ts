@@ -128,22 +128,16 @@ export const PHASE4_FEATURE_FLAGS: { [key: string]: FeatureFlag } = {
 
   HARDCODED_DEPRECATION_WARNINGS: {
     key: 'hardcoded_deprecation_warnings',
-    name: 'Hardcoded Variant Deprecation Warnings',
-    description: 'Show deprecation warnings when using hardcoded variants',
-    enabled: process.env.NODE_ENV === 'development',
-    rolloutPercentage: 0, // Only in development initially
-    userSegments: ['developers'],
-    conditions: [
-      {
-        type: 'header',
-        operator: 'equals',
-        value: { 'x-show-deprecation-warnings': 'true' }
-      }
-    ],
+    name: 'Hardcoded Variant Deprecation Warnings (DISABLED)',
+    description: 'Deprecated: All hardcoded variants removed per CLAUDE_RULES Phase 1',
+    enabled: false, // Permanently disabled - no hardcoded variants remain
+    rolloutPercentage: 0,
+    userSegments: [],
+    conditions: [],
     metadata: {
       createdAt: new Date(),
       updatedAt: new Date(),
-      owner: 'phase4_migration',
+      owner: 'phase1_css3d_rebuild',
       environment: process.env.NODE_ENV as any || 'development'
     }
   },
