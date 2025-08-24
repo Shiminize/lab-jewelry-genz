@@ -15,6 +15,7 @@ import type { Material, StoneQuality, CustomizationOptions, ProductBase } from '
 
 // Full CSS 3D Product Customizer - Pure Bridge Service Mode
 import { ProductCustomizer } from '@/components/customizer/ProductCustomizer'
+import { StickyBoundary, type MaterialSelection } from '@/components/customizer/StickyBoundary'
 import { useCustomizableProduct } from '@/hooks/useCustomizableProduct'
 
 // CVA variants for the preview section - Mobile first approach
@@ -23,14 +24,14 @@ const previewSectionVariants = cva(
   {
     variants: {
       layout: {
-        split: 'flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12',
-        stacked: 'flex flex-col space-y-8',
+        split: 'flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-8',
+        stacked: 'flex flex-col space-y-4',
         // Mobile-first: 3D viewer first on mobile, 50/50 desktop split
-        'mobile-first': 'flex flex-col-reverse lg:grid lg:grid-cols-2 gap-6 lg:gap-12'
+        'mobile-first': 'flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4 lg:gap-8'
       },
       padding: {
-        standard: 'px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16',
-        compact: 'px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12'
+        standard: 'p-4 sm:p-6 lg:p-8',
+        compact: 'p-3 sm:p-4 lg:p-6'
       }
     },
     defaultVariants: {
@@ -41,17 +42,17 @@ const previewSectionVariants = cva(
 )
 
 const quickSelectorVariants = cva(
-  'group flex items-center justify-between rounded-lg border-2 transition-all duration-200 cursor-pointer',
+  'group flex items-center justify-between rounded-lg border-2 transition-all duration-200 cursor-pointer touch-manipulation',
   {
     variants: {
       state: {
-        default: 'border-border bg-background text-foreground hover:border-accent/50 hover:bg-accent/5',
-        selected: 'border-accent bg-white text-foreground shadow-sm',
-        disabled: 'opacity-50 cursor-not-allowed'
+        default: 'border-border bg-background text-foreground hover:border-accent/50 hover:bg-accent/10 active:bg-accent/20',
+        selected: 'border-accent bg-white text-foreground shadow-lg ring-2 ring-accent/20',
+        disabled: 'opacity-50 cursor-not-allowed pointer-events-none'
       },
       size: {
-        compact: 'p-2 text-sm min-h-[44px]', // Mobile-first: 44px min touch target
-        standard: 'p-3 text-base min-h-[48px] sm:min-h-[52px]' // Larger on desktop
+        compact: 'p-3 text-sm min-h-[48px]', // WCAG AA: 48px minimum touch target
+        standard: 'p-4 text-base min-h-[56px] sm:min-h-[64px]' // Larger desktop targets with generous padding
       }
     },
     defaultVariants: {
@@ -254,7 +255,7 @@ export function CustomizerPreviewSection({
     }
   }
 
-  // Quick selector component - Mobile optimized
+  // Quick selector component - Enhanced with WCAG 2.1 AA keyboard navigation
   const QuickSelector = ({ 
     label, 
     options, 
@@ -267,86 +268,132 @@ export function CustomizerPreviewSection({
     selected: Material | StoneQuality | SettingOption | null
     onSelect: (option: Material | StoneQuality | SettingOption) => void
     type: 'material' | 'stone' | 'setting'
-  }) => (
-    <div className="space-y-3">
-      <H3 className="text-sm font-medium text-foreground">{label}</H3>
-      {/* Mobile: Vertical stack, Tablet+: Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
-        {options.map((option) => {
-          const isSelected = selected?.id === option.id
-          return (
-            <button
-              key={option.id}
-              onClick={() => onSelect(option)}
-              className={cn(
-                quickSelectorVariants({ 
-                  state: isSelected ? 'selected' : 'default',
-                  size: 'standard'
-                }),
-                'w-full touch-manipulation' // Optimize for touch
-              )}
-            >
-              <div className="flex items-center space-x-3 flex-1">
-                {type === 'material' && (
-                  <div 
-                    className="w-5 h-5 rounded-full border border-border flex-shrink-0"
-                    style={{ backgroundColor: (option as Material).color || '#E8D7D3' }}
-                  />
+  }) => {
+    const handleKeyDown = (event: React.KeyboardEvent, option: Material | StoneQuality | SettingOption) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        onSelect(option)
+      } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault()
+        const currentIndex = options.findIndex(opt => opt.id === option.id)
+        let nextIndex: number
+        
+        if (event.key === 'ArrowDown') {
+          nextIndex = (currentIndex + 1) % options.length
+        } else {
+          nextIndex = currentIndex === 0 ? options.length - 1 : currentIndex - 1
+        }
+        
+        // Focus the next option
+        const nextButton = document.querySelector(`[data-option-id="${options[nextIndex].id}"]`) as HTMLButtonElement
+        if (nextButton) {
+          nextButton.focus()
+        }
+      }
+    }
+
+    return (
+      <div className="space-y-4" role="radiogroup" aria-labelledby={`${type}-selector-label`}>
+        <H3 id={`${type}-selector-label`} className="text-sm font-medium text-foreground">
+          {label}
+        </H3>
+        {/* Mobile: Vertical stack, Tablet+: Optimized grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+          {options.map((option, index) => {
+            const isSelected = selected?.id === option.id
+            return (
+              <button
+                key={option.id}
+                data-option-id={option.id}
+                onClick={() => onSelect(option)}
+                onKeyDown={(e) => handleKeyDown(e, option)}
+                className={cn(
+                  quickSelectorVariants({ 
+                    state: isSelected ? 'selected' : 'default',
+                    size: 'standard'
+                  }),
+                  'w-full focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:outline-none'
                 )}
-                {type === 'stone' && (
-                  <div className="w-5 h-5 flex-shrink-0">
-                    <svg viewBox="0 0 20 20" fill="currentColor" className="text-accent">
-                      <path d="M10 2L13 7L19 8L14.5 12L16 18L10 15L4 18L5.5 12L1 8L7 7L10 2Z" />
-                    </svg>
+                role="radio"
+                aria-checked={isSelected}
+                aria-describedby={`${option.id}-description`}
+                tabIndex={isSelected ? 0 : -1}
+              >
+                <div className="flex items-center space-x-4 flex-1">
+                  {/* Material color indicator with enhanced styling */}
+                  {type === 'material' && (
+                    <div 
+                      className="w-6 h-6 rounded-full border-2 border-border shadow-sm flex-shrink-0"
+                      style={{ backgroundColor: (option as Material).color || '#E8D7D3' }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  {/* Stone icon with improved visibility */}
+                  {type === 'stone' && (
+                    <div className="w-6 h-6 flex-shrink-0" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor" className="text-accent w-full h-full">
+                        <path d="M12 2L15.5 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L8.5 8.5L12 2Z" />
+                      </svg>
+                    </div>
+                  )}
+                  {/* Setting icon with improved contrast */}
+                  {type === 'setting' && (
+                    <div className="w-6 h-6 flex-shrink-0" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent w-full h-full">
+                        <circle cx="12" cy="12" r="9" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    </div>
+                  )}
+                  <div className="text-left flex-1 min-w-0">
+                    <div className="font-medium text-foreground truncate text-sm sm:text-base">
+                      {option.name}
+                    </div>
+                    <div id={`${option.id}-description`} className="text-xs text-gray-600 bg-background truncate">
+                      {option.description}
+                    </div>
                   </div>
-                )}
-                {type === 'setting' && (
-                  <div className="w-5 h-5 flex-shrink-0">
-                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" className="text-accent">
-                      <circle cx="10" cy="10" r="8" strokeWidth="2" />
-                      <circle cx="10" cy="10" r="3" strokeWidth="2" />
-                    </svg>
-                  </div>
-                )}
-                <div className="text-left flex-1 min-w-0">
-                  <div className="font-medium text-foreground truncate">{option.name}</div>
-                  <div className="text-xs text-gray-600 truncate">{option.description}</div>
                 </div>
-              </div>
-              {isSelected && (
-                <svg className="w-5 h-5 text-accent flex-shrink-0 ml-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              )}
-            </button>
-          )
-        })}
+                {/* Enhanced selection indicator */}
+                {isSelected && (
+                  <div className="flex-shrink-0 ml-3" aria-hidden="true">
+                    <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-background" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                )}
+              </button>
+            )
+          })}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 
 
   return (
     <section className={cn('bg-background', className)}>
       <div className={cn(previewSectionVariants({ layout, padding }), 'max-w-7xl mx-auto lg:items-start')}>
-          {/* Left (Controls) - 50% on desktop */}
-          <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
-            {/* Hero messaging */}
-            <div className="space-y-3 sm:space-y-4">
-              <H2 className="text-foreground leading-tight text-2xl sm:text-3xl lg:text-4xl">
-                Create Your Legacy. Design a Piece as Unique as You Are.
+          {/* Left Panel (Controls) - Enhanced hierarchy */}
+          <div className="flex flex-col justify-center space-y-6 lg:space-y-8">
+            {/* Hero messaging - Improved typography */}
+            <div className="space-y-4 lg:space-y-6">
+              <H2 className="text-foreground leading-tight text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">
+                Create Your Legacy
               </H2>
-              <BodyText className="text-foreground max-w-lg text-sm sm:text-base">
+              <H3 className="text-gray-600 bg-background text-lg sm:text-xl lg:text-2xl font-normal">
+                Design a Piece as Unique as You Are
+              </H3>
+              <BodyText className="text-gray-600 bg-background max-w-lg text-base sm:text-lg">
                 From metal choices to lab gems, build a piece that tells your story. 
                 Real-time 3D preview with ethical materials and expert craftsmanship.
               </BodyText>
             </div>
 
-            {/* Options */}
-            <div className={cn(
-              "space-y-4 sm:space-y-6 lg:space-y-8",
-              isMobileView && "max-h-[400px] overflow-y-auto scrollbar-thin"
-            )}>
+            {/* Customization Options - Clean separation */}
+            <div className="space-y-6 lg:space-y-8" role="main" aria-label="Customization options">
               <QuickSelector
                 label="Metal"
                 options={PREVIEW_MATERIALS}
@@ -362,7 +409,7 @@ export function CustomizerPreviewSection({
                 type="stone"
               />
               <QuickSelector
-                label="Setting"
+                label="Setting Style"
                 options={PREVIEW_SETTINGS}
                 selected={selectedSetting}
                 onSelect={(option) => handleOptionSelect('setting', option)}
@@ -370,86 +417,114 @@ export function CustomizerPreviewSection({
               />
             </div>
 
-            {/* Price & CTAs */}
-            <div className="bg-accent/5 border border-accent/20 rounded-lg p-3 sm:p-4">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                <div>
-                  <BodyText className="font-medium text-foreground text-sm sm:text-base">Your Design</BodyText>
-                  <MutedText size="sm" className="text-xs sm:text-sm">
+            {/* Price Summary - Enhanced visual emphasis */}
+            <div className="bg-white border border-accent/20 rounded-lg p-4 lg:p-6 shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="space-y-1">
+                  <H3 className="text-foreground bg-white text-lg">Your Design</H3>
+                  <BodyText className="text-gray-600 bg-background text-sm">
                     {selectedOptions.material?.name} • {selectedOptions.stoneQuality?.name} • {selectedSetting.name}
-                  </MutedText>
+                  </BodyText>
                 </div>
                 <div className="text-right">
-                  <H3 className="text-foreground text-xl sm:text-2xl">${currentPrice}</H3>
-                  <MutedText size="sm" className="text-xs sm:text-sm">Starting price</MutedText>
+                  <div className="text-3xl lg:text-4xl font-headline text-foreground bg-white">
+                    ${currentPrice.toLocaleString()}
+                  </div>
+                  <BodyText className="text-gray-600 bg-background text-sm">Starting price</BodyText>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+
+            {/* Action Buttons - Improved layout */}
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 variant="primary" 
-                size={isMobileView ? "md" : "lg"}
+                size="lg"
                 onClick={handleStartDesigning}
-                className="flex-1 sm:flex-none"
+                className="flex-1 sm:flex-none text-base px-8 py-4"
+                aria-describedby="start-designing-description"
               >
                 Start Designing
               </Button>
               <Button 
-                variant="ghost" 
-                size={isMobileView ? "md" : "lg"}
+                variant="secondary" 
+                size="lg"
                 onClick={handleChatWithDesigner}
+                className="flex-1 sm:flex-none text-base px-6"
               >
                 Chat with Designer
               </Button>
             </div>
+            <div id="start-designing-description" className="sr-only">
+              Opens the full customizer with all design options
+            </div>
           </div>
 
-          {/* Right (3D Preview) - 50% on desktop */}
-          <div className="lg:sticky lg:top-20 lg:self-start" id="customizer-3d-container">
-            <ProductCustomizer
-              key={selectedVariantId}
-              productId="ring-001"
-              useBridgeService={true}
-              layout="compact"
-              showControls={false}
-              autoRotate={true}
-              onVariantChange={() => setIs3DLoaded(true)}
-              onPriceChange={setCurrentPrice}
-              className="shadow-lg"
-            />
+          {/* Right Panel (3D Preview) - Hero focus */}
+          <div className="relative lg:sticky lg:top-6 lg:self-start" id="customizer-3d-container">
+            <div className="bg-white rounded-xl shadow-xl border border-accent/10 overflow-hidden">
+              <ProductCustomizer
+                key={selectedVariantId}
+                productId="ring-001"
+                useBridgeService={true}
+                layout="compact"
+                showControls={false}
+                showStatusBar={true}
+                showFrameIndicator={false}
+                autoRotate={true}
+                onVariantChange={() => setIs3DLoaded(true)}
+                onPriceChange={setCurrentPrice}
+                className="aspect-square"
+              />
+            </div>
+            
+            {/* Mobile fullscreen button */}
             {isMobileView && (
-              <div className="absolute top-2 right-2">
-                <button
-                  className="bg-background/90 backdrop-blur-sm rounded-lg p-2 shadow-lg"
-                  onClick={() => document.getElementById('customizer-3d-container')?.requestFullscreen()}
-                >
-                  <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                  </svg>
-                </button>
-              </div>
+              <button
+                className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-border"
+                onClick={() => document.getElementById('customizer-3d-container')?.requestFullscreen()}
+                aria-label="View in fullscreen"
+              >
+                <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                </svg>
+              </button>
             )}
-          </div>
 
-        {/* Trust Indicators */}
-        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-border">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {/* Sticky Boundary - Layout stopper positioned under sticky container */}
+            <StickyBoundary
+              materialSelection={{
+                metal: selectedOptions.material.displayName,
+                stone: selectedOptions.stoneQuality.displayName, 
+                style: selectedSetting.name
+              }}
+              isVisible={true}
+              showControls={false}
+              className="mt-4"
+            />
+          </div>
+        </div>
+
+        {/* Trust Indicators - Refined styling */}
+        <div className="col-span-full mt-12 lg:mt-16 pt-8 lg:pt-12 border-t border-border">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
               { icon: '🌱', text: '100% Conflict-Free' },
               { icon: '♻️', text: 'Recycled Metals' },
               { icon: '💎', text: 'Lab-Grown Gems' },
               { icon: '🎯', text: 'Custom Crafted' }
             ].map((item, index) => (
-              <div key={index} className="flex items-center space-x-2 sm:space-x-3">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0">
-                  <span className="text-lg sm:text-xl">{item.icon}</span>
+              <div key={index} className="flex items-center space-x-3">
+                <div className="w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl lg:text-2xl">{item.icon}</span>
                 </div>
-                <MutedText size="sm" className="font-medium text-xs sm:text-sm">{item.text}</MutedText>
+                <BodyText className="text-gray-600 bg-background font-medium text-sm lg:text-base">
+                  {item.text}
+                </BodyText>
               </div>
             ))}
           </div>
         </div>
-      </div>
     </section>
   )
 }

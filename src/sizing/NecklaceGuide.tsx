@@ -139,23 +139,23 @@ export function NecklaceGuide({ measurements, handleMeasurementChange }: Necklac
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-body-small text-foreground/70">Choker:</span>
-                    <span className="text-body-small font-medium">14-16"</span>
+                    <span className="text-body-small font-medium">14-16&quot;</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-body-small text-foreground/70">Princess:</span>
-                    <span className="text-body-small font-medium">17-19"</span>
+                    <span className="text-body-small font-medium">17-19&quot;</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-body-small text-foreground/70">Matinee:</span>
-                    <span className="text-body-small font-medium">20-24"</span>
+                    <span className="text-body-small font-medium">20-24&quot;</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-body-small text-foreground/70">Opera:</span>
-                    <span className="text-body-small font-medium">28-35"</span>
+                    <span className="text-body-small font-medium">28-35&quot;</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-body-small text-foreground/70">Rope:</span>
-                    <span className="text-body-small font-medium">36"+"</span>
+                    <span className="text-body-small font-medium">36&quot;+</span>
                   </div>
                 </div>
               </div>
@@ -245,8 +245,8 @@ export function NecklaceGuide({ measurements, handleMeasurementChange }: Necklac
               <div>
                 <h4 className="text-body-small font-medium text-foreground mb-3">Popular Combinations:</h4>
                 <ul className="space-y-2 text-body-small text-foreground/80">
-                  <li>• Choker (15") + Princess (18") + Matinee (22")</li>
-                  <li>• Princess (17") + Matinee (24") + Opera (30")</li>
+                  <li>• Choker (15&quot;) + Princess (18&quot;) + Matinee (22&quot;)</li>
+                  <li>• Princess (17&quot;) + Matinee (24&quot;) + Opera (30&quot;)</li>
                   <li>• Simple chain + pendant + long chain</li>
                   <li>• Delicate layers in same metal family</li>
                 </ul>

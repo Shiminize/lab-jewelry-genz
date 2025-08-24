@@ -1,0 +1,128 @@
+{
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "passRate": 100,
+    "claudeRulesCompliance": 100,
+    "claudeRulesScore": 15,
+    "maxClaudeRulesScore": 15,
+    "totalDuration": 2765,
+    "timestamp": "2025-08-23T08:26:32.417Z"
+  },
+  "tests": [
+    {
+      "name": "CLAUDE_RULES: Page Load <3s",
+      "passed": true,
+      "duration": 1093,
+      "details": {
+        "points": 2,
+        "note": "Target: <3000ms, Achieved: 1093ms",
+        "score": "274%"
+      },
+      "timestamp": 1755937591205
+    },
+    {
+      "name": "CLAUDE_RULES: Material Switch <100ms",
+      "passed": true,
+      "duration": 14,
+      "details": {
+        "points": 3,
+        "note": "Target: <100ms, Achieved: 13.67ms",
+        "score": "731%"
+      },
+      "timestamp": 1755937591225
+    },
+    {
+      "name": "CLAUDE_RULES: Mobile-First Touch Optimization",
+      "passed": true,
+      "duration": 0,
+      "details": {
+        "points": 2,
+        "note": "Touch hints: false, Mobile UI: true, Gestures: true",
+        "score": "67%"
+      },
+      "timestamp": 1755937591287
+    },
+    {
+      "name": "CLAUDE_RULES: Design System Token Compliance",
+      "passed": true,
+      "duration": 0,
+      "details": {
+        "points": 2,
+        "note": "Colors: 89.7%, Typography: 74.7%",
+        "score": "82.2%"
+      },
+      "timestamp": 1755937591288
+    },
+    {
+      "name": "CLAUDE_RULES: WCAG 2.1 AA Accessibility",
+      "passed": true,
+      "duration": 0,
+      "details": {
+        "points": 2,
+        "note": "ARIA: 79, Focus: 142, Features: 4/4",
+        "score": "100%"
+      },
+      "timestamp": 1755937591288
+    },
+    {
+      "name": "CLAUDE_RULES: TypeScript Strict Mode Indicators",
+      "passed": true,
+      "duration": 0,
+      "details": {
+        "points": 1,
+        "note": "Typed components: 10, Error boundaries: 0",
+        "score": "100%"
+      },
+      "timestamp": 1755937591289
+    },
+    {
+      "name": "CLAUDE_RULES: Phase-Based Development E2E",
+      "passed": true,
+      "duration": 0,
+      "details": {
+        "points": 2,
+        "note": "Integration completeness: 3/4 components",
+        "score": "75%"
+      },
+      "timestamp": 1755937591289
+    },
+    {
+      "name": "CLAUDE_RULES: RAF Performance >50fps",
+      "passed": true,
+      "duration": 1003.8000000119209,
+      "details": {
+        "points": 1,
+        "note": "Target: >50fps, Achieved: 121fps",
+        "score": "202%"
+      },
+      "timestamp": 1755937592295
+    }
+  ],
+  "targets": {
+    "performance": {
+      "pageLoad": 3000,
+      "materialSwitch": 100,
+      "apiResponse": 300,
+      "touchResponse": 50,
+      "frameRate": 50
+    },
+    "accessibility": {
+      "contrast": 4.5,
+      "keyboardNav": true,
+      "ariaLabels": true,
+      "focusManagement": true
+    },
+    "mobileFirst": {
+      "touchOptimized": true,
+      "responsive": true,
+      "gestureSupport": true
+    },
+    "phaseBasedDevelopment": {
+      "e2eValidation": true,
+      "performanceTesting": true,
+      "systemHealth": true
+    }
+  },
+  "phase": "Phase 3 Touch Gesture Integration"
+}

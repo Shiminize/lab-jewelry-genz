@@ -7,6 +7,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
+import { assetCache } from '@/services/AssetCacheService'
 import type { ProductVariant, Material } from '@/types/customizer'
 
 interface AssetInfo {
@@ -196,27 +197,54 @@ export function useCustomizableProduct({
     }
   }, [productId, currentMaterialId, fetchAssets])
 
-  // Change material and refresh assets
+  // Optimized material change with cache-first approach
   const changeMaterial = useCallback(async (materialId: string) => {
     if (materialId === currentMaterialId) return
     
+    const switchStartTime = performance.now()
+    
     try {
-      setIsLoadingAssets(true)
       setError(null)
-
+      
+      // Check cache first for instant switching
+      const cachedAsset = assetCache.getCachedAsset(productId, materialId)
+      if (cachedAsset && productData) {
+        // Instant update from cache
+        const updatedData: CustomizableProductData = {
+          ...productData,
+          materialId,
+          assets: {
+            available: true,
+            assetPaths: cachedAsset.assetPaths,
+            frameCount: productData.assets.frameCount
+          }
+        }
+        setProductData(updatedData)
+        setCurrentMaterialId(materialId)
+        
+        const switchTime = performance.now() - switchStartTime
+        console.log(`[HOOK MATERIAL SWITCH CACHED] ${materialId}: ${switchTime.toFixed(2)}ms`)
+        return
+      }
+      
+      // Fallback to fetching if not cached
+      setIsLoadingAssets(true)
       const data = await fetchAssets(materialId)
       
       if (data) {
         setProductData(data)
         setCurrentMaterialId(materialId)
       }
+      
+      const switchTime = performance.now() - switchStartTime
+      console.log(`[HOOK MATERIAL SWITCH FETCHED] ${materialId}: ${switchTime.toFixed(2)}ms`)
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Failed to change material')
       console.error('Failed to change material:', error)
     } finally {
       setIsLoadingAssets(false)
     }
-  }, [currentMaterialId, fetchAssets])
+  }, [currentMaterialId, productId, productData, fetchAssets])
 
   // Refresh current assets
   const refreshAssets = useCallback(async () => {

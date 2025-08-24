@@ -233,7 +233,7 @@ export function useError(): ErrorContextType {
 export function useAPIErrorHandler() {
   const { showAPIError, showNetworkError } = useError()
   
-  return useCallback(async <T>(
+  return useCallback(async <T,>(
     apiCall: () => Promise<T>,
     endpoint: string,
     retryHandler?: () => void
@@ -279,7 +279,7 @@ export function useAPIErrorHandler() {
 export function useAsyncError() {
   const { showGenericError } = useError()
   
-  return useCallback(<T>(
+  return useCallback(<T,>(
     asyncOperation: () => Promise<T>,
     errorTitle: string,
     errorMessage: string,

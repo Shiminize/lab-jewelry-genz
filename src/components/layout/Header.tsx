@@ -14,7 +14,7 @@ import {
   ChevronDown
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/Badge'
 import { cn } from '@/lib/utils'
 import { LuxuryMegaMenu } from '@/components/navigation/LuxuryMegaMenu'
 import { SimpleMobileDrawer } from '@/components/navigation/SimpleMobileDrawer'

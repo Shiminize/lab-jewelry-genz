@@ -10,7 +10,9 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { cn } from '@/lib/utils'
 import ImageViewer from './ImageViewer'
 import MaterialControls from './MaterialControls'
-import ViewerControls from './ViewerControls'
+import MaterialCarousel from '@/components/ui/MaterialCarousel'
+import { MaterialStatusBar, type MaterialSelection } from './MaterialStatusBar'
+import { assetCache } from '@/services/AssetCacheService'
 import type { 
   ProductCustomizerProps, 
   CustomizerState, 
@@ -76,7 +78,16 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
   initialMaterialId = '18k-rose-gold',
   onVariantChange,
   onPriceChange,
-  className
+  className,
+  layout = 'traditional',
+  controlsPosition = 'bottom',
+  showFrameIndicator = false,
+  showControls = true,
+  showStatusBar = false,
+  previewOnly = false,
+  useBridgeService = false,
+  useOptimizedViewer = false,
+  autoRotate = false
 }) => {
   // Centralized state management - single source of truth
   const [state, setState] = useState<CustomizerState>({
@@ -92,15 +103,43 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
     error: null
   })
 
+  // Status bar visibility state
+  const [statusBarVisible, setStatusBarVisible] = useState(showStatusBar)
+
   // Memoized current material to prevent unnecessary re-renders
   const currentMaterial = useMemo(
     () => AVAILABLE_MATERIALS.find(m => m.id === state.selectedMaterial),
     [state.selectedMaterial]
   )
 
-  // Stable asset fetching function
-  const fetchAssets = useCallback(async (materialId: MaterialId) => {
+  // Material selection for status bar
+  const materialSelection: MaterialSelection = useMemo(() => ({
+    metal: currentMaterial?.displayName || '18K Rose Gold',
+    stone: 'Lab-Grown Diamond', // Static for CLAUDE_RULES material-only focus
+    style: 'Classic' // Static for now, can be dynamic later
+  }), [currentMaterial?.displayName])
+
+  // Optimized asset fetching with cache
+  const fetchAssets = useCallback(async (materialId: MaterialId, useCache: boolean = true) => {
     try {
+      // Check cache first for <90ms performance
+      if (useCache) {
+        const cachedAsset = assetCache.getCachedAsset(productId, materialId)
+        if (cachedAsset) {
+          setState(prev => ({
+            ...prev,
+            assets: { 
+              available: true, 
+              assetPaths: cachedAsset.assetPaths 
+            },
+            isLoading: false,
+            error: null
+          }))
+          console.log(`[CACHE HIT] ${materialId} loaded from cache`)
+          return
+        }
+      }
+      
       setState(prev => ({ ...prev, isLoading: true, error: null }))
       
       const startTime = performance.now()
@@ -138,10 +177,11 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
     }
   }, [productId])
 
-  // Handle material change with performance tracking
-  const handleMaterialChange = useCallback((materialId: MaterialId) => {
+  // Optimized material change with optimistic UI updates
+  const handleMaterialChange = useCallback(async (materialId: MaterialId) => {
     const switchStartTime = performance.now()
     
+    // Optimistic UI update - immediate visual feedback
     setState(prev => ({
       ...prev,
       selectedMaterial: materialId,
@@ -151,25 +191,42 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
       }
     }))
     
-    // Fetch new assets for the material
-    fetchAssets(materialId)
+    // Update price immediately for optimistic feedback
+    const newMaterial = AVAILABLE_MATERIALS.find(m => m.id === materialId)
+    if (newMaterial) {
+      const newPrice = 1500 + newMaterial.priceModifier
+      if (onVariantChange) {
+        onVariantChange({ materialId, price: newPrice })
+      }
+      if (onPriceChange) {
+        onPriceChange(newPrice)
+      }
+    }
     
-    // CLAUDE_RULES: <100ms material switch requirement
+    // Check cache first for instant loading
+    const cachedAsset = assetCache.getCachedAsset(productId, materialId)
+    if (cachedAsset) {
+      setState(prev => ({
+        ...prev,
+        assets: { 
+          available: true, 
+          assetPaths: cachedAsset.assetPaths 
+        },
+        isLoading: false,
+        error: null
+      }))
+      
+      const switchTime = performance.now() - switchStartTime
+      console.log(`[MATERIAL SWITCH CACHED] ${materialId}: ${switchTime.toFixed(2)}ms`)
+      return
+    }
+    
+    // Fallback to fetching if not cached
+    await fetchAssets(materialId, false)
+    
     const switchTime = performance.now() - switchStartTime
-    console.log(`[MATERIAL SWITCH] ${materialId}: ${switchTime.toFixed(2)}ms`)
-    
-    // Notify parent components
-    if (currentMaterial && onVariantChange) {
-      onVariantChange({
-        materialId,
-        price: 1500 + currentMaterial.priceModifier // Base price calculation
-      })
-    }
-    
-    if (currentMaterial && onPriceChange) {
-      onPriceChange(1500 + currentMaterial.priceModifier)
-    }
-  }, [fetchAssets, currentMaterial, onVariantChange, onPriceChange])
+    console.log(`[MATERIAL SWITCH FETCHED] ${materialId}: ${switchTime.toFixed(2)}ms`)
+  }, [productId, onVariantChange, onPriceChange, fetchAssets])
 
   // Handle frame navigation
   const handleFrameChange = useCallback((frame: number) => {
@@ -217,10 +274,31 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
     }))
   }, [])
 
-  // Initial asset loading
+  // Initial asset loading with prefetching for performance
   useEffect(() => {
-    fetchAssets(state.selectedMaterial)
-  }, [fetchAssets, state.selectedMaterial])
+    const initializeAssets = async () => {
+      // Load initial material first
+      await fetchAssets(state.selectedMaterial)
+      
+      // Pre-fetch all other materials in background for <90ms switching
+      const otherMaterials = AVAILABLE_MATERIALS
+        .map(m => m.id)
+        .filter(id => id !== state.selectedMaterial)
+      
+      // Pre-fetch with high priority for critical performance
+      if (otherMaterials.length > 0) {
+        assetCache.prefetchMaterials(productId, otherMaterials, 'high')
+          .then(() => {
+            console.log(`[PREFETCH COMPLETE] Cached ${otherMaterials.length} materials for instant switching`)
+          })
+          .catch(error => {
+            console.warn('[PREFETCH WARNING] Some materials failed to cache:', error)
+          })
+      }
+    }
+    
+    initializeAssets()
+  }, [fetchAssets, productId, state.selectedMaterial])
 
   // CLAUDE_RULES: Error-first coding with clear recovery paths
   if (state.error) {
@@ -252,7 +330,7 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
   }
 
   return (
-    <div className={cn("space-y-6", className)}>
+    <div className={cn(showControls ? "space-y-6" : "space-y-0", className)}>
       {/* Main 3D viewer */}
       <div className="space-y-4">
         <ImageViewer
@@ -263,44 +341,43 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
           isLoading={state.isLoading}
           error={state.error}
           className="mx-auto max-w-md"
-        />
-        
-        {/* Viewer controls */}
-        <ViewerControls
-          currentFrame={state.rotationState.currentFrame}
-          totalFrames={state.rotationState.totalFrames}
-          onFrameChange={handleFrameChange}
-          onNext={handleNext}
-          onPrevious={handlePrevious}
-          onAutoRotate={handleAutoRotate}
-          isAutoRotating={state.rotationState.isRotating}
+          showFrameIndicator={false} // Always false for minimalist design
+          enableTouchGestures={true}
+          touchFeedback="subtle"
+          autoRotate={autoRotate}
         />
       </div>
 
-      {/* Material selection */}
-      <MaterialControls
-        materials={AVAILABLE_MATERIALS}
-        selectedMaterial={state.selectedMaterial}
-        onMaterialChange={handleMaterialChange}
-        isDisabled={state.isLoading}
-      />
+      {/* Material selection - Only show when controls are enabled */}
+      {showControls && (
+        <>
+          {/* Material selection - Dynamic component based on screen size */}
+          <div className="lg:hidden">
+            <MaterialCarousel
+              materials={AVAILABLE_MATERIALS}
+              selectedMaterial={state.selectedMaterial}
+              onMaterialChange={handleMaterialChange}
+              isDisabled={state.isLoading}
+              enableTouchGestures={true}
+              showScrollIndicators={true}
+              itemWidth="md"
+              layout="horizontal"
+            />
+          </div>
+          
+          <div className="hidden lg:block">
+            <MaterialControls
+              materials={AVAILABLE_MATERIALS}
+              selectedMaterial={state.selectedMaterial}
+              onMaterialChange={handleMaterialChange}
+              isDisabled={state.isLoading}
+            />
+          </div>
 
-      {/* Current price display */}
-      {currentMaterial && (
-        <div className="bg-muted/10 rounded-lg p-4">
-          <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-foreground">
-              {currentMaterial.displayName}
-            </span>
-            <span className="text-lg font-headline text-cta">
-              ${(1500 + currentMaterial.priceModifier).toLocaleString()}
-            </span>
-          </div>
-          <div className="text-xs text-muted-foreground mt-1">
-            Lab-grown gems • Ethically sourced • Lifetime warranty
-          </div>
-        </div>
+          {/* Price display removed for minimalist design */}
+        </>
       )}
+
     </div>
   )
 }

@@ -60,34 +60,35 @@ interface NavigationProviderProps {
 }
 
 export function NavigationProvider({ children }: NavigationProviderProps) {
-  const [state, setState] = useState<NavigationState>(INITIAL_STATE)
+  // Lazy initialization with hydration-safe localStorage loading
+  const [state, setState] = useState<NavigationState>(() => {
+    // Only attempt localStorage access on client-side during initialization
+    if (typeof window !== 'undefined') {
+      try {
+        const savedPreferences = localStorage.getItem('navigation-preferences')
+        if (savedPreferences) {
+          const preferences = JSON.parse(savedPreferences)
+          return {
+            ...INITIAL_STATE,
+            userPreferences: {
+              ...INITIAL_STATE.userPreferences,
+              ...preferences
+            }
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to load navigation preferences:', error)
+      }
+    }
+    return INITIAL_STATE
+  })
+  
   const [isClient, setIsClient] = useState(false)
 
   // Initialize client-side flag after hydration
   useEffect(() => {
     setIsClient(true)
   }, [])
-
-  // Load user preferences from localStorage only on client-side
-  useEffect(() => {
-    if (isClient && typeof window !== 'undefined') {
-      try {
-        const savedPreferences = localStorage.getItem('navigation-preferences')
-        if (savedPreferences) {
-          const preferences = JSON.parse(savedPreferences)
-          setState(prev => ({
-            ...prev,
-            userPreferences: {
-              ...prev.userPreferences,
-              ...preferences
-            }
-          }))
-        }
-      } catch (error) {
-        console.warn('Failed to load navigation preferences:', error)
-      }
-    }
-  }, [isClient])
 
   // Save user preferences to localStorage whenever they change
   const savePreferences = useCallback((preferences: NavigationState['userPreferences']) => {

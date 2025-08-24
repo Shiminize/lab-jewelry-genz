@@ -69,6 +69,15 @@ export interface ProductCustomizerProps {
   onVariantChange?: (variant: { materialId: MaterialId; price: number }) => void
   onPriceChange?: (price: number) => void
   className?: string
+  layout?: 'clean-preview' | 'traditional' | 'stacked' | 'compact'
+  controlsPosition?: 'sidebar' | 'bottom' | 'floating'
+  showFrameIndicator?: boolean
+  showControls?: boolean
+  showStatusBar?: boolean
+  previewOnly?: boolean
+  useBridgeService?: boolean
+  useOptimizedViewer?: boolean
+  autoRotate?: boolean
 }
 
 export interface ImageViewerProps {
@@ -79,6 +88,12 @@ export interface ImageViewerProps {
   isLoading: boolean
   error: string | null
   className?: string
+  showFrameIndicator?: boolean
+  enableTouchGestures?: boolean
+  touchFeedback?: 'subtle' | 'prominent'
+  onGestureStart?: () => void
+  onGestureEnd?: () => void
+  autoRotate?: boolean
 }
 
 export interface MaterialControlsProps {
@@ -121,4 +136,32 @@ export interface CustomizerEvents {
   onRotationEnd: (endFrame: number) => void
   onImageLoad: (framePath: string, loadTime: number) => void
   onError: (error: string, context: string) => void
+}
+
+// Touch gesture integration types
+export interface TouchGestureState {
+  isActive: boolean
+  gestureType: 'pan' | 'pinch' | 'tap' | null
+  velocity: { x: number; y: number }
+  scale: number
+}
+
+// Enhanced ViewerControls props with touch support
+export interface EnhancedViewerControlsProps extends ViewerControlsProps {
+  enableTouchGestures?: boolean
+  onTouchGesture?: (gestureState: TouchGestureState) => void
+  touchSensitivity?: number
+}
+
+// MaterialCarousel props (re-export for convenience)
+export interface MaterialCarouselProps {
+  materials: Material[]
+  selectedMaterial: MaterialId
+  onMaterialChange: (materialId: MaterialId) => void
+  isDisabled?: boolean
+  className?: string
+  enableTouchGestures?: boolean
+  showScrollIndicators?: boolean
+  itemWidth?: 'sm' | 'md' | 'lg'
+  layout?: 'horizontal' | 'grid'
 }

@@ -358,9 +358,11 @@ export class DatabaseMonitor {
  * Performance middleware for tracking query execution time
  */
 export function createPerformanceMiddleware() {
-  return function performanceMiddleware(next: () => void) {
+  return function performanceMiddleware(next?: () => void) {
     // Simplified middleware to avoid runtime errors
-    next()
+    if (typeof next === 'function') {
+      next()
+    }
   }
 }
 

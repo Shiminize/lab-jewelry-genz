@@ -187,12 +187,10 @@ export const CustomizationConfigurationSchema = new Schema<CustomizationConfigur
   },
   userId: { 
     type: Schema.Types.ObjectId, 
-    ref: 'User', 
-    index: true 
+    ref: 'User'
   },
   sessionId: { 
-    type: String, 
-    index: true 
+    type: String
   }, // For guest users
   
   // User selections

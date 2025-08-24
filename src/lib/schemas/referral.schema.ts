@@ -206,8 +206,7 @@ const referralSchema = new Schema<ReferralDocument>({
   referralCode: {
     type: String,
     required: true,
-    uppercase: true,
-    index: true
+    uppercase: true
   },
   
   // Customer information

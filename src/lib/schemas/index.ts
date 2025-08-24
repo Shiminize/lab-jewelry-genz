@@ -125,65 +125,60 @@ function createSecureModelWrapper(model: any, modelName: string) {
   })
 }
 
+// Import all models directly using ES6 imports to avoid runtime issues
+import { UserModel } from './user.schema'
+import { ProductModel } from './product.schema'
+import { OrderModel } from './order.schema'
+import { 
+  Creator, 
+  ReferralLink, 
+  ReferralClick, 
+  CommissionTransaction, 
+  CreatorPayout 
+} from './creator.schema'
+
 /**
  * Database Models Object - Secure access to all models
  * This replaces direct model imports in API routes
  */
-const createDatabaseModels = () => {
-  // Import all models directly to ensure they're available
-  const { UserModel } = require('./user.schema')
-  const { ProductModel } = require('./product.schema') 
-  const { OrderModel } = require('./order.schema')
-  const { 
-    Creator, 
-    ReferralLink, 
-    ReferralClick, 
-    CommissionTransaction, 
-    CreatorPayout 
-  } = require('./creator.schema')
+export const DatabaseModels = Object.freeze({
+  // Core models - using explicit model imports to avoid reference issues
+  User: createSecureModelWrapper(UserModel, 'User'),
+  Product: createSecureModelWrapper(ProductModel, 'Product'),
+  Order: createSecureModelWrapper(OrderModel, 'Order'),
+
+  // Creator system models
+  Creator: createSecureModelWrapper(Creator, 'Creator'),
+  ReferralLink: createSecureModelWrapper(ReferralLink, 'ReferralLink'),
+  ReferralClick: createSecureModelWrapper(ReferralClick, 'ReferralClick'),
+  CommissionTransaction: createSecureModelWrapper(CommissionTransaction, 'CommissionTransaction'),
+  CreatorPayout: createSecureModelWrapper(CreatorPayout, 'CreatorPayout'),
   
-  return Object.freeze({
-    // Core models - using explicit model imports to avoid reference issues
-    User: createSecureModelWrapper(UserModel, 'User'),
-    Product: createSecureModelWrapper(ProductModel, 'Product'),
-    Order: createSecureModelWrapper(OrderModel, 'Order'),
+  // Utility functions for model validation
+  getModelByName: (modelName: string) => {
+    const models: { [key: string]: any } = {
+      User: UserModel,
+      Product: ProductModel,
+      Order: OrderModel,
+      Creator: Creator,
+      ReferralLink: ReferralLink,
+      ReferralClick: ReferralClick,
+      CommissionTransaction: CommissionTransaction,
+      CreatorPayout: CreatorPayout
+    }
+    
+    return models[modelName] || null
+  },
   
-    // Creator system models
-    Creator: createSecureModelWrapper(Creator, 'Creator'),
-    ReferralLink: createSecureModelWrapper(ReferralLink, 'ReferralLink'),
-    ReferralClick: createSecureModelWrapper(ReferralClick, 'ReferralClick'),
-    CommissionTransaction: createSecureModelWrapper(CommissionTransaction, 'CommissionTransaction'),
-    CreatorPayout: createSecureModelWrapper(CreatorPayout, 'CreatorPayout'),
-    
-    // Utility functions for model validation
-    getModelByName: (modelName: string) => {
-      const models: { [key: string]: any } = {
-        User: UserModel,
-        Product: ProductModel,
-        Order: OrderModel,
-        Creator: Creator,
-        ReferralLink: ReferralLink,
-        ReferralClick: ReferralClick,
-        CommissionTransaction: CommissionTransaction,
-        CreatorPayout: CreatorPayout
-      }
-      
-      return models[modelName] || null
-    },
-    
-    // Security validation helper
-    validateModelAccess: (modelName: string, operation: string, context?: SecurityContext) => {
-      // In development, allow all access
-      if (process.env.NODE_ENV === 'development') {
-        return true
-      }
-      
-      // Would implement proper RBAC here
-      console.log(`Access validation: ${modelName}.${operation} for user ${context?.userId}`)
+  // Security validation helper
+  validateModelAccess: (modelName: string, operation: string, context?: SecurityContext) => {
+    // In development, allow all access
+    if (process.env.NODE_ENV === 'development') {
       return true
     }
-  })
-}
-
-// Export the models
-export const DatabaseModels = createDatabaseModels()
+    
+    // Would implement proper RBAC here
+    console.log(`Access validation: ${modelName}.${operation} for user ${context?.userId}`)
+    return true
+  }
+})

@@ -181,14 +181,12 @@ const reviewSchema = new Schema<ReviewDocument>({
   productId: {
     type: Schema.Types.ObjectId,
     ref: 'Product',
-    required: true,
-    index: true
+    required: true
   },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
-    index: true
+    required: true
   },
   orderId: {
     type: Schema.Types.ObjectId,

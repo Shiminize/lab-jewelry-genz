@@ -32,98 +32,43 @@ export const MaterialControls: React.FC<MaterialControlsProps> = ({
 
   return (
     <div className={cn("space-y-4", className)}>
-      {/* Section header */}
-      <div>
-        <h3 className="font-headline text-lg text-foreground mb-2">
-          Metal Type
-        </h3>
-        <p className="text-sm text-muted-foreground">
-          Choose your preferred metal finish
-        </p>
-      </div>
+      {/* Ultra-minimalist design - header removed for pure visual focus */}
 
-      {/* Material selection grid */}
-      <div className="grid grid-cols-2 gap-3">
+      {/* Minimalist material selection - visual only */}
+      <div className="grid grid-cols-4 gap-3">
         {materials.map((material) => {
           const isSelected = selectedMaterial === material.id
           
           return (
             <Button
               key={material.id}
-              variant={isSelected ? 'primary' : 'secondary'}
+              variant="ghost"
               onClick={() => handleMaterialSelect(material.id)}
               disabled={isDisabled}
               className={cn(
-                "justify-start h-auto p-4 transition-all duration-200",
-                isSelected && "ring-2 ring-cta ring-offset-2"
+                "h-16 w-16 p-2 rounded-full transition-all duration-200 hover:scale-105",
+                isSelected && "ring-2 ring-accent ring-offset-2 scale-110"
               )}
               aria-pressed={isSelected}
+              aria-label={material.displayName}
               data-material={material.id}
             >
-              <div className="flex items-center space-x-3 w-full">
-                {/* Material color indicator */}
-                <div 
-                  className="w-5 h-5 rounded-full border-2 border-border shadow-sm flex-shrink-0"
-                  style={{ 
-                    backgroundColor: material.pbrProperties.color,
-                    boxShadow: `inset 0 1px 2px rgba(0,0,0,0.1)`
-                  }}
-                  aria-hidden="true"
-                />
-                
-                {/* Material details */}
-                <div className="flex-1 text-left min-w-0">
-                  <div className="font-medium text-sm truncate">
-                    {material.displayName}
-                  </div>
-                  <div className="text-xs text-gray-600 flex items-center space-x-2">
-                    <span>
-                      {material.priceModifier >= 0 ? '+' : ''}
-                      ${Math.abs(material.priceModifier)}
-                    </span>
-                    {isSelected && (
-                      <span className="text-cta">✓</span>
-                    )}
-                  </div>
-                </div>
-              </div>
+              {/* Pure visual material indicator */}
+              <div 
+                className={cn(
+                  "w-10 h-10 rounded-full border shadow-sm transition-all duration-200",
+                  isSelected ? "border-accent/50 shadow-md" : "border-border/20"
+                )}
+                style={{ 
+                  backgroundColor: material.pbrProperties.color
+                }}
+              />
             </Button>
           )
         })}
       </div>
 
-      {/* Material properties info - CLAUDE_RULES: Material-only focus */}
-      {selectedMaterial && (
-        <div className="mt-4 p-3 bg-muted/10 rounded-lg">
-          {(() => {
-            const selectedMat = materials.find(m => m.id === selectedMaterial)
-            if (!selectedMat) return null
-            
-            return (
-              <div className="space-y-2">
-                <div className="text-sm font-medium text-foreground">
-                  {selectedMat.displayName} Properties
-                </div>
-                <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
-                  <div>
-                    <span className="font-medium">Durability:</span>{' '}
-                    {selectedMat.id === 'platinum' ? 'Excellent' : 'Very Good'}
-                  </div>
-                  <div>
-                    <span className="font-medium">Finish:</span>{' '}
-                    {selectedMat.pbrProperties.roughness < 0.1 ? 'High Shine' : 'Satin'}
-                  </div>
-                </div>
-              </div>
-            )
-          })()}
-        </div>
-      )}
-
-      {/* Lab-grown compliance notice */}
-      <div className="text-xs text-accent p-2 bg-accent/10 rounded">
-        ✨ All materials ethically sourced with lab-grown gems only
-      </div>
+      {/* Minimalist design - no additional text or properties */}
     </div>
   )
 }

@@ -220,8 +220,7 @@ const cartSchema = new Schema<CartDocument>({
   },
   expiresAt: {
     type: Date,
-    default: () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
-    index: { expireAfterSeconds: 0 }
+    default: () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
   },
   isActive: {
     type: Boolean,

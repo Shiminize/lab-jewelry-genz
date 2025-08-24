@@ -64,7 +64,7 @@ export function RingFinder({ measurements, handleMeasurementChange, convertedSiz
 
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
-          <h4 className="text-body-small font-medium text-foreground">What You'll Need:</h4>
+          <h4 className="text-body-small font-medium text-foreground">What You&apos;ll Need:</h4>
           <ul className="space-y-3">
             <li className="flex items-center space-x-3">
               <CheckCircle className="w-4 h-4 text-accent" />
@@ -149,8 +149,8 @@ export function RingFinder({ measurements, handleMeasurementChange, convertedSiz
                 <ul className="text-caption text-blue-800 space-y-1">
                   <li>• Measure at room temperature</li>
                   <li>• Measure at the end of the day</li>
-                  <li>• Make sure string isn't too tight or loose</li>
-                  <li>• Measure dominant hand as it's usually larger</li>
+                  <li>• Make sure string isn&apos;t too tight or loose</li>
+                  <li>• Measure dominant hand as it&apos;s usually larger</li>
                 </ul>
               </div>
             </div>

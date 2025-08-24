@@ -327,7 +327,7 @@ export function AutocompleteDropdown({
           {query.length >= 2 && !isLoading && suggestions.length === 0 && (
             <div className="px-4 py-6 text-center text-gray-600">
               <Search className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-              <div className="text-sm">No suggestions found for "{query}"</div>
+              <div className="text-sm">No suggestions found for &quot;{query}&quot;</div>
               <button
                 className="mt-2 text-xs text-accent hover:underline"
                 onClick={() => handleSearch(query)}

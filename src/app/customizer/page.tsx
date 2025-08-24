@@ -14,7 +14,7 @@ const ProductCustomizer = dynamic(
       <div className="flex items-center justify-center h-96 bg-background/50 rounded-lg animate-pulse">
         <div className="text-center space-y-4">
           <div className="w-12 h-12 border-2 border-accent border-t-transparent rounded-full animate-spin mx-auto" />
-          <MutedText className="font-medium">Loading 3D Customizer...</MutedText>
+          <MutedText className="font-medium">Building your masterpiece...</MutedText>
         </div>
       </div>
     ),
@@ -126,9 +126,9 @@ export default function CustomizerPage() {
     <PageContainer className="py-6 space-y-8">
       {/* Header Section */}
       <div className="text-center space-y-4">
-        <H1 className="text-foreground">Design Your Perfect Ring</H1>
+        <H1 className="text-foreground">Your Ring, Your Vibe ✨</H1>
         <MutedText className="text-lg max-w-2xl mx-auto">
-          Create a one-of-a-kind piece that reflects your unique style. 
+          Build something that&apos;s actually you. 
           Our 3D customizer lets you see every detail in real-time.
         </MutedText>
       </div>
@@ -137,19 +137,22 @@ export default function CustomizerPage() {
         {/* 3D Viewer Section - Delegated to ProductCustomizer */}
         <div className="space-y-6">
           <div className="text-center lg:text-left space-y-3">
-            <H2 className="text-foreground mb-2">Live Preview</H2>
-            <MutedText>Interact with your design in 3D</MutedText>
+            <H2 className="text-foreground mb-2">See Your Vision ✨</H2>
+            <MutedText>Spin it, love it, make it yours</MutedText>
           </div>
 
           {/* Core 3D Customizer - All material/stone logic handled internally */}
           <div data-testid="product-customizer">
             <ProductCustomizer
+              key={`${selectedProductId}-${selectedMaterialId}`}
               productId={selectedProductId}
               initialMaterialId={selectedMaterialId}
               useOptimizedViewer={true}
-              layout="stacked"
-              showControls={true}
-              autoRotate={false}
+              layout="clean-preview"
+              showControls={false}
+              showStatusBar={true}
+              showFrameIndicator={false}
+              autoRotate={true}
               onVariantChange={handleVariantChange}
               onPriceChange={setCurrentPrice}
               className="shadow-lg"
@@ -171,16 +174,13 @@ export default function CustomizerPage() {
             </div>
           )}
 
-          {/* Mobile Controls Hint */}
-          <div className="lg:hidden bg-muted/20 rounded-lg p-4">
-            <MutedText className="text-center text-sm">
-              💡 Pinch to zoom • Drag to rotate • Tap to focus
-            </MutedText>
-          </div>
+          {/* Touch controls removed for minimalist design */}
         </div>
 
         {/* Product Selection and Actions */}
         <div className="space-y-6">
+          {/* Material selection handled internally by ProductCustomizer component */}
+
           {/* Product Selection */}
           <div className="space-y-4">
             <H2 className="text-foreground">Choose Your Style</H2>
@@ -272,7 +272,7 @@ export default function CustomizerPage() {
               className="w-full h-12 text-base"
               disabled={isSaving}
             >
-              Add to Cart
+              Make It Mine
             </Button>
             
             <div className="grid grid-cols-2 gap-3">
@@ -282,14 +282,14 @@ export default function CustomizerPage() {
                 onClick={handleSaveDesign}
                 disabled={isSaving}
               >
-                {isSaving ? 'Saving...' : 'Save & Share'}
+                {isSaving ? 'Saving...' : 'Save My Vibe'}
               </Button>
               
               <Button 
                 variant="ghost" 
                 className="h-12"
               >
-                Add to Wishlist
+                Save for Later ❤️
               </Button>
             </div>
           </div>
