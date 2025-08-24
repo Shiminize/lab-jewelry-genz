@@ -42,7 +42,8 @@ This single architectural deviation is the source of most subsequent problems:
 
 4.  **Inconsistent Data Flow & Error Handling:**
     *   **Violation:** APIs must use the standard success/error envelope, and the UI must have clear recovery paths.
-    *   **Root Cause:** The complexity of the WebGL component likely leads to ad-hoc data fetching and error handling directly within the component. It probably does not correctly handle API errors (e.g., a material failing to load) with a graceful fallback, instead resulting in a crashed or empty component, as hinted by `test-3d-preview-fallbacks.js`.
+    *   **Root Cause:** The complexity of the WebGL component l
+    ikely leads to ad-hoc data fetching and error handling directly within the component. It probably does not correctly handle API errors (e.g., a material failing to load) with a graceful fallback, instead resulting in a crashed or empty component, as hinted by `test-3d-preview-fallbacks.js`.
 
 ### Part 3: Strategic Solution Plan
 
