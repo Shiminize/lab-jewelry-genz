@@ -11,6 +11,10 @@ interface CachedAsset {
   assetPaths: string[]
   timestamp: number
   size: number
+  // PHASE 1: Multi-format support
+  availableFormats?: string[]
+  frameCount?: number
+  validationTimestamp?: string
 }
 
 interface CacheEntry {
@@ -136,7 +140,7 @@ export class AssetCacheService {
         `/api/products/customizable/${productId}/assets?materialId=${materialId}`,
         { 
           priority: priority as RequestInit['priority'],
-          cache: 'force-cache' // Use browser cache as well
+          cache: 'no-store' // PHASE 2: Always fetch fresh data to prevent dark image cache issues
         }
       )
       
@@ -154,8 +158,14 @@ export class AssetCacheService {
           materialId,
           assetPaths: data.data.assets.assetPaths,
           timestamp: Date.now(),
-          size: this.estimateAssetSize(data.data.assets.assetPaths)
+          size: this.estimateAssetSize(data.data.assets.assetPaths),
+          // PHASE 1: Enhanced metadata for multi-format fallback
+          availableFormats: data.data.assets.availableFormats || ['webp', 'avif', 'png'],
+          frameCount: data.data.assets.frameCount || 36,
+          validationTimestamp: data.data.assets.validationTimestamp
         }
+        
+        console.log(`[AssetCache] Cached ${materialId} with ${cachedAsset.availableFormats?.join(', ')} formats, ${cachedAsset.frameCount} frames`)
         
         // Cache the result
         this.setCachedAsset(productId, materialId, cachedAsset)
@@ -163,7 +173,7 @@ export class AssetCacheService {
         return cachedAsset
       }
       
-      throw new Error('Assets not available')
+      throw new Error(`Assets not available for ${materialId} - validation may have failed`)
     } catch (error) {
       console.error(`[AssetCache] Failed to fetch ${materialId}:`, error)
       throw error

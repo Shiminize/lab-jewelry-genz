@@ -45,3 +45,5 @@ next-env.d.ts
 *.tmp
 *.temp
 .cache/
+# Dark image backups
+backup/

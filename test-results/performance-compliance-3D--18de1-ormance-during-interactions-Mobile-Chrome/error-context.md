@@ -1,0 +1,564 @@
+# Page snapshot
+
+```yaml
+- link "Skip to main content":
+  - /url: "#main-content"
+- banner "Site announcements": Free Shipping on Orders $500+ 4.9/5 from 12,000+ Reviews
+- banner:
+  - button "Open menu"
+  - link "GlowGlitch homepage":
+    - /url: /
+    - img "GlowGlitch - Custom Lab-Grown Diamond Jewelry"
+  - toolbar "User actions":
+    - button "Search jewelry"
+    - link "Wishlist (0 items)":
+      - /url: /wishlist
+      - img
+    - button "Shopping cart with 2 items"
+- dialog:
+  - img "GlowGlitch - Uniquely Yours. Consciously Made"
+  - button:
+    - img
+  - button:
+    - img
+  - searchbox "Find your next obsession..."
+  - navigation:
+    - button "FIND YOUR VIBE":
+      - text: FIND YOUR VIBE
+      - img
+    - menu:
+      - menuitem "Statement Rings"
+      - menuitem "Layer Game"
+      - menuitem "Ear Party"
+      - menuitem "Wrist Candy"
+    - button "MAKE IT YOURS":
+      - text: MAKE IT YOURS
+      - img
+    - menu:
+      - menuitem "Design Your Moment"
+      - menuitem "Make It Yours"
+      - menuitem "Dream It, We'll Make It"
+    - button "GOOD VIBES ONLY":
+      - text: GOOD VIBES ONLY
+      - img
+    - menu:
+      - menuitem "Planet-Positive Shine"
+      - menuitem "Good Vibes Only"
+      - menuitem "Get Paid for Your Influence"
+    - button "WE'VE GOT YOU":
+      - text: WE'VE GOT YOU
+      - img
+    - menu:
+      - menuitem "Perfect Fit Promise"
+      - menuitem "Keep It Glowing"
+      - menuitem "We've Got You Covered"
+      - menuitem "Questions? We're Here"
+  - heading "Create Your Main Character Moment" [level=3]
+  - heading "Make It Yours" [level=4]
+  - paragraph: Design jewelry that tells your story - your values, your vibe, your vision. Lab-grown diamonds that shine as bright as your future.
+  - link "Start Your Story":
+    - /url: /customizer
+  - link "Home":
+    - /url: /
+    - img
+    - text: Home
+  - link "Saved Vibes 5":
+    - /url: /wishlist
+    - img
+    - text: Saved Vibes 5
+  - link "Your Picks 2":
+    - /url: /cart
+    - img
+    - text: Your Picks 2
+  - link "Your Space":
+    - /url: /account
+    - img
+    - text: Your Space
+  - link "Find Your Vibe":
+    - /url: /catalog
+- text: Main content starts here
+- main:
+  - img "Elegant jewelry collection showcasing lab-grown diamonds and moissanite pieces"
+  - heading "Your Story, Our Sparkle. Jewelry That's Authentically You." [level=1]
+  - paragraph: Conflict-free, brilliantly crafted lab gems, Moissanite, and diamonds for every style and milestone. Because true luxury is a clear conscience.
+  - button "Start Designing"
+  - button "Explore Collection"
+  - text: Video failed to load. Using fallback image.
+  - heading "Luxury That Aligns With Your Values" [level=2]
+  - paragraph: We believe true luxury comes from knowing your choices make a positive impact. Every piece is crafted with ethical sourcing, sustainable practices, and the freedom to express your authentic self.
+  - tablist:
+    - tab "Ethically Sourced & Conflict-Free Every piece tells a story of responsibility. Our lab-grown diamonds and ethically sourced materials mean you can wear your values with pride, knowing your jewelry creates positive impact. Our certification process includes third-party verification and complete supply chain transparency. 100% Conflict-Free Lab-Grown Certified":
+      - img
+      - heading "Ethically Sourced & Conflict-Free" [level=3]
+      - paragraph: Every piece tells a story of responsibility. Our lab-grown diamonds and ethically sourced materials mean you can wear your values with pride, knowing your jewelry creates positive impact.
+      - paragraph: Our certification process includes third-party verification and complete supply chain transparency.
+      - button "100% Conflict-Free":
+        - img
+        - text: 100% Conflict-Free
+      - button "Lab-Grown Certified":
+        - img
+        - text: Lab-Grown Certified
+    - tab "Your Vision, Your Voice Self-expression shouldn't be limited by what's on the shelf. Design jewelry that speaks your language - from subtle statements to bold declarations of who you are. Work with our design team to create truly one-of-a-kind pieces that reflect your personal style. Unlimited Customization Master-Crafted Luxury":
+      - img
+      - heading "Your Vision, Your Voice" [level=3]
+      - paragraph: Self-expression shouldn't be limited by what's on the shelf. Design jewelry that speaks your language - from subtle statements to bold declarations of who you are.
+      - paragraph: Work with our design team to create truly one-of-a-kind pieces that reflect your personal style.
+      - button "Unlimited Customization":
+        - img
+        - text: Unlimited Customization
+      - button "Master-Crafted Luxury":
+        - img
+        - text: Master-Crafted Luxury
+    - tab "Planet-Positive Luxury True luxury means caring about tomorrow. Our sustainable practices and recycled metals prove that conscious choices can be absolutely stunning. Our environmental impact is 95% lower than traditional mining operations. Carbon Neutral Recycled Metals":
+      - img
+      - heading "Planet-Positive Luxury" [level=3]
+      - paragraph: True luxury means caring about tomorrow. Our sustainable practices and recycled metals prove that conscious choices can be absolutely stunning.
+      - paragraph: Our environmental impact is 95% lower than traditional mining operations.
+      - button "Carbon Neutral":
+        - img
+        - text: Carbon Neutral
+      - button "Recycled Metals":
+        - img
+        - text: Recycled Metals
+  - text: Join thousands who choose conscious luxury
+  - img
+  - text: 100% Conflict-Free Certified diamonds
+  - img
+  - text: Recycled Metal 80% recycled content
+  - img
+  - text: Lab-Grown Certified IGI & GIA verified
+  - img
+  - text: Carbon Neutral Offset emissions
+  - heading "Enhanced Values Summary" [level=3]
+  - paragraph: "GlowGlitch offers ethical luxury jewelry with three core values: 100% conflict-free and ethically sourced materials, unlimited customization for personal expression, and planet-positive practices including carbon neutrality and 80% recycled metals. All our lab-grown diamonds are certified by international gemological institutes."
+  - img
+  - text: Curated Collection
+  - img
+  - heading "Discover Your Perfect Piece" [level=2]
+  - paragraph: Curated collections for every style and milestone. Each piece represents our commitment to exceptional craftsmanship and timeless design.
+  - link "Eternal Promise Solitaire Add to wishlist View Details Add to Cart Eternal Promise Solitaire rings Product material filters $1,200 In Stock Featured Design":
+    - /url: /products/eternal-promise-solitaire
+    - img "Eternal Promise Solitaire"
+    - button "Add to wishlist":
+      - img
+    - button "View Details":
+      - img
+      - text: View Details
+    - button "Add to Cart":
+      - img
+      - text: Add to Cart
+    - paragraph: Eternal Promise Solitaire
+    - text: rings
+    - group "Product material filters":
+      - button "Add 14K Gold filter": 14K Gold
+      - button "Add Lab Sapphire filter": Lab Sapphire
+      - button "Add 0.75CT filter": 0.75CT
+    - paragraph: $1,200
+    - text: In Stock
+    - img
+    - text: Featured Design
+  - link "Moissanite Tennis Bracelet Add to wishlist View Details Add to Cart Moissanite Tennis Bracelet bracelets Product material filters $1,200 In Stock Featured Design":
+    - /url: /products/moissanite-tennis-bracelet
+    - img "Moissanite Tennis Bracelet"
+    - button "Add to wishlist":
+      - img
+    - button "View Details":
+      - img
+      - text: View Details
+    - button "Add to Cart":
+      - img
+      - text: Add to Cart
+    - paragraph: Moissanite Tennis Bracelet
+    - text: bracelets
+    - group "Product material filters":
+      - button "Add 14K Gold filter": 14K Gold
+      - button "Add Moissanite filter": Moissanite
+      - button "Add 1CT filter": 1CT
+    - paragraph: $1,200
+    - text: In Stock
+    - img
+    - text: Featured Design
+  - link "Sustainable Tennis Necklace Add to wishlist View Details Add to Cart Sustainable Tennis Necklace necklaces Product material filters $1,800 In Stock Featured Design":
+    - /url: /products/sustainable-tennis-necklace
+    - img "Sustainable Tennis Necklace"
+    - button "Add to wishlist":
+      - img
+    - button "View Details":
+      - img
+      - text: View Details
+    - button "Add to Cart":
+      - img
+      - text: Add to Cart
+    - paragraph: Sustainable Tennis Necklace
+    - text: necklaces
+    - group "Product material filters":
+      - button "Add 14K Gold filter": 14K Gold
+      - button "Add Moissanite filter": Moissanite
+      - button "Add 1CT filter": 1CT
+    - paragraph: $1,800
+    - text: In Stock
+    - img
+    - text: Featured Design
+  - link "Chandelier Celebration Earrings Add to wishlist View Details Add to Cart Chandelier Celebration Earrings earrings Product material filters $950 In Stock Featured Design":
+    - /url: /products/chandelier-celebration-earrings
+    - img "Chandelier Celebration Earrings"
+    - button "Add to wishlist":
+      - img
+    - button "View Details":
+      - img
+      - text: View Details
+    - button "Add to Cart":
+      - img
+      - text: Add to Cart
+    - paragraph: Chandelier Celebration Earrings
+    - text: earrings
+    - group "Product material filters":
+      - button "Add 14K Gold filter": 14K Gold
+      - button "Add Moissanite filter": Moissanite
+      - button "Add 1CT filter": 1CT
+    - paragraph: $950
+    - text: In Stock
+    - img
+    - text: Featured Design
+  - link "Conscious Tennis Bracelet Add to wishlist View Details Add to Cart Conscious Tennis Bracelet bracelets Product material filters $1,850 In Stock Featured Design":
+    - /url: /products/conscious-tennis-bracelet
+    - img "Conscious Tennis Bracelet"
+    - button "Add to wishlist":
+      - img
+    - button "View Details":
+      - img
+      - text: View Details
+    - button "Add to Cart":
+      - img
+      - text: Add to Cart
+    - paragraph: Conscious Tennis Bracelet
+    - text: bracelets
+    - group "Product material filters":
+      - button "Add 14K Gold filter": 14K Gold
+      - button "Add Lab Sapphire filter": Lab Sapphire
+      - button "Add 0.75CT filter": 0.75CT
+    - paragraph: $1,850
+    - text: In Stock
+    - img
+    - text: Featured Design
+  - paragraph: Explore our complete collection of luxury jewelry pieces, each designed to tell your unique story.
+  - link "Explore Collection":
+    - /url: /catalog
+  - link "Start Designing":
+    - /url: /customizer
+  - img
+  - paragraph: Lab-Grown Diamonds
+  - text: Ethically sourced and environmentally conscious luxury
+  - img
+  - paragraph: Conflict-Free
+  - text: Guaranteed responsible sourcing and fair trade practices 🛡️
+  - paragraph: Lifetime Warranty
+  - text: Comprehensive coverage for craftsmanship and materials
+  - heading "Create Your Legacy" [level=2]
+  - heading "Design a Piece as Unique as You Are" [level=3]
+  - paragraph: From metal choices to lab gems, build a piece that tells your story. Real-time 3D preview with ethical materials and expert craftsmanship.
+  - main "Customization options":
+    - radiogroup "Metal":
+      - heading "Metal" [level=3]
+      - radio "18K Rose Gold Modern romance meets timeless elegance" [checked]
+      - radio "Platinum Premium white metal for lasting beauty"
+      - radio "18K White Gold Classic elegance with contemporary appeal"
+      - radio "18K Yellow Gold Timeless warmth and traditional luxury"
+    - radiogroup "Stone":
+      - heading "Stone" [level=3]
+      - radio "Lab Diamond Brilliant clarity"
+      - radio "Moissanite Fire & brilliance" [checked]
+      - radio "Lab Emerald Vibrant green"
+    - radiogroup "Setting Style":
+      - heading "Setting Style" [level=3]
+      - radio "Classic Timeless elegance" [checked]
+      - radio "Modern Contemporary style"
+      - radio "Vintage Classic heritage"
+  - heading "Your Design" [level=3]
+  - paragraph: 18K Rose Gold • Moissanite • Classic
+  - text: $359
+  - paragraph: Starting price
+  - button "Start Designing"
+  - button "Chat with Designer"
+  - text: Opens the full customizer with all design options
+  - img "Interactive 360° jewelry view, frame 29 of 36":
+    - img "3D jewelry view frame 29"
+    - text: Viewing frame 29 of 36 in 360-degree jewelry view
+  - button "View in fullscreen":
+    - img
+  - complementary "Current material selection boundary": 18K Rose Gold • undefined • Classic
+  - text: 🌱
+  - paragraph: 100% Conflict-Free
+  - text: ♻️
+  - paragraph: Recycled Metals
+  - text: 💎
+  - paragraph: Lab-Grown Gems
+  - text: 🎯
+  - paragraph: Custom Crafted
+  - img
+  - 'heading "Style Quiz: Find Your Vibe" [level=2]'
+  - paragraph: Don't know where to start? Our 2-minute quiz helps you discover the perfect piece that fits your personality
+  - img
+  - text: Minimalist Maven
+  - img
+  - text: Statement Maker
+  - img
+  - text: Classic Romantic
+  - img
+  - text: Bohemian Spirit
+  - button "Take the Quiz"
+  - heading "Loved by Thousands, Trusted by Creators" [level=2]
+  - paragraph: Join a community that values authenticity, sustainability, and self-expression. Our customers and creator partners are building something beautiful together.
+  - img
+  - heading "10,000+ Happy Customers" [level=3]
+  - text: Join our growing community4.8/5 avg rating
+  - img
+  - heading "Lifetime Warranty" [level=3]
+  - text: Free repairs & replacementsForever protected
+  - img
+  - heading "Conflict-Free Certified" [level=3]
+  - text: Ethically sourced materials100% traceable
+  - img
+  - heading "Carbon Neutral Shipping" [level=3]
+  - text: Eco-friendly deliveryZero emissions
+  - img
+  - heading "30-Day Returns" [level=3]
+  - text: No questions asked98% satisfaction
+  - img
+  - heading "30% Creator Commission" [level=3]
+  - text: Industry-leading ratesAvg $850/month
+  - heading "Join Our Creator Community" [level=2]
+  - paragraph: Earn industry-leading 30% commission while promoting jewelry that aligns with your values. Our 1200+ creators average $850 monthly.
+  - heading "30%" [level=3]
+  - text: Commission Rate
+  - heading "$850" [level=3]
+  - text: Avg Monthly
+  - button "Apply Now"
+  - heading "Creator Benefits" [level=3]
+  - list:
+    - listitem:
+      - img
+      - paragraph: Exclusive early access to new designs
+    - listitem:
+      - img
+      - paragraph: Personal analytics dashboard
+    - listitem:
+      - img
+      - paragraph: Dedicated creator support team
+    - listitem:
+      - img
+      - paragraph: Monthly creator spotlights
+    - listitem:
+      - img
+      - paragraph: Custom discount codes for followers
+  - heading "What Our Community Says" [level=2]
+  - button:
+    - img
+  - button "→"
+  - text: MC
+  - paragraph: Maya Chen
+  - img
+  - text: 24 • Seattle, WA
+  - img
+  - img
+  - img
+  - img
+  - img
+  - paragraph: Finally found a jewelry brand that gets it! My custom nose ring is literally perfection and knowing it's conflict-free makes me feel even better about wearing it. The whole experience was so transparent and the quality is unmatched.
+  - text: Custom Nose RingSelf-expression @mayavibes MC
+  - paragraph: Maya Chen
+  - img
+  - text: 24 • Seattle, WA
+  - img
+  - img
+  - img
+  - img
+  - img
+  - paragraph: Finally found a jewelry brand that gets it! My custom nose ring is literally perfection and knowing it's conflict-free makes me feel even better about wearing it. The whole experience was so transparent and the quality is unmatched.
+  - text: Custom Nose RingSelf-expression @mayavibes JM
+  - paragraph: Jordan Martinez
+  - img
+  - text: 26 • Austin, TX
+  - img
+  - img
+  - img
+  - img
+  - img
+  - paragraph: Proposed with a GlowGlitch ring and it was absolutely magical! The customization process was so easy and my partner was obsessed with the ethical sourcing story. Worth every penny and the lifetime warranty gives us peace of mind.
+  - text: Engagement RingProposal @jordan_creates ZO
+  - paragraph: Zara Okafor
+  - img
+  - text: 22 • Brooklyn, NY
+  - img
+  - img
+  - img
+  - img
+  - img
+  - paragraph: Been wearing my septum clicker for 6 months and still obsessed! Love that the company is carbon neutral - it aligns with my values. Customer service is also incredible, they actually care about getting it right.
+  - text: Septum ClickerEveryday wear @zarastyle AT
+  - paragraph: Alex Thompson
+  - img
+  - text: 28 • Portland, OR
+  - img
+  - img
+  - img
+  - img
+  - img
+  - paragraph: The ear stack I designed is everything! Process was super intuitive and I love how they show exactly where materials come from. Shipping was fast and packaging was minimal but protective - no unnecessary waste!
+  - text: Ear Stack SetPersonal style @alexpiercings RP
+  - paragraph: Riley Park
+  - img
+  - text: 25 • Los Angeles, CA
+  - img
+  - img
+  - img
+  - img
+  - img
+  - paragraph: As someone with sensitive skin, finding body jewelry that doesn't irritate is crucial. These pieces are hypoallergenic AND gorgeous. The fact that 30% goes to creators is amazing - supporting the community!
+  - text: Body Jewelry SetSensitive skin @rileysstyle SR
+  - paragraph: Sam Rodriguez
+  - img
+  - text: 23 • Chicago, IL
+  - img
+  - img
+  - img
+  - img
+  - img
+  - paragraph: My industrial piercing jewelry is chef's kiss! Love that I could see 3D previews before ordering. The sustainability report they sent with my order really shows they're not just greenwashing - they're the real deal.
+  - text: Industrial BarbellNew piercing @sammypierce
+  - heading "Ready to Join Our Community?" [level=2]
+  - paragraph: Whether you're looking for the perfect piece to express yourself or want to become a creator partner, we'd love to have you in our community.
+  - button "Shop Now"
+  - button "Leave a Review"
+  - heading "The Future of Luxury is Sustainable" [level=2]
+  - paragraph: We're redefining what luxury means for your generation. Every piece tells a story of innovation, responsibility, and conscious choices that create positive impact for our planet and communities.
+  - paragraph: "💎 Lab-grown diamonds: Same atomic structure, same beauty, zero compromise. 95% less environmental impact."
+  - button "Explore Our Sustainability Commitment"
+  - button "Choose Your Sustainable Piece"
+  - text: 🌱 ♻️
+  - heading "Real Impact, Real Numbers" [level=3]
+  - paragraph: Transparency matters. Here's exactly how choosing lab-grown diamonds creates positive change for our planet and future generations.
+  - text: 🌱 95%
+  - heading "Less Environmental Impact" [level=3]
+  - paragraph: Compared to traditional diamond mining
+  - text: vs. mined diamonds 💧 0
+  - heading "Water Pollution" [level=3]
+  - paragraph: Zero contamination from mining operations
+  - text: mining causes 100+ toxic spills yearly ⚡ 100%
+  - heading "Renewable Energy" [level=3]
+  - paragraph: All our lab facilities powered by clean energy
+  - text: "traditional mining: <10% renewable ♻️ 80%"
+  - heading "Recycled Metals" [level=3]
+  - paragraph: Precious metals given new life in our settings
+  - text: 2x industry average 🚚 100%
+  - heading "Carbon Neutral Shipping" [level=3]
+  - paragraph: Offset all emissions from production to your door
+  - text: industry first commitment 🌍 0.07
+  - heading "Carats per Ton of Earth" [level=3]
+  - paragraph: Lab creation vs mining displacement
+  - text: "mining: removes 250 tons per carat"
+  - heading "Lab-Grown vs. Traditional Mining" [level=3]
+  - paragraph: Same diamonds, different story. See why lab-grown is the conscious choice for the future-focused generation.
+  - heading "Environmental Impact" [level=3]
+  - text: ⚠️ Traditional Mining
+  - paragraph: Massive land disruption, habitat destruction
+  - text: ✅ Lab-Grown
+  - paragraph: Minimal footprint, controlled environment
+  - heading "Water Usage" [level=3]
+  - text: ⚠️ Traditional Mining
+  - paragraph: 126+ gallons per carat
+  - text: ✅ Lab-Grown
+  - paragraph: <1 gallon per carat
+  - heading "Carbon Emissions" [level=3]
+  - text: ⚠️ Traditional Mining
+  - paragraph: 125+ lbs CO₂ per carat
+  - text: ✅ Lab-Grown
+  - paragraph: 6 lbs CO₂ per carat (offset to zero)
+  - heading "Human Impact" [level=3]
+  - text: ⚠️ Traditional Mining
+  - paragraph: Potential conflict sourcing, dangerous working conditions
+  - text: ✅ Lab-Grown
+  - paragraph: Safe, ethical working conditions, living wages
+  - heading "Quality & Beauty" [level=3]
+  - text: ⚠️ Traditional Mining
+  - paragraph: Identical chemical & optical properties
+  - text: ⚖️ Lab-Grown
+  - paragraph: Identical chemical & optical properties
+  - heading "Value & Pricing" [level=3]
+  - text: ⚠️ Traditional Mining
+  - paragraph: Higher cost due to mining complexity
+  - text: ✅ Lab-Grown
+  - paragraph: 30-40% better value for equivalent quality
+  - heading "How Lab-Grown Diamonds Are Created" [level=3]
+  - paragraph: Discover the fascinating science behind lab-grown diamond creation. In just weeks, we recreate millions of years of natural formation.
+  - text: 🔬
+  - heading "Carbon Seed Placement" [level=3]
+  - paragraph: A tiny diamond seed is placed in a specialized chamber with precise carbon composition
+  - text: 🔥
+  - heading "High Pressure & Heat" [level=3]
+  - paragraph: "Conditions mirror deep Earth: 2,000°F temperature and 1.5 million PSI pressure"
+  - text: ⏱️
+  - heading "2-4 Week Growth" [level=3]
+  - paragraph: Carbon atoms crystallize layer by layer, forming identical atomic structure to mined diamonds
+  - text: 💎
+  - heading "Cut & Polish" [level=3]
+  - paragraph: Master craftsmen cut and polish each diamond to reveal its maximum brilliance and fire
+  - heading "Certified & Verified" [level=3]
+  - paragraph: Third-party verification you can trust. Our sustainability claims are backed by industry-leading certifications and partnerships.
+  - text: 🔬 IGI Certified
+  - paragraph: International Gemological Institute authentication
+  - text: ✅ SCS Global Verified
+  - paragraph: Third-party sustainability certification
+  - text: 🤝 Responsible Jewelry Council
+  - paragraph: Industry-leading ethical standards member
+  - text: 🌱 Carbon Trust Certified
+  - paragraph: Carbon footprint measurement and reduction verified
+  - heading "Join the Conscious Luxury Movement" [level=3]
+  - paragraph: Every purchase supports a future where luxury and responsibility go hand in hand. You're not just buying jewelry—you're investing in a world where beautiful choices create beautiful change.
+  - text: 50K+ Conscious consumers joined 2.5M Tons of earth preserved 100% Customer satisfaction
+  - button "Start Your Sustainable Journey"
+  - button "Learn More About Us"
+  - heading "Sustainability Story Summary" [level=3]
+  - paragraph: GlowGlitch creates lab-grown diamonds that are chemically, physically, and optically identical to mined diamonds but with 95% less environmental impact. Our process uses renewable energy, creates zero water pollution, and supports ethical working conditions. Each diamond is certified by international gemological institutes and our sustainability practices are verified by third-party organizations. We are committed to carbon-neutral shipping and use 80% recycled metals in our jewelry settings.
+- contentinfo:
+  - button "ABOUT GLOWGLITCH":
+    - heading "ABOUT GLOWGLITCH" [level=4]
+    - img
+  - button "WHY CHOOSE GLOWGLITCH?":
+    - heading "WHY CHOOSE GLOWGLITCH?" [level=4]
+    - img
+  - button "EXPERIENCE GLOWGLITCH":
+    - heading "EXPERIENCE GLOWGLITCH" [level=4]
+    - img
+  - img "GlowGlitch"
+  - paragraph: Sustainable luxury jewelry crafted with lab-grown diamonds. Design your perfect piece with our 3D technology.
+  - heading "Stay Connected" [level=4]
+  - textbox "Enter your email"
+  - button "Subscribe"
+  - img
+  - link "hello@glowglitch.com":
+    - /url: mailto:hello@glowglitch.com
+    - paragraph: hello@glowglitch.com
+  - img
+  - link "+1 (555) GLOW-GEM":
+    - /url: tel:+1-555-GLOW-GEM
+    - paragraph: +1 (555) GLOW-GEM
+  - img
+  - paragraph: Available 24/7 Virtual consultations
+  - link "Follow us on Instagram":
+    - /url: https://instagram.com/glowglitch
+    - img
+  - link "Follow us on YouTube":
+    - /url: https://youtube.com/@glowglitch
+    - img
+  - link "Privacy Policy":
+    - /url: /privacy
+  - link "Terms of Service":
+    - /url: /terms
+  - link "Cookie Policy":
+    - /url: /cookies
+  - link "Accessibility":
+    - /url: /accessibility
+  - text: © 2025 GlowGlitch (Lumina Lab). All rights reserved.
+- alert
+```

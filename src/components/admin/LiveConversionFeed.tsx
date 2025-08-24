@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/Badge'
 import { DollarSign, Users, TrendingUp, Clock, MapPin, Smartphone } from 'lucide-react'
 import { io, Socket } from 'socket.io-client'
 

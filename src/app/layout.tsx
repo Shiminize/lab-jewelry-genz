@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import type { Metadata } from 'next'
 import './globals.css'
 import { Header, Footer } from '@/components/layout'
@@ -6,6 +6,8 @@ import { PerformanceMonitor } from '@/components/utils/PerformanceMonitor'
 import { NavigationProvider } from '@/contexts/NavigationProvider'
 import { ErrorProvider } from '@/contexts/ErrorContext'
 import { WithPageErrorBoundary } from '@/components/errors/ErrorBoundary'
+import { PageLoadingSkeleton } from '@/components/loading/PageLoadingSkeleton'
+import { WebVitalsProvider } from '@/components/providers/WebVitalsProvider'
 
 export const metadata: Metadata = {
   title: 'GlowGlitch | Custom Lab-Grown Diamond Jewelry',
@@ -34,18 +36,24 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
-        <ErrorProvider>
-          <WithPageErrorBoundary>
-            <NavigationProvider>
-              <Header />
-              <main className="flex-1" id="main-content" tabIndex={-1}>
-                {children}
-              </main>
-              <Footer />
-              <PerformanceMonitor />
-            </NavigationProvider>
-          </WithPageErrorBoundary>
-        </ErrorProvider>
+        <React.StrictMode>
+          <WebVitalsProvider>
+            <ErrorProvider>
+              <WithPageErrorBoundary>
+                <NavigationProvider>
+                  <Header />
+                  <main className="flex-1" id="main-content" tabIndex={-1}>
+                    <Suspense fallback={<PageLoadingSkeleton />}>
+                      {children}
+                    </Suspense>
+                  </main>
+                  <Footer />
+                  <PerformanceMonitor />
+                </NavigationProvider>
+              </WithPageErrorBoundary>
+            </ErrorProvider>
+          </WebVitalsProvider>
+        </React.StrictMode>
       </body>
     </html>
   )

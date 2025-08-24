@@ -7,7 +7,7 @@ import { DNAMobileDrawer } from '@/components/navigation/DNAMobileDrawer'
 import { TrustSignalBar } from '@/components/navigation/TrustSignalBar'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/Badge'
 import { Dna, Atom, Microscope, Shield, TrendingUp, Beaker, Eye, Sparkles } from 'lucide-react'
 
 export default function NavigationRedesignDemo() {

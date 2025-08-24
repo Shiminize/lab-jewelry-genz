@@ -6,13 +6,25 @@
 
 'use client'
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, useTransition, useDeferredValue, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import { cn } from '@/lib/utils'
 import ImageViewer from './ImageViewer'
-import MaterialControls from './MaterialControls'
-import MaterialCarousel from '@/components/ui/MaterialCarousel'
-import { MaterialStatusBar, type MaterialSelection } from './MaterialStatusBar'
 import { assetCache } from '@/services/AssetCacheService'
+
+// PHASE 2: Dynamic imports for bundle optimization
+const MaterialControls = dynamic(() => import('./MaterialControls'), {
+  loading: () => <div className="animate-pulse h-16 bg-muted/20 rounded-lg" />
+})
+
+const MaterialCarousel = dynamic(() => import('@/components/ui/MaterialCarousel'), {
+  loading: () => <div className="animate-pulse h-20 bg-muted/20 rounded-lg" />
+})
+
+const MaterialStatusBar = dynamic(() => import('./MaterialStatusBar').then(mod => ({ default: mod.MaterialStatusBar })), {
+  loading: () => <div className="animate-pulse h-8 bg-muted/20 rounded-lg" />
+})
+
 import type { 
   ProductCustomizerProps, 
   CustomizerState, 
@@ -20,6 +32,7 @@ import type {
   MaterialId,
   AssetResponse 
 } from './types'
+import type { MaterialSelection } from './MaterialStatusBar'
 
 // CLAUDE_RULES: Material-only focus with lab-grown gems
 const AVAILABLE_MATERIALS: Material[] = [
@@ -89,10 +102,15 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
   useOptimizedViewer = false,
   autoRotate = false
 }) => {
+  // React 18 Concurrent Features - CLAUDE_RULES: <100ms material switching
+  const [isPending, startTransition] = useTransition()
+  const [materialIdState, setMaterialIdState] = useState(initialMaterialId)
+  const deferredMaterialId = useDeferredValue(materialIdState)
+  
   // Centralized state management - single source of truth
   const [state, setState] = useState<CustomizerState>({
     product: null,
-    selectedMaterial: initialMaterialId,
+    selectedMaterial: deferredMaterialId,
     rotationState: {
       currentFrame: 0,
       isRotating: false,
@@ -177,11 +195,16 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
     }
   }, [productId])
 
-  // Optimized material change with optimistic UI updates
+  // React 18 Concurrent Features - Non-blocking material changes
   const handleMaterialChange = useCallback(async (materialId: MaterialId) => {
     const switchStartTime = performance.now()
     
-    // Optimistic UI update - immediate visual feedback
+    // Start concurrent transition for non-blocking UI updates
+    startTransition(() => {
+      setMaterialIdState(materialId)
+    })
+    
+    // Immediate UI feedback - keep UI responsive
     setState(prev => ({
       ...prev,
       selectedMaterial: materialId,
@@ -331,6 +354,14 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
 
   return (
     <div className={cn(showControls ? "space-y-6" : "space-y-0", className)}>
+      {/* React 18 Concurrent Loading Indicator */}
+      {isPending && (
+        <div className="fixed top-4 right-4 z-50 bg-primary/10 backdrop-blur-sm rounded-full px-3 py-2 flex items-center gap-2">
+          <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm font-medium text-primary">Switching material...</span>
+        </div>
+      )}
+      
       {/* Main 3D viewer */}
       <div className="space-y-4">
         <ImageViewer
@@ -351,27 +382,31 @@ export const ProductCustomizer: React.FC<ProductCustomizerProps> = ({
       {/* Material selection - Only show when controls are enabled */}
       {showControls && (
         <>
-          {/* Material selection - Dynamic component based on screen size */}
+          {/* Material selection with Suspense boundaries - Dynamic component based on screen size */}
           <div className="lg:hidden">
-            <MaterialCarousel
-              materials={AVAILABLE_MATERIALS}
-              selectedMaterial={state.selectedMaterial}
-              onMaterialChange={handleMaterialChange}
-              isDisabled={state.isLoading}
-              enableTouchGestures={true}
-              showScrollIndicators={true}
-              itemWidth="md"
-              layout="horizontal"
-            />
+            <Suspense fallback={<div className="animate-pulse h-20 bg-muted/20 rounded-lg" />}>
+              <MaterialCarousel
+                materials={AVAILABLE_MATERIALS}
+                selectedMaterial={state.selectedMaterial}
+                onMaterialChange={handleMaterialChange}
+                isDisabled={state.isLoading || isPending}
+                enableTouchGestures={true}
+                showScrollIndicators={true}
+                itemWidth="md"
+                layout="horizontal"
+              />
+            </Suspense>
           </div>
           
           <div className="hidden lg:block">
-            <MaterialControls
-              materials={AVAILABLE_MATERIALS}
-              selectedMaterial={state.selectedMaterial}
-              onMaterialChange={handleMaterialChange}
-              isDisabled={state.isLoading}
-            />
+            <Suspense fallback={<div className="animate-pulse h-16 bg-muted/20 rounded-lg" />}>
+              <MaterialControls
+                materials={AVAILABLE_MATERIALS}
+                selectedMaterial={state.selectedMaterial}
+                onMaterialChange={handleMaterialChange}
+                isDisabled={state.isLoading || isPending}
+              />
+            </Suspense>
           </div>
 
           {/* Price display removed for minimalist design */}

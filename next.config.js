@@ -25,6 +25,9 @@ const nextConfig = {
     // Re-enabled safe optimizations after fixing build issues
     optimizeCss: true,
     optimizeServerReact: true,
+    // React 18 Features - Phase 4 Modernization
+    reactRoot: true,
+    ppr: true, // Partial Prerendering for better loading states
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
@@ -74,34 +77,27 @@ const nextConfig = {
     
     // Simplified webpack optimization for essential chunking only
     if (!dev && !isServer) {
-      // Simplified chunking strategy focused on stability
+      // PHASE 3: Simplified, stable chunking strategy
       config.optimization.splitChunks = {
-        ...config.optimization.splitChunks,
         chunks: 'all',
         cacheGroups: {
-          ...config.optimization.splitChunks.cacheGroups,
-          // Three.js async chunk for 3D components
-          threeJs: {
-            test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
-            name: 'three-js',
-            chunks: 'async',
-            priority: 40,
-            enforce: true,
-          },
-          // Critical UI components
-          criticalUI: {
-            test: /[\\/]src[\\/]components[\\/](foundation|ui)[\\/]/,
-            name: 'critical-ui',
-            chunks: 'initial',
-            priority: 30,
-          },
-          // Vendor libraries
+          default: false,
+          vendors: false,
+          // Single vendor chunk for stability
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendor',
-            chunks: 'initial',
+            chunks: 'all',
             priority: 20,
-            minChunks: 2,
+            reuseExistingChunk: true,
+          },
+          // Critical UI components - separate chunk
+          framework: {
+            chunks: 'all',
+            name: 'framework',
+            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            priority: 40,
+            enforce: true,
           },
         },
       }

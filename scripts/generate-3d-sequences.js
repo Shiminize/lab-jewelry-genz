@@ -29,14 +29,31 @@ const CONFIG = {
     png: 9        // PNG compression level
   },
   LIGHTING: 'studio',                    // Professional lighting
-  BACKGROUND: 'transparent'              // Transparent background
+  BACKGROUND: 'white'                    // White background for better visibility
 };
 
 const MATERIALS = {
-  'platinum': { metallic: 1.0, roughness: 0.1, color: [0.9, 0.9, 0.9] },
-  'white-gold': { metallic: 1.0, roughness: 0.15, color: [0.95, 0.95, 0.95] },
-  'yellow-gold': { metallic: 1.0, roughness: 0.1, color: [1.0, 0.86, 0.57] },
-  'rose-gold': { metallic: 1.0, roughness: 0.12, color: [0.91, 0.71, 0.67] }
+  // PHASE 2: Jewelry-Optimized Material Values for Vibrant Colors
+  'platinum': { 
+    metallic: 0.85, 
+    roughness: 0.25, // Increased for proper light scattering
+    color: [0.95, 0.95, 0.98] // Brighter, more silver-white
+  },
+  'white-gold': { 
+    metallic: 0.88, 
+    roughness: 0.20, // Better for jewelry sparkle
+    color: [0.98, 0.97, 0.95] // Clean bright white
+  },
+  'yellow-gold': { 
+    metallic: 0.9, 
+    roughness: 0.15, // Allows more brilliance
+    color: [1.0, 0.9, 0.2] // Vibrant, warm golden
+  },
+  'rose-gold': { 
+    metallic: 0.88, 
+    roughness: 0.18, // Balanced for warm reflections
+    color: [1.0, 0.7, 0.6] // Warm pinkish-gold
+  }
 };
 
 // HTML template for Three.js rendering
@@ -81,33 +98,94 @@ const RENDER_TEMPLATE = `
             });
             
             renderer.setSize(${CONFIG.IMAGE_SIZE.width}, ${CONFIG.IMAGE_SIZE.height});
-            renderer.setClearColor(0x000000, 0);
+            renderer.setClearColor(0xffffff, 1); // White background
             renderer.outputColorSpace = THREE.SRGBColorSpace;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 2.2; // Increase exposure significantly for vibrant jewelry
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             
-            // Studio lighting setup
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+            // Enhanced jewelry studio lighting setup
+            // 1. Increased ambient light for better base illumination
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
             scene.add(ambientLight);
             
-            const directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight1.position.set(5, 5, 5);
-            scene.add(directionalLight1);
+            // 2. Hemisphere light for natural sky/ground lighting
+            const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xcccccc, 0.5);
+            scene.add(hemisphereLight);
             
-            const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.3);
-            directionalLight2.position.set(-5, 5, -5);
-            scene.add(directionalLight2);
+            // 3. Three-point lighting system for jewelry
+            // Key light - main illumination (ENHANCED for jewelry)
+            const keyLight = new THREE.DirectionalLight(0xffffff, 2.0); // Increased intensity
+            keyLight.position.set(5, 10, 5);
+            keyLight.castShadow = true;
+            keyLight.shadow.mapSize.width = 2048;
+            keyLight.shadow.mapSize.height = 2048;
+            scene.add(keyLight);
+            
+            // Fill light - soften shadows (ENHANCED)
+            const fillLight = new THREE.DirectionalLight(0xffffff, 1.5); // Increased intensity
+            fillLight.position.set(-5, 5, 5);
+            scene.add(fillLight);
+            
+            // Rim light - highlight edges (ENHANCED)
+            const rimLight = new THREE.DirectionalLight(0xffffff, 1.2); // Increased intensity
+            rimLight.position.set(0, 5, -10);
+            scene.add(rimLight);
+            
+            // 4. Additional lights for metallic surfaces
+            const topLight = new THREE.DirectionalLight(0xffffff, 0.4);
+            topLight.position.set(0, 10, 0);
+            scene.add(topLight);
+            
+            const bottomLight = new THREE.DirectionalLight(0xffffff, 0.3);
+            bottomLight.position.set(0, -5, 0);
+            scene.add(bottomLight);
             
             // Load model
             const loader = new GLTFLoader();
             loader.load(modelPath, function(gltf) {
                 const model = gltf.scene;
                 
-                // Apply material configuration
+                // Apply enhanced material configuration for jewelry
                 model.traverse((child) => {
                     if (child.isMesh && child.material) {
-                        if (child.material.isMeshStandardMaterial) {
-                            child.material.metalness = materialConfig.metallic;
-                            child.material.roughness = materialConfig.roughness;
-                            child.material.color.setRGB(...materialConfig.color);
+                        // FORCE MATERIAL REPLACEMENT to fix dark rendering
+                        // Create new material to ensure proper lighting
+                        const newMaterial = new THREE.MeshStandardMaterial({
+                            color: new THREE.Color(...materialConfig.color),
+                            metalness: materialConfig.metallic,
+                            roughness: materialConfig.roughness,
+                            envMapIntensity: 2.0,
+                            // Force emissive to add self-illumination
+                            emissive: new THREE.Color(...materialConfig.color),
+                            emissiveIntensity: 0.15, // Increased for more vibrant self-light
+                            // Add color saturation boost
+                            transparent: false,
+                            opacity: 1.0
+                        });
+                        
+                        // Copy any textures from original material
+                        if (child.material.map) newMaterial.map = child.material.map;
+                        if (child.material.normalMap) newMaterial.normalMap = child.material.normalMap;
+                        if (child.material.roughnessMap) newMaterial.roughnessMap = child.material.roughnessMap;
+                        if (child.material.metalnessMap) newMaterial.metalnessMap = child.material.metalnessMap;
+                        
+                        // Replace the material
+                        child.material.dispose(); // Clean up old material
+                        child.material = newMaterial;
+                        
+                        // Enable shadows
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                        
+                        // For gems/diamonds - make them brilliant
+                        if (child.name && (child.name.includes('gem') || child.name.includes('diamond'))) {
+                            child.material.metalness = 0;
+                            child.material.roughness = 0;
+                            child.material.transparent = true;
+                            child.material.opacity = 0.9;
+                            child.material.emissiveIntensity = 0.2;
                         }
                     }
                 });

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 // Note: Using basic textarea element since Textarea component doesn't exist
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/Badge'
 import { Sparkles, Users, DollarSign, TrendingUp, CheckCircle, Clock, AlertCircle } from 'lucide-react'
 
 interface ApplicationFormData {

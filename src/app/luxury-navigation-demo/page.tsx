@@ -6,7 +6,7 @@ import { LuxuryMegaMenu } from '@/components/navigation/LuxuryMegaMenu'
 import { MobileLuxuryDrawer } from '@/components/navigation/MobileLuxuryDrawer'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui/Badge'
 import { 
   Sparkles, 
   Star, 

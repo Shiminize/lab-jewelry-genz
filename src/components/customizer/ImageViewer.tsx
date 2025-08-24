@@ -26,7 +26,6 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   autoRotate = true // Default to auto-rotate for minimalist experience
 }) => {
   const [imageLoadStates, setImageLoadStates] = useState<Record<number, 'loading' | 'loaded' | 'error'>>({})
-  const [currentImageSrc, setCurrentImageSrc] = useState<string | null>(null)
   
   // Touch gesture refs
   const containerRef = useRef<HTMLDivElement>(null)
@@ -39,62 +38,131 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   const autoRotateRef = useRef<NodeJS.Timeout | null>(null)
   const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Memoized image path generation - CLAUDE_RULES: <100ms performance
-  const imagePath = useMemo(() => {
-    if (!assetPath) return null
-    return `${assetPath}/${currentFrame}.webp`
+  // Multi-format fallback with cache-busting for updated images - CLAUDE_RULES: <100ms performance
+  const imagePaths = useMemo(() => {
+    if (!assetPath) return []
+    // Priority order: webp (smallest) -> avif (modern) -> png (fallback)
+    const formats = ['webp', 'avif', 'png']
+    // Add timestamp for cache-busting to ensure fresh images are loaded
+    const timestamp = Date.now()
+    return formats.map(format => `${assetPath}/${currentFrame}.${format}?v=${timestamp}`)
   }, [assetPath, currentFrame])
 
-  // Update current image source when path changes
-  useEffect(() => {
-    if (imagePath) {
-      setCurrentImageSrc(imagePath)
-    }
-  }, [imagePath])
+  // Current active image source
+  const [currentImageSrc, setCurrentImageSrc] = useState<string | null>(null)
+  const [imageLoadAttempt, setImageLoadAttempt] = useState<number>(0)
 
-  // Handle image load success
+  // Smart image loading with format fallback
+  useEffect(() => {
+    if (imagePaths.length === 0) {
+      setCurrentImageSrc(null)
+      return
+    }
+
+    const loadImageWithFallback = async () => {
+      // Try each format in priority order
+      for (let i = 0; i < imagePaths.length; i++) {
+        const imagePath = imagePaths[i]
+        try {
+          // Test if image loads successfully
+          await new Promise<void>((resolve, reject) => {
+            const testImg = new Image()
+            testImg.onload = () => resolve()
+            testImg.onerror = () => reject(new Error(`Failed to load ${imagePath}`))
+            testImg.src = imagePath
+          })
+          
+          // If successful, use this image
+          setCurrentImageSrc(imagePath)
+          setImageLoadAttempt(0)
+          console.log(`✅ [IMAGE FALLBACK] Successfully loaded: ${imagePath}`)
+          return
+        } catch (error) {
+          console.warn(`⚠️ [IMAGE FALLBACK] Failed format ${i + 1}/${imagePaths.length}: ${imagePath}`)
+        }
+      }
+      
+      // If all formats fail, set error state
+      console.error(`❌ [IMAGE FALLBACK] All formats failed for frame ${currentFrame}`)
+      setCurrentImageSrc(null)
+      setImageLoadAttempt(prev => prev + 1)
+    }
+
+    loadImageWithFallback()
+  }, [imagePaths, currentFrame])
+
+  // Handle image load success with format tracking
   const handleImageLoad = (frame: number) => {
     setImageLoadStates(prev => ({
       ...prev,
       [frame]: 'loaded'
     }))
+    
+    // Log successful format for debugging
+    if (currentImageSrc) {
+      const format = currentImageSrc.split('.').pop()
+      console.log(`📸 [IMAGE SUCCESS] Frame ${frame} loaded with ${format} format`)
+    }
   }
 
-  // Handle image load error with fallback
+  // Handle image load error - now handled by fallback system
   const handleImageError = (frame: number) => {
+    console.warn(`⚠️ [IMAGE ERROR] Frame ${frame} display failed, fallback system should handle this`)
     setImageLoadStates(prev => ({
       ...prev,
       [frame]: 'error'
     }))
   }
 
-  // Preload adjacent frames for smooth navigation
+  // Enhanced preload with multi-format fallback
   useEffect(() => {
-    const preloadFrames = () => {
+    const preloadFramesWithFallback = async () => {
       const framesToPreload = [
         Math.max(0, currentFrame - 1),
         Math.min(totalFrames - 1, currentFrame + 1)
       ]
 
-      framesToPreload.forEach(frameIndex => {
+      for (const frameIndex of framesToPreload) {
         if (imageLoadStates[frameIndex] !== 'loaded' && imageLoadStates[frameIndex] !== 'loading') {
-          const img = new Image()
-          const framePath = `${assetPath}/${frameIndex}.webp`
-          
           setImageLoadStates(prev => ({
             ...prev,
             [frameIndex]: 'loading'
           }))
 
-          img.onload = () => handleImageLoad(frameIndex)
-          img.onerror = () => handleImageError(frameIndex)
-          img.src = framePath
+          // Try formats in priority order for preloading with cache-busting
+          const formats = ['webp', 'avif', 'png']
+          let loaded = false
+          const timestamp = Date.now()
+          
+          for (const format of formats) {
+            if (loaded) break
+            
+            try {
+              const framePath = `${assetPath}/${frameIndex}.${format}?v=${timestamp}`
+              await new Promise<void>((resolve, reject) => {
+                const img = new Image()
+                img.onload = () => {
+                  handleImageLoad(frameIndex)
+                  loaded = true
+                  resolve()
+                }
+                img.onerror = () => reject()
+                img.src = framePath
+              })
+            } catch {
+              // Continue to next format
+            }
+          }
+          
+          if (!loaded) {
+            handleImageError(frameIndex)
+          }
         }
-      })
+      }
     }
 
     if (assetPath && totalFrames > 0) {
-      preloadFrames()
+      preloadFramesWithFallback()
     }
   }, [assetPath, currentFrame, totalFrames, imageLoadStates])
 
@@ -153,15 +221,30 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
     )
   }
 
-  // Error state - minimalist design
-  if (error || !currentImageSrc) {
+  // Enhanced error state with retry functionality
+  if (error || (!currentImageSrc && imagePaths.length > 0 && imageLoadAttempt > 0)) {
     return (
       <div className={cn(
-        "flex items-center justify-center aspect-square bg-background rounded-lg",
+        "flex items-center justify-center aspect-square bg-background rounded-lg border border-border",
         className
       )}>
-        <div className="w-16 h-16 bg-muted/10 rounded-full flex items-center justify-center">
-          <div className="text-2xl opacity-40">💎</div>
+        <div className="text-center space-y-3 p-4">
+          <div className="w-16 h-16 bg-muted/20 rounded-full flex items-center justify-center mx-auto">
+            <div className="text-2xl opacity-60">💎</div>
+          </div>
+          <div className="space-y-2">
+            <p className="text-sm font-medium text-foreground">Preview Unavailable</p>
+            <p className="text-xs text-gray-600">This angle is being processed</p>
+            <button 
+              onClick={() => {
+                setImageLoadAttempt(0)
+                setCurrentImageSrc(null)
+              }}
+              className="text-xs text-accent hover:text-accent/80 underline"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       </div>
     )
@@ -264,7 +347,10 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
               isCurrentFrameLoading ? "opacity-50" : "opacity-100"
             )}
             onLoad={() => handleImageLoad(currentFrame)}
-            onError={() => handleImageError(currentFrame)}
+            onError={() => {
+              console.warn(`🔄 [IMAGE FALLBACK] Display error for current image, fallback system active`)
+              handleImageError(currentFrame)
+            }}
           />
         )}
 

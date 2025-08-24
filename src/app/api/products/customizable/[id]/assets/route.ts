@@ -17,10 +17,80 @@ import {
 } from '@/lib/api-utils'
 import { publicRoute } from '@/lib/auth-middleware'
 import { STANDARD_MATERIALS, generateMaterialPath } from '@/config/materials.config'
+import { getRedisClient } from '@/lib/redis-client'
+import path from 'path'
+import fs from 'fs'
 
 interface RouteParams {
   params: {
     id: string
+  }
+}
+
+/**
+ * Validate asset file existence and return available formats
+ * PHASE 1: Async batch validation for concurrency fix - CLAUDE_RULES: <300ms
+ */
+async function validateAssetAvailability(assetPath: string): Promise<{
+  available: boolean
+  availableFormats: string[]
+  frameAvailability: Record<number, string[]>
+  totalValidFrames: number
+}> {
+  const formats = ['webp', 'avif', 'png']
+  const frameAvailability: Record<number, string[]> = {}
+  const availableFormats = new Set<string>()
+  let totalValidFrames = 0
+  
+  console.log(`🔍 [ASSET VALIDATION] Async batch checking availability for: ${assetPath}`)
+  
+  // Create all file paths to check
+  const filePaths: Array<{frame: number, format: string, path: string}> = []
+  for (let frame = 0; frame < 36; frame++) {
+    for (const format of formats) {
+      const filePath = path.join(process.cwd(), 'public', assetPath, `${frame}.${format}`)
+      filePaths.push({ frame, format, path: filePath })
+    }
+  }
+  
+  // Batch async file existence checks - MASSIVE performance improvement
+  const validationPromises = filePaths.map(async ({ frame, format, path: filePath }) => {
+    try {
+      await fs.promises.access(filePath)
+      return { frame, format, exists: true }
+    } catch {
+      return { frame, format, exists: false }
+    }
+  })
+  
+  // Wait for all validations in parallel
+  const validationResults = await Promise.all(validationPromises)
+  
+  // Process results
+  for (const { frame, format, exists } of validationResults) {
+    if (exists) {
+      if (!frameAvailability[frame]) {
+        frameAvailability[frame] = []
+      }
+      frameAvailability[frame].push(format)
+      availableFormats.add(format)
+    }
+  }
+  
+  // Count valid frames
+  totalValidFrames = Object.keys(frameAvailability).length
+  const available = totalValidFrames >= 30 // At least 30 of 36 frames should be available
+  
+  console.log(`📊 [ASSET VALIDATION] Async batch results:`)
+  console.log(`   Available: ${available}`)
+  console.log(`   Valid frames: ${totalValidFrames}/36`)
+  console.log(`   Available formats: ${Array.from(availableFormats).join(', ')}`)
+  
+  return {
+    available,
+    availableFormats: Array.from(availableFormats),
+    frameAvailability,
+    totalValidFrames
   }
 }
 
@@ -41,6 +111,37 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
     const { id } = params
     const { searchParams } = new URL(request.url)
     const materialId = searchParams.get('materialId') || undefined
+    
+    // PHASE 2: Redis caching for <100ms API responses
+    const cacheKey = `assets:${id}:${materialId || 'default'}`
+    const redis = getRedisClient()
+    
+    // Try to get from cache first
+    if (redis) {
+      try {
+        const cached = await redis.get(cacheKey)
+        if (cached) {
+          const cachedResponse = JSON.parse(cached)
+          const cacheTime = performance.now() - startTime
+          console.log(`🚀 [CACHE HIT] Assets for ${id}:${materialId} served in ${cacheTime.toFixed(2)}ms`)
+          
+          return NextResponse.json({
+            ...cachedResponse,
+            performance: {
+              responseTime: `${Math.round(cacheTime)}ms`,
+              cacheHit: true
+            },
+            meta: {
+              ...cachedResponse.meta,
+              cached: true,
+              timestamp: new Date().toISOString()
+            }
+          })
+        }
+      } catch (error) {
+        console.warn('Redis cache read error:', error)
+      }
+    }
     
     // 🔍 PHASE 1 DEBUG: Log initial request parameters
     console.log(`\n🔍 [CUSTOMIZER DEBUG] API Request Details:`)
@@ -148,20 +249,29 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
       console.log(`   Resolved Model ID: ${modelId}`)
       console.log(`   Material ID: ${materialId || 'platinum'}`)
       
-      const assetPath = `/${generateMaterialPath(modelId, materialId || 'platinum')}`
+      const assetPath = generateMaterialPath(modelId, materialId || 'platinum')
       console.log(`🎯 [CUSTOMIZER DEBUG] Generated asset path: ${assetPath}`)
       
-      // 🔍 PHASE 1 DEBUG: Verify file system structure
-      console.log(`📁 [CUSTOMIZER DEBUG] Expected filesystem path: Public${assetPath}`)
+      // PHASE 1: Validate actual file availability with multi-format support
+      console.log(`📁 [CUSTOMIZER DEBUG] Validating filesystem path: public/${assetPath}`)
+      const validation = await validateAssetAvailability(assetPath)
       
       assetInfo = {
-        available: true,
-        assetPaths: [assetPath],
+        available: validation.available,
+        assetPaths: [`/${assetPath}`], // Add leading slash for URL
         lastGenerated: new Date().toISOString(),
-        frameCount: 36
+        frameCount: validation.totalValidFrames,
+        // Enhanced metadata for client fallback system
+        availableFormats: validation.availableFormats,
+        frameAvailability: validation.frameAvailability,
+        validationTimestamp: new Date().toISOString()
       }
       
-      console.log(`🎭 [CUSTOMIZER DEBUG] Asset info generated:`, assetInfo)
+      console.log(`🎭 [CUSTOMIZER DEBUG] Validated asset info:`, {
+        available: assetInfo.available,
+        totalFrames: assetInfo.frameCount,
+        formats: assetInfo.availableFormats
+      })
     }
     
     const responseTime = performance.now() - startTime
@@ -183,7 +293,10 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
           available: assetInfo.available,
           assetPaths: assetInfo.assetPaths,
           lastGenerated: assetInfo.lastGenerated,
-          frameCount: assetInfo.frameCount
+          frameCount: assetInfo.frameCount,
+          // PHASE 1: Multi-format support metadata
+          availableFormats: assetInfo.availableFormats || ['webp', 'avif', 'png'],
+          validationTimestamp: assetInfo.validationTimestamp
         },
         assetGeneration: {
           supported: isScalableProduct,
@@ -207,6 +320,21 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
     console.log(`📤 [CUSTOMIZER DEBUG] Final API response data:`, JSON.stringify(response.data, null, 2))
     console.log(`⏱️ [CUSTOMIZER DEBUG] Response time: ${Math.round(responseTime)}ms\n`)
 
+    // PHASE 2: Cache the response for future requests (5 minute TTL)
+    if (redis && response.success) {
+      try {
+        const cacheData = {
+          success: response.success,
+          data: response.data,
+          meta: response.meta
+        }
+        await redis.set(cacheKey, JSON.stringify(cacheData), 300000) // 5 minutes TTL
+        console.log(`💾 [CACHE WRITE] Cached assets for ${id}:${materialId}`)
+      } catch (error) {
+        console.warn('Redis cache write error:', error)
+      }
+    }
+
     return NextResponse.json(response, {
       status: 200,
       headers: {
@@ -219,13 +347,40 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
         'X-XSS-Protection': '1; mode=block',
         'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
-        // PHASE 2 SECURITY: Remove internal system headers
+        // PHASE 2: Performance monitoring headers
+        'X-Cache-Status': 'miss',
+        'X-Validation-Time': `${Math.round(responseTime - startTime)}ms`,
+        'X-Asset-Count': assetInfo.frameCount?.toString() || '0',
+        'X-Phase': 'phase-2-optimized'
       }
     })
 
   } catch (error) {
     const responseTime = performance.now() - startTime
-    console.error(`❌ [CUSTOMIZER DEBUG] GET /api/products/customizable/${params.id}/assets error:`, error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    
+    // PHASE 2: Enhanced error logging and monitoring
+    const errorContext = {
+      productId: params.id,
+      materialId: materialId,
+      responseTime: Math.round(responseTime),
+      timestamp: new Date().toISOString(),
+      userAgent: request.headers.get('user-agent') || 'unknown',
+      referer: request.headers.get('referer') || 'direct',
+      errorType: error instanceof Error ? error.constructor.name : 'UnknownError',
+      stack: error instanceof Error ? error.stack : undefined
+    }
+    
+    console.error(`❌ [API ERROR] GET /api/products/customizable/${params.id}/assets:`, {
+      error: errorMessage,
+      context: errorContext
+    })
+    
+    // PHASE 2: Log to monitoring system (would integrate with Sentry/DataDog in production)
+    if (process.env.NODE_ENV === 'production') {
+      // TODO: Integrate with monitoring service
+      // await monitoringService.logError(error, errorContext)
+    }
     
     // PHASE 2 SECURITY: Don't leak error details in production
     const isDevelopment = process.env.NODE_ENV === 'development'
@@ -233,7 +388,7 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
     return createErrorResponse(
       'INTERNAL_ERROR',
       'Failed to fetch product assets',
-      isDevelopment ? [{ field: 'system', message: error.message }] : [],
+      isDevelopment ? [{ field: 'system', message: errorMessage, context: errorContext }] : [],
       500
     )
   }
