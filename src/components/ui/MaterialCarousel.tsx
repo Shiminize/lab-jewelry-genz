@@ -305,7 +305,7 @@ export const MaterialCarousel: React.FC<MaterialCarouselProps> = ({
                 disabled={isDisabled || isDragging}
                 className={cn(
                   widthConfigs[itemWidth],
-                  "flex-shrink-0 p-3 rounded-lg border-2 transition-all duration-200",
+                  "flex-shrink-0 p-3 border-2 transition-all duration-200",
                   "hover:shadow-md focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2",
                   "bg-background",
                   isSelected

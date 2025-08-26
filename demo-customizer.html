@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Ring Customizer - GenZ Jewelry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --coral-gold: #FF7F50;
+            --champagne: #F7E7CE;
+            --warm-white: #FEFDFB;
+            --charcoal: #2C2C2C;
+            --light-gray: #F8F8F8;
+            --medium-gray: #E5E5E5;
+            --dark-gray: #666;
+            
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 16px;
+            
+            --shadow-subtle: 0 2px 8px rgba(212, 175, 55, 0.08);
+            --shadow-medium: 0 4px 20px rgba(212, 175, 55, 0.12);
+            --shadow-prominent: 0 8px 32px rgba(212, 175, 55, 0.16);
+            --shadow-floating: 0 16px 48px rgba(212, 175, 55, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: var(--light-gray);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 253, 251, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-gold), var(--coral-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-save {
+            background: var(--primary-gold);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-share {
+            background: none;
+            border: 2px solid var(--coral-gold);
+            color: var(--coral-gold);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-share:hover {
+            background: var(--coral-gold);
+            color: white;
+        }
+
+        /* Main Layout */
+        .customizer-main {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            height: calc(100vh - 80px);
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* 3D Viewer Area */
+        .viewer-area {
+            background: white;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+        }
+
+        .ring-viewer {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--warm-white) 0%, var(--champagne) 100%);
+            position: relative;
+            cursor: grab;
+        }
+
+        .ring-viewer:active {
+            cursor: grabbing;
+        }
+
+        .ring-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border: 4px solid var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-gold);
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .ring-placeholder.rotating {
+            transform: translate(-50%, -50%) rotate(180deg);
+            border-color: var(--coral-gold);
+            color: var(--coral-gold);
+        }
+
+        .viewer-controls {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            background: var(--primary-gold);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+            background: var(--coral-gold);
+        }
+
+        .progress-indicator {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            right: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: var(--primary-gold);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .step-text {
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+        /* Customization Panel */
+        .customization-panel {
+            background: white;
+            margin: 1rem 1rem 1rem 0;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--charcoal), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .panel-subtitle {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        /* Customization Steps */
+        .step-section {
+            margin-bottom: 3rem;
+        }
+
+        .step-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-number {
+            width: 24px;
+            height: 24px;
+            background: var(--primary-gold);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* Metal Selection */
+        .metal-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .metal-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 1rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .metal-option:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .metal-option.selected {
+            border-color: var(--primary-gold);
+            background: var(--champagne);
+        }
+
+        .metal-swatch {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 3px solid var(--medium-gray);
+            transition: all 0.3s ease;
+        }
+
+        .metal-option.selected .metal-swatch {
+            border-color: var(--primary-gold);
+            transform: scale(1.1);
+        }
+
+        .metal-swatch.gold { background: var(--primary-gold); }
+        .metal-swatch.rose-gold { background: #E8B4A0; }
+        .metal-swatch.platinum { background: #E5E4E2; }
+        .metal-swatch.white-gold { background: #F8F8F8; }
+
+        .metal-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .metal-price {
+            font-size: 0.9rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        /* Diamond Selection */
+        .diamond-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .diamond-option {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .diamond-option:hover,
+        .diamond-option.selected {
+            border-color: var(--primary-gold);
+            background: var(--champagne);
+        }
+
+        .diamond-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .diamond-info {
+            flex: 1;
+        }
+
+        .diamond-size {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .diamond-specs {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .diamond-price {
+            font-weight: 600;
+            color: var(--primary-gold);
+        }
+
+        /* Setting Style */
+        .setting-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .setting-option {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .setting-option:hover,
+        .setting-option.selected {
+            border-color: var(--primary-gold);
+            background: var(--champagne);
+        }
+
+        .setting-preview {
+            width: 80px;
+            height: 60px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius-sm);
+            margin-right: 1rem;
+            position: relative;
+        }
+
+        .setting-preview::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .setting-description {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        /* Size Selection */
+        .size-selector {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .size-option {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .size-option:hover,
+        .size-option.selected {
+            border-color: var(--primary-gold);
+            background: var(--champagne);
+            color: var(--primary-gold);
+            transform: scale(1.1);
+        }
+
+        /* Price Summary */
+        .price-summary {
+            background: var(--light-gray);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .price-breakdown {
+            margin-bottom: 1.5rem;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--dark-gray);
+        }
+
+        .price-item.total {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            padding-top: 1rem;
+            border-top: 2px solid var(--medium-gray);
+            margin-top: 1rem;
+        }
+
+        .price-item.total .price {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-gold), var(--coral-gold));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            background: none;
+            color: var(--charcoal);
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary-gold);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        /* Social Features */
+        .social-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--medium-gray);
+            background: white;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .social-btn:hover {
+            background: var(--light-gray);
+            border-color: var(--primary-gold);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .customizer-main {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .customization-panel {
+                margin: 0 1rem 1rem;
+            }
+            
+            .viewer-area {
+                height: 50vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .metal-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .size-selector {
+                justify-content: flex-start;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .customizer-main {
+                margin: 0;
+            }
+            
+            .viewer-area,
+            .customization-panel {
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--light-gray);
+            border-radius: 50%;
+            border-top-color: var(--primary-gold);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--charcoal);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">GenZ Jewelry</div>
+            <div class="nav-title">3D Ring Customizer</div>
+            <div class="nav-actions">
+                <button class="btn-share">📤 Share Design</button>
+                <button class="btn-save">💾 Save Progress</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Customizer -->
+    <main class="customizer-main">
+        <!-- 3D Viewer Area -->
+        <div class="viewer-area">
+            <div class="progress-indicator">
+                <div class="step-indicator">
+                    <div class="step-number">3</div>
+                    <div class="step-text">of 4 steps</div>
+                </div>
+                <div class="step-indicator">
+                    <div class="step-text">Step 3: Setting Style</div>
+                </div>
+            </div>
+            
+            <div class="ring-viewer" id="ringViewer">
+                <div class="ring-placeholder">
+                    Interactive 3D Ring View<br>
+                    <small style="font-size: 0.8em; opacity: 0.7;">Drag to rotate • Scroll to zoom</small>
+                </div>
+            </div>
+            
+            <div class="viewer-controls">
+                <button class="control-btn tooltip" data-tooltip="Reset View" title="Reset">🏠</button>
+                <button class="control-btn tooltip" data-tooltip="Auto Rotate" title="Rotate">🔄</button>
+                <button class="control-btn tooltip" data-tooltip="Zoom In" title="Zoom In">🔍</button>
+                <button class="control-btn tooltip" data-tooltip="Fullscreen" title="Fullscreen">⛶</button>
+            </div>
+        </div>
+
+        <!-- Customization Panel -->
+        <div class="customization-panel">
+            <div class="panel-header">
+                <h1 class="panel-title">Design Your Ring</h1>
+                <p class="panel-subtitle">Customize every detail to create your perfect piece</p>
+            </div>
+            
+            <div class="panel-content">
+                <!-- Step 1: Metal Selection -->
+                <div class="step-section">
+                    <h3 class="section-title">
+                        <span class="section-number">1</span>
+                        Choose Metal
+                    </h3>
+                    <div class="metal-options">
+                        <div class="metal-option selected" data-metal="gold">
+                            <div class="metal-swatch gold"></div>
+                            <div class="metal-name">18K Gold</div>
+                            <div class="metal-price">Base Price</div>
+                        </div>
+                        <div class="metal-option" data-metal="rose-gold">
+                            <div class="metal-swatch rose-gold"></div>
+                            <div class="metal-name">Rose Gold</div>
+                            <div class="metal-price">Base Price</div>
+                        </div>
+                        <div class="metal-option" data-metal="platinum">
+                            <div class="metal-swatch platinum"></div>
+                            <div class="metal-name">Platinum</div>
+                            <div class="metal-price">+$440</div>
+                        </div>
+                        <div class="metal-option" data-metal="white-gold">
+                            <div class="metal-swatch white-gold"></div>
+                            <div class="metal-name">White Gold</div>
+                            <div class="metal-price">+$200</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Diamond Selection -->
+                <div class="step-section">
+                    <h3 class="section-title">
+                        <span class="section-number">2</span>
+                        Select Diamond
+                    </h3>
+                    <div class="diamond-options">
+                        <div class="diamond-option selected" data-diamond="1ct">
+                            <div class="diamond-icon">💎</div>
+                            <div class="diamond-info">
+                                <div class="diamond-size">1.0 Carat</div>
+                                <div class="diamond-specs">Round Brilliant • D Color • VS1 Clarity</div>
+                                <div class="diamond-price">Base Price</div>
+                            </div>
+                        </div>
+                        <div class="diamond-option" data-diamond="1.25ct">
+                            <div class="diamond-icon">💎</div>
+                            <div class="diamond-info">
+                                <div class="diamond-size">1.25 Carat</div>
+                                <div class="diamond-specs">Round Brilliant • D Color • VS1 Clarity</div>
+                                <div class="diamond-price">+$850</div>
+                            </div>
+                        </div>
+                        <div class="diamond-option" data-diamond="1.5ct">
+                            <div class="diamond-icon">💎</div>
+                            <div class="diamond-info">
+                                <div class="diamond-size">1.5 Carat</div>
+                                <div class="diamond-specs">Round Brilliant • D Color • VS1 Clarity</div>
+                                <div class="diamond-price">+$1,650</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Setting Style -->
+                <div class="step-section">
+                    <h3 class="section-title">
+                        <span class="section-number">3</span>
+                        Setting Style
+                    </h3>
+                    <div class="setting-options">
+                        <div class="setting-option selected" data-setting="solitaire">
+                            <div class="setting-preview"></div>
+                            <div class="setting-info">
+                                <div class="setting-name">Classic Solitaire</div>
+                                <div class="setting-description">Timeless six-prong setting</div>
+                            </div>
+                        </div>
+                        <div class="setting-option" data-setting="halo">
+                            <div class="setting-preview"></div>
+                            <div class="setting-info">
+                                <div class="setting-name">Halo Setting</div>
+                                <div class="setting-description">Diamond halo for extra sparkle</div>
+                            </div>
+                        </div>
+                        <div class="setting-option" data-setting="vintage">
+                            <div class="setting-preview"></div>
+                            <div class="setting-info">
+                                <div class="setting-name">Vintage Inspired</div>
+                                <div class="setting-description">Art deco style with milgrain detail</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Ring Size -->
+                <div class="step-section">
+                    <h3 class="section-title">
+                        <span class="section-number">4</span>
+                        Ring Size
+                        <a href="#" style="margin-left: auto; color: var(--primary-gold); text-decoration: none; font-size: 0.9rem;">📏 Size Guide</a>
+                    </h3>
+                    <div class="size-selector">
+                        <div class="size-option" data-size="4">4</div>
+                        <div class="size-option" data-size="5">5</div>
+                        <div class="size-option" data-size="6">6</div>
+                        <div class="size-option selected" data-size="7">7</div>
+                        <div class="size-option" data-size="8">8</div>
+                        <div class="size-option" data-size="9">9</div>
+                        <div class="size-option" data-size="10">10</div>
+                    </div>
+                </div>
+
+                <!-- Price Summary -->
+                <div class="price-summary">
+                    <h3 style="margin-bottom: 1rem; color: var(--charcoal);">Price Summary</h3>
+                    <div class="price-breakdown">
+                        <div class="price-item">
+                            <span>Base Ring (18K Gold)</span>
+                            <span>$1,200</span>
+                        </div>
+                        <div class="price-item">
+                            <span>Diamond (1.0ct D VS1)</span>
+                            <span>$1,250</span>
+                        </div>
+                        <div class="price-item">
+                            <span>Setting Style</span>
+                            <span>$0</span>
+                        </div>
+                        <div class="price-item total">
+                            <span>Total Price</span>
+                            <span class="price">$2,450</span>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 0.9rem; color: var(--dark-gray); margin-bottom: 1rem;">
+                        💳 4 payments of $612.50 with Klarna<br>
+                        🚚 Free shipping and 30-day returns<br>
+                        ⭐ GIA certified with lifetime warranty
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn-primary">Add to Cart - $2,450</button>
+                        <button class="btn-secondary">Save & Continue Shopping</button>
+                    </div>
+                    
+                    <div class="social-actions">
+                        <button class="social-btn">📷 Screenshot</button>
+                        <button class="social-btn">📱 Share</button>
+                        <button class="social-btn">💾 Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Global state
+        let currentMetal = 'gold';
+        let currentDiamond = '1ct';
+        let currentSetting = 'solitaire';
+        let currentSize = '7';
+        let basePrice = 1200;
+        let diamondPrice = 1250;
+        let metalUpcharge = 0;
+
+        // 3D Viewer interaction
+        let isRotating = false;
+        let autoRotateInterval = null;
+        const ringViewer = document.getElementById('ringViewer');
+        const ringPlaceholder = document.querySelector('.ring-placeholder');
+
+        // Mouse interaction for 3D viewer
+        ringViewer.addEventListener('mousedown', function(e) {
+            isRotating = true;
+            this.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isRotating) {
+                const rotation = (e.clientX * 0.5) % 360;
+                ringPlaceholder.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (isRotating) {
+                isRotating = false;
+                ringViewer.style.cursor = 'grab';
+            }
+        });
+
+        // Control buttons
+        document.querySelectorAll('.control-btn').forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                switch(index) {
+                    case 0: // Reset
+                        ringPlaceholder.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+                        break;
+                    case 1: // Auto rotate
+                        if (autoRotateInterval) {
+                            clearInterval(autoRotateInterval);
+                            autoRotateInterval = null;
+                            this.style.background = 'var(--primary-gold)';
+                            ringPlaceholder.classList.remove('rotating');
+                        } else {
+                            let rotation = 0;
+                            autoRotateInterval = setInterval(() => {
+                                rotation += 2;
+                                ringPlaceholder.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+                            }, 50);
+                            this.style.background = 'var(--coral-gold)';
+                            ringPlaceholder.classList.add('rotating');
+                        }
+                        break;
+                    case 2: // Zoom
+                        const currentScale = ringPlaceholder.style.transform.includes('scale') ? 
+                            parseFloat(ringPlaceholder.style.transform.match(/scale\(([^)]+)\)/)[1]) : 1;
+                        const newScale = currentScale >= 1.5 ? 1 : currentScale + 0.25;
+                        ringPlaceholder.style.transform = ringPlaceholder.style.transform.replace(/scale\([^)]+\)/, '') + ` scale(${newScale})`;
+                        break;
+                    case 3: // Fullscreen
+                        if (!document.fullscreenElement) {
+                            ringViewer.requestFullscreen();
+                        } else {
+                            document.exitFullscreen();
+                        }
+                        break;
+                }
+            });
+        });
+
+        // Metal selection
+        document.querySelectorAll('.metal-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                document.querySelectorAll('.metal-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add active class to clicked option
+                this.classList.add('selected');
+                currentMetal = this.dataset.metal;
+                
+                // Update pricing
+                const priceText = this.querySelector('.metal-price').textContent;
+                if (priceText.includes('+')) {
+                    metalUpcharge = parseInt(priceText.replace(/[^0-9]/g, ''));
+                } else {
+                    metalUpcharge = 0;
+                }
+                
+                // Update ring visualization
+                updateRingVisualization();
+                updatePriceSummary();
+            });
+        });
+
+        // Diamond selection
+        document.querySelectorAll('.diamond-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.diamond-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
+                currentDiamond = this.dataset.diamond;
+                
+                // Update diamond pricing
+                const priceText = this.querySelector('.diamond-price').textContent;
+                if (priceText.includes('+')) {
+                    diamondPrice = 1250 + parseInt(priceText.replace(/[^0-9]/g, ''));
+                } else {
+                    diamondPrice = 1250;
+                }
+                
+                updateRingVisualization();
+                updatePriceSummary();
+            });
+        });
+
+        // Setting selection
+        document.querySelectorAll('.setting-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.setting-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
+                currentSetting = this.dataset.setting;
+                updateRingVisualization();
+            });
+        });
+
+        // Size selection
+        document.querySelectorAll('.size-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.size-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                this.classList.add('selected');
+                currentSize = this.dataset.size;
+            });
+        });
+
+        // Update ring visualization based on selections
+        function updateRingVisualization() {
+            const colors = {
+                'gold': 'var(--primary-gold)',
+                'rose-gold': '#E8B4A0',
+                'platinum': '#E5E4E2',
+                'white-gold': '#F8F8F8'
+            };
+            
+            const ringPlaceholder = document.querySelector('.ring-placeholder');
+            ringPlaceholder.style.borderColor = colors[currentMetal];
+            ringPlaceholder.style.color = colors[currentMetal];
+            
+            // Add size scaling effect
+            const sizeScale = {
+                '4': 0.8, '5': 0.85, '6': 0.9, '7': 1, '8': 1.1, '9': 1.2, '10': 1.3
+            };
+            
+            ringPlaceholder.style.width = `${300 * sizeScale[currentSize]}px`;
+            ringPlaceholder.style.height = `${300 * sizeScale[currentSize]}px`;
+        }
+
+        // Update price summary
+        function updatePriceSummary() {
+            const totalPrice = basePrice + diamondPrice + metalUpcharge;
+            
+            // Update individual line items
+            const priceItems = document.querySelectorAll('.price-item');
+            priceItems[0].querySelector('span:last-child').textContent = `$${(basePrice + metalUpcharge).toLocaleString()}`;
+            priceItems[1].querySelector('span:last-child').textContent = `$${diamondPrice.toLocaleString()}`;
+            
+            // Update total
+            document.querySelector('.price-item.total .price').textContent = `$${totalPrice.toLocaleString()}`;
+            
+            // Update button text
+            document.querySelector('.btn-primary').textContent = `Add to Cart - $${totalPrice.toLocaleString()}`;
+            
+            // Update Klarna pricing
+            const klarnaPrice = Math.round(totalPrice / 4);
+            document.querySelector('.price-summary div').innerHTML = 
+                `💳 4 payments of $${klarnaPrice} with Klarna<br>🚚 Free shipping and 30-day returns<br>⭐ GIA certified with lifetime warranty`;
+        }
+
+        // Social actions
+        document.querySelectorAll('.social-btn').forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                switch(index) {
+                    case 0: // Screenshot
+                        // Simulate screenshot functionality
+                        this.innerHTML = '📷 <span class="loading"></span>';
+                        setTimeout(() => {
+                            this.innerHTML = '✅ Saved';
+                            setTimeout(() => {
+                                this.innerHTML = '📷 Screenshot';
+                            }, 2000);
+                        }, 1000);
+                        break;
+                    case 1: // Share
+                        // Mock social sharing
+                        if (navigator.share) {
+                            navigator.share({
+                                title: 'My Custom Ring Design',
+                                text: `Check out my custom ${currentMetal} ring with ${currentDiamond} diamond!`,
+                                url: window.location.href
+                            });
+                        } else {
+                            // Fallback for browsers without Web Share API
+                            const url = encodeURIComponent(window.location.href);
+                            const text = encodeURIComponent(`Check out my custom ${currentMetal} ring design!`);
+                            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+                        }
+                        break;
+                    case 2: // Save
+                        // Mock save functionality
+                        this.innerHTML = '💾 Saving...';
+                        setTimeout(() => {
+                            this.innerHTML = '✅ Saved';
+                            setTimeout(() => {
+                                this.innerHTML = '💾 Save';
+                            }, 2000);
+                        }, 1000);
+                        break;
+                }
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            // Add loading state
+            const originalText = this.textContent;
+            this.textContent = 'Adding to Cart...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                this.textContent = 'Added to Cart ✓';
+                this.style.background = 'var(--primary-gold)';
+                
+                // Show success message
+                const successMessage = document.createElement('div');
+                successMessage.innerHTML = '🎉 Ring added to cart! Continue shopping or checkout when ready.';
+                successMessage.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: var(--primary-gold);
+                    color: white;
+                    padding: 1rem 2rem;
+                    border-radius: var(--border-radius-md);
+                    box-shadow: var(--shadow-floating);
+                    z-index: 2000;
+                    animation: slideIn 0.3s ease;
+                `;
+                document.body.appendChild(successMessage);
+                
+                setTimeout(() => {
+                    successMessage.remove();
+                    this.textContent = originalText;
+                    this.style.background = '';
+                    this.disabled = false;
+                }, 3000);
+            }, 1500);
+        });
+
+        // Save progress functionality
+        document.querySelector('.btn-save').addEventListener('click', function() {
+            const originalText = this.textContent;
+            this.textContent = '💾 Saving...';
+            
+            // Mock save to local storage
+            const designData = {
+                metal: currentMetal,
+                diamond: currentDiamond,
+                setting: currentSetting,
+                size: currentSize,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('customRingDesign', JSON.stringify(designData));
+            
+            setTimeout(() => {
+                this.textContent = '✅ Saved!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 2000);
+            }, 1000);
+        });
+
+        // Share design functionality
+        document.querySelector('.btn-share').addEventListener('click', function() {
+            // Create shareable URL with design parameters
+            const designParams = new URLSearchParams({
+                metal: currentMetal,
+                diamond: currentDiamond,
+                setting: currentSetting,
+                size: currentSize
+            });
+            
+            const shareUrl = `${window.location.origin}/customizer?${designParams.toString()}`;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    const originalText = this.textContent;
+                    this.textContent = '✅ Link Copied!';
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 2000);
+                });
+            }
+        });
+
+        // Load saved design on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedDesign = localStorage.getItem('customRingDesign');
+            if (savedDesign) {
+                const design = JSON.parse(savedDesign);
+                
+                // Restore selections
+                document.querySelector(`[data-metal="${design.metal}"]`)?.click();
+                document.querySelector(`[data-diamond="${design.diamond}"]`)?.click();
+                document.querySelector(`[data-setting="${design.setting}"]`)?.click();
+                document.querySelector(`[data-size="${design.size}"]`)?.click();
+            }
+            
+            // Initialize visualization
+            updateRingVisualization();
+            updatePriceSummary();
+        });
+
+        // Add slide-in animation for success messages
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

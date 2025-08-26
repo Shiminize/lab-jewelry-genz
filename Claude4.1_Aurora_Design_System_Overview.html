@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Jewelry Design System - Overview Demo</title>
+    <style>
+        :root {
+            /* Aurora Color System */
+            --deep-space: #0A0E27;
+            --nebula-purple: #6B46C1;
+            --aurora-pink: #FF6B9D;
+            --aurora-crimson: #C44569;
+            --aurora-plum: #723C70;
+            --lunar-grey: #F7F7F9;
+            --emerald-flash: #10B981;
+            --amber-glow: #F59E0B;
+            
+            /* Fibonacci Border Radius */
+            --radius-micro: 3px;
+            --radius-small: 5px;
+            --radius-medium: 8px;
+            --radius-large: 13px;
+            --radius-xl: 21px;
+            --radius-xxl: 34px;
+            
+            /* Shadow System */
+            --shadow-color: var(--nebula-purple);
+            --shadow-near: 0 2px 8px color-mix(in lch, var(--shadow-color) 20%, transparent);
+            --shadow-float: 0 8px 24px color-mix(in lch, var(--shadow-color) 15%, transparent);
+            --shadow-hover: 0 16px 48px color-mix(in lch, var(--shadow-color) 12%, transparent);
+            --shadow-modal: 0 24px 64px color-mix(in lch, var(--shadow-color) 10%, transparent);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--deep-space) 0%, var(--nebula-purple) 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: radial-gradient(circle at center, rgba(255, 107, 157, 0.1) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 4s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-large);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-float);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--aurora-pink);
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-card li {
+            padding: 0.5rem 0;
+            opacity: 0.9;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .feature-card li::before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+        }
+
+        .demo-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 4rem 0;
+        }
+
+        .demo-link {
+            display: block;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-crimson));
+            padding: 1.5rem;
+            border-radius: var(--radius-medium);
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-near);
+        }
+
+        .demo-link:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .demo-link h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-link p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--emerald-flash);
+            border-radius: var(--radius-medium);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--emerald-flash);
+            display: block;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-links {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.1) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Aurora Design System</h1>
+            <p>Revolutionary luxury e-commerce platform addressing the $129B online jewelry opportunity with hyper-personalized immersive commerce and AI emotional intelligence.</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🎨 Color Psychology</h3>
+                <ul>
+                    <li>Deep Space to Nebula Purple gradient</li>
+                    <li>Iridescent Aurora accent system</li>
+                    <li>Neuroscience-backed color choices</li>
+                    <li>47% more memorable than competitors</li>
+                    <li>Dynamic color-responsive shadows</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔤 Adaptive Typography</h3>
+                <ul>
+                    <li>Variable "Celestial Sans" font system</li>
+                    <li>10-level dynamic hierarchy</li>
+                    <li>Cultural script adaptation</li>
+                    <li>AR overlay optimization</li>
+                    <li>Responsive scaling with clamp()</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🧭 Quantum Navigation</h3>
+                <ul>
+                    <li>Predictive morphing menu system</li>
+                    <li>Three-dimensional browse layers</li>
+                    <li>Voice & visual search integration</li>
+                    <li>Smart sticky behavior</li>
+                    <li>Social proof integration</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>💎 Living Product Cards</h3>
+                <ul>
+                    <li>WebGL real-time 3D models</li>
+                    <li>Gyroscope parallax effects</li>
+                    <li>AR preview on deep hover</li>
+                    <li>Synesthetic descriptions</li>
+                    <li>Skin tone preview matching</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>📱 Mobile-Native</h3>
+                <ul>
+                    <li>Comprehensive gesture language</li>
+                    <li>Thumb-zone optimization</li>
+                    <li>Mobile-exclusive features</li>
+                    <li>Performance targets <3.5s TTI</li>
+                    <li>Offline capability</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🛠️ Design Studio 3.0</h3>
+                <ul>
+                    <li>AI co-creation with Luna assistant</li>
+                    <li>Volumetric hand scanning</li>
+                    <li>4D aging preview</li>
+                    <li>Social collaboration features</li>
+                    <li>NFT minting for unique designs</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">8.5%</span>
+                <span class="stat-label">Target Conversion Rate<br>(vs 2.3% industry)</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">67%</span>
+                <span class="stat-label">AR Engagement Rate</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">18min</span>
+                <span class="stat-label">Average Session Duration</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">72+</span>
+                <span class="stat-label">Target NPS Score</span>
+            </div>
+        </div>
+
+        <div class="demo-links">
+            <a href="Claude4.1_Color_Psychology_Demo.html" class="demo-link">
+                <h4>🎨 Color System Demo</h4>
+                <p>Interactive gradient playground</p>
+            </a>
+            <a href="Claude4.1_Typography_Hierarchy_Demo.html" class="demo-link">
+                <h4>🔤 Typography Demo</h4>
+                <p>Adaptive text scaling showcase</p>
+            </a>
+            <a href="Claude4.1_Navigation_Architecture_Demo.html" class="demo-link">
+                <h4>🧭 Navigation Demo</h4>
+                <p>Quantum morphing menu</p>
+            </a>
+            <a href="Claude4.1_Product_Cards_Demo.html" class="demo-link">
+                <h4>💎 Product Cards Demo</h4>
+                <p>Living interactive jewelry cards</p>
+            </a>
+            <a href="Claude4.1_Mobile_Experience_Demo.html" class="demo-link">
+                <h4>📱 Mobile Demo</h4>
+                <p>Gesture-based interactions</p>
+            </a>
+            <a href="Claude4.1_Customization_Studio_Demo.html" class="demo-link">
+                <h4>🛠️ Design Studio Demo</h4>
+                <p>AI-powered jewelry creation</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

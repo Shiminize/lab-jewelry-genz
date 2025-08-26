@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils'
 import { Progress } from './Progress'
 
 const loadingVariants = cva(
-  'flex flex-col items-center justify-center space-y-6 p-6 rounded-lg transition-all duration-300',
+  'flex flex-col items-center justify-center space-y-6 p-6 transition-all duration-300',
   {
     variants: {
       variant: {
@@ -192,7 +192,7 @@ export function CustomizerLoadingState({
 
         {/* Loading Tips */}
         {showTips && (
-          <div className="mt-4 p-4 bg-muted rounded-lg border border-border max-w-sm">
+          <div className="mt-4 p-4 bg-muted border border-border max-w-sm">
             <p className="text-sm text-gray-600 bg-muted font-body italic">
               {currentTip}
             </p>

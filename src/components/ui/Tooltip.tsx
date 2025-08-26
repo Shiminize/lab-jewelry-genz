@@ -97,7 +97,7 @@ export function Tooltip({
         <div
           ref={tooltipRef}
           className={cn(
-            'absolute z-50 px-3 py-2 text-sm text-background bg-foreground rounded-md shadow-lg',
+            'absolute z-50 px-3 py-2 text-sm text-background bg-foreground shadow-lg',
             'animate-fade-in max-w-xs whitespace-normal',
             positionClasses[actualPosition],
             className

@@ -91,7 +91,7 @@ export default function CatalogPage() {
                 href={category.href}
                 className="group block text-center hover:scale-105 transition-transform duration-200"
               >
-                <div className="aspect-square bg-gradient-to-br from-accent/20 to-accent/40 rounded-xl overflow-hidden mb-3 flex items-center justify-center">
+                <div className="aspect-square bg-gradient-to-br from-accent/20 to-accent/40 overflow-hidden mb-3 flex items-center justify-center">
                   <BodyText className="font-semibold text-foreground">
                     {category.name}
                   </BodyText>

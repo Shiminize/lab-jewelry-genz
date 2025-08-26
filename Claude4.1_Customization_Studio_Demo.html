@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Design Studio 3.0 - AI-Powered Jewelry Creation</title>
+    <style>
+        :root {
+            /* Aurora Color System */
+            --deep-space: #0A0E27;
+            --nebula-purple: #6B46C1;
+            --aurora-pink: #FF6B9D;
+            --aurora-crimson: #C44569;
+            --aurora-plum: #723C70;
+            --lunar-grey: #F7F7F9;
+            --emerald-flash: #10B981;
+            --amber-glow: #F59E0B;
+            
+            /* Border Radius */
+            --radius-micro: 3px;
+            --radius-small: 5px;
+            --radius-medium: 8px;
+            --radius-large: 13px;
+            --radius-xl: 21px;
+            --radius-xxl: 34px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--lunar-grey);
+            color: var(--deep-space);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .studio-header {
+            background: linear-gradient(135deg, var(--deep-space) 0%, var(--nebula-purple) 100%);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .studio-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 157, 0.1) 0%, transparent 50%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .studio-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 4s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .studio-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Entry Points Section */
+        .entry-points {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.125rem;
+        }
+
+        .entry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .entry-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.08);
+        }
+
+        .entry-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .entry-card:hover::before {
+            left: 100%;
+        }
+
+        .entry-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(107, 70, 193, 0.15);
+        }
+
+        .entry-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .entry-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--nebula-purple);
+        }
+
+        .entry-desc {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .entry-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson));
+            color: white;
+            border: none;
+            border-radius: var(--radius-large);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .entry-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(255, 107, 157, 0.3);
+        }
+
+        /* AI Luna Assistant */
+        .luna-section {
+            background: linear-gradient(135deg, var(--deep-space), var(--nebula-purple));
+            padding: 4rem 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .luna-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .luna-avatar {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--aurora-pink), var(--aurora-plum));
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            animation: luna-pulse 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes luna-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 30px rgba(255, 107, 157, 0); }
+        }
+
+        .luna-avatar::after {
+            content: '🌙';
+            animation: rotate 10s linear infinite;
+        }
+
+        .luna-features {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .luna-feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius-large);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .luna-feature:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .luna-feature h3 {
+            color: var(--aurora-pink);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Revolutionary Tools */
+        .tools-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .tool-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tool-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(107, 70, 193, 0.12);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-title {
+            font-weight: 700;
+            color: var(--nebula-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-desc {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        /* Live Design Canvas */
+        .design-canvas {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            margin: 4rem auto;
+            max-width: 1200px;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.08);
+        }
+
+        .canvas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--lunar-grey);
+        }
+
+        .canvas-title {
+            font-size: 1.5rem;
+            color: var(--nebula-purple);
+        }
+
+        .canvas-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .control-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--nebula-purple);
+            background: transparent;
+            color: var(--nebula-purple);
+            border-radius: var(--radius-medium);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover,
+        .control-btn.active {
+            background: var(--nebula-purple);
+            color: white;
+        }
+
+        .design-area {
+            min-height: 400px;
+            background: var(--lunar-grey);
+            border-radius: var(--radius-large);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jewelry-preview {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #FFD700, #FFA500);
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.4);
+        }
+
+        .jewelry-preview:hover {
+            transform: scale(1.1) rotateY(15deg);
+        }
+
+        .jewelry-preview::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent);
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .material-selector {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .material-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .material-option::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 3px solid transparent;
+            border-radius: 50%;
+            transition: border-color 0.3s ease;
+        }
+
+        .material-option.active::after {
+            border-color: var(--nebula-purple);
+        }
+
+        .material-gold {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+        }
+
+        .material-silver {
+            background: linear-gradient(135deg, #E8E8E8, #C0C0C0);
+        }
+
+        .material-rose {
+            background: linear-gradient(135deg, #E91E63, #C2185B);
+        }
+
+        .material-platinum {
+            background: linear-gradient(135deg, #E0E0E0, #BDBDBD);
+        }
+
+        /* Social Creation Features */
+        .social-section {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(107, 70, 193, 0.1));
+            padding: 4rem 2rem;
+        }
+
+        .social-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-card {
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 48px rgba(107, 70, 193, 0.12);
+        }
+
+        .social-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .social-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--nebula-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .social-desc {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        /* Output Options */
+        .output-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .output-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .output-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .output-option {
+            background: var(--lunar-grey);
+            border-radius: var(--radius-large);
+            padding: 2rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .output-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--emerald-flash), var(--nebula-purple));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .output-option:hover::before {
+            transform: scaleX(1);
+        }
+
+        .output-option:hover {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(107, 70, 193, 0.1));
+            transform: scale(1.05);
+        }
+
+        .output-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .output-label {
+            font-weight: 600;
+            color: var(--deep-space);
+            margin-bottom: 0.5rem;
+        }
+
+        .output-desc {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Real-time Pricing */
+        .pricing-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 1.5rem;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.15);
+            min-width: 200px;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-widget:hover {
+            transform: scale(1.05);
+        }
+
+        .pricing-title {
+            font-weight: 700;
+            color: var(--nebula-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--emerald-flash);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-timeline {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .luna-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .entry-grid,
+            .tools-grid,
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .canvas-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .pricing-widget {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="studio-header">
+        <h1>Design Studio 3.0</h1>
+        <p>Transform customers into jewelry designers with AI co-creation</p>
+    </header>
+
+    <!-- Entry Points -->
+    <section class="entry-points">
+        <h2 class="section-title">5 Ways to Start Creating</h2>
+        <p class="section-subtitle">Every path leads to your perfect piece</p>
+        
+        <div class="entry-grid">
+            <div class="entry-card" id="scratchCard">
+                <span class="entry-icon">✨</span>
+                <h3 class="entry-title">Design from Scratch</h3>
+                <p class="entry-desc">Start with a blank canvas and let your imagination run wild. Luna will guide you through every step.</p>
+                <button class="entry-btn">Start Creating</button>
+            </div>
+
+            <div class="entry-card" id="remixCard">
+                <span class="entry-icon">🔄</span>
+                <h3 class="entry-title">Remix Bestseller</h3>
+                <p class="entry-desc">Take our most popular designs and make them uniquely yours with infinite customization options.</p>
+                <button class="entry-btn">Browse Bestsellers</button>
+            </div>
+
+            <div class="entry-card" id="aiCard">
+                <span class="entry-icon">🤖</span>
+                <h3 class="entry-title">AI Designer</h3>
+                <p class="entry-desc">Describe your dream piece in natural language and watch as AI transforms your words into reality.</p>
+                <button class="entry-btn">Talk to AI</button>
+            </div>
+
+            <div class="entry-card" id="coupleCard">
+                <span class="entry-icon">💕</span>
+                <h3 class="entry-title">Couple's Mode</h3>
+                <p class="entry-desc">Design together in real-time with your partner. Perfect for engagement rings and matching sets.</p>
+                <button class="entry-btn">Invite Partner</button>
+            </div>
+
+            <div class="entry-card" id="heritageCard">
+                <span class="entry-icon">📿</span>
+                <h3 class="entry-title">Heritage Redesign</h3>
+                <p class="entry-desc">Upload photos of family heirlooms and modernize them while preserving their emotional value.</p>
+                <button class="entry-btn">Upload Heritage</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Luna Assistant -->
+    <section class="luna-section">
+        <div class="luna-container">
+            <div>
+                <div class="luna-avatar"></div>
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--aurora-pink);">Meet Luna</h2>
+                <p style="text-align: center; margin-bottom: 2rem; opacity: 0.9;">Your AI design assistant with infinite creativity and structural expertise</p>
+            </div>
+            
+            <div class="luna-features">
+                <div class="luna-feature">
+                    <h3>🏗️ Structural Intelligence</h3>
+                    <p>Suggests improvements based on engineering principles and warns about impractical designs before you commit.</p>
+                </div>
+                <div class="luna-feature">
+                    <h3>🎨 Style Learning</h3>
+                    <p>Remembers your preferences across sessions and offers increasingly personalized design alternatives.</p>
+                </div>
+                <div class="luna-feature">
+                    <h3>💰 Real-time Pricing</h3>
+                    <p>Estimates production time and cost as you design, helping you balance dreams with budget.</p>
+                </div>
+                <div class="luna-feature">
+                    <h3>🔄 Design Evolution</h3>
+                    <p>Offers multiple variations of your design and explains the impact of each modification.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Revolutionary Tools -->
+    <section class="tools-section">
+        <h2 class="section-title">Revolutionary Design Tools</h2>
+        <p class="section-subtitle">Technology that makes the impossible, possible</p>
+        
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon">📏</div>
+                <h3 class="tool-title">Volumetric Capture</h3>
+                <p class="tool-desc">Scan your hand for perfect sizing with millimeter precision</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">🔍</div>
+                <h3 class="tool-title">Material Scanner</h3>
+                <p class="tool-desc">Match metals to your existing jewelry collection</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">💎</div>
+                <h3 class="tool-title">Gemstone Personality</h3>
+                <p class="tool-desc">Quiz suggests stones based on psychometric data</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">🌱</div>
+                <h3 class="tool-title">Sustainability Slider</h3>
+                <p class="tool-desc">Adjust eco-friendliness vs. price in real-time</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">⏳</div>
+                <h3 class="tool-title">4D Aging Preview</h3>
+                <p class="tool-desc">See how your piece will look after years of wear</p>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">🎯</div>
+                <h3 class="tool-title">Precision Calibrator</h3>
+                <p class="tool-desc">Ensures structural integrity for daily wear</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Design Canvas -->
+    <section class="design-canvas">
+        <div class="canvas-header">
+            <h3 class="canvas-title">Live Design Canvas</h3>
+            <div class="canvas-controls">
+                <button class="control-btn active" data-view="3d">3D View</button>
+                <button class="control-btn" data-view="xray">X-Ray</button>
+                <button class="control-btn" data-view="aging">Aging</button>
+            </div>
+        </div>
+        
+        <div class="design-area">
+            <div class="jewelry-preview" id="jewelryPreview"></div>
+        </div>
+        
+        <div class="material-selector">
+            <div class="material-option material-gold active" data-material="gold"></div>
+            <div class="material-option material-silver" data-material="silver"></div>
+            <div class="material-option material-rose" data-material="rose"></div>
+            <div class="material-option material-platinum" data-material="platinum"></div>
+        </div>
+    </section>
+
+    <!-- Social Creation Features -->
+    <section class="social-section">
+        <div class="social-container">
+            <h2 class="section-title">Social Co-Creation</h2>
+            <p class="section-subtitle">Design together, share the joy</p>
+            
+            <div class="social-grid">
+                <div class="social-card" id="livestreamCard">
+                    <span class="social-icon">📺</span>
+                    <h3 class="social-title">Live-Stream Design</h3>
+                    <p class="social-desc">Broadcast your design process and get real-time feedback from friends and family</p>
+                </div>
+
+                <div class="social-card" id="votingCard">
+                    <span class="social-icon">🗳️</span>
+                    <h3 class="social-title">Community Voting</h3>
+                    <p class="social-desc">Let the Aurora community help you choose between design variations</p>
+                </div>
+
+                <div class="social-card" id="collaborationCard">
+                    <span class="social-icon">🤝</span>
+                    <h3 class="social-title">Designer Collaboration</h3>
+                    <p class="social-desc">Work directly with professional jewelry designers through our marketplace</p>
+                </div>
+
+                <div class="social-card" id="nftCard">
+                    <span class="social-icon">🎨</span>
+                    <h3 class="social-title">NFT Minting</h3>
+                    <p class="social-desc">Create unique digital certificates for your one-of-a-kind designs</p>
+                </div>
+
+                <div class="social-card" id="royaltiesCard">
+                    <span class="social-icon">💰</span>
+                    <h3 class="social-title">Design Royalties</h3>
+                    <p class="social-desc">Earn money when the community chooses to create your designs</p>
+                </div>
+
+                <div class="social-card" id="showcaseCard">
+                    <span class="social-icon">🏆</span>
+                    <h3 class="social-title">Design Showcase</h3>
+                    <p class="social-desc">Feature your creations in our monthly design competitions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Output Options -->
+    <section class="output-section">
+        <div class="output-container">
+            <h2 class="section-title">Your Design, Your Way</h2>
+            <p class="section-subtitle">Multiple ways to bring your creation to life</p>
+            
+            <div class="output-grid">
+                <div class="output-option" id="printOption">
+                    <div class="output-icon">🖨️</div>
+                    <div class="output-label">3D Print File</div>
+                    <div class="output-desc">For prototyping</div>
+                </div>
+
+                <div class="output-option" id="arOption">
+                    <div class="output-icon">📱</div>
+                    <div class="output-label">AR Marker</div>
+                    <div class="output-desc">Virtual wearing</div>
+                </div>
+
+                <div class="output-option" id="modelOption">
+                    <div class="output-icon">🎯</div>
+                    <div class="output-label">3D Model</div>
+                    <div class="output-desc">Shareable file</div>
+                </div>
+
+                <div class="output-option" id="specsOption">
+                    <div class="output-icon">📋</div>
+                    <div class="output-label">Manufacturing</div>
+                    <div class="output-desc">Production specs</div>
+                </div>
+
+                <div class="output-option" id="quoteOption">
+                    <div class="output-icon">💎</div>
+                    <div class="output-label">Price Quote</div>
+                    <div class="output-desc">With timeline</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real-time Pricing Widget -->
+    <div class="pricing-widget" id="pricingWidget">
+        <div class="pricing-title">Estimated Cost</div>
+        <div class="pricing-amount" id="pricingAmount">$2,450</div>
+        <div class="pricing-timeline" id="pricingTimeline">3-4 weeks production</div>
+    </div>
+
+    <script>
+        // Entry point interactions
+        document.querySelectorAll('.entry-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.entry-title').textContent;
+                
+                // Visual feedback
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Simulate loading different design modes
+                console.log(`Loading ${title}...`);
+                
+                // Show specific features based on entry point
+                switch(this.id) {
+                    case 'scratchCard':
+                        showDesignMode('blank');
+                        break;
+                    case 'remixCard':
+                        showDesignMode('bestsellers');
+                        break;
+                    case 'aiCard':
+                        showDesignMode('ai');
+                        break;
+                    case 'coupleCard':
+                        showDesignMode('collaboration');
+                        break;
+                    case 'heritageCard':
+                        showDesignMode('heritage');
+                        break;
+                }
+            });
+        });
+
+        function showDesignMode(mode) {
+            const canvas = document.querySelector('.design-canvas');
+            canvas.style.border = '3px solid var(--aurora-pink)';
+            canvas.scrollIntoView({ behavior: 'smooth' });
+            
+            setTimeout(() => {
+                canvas.style.border = '';
+            }, 2000);
+            
+            // Update pricing based on mode
+            updatePricing(mode);
+        }
+
+        // Material selector
+        document.querySelectorAll('.material-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active from all options
+                document.querySelectorAll('.material-option').forEach(opt => 
+                    opt.classList.remove('active'));
+                
+                // Add active to clicked option
+                this.classList.add('active');
+                
+                const material = this.dataset.material;
+                const preview = document.getElementById('jewelryPreview');
+                
+                // Update preview based on material
+                switch(material) {
+                    case 'gold':
+                        preview.style.background = 'radial-gradient(circle, #FFD700, #FFA500)';
+                        preview.style.boxShadow = '0 0 60px rgba(255, 215, 0, 0.4)';
+                        updatePricingMaterial(2450, 'gold');
+                        break;
+                    case 'silver':
+                        preview.style.background = 'radial-gradient(circle, #E8E8E8, #C0C0C0)';
+                        preview.style.boxShadow = '0 0 60px rgba(192, 192, 192, 0.4)';
+                        updatePricingMaterial(1890, 'silver');
+                        break;
+                    case 'rose':
+                        preview.style.background = 'radial-gradient(circle, #E91E63, #C2185B)';
+                        preview.style.boxShadow = '0 0 60px rgba(233, 30, 99, 0.4)';
+                        updatePricingMaterial(2650, 'rose gold');
+                        break;
+                    case 'platinum':
+                        preview.style.background = 'radial-gradient(circle, #E0E0E0, #BDBDBD)';
+                        preview.style.boxShadow = '0 0 60px rgba(189, 189, 189, 0.4)';
+                        updatePricingMaterial(3200, 'platinum');
+                        break;
+                }
+            });
+        });
+
+        // Canvas view controls
+        document.querySelectorAll('.control-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const view = this.dataset.view;
+                const preview = document.getElementById('jewelryPreview');
+                
+                switch(view) {
+                    case '3d':
+                        preview.style.filter = 'none';
+                        preview.style.opacity = '1';
+                        break;
+                    case 'xray':
+                        preview.style.filter = 'invert(1) contrast(2)';
+                        preview.style.opacity = '0.8';
+                        break;
+                    case 'aging':
+                        preview.style.filter = 'sepia(0.3) contrast(0.8)';
+                        preview.style.opacity = '0.9';
+                        break;
+                }
+            });
+        });
+
+        // Social card interactions
+        document.querySelectorAll('.social-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.social-title').textContent;
+                
+                // Visual feedback
+                this.style.background = 'linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson))';
+                this.style.color = 'white';
+                
+                setTimeout(() => {
+                    this.style.background = '';
+                    this.style.color = '';
+                }, 1000);
+                
+                // Simulate feature activation
+                console.log(`Activating ${title}...`);
+                
+                switch(this.id) {
+                    case 'livestreamCard':
+                        alert('📺 Starting live stream... Invite friends to watch your design process!');
+                        break;
+                    case 'votingCard':
+                        alert('🗳️ Community voting activated! Upload your design variations.');
+                        break;
+                    case 'nftCard':
+                        alert('🎨 NFT minting ready! Your design will be registered on the blockchain.');
+                        break;
+                    case 'royaltiesCard':
+                        alert('💰 Royalty program activated! You can earn from community creations.');
+                        break;
+                }
+            });
+        });
+
+        // Output option interactions
+        document.querySelectorAll('.output-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const label = this.querySelector('.output-label').textContent;
+                
+                // Animation feedback
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 300);
+                
+                // Simulate file generation
+                switch(this.id) {
+                    case 'printOption':
+                        showOutputMessage('🖨️ Generating STL file for 3D printing...');
+                        break;
+                    case 'arOption':
+                        showOutputMessage('📱 Creating AR marker for virtual try-on...');
+                        break;
+                    case 'modelOption':
+                        showOutputMessage('🎯 Exporting shareable 3D model...');
+                        break;
+                    case 'specsOption':
+                        showOutputMessage('📋 Generating manufacturing specifications...');
+                        break;
+                    case 'quoteOption':
+                        showOutputMessage('💎 Calculating final price quote...');
+                        break;
+                }
+            });
+        });
+
+        function showOutputMessage(message) {
+            const widget = document.getElementById('pricingWidget');
+            const originalContent = widget.innerHTML;
+            
+            widget.innerHTML = `<div style="text-align: center; color: var(--emerald-flash);">${message}</div>`;
+            widget.style.background = 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(107, 70, 193, 0.1))';
+            
+            setTimeout(() => {
+                widget.innerHTML = originalContent;
+                widget.style.background = 'white';
+            }, 3000);
+        }
+
+        // Pricing updates
+        function updatePricing(mode) {
+            const amountEl = document.getElementById('pricingAmount');
+            const timelineEl = document.getElementById('pricingTimeline');
+            
+            const prices = {
+                'blank': { price: '$2,450', time: '4-5 weeks' },
+                'bestsellers': { price: '$2,890', time: '2-3 weeks' },
+                'ai': { price: '$3,200', time: '3-4 weeks' },
+                'collaboration': { price: '$4,100', time: '5-6 weeks' },
+                'heritage': { price: '$3,750', time: '6-8 weeks' }
+            };
+            
+            const pricing = prices[mode] || prices['blank'];
+            
+            // Animate price change
+            amountEl.style.transform = 'scale(0.8)';
+            timelineEl.style.transform = 'scale(0.8)';
+            
+            setTimeout(() => {
+                amountEl.textContent = pricing.price;
+                timelineEl.textContent = pricing.time + ' production';
+                amountEl.style.transform = 'scale(1)';
+                timelineEl.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        function updatePricingMaterial(price, material) {
+            const amountEl = document.getElementById('pricingAmount');
+            const timelineEl = document.getElementById('pricingTimeline');
+            
+            amountEl.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                amountEl.textContent = `$${price.toLocaleString()}`;
+                amountEl.style.transform = 'scale(1)';
+                
+                // Update timeline based on material
+                const timelines = {
+                    'gold': '3-4 weeks',
+                    'silver': '2-3 weeks', 
+                    'rose gold': '3-4 weeks',
+                    'platinum': '4-5 weeks'
+                };
+                timelineEl.textContent = timelines[material] + ' production';
+            }, 150);
+        }
+
+        // Luna assistant interaction
+        document.querySelector('.luna-avatar').addEventListener('click', function() {
+            this.style.animation = 'none';
+            this.style.transform = 'scale(1.2)';
+            
+            setTimeout(() => {
+                this.style.animation = 'luna-pulse 3s ease-in-out infinite';
+                this.style.transform = '';
+                
+                // Show Luna interaction
+                alert('🌙 Luna: "Hello! I\'m here to help you create the perfect piece. What\'s your vision?"');
+            }, 300);
+        });
+
+        // Jewelry preview interaction
+        document.getElementById('jewelryPreview').addEventListener('click', function() {
+            this.style.animation = 'none';
+            this.style.transform = 'scale(1.2) rotateY(180deg)';
+            
+            setTimeout(() => {
+                this.style.animation = 'sparkle 2s ease-in-out infinite';
+                this.style.transform = '';
+            }, 500);
+        });
+
+        // Simulate real-time price updates
+        setInterval(() => {
+            const currentPrice = parseInt(document.getElementById('pricingAmount').textContent.replace(/[$,]/g, ''));
+            const variation = Math.floor(Math.random() * 100) - 50; // ±$50 variation
+            const newPrice = Math.max(1000, currentPrice + variation);
+            
+            // Only update occasionally to simulate design changes
+            if (Math.random() < 0.1) {
+                document.getElementById('pricingAmount').textContent = `$${newPrice.toLocaleString()}`;
+            }
+        }, 5000);
+
+        // Tool card hover effects
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.tool-icon');
+                icon.style.animation = 'bounce 0.5s ease infinite';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.tool-icon');
+                icon.style.animation = '';
+            });
+        });
+
+        // Add bounce animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

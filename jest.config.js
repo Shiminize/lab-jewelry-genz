@@ -17,13 +17,25 @@ const customJestConfig = {
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
     '<rootDir>/src/**/*.{test,spec}.{js,jsx,ts,tsx}',
-    '<rootDir>/tests/**/*.{test,spec}.{js,jsx,ts,tsx}'
+    '<rootDir>/tests/unit/**/*.{test,spec}.{js,jsx,ts,tsx}',
+    '<rootDir>/tests/**/*.test.{js,jsx,ts,tsx}'
   ],
-  testPathIgnorePatterns: ['/node_modules/', '/.next/', 'tests/.*\.spec\.ts'],
+  testPathIgnorePatterns: [
+    '/node_modules/', 
+    '/.next/', 
+    '/tests/.*\.spec\.ts$',
+    '/tests/integration/',
+    '/tests/e2e/',
+    '/tests/visual/',
+    '/tests/performance/',
+    '/tests/archive/'
+  ],
   
-  // Module name mapping for absolute imports
+  // Module name mapping for absolute imports and static assets
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^.+\\.(css|sass|scss)$': 'identity-obj-proxy',
+    '^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$': '<rootDir>/__mocks__/fileMock.js',
   },
   
   // Coverage configuration
@@ -53,12 +65,6 @@ const customJestConfig = {
   // Transform files
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
-  },
-  
-  // Mock static assets
-  moduleNameMapper: {
-    '^.+\\.(css|sass|scss)$': 'identity-obj-proxy',
-    '^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$': '<rootDir>/__mocks__/fileMock.js',
   },
   
   // Setup files

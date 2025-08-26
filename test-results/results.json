@@ -1,0 +1,1732 @@
+{
+  "config": {
+    "configFile": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/playwright.config.ts",
+    "rootDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 7
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/junit.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "visual-chrome",
+        "name": "visual-chrome",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "visual-firefox",
+        "name": "visual-firefox",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "visual-webkit",
+        "name": "visual-webkit",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "visual-mobile-chrome",
+        "name": "visual-mobile-chrome",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "visual-mobile-safari",
+        "name": "visual-mobile-safari",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 7
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests",
+        "testIgnore": [
+          "**/visual/**/*.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.54.2",
+    "workers": 7,
+    "webServer": {
+      "command": "PORT=3001 npm run dev",
+      "url": "http://localhost:3001",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "3d-customizer-acceptance.spec.ts",
+      "file": "3d-customizer-acceptance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "CSS 3D Customizer Core Functionality",
+          "file": "3d-customizer-acceptance.spec.ts",
+          "line": 66,
+          "column": 6,
+          "specs": [
+            {
+              "title": "CSS 3D viewer initializes successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "interrupted",
+                      "duration": 9448,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T20:53:45.994Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-a2006-er-initializes-successfully-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-a2006-er-initializes-successfully-chromium/video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-c1210329253c62490248",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 95,
+              "column": 7
+            },
+            {
+              "title": "Image sequence loading with progress indication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "interrupted",
+                      "duration": 9453,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T20:53:46.006Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-86b9d-ng-with-progress-indication-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-86b9d-ng-with-progress-indication-chromium/video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-8190385f17d1b8e46a70",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 121,
+              "column": 7
+            },
+            {
+              "title": "CSS 3D viewer initializes successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-140988d0bc1c70b70522",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 95,
+              "column": 7
+            },
+            {
+              "title": "Image sequence loading with progress indication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-fb125299ef4d07341515",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 121,
+              "column": 7
+            },
+            {
+              "title": "CSS 3D viewer initializes successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-fb061cf97f1ab878739a",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 95,
+              "column": 7
+            },
+            {
+              "title": "Image sequence loading with progress indication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-14c41cb82bc215c24e7e",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 121,
+              "column": 7
+            },
+            {
+              "title": "CSS 3D viewer initializes successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-350fcb89687d8a981de1",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 95,
+              "column": 7
+            },
+            {
+              "title": "Image sequence loading with progress indication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-e34206ac568154b4a902",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 121,
+              "column": 7
+            },
+            {
+              "title": "CSS 3D viewer initializes successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-35c7acae8662b0f55d2e",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 95,
+              "column": 7
+            },
+            {
+              "title": "Image sequence loading with progress indication",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-35fac757fde6799d261b",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 121,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "CSS 3D Material Change Performance",
+          "file": "3d-customizer-acceptance.spec.ts",
+          "line": 144,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Material changes reflect within 2 seconds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "interrupted",
+                      "duration": 9454,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T20:53:45.995Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-34ddd-es-reflect-within-2-seconds-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-34ddd-es-reflect-within-2-seconds-chromium/video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-540daf4b6fce6b38eab1",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 145,
+              "column": 7
+            },
+            {
+              "title": "Price updates on material change",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "interrupted",
+                      "duration": 9402,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T20:53:46.004Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-308b8--updates-on-material-change-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-308b8--updates-on-material-change-chromium/video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-367d3fb4d86d8861271d",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 185,
+              "column": 7
+            },
+            {
+              "title": "Material changes reflect within 2 seconds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-15e10c17247945dd01ad",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 145,
+              "column": 7
+            },
+            {
+              "title": "Price updates on material change",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-b37315edcb623b799beb",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 185,
+              "column": 7
+            },
+            {
+              "title": "Material changes reflect within 2 seconds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-66ae88ea319f5b90a4d5",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 145,
+              "column": 7
+            },
+            {
+              "title": "Price updates on material change",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-4766e46e9487248fa8f4",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 185,
+              "column": 7
+            },
+            {
+              "title": "Material changes reflect within 2 seconds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-dffacacdae07bce893e4",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 145,
+              "column": 7
+            },
+            {
+              "title": "Price updates on material change",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-b21d88bd88ed2d8c7524",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 185,
+              "column": 7
+            },
+            {
+              "title": "Material changes reflect within 2 seconds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-0363ed013618729cb295",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 145,
+              "column": 7
+            },
+            {
+              "title": "Price updates on material change",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-bdf5057d95ee94a167f5",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 185,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "CSS 3D Interaction Testing",
+          "file": "3d-customizer-acceptance.spec.ts",
+          "line": 224,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Drag rotation works smoothly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 4,
+                      "status": "interrupted",
+                      "duration": 9450,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T20:53:45.990Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-0dd48-rag-rotation-works-smoothly-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-0dd48-rag-rotation-works-smoothly-chromium/video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-23be1696e2cda74e26d7",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 225,
+              "column": 7
+            },
+            {
+              "title": "Keyboard navigation works",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 5,
+                      "status": "interrupted",
+                      "duration": 9453,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T20:53:45.991Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-4cb7b-g-Keyboard-navigation-works-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-4cb7b-g-Keyboard-navigation-works-chromium/video.webm"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-6fc35ff1d181c441fc9d",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 253,
+              "column": 7
+            },
+            {
+              "title": "Touch interaction works on mobile",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "location": {
+                        "file": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests/3d-customizer-acceptance.spec.ts",
+                        "line": 279,
+                        "column": 12
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
+                      "status": "skipped",
+                      "duration": 365,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T20:53:46.002Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests/3d-customizer-acceptance.spec.ts",
+                            "line": 279,
+                            "column": 12
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-96b0e3abe3747444f6ad",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 277,
+              "column": 7
+            },
+            {
+              "title": "Drag rotation works smoothly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-cb4c578f67df094ec28b",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 225,
+              "column": 7
+            },
+            {
+              "title": "Keyboard navigation works",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-026007371eb26c3e8d69",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 253,
+              "column": 7
+            },
+            {
+              "title": "Touch interaction works on mobile",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-4caae5e21253e85c6566",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 277,
+              "column": 7
+            },
+            {
+              "title": "Drag rotation works smoothly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-69fb5aea134f7d4c8ee1",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 225,
+              "column": 7
+            },
+            {
+              "title": "Keyboard navigation works",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-8083fe4d88c36ea64740",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 253,
+              "column": 7
+            },
+            {
+              "title": "Touch interaction works on mobile",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-08280f19fbdfec8b2657",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 277,
+              "column": 7
+            },
+            {
+              "title": "Drag rotation works smoothly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-1d1c9d1b9ccb29d5fdad",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 225,
+              "column": 7
+            },
+            {
+              "title": "Keyboard navigation works",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-684b755004deafa59626",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 253,
+              "column": 7
+            },
+            {
+              "title": "Touch interaction works on mobile",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-e536e913c0eaf871d0ce",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 277,
+              "column": 7
+            },
+            {
+              "title": "Drag rotation works smoothly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-79aaa72bca9dc6ba72da",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 225,
+              "column": 7
+            },
+            {
+              "title": "Keyboard navigation works",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-7099b95168b38b15d453",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 253,
+              "column": 7
+            },
+            {
+              "title": "Touch interaction works on mobile",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-e1944c3d143dd7614543",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 277,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "CSS 3D Error Handling",
+          "file": "3d-customizer-acceptance.spec.ts",
+          "line": 299,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Graceful fallback when images fail to load",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 6,
+                      "status": "failed",
+                      "duration": 8872,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at /Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests/3d-customizer-acceptance.spec.ts:332:24",
+                        "location": {
+                          "file": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests/3d-customizer-acceptance.spec.ts",
+                          "column": 24,
+                          "line": 332
+                        },
+                        "snippet": "  330 |     }\n  331 |     \n> 332 |     expect(foundError).toBe(true);\n      |                        ^\n  333 |     \n  334 |     console.log('Image failure fallback working correctly');\n  335 |   });"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests/3d-customizer-acceptance.spec.ts",
+                            "column": 24,
+                            "line": 332
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  330 |     }\n  331 |     \n> 332 |     expect(foundError).toBe(true);\n      |                        ^\n  333 |     \n  334 |     console.log('Image failure fallback working correctly');\n  335 |   });\n    at /Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests/3d-customizer-acceptance.spec.ts:332:24"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-24T20:53:46.704Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-dfc1d-ck-when-images-fail-to-load-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-dfc1d-ck-when-images-fail-to-load-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/test-results/3d-customizer-acceptance-C-dfc1d-ck-when-images-fail-to-load-chromium/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests/3d-customizer-acceptance.spec.ts",
+                        "column": 24,
+                        "line": 332
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-bdb06025f41218556751",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 300,
+              "column": 7
+            },
+            {
+              "title": "Loading state handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-87d1ef753e09c157564b",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 337,
+              "column": 7
+            },
+            {
+              "title": "Graceful fallback when images fail to load",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-4f3db7b4a3a2a1186371",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 300,
+              "column": 7
+            },
+            {
+              "title": "Loading state handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-0750fdd6ee4a2bb3a536",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 337,
+              "column": 7
+            },
+            {
+              "title": "Graceful fallback when images fail to load",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-031aa08fa8190926f94b",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 300,
+              "column": 7
+            },
+            {
+              "title": "Loading state handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-94cb333f26cf305b43a8",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 337,
+              "column": 7
+            },
+            {
+              "title": "Graceful fallback when images fail to load",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-ff9426f2b0658939d678",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 300,
+              "column": 7
+            },
+            {
+              "title": "Loading state handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-0974548aa44f543c8c19",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 337,
+              "column": 7
+            },
+            {
+              "title": "Graceful fallback when images fail to load",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-d9d71dc4caeb241ec547",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 300,
+              "column": 7
+            },
+            {
+              "title": "Loading state handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-e3405d9fd728a33d9ffe",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 337,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "CSS 3D Accessibility",
+          "file": "3d-customizer-acceptance.spec.ts",
+          "line": 366,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Proper ARIA labels and roles",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-c8ac4ff75f9dedad271e",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 367,
+              "column": 7
+            },
+            {
+              "title": "Focus management works correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-3ff2de47fd9a2f106dfc",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 388,
+              "column": 7
+            },
+            {
+              "title": "Proper ARIA labels and roles",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-227d1147473b282acb42",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 367,
+              "column": 7
+            },
+            {
+              "title": "Focus management works correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-10c6a0146e606225c523",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 388,
+              "column": 7
+            },
+            {
+              "title": "Proper ARIA labels and roles",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-f50a740d4d317923fe6b",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 367,
+              "column": 7
+            },
+            {
+              "title": "Focus management works correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-309a48563f8460a68a2d",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 388,
+              "column": 7
+            },
+            {
+              "title": "Proper ARIA labels and roles",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-0ebc06fc5df7016f96c5",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 367,
+              "column": 7
+            },
+            {
+              "title": "Focus management works correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-67e42cbdecc1a8ed266e",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 388,
+              "column": 7
+            },
+            {
+              "title": "Proper ARIA labels and roles",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-8068e560a9eaa2f3c53d",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 367,
+              "column": 7
+            },
+            {
+              "title": "Focus management works correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-cdcd47f7031bd667ae56",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 388,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "CSS 3D Mobile Performance",
+          "file": "3d-customizer-acceptance.spec.ts",
+          "line": 410,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Smooth performance on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-453b8fb09b5dadfd0ec7",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 411,
+              "column": 7
+            },
+            {
+              "title": "Smooth performance on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-2b269f85d1d6c6904aa7",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 411,
+              "column": 7
+            },
+            {
+              "title": "Smooth performance on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-2317f55eeeeaeb9d98c4",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 411,
+              "column": 7
+            },
+            {
+              "title": "Smooth performance on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Chrome",
+                  "projectName": "Mobile Chrome",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-6331be6ef6e94c74f2a9",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 411,
+              "column": 7
+            },
+            {
+              "title": "Smooth performance on mobile devices",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "ceb72fcb92c189d82cfd-73437e390346f6ac887e",
+              "file": "3d-customizer-acceptance.spec.ts",
+              "line": 411,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "\u001b[31mTesting stopped early after 1 maximum allowed failures.\u001b[39m"
+    }
+  ],
+  "stats": {
+    "startTime": "2025-08-24T20:53:40.455Z",
+    "duration": 15397.710000000001,
+    "expected": 0,
+    "skipped": 59,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

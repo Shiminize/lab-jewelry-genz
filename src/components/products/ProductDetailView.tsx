@@ -127,7 +127,7 @@ export default function ProductDetailView({ product }: ProductDetailViewProps) {
       {/* Left: Image Gallery */}
       <div className="space-y-4">
         {/* Main Image */}
-        <div className="aspect-square bg-muted rounded-lg overflow-hidden">
+        <div className="aspect-square bg-muted overflow-hidden">
           <Image
             src={allImages[selectedImageIndex] || '/images/placeholder-product.jpg'}
             alt={product.name}
@@ -145,7 +145,7 @@ export default function ProductDetailView({ product }: ProductDetailViewProps) {
               <button
                 key={index}
                 onClick={() => setSelectedImageIndex(index)}
-                className={`aspect-square bg-muted rounded-lg overflow-hidden border-2 transition-colors ${
+                className={`aspect-square bg-muted overflow-hidden border-2 transition-colors ${
                   selectedImageIndex === index ? 'border-accent' : 'border-transparent hover:border-border'
                 }`}
               >
@@ -162,7 +162,7 @@ export default function ProductDetailView({ product }: ProductDetailViewProps) {
         )}
 
         {/* Customize This Style CTA */}
-        <div className="bg-gradient-to-r from-background to-muted border border-border rounded-lg p-4 md:p-6">
+        <div className="bg-gradient-to-r from-background to-muted border border-border p-4 md:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
               <h3 className="font-headline font-semibold text-foreground">Love this style?</h3>

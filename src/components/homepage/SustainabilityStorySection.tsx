@@ -30,7 +30,7 @@ const sustainabilityVariants = cva(
 )
 
 const heroGradientVariants = cva(
-  'relative overflow-hidden rounded-3xl p-8 lg:p-12',
+  'relative overflow-hidden p-8 lg:p-12',
   {
     variants: {
       style: {
@@ -46,7 +46,7 @@ const heroGradientVariants = cva(
 )
 
 const comparisonCardVariants = cva(
-  'relative p-6 lg:p-8 rounded-2xl',
+  'relative p-6 lg:p-8',
   {
     variants: {
       type: {
@@ -58,7 +58,7 @@ const comparisonCardVariants = cva(
 )
 
 const metricCardVariants = cva(
-  'group relative p-6 rounded-2xl transition-all duration-300',
+  'group relative p-6 transition-all duration-300',
   {
     variants: {
       style: {
@@ -341,7 +341,7 @@ export function SustainabilityStorySection({
           </BodyText>
           
           {/* Key Message */}
-          <div className="bg-background/50 backdrop-blur-sm rounded-2xl p-6 mb-8">
+          <div className="bg-background/50 backdrop-blur-sm p-6 mb-8">
             <BodyText 
               weight="medium" 
               className="text-foreground"
@@ -509,7 +509,7 @@ export function SustainabilityStorySection({
                 key={index}
                 className={cn(processStepVariants())}
               >
-                <div className="w-20 h-20 mx-auto bg-accent/10 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                <div className="w-20 h-20 mx-auto bg-accent/10 flex items-center justify-center text-3xl mb-4">
                   {step.icon}
                 </div>
                 <H3 className="text-lg font-semibold text-foreground mb-2">
@@ -544,7 +544,7 @@ export function SustainabilityStorySection({
                 key={index}
                 className="text-center space-y-4"
               >
-                <div className="w-20 h-20 mx-auto bg-background rounded-2xl flex items-center justify-center text-3xl shadow-sm border border-muted">
+                <div className="w-20 h-20 mx-auto bg-background flex items-center justify-center text-3xl shadow-sm border border-muted">
                   {cert.icon}
                 </div>
                 <div className="space-y-2">
@@ -566,7 +566,7 @@ export function SustainabilityStorySection({
 
       {/* Community Impact Section */}
       <div className="mt-16 lg:mt-20">
-        <div className="bg-gradient-to-r from-accent/5 to-accent/10 rounded-3xl p-8 lg:p-12 text-center">
+        <div className="bg-gradient-to-r from-accent/5 to-accent/10 p-8 lg:p-12 text-center">
           <H3 className="mb-6 text-foreground">
             Join the Conscious Luxury Movement
           </H3>

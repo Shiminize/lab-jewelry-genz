@@ -55,8 +55,8 @@ const valueCardVariants = cva(
     variants: {
       style: {
         minimal: 'space-y-4',
-        card: 'bg-muted/30 rounded-2xl p-6 lg:p-8 space-y-4 hover:bg-muted/40 transition-colors duration-300',
-        bordered: 'border border-muted rounded-2xl p-6 lg:p-8 space-y-4 hover:border-accent/30 transition-colors duration-300'
+        card: 'bg-muted/30 p-6 lg:p-8 space-y-4 hover:bg-muted/40 transition-colors duration-300',
+        bordered: 'border border-muted p-6 lg:p-8 space-y-4 hover:border-accent/30 transition-colors duration-300'
       },
       emphasis: {
         none: '',

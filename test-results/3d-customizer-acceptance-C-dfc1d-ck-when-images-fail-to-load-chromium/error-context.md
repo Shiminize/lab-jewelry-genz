@@ -1,0 +1,151 @@
+# Page snapshot
+
+```yaml
+- link "Skip to main content":
+  - /url: "#main-content"
+- banner "Site announcements": Free Shipping on Orders $500+ Lifetime Warranty Certified Lab Diamonds 4.9/5 from 12,000+ Reviews
+- banner:
+  - link "GlowGlitch homepage":
+    - /url: /
+    - img "GlowGlitch - Custom Lab-Grown Diamond Jewelry"
+  - navigation "Main navigation":
+    - button "SHOP"
+    - button "CREATE"
+    - button "IMPACT"
+    - button "SUPPORT"
+  - toolbar "User actions":
+    - button "Search jewelry"
+    - button "My account"
+    - link "Wishlist (0 items)":
+      - /url: /wishlist
+      - img
+    - button "Shopping cart with 2 items"
+    - link "Start designing custom jewelry":
+      - /url: /customizer
+      - text: Start Designing
+- text: Main content starts here
+- main:
+  - heading "Your Ring, Your Vibe ✨" [level=1]
+  - text: Build something that's actually you. Our 3D customizer lets you see every detail in real-time.
+  - heading "See Your Vision ✨" [level=2]
+  - text: Spin it, love it, make it yours
+  - img "Interactive 360° jewelry view, frame 15 of 36":
+    - img "3D jewelry view frame 15"
+    - text: Viewing frame 15 of 36 in 360-degree jewelry view
+  - heading "Chaos Ring" [level=3]
+  - text: For the beautifully unorganized souls who thrive in controlled chaos. This asymmetrical design celebrates the perfectly imperfect moments that make life worth living. Perfectly asymmetrical for those Instagram flat lay shots
+  - heading "Choose Your Style" [level=2]
+  - button "Statement Chaos Ring $425 ✨ Authentic self-expression"
+  - button "Minimalist Digital Detox Ring $285 ✨ Mindful living and intentional choices"
+  - button "Statement Main Character Energy Ring $650 ✨ Confidence and self-empowerment"
+  - button "Promise/Pre-Engagement Soft Launch Ring $485 ✨ Intimacy and meaningful connection"
+  - button "Color-Change/Mood Glow Up Ring $375 ✨ Personal growth and self-discovery"
+  - button "Nature-Inspired Plant Parent Ring $320 ✨ Connection to nature and nurturing energy"
+  - button "Stackable Side Quest Ring $225 ✨ Life as an adventure and personal narrative"
+  - button "Raw/Natural No Filter Ring $395 ✨ Self-acceptance and authentic beauty"
+  - text: "Total Price: $425 Free shipping • 30-day returns • Lifetime warranty"
+  - button "Make It Mine"
+  - button "Save My Vibe"
+  - button "Save for Later ❤️"
+- contentinfo:
+  - heading "ABOUT GLOWGLITCH" [level=4]
+  - link "Shop Catalog":
+    - /url: /catalog
+    - paragraph: Shop Catalog
+  - link "3D Customizer":
+    - /url: /customizer
+    - paragraph: 3D Customizer
+  - link "Creator Program":
+    - /url: /creators/apply
+    - paragraph: Creator Program
+  - link "My Wishlist":
+    - /url: /wishlist
+    - paragraph: My Wishlist
+  - link "Design System":
+    - /url: /ui-showcase
+    - paragraph: Design System
+  - link "Sign In":
+    - /url: /login
+    - paragraph: Sign In
+  - link "Reviews":
+    - /url: /reviews
+    - paragraph: Reviews
+  - link "Careers":
+    - /url: /careers
+    - paragraph: Careers
+  - link "Press":
+    - /url: /press
+    - paragraph: Press
+  - heading "WHY CHOOSE GLOWGLITCH?" [level=4]
+  - list:
+    - listitem:
+      - paragraph: Free Shipping Worldwide
+    - listitem:
+      - paragraph: Lifetime Warranty
+    - listitem:
+      - paragraph: Conflict-Free Lab Diamonds
+    - listitem:
+      - paragraph: Jewelry Insurance
+    - listitem:
+      - paragraph: Jewelry Protection Plans
+    - listitem:
+      - paragraph: 1 Year Free Resizing
+    - listitem:
+      - paragraph: Free Engraving
+    - listitem:
+      - paragraph: Tax & Duty Calculator
+  - heading "EXPERIENCE GLOWGLITCH" [level=4]
+  - list:
+    - listitem:
+      - paragraph: 3D Customizer Technology
+    - listitem:
+      - paragraph: AR Virtual Try-On
+    - listitem:
+      - paragraph: Personal Jewelry Consultant
+    - listitem:
+      - paragraph: Creator Collaboration Program
+    - listitem:
+      - paragraph: Virtual Showroom Experience
+  - paragraph: FAQ
+  - group:
+    - paragraph: How does 3D customization work?
+  - group:
+    - paragraph: What materials do you offer?
+  - group:
+    - paragraph: How do I get my perfect fit?
+  - group:
+    - paragraph: What's included with my purchase?
+  - group:
+    - paragraph: How does the Creator Program work?
+  - img "GlowGlitch"
+  - paragraph: Sustainable luxury jewelry crafted with lab-grown diamonds. Design your perfect piece with our 3D technology.
+  - heading "Stay Connected" [level=4]
+  - textbox "Enter your email"
+  - button "Subscribe"
+  - img
+  - link "hello@glowglitch.com":
+    - /url: mailto:hello@glowglitch.com
+    - paragraph: hello@glowglitch.com
+  - img
+  - link "+1 (555) GLOW-GEM":
+    - /url: tel:+1-555-GLOW-GEM
+    - paragraph: +1 (555) GLOW-GEM
+  - img
+  - paragraph: Available 24/7 Virtual consultations
+  - link "Follow us on Instagram":
+    - /url: https://instagram.com/glowglitch
+    - img
+  - link "Follow us on YouTube":
+    - /url: https://youtube.com/@glowglitch
+    - img
+  - link "Privacy Policy":
+    - /url: /privacy
+  - link "Terms of Service":
+    - /url: /terms
+  - link "Cookie Policy":
+    - /url: /cookies
+  - link "Accessibility":
+    - /url: /accessibility
+  - text: © 2025 GlowGlitch (Lumina Lab). All rights reserved.
+- alert
+```

@@ -42,7 +42,7 @@ const previewSectionVariants = cva(
 )
 
 const quickSelectorVariants = cva(
-  'group flex items-center justify-between rounded-lg border-2 transition-all duration-200 cursor-pointer touch-manipulation',
+  'group flex items-center justify-between border-2 transition-all duration-200 cursor-pointer touch-manipulation',
   {
     variants: {
       state: {
@@ -462,7 +462,7 @@ export function CustomizerPreviewSection({
 
           {/* Right Panel (3D Preview) - Hero focus */}
           <div className="relative lg:sticky lg:top-6 lg:self-start" id="customizer-3d-container">
-            <div className="bg-white rounded-xl shadow-xl border border-accent/10 overflow-hidden">
+            <div className="bg-white shadow-xl border border-accent/10 overflow-hidden">
               <ProductCustomizer
                 key={selectedVariantId}
                 productId="ring-001"

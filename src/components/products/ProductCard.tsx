@@ -31,14 +31,14 @@ interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
 const variantStyles = {
   standard: {
     container: 'group cursor-pointer',
-    imageContainer: 'aspect-square mb-4 relative overflow-hidden rounded-lg bg-muted',
+    imageContainer: 'aspect-square mb-4 relative overflow-hidden bg-muted',
     image: 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
     content: 'space-y-2',
     actions: 'absolute inset-0 bg-foreground/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2',
   },
   featured: {
     container: 'group cursor-pointer border border-accent/20 rounded-xl p-4 bg-accent/5 hover:bg-accent/10 transition-colors',
-    imageContainer: 'aspect-square mb-4 relative overflow-hidden rounded-lg bg-muted',
+    imageContainer: 'aspect-square mb-4 relative overflow-hidden bg-muted',
     image: 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
     content: 'space-y-3',
     actions: 'absolute inset-0 bg-foreground/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2',
@@ -248,7 +248,7 @@ export function ProductCard({
                 />
               ))}
               {materialTags.length > (variant === 'featured' ? 4 : 3) && (
-                <div className="text-xs text-muted-foreground self-center ml-1">
+                <div className="text-xs text-gray-600 self-center ml-1">
                   +{materialTags.length - (variant === 'featured' ? 4 : 3)} more
                 </div>
               )}
@@ -268,7 +268,7 @@ export function ProductCard({
                 />
               ))}
               {materialTags.length > 2 && (
-                <div className="text-xs text-muted-foreground self-center ml-1">
+                <div className="text-xs text-gray-600 self-center ml-1">
                   +{materialTags.length - 2}
                 </div>
               )}
@@ -277,7 +277,7 @@ export function ProductCard({
 
           {/* Fallback to legacy tags if no material specs available */}
           {materialTags.length === 0 && product.metadata?.tags && product.metadata.tags.length > 0 && (
-            <div className="text-xs text-muted-foreground mt-2">
+            <div className="text-xs text-gray-600 mt-2">
               {product.metadata.tags.slice(0, variant === 'compact' ? 2 : 3).join(' • ')}
               {product.metadata.tags.length > (variant === 'compact' ? 2 : 3) && (
                 <span> +{product.metadata.tags.length - (variant === 'compact' ? 2 : 3)} more</span>

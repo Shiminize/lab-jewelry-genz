@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Quantum Navigation - Predictive Morphing Menu System</title>
+    <style>
+        :root {
+            /* Aurora Color System */
+            --deep-space: #0A0E27;
+            --nebula-purple: #6B46C1;
+            --aurora-pink: #FF6B9D;
+            --aurora-crimson: #C44569;
+            --aurora-plum: #723C70;
+            --lunar-grey: #F7F7F9;
+            --emerald-flash: #10B981;
+            --amber-glow: #F59E0B;
+            
+            /* Border Radius */
+            --radius-micro: 3px;
+            --radius-small: 5px;
+            --radius-medium: 8px;
+            --radius-large: 13px;
+            --radius-xl: 21px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--lunar-grey);
+            color: var(--deep-space);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* Quantum Navigation Bar */
+        .quantum-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(247, 247, 249, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(107, 70, 193, 0.08);
+        }
+
+        .quantum-nav.morphed {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.12);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Three-Dimensional Browse Layers */
+        .nav-layers {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .layer-toggle {
+            display: flex;
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 0.25rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .layer-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-medium);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--deep-space);
+        }
+
+        .layer-btn.active {
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-pink));
+            color: white;
+        }
+
+        /* Surface Layer Menu */
+        .surface-menu {
+            display: flex;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: var(--deep-space);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-item::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--aurora-pink), var(--aurora-crimson));
+            transition: width 0.3s ease;
+        }
+
+        .menu-item:hover::after {
+            width: 100%;
+        }
+
+        /* Discovery Layer */
+        .discovery-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-top: 1rem;
+            box-shadow: 0 16px 48px rgba(107, 70, 193, 0.15);
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .discovery-menu.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .mood-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--lunar-grey);
+            border-radius: var(--radius-large);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mood-card:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(107, 70, 193, 0.1));
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.12);
+        }
+
+        .mood-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mood-label {
+            font-weight: 600;
+            color: var(--nebula-purple);
+        }
+
+        /* Deep Layer Filters */
+        .deep-filters {
+            position: fixed;
+            top: 80px;
+            right: -400px;
+            width: 400px;
+            height: calc(100vh - 80px);
+            background: white;
+            box-shadow: -8px 0 24px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+        .deep-filters.active {
+            right: 0;
+        }
+
+        .filter-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--deep-space), var(--nebula-purple));
+            color: white;
+        }
+
+        .filter-section {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--nebula-purple);
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .filter-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--nebula-purple);
+            border-radius: var(--radius-micro);
+            position: relative;
+        }
+
+        .filter-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--emerald-flash);
+        }
+
+        /* Smart Features */
+        .smart-features {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .voice-search-btn,
+        .visual-search-btn,
+        .surprise-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-medium);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .voice-search-btn {
+            background: white;
+            border: 2px solid var(--nebula-purple);
+            color: var(--nebula-purple);
+        }
+
+        .visual-search-btn {
+            background: var(--emerald-flash);
+            color: white;
+        }
+
+        .surprise-btn {
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-plum));
+            color: white;
+        }
+
+        /* Social Proof Ticker */
+        .social-ticker {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.75rem;
+            border-radius: var(--radius-medium);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: ticker-scroll 20s linear infinite;
+        }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .ticker-item {
+            white-space: nowrap;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ticker-item strong {
+            color: var(--nebula-purple);
+        }
+
+        /* Trending Gradient Heat Map */
+        .trending-section {
+            padding: 3rem 2rem;
+            background: white;
+            margin: 2rem auto;
+            max-width: 1400px;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.08);
+        }
+
+        .trending-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .heat-map {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .heat-item {
+            padding: 1.5rem;
+            border-radius: var(--radius-large);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .heat-high {
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson));
+            color: white;
+        }
+
+        .heat-medium {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.3), rgba(196, 69, 105, 0.3));
+        }
+
+        .heat-low {
+            background: var(--lunar-grey);
+        }
+
+        .heat-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.15);
+        }
+
+        .heat-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .heat-count {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        /* Parallel Browsing Mode */
+        .parallel-mode {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+
+        .parallel-mode.active {
+            display: block;
+        }
+
+        .split-screen {
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: var(--deep-space);
+        }
+
+        .split-panel {
+            background: white;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        /* Voice Search Modal */
+        .voice-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 24px 64px rgba(107, 70, 193, 0.2);
+            z-index: 1001;
+            text-align: center;
+        }
+
+        .voice-modal.active {
+            display: block;
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            from {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .voice-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .voice-text {
+            font-size: 1.25rem;
+            color: var(--nebula-purple);
+            margin-bottom: 1rem;
+        }
+
+        .voice-example {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-layers {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .surface-menu {
+                flex-direction: column;
+            }
+
+            .mood-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .smart-features {
+                flex-direction: column;
+            }
+
+            .deep-filters {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        /* Scroll behavior indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-pink));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        .scroll-indicator:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Quantum Navigation -->
+    <nav class="quantum-nav" id="quantumNav">
+        <div class="nav-container">
+            <div class="logo">AURORA</div>
+            
+            <div class="nav-layers">
+                <!-- Layer Toggle -->
+                <div class="layer-toggle">
+                    <button class="layer-btn active" data-layer="surface">Surface</button>
+                    <button class="layer-btn" data-layer="discovery">Discovery</button>
+                    <button class="layer-btn" data-layer="deep">Deep</button>
+                </div>
+
+                <!-- Surface Layer -->
+                <div class="surface-menu" id="surfaceMenu">
+                    <a href="#" class="menu-item">Rings</a>
+                    <a href="#" class="menu-item">Necklaces</a>
+                    <a href="#" class="menu-item">Earrings</a>
+                    <a href="#" class="menu-item">Bracelets</a>
+                    <a href="#" class="menu-item">Men's</a>
+                </div>
+
+                <!-- Smart Features -->
+                <div class="smart-features">
+                    <button class="voice-search-btn" id="voiceBtn">🎤</button>
+                    <button class="visual-search-btn">📷</button>
+                    <button class="surprise-btn">✨ Surprise Me</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discovery Layer (Hidden by default) -->
+        <div class="discovery-menu" id="discoveryMenu">
+            <div class="mood-grid">
+                <div class="mood-card">
+                    <div class="mood-icon">🎉</div>
+                    <div class="mood-label">Celebrate</div>
+                </div>
+                <div class="mood-card">
+                    <div class="mood-icon">💕</div>
+                    <div class="mood-label">Express Love</div>
+                </div>
+                <div class="mood-card">
+                    <div class="mood-icon">🌟</div>
+                    <div class="mood-label">Achieve</div>
+                </div>
+                <div class="mood-card">
+                    <div class="mood-icon">🎁</div>
+                    <div class="mood-label">Gift</div>
+                </div>
+                <div class="mood-card">
+                    <div class="mood-icon">💍</div>
+                    <div class="mood-label">Propose</div>
+                </div>
+                <div class="mood-card">
+                    <div class="mood-icon">🎂</div>
+                    <div class="mood-label">Birthday</div>
+                </div>
+                <div class="mood-card">
+                    <div class="mood-icon">🏆</div>
+                    <div class="mood-label">Milestone</div>
+                </div>
+                <div class="mood-card">
+                    <div class="mood-icon">💼</div>
+                    <div class="mood-label">Professional</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Proof Ticker -->
+        <div class="social-ticker">
+            <div class="ticker-content">
+                <span class="ticker-item">🔥 <strong>Sarah in NYC</strong> just customized a ring</span>
+                <span class="ticker-item">⭐ <strong>Mike in LA</strong> saved 5 items</span>
+                <span class="ticker-item">💎 <strong>Emma in London</strong> is viewing diamonds</span>
+                <span class="ticker-item">🎨 <strong>James in Tokyo</strong> designed a unique piece</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Deep Layer Filters (Side Panel) -->
+    <div class="deep-filters" id="deepFilters">
+        <div class="filter-header">
+            <h2>Deep Technical Filters</h2>
+            <p>47+ parameters for precision shopping</p>
+        </div>
+        
+        <div class="filter-section">
+            <h3 class="filter-title">Diamond 4Cs</h3>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="cut"></div>
+                <span>Cut: Excellent</span>
+            </div>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="clarity"></div>
+                <span>Clarity: VS1+</span>
+            </div>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="color"></div>
+                <span>Color: D-F</span>
+            </div>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="carat"></div>
+                <span>Carat: 1.0-2.0</span>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3 class="filter-title">Metal Type</h3>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="platinum"></div>
+                <span>Platinum</span>
+            </div>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="gold-18k"></div>
+                <span>18K Gold</span>
+            </div>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="rose-gold"></div>
+                <span>Rose Gold</span>
+            </div>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="white-gold"></div>
+                <span>White Gold</span>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3 class="filter-title">Advanced Settings</h3>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="fluorescence"></div>
+                <span>Fluorescence: None</span>
+            </div>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="symmetry"></div>
+                <span>Symmetry: Excellent</span>
+            </div>
+            <div class="filter-option">
+                <div class="filter-checkbox" data-filter="polish"></div>
+                <span>Polish: Excellent</span>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3 class="filter-title">Price Range</h3>
+            <input type="range" style="width: 100%;" min="1000" max="50000" value="10000">
+            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+                <span>$1,000</span>
+                <span>$50,000</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Search Modal -->
+    <div class="voice-modal" id="voiceModal">
+        <div class="voice-icon">🎤</div>
+        <div class="voice-text">Listening...</div>
+        <div class="voice-example">"Show me something unique for our anniversary"</div>
+    </div>
+
+    <!-- Parallel Browsing Mode -->
+    <div class="parallel-mode" id="parallelMode">
+        <div class="split-screen">
+            <div class="split-panel">
+                <h2>Product A</h2>
+                <p>Split-screen comparison view</p>
+            </div>
+            <div class="split-panel">
+                <h2>Product B</h2>
+                <p>Compare up to 10 items simultaneously</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div style="padding: 2rem;">
+        <!-- Trending Heat Map -->
+        <section class="trending-section">
+            <h2 class="trending-title">Real-Time Trending Items</h2>
+            <div class="heat-map">
+                <div class="heat-item heat-high">
+                    <div class="heat-label">Solitaire Rings</div>
+                    <div class="heat-count">247 viewing</div>
+                </div>
+                <div class="heat-item heat-high">
+                    <div class="heat-label">Lab Diamonds</div>
+                    <div class="heat-count">189 viewing</div>
+                </div>
+                <div class="heat-item heat-medium">
+                    <div class="heat-label">Tennis Bracelets</div>
+                    <div class="heat-count">92 viewing</div>
+                </div>
+                <div class="heat-item heat-medium">
+                    <div class="heat-label">Pearl Necklaces</div>
+                    <div class="heat-count">67 viewing</div>
+                </div>
+                <div class="heat-item heat-low">
+                    <div class="heat-label">Men's Bands</div>
+                    <div class="heat-count">34 viewing</div>
+                </div>
+                <div class="heat-item heat-low">
+                    <div class="heat-label">Vintage Styles</div>
+                    <div class="heat-count">28 viewing</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Demonstrations -->
+        <section class="trending-section">
+            <h2 class="trending-title">Navigation Features</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div style="padding: 2rem; background: var(--lunar-grey); border-radius: 13px;">
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 1rem;">Predictive Morphing</h3>
+                    <p>ML analyzes session intent and pre-loads relevant sections. Menu adapts based on user behavior.</p>
+                </div>
+                <div style="padding: 2rem; background: var(--lunar-grey); border-radius: 13px;">
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 1rem;">Smart Sticky</h3>
+                    <p>Predicts scroll intent using viewport velocity. Hides 100ms before conscious scroll decision.</p>
+                </div>
+                <div style="padding: 2rem; background: var(--lunar-grey); border-radius: 13px;">
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 1rem;">Voice Search</h3>
+                    <p>Natural language queries like "Show me something unique for our anniversary"</p>
+                </div>
+                <div style="padding: 2rem; background: var(--lunar-grey); border-radius: 13px;">
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 1rem;">Visual Search</h3>
+                    <p>Upload photo to find similar styles. AI analyzes design elements and materials.</p>
+                </div>
+                <div style="padding: 2rem; background: var(--lunar-grey); border-radius: 13px;">
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 1rem;">Gesture Control</h3>
+                    <p>Pinch to filter price range on mobile. Swipe for quick navigation.</p>
+                </div>
+                <div style="padding: 2rem; background: var(--lunar-grey); border-radius: 13px;">
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 1rem;">Parallel Browse</h3>
+                    <p>Split-screen comparison mode for evaluating multiple items simultaneously.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">↑</div>
+
+    <script>
+        // Layer switching
+        const layerBtns = document.querySelectorAll('.layer-btn');
+        const surfaceMenu = document.getElementById('surfaceMenu');
+        const discoveryMenu = document.getElementById('discoveryMenu');
+        const deepFilters = document.getElementById('deepFilters');
+
+        layerBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                layerBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const layer = this.dataset.layer;
+                
+                // Hide all layers first
+                surfaceMenu.style.display = 'none';
+                discoveryMenu.classList.remove('active');
+                deepFilters.classList.remove('active');
+                
+                // Show selected layer
+                switch(layer) {
+                    case 'surface':
+                        surfaceMenu.style.display = 'flex';
+                        break;
+                    case 'discovery':
+                        discoveryMenu.classList.add('active');
+                        break;
+                    case 'deep':
+                        deepFilters.classList.add('active');
+                        break;
+                }
+            });
+        });
+
+        // Voice search modal
+        const voiceBtn = document.getElementById('voiceBtn');
+        const voiceModal = document.getElementById('voiceModal');
+
+        voiceBtn.addEventListener('click', () => {
+            voiceModal.classList.add('active');
+            setTimeout(() => {
+                voiceModal.classList.remove('active');
+            }, 3000);
+        });
+
+        // Filter checkboxes
+        document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                this.classList.toggle('checked');
+            });
+        });
+
+        // Smart sticky behavior simulation
+        let lastScrollTop = 0;
+        let scrollVelocity = 0;
+        const nav = document.getElementById('quantumNav');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            scrollVelocity = scrollTop - lastScrollTop;
+            
+            // Predict scroll intent
+            if (scrollVelocity > 5) {
+                // Scrolling down fast - hide nav
+                nav.style.transform = 'translateY(-100%)';
+            } else if (scrollVelocity < -5 || scrollTop < 100) {
+                // Scrolling up or near top - show nav
+                nav.style.transform = 'translateY(0)';
+            }
+            
+            // Morph nav based on scroll position
+            if (scrollTop > 200) {
+                nav.classList.add('morphed');
+            } else {
+                nav.classList.remove('morphed');
+            }
+            
+            // Show/hide scroll indicator
+            const indicator = document.getElementById('scrollIndicator');
+            if (scrollTop > 300) {
+                indicator.classList.add('visible');
+            } else {
+                indicator.classList.remove('visible');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Scroll to top
+        document.getElementById('scrollIndicator').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Surprise Me button
+        document.querySelector('.surprise-btn').addEventListener('click', () => {
+            alert('AI is curating unexpected finds based on your browsing patterns...');
+        });
+
+        // Heat map interaction
+        document.querySelectorAll('.heat-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.animation = 'pulse 0.5s ease';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 500);
+            });
+        });
+
+        // Mood card interactions
+        document.querySelectorAll('.mood-card').forEach(card => {
+            card.addEventListener('click', function() {
+                console.log('Selected mood:', this.querySelector('.mood-label').textContent);
+                this.style.background = 'linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson))';
+                this.style.color = 'white';
+                setTimeout(() => {
+                    this.style.background = '';
+                    this.style.color = '';
+                }, 1000);
+            });
+        });
+
+        // Simulate ML prediction (changes menu after some interaction)
+        let interactionCount = 0;
+        document.addEventListener('click', () => {
+            interactionCount++;
+            if (interactionCount > 5 && interactionCount < 10) {
+                // Simulate menu adaptation based on "learned" behavior
+                const menuItems = document.querySelectorAll('.menu-item');
+                menuItems[0].textContent = 'Engagement Rings';
+                menuItems[1].textContent = 'Anniversary Gifts';
+            }
+        });
+
+        // Visual search button
+        document.querySelector('.visual-search-btn').addEventListener('click', () => {
+            alert('Camera opening for visual search...\nUpload a photo to find similar styles');
+        });
+    </script>
+</body>
+</html>

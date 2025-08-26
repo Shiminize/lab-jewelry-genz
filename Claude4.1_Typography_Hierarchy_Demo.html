@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Typography Hierarchy - Adaptive Type System</title>
+    <style>
+        :root {
+            /* Aurora Color System */
+            --deep-space: #0A0E27;
+            --nebula-purple: #6B46C1;
+            --aurora-pink: #FF6B9D;
+            --aurora-crimson: #C44569;
+            --aurora-plum: #723C70;
+            --lunar-grey: #F7F7F9;
+            --emerald-flash: #10B981;
+            --amber-glow: #F59E0B;
+            
+            /* Typography Scale - 10 Levels */
+            --font-hero: clamp(3rem, 8vw, 6rem);
+            --font-statement: clamp(2.5rem, 6vw, 4rem);
+            --font-title-xl: clamp(2rem, 4vw, 3rem);
+            --font-title-l: clamp(1.5rem, 3vw, 2.25rem);
+            --font-title-m: clamp(1.25rem, 2.5vw, 1.75rem);
+            --font-body-xl: clamp(1.125rem, 2vw, 1.5rem);
+            --font-body-l: 1.125rem;
+            --font-body-m: 1rem;
+            --font-small: 0.875rem;
+            --font-micro: 0.75rem;
+            
+            /* Variable Font Settings */
+            --font-weight: 400;
+            --font-width: 100;
+            --font-optical: 16;
+        }
+
+        @font-face {
+            font-family: 'CelestialSans';
+            src: local('system-ui'), local('-apple-system'), local('BlinkMacSystemFont');
+            font-weight: 100 900;
+            font-stretch: 75% 125%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'CelestialSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--lunar-grey);
+            color: var(--deep-space);
+            line-height: 1.6;
+            font-variation-settings: 
+                'wght' var(--font-weight),
+                'wdth' var(--font-width);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--deep-space) 0%, var(--nebula-purple) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-size: var(--font-hero);
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 4s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--font-body-xl);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Typography Hierarchy Section */
+        .hierarchy-section {
+            background: white;
+            border-radius: 21px;
+            padding: 3rem;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.08);
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: var(--font-title-xl);
+            margin-bottom: 2rem;
+            color: var(--deep-space);
+        }
+
+        .hierarchy-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem;
+            background: var(--lunar-grey);
+            border-radius: 13px;
+        }
+
+        .type-level {
+            display: grid;
+            grid-template-columns: 200px 1fr auto;
+            align-items: baseline;
+            gap: 2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .type-label {
+            font-size: var(--font-small);
+            color: var(--nebula-purple);
+            font-weight: 600;
+        }
+
+        .type-size {
+            font-size: var(--font-micro);
+            color: #999;
+            font-family: monospace;
+            background: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+        }
+
+        .hero-display {
+            font-size: var(--font-hero);
+            font-weight: 800;
+            animation: text-entrance 1s ease;
+        }
+
+        .statement {
+            font-size: var(--font-statement);
+            font-weight: 700;
+        }
+
+        .title-xl {
+            font-size: var(--font-title-xl);
+            font-weight: 700;
+        }
+
+        .title-l {
+            font-size: var(--font-title-l);
+            font-weight: 600;
+        }
+
+        .title-m {
+            font-size: var(--font-title-m);
+            font-weight: 600;
+        }
+
+        .body-xl {
+            font-size: var(--font-body-xl);
+            font-weight: 400;
+        }
+
+        .body-l {
+            font-size: var(--font-body-l);
+            font-weight: 400;
+        }
+
+        .body-m {
+            font-size: var(--font-body-m);
+            font-weight: 400;
+        }
+
+        .small-text {
+            font-size: var(--font-small);
+            font-weight: 400;
+        }
+
+        .micro-text {
+            font-size: var(--font-micro);
+            font-weight: 400;
+        }
+
+        @keyframes text-entrance {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Variable Font Controls */
+        .variable-section {
+            background: white;
+            border-radius: 21px;
+            padding: 3rem;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.08);
+            margin-bottom: 3rem;
+        }
+
+        .variable-demo {
+            font-size: var(--font-title-xl);
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--lunar-grey);
+            border-radius: 13px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: var(--deep-space);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .slider {
+            width: 100%;
+            height: 40px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-track {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson));
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Cultural Adaptation Demo */
+        .cultural-section {
+            background: white;
+            border-radius: 21px;
+            padding: 3rem;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.08);
+            margin-bottom: 3rem;
+        }
+
+        .script-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .script-card {
+            padding: 1.5rem;
+            background: var(--lunar-grey);
+            border-radius: 13px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .script-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(107, 70, 193, 0.15);
+        }
+
+        .script-label {
+            font-size: var(--font-small);
+            color: var(--nebula-purple);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .script-sample {
+            font-size: var(--font-title-m);
+            margin: 1rem 0;
+            min-height: 2em;
+        }
+
+        .arabic {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            direction: rtl;
+        }
+
+        .hebrew {
+            font-family: 'Noto Sans Hebrew', sans-serif;
+            direction: rtl;
+        }
+
+        .chinese {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.8;
+        }
+
+        .japanese {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+        }
+
+        .korean {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+        }
+
+        .devanagari {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            line-height: 1.8;
+        }
+
+        /* AR Overlay Optimization */
+        .ar-section {
+            background: white;
+            border-radius: 21px;
+            padding: 3rem;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.08);
+            margin-bottom: 3rem;
+        }
+
+        .ar-demo {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            border-radius: 13px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ar-background {
+            position: absolute;
+            inset: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23ddd"/><circle cx="30" cy="30" r="20" fill="%23ccc"/><circle cx="70" cy="70" r="15" fill="%23bbb"/></svg>');
+            background-size: cover;
+            filter: blur(2px);
+        }
+
+        .ar-text {
+            position: relative;
+            z-index: 1;
+            font-size: var(--font-title-xl);
+            font-weight: 700;
+            color: white;
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                -1px -1px 2px rgba(0, 0, 0, 0.5);
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 13px;
+            backdrop-filter: blur(10px);
+        }
+
+        .ar-controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .ar-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--nebula-purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .ar-btn:hover {
+            background: var(--aurora-pink);
+            transform: translateY(-2px);
+        }
+
+        .ar-btn.active {
+            background: var(--emerald-flash);
+        }
+
+        /* Responsive Typography Demo */
+        .responsive-section {
+            background: white;
+            border-radius: 21px;
+            padding: 3rem;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.08);
+            margin-bottom: 3rem;
+        }
+
+        .viewport-simulator {
+            background: var(--lunar-grey);
+            border-radius: 13px;
+            padding: 2rem;
+            transition: all 0.5s ease;
+            min-height: 200px;
+        }
+
+        .viewport-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .viewport-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid var(--nebula-purple);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .viewport-btn.active {
+            background: var(--nebula-purple);
+            color: white;
+        }
+
+        .sample-text {
+            font-size: var(--font-hero);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        /* Mobile specific styles */
+        @media (max-width: 768px) {
+            .type-level {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .script-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation for mobile split */
+        @keyframes mobile-split {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); opacity: 0.7; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .mobile-split {
+            animation: mobile-split 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Adaptive Typography</h1>
+        <p>Variable fonts with 10-level hierarchy and cultural adaptation</p>
+    </div>
+
+    <div class="container">
+        <!-- Typography Hierarchy -->
+        <section class="hierarchy-section">
+            <h2 class="section-title">10-Level Dynamic Hierarchy</h2>
+            <div class="hierarchy-demo">
+                <div class="type-level">
+                    <span class="type-label">Hero Display</span>
+                    <span class="hero-display">Aurora</span>
+                    <span class="type-size">clamp(3rem, 8vw, 6rem)</span>
+                </div>
+                <div class="type-level">
+                    <span class="type-label">Statement</span>
+                    <span class="statement">Emotional Headlines</span>
+                    <span class="type-size">clamp(2.5rem, 6vw, 4rem)</span>
+                </div>
+                <div class="type-level">
+                    <span class="type-label">Title XL</span>
+                    <span class="title-xl">Section Headers</span>
+                    <span class="type-size">clamp(2rem, 4vw, 3rem)</span>
+                </div>
+                <div class="type-level">
+                    <span class="type-label">Title L</span>
+                    <span class="title-l">Feature Callouts</span>
+                    <span class="type-size">clamp(1.5rem, 3vw, 2.25rem)</span>
+                </div>
+                <div class="type-level">
+                    <span class="type-label">Title M</span>
+                    <span class="title-m">Card Headers</span>
+                    <span class="type-size">clamp(1.25rem, 2.5vw, 1.75rem)</span>
+                </div>
+                <div class="type-level">
+                    <span class="type-label">Body XL</span>
+                    <span class="body-xl">Lead paragraphs that introduce key concepts</span>
+                    <span class="type-size">clamp(1.125rem, 2vw, 1.5rem)</span>
+                </div>
+                <div class="type-level">
+                    <span class="type-label">Body L</span>
+                    <span class="body-l">Important content that needs emphasis</span>
+                    <span class="type-size">1.125rem</span>
+                </div>
+                <div class="type-level">
+                    <span class="type-label">Body M</span>
+                    <span class="body-m">Standard text for regular content and descriptions</span>
+                    <span class="type-size">1rem</span>
+                </div>
+                <div class="type-level">
+                    <span class="type-label">Small</span>
+                    <span class="small-text">Supporting details and secondary information</span>
+                    <span class="type-size">0.875rem</span>
+                </div>
+                <div class="type-level">
+                    <span class="type-label">Micro</span>
+                    <span class="micro-text">Legal text, timestamps, and fine print</span>
+                    <span class="type-size">0.75rem</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Variable Font Controls -->
+        <section class="variable-section">
+            <h2 class="section-title">Variable Font: "Celestial Sans"</h2>
+            <div class="variable-demo" id="variableDemo">
+                Experience the Future of Luxury
+            </div>
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label>Weight Axis <span id="weightValue">400</span></label>
+                    <input type="range" class="slider" id="weightSlider" min="100" max="900" value="400" step="100">
+                </div>
+                <div class="control-group">
+                    <label>Width Axis <span id="widthValue">100%</span></label>
+                    <input type="range" class="slider" id="widthSlider" min="75" max="125" value="100">
+                </div>
+                <div class="control-group">
+                    <label>Optical Size <span id="opticalValue">16pt</span></label>
+                    <input type="range" class="slider" id="opticalSlider" min="8" max="144" value="16">
+                </div>
+            </div>
+        </section>
+
+        <!-- Cultural Adaptation -->
+        <section class="cultural-section">
+            <h2 class="section-title">Cultural Script Adaptation</h2>
+            <div class="script-grid">
+                <div class="script-card">
+                    <div class="script-label">English (Default)</div>
+                    <div class="script-sample">Beautiful Jewelry</div>
+                    <div class="micro-text">Latin script, LTR</div>
+                </div>
+                <div class="script-card">
+                    <div class="script-label">Arabic</div>
+                    <div class="script-sample arabic">مجوهرات جميلة</div>
+                    <div class="micro-text">Noto Sans Arabic, RTL</div>
+                </div>
+                <div class="script-card">
+                    <div class="script-label">Hebrew</div>
+                    <div class="script-sample hebrew">תכשיטים יפים</div>
+                    <div class="micro-text">Noto Sans Hebrew, RTL</div>
+                </div>
+                <div class="script-card">
+                    <div class="script-label">Chinese</div>
+                    <div class="script-sample chinese">美丽的珠宝</div>
+                    <div class="micro-text">Noto Sans SC, 1.8 line-height</div>
+                </div>
+                <div class="script-card">
+                    <div class="script-label">Japanese</div>
+                    <div class="script-sample japanese">美しいジュエリー</div>
+                    <div class="micro-text">Noto Sans JP, 1.8 line-height</div>
+                </div>
+                <div class="script-card">
+                    <div class="script-label">Korean</div>
+                    <div class="script-sample korean">아름다운 보석</div>
+                    <div class="micro-text">Noto Sans KR, 1.8 line-height</div>
+                </div>
+                <div class="script-card">
+                    <div class="script-label">Devanagari</div>
+                    <div class="script-sample devanagari">सुंदर गहने</div>
+                    <div class="micro-text">Mobile optimized</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AR Overlay Optimization -->
+        <section class="ar-section">
+            <h2 class="section-title">AR Overlay Optimization</h2>
+            <div class="ar-demo" id="arDemo">
+                <div class="ar-background"></div>
+                <div class="ar-text" id="arText">Diamond Solitaire Ring</div>
+            </div>
+            <div class="ar-controls">
+                <button class="ar-btn" id="normalMode">Normal Mode</button>
+                <button class="ar-btn" id="highContrast">High Contrast (+40% weight)</button>
+                <button class="ar-btn" id="outlineMode">Outlined Text</button>
+            </div>
+        </section>
+
+        <!-- Responsive Typography Demo -->
+        <section class="responsive-section">
+            <h2 class="section-title">Responsive Scaling Demonstration</h2>
+            <div class="viewport-controls">
+                <button class="viewport-btn active" data-width="100%">Desktop (100%)</button>
+                <button class="viewport-btn" data-width="768px">Tablet (768px)</button>
+                <button class="viewport-btn" data-width="375px">Mobile (375px)</button>
+            </div>
+            <div class="viewport-simulator" id="viewportSim">
+                <p class="sample-text" id="sampleText">Jewelry That Adapts</p>
+                <p style="text-align: center; margin-top: 1rem; color: #666;">
+                    Font size: <span id="currentSize">6rem</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Competitor Comparison -->
+        <section class="hierarchy-section">
+            <h2 class="section-title">Competitive Advantage</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div style="text-align: center; padding: 1.5rem; background: var(--lunar-grey); border-radius: 13px;">
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 0.5rem;">Aurora</h3>
+                    <p class="small-text">Dynamic & Adaptive</p>
+                    <div style="font-size: 2rem; margin-top: 1rem;">✅</div>
+                </div>
+                <div style="text-align: center; padding: 1.5rem; background: var(--lunar-grey); border-radius: 13px;">
+                    <h3 style="color: #666; margin-bottom: 0.5rem;">Competitors</h3>
+                    <p class="small-text">Static Typography</p>
+                    <div style="font-size: 2rem; margin-top: 1rem;">❌</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Variable font controls
+        const variableDemo = document.getElementById('variableDemo');
+        const weightSlider = document.getElementById('weightSlider');
+        const widthSlider = document.getElementById('widthSlider');
+        const opticalSlider = document.getElementById('opticalSlider');
+        const weightValue = document.getElementById('weightValue');
+        const widthValue = document.getElementById('widthValue');
+        const opticalValue = document.getElementById('opticalValue');
+
+        weightSlider.addEventListener('input', (e) => {
+            const weight = e.target.value;
+            variableDemo.style.fontWeight = weight;
+            weightValue.textContent = weight;
+        });
+
+        widthSlider.addEventListener('input', (e) => {
+            const width = e.target.value;
+            variableDemo.style.fontStretch = `${width}%`;
+            widthValue.textContent = `${width}%`;
+        });
+
+        opticalSlider.addEventListener('input', (e) => {
+            const size = e.target.value;
+            variableDemo.style.fontSize = `${size}px`;
+            opticalValue.textContent = `${size}pt`;
+        });
+
+        // AR Overlay controls
+        const arText = document.getElementById('arText');
+        const normalMode = document.getElementById('normalMode');
+        const highContrast = document.getElementById('highContrast');
+        const outlineMode = document.getElementById('outlineMode');
+
+        normalMode.addEventListener('click', function() {
+            document.querySelectorAll('.ar-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            arText.style.fontWeight = '700';
+            arText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.5)';
+            arText.style.webkitTextStroke = '';
+        });
+
+        highContrast.addEventListener('click', function() {
+            document.querySelectorAll('.ar-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            arText.style.fontWeight = '900';
+            arText.style.textShadow = '3px 3px 6px rgba(0, 0, 0, 1), -2px -2px 4px rgba(0, 0, 0, 0.8)';
+        });
+
+        outlineMode.addEventListener('click', function() {
+            document.querySelectorAll('.ar-btn').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            arText.style.fontWeight = '700';
+            arText.style.webkitTextStroke = '3px black';
+            arText.style.textShadow = '0 0 10px rgba(255, 255, 255, 0.8)';
+        });
+
+        // Responsive viewport simulator
+        const viewportSim = document.getElementById('viewportSim');
+        const sampleText = document.getElementById('sampleText');
+        const currentSize = document.getElementById('currentSize');
+        const viewportBtns = document.querySelectorAll('.viewport-btn');
+
+        viewportBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                viewportBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const width = this.dataset.width;
+                viewportSim.style.maxWidth = width;
+                
+                // Calculate and display the computed font size
+                setTimeout(() => {
+                    const computed = window.getComputedStyle(sampleText);
+                    currentSize.textContent = computed.fontSize;
+                }, 100);
+                
+                // Add animation for mobile
+                if (width === '375px') {
+                    sampleText.classList.add('mobile-split');
+                } else {
+                    sampleText.classList.remove('mobile-split');
+                }
+            });
+        });
+
+        // Script card hover effects
+        document.querySelectorAll('.script-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const sample = this.querySelector('.script-sample');
+                sample.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    sample.style.transform = '';
+                }, 300);
+            });
+        });
+
+        // Animated entrance for hero text
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'text-entrance 1s ease';
+                }
+            });
+        });
+
+        document.querySelectorAll('.hero-display, .statement, .title-xl').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initial size calculation
+        setTimeout(() => {
+            const computed = window.getComputedStyle(sampleText);
+            currentSize.textContent = computed.fontSize;
+        }, 100);
+    </script>
+</body>
+</html>

@@ -22,12 +22,10 @@ const nextConfig = {
     turbo: {
       rules: {}
     },
-    // Re-enabled safe optimizations after fixing build issues
+    // Simplified optimizations for stability
     optimizeCss: true,
     optimizeServerReact: true,
-    // React 18 Features - Phase 4 Modernization
-    reactRoot: true,
-    ppr: true, // Partial Prerendering for better loading states
+    // Removed deprecated reactRoot option
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
@@ -75,35 +73,9 @@ const nextConfig = {
   webpack: (config, { dev, isServer }) => {
     config.externals = [...(config.externals || []), { canvas: 'canvas' }]
     
-    // Simplified webpack optimization for essential chunking only
+    // Minimal webpack config for stability
     if (!dev && !isServer) {
-      // PHASE 3: Simplified, stable chunking strategy
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          // Single vendor chunk for stability
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendor',
-            chunks: 'all',
-            priority: 20,
-            reuseExistingChunk: true,
-          },
-          // Critical UI components - separate chunk
-          framework: {
-            chunks: 'all',
-            name: 'framework',
-            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-            priority: 40,
-            enforce: true,
-          },
-        },
-      }
-
-      // Essential performance optimizations
-      config.optimization.usedExports = true
+      // Use Next.js default chunking strategy for stability
       config.optimization.moduleIds = 'deterministic'
       config.optimization.chunkIds = 'deterministic'
     }

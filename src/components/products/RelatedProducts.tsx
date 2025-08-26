@@ -135,13 +135,13 @@ export default function RelatedProducts({ products, title = "You Might Also Like
               }`}
             >
               <div
-                className="group bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300"
+                className="group bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300"
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
                 <Link href={`/products/${product.slug}`}>
                   {/* Product Image */}
-                  <div className="relative aspect-square overflow-hidden rounded-t-lg bg-gray-100">
+                  <div className="relative aspect-square overflow-hidden bg-gray-100">
                     <Image
                       src={hoveredProduct === product.id && product.media.gallery[1] 
                         ? product.media.gallery[1] 

@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Aurora Mobile Experience - Gesture-Based Jewelry Shopping</title>
+    <style>
+        :root {
+            /* Aurora Color System */
+            --deep-space: #0A0E27;
+            --nebula-purple: #6B46C1;
+            --aurora-pink: #FF6B9D;
+            --aurora-crimson: #C44569;
+            --aurora-plum: #723C70;
+            --lunar-grey: #F7F7F9;
+            --emerald-flash: #10B981;
+            --amber-glow: #F59E0B;
+            
+            /* Fibonacci Border Radius */
+            --radius-micro: 3px;
+            --radius-small: 5px;
+            --radius-medium: 8px;
+            --radius-large: 13px;
+            --radius-xl: 21px;
+            --radius-xxl: 34px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--lunar-grey);
+            color: var(--deep-space);
+            line-height: 1.6;
+            overflow-x: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Mobile Header */
+        .mobile-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(247, 247, 249, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(107, 70, 193, 0.08);
+        }
+
+        .logo-mobile {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .menu-toggle {
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .menu-toggle::before,
+        .menu-toggle::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background: var(--nebula-purple);
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle::before {
+            top: 12px;
+        }
+
+        .menu-toggle::after {
+            bottom: 12px;
+        }
+
+        /* Gesture Tutorial Overlay */
+        .gesture-tutorial {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 14, 39, 0.95);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .gesture-tutorial.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .tutorial-content {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .tutorial-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gesture-demo {
+            margin: 2rem 0;
+        }
+
+        .gesture-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: gesture-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes gesture-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .gesture-list {
+            text-align: left;
+            max-width: 300px;
+            margin: 2rem auto;
+        }
+
+        .gesture-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gesture-emoji {
+            font-size: 1.5rem;
+        }
+
+        .skip-btn {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--aurora-pink);
+            color: var(--aurora-pink);
+            border-radius: var(--radius-large);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skip-btn:hover {
+            background: var(--aurora-pink);
+            color: white;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Product Showcase */
+        .product-showcase {
+            height: 60vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.1), rgba(255, 107, 157, 0.1));
+        }
+
+        .product-viewer {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .product-viewer.dragging {
+            cursor: grabbing;
+        }
+
+        .jewelry-3d {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #FFD700, #FFA500);
+            border-radius: 50%;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 0 60px rgba(255, 215, 0, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .jewelry-3d::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent);
+            border-radius: 50%;
+            animation: sparkle 3s ease-in-out infinite;
+        }
+
+        /* Gesture Indicators */
+        .gesture-indicator {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s ease;
+        }
+
+        .gesture-indicator.active {
+            opacity: 1;
+            transform: scale(1);
+            animation: indicator-pulse 0.5s ease;
+        }
+
+        @keyframes indicator-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Thumb Zone Interface */
+        .thumb-zone {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 25vh;
+            background: white;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            box-shadow: 0 -8px 24px rgba(107, 70, 193, 0.12);
+            padding: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .thumb-zone.collapsed {
+            transform: translateY(calc(100% - 60px));
+        }
+
+        .thumb-zone-handle {
+            width: 40px;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            margin: 0 auto 1rem;
+            cursor: grab;
+        }
+
+        .quick-actions-mobile {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-btn-mobile {
+            padding: 1rem;
+            border: none;
+            border-radius: var(--radius-large);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--lunar-grey);
+            color: var(--deep-space);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn-mobile.primary {
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson));
+            color: white;
+        }
+
+        .action-btn-mobile.success {
+            background: var(--emerald-flash);
+            color: white;
+        }
+
+        .btn-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-pink));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(107, 70, 193, 0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+            animation: fab-float 3s ease-in-out infinite;
+        }
+
+        @keyframes fab-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .fab:active {
+            transform: scale(0.9);
+        }
+
+        /* Mobile-Exclusive Features */
+        .mobile-features {
+            padding: 2rem 1rem;
+            background: white;
+        }
+
+        .feature-card {
+            background: var(--lunar-grey);
+            border-radius: var(--radius-large);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:active {
+            transform: scale(0.98);
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(107, 70, 193, 0.1));
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--nebula-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        /* Performance Metrics */
+        .performance-bar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--emerald-flash);
+            z-index: 999;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .performance-bar.visible {
+            transform: translateY(0);
+        }
+
+        /* Touch Feedback */
+        .touch-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 107, 157, 0.3);
+            pointer-events: none;
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* One-Handed Mode */
+        .one-handed-mode {
+            transition: all 0.3s ease;
+        }
+
+        .one-handed-mode .main-content {
+            transform: translateY(40%) scale(0.8);
+            transform-origin: bottom center;
+        }
+
+        /* Gesture Recognition Visual Feedback */
+        .gesture-feedback {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-large);
+            font-size: 1.125rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 500;
+            pointer-events: none;
+        }
+
+        .gesture-feedback.visible {
+            opacity: 1;
+        }
+
+        /* Responsive breakpoints */
+        @media (min-width: 768px) {
+            body::before {
+                content: 'This is a mobile-first experience. Please view on mobile for the best demo.';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: var(--amber-glow);
+                color: white;
+                padding: 1rem;
+                text-align: center;
+                z-index: 3000;
+                font-weight: 600;
+            }
+            
+            .main-content {
+                margin-top: 130px;
+            }
+        }
+
+        /* Loading animations */
+        .loading-shimmer {
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.1) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Gesture Tutorial Overlay -->
+    <div class="gesture-tutorial" id="gestureOverlay">
+        <div class="tutorial-content">
+            <h1 class="tutorial-title">Aurora Mobile Gestures</h1>
+            <div class="gesture-demo">
+                <div class="gesture-icon">📱</div>
+                <p>Experience jewelry shopping reimagined for mobile</p>
+            </div>
+            <div class="gesture-list">
+                <div class="gesture-item">
+                    <span class="gesture-emoji">👆</span>
+                    <div>
+                        <strong>Pinch:</strong> Zoom product<br>
+                        <small>Use two fingers to zoom in/out</small>
+                    </div>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-emoji">✌️</span>
+                    <div>
+                        <strong>Spread:</strong> Expand details<br>
+                        <small>Reverse pinch to see more info</small>
+                    </div>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-emoji">🔄</span>
+                    <div>
+                        <strong>Rotate:</strong> Turn model<br>
+                        <small>Drag to rotate 360°</small>
+                    </div>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-emoji">📳</span>
+                    <div>
+                        <strong>Shake:</strong> Shuffle recommendations<br>
+                        <small>Shake device for new items</small>
+                    </div>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-emoji">❤️</span>
+                    <div>
+                        <strong>Long Press:</strong> Save to collection<br>
+                        <small>Hold to add to favorites</small>
+                    </div>
+                </div>
+                <div class="gesture-item">
+                    <span class="gesture-emoji">📱</span>
+                    <div>
+                        <strong>Double Tap:</strong> Quick AR preview<br>
+                        <small>Two taps for instant try-on</small>
+                    </div>
+                </div>
+            </div>
+            <button class="skip-btn" onclick="startDemo()">Start Experience</button>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="logo-mobile">AURORA</div>
+        <button class="menu-toggle" id="menuToggle"></button>
+    </header>
+
+    <!-- Performance Bar -->
+    <div class="performance-bar" id="performanceBar">
+        <div id="performanceText">Page Load: <strong>1.2s</strong> | TTI: <strong>3.1s</strong> | ⚡ 98/100</div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Product Showcase -->
+        <section class="product-showcase">
+            <div class="product-viewer" id="productViewer">
+                <div class="jewelry-3d" id="jewelry3D"></div>
+            </div>
+        </section>
+
+        <!-- Mobile-Exclusive Features -->
+        <section class="mobile-features">
+            <div class="feature-card" id="cameraFeature">
+                <div class="feature-icon">📷</div>
+                <div class="feature-title">Camera-First Browsing</div>
+                <div class="feature-desc">"Show me rings like this" - Point camera at any jewelry</div>
+            </div>
+
+            <div class="feature-card" id="gpsFeature">
+                <div class="feature-icon">📍</div>
+                <div class="feature-title">GPS Showroom Finder</div>
+                <div class="feature-desc">Find nearby locations to try this piece in person</div>
+            </div>
+
+            <div class="feature-card" id="watchFeature">
+                <div class="feature-icon">⌚</div>
+                <div class="feature-title">Apple Watch Integration</div>
+                <div class="feature-desc">Subtle browsing during meetings with haptic feedback</div>
+            </div>
+
+            <div class="feature-card" id="widgetFeature">
+                <div class="feature-icon">🔔</div>
+                <div class="feature-title">Home Screen Widget</div>
+                <div class="feature-desc">Daily deals and wishlist reminders</div>
+            </div>
+
+            <div class="feature-card" id="lockScreenFeature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">Lock Screen AR</div>
+                <div class="feature-desc">Preview jewelry without unlocking your phone</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Thumb Zone Interface -->
+    <div class="thumb-zone" id="thumbZone">
+        <div class="thumb-zone-handle" id="thumbHandle"></div>
+        <div class="quick-actions-mobile">
+            <button class="action-btn-mobile primary" id="arBtn">
+                <span class="btn-icon">📱</span>
+                <span>AR Try-On</span>
+            </button>
+            <button class="action-btn-mobile" id="saveBtn">
+                <span class="btn-icon">❤️</span>
+                <span>Save</span>
+            </button>
+            <button class="action-btn-mobile" id="shareBtn">
+                <span class="btn-icon">📤</span>
+                <span>Share</span>
+            </button>
+        </div>
+        <div style="text-align: center; color: #666; font-size: 0.875rem;">
+            <p>👆 Swipe up for more options</p>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="fab">✨</button>
+
+    <!-- Gesture Feedback -->
+    <div class="gesture-feedback" id="gestureFeedback"></div>
+
+    <!-- Touch Indicator Template -->
+    <div class="gesture-indicator" id="gestureIndicator" style="width: 60px; height: 60px;">👆</div>
+
+    <script>
+        let currentRotation = 0;
+        let scale = 1;
+        let isDragging = false;
+        let startX, startY;
+        let lastTouchTime = 0;
+        let tapCount = 0;
+        let longPressTimer;
+        let shakeThreshold = 15;
+        let lastShake = 0;
+        let isOneHandedMode = false;
+        let tripleClickCount = 0;
+        let tripleClickTimer;
+
+        const productViewer = document.getElementById('productViewer');
+        const jewelry3D = document.getElementById('jewelry3D');
+        const gestureFeedback = document.getElementById('gestureFeedback');
+        const gestureIndicator = document.getElementById('gestureIndicator');
+        const thumbZone = document.getElementById('thumbZone');
+        const performanceBar = document.getElementById('performanceBar');
+
+        // Start demo function
+        function startDemo() {
+            document.getElementById('gestureOverlay').classList.add('hidden');
+            setTimeout(() => {
+                performanceBar.classList.add('visible');
+                setTimeout(() => {
+                    performanceBar.classList.remove('visible');
+                }, 3000);
+            }, 500);
+        }
+
+        // Show gesture feedback
+        function showGestureFeedback(text) {
+            gestureFeedback.textContent = text;
+            gestureFeedback.classList.add('visible');
+            setTimeout(() => {
+                gestureFeedback.classList.remove('visible');
+            }, 1500);
+        }
+
+        // Show gesture indicator
+        function showGestureIndicator(x, y, emoji = '👆') {
+            const indicator = gestureIndicator.cloneNode(true);
+            indicator.style.left = (x - 30) + 'px';
+            indicator.style.top = (y - 30) + 'px';
+            indicator.textContent = emoji;
+            indicator.classList.add('active');
+            document.body.appendChild(indicator);
+            
+            setTimeout(() => {
+                indicator.remove();
+            }, 1000);
+        }
+
+        // Touch ripple effect
+        function createRipple(e) {
+            const ripple = document.createElement('div');
+            ripple.className = 'touch-ripple';
+            ripple.style.width = ripple.style.height = '20px';
+            ripple.style.left = (e.touches[0].clientX - 10) + 'px';
+            ripple.style.top = (e.touches[0].clientY - 10) + 'px';
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        // Rotation gesture
+        productViewer.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                productViewer.classList.add('dragging');
+                
+                createRipple(e);
+                
+                // Double tap detection
+                const currentTime = Date.now();
+                if (currentTime - lastTouchTime < 300) {
+                    tapCount++;
+                    if (tapCount === 2) {
+                        // Double tap - AR preview
+                        showGestureFeedback('🚀 AR Preview Activated!');
+                        showGestureIndicator(e.touches[0].clientX, e.touches[0].clientY, '📱');
+                        tapCount = 0;
+                        return;
+                    }
+                } else {
+                    tapCount = 1;
+                }
+                lastTouchTime = currentTime;
+                
+                // Long press detection
+                longPressTimer = setTimeout(() => {
+                    if (isDragging) {
+                        // Long press - save to collection
+                        if ('vibrate' in navigator) {
+                            navigator.vibrate(100);
+                        }
+                        showGestureFeedback('💝 Saved to Collection!');
+                        showGestureIndicator(e.touches[0].clientX, e.touches[0].clientY, '❤️');
+                        
+                        // Visual feedback
+                        const saveBtn = document.getElementById('saveBtn');
+                        saveBtn.classList.add('success');
+                        saveBtn.innerHTML = '<span class="btn-icon">✓</span><span>Saved</span>';
+                        setTimeout(() => {
+                            saveBtn.classList.remove('success');
+                            saveBtn.innerHTML = '<span class="btn-icon">❤️</span><span>Save</span>';
+                        }, 2000);
+                    }
+                }, 500);
+            }
+        });
+
+        productViewer.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            
+            if (e.touches.length === 1 && isDragging) {
+                const currentX = e.touches[0].clientX;
+                const deltaX = currentX - startX;
+                
+                currentRotation += deltaX * 0.5;
+                jewelry3D.style.transform = `rotateY(${currentRotation}deg) scale(${scale})`;
+                
+                startX = currentX;
+                
+                // Show rotation feedback occasionally
+                if (Math.abs(deltaX) > 20) {
+                    showGestureIndicator(currentX, e.touches[0].clientY, '🔄');
+                }
+            }
+            
+            if (e.touches.length === 2) {
+                // Pinch to zoom
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const distance = Math.sqrt(
+                    Math.pow(touch2.clientX - touch1.clientX, 2) + 
+                    Math.pow(touch2.clientY - touch1.clientY, 2)
+                );
+                
+                if (!productViewer.initialDistance) {
+                    productViewer.initialDistance = distance;
+                    productViewer.initialScale = scale;
+                }
+                
+                const newScale = productViewer.initialScale * (distance / productViewer.initialDistance);
+                scale = Math.max(0.5, Math.min(3, newScale));
+                jewelry3D.style.transform = `rotateY(${currentRotation}deg) scale(${scale})`;
+                
+                // Show pinch feedback
+                const centerX = (touch1.clientX + touch2.clientX) / 2;
+                const centerY = (touch1.clientY + touch2.clientY) / 2;
+                
+                if (scale > 1.2) {
+                    showGestureIndicator(centerX, centerY, '🔍');
+                } else if (scale < 0.8) {
+                    showGestureIndicator(centerX, centerY, '🔍');
+                }
+            }
+        });
+
+        productViewer.addEventListener('touchend', (e) => {
+            isDragging = false;
+            productViewer.classList.remove('dragging');
+            productViewer.initialDistance = null;
+            clearTimeout(longPressTimer);
+        });
+
+        // Shake detection
+        if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', (e) => {
+                const acceleration = e.accelerationIncludingGravity;
+                const totalAcceleration = Math.sqrt(
+                    acceleration.x * acceleration.x + 
+                    acceleration.y * acceleration.y + 
+                    acceleration.z * acceleration.z
+                );
+                
+                if (totalAcceleration > shakeThreshold && Date.now() - lastShake > 1000) {
+                    lastShake = Date.now();
+                    
+                    // Shuffle recommendations
+                    showGestureFeedback('🎲 Shuffling Recommendations...');
+                    
+                    // Animate jewelry change
+                    jewelry3D.style.transition = 'all 0.5s ease';
+                    jewelry3D.style.transform = 'scale(0)';
+                    
+                    setTimeout(() => {
+                        // Change jewelry type
+                        const colors = ['#FFD700', '#E8F4FD', '#10B981', '#FF6B9D'];
+                        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                        jewelry3D.style.background = `radial-gradient(circle, ${randomColor}, #FFA500)`;
+                        jewelry3D.style.transform = 'scale(1)';
+                        jewelry3D.style.transition = '';
+                    }, 250);
+                }
+            });
+        }
+
+        // Thumb zone interactions
+        let thumbZoneStartY;
+        let thumbZoneCollapsed = false;
+
+        document.getElementById('thumbHandle').addEventListener('touchstart', (e) => {
+            thumbZoneStartY = e.touches[0].clientY;
+        });
+
+        document.getElementById('thumbHandle').addEventListener('touchmove', (e) => {
+            const currentY = e.touches[0].clientY;
+            const deltaY = currentY - thumbZoneStartY;
+            
+            if (deltaY > 50 && !thumbZoneCollapsed) {
+                thumbZone.classList.add('collapsed');
+                thumbZoneCollapsed = true;
+                showGestureFeedback('👇 Thumb Zone Minimized');
+            } else if (deltaY < -50 && thumbZoneCollapsed) {
+                thumbZone.classList.remove('collapsed');
+                thumbZoneCollapsed = false;
+                showGestureFeedback('👆 Thumb Zone Expanded');
+            }
+        });
+
+        // Action buttons
+        document.getElementById('arBtn').addEventListener('click', () => {
+            showGestureFeedback('📱 Opening AR Camera...');
+            if ('vibrate' in navigator) {
+                navigator.vibrate([50, 50, 50]);
+            }
+        });
+
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Aurora Jewelry',
+                    text: 'Check out this amazing piece!',
+                    url: window.location.href
+                });
+            } else {
+                showGestureFeedback('📤 Sharing Options Available');
+            }
+        });
+
+        // Floating Action Button
+        document.getElementById('fab').addEventListener('click', () => {
+            showGestureFeedback('✨ AI Surprise Mode Activated!');
+            // Trigger surprise animation
+            jewelry3D.style.animation = 'sparkle 2s ease';
+            setTimeout(() => {
+                jewelry3D.style.animation = '';
+            }, 2000);
+        });
+
+        // Feature card interactions
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.feature-title').textContent;
+                showGestureFeedback(`🚀 ${title} Coming Soon!`);
+            });
+        });
+
+        // Triple-tap for one-handed mode
+        document.addEventListener('click', (e) => {
+            tripleClickCount++;
+            
+            if (tripleClickCount === 1) {
+                tripleClickTimer = setTimeout(() => {
+                    tripleClickCount = 0;
+                }, 400);
+            } else if (tripleClickCount === 3) {
+                clearTimeout(tripleClickTimer);
+                tripleClickCount = 0;
+                
+                // Toggle one-handed mode
+                isOneHandedMode = !isOneHandedMode;
+                document.body.classList.toggle('one-handed-mode', isOneHandedMode);
+                
+                if (isOneHandedMode) {
+                    showGestureFeedback('👐 One-Handed Mode ON');
+                } else {
+                    showGestureFeedback('👐 One-Handed Mode OFF');
+                }
+            }
+        });
+
+        // Swipe gestures for navigation
+        let swipeStartX, swipeStartY;
+        
+        document.addEventListener('touchstart', (e) => {
+            swipeStartX = e.touches[0].clientX;
+            swipeStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!swipeStartX || !swipeStartY) return;
+            
+            const swipeEndX = e.changedTouches[0].clientX;
+            const swipeEndY = e.changedTouches[0].clientY;
+            
+            const deltaX = swipeEndX - swipeStartX;
+            const deltaY = swipeEndY - swipeStartY;
+            
+            // Vertical swipes
+            if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                if (deltaY > 100) {
+                    // Swipe down - see similar items
+                    showGestureFeedback('👇 Showing Similar Items...');
+                } else if (deltaY < -100) {
+                    // Swipe up - add to cart
+                    showGestureFeedback('🛒 Added to Cart!');
+                }
+            }
+            
+            swipeStartX = swipeStartY = null;
+        });
+
+        // Performance monitoring simulation
+        let loadTime = Math.random() * 0.5 + 0.8; // 0.8-1.3s
+        let tti = Math.random() * 0.8 + 2.5; // 2.5-3.3s
+        let lighthouse = Math.floor(Math.random() * 5) + 95; // 95-100
+
+        setTimeout(() => {
+            document.getElementById('performanceText').innerHTML = 
+                `Load: <strong>${loadTime.toFixed(1)}s</strong> | TTI: <strong>${tti.toFixed(1)}s</strong> | ⚡ ${lighthouse}/100`;
+        }, 1000);
+
+        // Auto-hide tutorial after 10 seconds if not dismissed
+        setTimeout(() => {
+            if (!document.getElementById('gestureOverlay').classList.contains('hidden')) {
+                startDemo();
+            }
+        }, 10000);
+
+        // Simulate offline capabilities
+        window.addEventListener('online', () => {
+            showGestureFeedback('🌐 Back Online - Syncing...');
+        });
+
+        window.addEventListener('offline', () => {
+            showGestureFeedback('📱 Offline Mode - Catalog Cached');
+        });
+
+        // Prevent context menu on long press
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // Prevent zoom on double tap for better UX
+        document.addEventListener('touchend', (e) => {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>

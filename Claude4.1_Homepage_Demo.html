@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora - Revolutionary Luxury Jewelry Platform</title>
+    <style>
+        :root {
+            /* Aurora Color System */
+            --deep-space: #0A0E27;
+            --nebula-purple: #6B46C1;
+            --aurora-pink: #FF6B9D;
+            --aurora-crimson: #C44569;
+            --aurora-plum: #723C70;
+            --lunar-grey: #F7F7F9;
+            --emerald-flash: #10B981;
+            --amber-glow: #F59E0B;
+            --pearl-white: #FFFFFF;
+            
+            /* Fibonacci Border Radius */
+            --radius-micro: 3px;
+            --radius-small: 5px;
+            --radius-medium: 8px;
+            --radius-large: 13px;
+            --radius-xl: 21px;
+            --radius-xxl: 34px;
+            
+            /* Prismatic Shadow System */
+            --shadow-color: var(--nebula-purple);
+            --shadow-near: 0 2px 8px rgba(107, 70, 193, 0.1);
+            --shadow-float: 0 8px 24px rgba(107, 70, 193, 0.08);
+            --shadow-hover: 0 16px 48px rgba(107, 70, 193, 0.12);
+            --shadow-modal: 0 24px 64px rgba(107, 70, 193, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--lunar-grey);
+            color: var(--deep-space);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Quantum Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(247, 247, 249, 0.95);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-near);
+        }
+
+        .nav-container.scrolled {
+            background: rgba(247, 247, 249, 0.98);
+            box-shadow: var(--shadow-float);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: var(--deep-space);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--aurora-pink), var(--aurora-crimson));
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .surprise-btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-plum));
+            color: white;
+            border: none;
+            border-radius: var(--radius-large);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-near);
+        }
+
+        .surprise-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            background: linear-gradient(135deg, var(--deep-space) 0%, var(--nebula-purple) 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 107, 157, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(107, 70, 193, 0.15) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-text p {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary, .cta-secondary {
+            padding: 1rem 2rem;
+            border-radius: var(--radius-large);
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson));
+            color: white;
+            border: none;
+            box-shadow: var(--shadow-float);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 3D Product Showcase */
+        .hero-visual {
+            position: relative;
+            height: 500px;
+        }
+
+        .product-3d {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rotate3d 20s linear infinite;
+        }
+
+        @keyframes rotate3d {
+            0% { transform: translate(-50%, -50%) rotateY(0deg); }
+            100% { transform: translate(-50%, -50%) rotateY(360deg); }
+        }
+
+        .ring-model {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 100px rgba(255, 215, 0, 0.5);
+        }
+
+        .ring-model::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.3));
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        }
+
+        /* Trust Signals Bar */
+        .trust-bar {
+            background: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow-near);
+        }
+
+        .trust-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .trust-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--emerald-flash), #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .trust-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .trust-number {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--deep-space);
+        }
+
+        .trust-label {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Living Product Cards Section */
+        .products-section {
+            padding: 5rem 2rem;
+            background: var(--lunar-grey);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--deep-space), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-float);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-image {
+            height: 300px;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-3d-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(107, 70, 193, 0.9);
+            color: white;
+            border-radius: var(--radius-large);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .product-details {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--deep-space);
+        }
+
+        .product-emotion {
+            font-style: italic;
+            color: var(--aurora-pink);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--nebula-purple);
+            margin-bottom: 1rem;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .sustainability-score {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .social-proof {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: var(--radius-medium);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .action-btn:hover {
+            background: var(--lunar-grey);
+            border-color: var(--nebula-purple);
+        }
+
+        /* Emotional Commerce Section */
+        .emotional-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--deep-space) 0%, var(--nebula-purple) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emotional-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .emotional-text h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .emotional-features {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .emotional-feature {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text h3 {
+            margin-bottom: 0.5rem;
+            color: var(--aurora-pink);
+        }
+
+        .feature-text p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-visual {
+                height: 300px;
+            }
+
+            .product-3d {
+                width: 250px;
+                height: 250px;
+            }
+
+            .trust-container {
+                justify-content: center;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .emotional-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Social Proof Ticker */
+        .social-ticker {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-hover);
+            max-width: 300px;
+            animation: slideIn 0.5s ease;
+            z-index: 100;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .ticker-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .ticker-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-plum));
+        }
+
+        .ticker-text {
+            font-size: 0.875rem;
+        }
+
+        .ticker-text strong {
+            color: var(--nebula-purple);
+        }
+
+        /* Loading shimmer effect */
+        .shimmer {
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.1) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Quantum Navigation -->
+    <div class="nav-container">
+        <nav>
+            <div class="logo">AURORA</div>
+            <div class="nav-menu">
+                <a href="#" class="nav-item">Rings</a>
+                <a href="#" class="nav-item">Necklaces</a>
+                <a href="#" class="nav-item">Discover</a>
+                <a href="#" class="nav-item">Design Studio</a>
+                <button class="surprise-btn">✨ Surprise Me</button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Jewelry That Understands You</h1>
+                <p>Experience the future of luxury with AI-powered personalization, AR try-on, and emotional intelligence that transforms every piece into your story.</p>
+                <div class="cta-group">
+                    <button class="cta-primary">Start Your Journey</button>
+                    <button class="cta-secondary">View in AR</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="product-3d">
+                    <div class="ring-model"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Signals Bar -->
+    <section class="trust-bar">
+        <div class="trust-container">
+            <div class="trust-item">
+                <div class="trust-icon">🛡️</div>
+                <div class="trust-text">
+                    <div class="trust-number">9.7/10</div>
+                    <div class="trust-label">Trust Score</div>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">👥</div>
+                <div class="trust-text">
+                    <div class="trust-number">47,293</div>
+                    <div class="trust-label">Happy Customers</div>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🌱</div>
+                <div class="trust-text">
+                    <div class="trust-number">100%</div>
+                    <div class="trust-label">Sustainable</div>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">⚡</div>
+                <div class="trust-text">
+                    <div class="trust-number"><3.5s</div>
+                    <div class="trust-label">Page Load</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Living Product Cards -->
+    <section class="products-section">
+        <div class="section-header">
+            <h2>Living Product Experience</h2>
+            <p>Each piece responds to your presence with WebGL-powered 3D visualization</p>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="product-3d-badge">360° View</div>
+                    <div class="shimmer" style="width: 100%; height: 100%;"></div>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-name">Nebula Solitaire</h3>
+                    <p class="product-emotion">"Captures light like your smile"</p>
+                    <div class="product-price">$2,499</div>
+                    <div class="product-meta">
+                        <div class="sustainability-score">
+                            <span>🌱</span><span>🌱</span><span>🌱</span><span>🌱</span><span>🌱</span>
+                        </div>
+                        <div class="social-proof">47 considering</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn">AR Try-On</button>
+                        <button class="action-btn">Save</button>
+                        <button class="action-btn">Compare</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="product-3d-badge">AI Designed</div>
+                    <div class="shimmer" style="width: 100%; height: 100%;"></div>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-name">Aurora Band</h3>
+                    <p class="product-emotion">"Sounds like morning rain"</p>
+                    <div class="product-price">$1,899</div>
+                    <div class="product-meta">
+                        <div class="sustainability-score">
+                            <span>🌱</span><span>🌱</span><span>🌱</span><span>🌱</span>
+                        </div>
+                        <div class="social-proof">122 saved today</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn">AR Try-On</button>
+                        <button class="action-btn">Save</button>
+                        <button class="action-btn">Compare</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="product-3d-badge">Customizable</div>
+                    <div class="shimmer" style="width: 100%; height: 100%;"></div>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-name">Infinity Loop</h3>
+                    <p class="product-emotion">"Perfect for 3-year anniversaries"</p>
+                    <div class="product-price">$3,299</div>
+                    <div class="product-meta">
+                        <div class="sustainability-score">
+                            <span>🌱</span><span>🌱</span><span>🌱</span><span>🌱</span><span>🌱</span>
+                        </div>
+                        <div class="social-proof">18 purchased</div>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn">Customize</button>
+                        <button class="action-btn">Save</button>
+                        <button class="action-btn">Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emotional Commerce Section -->
+    <section class="emotional-section">
+        <div class="emotional-content">
+            <div class="emotional-text">
+                <h2>Emotion-First Commerce</h2>
+                <p>Our AI understands the story behind every purchase, creating experiences that resonate with your unique journey.</p>
+                <div class="emotional-features">
+                    <div class="emotional-feature">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-text">
+                            <h3>Mood Detection</h3>
+                            <p>Analyzes micro-expressions to suggest pieces that match your emotional state</p>
+                        </div>
+                    </div>
+                    <div class="emotional-feature">
+                        <div class="feature-icon">📅</div>
+                        <div class="feature-text">
+                            <h3>Milestone Integration</h3>
+                            <p>Syncs with your calendar to never miss an important celebration</p>
+                        </div>
+                    </div>
+                    <div class="emotional-feature">
+                        <div class="feature-icon">💝</div>
+                        <div class="feature-text">
+                            <h3>Gift Intelligence</h3>
+                            <p>Predicts reaction scores and orchestrates surprise delivery experiences</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="emotional-visual">
+                <!-- Placeholder for emotional visualization -->
+                <div style="height: 400px; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 107, 157, 0.3), transparent); animation: pulse 3s ease-in-out infinite;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Ticker -->
+    <div class="social-ticker" id="socialTicker">
+        <div class="ticker-content">
+            <div class="ticker-avatar"></div>
+            <div class="ticker-text">
+                <strong>Sarah from NYC</strong><br>
+                just customized an Aurora Band
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation scroll behavior
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Product card proximity detection simulation
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            card.addEventListener('mouseenter', function(e) {
+                // Simulate proximity detection
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function(e) {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Social proof ticker rotation
+        const tickerMessages = [
+            { name: 'Sarah from NYC', action: 'just customized an Aurora Band' },
+            { name: 'Mike from LA', action: 'is viewing the Nebula Solitaire' },
+            { name: 'Emma from London', action: 'saved 3 items to wishlist' },
+            { name: 'James from Tokyo', action: 'completed a Design Studio creation' },
+            { name: 'Lisa from Paris', action: 'shared her collection' }
+        ];
+
+        let tickerIndex = 0;
+        const ticker = document.getElementById('socialTicker');
+        
+        // Initial hide
+        setTimeout(() => {
+            ticker.style.display = 'none';
+        }, 5000);
+
+        // Rotate messages
+        setInterval(() => {
+            ticker.style.animation = 'none';
+            ticker.style.display = 'none';
+            
+            setTimeout(() => {
+                tickerIndex = (tickerIndex + 1) % tickerMessages.length;
+                const message = tickerMessages[tickerIndex];
+                ticker.querySelector('.ticker-text').innerHTML = 
+                    `<strong>${message.name}</strong><br>${message.action}`;
+                ticker.style.display = 'block';
+                ticker.style.animation = 'slideIn 0.5s ease';
+                
+                // Hide after 5 seconds
+                setTimeout(() => {
+                    ticker.style.display = 'none';
+                }, 5000);
+            }, 2000);
+        }, 10000);
+
+        // Surprise Me button
+        document.querySelector('.surprise-btn').addEventListener('click', () => {
+            alert('AI is analyzing your preferences to find the perfect surprise...');
+        });
+
+        // CTA animations
+        document.querySelectorAll('.cta-primary, .cta-secondary').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Simulate WebGL 3D rotation on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const product3d = document.querySelector('.product-3d');
+            if (product3d) {
+                product3d.style.transform = `translate(-50%, -50%) rotateY(${scrolled * 0.5}deg)`;
+            }
+        });
+
+        // Action button interactions
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const action = this.textContent;
+                console.log(`Action triggered: ${action}`);
+                
+                // Simulate button feedback
+                this.style.background = 'var(--aurora-pink)';
+                this.style.color = 'white';
+                setTimeout(() => {
+                    this.style.background = 'white';
+                    this.style.color = 'inherit';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

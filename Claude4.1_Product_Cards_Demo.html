@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Living Product Cards - Interactive Jewelry Experience</title>
+    <style>
+        :root {
+            /* Aurora Color System */
+            --deep-space: #0A0E27;
+            --nebula-purple: #6B46C1;
+            --aurora-pink: #FF6B9D;
+            --aurora-crimson: #C44569;
+            --aurora-plum: #723C70;
+            --lunar-grey: #F7F7F9;
+            --emerald-flash: #10B981;
+            --amber-glow: #F59E0B;
+            
+            /* Fibonacci Border Radius */
+            --radius-micro: 3px;
+            --radius-small: 5px;
+            --radius-medium: 8px;
+            --radius-large: 13px;
+            --radius-xl: 21px;
+            --radius-xxl: 34px;
+            
+            /* Prismatic Shadows */
+            --shadow-gold: rgba(255, 215, 0, 0.3);
+            --shadow-diamond: rgba(185, 242, 255, 0.3);
+            --shadow-emerald: rgba(16, 185, 129, 0.3);
+            --shadow-default: rgba(107, 70, 193, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--lunar-grey);
+            color: var(--deep-space);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--deep-space) 0%, var(--nebula-purple) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 4s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Product Cards Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Living Product Card */
+        .product-card {
+            background: white;
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            box-shadow: 0 8px 24px var(--shadow-default);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--aurora-pink), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Proximity Detection States */
+        .product-card.approaching {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px var(--shadow-default);
+        }
+
+        .product-card.hovering {
+            transform: translateY(-8px) rotateY(5deg);
+            box-shadow: 0 20px 60px var(--shadow-default);
+        }
+
+        .product-card.deep-hover {
+            transform: translateY(-12px) rotateY(10deg) scale(1.02);
+            box-shadow: 0 32px 80px var(--shadow-default);
+        }
+
+        /* 3D Product Display */
+        .product-3d {
+            height: 300px;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-3d::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8), transparent 70%);
+            pointer-events: none;
+        }
+
+        .jewelry-model {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.5s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-10px) rotateY(180deg); }
+        }
+
+        .ring-model {
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00);
+            box-shadow: 
+                0 0 40px rgba(255, 215, 0, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .diamond-model {
+            background: linear-gradient(135deg, #E8F4FD, #B3E5FC, #81D4FA);
+            box-shadow: 
+                0 0 40px rgba(185, 242, 255, 0.8),
+                inset 0 0 20px rgba(255, 255, 255, 0.5);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+
+        .emerald-model {
+            background: linear-gradient(135deg, #10B981, #059669, #047857);
+            box-shadow: 
+                0 0 40px rgba(16, 185, 129, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+            border-radius: 20%;
+        }
+
+        .jewelry-model::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent);
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Auto-rotation on hover */
+        .product-card:hover .jewelry-model {
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        /* 3D Badges */
+        .badge-3d {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(107, 70, 193, 0.9);
+            color: white;
+            border-radius: var(--radius-large);
+            font-size: 0.875rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            animation: badge-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Product Info */
+        .product-info {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .ai-style-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-space);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--deep-space), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .emotional-value {
+            font-style: italic;
+            color: var(--aurora-pink);
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease 0.2s;
+        }
+
+        .product-card:hover .emotional-value {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .price-section {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-main {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--nebula-purple);
+        }
+
+        .payment-options {
+            font-size: 0.875rem;
+            color: #666;
+            background: var(--lunar-grey);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-small);
+        }
+
+        /* Social & Sustainability Info */
+        .product-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .sustainability-score {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .eco-stars {
+            display: flex;
+            gap: 0.125rem;
+        }
+
+        .eco-star {
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .eco-star {
+            animation: star-twinkle 0.5s ease infinite alternate;
+        }
+
+        @keyframes star-twinkle {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+
+        .social-proof {
+            text-align: right;
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        .social-number {
+            color: var(--emerald-flash);
+            font-weight: 600;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid transparent;
+            background: var(--lunar-grey);
+            border-radius: var(--radius-medium);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .action-btn:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .ar-btn {
+            background: linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson));
+            color: white;
+        }
+
+        .save-btn {
+            border-color: var(--emerald-flash);
+            color: var(--emerald-flash);
+        }
+
+        .share-btn {
+            border-color: var(--nebula-purple);
+            color: var(--nebula-purple);
+        }
+
+        .compare-btn {
+            border-color: var(--amber-glow);
+            color: var(--amber-glow);
+        }
+
+        /* AR Preview Overlay */
+        .ar-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .ar-overlay.active {
+            opacity: 1;
+        }
+
+        .ar-content {
+            text-align: center;
+            color: white;
+        }
+
+        .ar-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: ar-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ar-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Synesthetic Descriptions */
+        .synesthetic-section {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            margin: 4rem 0;
+            box-shadow: 0 8px 24px var(--shadow-default);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .synesthetic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .synesthetic-card {
+            padding: 2rem;
+            background: var(--lunar-grey);
+            border-radius: var(--radius-large);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .synesthetic-card:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(107, 70, 193, 0.1));
+            transform: translateY(-4px);
+        }
+
+        .synesthetic-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .synesthetic-text {
+            font-style: italic;
+            color: var(--nebula-purple);
+            font-size: 1.125rem;
+        }
+
+        /* Gift Mode Features */
+        .gift-mode {
+            background: linear-gradient(135deg, var(--deep-space), var(--nebula-purple));
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            margin: 4rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gift-mode::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 157, 0.1) 0%, transparent 50%);
+            animation: gift-rotate 30s linear infinite;
+        }
+
+        @keyframes gift-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .gift-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .reaction-predictor {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .reaction-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-large);
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .reaction-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--aurora-pink);
+            margin-bottom: 0.5rem;
+        }
+
+        .reaction-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+
+            .synesthetic-grid,
+            .reaction-predictor {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Long Press Mobile Feature */
+        .product-card.long-pressed {
+            animation: haptic-feedback 0.2s ease;
+        }
+
+        @keyframes haptic-feedback {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.98); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Living Product Cards</h1>
+        <p>WebGL-powered 3D models with emotional intelligence</p>
+    </div>
+
+    <div class="container">
+        <!-- Product Cards Grid -->
+        <div class="product-grid">
+            <!-- Ring Card -->
+            <div class="product-card" data-material="gold" data-long-press="0">
+                <div class="product-3d">
+                    <div class="badge-3d">360° View</div>
+                    <div class="jewelry-model ring-model"></div>
+                    <div class="ar-overlay" id="arOverlay1">
+                        <div class="ar-content">
+                            <div class="ar-icon">📱</div>
+                            <h3>AR Try-On Ready</h3>
+                            <p>Point camera at your hand</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="ai-style-name">Nebula Solitaire</h3>
+                    <p class="emotional-value">"Captures light like your smile"</p>
+                    <div class="price-section">
+                        <span class="price-main">$2,499</span>
+                        <span class="payment-options">or $104/mo</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="sustainability-score">
+                            <div class="eco-stars">
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                            </div>
+                        </div>
+                        <div class="social-proof">
+                            <span class="social-number">47</span> considering this week
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-btn ar-btn">AR Try-On</button>
+                        <button class="action-btn save-btn">Save ❤️</button>
+                        <button class="action-btn share-btn">Share</button>
+                        <button class="action-btn compare-btn">Compare</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diamond Card -->
+            <div class="product-card" data-material="diamond" data-long-press="0">
+                <div class="product-3d">
+                    <div class="badge-3d">AI Designed</div>
+                    <div class="jewelry-model diamond-model"></div>
+                    <div class="ar-overlay" id="arOverlay2">
+                        <div class="ar-content">
+                            <div class="ar-icon">💎</div>
+                            <h3>Diamond View</h3>
+                            <p>See every facet in detail</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="ai-style-name">Crystal Harmony</h3>
+                    <p class="emotional-value">"Sounds like morning rain"</p>
+                    <div class="price-section">
+                        <span class="price-main">$3,299</span>
+                        <span class="payment-options">or $137/mo</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="sustainability-score">
+                            <div class="eco-stars">
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                            </div>
+                        </div>
+                        <div class="social-proof">
+                            <span class="social-number">23</span> saved today
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-btn ar-btn">AR Try-On</button>
+                        <button class="action-btn save-btn">Save ❤️</button>
+                        <button class="action-btn share-btn">Share</button>
+                        <button class="action-btn compare-btn">Compare</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emerald Card -->
+            <div class="product-card" data-material="emerald" data-long-press="0">
+                <div class="product-3d">
+                    <div class="badge-3d">Customizable</div>
+                    <div class="jewelry-model emerald-model"></div>
+                    <div class="ar-overlay" id="arOverlay3">
+                        <div class="ar-content">
+                            <div class="ar-icon">🌟</div>
+                            <h3>Custom Preview</h3>
+                            <p>Design your perfect piece</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="ai-style-name">Eternal Embrace</h3>
+                    <p class="emotional-value">"Perfect for 3-year anniversaries"</p>
+                    <div class="price-section">
+                        <span class="price-main">$1,899</span>
+                        <span class="payment-options">or $79/mo</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="sustainability-score">
+                            <div class="eco-stars">
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                                <span class="eco-star">🌱</span>
+                            </div>
+                        </div>
+                        <div class="social-proof">
+                            <span class="social-number">89</span> purchased this month
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-btn ar-btn">Customize</button>
+                        <button class="action-btn save-btn">Save ❤️</button>
+                        <button class="action-btn share-btn">Share</button>
+                        <button class="action-btn compare-btn">Compare</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Synesthetic Descriptions Section -->
+        <section class="synesthetic-section">
+            <h2 class="section-title">Synesthetic Product Descriptions</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">
+                Our AI creates multi-sensory descriptions that trigger emotional connections
+            </p>
+            <div class="synesthetic-grid">
+                <div class="synesthetic-card">
+                    <div class="synesthetic-icon">🎵</div>
+                    <div class="synesthetic-text">"Sounds like morning rain"</div>
+                    <div style="font-size: 0.875rem; color: #666; margin-top: 0.5rem;">Auditory Association</div>
+                </div>
+                <div class="synesthetic-card">
+                    <div class="synesthetic-icon">🌊</div>
+                    <div class="synesthetic-text">"Feels like ocean breeze"</div>
+                    <div style="font-size: 0.875rem; color: #666; margin-top: 0.5rem;">Tactile Memory</div>
+                </div>
+                <div class="synesthetic-card">
+                    <div class="synesthetic-icon">🌸</div>
+                    <div class="synesthetic-text">"Smells like spring garden"</div>
+                    <div style="font-size: 0.875rem; color: #666; margin-top: 0.5rem;">Olfactory Connection</div>
+                </div>
+                <div class="synesthetic-card">
+                    <div class="synesthetic-icon">☀️</div>
+                    <div class="synesthetic-text">"Tastes like golden honey"</div>
+                    <div style="font-size: 0.875rem; color: #666; margin-top: 0.5rem;">Gustatory Link</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gift Mode Section -->
+        <section class="gift-mode">
+            <div class="gift-content">
+                <h2 class="section-title" style="color: white;">Gift Intelligence Mode</h2>
+                <p style="text-align: center; margin-bottom: 2rem; opacity: 0.9;">
+                    AI predicts recipient reactions and optimizes surprise delivery experiences
+                </p>
+                <div class="reaction-predictor">
+                    <div class="reaction-card">
+                        <div class="reaction-score">9.2</div>
+                        <div class="reaction-label">Excitement Score</div>
+                    </div>
+                    <div class="reaction-card">
+                        <div class="reaction-score">95%</div>
+                        <div class="reaction-label">Surprise Success</div>
+                    </div>
+                    <div class="reaction-card">
+                        <div class="reaction-score">87%</div>
+                        <div class="reaction-label">Style Match</div>
+                    </div>
+                    <div class="reaction-card">
+                        <div class="reaction-score">4.8</div>
+                        <div class="reaction-label">Relationship Impact</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unique Innovations Section -->
+        <section class="synesthetic-section">
+            <h2 class="section-title">Revolutionary Features</h2>
+            <div class="synesthetic-grid">
+                <div class="synesthetic-card">
+                    <div class="synesthetic-icon">📱</div>
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 0.5rem;">Gyroscope Parallax</h3>
+                    <p style="font-size: 0.875rem; color: #666;">Cards respond to device movement for realistic depth</p>
+                </div>
+                <div class="synesthetic-card">
+                    <div class="synesthetic-icon">🎯</div>
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 0.5rem;">Proximity Detection</h3>
+                    <p style="font-size: 0.875rem; color: #666;">Cards awaken as cursor approaches within 50px</p>
+                </div>
+                <div class="synesthetic-card">
+                    <div class="synesthetic-icon">🌈</div>
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 0.5rem;">Skin Tone Matching</h3>
+                    <p style="font-size: 0.875rem; color: #666;">Auto-adjusts to uploaded selfie for perfect fit</p>
+                </div>
+                <div class="synesthetic-card">
+                    <div class="synesthetic-icon">🎭</div>
+                    <h3 style="color: var(--nebula-purple); margin-bottom: 0.5rem;">Relationship Mapping</h3>
+                    <p style="font-size: 0.875rem; color: #666;">Suggests pieces based on anniversary milestones</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Proximity Detection
+        const cards = document.querySelectorAll('.product-card');
+        
+        cards.forEach(card => {
+            let isHovering = false;
+            let hoverTimeout;
+            let deepHoverTimeout;
+            
+            card.addEventListener('mouseenter', function(e) {
+                // Proximity detection - card awakens
+                this.classList.add('approaching');
+                
+                // After 200ms - hover state with auto-rotation
+                hoverTimeout = setTimeout(() => {
+                    this.classList.add('hovering');
+                    this.classList.remove('approaching');
+                    
+                    // Stats appear
+                    const meta = this.querySelector('.product-meta');
+                    meta.style.opacity = '1';
+                    meta.style.transform = 'translateY(0)';
+                }, 200);
+                
+                // After 1s - deep hover with AR preview
+                deepHoverTimeout = setTimeout(() => {
+                    this.classList.add('deep-hover');
+                    this.classList.remove('hovering');
+                    
+                    // Quick AR preview
+                    if (!this.querySelector('.ar-overlay.active')) {
+                        const arOverlay = this.querySelector('.ar-overlay');
+                        if (arOverlay) {
+                            arOverlay.classList.add('active');
+                            setTimeout(() => {
+                                arOverlay.classList.remove('active');
+                            }, 2000);
+                        }
+                    }
+                }, 1000);
+            });
+            
+            card.addEventListener('mouseleave', function(e) {
+                clearTimeout(hoverTimeout);
+                clearTimeout(deepHoverTimeout);
+                
+                this.classList.remove('approaching', 'hovering', 'deep-hover');
+                
+                const meta = this.querySelector('.product-meta');
+                meta.style.opacity = '';
+                meta.style.transform = '';
+            });
+            
+            // Long press for mobile (haptic feedback simulation)
+            let longPressTimer;
+            
+            card.addEventListener('touchstart', function(e) {
+                const touchDuration = parseInt(this.dataset.longPress) || 0;
+                
+                longPressTimer = setTimeout(() => {
+                    this.classList.add('long-pressed');
+                    
+                    // Simulate haptic feedback
+                    if ('vibrate' in navigator) {
+                        navigator.vibrate(100);
+                    }
+                    
+                    // Enter comparison mode
+                    alert('Comparison mode activated! Select another item to compare.');
+                    
+                    setTimeout(() => {
+                        this.classList.remove('long-pressed');
+                    }, 200);
+                }, 500);
+            });
+            
+            card.addEventListener('touchend', function(e) {
+                clearTimeout(longPressTimer);
+            });
+        });
+
+        // Action Button Interactions
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                const action = this.textContent.trim();
+                console.log(`Action: ${action}`);
+                
+                // Visual feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Specific actions
+                if (action.includes('AR') || action.includes('Customize')) {
+                    const arOverlay = this.closest('.product-card').querySelector('.ar-overlay');
+                    arOverlay.classList.add('active');
+                    setTimeout(() => {
+                        arOverlay.classList.remove('active');
+                    }, 3000);
+                }
+                
+                if (action.includes('Save')) {
+                    this.style.background = 'var(--emerald-flash)';
+                    this.style.color = 'white';
+                    this.innerHTML = 'Saved ✓';
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.color = '';
+                        this.innerHTML = 'Save ❤️';
+                    }, 2000);
+                }
+            });
+        });
+
+        // Dynamic Shadow Colors based on material
+        cards.forEach(card => {
+            const material = card.dataset.material;
+            let shadowColor;
+            
+            switch(material) {
+                case 'gold':
+                    shadowColor = 'var(--shadow-gold)';
+                    break;
+                case 'diamond':
+                    shadowColor = 'var(--shadow-diamond)';
+                    break;
+                case 'emerald':
+                    shadowColor = 'var(--shadow-emerald)';
+                    break;
+                default:
+                    shadowColor = 'var(--shadow-default)';
+            }
+            
+            card.style.setProperty('--card-shadow-color', shadowColor);
+        });
+
+        // Synesthetic card interactions
+        document.querySelectorAll('.synesthetic-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const text = this.querySelector('.synesthetic-text').textContent;
+                
+                // Visual feedback
+                this.style.background = 'linear-gradient(135deg, var(--aurora-pink), var(--aurora-crimson))';
+                this.style.color = 'white';
+                
+                // Audio feedback simulation
+                console.log(`Synesthetic experience: ${text}`);
+                
+                setTimeout(() => {
+                    this.style.background = '';
+                    this.style.color = '';
+                }, 1000);
+            });
+        });
+
+        // Gyroscope parallax simulation (desktop mouse movement)
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', (e) => {
+                const gamma = e.gamma; // Left-right tilt
+                const beta = e.beta;   // Front-back tilt
+                
+                cards.forEach(card => {
+                    const model = card.querySelector('.jewelry-model');
+                    if (model) {
+                        model.style.transform = `rotateY(${gamma * 0.5}deg) rotateX(${beta * 0.3}deg)`;
+                    }
+                });
+            });
+        } else {
+            // Fallback for desktop - mouse movement parallax
+            document.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const { innerWidth, innerHeight } = window;
+                
+                const xPercent = (clientX / innerWidth - 0.5) * 20;
+                const yPercent = (clientY / innerHeight - 0.5) * 20;
+                
+                cards.forEach(card => {
+                    const model = card.querySelector('.jewelry-model');
+                    if (model && card.matches(':hover')) {
+                        model.style.transform = `rotateY(${xPercent}deg) rotateX(${-yPercent}deg)`;
+                    }
+                });
+            });
+        }
+
+        // Social proof counter animation
+        function animateCounters() {
+            document.querySelectorAll('.social-number').forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const start = Math.max(1, target - 10);
+                let current = start;
+                
+                const increment = () => {
+                    if (current < target) {
+                        current++;
+                        counter.textContent = current;
+                        setTimeout(increment, 50);
+                    }
+                };
+                
+                setTimeout(increment, Math.random() * 2000);
+            });
+        }
+
+        // Start counter animations
+        setTimeout(animateCounters, 1000);
+
+        // Periodic social proof updates
+        setInterval(() => {
+            document.querySelectorAll('.social-number').forEach(counter => {
+                const current = parseInt(counter.textContent);
+                const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+                const newValue = Math.max(1, current + change);
+                counter.textContent = newValue;
+            });
+        }, 10000);
+    </script>
+</body>
+</html>

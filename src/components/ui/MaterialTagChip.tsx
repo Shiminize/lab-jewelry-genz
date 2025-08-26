@@ -7,7 +7,7 @@ import type { MaterialTag } from '@/types/material-tags'
 
 const materialTagChipVariants = cva(
   // Base styles with CLAUDE_RULES compliance
-  'inline-flex items-center justify-center font-body font-medium transition-all duration-200 rounded-lg border focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 cursor-pointer whitespace-nowrap',
+  'inline-flex items-center justify-center font-body font-medium transition-all duration-200 border focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 cursor-pointer whitespace-nowrap',
   {
     variants: {
       category: {

@@ -408,7 +408,7 @@ const quizSectionVariants = cva(
 )
 
 const questionCardVariants = cva(
-  'bg-background border border-border rounded-xl p-6 lg:p-8 transition-all duration-300',
+  'bg-background border border-border p-6 lg:p-8 transition-all duration-300',
   {
     variants: {
       state: {
@@ -424,7 +424,7 @@ const questionCardVariants = cva(
 )
 
 const answerButtonVariants = cva(
-  'w-full p-4 border border-border rounded-lg text-left transition-all duration-200 group hover:border-accent/50 hover:bg-accent/5',
+  'w-full p-4 border border-border text-left transition-all duration-200 group hover:border-accent/50 hover:bg-accent/5',
   {
     variants: {
       selected: {
@@ -686,7 +686,7 @@ export function StyleQuizSection({
             
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
               {personalityTypes.map((type) => (
-                <div key={type.id} className="text-center p-4 bg-muted/10 rounded-lg">
+                <div key={type.id} className="text-center p-4 bg-muted/10">
                   <div className={cn('flex justify-center mb-2', type.color)}>
                     {type.icon}
                   </div>
@@ -838,7 +838,7 @@ export function StyleQuizSection({
 
             {/* Personality Traits */}
             <div className="grid lg:grid-cols-2 gap-8 mb-12">
-              <div className="bg-muted/10 rounded-xl p-6">
+              <div className="bg-muted/10 p-6">
                 <H3 className="mb-4">Your Style Traits</H3>
                 <div className="space-y-2">
                   {result.personalityType.traits.map((trait, index) => (
@@ -850,7 +850,7 @@ export function StyleQuizSection({
                 </div>
               </div>
               
-              <div className="bg-muted/10 rounded-xl p-6">
+              <div className="bg-muted/10 p-6">
                 <H3 className="mb-4">Perfect For You</H3>
                 <div className="space-y-3">
                   <div>

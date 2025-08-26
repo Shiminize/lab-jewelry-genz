@@ -183,7 +183,7 @@ const socialProofVariants = cva(
 
 // Testimonial card variants
 const testimonialCardVariants = cva(
-  'rounded-lg border transition-all duration-300 hover:shadow-lg',
+  'border transition-all duration-300 hover:shadow-lg',
   {
     variants: {
       size: {
@@ -298,7 +298,7 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
         {trustSignals.map((signal, index) => (
           <div 
             key={index}
-            className="text-center p-4 rounded-lg bg-muted/20 hover:bg-muted/30 transition-colors"
+            className="text-center p-4 bg-muted/20 hover:bg-muted/30 transition-colors"
           >
             <div className="flex items-center justify-center mb-2">
               <signal.icon className="w-8 h-8 text-accent" />
@@ -313,7 +313,7 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
       </div>
 
       {/* Creator Program Highlight */}
-      <div className="bg-gradient-to-r from-accent/5 to-accent/10 rounded-xl p-8 border border-accent/20">
+      <div className="bg-gradient-to-r from-accent/5 to-accent/10 p-8 border border-accent/20">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <H2 className="mb-4 text-foreground">Join Our Creator Community</H2>
@@ -403,7 +403,7 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
       </div>
 
       {/* Community CTA */}
-      <div className="text-center bg-accent/10 rounded-xl p-8 border border-accent/20">
+      <div className="text-center bg-accent/10 p-8 border border-accent/20">
         <H2 className="mb-4">Ready to Join Our Community?</H2>
         <BodyText className="mb-6 max-w-2xl mx-auto">
           Whether you're looking for the perfect piece to express yourself or want to 

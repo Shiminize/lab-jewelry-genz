@@ -43,9 +43,9 @@ const valueCardVariants = cva(
   {
     variants: {
       style: {
-        glassmorphism: 'bg-white border border-accent rounded-2xl shadow-xl',
-        minimal: 'space-y-8 bg-white rounded-xl border border-accent',
-        bordered: 'border-2 border-accent rounded-2xl shadow-xl bg-white hover:border-accent'
+        glassmorphism: 'bg-white border border-accent shadow-xl',
+        minimal: 'space-y-8 bg-white border border-accent',
+        bordered: 'border-2 border-accent shadow-xl bg-white hover:border-accent'
       },
       state: {
         default: 'hover:shadow-xl hover:scale-[1.03] hover:-translate-y-2',
@@ -356,7 +356,7 @@ export function EnhancedValueProposition({
               onKeyDown={(e) => handleKeyboardNavigation(e, prop.id)}
             >
               {/* Floating background */}
-              <div className="absolute inset-0 bg-muted rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-muted opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               {/* Icon Container */}
               <div className="relative flex justify-center">
@@ -463,7 +463,7 @@ export function EnhancedValueProposition({
       {/* Global Trust Signals Section */}
       {showTrustSignals && (
         <div className="mt-16 lg:mt-20 text-center">
-          <div className="bg-muted border border-accent rounded-3xl p-6 lg:p-8 max-w-5xl mx-auto shadow-xl">
+          <div className="bg-muted border border-accent p-6 lg:p-8 max-w-5xl mx-auto shadow-xl">
             <MutedText className="mb-6 block text-lg">
               Join thousands who choose conscious luxury
             </MutedText>
@@ -480,7 +480,7 @@ export function EnhancedValueProposition({
                 return (
                   <div 
                     key={index}
-                    className="group p-4 rounded-2xl bg-white border border-accent hover:border-accent transition-all duration-300 hover:scale-105"
+                    className="group p-4 bg-white border border-accent hover:border-accent transition-all duration-300 hover:scale-105"
                   >
                     <div className="flex flex-col items-center space-y-2">
                       <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">

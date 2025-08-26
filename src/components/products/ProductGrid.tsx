@@ -30,7 +30,7 @@ const ProductSkeleton = ({ variant = 'standard' }: { variant?: 'standard' | 'fea
   if (variant === 'compact') {
     return (
       <div className="flex space-x-3 animate-pulse">
-        <div className="w-16 h-16 bg-muted/40 rounded-md flex-shrink-0" />
+        <div className="w-16 h-16 bg-muted/40 flex-shrink-0" />
         <div className="flex-1 space-y-2">
           <div className="h-4 bg-muted/40 rounded w-3/4" />
           <div className="h-3 bg-muted/40 rounded w-1/2" />
@@ -43,7 +43,7 @@ const ProductSkeleton = ({ variant = 'standard' }: { variant?: 'standard' | 'fea
   return (
     <div className="space-y-4 animate-pulse">
       <div className={cn(
-        'aspect-square bg-muted/40 rounded-lg',
+        'aspect-square bg-muted/40',
         variant === 'featured' && 'border border-muted/40 p-4'
       )} />
       <div className="space-y-2">
