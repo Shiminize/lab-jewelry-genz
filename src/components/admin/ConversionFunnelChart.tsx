@@ -47,7 +47,7 @@ const mockFunnelData: FunnelStage[] = [
     percentage: 100,
     dropOff: 0,
     icon: <Users className="h-4 w-4" />,
-    color: '#3B82F6'
+color: '#6B46C1' // Aurora: Nebula Purple
   },
   {
     name: 'Product Views',
@@ -55,7 +55,7 @@ const mockFunnelData: FunnelStage[] = [
     percentage: 75,
     dropOff: 25,
     icon: <Users className="h-4 w-4" />,
-    color: '#6366F1'
+color: '#5B3BA8' // Aurora: Nebula Purple darker
   },
   {
     name: 'Add to Cart',
@@ -63,7 +63,7 @@ const mockFunnelData: FunnelStage[] = [
     percentage: 37.5,
     dropOff: 50,
     icon: <ShoppingCart className="h-4 w-4" />,
-    color: '#8B5CF6'
+color: '#FF6B9D' // Aurora: Iridescent Pink
   },
   {
     name: 'Checkout Started',
@@ -71,7 +71,7 @@ const mockFunnelData: FunnelStage[] = [
     percentage: 18.75,
     dropOff: 50,
     icon: <CreditCard className="h-4 w-4" />,
-    color: '#A855F7'
+color: '#C44569' // Aurora: Iridescent Coral
   },
   {
     name: 'Purchase Complete',
@@ -79,7 +79,7 @@ const mockFunnelData: FunnelStage[] = [
     percentage: 13.12,
     dropOff: 30,
     icon: <Check className="h-4 w-4" />,
-    color: '#10B981'
+color: '#10B981' // Aurora: Enhanced success green
   }
 ]
 
@@ -88,10 +88,10 @@ const topCreatorFunnels: CreatorFunnelData[] = [
     creatorId: '1',
     creatorCode: 'SARAH2024',
     stages: [
-      { name: 'Clicks', value: 2500, percentage: 100, dropOff: 0, icon: <Users className="h-3 w-3" />, color: '#3B82F6' },
-      { name: 'Views', value: 2000, percentage: 80, dropOff: 20, icon: <Users className="h-3 w-3" />, color: '#6366F1' },
-      { name: 'Cart', value: 1200, percentage: 48, dropOff: 40, icon: <ShoppingCart className="h-3 w-3" />, color: '#8B5CF6' },
-      { name: 'Checkout', value: 900, percentage: 36, dropOff: 25, icon: <CreditCard className="h-3 w-3" />, color: '#A855F7' },
+      { name: 'Clicks', value: 2500, percentage: 100, dropOff: 0, icon: <Users className="h-3 w-3" />, color: '#6B46C1' },
+      { name: 'Views', value: 2000, percentage: 80, dropOff: 20, icon: <Users className="h-3 w-3" />, color: '#5B3BA8' },
+      { name: 'Cart', value: 1200, percentage: 48, dropOff: 40, icon: <ShoppingCart className="h-3 w-3" />, color: '#FF6B9D' },
+      { name: 'Checkout', value: 900, percentage: 36, dropOff: 25, icon: <CreditCard className="h-3 w-3" />, color: '#C44569' },
       { name: 'Purchase', value: 720, percentage: 28.8, dropOff: 20, icon: <Check className="h-3 w-3" />, color: '#10B981' }
     ],
     conversionRate: 28.8,
@@ -101,10 +101,10 @@ const topCreatorFunnels: CreatorFunnelData[] = [
     creatorId: '2',
     creatorCode: 'MIKE2024',
     stages: [
-      { name: 'Clicks', value: 1800, percentage: 100, dropOff: 0, icon: <Users className="h-3 w-3" />, color: '#3B82F6' },
-      { name: 'Views', value: 1260, percentage: 70, dropOff: 30, icon: <Users className="h-3 w-3" />, color: '#6366F1' },
-      { name: 'Cart', value: 630, percentage: 35, dropOff: 50, icon: <ShoppingCart className="h-3 w-3" />, color: '#8B5CF6' },
-      { name: 'Checkout', value: 378, percentage: 21, dropOff: 40, icon: <CreditCard className="h-3 w-3" />, color: '#A855F7' },
+      { name: 'Clicks', value: 1800, percentage: 100, dropOff: 0, icon: <Users className="h-3 w-3" />, color: '#6B46C1' },
+      { name: 'Views', value: 1260, percentage: 70, dropOff: 30, icon: <Users className="h-3 w-3" />, color: '#5B3BA8' },
+      { name: 'Cart', value: 630, percentage: 35, dropOff: 50, icon: <ShoppingCart className="h-3 w-3" />, color: '#FF6B9D' },
+      { name: 'Checkout', value: 378, percentage: 21, dropOff: 40, icon: <CreditCard className="h-3 w-3" />, color: '#C44569' },
       { name: 'Purchase', value: 302, percentage: 16.8, dropOff: 20, icon: <Check className="h-3 w-3" />, color: '#10B981' }
     ],
     conversionRate: 16.8,

@@ -128,9 +128,9 @@ export default function CommissionTimelineChart() {
 
   // Status data for the bar chart
   const statusData = [
-    { status: 'Pending', amount: summary.totalPending, color: '#F59E0B' },
-    { status: 'Approved', amount: summary.totalApproved, color: '#10B981' },
-    { status: 'Paid', amount: summary.totalPaid, color: '#6366F1' }
+    { status: 'Pending', amount: summary.totalPending, color: '#F59E0B' }, // Aurora: Enhanced warning amber
+    { status: 'Approved', amount: summary.totalApproved, color: '#10B981' }, // Aurora: Enhanced success green
+    { status: 'Paid', amount: summary.totalPaid, color: '#6B46C1' } // Aurora: Nebula Purple
   ]
 
   return (
@@ -266,8 +266,8 @@ export default function CommissionTimelineChart() {
                   type="monotone"
                   dataKey="paid"
                   stackId="3"
-                  stroke="#8B5CF6"
-                  fill="#8B5CF6"
+                  stroke="#6B46C1"
+                  fill="#6B46C1"
                   fillOpacity={0.1}
                   name="Paid"
                 />

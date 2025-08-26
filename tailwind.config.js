@@ -9,42 +9,48 @@ module.exports = {
   theme: {
     extend: {
       borderRadius: {
-        'none': '0',
-        'sm': '0',
-        'DEFAULT': '0', 
-        'md': '0',
-        'lg': '0',
-        'xl': '0',
-        '2xl': '0',
-        '3xl': '0',
-        'full': '9999px', // Keep full for circular elements like avatars
+        'none': '0px',
+        'sm': '3px',   // Fibonacci sequence: 3px
+        'DEFAULT': '5px', // Fibonacci sequence: 5px
+        'md': '8px',   // Fibonacci sequence: 8px
+        'lg': '13px',  // Fibonacci sequence: 13px
+        'xl': '21px',  // Fibonacci sequence: 21px
+        '2xl': '34px', // Fibonacci sequence: 34px
+        '3xl': '34px', // Max Aurora radius
+        'full': '9999px', // Keep full for circular elements
       },
       fontFamily: {
         headline: ['Fraunces', 'serif'],
         body: ['Inter', 'sans-serif'],
       },
       colors: {
-        // Core HTML Demo Colors (Simplified)
-        background: '#FEFCF9', // Ivory mist
-        foreground: '#2D3A32', // Graphite green
-        muted: '#E8D7D3', // Rose beige
-        accent: '#D4AF37', // Champagne gold
-        cta: '#C17B47', // Coral gold
-        'cta-hover': '#B5653A', // Burnt coral
+        // Aurora Design System Foundation Colors
+        background: '#FEFCF9', // Ivory mist (keep existing)
+        foreground: '#2D3A32', // Graphite green (keep existing) 
+        muted: '#F1F2F6',      // Aurora: Starlight Gray
+        accent: '#D4AF37',     // Champagne gold (keep existing)
+        cta: '#6B46C1',       // Aurora: Nebula Purple
+        'cta-hover': '#5B3BA8', // Aurora: Nebula Purple darker
         
-        // Essential colors
-        white: '#FFFFFF', // Pure white for cards and text on colored backgrounds
-        'high-contrast': '#FFFFFF', // High contrast text for colored backgrounds (CLAUDE_RULES)
-        'gray-600': '#6B7280', // Muted text gray (legacy)
-        'gray-700': '#374151', // WCAG AA compliant muted text
+        // Aurora Essential Colors
+        white: '#FFFFFF',           // Pure white
+        'high-contrast': '#FFFFFF', // High contrast text (CLAUDE_RULES)
+        'deep-space': '#0A0E27',    // Aurora: Deep Space base
+        'cosmic-slate': '#1E293B',  // Aurora: Cosmic Slate
+        'nebula-purple': '#6B46C1', // Aurora: Nebula Purple
+        'starlight-gray': '#F1F2F6', // Aurora: Starlight Gray
+        'gray-600': '#6B7280',      // Legacy muted gray
+        'gray-700': '#374151',      // WCAG compliant text
         
-        // Border colors
-        border: '#E5E5E5', // Standard borders
+        // Aurora Border Colors
+        border: '#E2E8F0',          // Aurora: Quantum borders
+        'border-muted': '#F1F2F6',  // Subtle Aurora borders
         
-        // System colors
-        error: '#DC2626', // Error red
-        success: '#059669', // Success green
-        warning: '#D97706', // Warning amber
+        // Aurora System Colors (enhanced with iridescence)
+        error: '#DC2626',     // Error red
+        success: '#10B981',   // Aurora: Enhanced success green
+        warning: '#F59E0B',   // Aurora: Enhanced warning amber
+        info: '#3B82F6',      // Aurora: Information blue
         
         // Material Colors (for customizer previews)
         'material-gold': '#FFD700',
@@ -63,6 +69,16 @@ module.exports = {
           'recycled-rose-gold': '#E6997F', // [0.9, 0.6, 0.5] converted
           'lab-created-titanium': '#808099', // [0.5, 0.5, 0.6] converted
         },
+        
+        // Aurora Iridescent Accents
+        'iridescent-pink': '#FF6B9D',    // Aurora: Iridescent Pink
+        'iridescent-coral': '#C44569',   // Aurora: Iridescent Coral  
+        'iridescent-plum': '#723C70',    // Aurora: Iridescent Plum
+        
+        // Aurora Gradient Foundations
+        'gradient-start': '#0A0E27',     // Deep Space start
+        'gradient-mid': '#1E293B',       // Cosmic Slate mid
+        'gradient-end': '#6B46C1',       // Nebula Purple end
       },
       spacing: {
         '18': '4.5rem',
@@ -97,6 +113,20 @@ module.exports = {
       },
       screens: {
         'xs': '475px',
+      },
+      boxShadow: {
+        // Aurora Prismatic Shadow System
+        'aurora-sm': '0 2px 4px rgba(107, 70, 193, 0.1), 0 1px 2px rgba(196, 69, 105, 0.08)',
+        'aurora-md': '0 4px 6px rgba(107, 70, 193, 0.15), 0 2px 4px rgba(196, 69, 105, 0.1)',
+        'aurora-lg': '0 10px 15px rgba(107, 70, 193, 0.2), 0 4px 6px rgba(196, 69, 105, 0.12)',
+        'aurora-xl': '0 20px 25px rgba(107, 70, 193, 0.25), 0 10px 10px rgba(196, 69, 105, 0.15)',
+        'aurora-2xl': '0 25px 50px rgba(107, 70, 193, 0.3), 0 20px 20px rgba(196, 69, 105, 0.18)',
+        'aurora-inner': 'inset 0 2px 4px rgba(107, 70, 193, 0.1)',
+        'aurora-glow': '0 0 20px rgba(255, 107, 157, 0.4), 0 0 40px rgba(107, 70, 193, 0.2)',
+        // Legacy shadows (keep for compatibility)
+        'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       },
     },
   },
