@@ -117,7 +117,7 @@ interface MutedTextProps extends React.HTMLAttributes<HTMLSpanElement> {
 
 export function MutedText({ className, size = 'md', variant = 'default', children, ...props }: MutedTextProps) {
   const sizeClass = size === 'sm' ? 'text-sm' : 'text-base'
-  const colorClass = 'text-gray-600' // CLAUDE_RULES compliant: approved combination #2 (text-gray-600 bg-background)
+  const colorClass = 'text-aurora-nav-muted' // CLAUDE_RULES compliant: approved combination #2 (text-aurora-nav-muted bg-background)
   return (
     <span className={cn('font-body', colorClass, sizeClass, className)} {...props}>
       {children}

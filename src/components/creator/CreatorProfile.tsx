@@ -187,7 +187,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
         <CardContent className="space-y-6">
           {/* Profile Picture */}
           <div className="flex items-center space-x-4">
-            <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
+            <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center overflow-hidden">
               {formData.profileImage ? (
                 <Image 
                   src={formData.profileImage} 
@@ -198,12 +198,12 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                   sizes="80px"
                 />
               ) : (
-                <User className="w-8 h-8 text-gray-400" />
+                <User className="w-8 h-8 text-aurora-nav-muted" />
               )}
             </div>
             {isEditing && (
               <div className="flex-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
                   Profile Image URL
                 </label>
                 <Input
@@ -219,7 +219,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
           {/* Basic Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
                 Display Name
               </label>
               {isEditing ? (
@@ -230,20 +230,20 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                   maxLength={50}
                 />
               ) : (
-                <div className="py-2 text-gray-900">{creator.displayName}</div>
+                <div className="py-2 text-foreground">{creator.displayName}</div>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
                 Email
               </label>
-              <div className="py-2 text-gray-900">{creator.email}</div>
-              <p className="text-xs text-gray-500">Email cannot be changed</p>
+              <div className="py-2 text-foreground">{creator.email}</div>
+              <p className="text-xs text-aurora-nav-muted">Email cannot be changed</p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
                 Creator Code
               </label>
               <div className="py-2 font-mono text-amber-600 font-semibold">
@@ -252,7 +252,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
                 Status
               </label>
               <Badge 
@@ -270,7 +270,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
 
           {/* Bio */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               Bio
             </label>
             {isEditing ? (
@@ -278,12 +278,12 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                 value={formData.bio}
                 onChange={(e) => handleInputChange('bio', e.target.value)}
                 placeholder="Tell your audience about yourself..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                 rows={4}
                 maxLength={500}
               />
             ) : (
-              <div className="py-2 text-gray-900">
+              <div className="py-2 text-foreground">
                 {creator.bio || 'No bio provided'}
               </div>
             )}
@@ -302,7 +302,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
         <CardContent className="space-y-4">
           {/* Instagram */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               <Instagram className="w-4 h-4 inline mr-2" />
               Instagram
             </label>
@@ -314,7 +314,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                 placeholder="https://instagram.com/username"
               />
             ) : (
-              <div className="py-2 text-gray-900">
+              <div className="py-2 text-foreground">
                 {creator.socialLinks.instagram ? (
                   <a 
                     href={creator.socialLinks.instagram} 
@@ -333,7 +333,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
 
           {/* TikTok */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               <span className="w-4 h-4 inline-block mr-2 text-center">🎵</span>
               TikTok
             </label>
@@ -345,7 +345,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                 placeholder="https://tiktok.com/@username"
               />
             ) : (
-              <div className="py-2 text-gray-900">
+              <div className="py-2 text-foreground">
                 {creator.socialLinks.tiktok ? (
                   <a 
                     href={creator.socialLinks.tiktok} 
@@ -364,7 +364,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
 
           {/* YouTube */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               <Youtube className="w-4 h-4 inline mr-2" />
               YouTube
             </label>
@@ -376,7 +376,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                 placeholder="https://youtube.com/@username"
               />
             ) : (
-              <div className="py-2 text-gray-900">
+              <div className="py-2 text-foreground">
                 {creator.socialLinks.youtube ? (
                   <a 
                     href={creator.socialLinks.youtube} 
@@ -395,7 +395,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
 
           {/* Twitter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               <Twitter className="w-4 h-4 inline mr-2" />
               Twitter
             </label>
@@ -407,7 +407,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                 placeholder="https://twitter.com/username"
               />
             ) : (
-              <div className="py-2 text-gray-900">
+              <div className="py-2 text-foreground">
                 {creator.socialLinks.twitter ? (
                   <a 
                     href={creator.socialLinks.twitter} 
@@ -426,7 +426,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
 
           {/* Website */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               <Globe className="w-4 h-4 inline mr-2" />
               Website
             </label>
@@ -438,7 +438,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                 placeholder="https://yourwebsite.com"
               />
             ) : (
-              <div className="py-2 text-gray-900">
+              <div className="py-2 text-foreground">
                 {creator.socialLinks.website ? (
                   <a 
                     href={creator.socialLinks.website} 
@@ -469,8 +469,8 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <div className="font-medium text-gray-900">Email Notifications</div>
-                <div className="text-sm text-gray-600">
+                <div className="font-medium text-foreground">Email Notifications</div>
+                <div className="text-sm text-aurora-nav-muted">
                   Receive emails about commissions, payments, and important updates
                 </div>
               </div>
@@ -479,7 +479,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                   type="checkbox"
                   checked={formData.settings.emailNotifications}
                   onChange={(e) => handleInputChange('settings.emailNotifications', e.target.checked)}
-                  className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
+                  className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-border rounded"
                 />
               ) : (
                 <Badge variant={creator.settings.emailNotifications ? 'default' : 'secondary'}>
@@ -490,8 +490,8 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
 
             <div className="flex items-center justify-between">
               <div>
-                <div className="font-medium text-gray-900">Public Profile</div>
-                <div className="text-sm text-gray-600">
+                <div className="font-medium text-foreground">Public Profile</div>
+                <div className="text-sm text-aurora-nav-muted">
                   Allow your profile to be visible in our creator directory
                 </div>
               </div>
@@ -500,7 +500,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                   type="checkbox"
                   checked={formData.settings.publicProfile}
                   onChange={(e) => handleInputChange('settings.publicProfile', e.target.checked)}
-                  className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
+                  className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-border rounded"
                 />
               ) : (
                 <Badge variant={creator.settings.publicProfile ? 'default' : 'secondary'}>
@@ -511,8 +511,8 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
 
             <div className="flex items-center justify-between">
               <div>
-                <div className="font-medium text-gray-900">Direct Messages</div>
-                <div className="text-sm text-gray-600">
+                <div className="font-medium text-foreground">Direct Messages</div>
+                <div className="text-sm text-aurora-nav-muted">
                   Allow brands and other creators to contact you directly
                 </div>
               </div>
@@ -521,7 +521,7 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
                   type="checkbox"
                   checked={formData.settings.allowDirectMessages}
                   onChange={(e) => handleInputChange('settings.allowDirectMessages', e.target.checked)}
-                  className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
+                  className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-border rounded"
                 />
               ) : (
                 <Badge variant={creator.settings.allowDirectMessages ? 'default' : 'secondary'}>
@@ -541,22 +541,22 @@ export default function CreatorProfile({ creator, onUpdate }: CreatorProfileProp
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-gray-600">Member since:</span>
-              <div className="font-medium text-gray-900">{formatDate(creator.createdAt)}</div>
+              <span className="text-aurora-nav-muted">Member since:</span>
+              <div className="font-medium text-foreground">{formatDate(creator.createdAt)}</div>
             </div>
             {creator.approvedAt && (
               <div>
-                <span className="text-gray-600">Approved on:</span>
-                <div className="font-medium text-gray-900">{formatDate(creator.approvedAt)}</div>
+                <span className="text-aurora-nav-muted">Approved on:</span>
+                <div className="font-medium text-foreground">{formatDate(creator.approvedAt)}</div>
               </div>
             )}
             <div>
-              <span className="text-gray-600">Commission rate:</span>
-              <div className="font-medium text-gray-900">{creator.commissionRate}%</div>
+              <span className="text-aurora-nav-muted">Commission rate:</span>
+              <div className="font-medium text-foreground">{creator.commissionRate}%</div>
             </div>
             <div>
-              <span className="text-gray-600">Minimum payout:</span>
-              <div className="font-medium text-gray-900">${creator.minimumPayout}</div>
+              <span className="text-aurora-nav-muted">Minimum payout:</span>
+              <div className="font-medium text-foreground">${creator.minimumPayout}</div>
             </div>
           </div>
         </CardContent>

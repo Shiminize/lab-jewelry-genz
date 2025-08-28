@@ -198,7 +198,7 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
       case 'approved': return <CheckCircle className="h-5 w-5 text-green-500" />
       case 'pending': return <Clock className="h-5 w-5 text-yellow-500" />
       case 'suspended': return <XCircle className="h-5 w-5 text-red-500" />
-      case 'inactive': return <AlertTriangle className="h-5 w-5 text-gray-500" />
+      case 'inactive': return <AlertTriangle className="h-5 w-5 text-aurora-nav-muted" />
       default: return null
     }
   }
@@ -208,8 +208,8 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
       case 'approved': return 'bg-green-100 text-green-800 border-green-200'
       case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
       case 'suspended': return 'bg-red-100 text-red-800 border-red-200'
-      case 'inactive': return 'bg-gray-100 text-gray-800 border-gray-200'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+      case 'inactive': return 'bg-muted text-foreground border-border'
+      default: return 'bg-muted text-foreground border-border'
     }
   }
 
@@ -239,20 +239,20 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto" data-testid="creator-detail-modal">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={onClose}></div>
+        <div className="fixed inset-0 bg-muted bg-opacity-75 transition-opacity" onClick={onClose}></div>
 
-        <div className="inline-block align-bottom bg-white rounded-lg shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full">
+        <div className="inline-block align-bottom bg-background rounded-lg shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full">
           {/* Header */}
-          <div className="bg-white px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="bg-background px-6 py-4 border-b border-border flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex-shrink-0 h-12 w-12 rounded-full bg-coral-gold/10 flex items-center justify-center">
                 <User className="h-6 w-6 text-coral-gold" />
               </div>
               <div>
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-foreground">
                   {details?.creator?.displayName || 'Loading...'}
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-aurora-nav-muted">
                   {details?.creator?.email}
                 </p>
               </div>
@@ -270,7 +270,7 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
             </div>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-aurora-nav-muted hover:text-aurora-nav-muted transition-colors"
               aria-label="Close modal"
             >
               <X className="h-6 w-6" />
@@ -284,7 +284,7 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
           ) : details ? (
             <div className="flex">
               {/* Sidebar Navigation */}
-              <div className="w-64 bg-gray-50 border-r border-gray-200">
+              <div className="w-64 bg-muted border-r border-border">
                 <nav className="p-4 space-y-2">
                   {[
                     { id: 'overview', name: 'Overview', icon: Eye },
@@ -303,7 +303,7 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
                         className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
                           activeTab === tab.id
                             ? 'bg-coral-gold text-white'
-                            : 'text-gray-700 hover:bg-gray-200'
+                            : 'text-foreground hover:bg-muted'
                         }`}
                       >
                         <Icon className="h-4 w-4" />
@@ -362,20 +362,20 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
                     </div>
 
                     {/* Creator Information */}
-                    <div className="bg-white border border-gray-200 rounded-lg p-6">
-                      <h4 className="text-lg font-medium text-gray-900 mb-4">Creator Information</h4>
+                    <div className="bg-background border border-border rounded-lg p-6">
+                      <h4 className="text-lg font-medium text-foreground mb-4">Creator Information</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
                             <div>
-                              <label className="text-sm font-medium text-gray-700">Display Name</label>
+                              <label className="text-sm font-medium text-foreground">Display Name</label>
                               {editMode === 'displayName' ? (
                                 <div className="flex items-center gap-2 mt-1">
                                   <input
                                     type="text"
                                     value={editData.displayName || ''}
                                     onChange={(e) => setEditData({ ...editData, displayName: e.target.value })}
-                                    className="flex-1 px-3 py-1 border border-gray-300 rounded text-sm"
+                                    className="flex-1 px-3 py-1 border border-border rounded text-sm"
                                   />
                                   <button
                                     onClick={() => handleSave('displayName')}
@@ -387,10 +387,10 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
                                 </div>
                               ) : (
                                 <div className="flex items-center gap-2 mt-1">
-                                  <p className="text-sm text-gray-900">{details.creator.displayName}</p>
+                                  <p className="text-sm text-foreground">{details.creator.displayName}</p>
                                   <button
                                     onClick={() => handleEdit('displayName', details.creator.displayName)}
-                                    className="p-1 text-gray-400 hover:text-gray-600"
+                                    className="p-1 text-aurora-nav-muted hover:text-aurora-nav-muted"
                                   >
                                     <Edit className="h-3 w-3" />
                                   </button>
@@ -400,18 +400,18 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-gray-700">Email</label>
-                            <p className="text-sm text-gray-900 mt-1">{details.creator.email}</p>
+                            <label className="text-sm font-medium text-foreground">Email</label>
+                            <p className="text-sm text-foreground mt-1">{details.creator.email}</p>
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-gray-700">Creator Code</label>
-                            <p className="text-sm text-gray-900 mt-1 font-mono">{details.creator.creatorCode}</p>
+                            <label className="text-sm font-medium text-foreground">Creator Code</label>
+                            <p className="text-sm text-foreground mt-1 font-mono">{details.creator.creatorCode}</p>
                           </div>
 
                           <div className="flex items-center justify-between">
                             <div>
-                              <label className="text-sm font-medium text-gray-700">Commission Rate</label>
+                              <label className="text-sm font-medium text-foreground">Commission Rate</label>
                               {editMode === 'commissionRate' ? (
                                 <div className="flex items-center gap-2 mt-1">
                                   <input
@@ -421,9 +421,9 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
                                     step="0.1"
                                     value={editData.commissionRate || ''}
                                     onChange={(e) => setEditData({ ...editData, commissionRate: parseFloat(e.target.value) })}
-                                    className="w-20 px-3 py-1 border border-gray-300 rounded text-sm"
+                                    className="w-20 px-3 py-1 border border-border rounded text-sm"
                                   />
-                                  <span className="text-sm text-gray-500">%</span>
+                                  <span className="text-sm text-aurora-nav-muted">%</span>
                                   <button
                                     onClick={() => handleSave('commissionRate')}
                                     disabled={saving}
@@ -434,10 +434,10 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
                                 </div>
                               ) : (
                                 <div className="flex items-center gap-2 mt-1">
-                                  <p className="text-sm text-gray-900">{details.creator.commissionRate}%</p>
+                                  <p className="text-sm text-foreground">{details.creator.commissionRate}%</p>
                                   <button
                                     onClick={() => handleEdit('commissionRate', details.creator.commissionRate)}
-                                    className="p-1 text-gray-400 hover:text-gray-600"
+                                    className="p-1 text-aurora-nav-muted hover:text-aurora-nav-muted"
                                   >
                                     <Edit className="h-3 w-3" />
                                   </button>
@@ -449,24 +449,24 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
 
                         <div className="space-y-4">
                           <div>
-                            <label className="text-sm font-medium text-gray-700">Bio</label>
-                            <p className="text-sm text-gray-900 mt-1">{details.creator.bio || 'No bio provided'}</p>
+                            <label className="text-sm font-medium text-foreground">Bio</label>
+                            <p className="text-sm text-foreground mt-1">{details.creator.bio || 'No bio provided'}</p>
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-gray-700">Payment Method</label>
-                            <p className="text-sm text-gray-900 mt-1 capitalize">{details.creator.paymentInfo.method}</p>
+                            <label className="text-sm font-medium text-foreground">Payment Method</label>
+                            <p className="text-sm text-foreground mt-1 capitalize">{details.creator.paymentInfo.method}</p>
                           </div>
 
                           <div>
-                            <label className="text-sm font-medium text-gray-700">Joined</label>
-                            <p className="text-sm text-gray-900 mt-1">{formatDate(details.creator.createdAt)}</p>
+                            <label className="text-sm font-medium text-foreground">Joined</label>
+                            <p className="text-sm text-foreground mt-1">{formatDate(details.creator.createdAt)}</p>
                           </div>
 
                           {details.creator.approvedAt && (
                             <div>
-                              <label className="text-sm font-medium text-gray-700">Approved</label>
-                              <p className="text-sm text-gray-900 mt-1">{formatDate(details.creator.approvedAt)}</p>
+                              <label className="text-sm font-medium text-foreground">Approved</label>
+                              <p className="text-sm text-foreground mt-1">{formatDate(details.creator.approvedAt)}</p>
                             </div>
                           )}
                         </div>
@@ -474,8 +474,8 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
                     </div>
 
                     {/* Quick Actions */}
-                    <div className="bg-white border border-gray-200 rounded-lg p-6">
-                      <h4 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h4>
+                    <div className="bg-background border border-border rounded-lg p-6">
+                      <h4 className="text-lg font-medium text-foreground mb-4">Quick Actions</h4>
                       <div className="flex flex-wrap gap-3">
                         {details.creator.status === 'pending' && (
                           <button
@@ -522,7 +522,7 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
 
                         <button
                           onClick={addNote}
-                          className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                          className="px-4 py-2 bg-muted text-white rounded-lg hover:bg-muted transition-colors"
                         >
                           Add Note
                         </button>
@@ -543,26 +543,26 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
 
                 {activeTab === 'links' && (
                   <div className="space-y-4">
-                    <h4 className="text-lg font-medium text-gray-900">Referral Links</h4>
+                    <h4 className="text-lg font-medium text-foreground">Referral Links</h4>
                     <div className="space-y-3">
                       {details.referralLinks.map((link) => (
-                        <div key={link._id} className="bg-white border border-gray-200 rounded-lg p-4">
+                        <div key={link._id} className="bg-background border border-border rounded-lg p-4">
                           <div className="flex items-center justify-between">
                             <div className="flex-1">
                               <div className="flex items-center gap-2">
-                                <Link className="h-4 w-4 text-gray-400" />
-                                <span className="font-medium text-gray-900">{link.title || 'Untitled Link'}</span>
-                                <span className={`px-2 py-1 text-xs rounded-full ${link.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                                <Link className="h-4 w-4 text-aurora-nav-muted" />
+                                <span className="font-medium text-foreground">{link.title || 'Untitled Link'}</span>
+                                <span className={`px-2 py-1 text-xs rounded-full ${link.isActive ? 'bg-green-100 text-green-800' : 'bg-muted text-foreground'}`}>
                                   {link.isActive ? 'Active' : 'Inactive'}
                                 </span>
                               </div>
-                              <p className="text-sm text-gray-600 mt-1">{link.shortUrl}</p>
+                              <p className="text-sm text-aurora-nav-muted mt-1">{link.shortUrl}</p>
                               {link.description && (
-                                <p className="text-sm text-gray-500 mt-1">{link.description}</p>
+                                <p className="text-sm text-aurora-nav-muted mt-1">{link.description}</p>
                               )}
                             </div>
                             <div className="text-right">
-                              <div className="text-sm text-gray-900">
+                              <div className="text-sm text-foreground">
                                 <div>Clicks: {link.clickCount}</div>
                                 <div>Conversions: {link.conversionCount}</div>
                                 <div>Rate: {((link.conversionCount / Math.max(link.clickCount, 1)) * 100).toFixed(1)}%</div>
@@ -577,14 +577,14 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
 
                 {activeTab === 'transactions' && (
                   <div className="space-y-4">
-                    <h4 className="text-lg font-medium text-gray-900">Recent Transactions</h4>
+                    <h4 className="text-lg font-medium text-foreground">Recent Transactions</h4>
                     <div className="space-y-3">
                       {details.recentTransactions.map((transaction) => (
-                        <div key={transaction._id} className="bg-white border border-gray-200 rounded-lg p-4">
+                        <div key={transaction._id} className="bg-background border border-border rounded-lg p-4">
                           <div className="flex items-center justify-between">
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="font-medium text-gray-900">
+                                <span className="font-medium text-foreground">
                                   {transaction.orderId?.orderNumber || transaction.orderId}
                                 </span>
                                 <span className={`px-2 py-1 text-xs rounded-full ${
@@ -596,15 +596,15 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
                                   {transaction.status}
                                 </span>
                               </div>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-aurora-nav-muted">
                                 {formatDate(transaction.createdAt)}
                               </p>
                             </div>
                             <div className="text-right">
-                              <div className="font-medium text-gray-900">
+                              <div className="font-medium text-foreground">
                                 {formatCurrency(transaction.commissionAmount)}
                               </div>
-                              <div className="text-sm text-gray-500">
+                              <div className="text-sm text-aurora-nav-muted">
                                 {transaction.commissionRate}% of {formatCurrency(transaction.orderAmount)}
                               </div>
                             </div>
@@ -617,14 +617,14 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
 
                 {activeTab === 'payouts' && (
                   <div className="space-y-4">
-                    <h4 className="text-lg font-medium text-gray-900">Payout History</h4>
+                    <h4 className="text-lg font-medium text-foreground">Payout History</h4>
                     <div className="space-y-3">
                       {details.payoutHistory.map((payout) => (
-                        <div key={payout._id} className="bg-white border border-gray-200 rounded-lg p-4">
+                        <div key={payout._id} className="bg-background border border-border rounded-lg p-4">
                           <div className="flex items-center justify-between">
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="font-medium text-gray-900">
+                                <span className="font-medium text-foreground">
                                   {formatCurrency(payout.amount)}
                                 </span>
                                 <span className={`px-2 py-1 text-xs rounded-full ${
@@ -636,21 +636,21 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
                                   {payout.status}
                                 </span>
                               </div>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-aurora-nav-muted">
                                 {formatDate(payout.payoutDate)}
                               </p>
                               {payout.paymentReference && (
-                                <p className="text-sm text-gray-500 font-mono">
+                                <p className="text-sm text-aurora-nav-muted font-mono">
                                   Ref: {payout.paymentReference}
                                 </p>
                               )}
                             </div>
                             <div className="text-right">
-                              <div className="text-sm text-gray-900 capitalize">
+                              <div className="text-sm text-foreground capitalize">
                                 {payout.paymentMethod}
                               </div>
                               {payout.completedAt && (
-                                <div className="text-sm text-gray-500">
+                                <div className="text-sm text-aurora-nav-muted">
                                   Completed: {formatDate(payout.completedAt)}
                                 </div>
                               )}
@@ -665,7 +665,7 @@ export default function CreatorDetailsModal({ isOpen, onClose, creatorId }: Crea
             </div>
           ) : (
             <div className="p-6 text-center">
-              <p className="text-gray-500">Failed to load creator details</p>
+              <p className="text-aurora-nav-muted">Failed to load creator details</p>
             </div>
           )}
         </div>

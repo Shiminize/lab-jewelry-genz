@@ -192,7 +192,7 @@ export default function CommissionManagement() {
       case 'cancelled':
         return <XCircle className="w-4 h-4 text-red-600" />
       default:
-        return <AlertTriangle className="w-4 h-4 text-gray-400" />
+        return <AlertTriangle className="w-4 h-4 text-aurora-nav-muted" />
     }
   }
 
@@ -226,8 +226,8 @@ export default function CommissionManagement() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Commission Management</h1>
-        <p className="text-gray-600">Monitor and manage creator commissions</p>
+        <h1 className="text-3xl font-bold text-foreground">Commission Management</h1>
+        <p className="text-aurora-nav-muted">Monitor and manage creator commissions</p>
       </div>
 
       {/* Analytics Cards */}
@@ -238,10 +238,10 @@ export default function CommissionManagement() {
               <div className="flex items-center space-x-2">
                 <DollarSign className="w-8 h-8 text-amber-600" />
                 <div>
-                  <div className="text-2xl font-bold text-gray-900">
+                  <div className="text-2xl font-bold text-foreground">
                     {formatCurrency(data.analytics.totalCommissions)}
                   </div>
-                  <div className="text-sm text-gray-500">Total Commissions</div>
+                  <div className="text-sm text-aurora-nav-muted">Total Commissions</div>
                 </div>
               </div>
             </CardContent>
@@ -252,10 +252,10 @@ export default function CommissionManagement() {
               <div className="flex items-center space-x-2">
                 <TrendingUp className="w-8 h-8 text-green-600" />
                 <div>
-                  <div className="text-2xl font-bold text-gray-900">
+                  <div className="text-2xl font-bold text-foreground">
                     {formatCurrency(data.analytics.totalPayouts)}
                   </div>
-                  <div className="text-sm text-gray-500">Total Payouts</div>
+                  <div className="text-sm text-aurora-nav-muted">Total Payouts</div>
                 </div>
               </div>
             </CardContent>
@@ -266,10 +266,10 @@ export default function CommissionManagement() {
               <div className="flex items-center space-x-2">
                 <Clock className="w-8 h-8 text-yellow-600" />
                 <div>
-                  <div className="text-2xl font-bold text-gray-900">
+                  <div className="text-2xl font-bold text-foreground">
                     {formatCurrency(data.analytics.pendingCommissions)}
                   </div>
-                  <div className="text-sm text-gray-500">Pending Approval</div>
+                  <div className="text-sm text-aurora-nav-muted">Pending Approval</div>
                 </div>
               </div>
             </CardContent>
@@ -280,10 +280,10 @@ export default function CommissionManagement() {
               <div className="flex items-center space-x-2">
                 <Users className="w-8 h-8 text-blue-600" />
                 <div>
-                  <div className="text-2xl font-bold text-gray-900">
+                  <div className="text-2xl font-bold text-foreground">
                     {data.analytics.activeCreators}
                   </div>
-                  <div className="text-sm text-gray-500">Active Creators</div>
+                  <div className="text-sm text-aurora-nav-muted">Active Creators</div>
                 </div>
               </div>
             </CardContent>
@@ -298,7 +298,7 @@ export default function CommissionManagement() {
             <div className="flex flex-col sm:flex-row gap-4 flex-1">
               {/* Search */}
               <div className="relative flex-1">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-aurora-nav-muted" />
                 <Input
                   type="text"
                   placeholder="Search by creator name, code, or order ID..."
@@ -310,14 +310,14 @@ export default function CommissionManagement() {
 
               {/* Status Filter */}
               <div className="flex items-center space-x-2">
-                <Filter className="w-4 h-4 text-gray-400" />
+                <Filter className="w-4 h-4 text-aurora-nav-muted" />
                 <select
                   value={statusFilter}
                   onChange={(e) => {
                     setStatusFilter(e.target.value)
                     setCurrentPage(1)
                   }}
-                  className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                  className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                 >
                   <option value="all">All Status</option>
                   <option value="pending">Pending</option>
@@ -331,13 +331,13 @@ export default function CommissionManagement() {
             {/* Bulk Actions */}
             {selectedTransactions.length > 0 && (
               <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-aurora-nav-muted">
                   {selectedTransactions.length} selected
                 </span>
                 <select
                   value={bulkAction}
                   onChange={(e) => setBulkAction(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                  className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                 >
                   <option value="">Bulk Actions</option>
                   <option value="approve">Approve Selected</option>
@@ -359,9 +359,9 @@ export default function CommissionManagement() {
       {!data?.transactions || data.transactions.length === 0 ? (
         <Card>
           <CardContent className="text-center py-12">
-            <DollarSign className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <div className="text-lg font-medium text-gray-900 mb-2">No transactions found</div>
-            <p className="text-gray-500">
+            <DollarSign className="w-12 h-12 text-aurora-nav-muted mx-auto mb-4" />
+            <div className="text-lg font-medium text-foreground mb-2">No transactions found</div>
+            <p className="text-aurora-nav-muted">
               {statusFilter !== 'all' || searchTerm
                 ? 'Try adjusting your filters'
                 : 'Commission transactions will appear here'
@@ -374,43 +374,43 @@ export default function CommissionManagement() {
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b">
+                <thead className="bg-muted border-b">
                   <tr>
                     <th className="text-left py-3 px-4">
                       <input
                         type="checkbox"
                         checked={selectedTransactions.length === data.transactions.length}
                         onChange={handleSelectAll}
-                        className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
+                        className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-border rounded"
                       />
                     </th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Creator</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Order</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Commission</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Status</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-900">Date</th>
+                    <th className="text-left py-3 px-4 font-medium text-foreground">Creator</th>
+                    <th className="text-left py-3 px-4 font-medium text-foreground">Order</th>
+                    <th className="text-left py-3 px-4 font-medium text-foreground">Commission</th>
+                    <th className="text-left py-3 px-4 font-medium text-foreground">Status</th>
+                    <th className="text-left py-3 px-4 font-medium text-foreground">Date</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.transactions.map((transaction) => (
-                    <tr key={transaction._id} className="border-b hover:bg-gray-50">
+                    <tr key={transaction._id} className="border-b hover:bg-muted">
                       <td className="py-3 px-4">
                         <input
                           type="checkbox"
                           checked={selectedTransactions.includes(transaction._id)}
                           onChange={() => handleTransactionSelect(transaction._id)}
-                          className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded"
+                          className="w-4 h-4 text-amber-600 focus:ring-amber-500 border-border rounded"
                         />
                       </td>
                       <td className="py-3 px-4">
                         <div>
-                          <div className="font-medium text-gray-900">{transaction.creatorName}</div>
-                          <div className="text-sm text-gray-500 font-mono">{transaction.creatorCode}</div>
+                          <div className="font-medium text-foreground">{transaction.creatorName}</div>
+                          <div className="text-sm text-aurora-nav-muted font-mono">{transaction.creatorCode}</div>
                         </div>
                       </td>
                       <td className="py-3 px-4">
                         <div className="font-mono text-sm">#{transaction.orderId.slice(-8)}</div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-aurora-nav-muted">
                           {formatCurrency(transaction.orderAmount)}
                         </div>
                       </td>
@@ -418,7 +418,7 @@ export default function CommissionManagement() {
                         <div className="font-semibold text-amber-600">
                           {formatCurrency(transaction.commissionAmount)}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-aurora-nav-muted">
                           {transaction.commissionRate}% rate
                         </div>
                       </td>
@@ -431,9 +431,9 @@ export default function CommissionManagement() {
                         </div>
                       </td>
                       <td className="py-3 px-4">
-                        <div className="text-sm text-gray-900">{formatDate(transaction.createdAt)}</div>
+                        <div className="text-sm text-foreground">{formatDate(transaction.createdAt)}</div>
                         {transaction.processedAt && (
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-aurora-nav-muted">
                             Processed: {formatDate(transaction.processedAt)}
                           </div>
                         )}
@@ -452,7 +452,7 @@ export default function CommissionManagement() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-aurora-nav-muted">
                 Showing {((data.pagination.page - 1) * data.pagination.limit) + 1} to {Math.min(data.pagination.page * data.pagination.limit, data.pagination.total)} of {data.pagination.total} transactions
               </div>
               <div className="flex items-center space-x-2">
@@ -464,7 +464,7 @@ export default function CommissionManagement() {
                 >
                   Previous
                 </Button>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-aurora-nav-muted">
                   Page {data.pagination.page} of {data.pagination.pages}
                 </span>
                 <Button

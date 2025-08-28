@@ -60,12 +60,12 @@ export default function AdminHeader() {
       case 'high': return <Shield className="w-3 h-3 text-green-600" />
       case 'medium': return <Shield className="w-3 h-3 text-yellow-600" />
       case 'low': return <AlertTriangle className="w-3 h-3 text-red-600" />
-      default: return <Shield className="w-3 h-3 text-gray-600" />
+      default: return <Shield className="w-3 h-3 text-aurora-nav-muted" />
     }
   }
 
   return (
-    <header className="sticky top-0 z-30 text-foreground bg-white border-b border-border shadow-sm" role="banner">
+    <header className="sticky top-0 z-30 text-foreground bg-background border-b border-border shadow-sm" role="banner">
       <div className="flex items-center justify-between h-16 px-6">
         
         {/* Left Section - Search */}
@@ -78,8 +78,8 @@ export default function AdminHeader() {
               className={cn(
                 "w-full pl-10 pr-4 py-2 text-sm font-body text-foreground bg-muted",
                 "border border-border rounded-lg",
-                "focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:bg-white",
-                "placeholder:text-gray-600"
+                "focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:bg-background",
+                "placeholder:text-aurora-nav-muted"
               )}
             />
           </div>
@@ -125,7 +125,7 @@ export default function AdminHeader() {
                 {user.name}
               </BodyText>
               <div className="flex items-center gap-2">
-                <BodyText size="xs" className="text-gray-600 bg-white">
+                <BodyText size="xs" className="text-aurora-nav-muted bg-background">
                   {user.role}
                 </BodyText>
                 {user.twoFactorEnabled && (

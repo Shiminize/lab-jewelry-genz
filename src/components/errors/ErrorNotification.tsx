@@ -153,7 +153,7 @@ export function ErrorNotificationComponent({
               {notification.title}
             </BodyText>
             
-            <MutedText className="text-gray-600 mt-1">
+            <MutedText className="text-aurora-nav-muted mt-1">
               {notification.message}
             </MutedText>
             

@@ -115,13 +115,13 @@ export default function EnhancedNavigationDemo() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
         {/* Header */}
-        <div className="bg-white border-b border-gray-100">
+        <div className="bg-background border-b border-border">
           <div className="container mx-auto px-4 py-6">
             <div className="text-center">
-              <h1 className="text-3xl font-headline font-bold text-foreground bg-white mb-2">
+              <h1 className="text-3xl font-headline font-bold text-foreground bg-background mb-2">
                 Enhanced Smart Value Navigation
               </h1>
-              <p className="text-gray-600 bg-white max-w-2xl mx-auto">
+              <p className="text-aurora-nav-muted bg-background max-w-2xl mx-auto">
                 Choose a navigation variant to see how psychological profiling and personalization 
                 can strategically guide customers toward Moissanite + Silver products while making them feel unique.
               </p>
@@ -135,7 +135,7 @@ export default function EnhancedNavigationDemo() {
             {navigationVariants.map((variant) => (
               <div
                 key={variant.id}
-                className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                className="bg-background rounded-2xl border border-border p-6 hover:shadow-lg transition-all duration-300 cursor-pointer"
                 onClick={() => {
                   setActiveVariant(variant.id)
                   setIsSelecting(false)
@@ -150,26 +150,26 @@ export default function EnhancedNavigationDemo() {
                     {variant.icon}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-foreground bg-white mb-1">
+                    <h3 className="text-xl font-semibold text-foreground bg-background mb-1">
                       {variant.name}
                     </h3>
-                    <p className="text-sm text-gray-600 bg-white font-medium">
+                    <p className="text-sm text-aurora-nav-muted bg-background font-medium">
                       {variant.tagline}
                     </p>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-700 bg-white text-sm mb-4 leading-relaxed">
+                <p className="text-foreground bg-background text-sm mb-4 leading-relaxed">
                   {variant.description}
                 </p>
 
                 {/* Features */}
                 <div className="space-y-2 mb-4">
-                  <h4 className="text-sm font-medium text-gray-900 bg-white">Key Features:</h4>
+                  <h4 className="text-sm font-medium text-foreground bg-background">Key Features:</h4>
                   <ul className="space-y-1">
                     {variant.features.map((feature, index) => (
-                      <li key={index} className="flex items-start space-x-2 text-xs text-gray-600 bg-white">
+                      <li key={index} className="flex items-start space-x-2 text-xs text-aurora-nav-muted bg-background">
                         <Sparkles className="w-3 h-3 text-blue-500 mt-0.5 flex-shrink-0" />
                         <span>{feature}</span>
                       </li>
@@ -178,9 +178,9 @@ export default function EnhancedNavigationDemo() {
                 </div>
 
                 {/* Target Audience */}
-                <div className="pt-3 border-t border-gray-100">
-                  <p className="text-xs text-gray-500 bg-white mb-2">Target Audience:</p>
-                  <p className="text-xs font-medium text-gray-700 bg-white">{variant.target}</p>
+                <div className="pt-3 border-t border-border">
+                  <p className="text-xs text-aurora-nav-muted bg-background mb-2">Target Audience:</p>
+                  <p className="text-xs font-medium text-foreground bg-background">{variant.target}</p>
                 </div>
 
                 {/* CTA */}
@@ -211,22 +211,22 @@ export default function EnhancedNavigationDemo() {
                   <h3 className="text-lg font-semibold text-foreground bg-background mb-2">
                     Strategic Framework
                   </h3>
-                  <p className="text-gray-700 bg-background text-sm mb-3">
+                  <p className="text-foreground bg-background text-sm mb-3">
                     Each navigation variant uses sophisticated psychological profiling to guide customers 
                     toward our bread-and-butter products (Moissanite + 925 Silver) while making them feel unique and valued.
                   </p>
                   <div className="grid sm:grid-cols-2 gap-4 text-sm">
                     <div>
-                      <h4 className="font-medium text-gray-900 bg-background mb-1">Personalization Engine:</h4>
-                      <ul className="text-gray-600 bg-background space-y-0.5 text-xs">
+                      <h4 className="font-medium text-foreground bg-background mb-1">Personalization Engine:</h4>
+                      <ul className="text-aurora-nav-muted bg-background space-y-0.5 text-xs">
                         <li>• Dynamic user profiling</li>
                         <li>• Behavioral adaptation</li>
                         <li>• Smart recommendations</li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 bg-background mb-1">Revenue Optimization:</h4>
-                      <ul className="text-gray-600 bg-background space-y-0.5 text-xs">
+                      <h4 className="font-medium text-foreground bg-background mb-1">Revenue Optimization:</h4>
+                      <ul className="text-aurora-nav-muted bg-background space-y-0.5 text-xs">
                         <li>• Strategic product placement</li>
                         <li>• Psychological anchoring</li>
                         <li>• Value perception enhancement</li>
@@ -245,7 +245,7 @@ export default function EnhancedNavigationDemo() {
   return (
     <div className="min-h-screen bg-background">
       {/* Demo Controls */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <div className="bg-background border-b border-border sticky top-0 z-40">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -267,8 +267,8 @@ export default function EnhancedNavigationDemo() {
                   {activeOption.icon}
                 </div>
                 <div>
-                  <h2 className="font-semibold text-foreground bg-white text-sm">{activeOption.name}</h2>
-                  <p className="text-xs text-gray-600 bg-white">{activeOption.tagline}</p>
+                  <h2 className="font-semibold text-foreground bg-background text-sm">{activeOption.name}</h2>
+                  <p className="text-xs text-aurora-nav-muted bg-background">{activeOption.tagline}</p>
                 </div>
               </div>
             </div>
@@ -301,10 +301,10 @@ export default function EnhancedNavigationDemo() {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-semibold text-foreground bg-white mb-3">
+            <h2 className="text-2xl font-semibold text-foreground bg-background mb-3">
               Experience the {activeOption.name}
             </h2>
-            <p className="text-gray-600 bg-white">
+            <p className="text-aurora-nav-muted bg-background">
               This navigation uses {activeOption.tagline.toLowerCase()} to create a personalized experience 
               that naturally guides customers toward our highest-value products.
             </p>
@@ -312,12 +312,12 @@ export default function EnhancedNavigationDemo() {
 
           {/* Feature Highlights */}
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl border border-gray-100 p-6">
-              <h3 className="font-semibold text-foreground bg-white mb-3 flex items-center space-x-2">
+            <div className="bg-background rounded-xl border border-border p-6">
+              <h3 className="font-semibold text-foreground bg-background mb-3 flex items-center space-x-2">
                 <Layers className="w-5 h-5 text-blue-600" />
                 <span>Personalization Features</span>
               </h3>
-              <ul className="space-y-2 text-sm text-gray-700 bg-white">
+              <ul className="space-y-2 text-sm text-foreground bg-background">
                 {activeOption.features.map((feature, index) => (
                   <li key={index} className="flex items-start space-x-2">
                     <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
@@ -327,12 +327,12 @@ export default function EnhancedNavigationDemo() {
               </ul>
             </div>
 
-            <div className="bg-white rounded-xl border border-gray-100 p-6">
-              <h3 className="font-semibold text-foreground bg-white mb-3 flex items-center space-x-2">
+            <div className="bg-background rounded-xl border border-border p-6">
+              <h3 className="font-semibold text-foreground bg-background mb-3 flex items-center space-x-2">
                 <Calculator className="w-5 h-5 text-green-600" />
                 <span>Strategic Benefits</span>
               </h3>
-              <ul className="space-y-2 text-sm text-gray-700 bg-white">
+              <ul className="space-y-2 text-sm text-foreground bg-background">
                 <li className="flex items-start space-x-2">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0" />
                   <span>Increased conversion to Moissanite + Silver products</span>
@@ -354,9 +354,9 @@ export default function EnhancedNavigationDemo() {
           </div>
 
           {/* Implementation Notes */}
-          <div className="mt-8 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-100 p-6">
+          <div className="mt-8 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-border p-6">
             <h3 className="font-semibold text-foreground bg-background mb-3">Implementation Strategy</h3>
-            <p className="text-gray-700 bg-background text-sm leading-relaxed">
+            <p className="text-foreground bg-background text-sm leading-relaxed">
               This navigation variant specifically targets <strong>{activeOption.target.toLowerCase()}</strong> by 
               leveraging {activeOption.tagline.toLowerCase()} principles. Each interaction is designed to build 
               trust, demonstrate value, and naturally guide users toward our most profitable product combinations 

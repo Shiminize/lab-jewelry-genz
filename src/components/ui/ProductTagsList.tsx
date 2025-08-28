@@ -82,7 +82,7 @@ export function ProductTagsList({
         <button
           onClick={toggleExpanded}
           className={cn(
-            'inline-flex items-center gap-0.5 px-1.5 py-1 text-xs font-medium text-gray-600 hover:text-foreground transition-colors rounded-full hover:bg-muted/50',
+            'inline-flex items-center gap-0.5 px-1.5 py-1 text-xs font-medium text-aurora-nav-muted hover:text-foreground transition-colors rounded-full hover:bg-muted/50',
             size === 'sm' && 'px-1 py-0.5 text-xs',
             size === 'lg' && 'px-2 py-1.5 text-sm'
           )}
@@ -97,7 +97,7 @@ export function ProductTagsList({
         <button
           onClick={toggleExpanded}
           className={cn(
-            'inline-flex items-center gap-0.5 px-1.5 py-1 text-xs font-medium text-gray-600 hover:text-foreground transition-colors rounded-full hover:bg-muted/50',
+            'inline-flex items-center gap-0.5 px-1.5 py-1 text-xs font-medium text-aurora-nav-muted hover:text-foreground transition-colors rounded-full hover:bg-muted/50',
             size === 'sm' && 'px-1 py-0.5 text-xs',
             size === 'lg' && 'px-2 py-1.5 text-sm'
           )}
@@ -142,7 +142,7 @@ export function ProductTagsListCompact({
       ))}
       
       {hasMoreTags && (
-        <span className="text-xs text-gray-600 font-medium px-1">
+        <span className="text-xs text-aurora-nav-muted font-medium px-1">
           +{hiddenCount}
         </span>
       )}

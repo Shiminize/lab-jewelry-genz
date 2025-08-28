@@ -38,17 +38,17 @@ export default function ViewerControls({
   }
 
   return (
-    <div className="flex items-center justify-between bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+    <div className="flex items-center justify-between bg-background rounded-lg shadow-sm border border-border p-3">
       {/* View Mode Toggle */}
       <div className="flex items-center space-x-2">
-        <span className="text-sm font-medium text-gray-700">View:</span>
-        <div className="flex bg-gray-100 rounded-lg p-1">
+        <span className="text-sm font-medium text-foreground">View:</span>
+        <div className="flex bg-muted rounded-lg p-1">
           <button
             onClick={() => onViewModeChange('3d')}
             className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${
               viewMode === '3d'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-aurora-nav-muted hover:text-foreground'
             }`}
           >
             <div className="flex items-center space-x-1">
@@ -62,8 +62,8 @@ export default function ViewerControls({
             onClick={() => onViewModeChange('gallery')}
             className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${
               viewMode === 'gallery'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-aurora-nav-muted hover:text-foreground'
             }`}
           >
             <div className="flex items-center space-x-1">
@@ -87,7 +87,7 @@ export default function ViewerControls({
               className={`p-2 rounded-lg transition-all duration-200 ${
                 autoRotate
                   ? 'bg-amber-100 text-amber-700 hover:bg-amber-200'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-muted text-aurora-nav-muted hover:bg-muted'
               }`}
               title={autoRotate ? 'Disable auto-rotation' : 'Enable auto-rotation'}
             >
@@ -97,7 +97,7 @@ export default function ViewerControls({
             </button>
 
             {/* Camera Controls Info */}
-            <div className="hidden md:flex items-center space-x-1 text-xs text-gray-500">
+            <div className="hidden md:flex items-center space-x-1 text-xs text-aurora-nav-muted">
               <span>•</span>
               <span>Drag to rotate</span>
               <span>•</span>
@@ -112,8 +112,8 @@ export default function ViewerControls({
           disabled={!canReset}
           className={`p-2 rounded-lg transition-all duration-200 ${
             canReset
-              ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              : 'bg-gray-50 text-gray-400 cursor-not-allowed'
+              ? 'bg-muted text-aurora-nav-muted hover:bg-muted'
+              : 'bg-muted text-muted-foreground cursor-not-allowed'
           }`}
           title="Reset customization"
         >
@@ -125,7 +125,7 @@ export default function ViewerControls({
         {/* Fullscreen Toggle */}
         <button
           onClick={handleFullscreen}
-          className="p-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all duration-200"
+          className="p-2 rounded-lg bg-muted text-aurora-nav-muted hover:bg-muted transition-all duration-200"
           title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
         >
           {isFullscreen ? (
@@ -141,14 +141,14 @@ export default function ViewerControls({
 
         {/* Help/Info */}
         <div className="relative group">
-          <button className="p-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all duration-200">
+          <button className="p-2 rounded-lg bg-muted text-aurora-nav-muted hover:bg-muted transition-all duration-200">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </button>
           
           {/* Tooltip */}
-          <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
+          <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-foreground text-background text-xs rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
             <div className="space-y-2">
               <div className="font-semibold">3D Viewer Controls:</div>
               <div>• <strong>Drag:</strong> Rotate the model</div>
@@ -157,7 +157,7 @@ export default function ViewerControls({
               <div>• <strong>R key:</strong> Reset customization</div>
               <div>• <strong>Arrow keys:</strong> Navigate gallery</div>
             </div>
-            <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+            <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-foreground"></div>
           </div>
         </div>
       </div>

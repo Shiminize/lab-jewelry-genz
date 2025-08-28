@@ -224,18 +224,18 @@ export function MaterialEditor() {
                 className={`p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm ${
                   selectedMaterial === material.id 
                     ? 'border-blue-500 bg-blue-50' 
-                    : 'border-gray-200 bg-white'
+                    : 'border-border bg-background'
                 }`}
                 onClick={() => setSelectedMaterial(material.id)}
               >
                 <div className="flex items-center space-x-3">
                   <div 
-                    className="w-8 h-8 rounded-full border border-gray-300"
+                    className="w-8 h-8 rounded-full border border-border"
                     style={getPreviewStyle(material)}
                   />
                   <div className="flex-1">
                     <h4 className="font-medium text-sm">{material.name}</h4>
-                    <p className="text-xs text-gray-500 truncate">
+                    <p className="text-xs text-aurora-nav-muted truncate">
                       M: {material.metallic.toFixed(1)} R: {material.roughness.toFixed(1)}
                     </p>
                   </div>
@@ -251,9 +251,9 @@ export function MaterialEditor() {
             ))}
             
             {isCreatingNew && (
-              <div className="p-3 rounded-lg border border-dashed border-gray-300 bg-gray-50">
+              <div className="p-3 rounded-lg border border-dashed border-border bg-muted">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Create new material?</span>
+                  <span className="text-sm text-aurora-nav-muted">Create new material?</span>
                   <div className="flex space-x-1">
                     <Button size="sm" onClick={createNewMaterial} className="h-6 text-xs">
                       Create
@@ -280,17 +280,17 @@ export function MaterialEditor() {
                 className={`p-3 rounded-lg border cursor-pointer transition-all ${
                   activePreset === preset.id 
                     ? 'border-purple-500 bg-purple-50' 
-                    : 'border-gray-200 bg-white hover:bg-gray-50'
+                    : 'border-border bg-background hover:bg-muted'
                 }`}
                 onClick={() => setActivePreset(preset.id)}
               >
                 <h4 className="font-medium text-sm">{preset.name}</h4>
-                <p className="text-xs text-gray-500 mt-1">{preset.description}</p>
+                <p className="text-xs text-aurora-nav-muted mt-1">{preset.description}</p>
                 <div className="flex mt-2 space-x-1">
                   {preset.materials.slice(0, 4).map((material) => (
                     <div
                       key={material.id}
-                      className="w-4 h-4 rounded-full border border-gray-300"
+                      className="w-4 h-4 rounded-full border border-border"
                       style={getPreviewStyle(material)}
                     />
                   ))}
@@ -346,10 +346,10 @@ export function MaterialEditor() {
               {/* Preview */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  <label className="text-sm font-medium text-foreground mb-2 block">
                     Live Preview
                   </label>
-                  <div className="aspect-square border border-gray-300 rounded-lg p-4 bg-gradient-to-br from-gray-100 to-gray-200">
+                  <div className="aspect-square border border-border rounded-lg p-4 bg-gradient-to-br from-muted to-muted">
                     <div 
                       className="w-full h-full rounded-full shadow-lg"
                       style={getPreviewStyle(selectedMaterialData)}
@@ -360,7 +360,7 @@ export function MaterialEditor() {
                 <div className="space-y-4">
                   {/* Basic Properties */}
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-2 block">
+                    <label className="text-sm font-medium text-foreground mb-2 block">
                       Material Name
                     </label>
                     <Input
@@ -371,7 +371,7 @@ export function MaterialEditor() {
                   </div>
                   
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-2 block">
+                    <label className="text-sm font-medium text-foreground mb-2 block">
                       Description
                     </label>
                     <Input
@@ -387,7 +387,7 @@ export function MaterialEditor() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Color */}
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                  <label className="text-sm font-medium text-foreground mb-2 flex items-center">
                     <Palette className="w-4 h-4 mr-2" />
                     Base Color
                   </label>
@@ -398,9 +398,9 @@ export function MaterialEditor() {
                       onChange={(e) => updateMaterial(selectedMaterialData.id, { 
                         color: hexToRgb(e.target.value) 
                       })}
-                      className="w-full h-12 rounded border border-gray-300 cursor-pointer"
+                      className="w-full h-12 rounded border border-border cursor-pointer"
                     />
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-aurora-nav-muted">
                       RGB: {selectedMaterialData.color.map(c => Math.round(c * 255)).join(', ')}
                     </div>
                   </div>
@@ -408,7 +408,7 @@ export function MaterialEditor() {
 
                 {/* Metallic */}
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                  <label className="text-sm font-medium text-foreground mb-2 flex items-center">
                     <Sparkles className="w-4 h-4 mr-2" />
                     Metallic ({selectedMaterialData.metallic.toFixed(2)})
                   </label>
@@ -421,9 +421,9 @@ export function MaterialEditor() {
                     onChange={(e) => updateMaterial(selectedMaterialData.id, { 
                       metallic: parseFloat(e.target.value) 
                     })}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
                   />
-                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  <div className="flex justify-between text-xs text-aurora-nav-muted mt-1">
                     <span>Dielectric</span>
                     <span>Metallic</span>
                   </div>
@@ -431,7 +431,7 @@ export function MaterialEditor() {
 
                 {/* Roughness */}
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                  <label className="text-sm font-medium text-foreground mb-2 flex items-center">
                     <Waves className="w-4 h-4 mr-2" />
                     Roughness ({selectedMaterialData.roughness.toFixed(2)})
                   </label>
@@ -444,9 +444,9 @@ export function MaterialEditor() {
                     onChange={(e) => updateMaterial(selectedMaterialData.id, { 
                       roughness: parseFloat(e.target.value) 
                     })}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
                   />
-                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  <div className="flex justify-between text-xs text-aurora-nav-muted mt-1">
                     <span>Mirror</span>
                     <span>Rough</span>
                   </div>
@@ -484,9 +484,9 @@ export function MaterialEditor() {
           </Card>
         ) : (
           <div className="text-center py-12">
-            <Palette className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-4 text-lg font-medium text-gray-900">No material selected</h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <Palette className="mx-auto h-12 w-12 text-muted-foreground" />
+            <h3 className="mt-4 text-lg font-medium text-foreground">No material selected</h3>
+            <p className="mt-2 text-sm text-aurora-nav-muted">
               Select a material from the list to start editing
             </p>
           </div>

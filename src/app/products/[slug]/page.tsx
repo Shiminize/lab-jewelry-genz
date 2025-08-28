@@ -174,9 +174,9 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
         <div className="max-w-6xl mx-auto">
           <Suspense fallback={
             <div className="space-y-4">
-              <div className="h-8 bg-gray-200 rounded animate-pulse"></div>
-              <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
-              <div className="h-6 bg-gray-200 rounded animate-pulse w-1/2"></div>
+              <div className="h-8 bg-muted rounded animate-pulse"></div>
+              <div className="h-4 bg-muted rounded animate-pulse"></div>
+              <div className="h-6 bg-muted rounded animate-pulse w-1/2"></div>
             </div>
           }>
             <ProductDetailView 
@@ -187,31 +187,31 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
       </div>
       
       {/* Product Specifications */}
-      <section className="border-t border-gray-200 py-12">
+      <section className="border-t border-border py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Product Details</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-8">Product Details</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Specifications */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Specifications</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">Specifications</h3>
                 <dl className="space-y-3">
                   <div className="flex justify-between">
-                    <dt className="text-gray-600">Category:</dt>
-                    <dd className="text-gray-900 font-medium capitalize">{product.category}</dd>
+                    <dt className="text-aurora-nav-muted">Category:</dt>
+                    <dd className="text-foreground font-medium capitalize">{product.category}</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-gray-600">Subcategory:</dt>
-                    <dd className="text-gray-900 font-medium capitalize">{product.subcategory}</dd>
+                    <dt className="text-aurora-nav-muted">Subcategory:</dt>
+                    <dd className="text-foreground font-medium capitalize">{product.subcategory}</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-gray-600">Price:</dt>
-                    <dd className="text-gray-900 font-medium">${product.pricing?.basePrice || 0}</dd>
+                    <dt className="text-aurora-nav-muted">Price:</dt>
+                    <dd className="text-foreground font-medium">${product.pricing?.basePrice || 0}</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-gray-600">Availability:</dt>
-                    <dd className="text-gray-900 font-medium">
+                    <dt className="text-aurora-nav-muted">Availability:</dt>
+                    <dd className="text-foreground font-medium">
                       {(product.inventory?.available || 0) > 0 ? 'In Stock' : 'Out of Stock'}
                     </dd>
                   </div>
@@ -220,23 +220,23 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
               
               {/* Features */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Features</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-4">Features</h3>
                 <ul className="space-y-2">
                   <li className="flex items-start">
                     <span className="text-amber-500 mr-2">✓</span>
-                    <span className="text-gray-700">Lab-grown diamonds</span>
+                    <span className="text-foreground">Lab-grown diamonds</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-amber-500 mr-2">✓</span>
-                    <span className="text-gray-700">Sustainable materials</span>
+                    <span className="text-foreground">Sustainable materials</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-amber-500 mr-2">✓</span>
-                    <span className="text-gray-700">Conflict-free sourcing</span>
+                    <span className="text-foreground">Conflict-free sourcing</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-amber-500 mr-2">✓</span>
-                    <span className="text-gray-700">Customizable options</span>
+                    <span className="text-foreground">Customizable options</span>
                   </li>
                 </ul>
               </div>
@@ -244,9 +244,9 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
             
             {/* Care Instructions */}
             <div className="mt-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Care Instructions</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">Care Instructions</h3>
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
-                <p className="text-gray-700">
+                <p className="text-foreground">
                   Clean with mild soap and warm water. Store in provided jewelry box. 
                   Avoid exposure to harsh chemicals and extreme temperatures.
                 </p>
@@ -257,14 +257,14 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
       </section>
       
       {/* Product Reviews */}
-      <section className="border-t border-gray-200 py-12">
+      <section className="border-t border-border py-12">
         <div className="container mx-auto px-4">
           <Suspense fallback={
             <div className="max-w-4xl mx-auto">
-              <div className="h-6 bg-gray-200 rounded animate-pulse mb-6"></div>
+              <div className="h-6 bg-muted rounded animate-pulse mb-6"></div>
               <div className="space-y-4">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="h-24 bg-gray-100 rounded animate-pulse"></div>
+                  <div key={i} className="h-24 bg-muted rounded animate-pulse"></div>
                 ))}
               </div>
             </div>
@@ -276,14 +276,14 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
       
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="border-t border-gray-200 py-12">
+        <section className="border-t border-border py-12">
           <div className="container mx-auto px-4">
             <Suspense fallback={
               <div className="max-w-6xl mx-auto">
-                <div className="h-6 bg-gray-200 rounded animate-pulse mb-6"></div>
+                <div className="h-6 bg-muted rounded animate-pulse mb-6"></div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {[1, 2, 3, 4].map(i => (
-                    <div key={i} className="h-64 bg-gray-100 rounded animate-pulse"></div>
+                    <div key={i} className="h-64 bg-muted rounded animate-pulse"></div>
                   ))}
                 </div>
               </div>

@@ -136,7 +136,7 @@ export default function PayoutHistory() {
       case 'failed':
         return <XCircle className="w-4 h-4 text-red-600" />
       default:
-        return <Clock className="w-4 h-4 text-gray-400" />
+        return <Clock className="w-4 h-4 text-aurora-nav-muted" />
     }
   }
 
@@ -185,22 +185,22 @@ export default function PayoutHistory() {
       {/* Header and Filters */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">Payout History</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-xl font-semibold text-foreground">Payout History</h2>
+          <p className="text-sm text-aurora-nav-muted">
             Track your payout requests and payment status
           </p>
         </div>
 
         {/* Status Filter */}
         <div className="flex items-center space-x-2">
-          <Filter className="w-4 h-4 text-gray-400" />
+          <Filter className="w-4 h-4 text-aurora-nav-muted" />
           <select
             value={statusFilter}
             onChange={(e) => {
               setStatusFilter(e.target.value)
               setCurrentPage(1)
             }}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -215,9 +215,9 @@ export default function PayoutHistory() {
       {!data?.payouts || data.payouts.length === 0 ? (
         <Card>
           <CardContent className="text-center py-12">
-            <DollarSign className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <div className="text-lg font-medium text-gray-900 mb-2">No payouts found</div>
-            <p className="text-gray-500">
+            <DollarSign className="w-12 h-12 text-aurora-nav-muted mx-auto mb-4" />
+            <div className="text-lg font-medium text-foreground mb-2">No payouts found</div>
+            <p className="text-aurora-nav-muted">
               {statusFilter !== 'all' 
                 ? 'No payouts match your filter criteria'
                 : 'Your payout requests will appear here once you submit them'
@@ -237,10 +237,10 @@ export default function PayoutHistory() {
                       <div className="flex items-center space-x-3">
                         {getStatusIcon(payout.status)}
                         <div>
-                          <div className="font-medium text-gray-900">
+                          <div className="font-medium text-foreground">
                             {formatCurrency(payout.amount, payout.currency)}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-aurora-nav-muted">
                             {payout.transactionCount} transactions • {payout.paymentMethod}
                           </div>
                         </div>
@@ -250,20 +250,20 @@ export default function PayoutHistory() {
                       </Badge>
                     </div>
 
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-aurora-nav-muted">
                       {getStatusDescription(payout)}
                     </div>
 
                     {payout.paymentReference && (
                       <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-500">Reference:</span>
-                        <code className="text-sm bg-gray-100 px-2 py-1 rounded font-mono">
+                        <span className="text-sm text-aurora-nav-muted">Reference:</span>
+                        <code className="text-sm bg-muted px-2 py-1 rounded font-mono">
                           {payout.paymentReference}
                         </code>
                       </div>
                     )}
 
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-aurora-nav-muted">
                       Requested: {formatDate(payout.payoutDate)}
                     </div>
                   </div>
@@ -308,7 +308,7 @@ export default function PayoutHistory() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-aurora-nav-muted">
                 Showing {((data.pagination.page - 1) * data.pagination.limit) + 1} to {Math.min(data.pagination.page * data.pagination.limit, data.pagination.total)} of {data.pagination.total} payouts
               </div>
               <div className="flex items-center space-x-2">
@@ -320,7 +320,7 @@ export default function PayoutHistory() {
                 >
                   Previous
                 </Button>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-aurora-nav-muted">
                   Page {data.pagination.page} of {data.pagination.pages}
                 </span>
                 <Button

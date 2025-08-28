@@ -200,12 +200,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                 {errorMsg.title}
               </H3>
               
-              {/* CLAUDE_RULES.md combination #2: text-gray-600 bg-background */}
-              <BodyText className="text-gray-600">
+              {/* CLAUDE_RULES.md combination #2: text-aurora-nav-muted bg-background */}
+              <BodyText className="text-aurora-nav-muted">
                 {errorMsg.message}
               </BodyText>
               
-              {/* CLAUDE_RULES.md combination #6: text-accent bg-white (muted background) */}
+              {/* CLAUDE_RULES.md combination #6: text-accent bg-background (muted background) */}
               <MutedText className="text-accent font-medium">
                 {errorMsg.emotion}
               </MutedText>
@@ -249,7 +249,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
             {/* Error ID for support */}
             {this.state.errorId && (
-              <MutedText size="sm" className="text-gray-600">
+              <MutedText size="sm" className="text-aurora-nav-muted">
                 Error ID: {this.state.errorId}
               </MutedText>
             )}
@@ -257,10 +257,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             {/* Development error details */}
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="text-left mt-4">
-                <summary className="cursor-pointer text-xs text-gray-600 hover:text-foreground transition-colors">
+                <summary className="cursor-pointer text-xs text-aurora-nav-muted hover:text-foreground transition-colors">
                   Developer Debug Info
                 </summary>
-                <pre className="text-xs text-gray-600 mt-2 p-3 bg-background rounded border border-border overflow-auto max-h-32 font-mono">
+                <pre className="text-xs text-aurora-nav-muted mt-2 p-3 bg-background rounded border border-border overflow-auto max-h-32 font-mono">
                   <strong>Error:</strong> {this.state.error.toString()}
                   {this.state.errorInfo?.componentStack && (
                     <>

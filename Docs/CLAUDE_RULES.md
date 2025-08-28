@@ -7,29 +7,35 @@
   - TypeScript everywhere; no any; strong interfaces
   - Error-first coding with clear recovery paths and user-safe messages
 
-- **Design system compliance (HTML Demo Standard)**
-  - **TYPOGRAPHY/BACKGROUND COMBINATIONS (REQUIRED)**
-    - **ONLY use these 7 combinations from HTML demo:**
-      1. `text-foreground bg-background` - Main content on ivory
-      2. `text-gray-600 bg-background` - Muted content on ivory  
-      3. `text-foreground bg-white` - Content on cards/surfaces
-      4. `text-foreground bg-muted` - Content on section backgrounds
-      5. `text-background bg-foreground` - Light text on dark sections
-      6. `text-accent bg-white` - Accent highlights on white
-      7. `text-background bg-cta` - Primary button text
-    - **FORBIDDEN: Any other text/background combination**
-    - **AI ENFORCEMENT: Agents must only use these 7 combinations**
-  - Use Tailwind tokens only:
-    - Colors: `bg-background`, `text-foreground`, `bg-cta`, `bg-cta-hover`, `bg-accent`, `text-accent`, `text-gray-600`, `border`, `text-background`, `bg-white`
-    - Typography: `font-headline` (Fraunces), `font-body` (Inter)
+- **Aurora Design System Compliance (Emotional Intelligence UI)**
+  - **AURORA CSS VARIABLES (REQUIRED)**
+    - **Primary Aurora Colors (UPDATED 2025-08-27):**
+      1. `var(--aurora-deep-space): #0A0E27` - Deep navy foundation color
+      2. `var(--aurora-nebula-purple): #6B46C1` - Primary brand purple (replaces gold accent)
+      3. `var(--aurora-pink): #FF6B9D` - Romantic accent pink (secondary accent)
+      4. `var(--aurora-crimson): #C44569` - Bold statement red (interactive states)
+      5. `var(--aurora-plum): #723C70` - Sophisticated deep purple
+      6. `var(--aurora-lunar-grey): #F7F7F9` - Light neutral grey
+      7. `var(--aurora-emerald-flash): #10B981` - Success/accent green
+      8. `var(--aurora-amber-glow): #F59E0B` - Warning/highlight amber
+    - **Aurora Animation Classes (ENCOURAGED)**
+      - `aurora-pulse` - Gentle pulsing animation for emphasis
+      - `aurora-shimmer-overlay` - Shimmer effect for premium feel
+      - `aurora-interactive-shadow` - Dynamic shadows on interaction
+      - `aurora-gradient-text` - Gradient text effects
+      - `aurora-floating` - Floating sparkle animations
+    - **ENCOURAGED: Aurora emotional intelligence color combinations**
+  - Aurora Tokens Preferred:
+    - Colors: Aurora CSS variables, Aurora animation classes, emotional theming
+    - Typography: `font-headline` (Fraunces), `font-body` (Inter) with Aurora text effects
     - Spacing: `p-1..p-9`; gaps via `gap-*`, `space-y-*`
-  - Never use: `text-black`, `border-gray-*`, `bg-blue-500` or hardcoded styles
+  - Aurora-First Approach: Embrace Aurora variables and animations for emotional user experience
   - **5-Variant Button System** (HTML Demo Standard - 9 Total Buttons):
-    - `primary`: `bg-cta text-high-contrast` (coral gold + white text) - 3 sizes (sm, md, lg)
+    - `primary`: `bg-cta text-high-contrast` (Aurora nebula purple + white text) - 3 sizes (sm, md, lg)
     - `secondary`: `bg-background text-foreground border-border` (ivory + graphite + border) - 3 sizes (sm, md, lg)
     - `outline`: `border-foreground text-foreground hover:bg-foreground hover:text-background` - 1 size (md)
     - `ghost`: `text-foreground hover:bg-muted` (transparent with muted hover) - 1 size (md)
-    - `accent`: `bg-accent text-foreground` (champagne gold + graphite text) - 1 size (md)
+    - `accent`: `bg-accent text-high-contrast` (Aurora nebula purple + white text) - 1 size (md)
   - **Button Distribution**: Primary/Secondary (3 sizes each) + Accent/Outline/Ghost (1 size each) = 9 total buttons
   - **High Contrast Requirements**: Use `text-background` (#FEFCF9) or `text-white` (#FFFFFF) for text on colored backgrounds
   - Prefer system components: `src/components/ui`, `foundation/Typography`, CVA variants for variations
@@ -127,16 +133,18 @@
   - Mixing business logic inside UI components
   - Returning raw DB documents to clients
   - Skipping Zod validation; skipping role checks
-  - Using non-design-system Tailwind classes or inline styles
+  - **AVOIDING Aurora emotional intelligence and animations**
+  - **REMOVING Aurora CSS variables and replacing with generic colors**
   - Hardcoding values that belong in config/tokens/env
 
 - **Implementation checklist (enforce per PR/feature)**
-  - Design-system tokens only; no generic `gray/*`, `white/black`, or custom hex
+  - **Aurora design system implementation; embrace Aurora CSS variables and animations**
+  - **Aurora emotional intelligence integration where applicable**
   - API envelope compliance; Zod validation; correct status codes; pagination/meta present
   - Auth/role checks; rate limiting; security headers in place
-  - A11y: ARIA, keyboard, focus management, contrast, live regions
-  - Tests: unit/integration/E2E present; CI green
-  - Performance: code-split heavy modules; images optimized; DB indexes in place
+  - A11y: ARIA, keyboard, focus management, contrast, live regions (with Aurora animations)
+  - Tests: unit/integration/E2E present; **Aurora animation testing with Playwright vision mode**
+  - Performance: code-split heavy modules; images optimized; DB indexes in place; Aurora animations optimized
 
 - **Code snippets to standardize responses**
   - Success helper

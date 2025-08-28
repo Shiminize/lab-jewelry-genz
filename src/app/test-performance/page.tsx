@@ -80,7 +80,7 @@ export default function PerformanceTestPage() {
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center space-y-4">
           <H1>CLAUDE_RULES Performance Test</H1>
-          <BodyText className="text-gray-600">
+          <BodyText className="text-aurora-nav-muted">
             Testing &lt;100ms material switching requirement with optimized preloader
           </BodyText>
         </div>
@@ -109,13 +109,13 @@ export default function PerformanceTestPage() {
             <div className="bg-muted p-4 rounded-lg space-y-2">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="text-sm text-gray-600">Average Time</div>
+                  <div className="text-sm text-aurora-nav-muted">Average Time</div>
                   <div className={`text-lg font-bold ${averageTime < 100 ? 'text-green-600' : 'text-red-600'}`}>
                     {averageTime.toFixed(1)}ms
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-600">Under 100ms</div>
+                  <div className="text-sm text-aurora-nav-muted">Under 100ms</div>
                   <div className={`text-lg font-bold ${complianceRate >= 80 ? 'text-green-600' : 'text-red-600'}`}>
                     {complianceRate.toFixed(0)}%
                   </div>
@@ -136,9 +136,9 @@ export default function PerformanceTestPage() {
             {/* Recent Switch Times */}
             <div className="space-y-2">
               <div className="text-sm font-medium">Recent Switches:</div>
-              <div className="bg-white border border-border rounded-lg p-3 h-64 overflow-y-auto">
+              <div className="bg-background border border-border rounded-lg p-3 h-64 overflow-y-auto">
                 {switchTimes.length === 0 ? (
-                  <div className="text-sm text-gray-500">Switch materials to see performance data</div>
+                  <div className="text-sm text-aurora-nav-muted">Switch materials to see performance data</div>
                 ) : (
                   <div className="space-y-1">
                     {switchTimes.slice().reverse().map((entry, index) => (

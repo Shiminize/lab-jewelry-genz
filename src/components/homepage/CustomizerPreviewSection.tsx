@@ -47,7 +47,7 @@ const quickSelectorVariants = cva(
     variants: {
       state: {
         default: 'border-border bg-background text-foreground hover:border-accent/50 hover:bg-accent/10 active:bg-accent/20',
-        selected: 'border-accent bg-white text-foreground shadow-lg ring-2 ring-accent/20',
+        selected: 'border-accent bg-background text-foreground shadow-lg ring-2 ring-accent/20',
         disabled: 'opacity-50 cursor-not-allowed pointer-events-none'
       },
       size: {
@@ -349,7 +349,7 @@ export function CustomizerPreviewSection({
                     <div className="font-medium text-foreground truncate text-sm sm:text-base">
                       {option.name}
                     </div>
-                    <div id={`${option.id}-description`} className="text-xs text-gray-600 bg-background truncate">
+                    <div id={`${option.id}-description`} className="text-xs text-aurora-nav-muted truncate">
                       {option.description}
                     </div>
                   </div>
@@ -383,10 +383,10 @@ export function CustomizerPreviewSection({
               <H2 className="text-foreground leading-tight text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">
                 Create Your Legacy
               </H2>
-              <H3 className="text-gray-600 bg-background text-lg sm:text-xl lg:text-2xl font-normal">
+              <H3 className="text-aurora-nav-muted text-lg sm:text-xl lg:text-2xl font-normal">
                 Design a Piece as Unique as You Are
               </H3>
-              <BodyText className="text-gray-600 bg-background max-w-lg text-base sm:text-lg">
+              <BodyText className="text-aurora-nav-muted max-w-lg text-base sm:text-lg">
                 From metal choices to lab gems, build a piece that tells your story. 
                 Real-time 3D preview with ethical materials and expert craftsmanship.
               </BodyText>
@@ -418,19 +418,19 @@ export function CustomizerPreviewSection({
             </div>
 
             {/* Price Summary - Enhanced visual emphasis */}
-            <div className="bg-white border border-accent/20 rounded-lg p-4 lg:p-6 shadow-sm">
+            <div className="bg-background border border-accent/20 rounded-lg p-4 lg:p-6 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div className="space-y-1">
-                  <H3 className="text-foreground bg-white text-lg">Your Design</H3>
-                  <BodyText className="text-gray-600 bg-background text-sm">
+                  <H3 className="text-foreground bg-background text-lg">Your Design</H3>
+                  <BodyText className="text-aurora-nav-muted text-sm">
                     {selectedOptions.material?.name} • {selectedOptions.stoneQuality?.name} • {selectedSetting.name}
                   </BodyText>
                 </div>
                 <div className="text-right">
-                  <div className="text-3xl lg:text-4xl font-headline text-foreground bg-white">
+                  <div className="text-3xl lg:text-4xl font-headline text-foreground bg-background">
                     ${currentPrice.toLocaleString()}
                   </div>
-                  <BodyText className="text-gray-600 bg-background text-sm">Starting price</BodyText>
+                  <BodyText className="text-aurora-nav-muted text-sm">Starting price</BodyText>
                 </div>
               </div>
             </div>
@@ -462,7 +462,7 @@ export function CustomizerPreviewSection({
 
           {/* Right Panel (3D Preview) - Hero focus */}
           <div className="relative lg:sticky lg:top-6 lg:self-start" id="customizer-3d-container">
-            <div className="bg-white shadow-xl border border-accent/10 overflow-hidden">
+            <div className="bg-background shadow-xl border border-accent/10 overflow-hidden">
               <ProductCustomizer
                 key={selectedVariantId}
                 productId="ring-001"
@@ -518,7 +518,7 @@ export function CustomizerPreviewSection({
                 <div className="w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center flex-shrink-0">
                   <span className="text-xl lg:text-2xl">{item.icon}</span>
                 </div>
-                <BodyText className="text-gray-600 bg-background font-medium text-sm lg:text-base">
+                <BodyText className="text-aurora-nav-muted font-medium text-sm lg:text-base">
                   {item.text}
                 </BodyText>
               </div>

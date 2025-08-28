@@ -208,7 +208,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       case 'approved': return <CheckCircle className="h-4 w-4 text-green-500" />
       case 'pending': return <Clock className="h-4 w-4 text-yellow-500" />
       case 'suspended': return <XCircle className="h-4 w-4 text-red-500" />
-      case 'inactive': return <AlertTriangle className="h-4 w-4 text-gray-500" />
+      case 'inactive': return <AlertTriangle className="h-4 w-4 text-aurora-nav-muted" />
       default: return null
     }
   }
@@ -218,8 +218,8 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       case 'approved': return 'bg-green-100 text-green-800 border-green-200'
       case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
       case 'suspended': return 'bg-red-100 text-red-800 border-red-200'
-      case 'inactive': return 'bg-gray-100 text-gray-800 border-gray-200'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+      case 'inactive': return 'bg-muted text-foreground border-border'
+      default: return 'bg-muted text-foreground border-border'
     }
   }
 
@@ -230,7 +230,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
     
     if (monthlyRevenue >= 1000) {
       tier = 'Silver'
-      color = 'bg-gray-100 text-gray-800'
+      color = 'bg-muted text-foreground'
     }
     if (monthlyRevenue >= 5000) {
       tier = 'Gold'
@@ -276,40 +276,40 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       {/* Metrics Overview */}
       {metrics && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6" data-testid="metrics-overview">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Creators</p>
-                <p className="text-2xl font-bold text-gray-900">{metrics.totalCreators}</p>
+                <p className="text-sm font-medium text-aurora-nav-muted">Total Creators</p>
+                <p className="text-2xl font-bold text-foreground">{metrics.totalCreators}</p>
               </div>
               <Users className="h-8 w-8 text-coral-gold" />
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Pending Applications</p>
+                <p className="text-sm font-medium text-aurora-nav-muted">Pending Applications</p>
                 <p className="text-2xl font-bold text-yellow-600">{metrics.pendingApplications}</p>
               </div>
               <Clock className="h-8 w-8 text-yellow-500" />
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Active Creators</p>
+                <p className="text-sm font-medium text-aurora-nav-muted">Active Creators</p>
                 <p className="text-2xl font-bold text-green-600">{metrics.activeCreators}</p>
               </div>
               <CheckCircle className="h-8 w-8 text-green-500" />
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Approval Rate</p>
+                <p className="text-sm font-medium text-aurora-nav-muted">Approval Rate</p>
                 <p className="text-2xl font-bold text-coral-gold">
                   {metrics.totalCreators > 0 
                     ? Math.round((metrics.activeCreators / metrics.totalCreators) * 100)
@@ -323,24 +323,24 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       )}
 
       {/* Controls */}
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+      <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           {/* Search */}
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-aurora-nav-muted" />
             <input
               type="text"
               placeholder="Search creators by name, email, or code..."
               value={filters.search}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
             />
           </div>
 
           {/* Filter Toggle */}
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground bg-muted rounded-lg hover:bg-muted transition-colors"
           >
             <Filter className="h-4 w-4" />
             Filters
@@ -357,13 +357,13 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
 
         {/* Filters Panel */}
         {showFilters && (
-          <div className="mt-4 p-4 bg-gray-50 rounded-lg grid grid-cols-1 sm:grid-cols-3 gap-4" data-testid="filters-panel">
+          <div className="mt-4 p-4 bg-muted rounded-lg grid grid-cols-1 sm:grid-cols-3 gap-4" data-testid="filters-panel">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Status</label>
               <select
                 value={filters.status}
                 onChange={(e) => handleFilterChange('status', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
               >
                 <option value="all">All Statuses</option>
                 <option value="pending">Pending</option>
@@ -374,11 +374,11 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Performance Tier</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Performance Tier</label>
               <select
                 value={filters.tier}
                 onChange={(e) => handleFilterChange('tier', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
               >
                 <option value="all">All Tiers</option>
                 <option value="bronze">Bronze</option>
@@ -389,11 +389,11 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Items per page</label>
+              <label className="block text-sm font-medium text-foreground mb-1">Items per page</label>
               <select
                 value={filters.limit}
                 onChange={(e) => handleFilterChange('limit', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
               >
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -415,7 +415,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
               </span>
               <button
                 onClick={() => setSelectedCreators([])}
-                className="text-sm text-gray-600 hover:text-gray-800"
+                className="text-sm text-aurora-nav-muted hover:text-foreground"
               >
                 Clear Selection
               </button>
@@ -438,7 +438,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
               </button>
               <button
                 onClick={handleExport}
-                className="flex items-center gap-1 px-3 py-1 text-sm font-medium text-gray-700 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
+                className="flex items-center gap-1 px-3 py-1 text-sm font-medium text-foreground bg-muted rounded hover:bg-muted transition-colors"
               >
                 <Download className="h-3 w-3" />
                 Export CSV
@@ -449,54 +449,54 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       )}
 
       {/* Creators Table */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-background rounded-lg shadow-sm border border-border overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200" data-testid="creators-table">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y border-border" data-testid="creators-table">
+            <thead className="bg-muted">
               <tr>
                 <th className="px-6 py-3 text-left">
                   <input
                     type="checkbox"
                     checked={selectedCreators.length === creators.length && creators.length > 0}
                     onChange={handleSelectAll}
-                    className="rounded border-gray-300 text-coral-gold focus:ring-coral-gold"
+                    className="rounded border-border text-coral-gold focus:ring-coral-gold"
                   />
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                   Creator
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                   Tier
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                   Performance
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                   Earnings
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                   Commission Rate
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                   Joined
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-background divide-y border-border">
               {creators.map((creator) => (
-                <tr key={creator._id} className="hover:bg-gray-50">
+                <tr key={creator._id} className="hover:bg-muted">
                   <td className="px-6 py-4">
                     <input
                       type="checkbox"
                       checked={selectedCreators.includes(creator._id)}
                       onChange={() => handleCreatorSelect(creator._id)}
-                      className="rounded border-gray-300 text-coral-gold focus:ring-coral-gold"
+                      className="rounded border-border text-coral-gold focus:ring-coral-gold"
                     />
                   </td>
                   <td className="px-6 py-4">
@@ -507,13 +507,13 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
                         </div>
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">
+                        <div className="text-sm font-medium text-foreground">
                           {creator.displayName}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-aurora-nav-muted">
                           {creator.email}
                         </div>
-                        <div className="text-xs text-gray-400">
+                        <div className="text-xs text-aurora-nav-muted">
                           Code: {creator.creatorCode}
                         </div>
                       </div>
@@ -531,37 +531,37 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
                     {getTierBadge(creator.stats)}
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
+                    <div className="text-sm text-foreground">
                       <div>Clicks: {creator.stats.totalClicks.toLocaleString()}</div>
                       <div>Conversions: {creator.stats.totalConversions}</div>
                       <div>Rate: {((creator.stats.totalConversions / Math.max(creator.stats.totalClicks, 1)) * 100).toFixed(1)}%</div>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
+                    <div className="text-sm text-foreground">
                       <div>Total: {formatCurrency(creator.stats.totalCommissions)}</div>
                       <div className="text-green-600">Paid: {formatCurrency(creator.stats.paidCommissions)}</div>
                       <div className="text-yellow-600">Pending: {formatCurrency(creator.stats.pendingCommissions)}</div>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-sm font-medium text-gray-900">
+                    <span className="text-sm font-medium text-foreground">
                       {creator.commissionRate}%
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-sm text-aurora-nav-muted">
                     {formatDate(creator.createdAt)}
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => onCreatorSelect(creator._id)}
-                        className="p-1 text-gray-400 hover:text-coral-gold transition-colors"
+                        className="p-1 text-aurora-nav-muted hover:text-coral-gold transition-colors"
                         aria-label="View creator details"
                       >
                         <Eye className="h-4 w-4" />
                       </button>
-                      <button className="p-1 text-gray-400 hover:text-gray-600 transition-colors">
+                      <button className="p-1 text-aurora-nav-muted hover:text-aurora-nav-muted transition-colors">
                         <MoreHorizontal className="h-4 w-4" />
                       </button>
                     </div>
@@ -574,27 +574,27 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
 
         {/* Pagination */}
         {pagination && pagination.totalPages > 1 && (
-          <div className="bg-white px-4 py-3 border-t border-gray-200 sm:px-6" data-testid="pagination">
+          <div className="bg-background px-4 py-3 border-t border-border sm:px-6" data-testid="pagination">
             <div className="flex items-center justify-between">
               <div className="flex-1 flex justify-between sm:hidden">
                 <button
                   onClick={() => setFilters(prev => ({ ...prev, page: Math.max(1, prev.page - 1) }))}
                   disabled={!pagination.hasPrev}
-                  className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                  className="relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-foreground bg-background hover:bg-muted disabled:opacity-50"
                 >
                   Previous
                 </button>
                 <button
                   onClick={() => setFilters(prev => ({ ...prev, page: prev.page + 1 }))}
                   disabled={!pagination.hasNext}
-                  className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                  className="ml-3 relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-foreground bg-background hover:bg-muted disabled:opacity-50"
                 >
                   Next
                 </button>
               </div>
               <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-foreground">
                     Showing page{' '}
                     <span className="font-medium">{pagination.page}</span> of{' '}
                     <span className="font-medium">{pagination.totalPages}</span>{' '}
@@ -606,7 +606,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
                     <button
                       onClick={() => setFilters(prev => ({ ...prev, page: Math.max(1, prev.page - 1) }))}
                       disabled={!pagination.hasPrev}
-                      className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                      className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-border bg-background text-sm font-medium text-aurora-nav-muted hover:bg-muted disabled:opacity-50"
                       aria-label="Previous page"
                     >
                       Previous
@@ -614,7 +614,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
                     <button
                       onClick={() => setFilters(prev => ({ ...prev, page: prev.page + 1 }))}
                       disabled={!pagination.hasNext}
-                      className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                      className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-border bg-background text-sm font-medium text-aurora-nav-muted hover:bg-muted disabled:opacity-50"
                       aria-label="Next page"
                     >
                       Next
@@ -628,10 +628,10 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       </div>
 
       {creators.length === 0 && !loading && (
-        <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
-          <Users className="mx-auto h-12 w-12 text-gray-400" />
-          <h3 className="mt-2 text-sm font-medium text-gray-900">No creators found</h3>
-          <p className="mt-1 text-sm text-gray-500">
+        <div className="text-center py-12 bg-background rounded-lg border border-border">
+          <Users className="mx-auto h-12 w-12 text-aurora-nav-muted" />
+          <h3 className="mt-2 text-sm font-medium text-foreground">No creators found</h3>
+          <p className="mt-1 text-sm text-aurora-nav-muted">
             {filters.search || filters.status !== 'all' 
               ? 'Try adjusting your search or filter criteria.'
               : 'No creators have applied yet.'

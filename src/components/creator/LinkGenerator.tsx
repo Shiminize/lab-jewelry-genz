@@ -159,7 +159,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
         <CardContent className="space-y-4">
           {/* URL Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               Target URL *
             </label>
             <Input
@@ -169,18 +169,18 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
               placeholder="https://glowglitch.com/products/diamond-ring or /products/diamond-ring"
               className="w-full"
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-aurora-nav-muted mt-1">
               Enter a full URL or a path starting with /
             </p>
           </div>
 
           {/* Custom Alias */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               Custom Alias (Optional)
             </label>
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-500">glowglitch.com/ref/</span>
+              <span className="text-sm text-aurora-nav-muted">glowglitch.com/ref/</span>
               <Input
                 type="text"
                 value={customAlias}
@@ -190,14 +190,14 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
                 maxLength={20}
               />
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-aurora-nav-muted mt-1">
               Leave empty for auto-generated link. Only letters, numbers, hyphens, and underscores allowed.
             </p>
           </div>
 
           {/* Title */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               Link Title (Optional)
             </label>
             <Input
@@ -212,18 +212,18 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               Description (Optional)
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Check out this stunning collection of lab-grown diamond rings..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+              className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               rows={3}
               maxLength={200}
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-aurora-nav-muted mt-1">
               {description.length}/200 characters
             </p>
           </div>
@@ -233,7 +233,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
             <button
               type="button"
               onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
-              className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-amber-600"
+              className="flex items-center space-x-2 text-sm font-medium text-aurora-nav-muted hover:text-amber-600"
             >
               <span>Advanced Tracking Options</span>
               <span className={`transform transition-transform ${showAdvancedOptions ? 'rotate-180' : ''}`}>
@@ -242,14 +242,14 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
             </button>
             
             {showAdvancedOptions && (
-              <div className="mt-4 space-y-4 p-4 bg-gray-50 rounded-lg border">
-                <p className="text-sm text-gray-600 mb-3">
+              <div className="mt-4 space-y-4 p-4 bg-muted rounded-lg border">
+                <p className="text-sm text-aurora-nav-muted mb-3">
                   UTM parameters help track where your traffic comes from and measure campaign performance.
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-aurora-nav-muted mb-1">
                       UTM Source
                     </label>
                     <Input
@@ -259,11 +259,11 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
                       placeholder="instagram, tiktok, email"
                       className="w-full text-sm"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Where the traffic originates</p>
+                    <p className="text-xs text-aurora-nav-muted mt-1">Where the traffic originates</p>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-aurora-nav-muted mb-1">
                       UTM Medium
                     </label>
                     <Input
@@ -273,11 +273,11 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
                       placeholder="social, story, post, email"
                       className="w-full text-sm"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Marketing medium</p>
+                    <p className="text-xs text-aurora-nav-muted mt-1">Marketing medium</p>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-aurora-nav-muted mb-1">
                       UTM Campaign
                     </label>
                     <Input
@@ -287,11 +287,11 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
                       placeholder="summer-sale, new-collection"
                       className="w-full text-sm"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Campaign name</p>
+                    <p className="text-xs text-aurora-nav-muted mt-1">Campaign name</p>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-aurora-nav-muted mb-1">
                       UTM Content
                     </label>
                     <Input
@@ -301,11 +301,11 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
                       placeholder="video-1, image-2, story-highlight"
                       className="w-full text-sm"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Content identifier</p>
+                    <p className="text-xs text-aurora-nav-muted mt-1">Content identifier</p>
                   </div>
                 </div>
                 
-                <div className="text-xs text-gray-500 bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <div className="text-xs text-aurora-nav-muted bg-muted p-3 rounded border-l-4 border-border">
                   <strong>Pro Tip:</strong> Use consistent naming conventions like "instagram-story", "tiktok-post" 
                   to better track which content types perform best!
                 </div>
@@ -338,10 +338,10 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
               <button
                 key={link.url}
                 onClick={() => handleQuickLink(link.url, link.label)}
-                className="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:border-amber-300 hover:bg-amber-50 transition-colors"
+                className="flex items-center space-x-2 p-3 border border-border rounded-lg hover:border-border hover:bg-muted transition-colors"
               >
                 <span className="text-lg">{link.icon}</span>
-                <span className="text-sm font-medium text-gray-700">{link.label}</span>
+                <span className="text-sm font-medium text-aurora-nav-muted">{link.label}</span>
               </button>
             ))}
           </div>
@@ -358,15 +358,15 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="bg-gray-50 rounded-lg p-4">
+            <div className="bg-muted rounded-lg p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700">Short URL:</span>
+                <span className="text-sm font-medium text-aurora-nav-muted">Short URL:</span>
                 <Badge variant="secondary">
                   {generatedLink.isActive ? 'Active' : 'Inactive'}
                 </Badge>
               </div>
               <div className="flex items-center space-x-2">
-                <code className="flex-1 text-sm bg-white px-3 py-2 rounded border">
+                <code className="flex-1 text-sm bg-background px-3 py-2 rounded border">
                   {generatedLink.shortUrl}
                 </code>
                 <Button
@@ -399,19 +399,19 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
 
             {generatedLink.title && (
               <div>
-                <span className="text-sm font-medium text-gray-700">Title:</span>
-                <p className="text-sm text-gray-900 mt-1">{generatedLink.title}</p>
+                <span className="text-sm font-medium text-aurora-nav-muted">Title:</span>
+                <p className="text-sm text-foreground mt-1">{generatedLink.title}</p>
               </div>
             )}
 
             {generatedLink.description && (
               <div>
-                <span className="text-sm font-medium text-gray-700">Description:</span>
-                <p className="text-sm text-gray-900 mt-1">{generatedLink.description}</p>
+                <span className="text-sm font-medium text-aurora-nav-muted">Description:</span>
+                <p className="text-sm text-foreground mt-1">{generatedLink.description}</p>
               </div>
             )}
 
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-aurora-nav-muted">
               Created: {new Date(generatedLink.createdAt).toLocaleString()}
             </div>
           </CardContent>
@@ -424,7 +424,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
           <CardTitle className="text-lg">💡 Tips for Effective Referral Links</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-2 text-sm text-gray-600">
+          <ul className="space-y-2 text-sm text-aurora-nav-muted">
             <li>• Use descriptive titles and descriptions to increase click-through rates</li>
             <li>• Create custom aliases for easy sharing and brand recognition</li>
             <li>• Share links across your social media, blog, and email newsletter</li>

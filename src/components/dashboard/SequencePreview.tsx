@@ -174,7 +174,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
       case 'complete': return 'bg-green-100 text-green-800'
       case 'partial': return 'bg-yellow-100 text-yellow-800'
       case 'missing': return 'bg-red-100 text-red-800'
-      default: return 'bg-gray-100 text-gray-800'
+      default: return 'bg-muted text-foreground'
     }
   }
 
@@ -230,10 +230,10 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
   const renderImagePreview = () => {
     if (!selectedSequenceData) {
       return (
-        <div className="flex items-center justify-center h-96 bg-gray-100 rounded-lg">
+        <div className="flex items-center justify-center h-96 bg-muted rounded-lg">
           <div className="text-center">
-            <div className="text-gray-400 mb-2">📱</div>
-            <p className="text-gray-500">No sequence selected</p>
+            <div className="text-muted-foreground mb-2">📱</div>
+            <p className="text-aurora-nav-muted">No sequence selected</p>
           </div>
         </div>
       )
@@ -241,11 +241,11 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
 
     if (selectedSequenceData.frameCount === 0) {
       return (
-        <div className="flex items-center justify-center h-96 bg-gray-100 rounded-lg">
+        <div className="flex items-center justify-center h-96 bg-muted rounded-lg">
           <div className="text-center">
-            <div className="text-gray-400 mb-2">🚫</div>
-            <p className="text-gray-500">No images available</p>
-            <p className="text-sm text-gray-400 mt-1">Generate sequences to view preview</p>
+            <div className="text-muted-foreground mb-2">🚫</div>
+            <p className="text-aurora-nav-muted">No images available</p>
+            <p className="text-sm text-muted-foreground mt-1">Generate sequences to view preview</p>
           </div>
         </div>
       )
@@ -255,15 +255,15 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
     
     if (!imageUrl || imageError) {
       return (
-        <div className="flex items-center justify-center h-96 bg-gray-100 rounded-lg">
+        <div className="flex items-center justify-center h-96 bg-muted rounded-lg">
           <div className="text-center">
-            <div className="text-gray-400 mb-2">⚠️</div>
-            <p className="text-gray-500">Image not found</p>
-            <p className="text-sm text-gray-400 mt-1">
+            <div className="text-muted-foreground mb-2">⚠️</div>
+            <p className="text-aurora-nav-muted">Image not found</p>
+            <p className="text-sm text-muted-foreground mt-1">
               {imageUrl ? `${imageUrl}` : 'No image URL available'}
             </p>
             {getAvailableFormats().length > 0 && (
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-sm text-muted-foreground mt-1">
                 Available formats: {getAvailableFormats().join(', ')}
               </p>
             )}
@@ -273,7 +273,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
     }
 
     return (
-      <div className="relative h-96 bg-gray-100 rounded-lg overflow-hidden">
+      <div className="relative h-96 bg-muted rounded-lg overflow-hidden">
         <img
           src={imageUrl}
           alt={`${selectedSequenceData.modelName} - ${selectedSequenceData.material} - Frame ${currentFrame}`}
@@ -282,7 +282,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
           onLoad={() => setImageError(false)}
         />
         {isPlaying && (
-          <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
+          <div className="absolute top-4 right-4 bg-foreground text-background px-2 py-1 rounded text-sm">
             Playing
           </div>
         )}
@@ -324,7 +324,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
             {/* Search and Filter */}
             <div className="space-y-2">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                 <Input
                   placeholder="Search sequences..."
                   value={searchTerm}
@@ -353,21 +353,21 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                   className={`p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm ${
                     selectedSequence === sequence.id 
                       ? 'border-blue-500 bg-blue-50' 
-                      : 'border-gray-200 bg-white'
+                      : 'border-border bg-background'
                   }`}
                   onClick={() => setSelectedSequence(sequence.id)}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
                       <h4 className="font-medium text-sm">{sequence.modelName}</h4>
-                      <p className="text-xs text-gray-500">{sequence.material}</p>
+                      <p className="text-xs text-aurora-nav-muted">{sequence.material}</p>
                     </div>
                     <Badge className={`${getStatusColor(sequence.status)} text-xs`}>
                       {sequence.status}
                     </Badge>
                   </div>
                   
-                  <div className="text-xs text-gray-500 space-y-1">
+                  <div className="text-xs text-aurora-nav-muted space-y-1">
                     <div className="flex justify-between">
                       <span>Frames:</span>
                       <span>{sequence.frameCount}</span>
@@ -387,8 +387,8 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
 
             {filteredSequences.length === 0 && (
               <div className="text-center py-8">
-                <Filter className="mx-auto h-8 w-8 text-gray-400" />
-                <p className="text-sm text-gray-500 mt-2">No sequences found</p>
+                <Filter className="mx-auto h-8 w-8 text-muted-foreground" />
+                <p className="text-sm text-aurora-nav-muted mt-2">No sequences found</p>
               </div>
             )}
           </CardContent>
@@ -427,7 +427,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                     
                     {/* Frame Counter - shown separately for better positioning */}
                     {selectedSequenceData.frameCount > 0 && (
-                      <div className="text-center text-sm text-gray-500">
+                      <div className="text-center text-sm text-aurora-nav-muted">
                         Frame {currentFrame + 1} of {selectedSequenceData.frameCount}
                       </div>
                     )}
@@ -500,9 +500,9 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                           max={selectedSequenceData.frameCount - 1}
                           value={currentFrame}
                           onChange={(e) => handleFrameSeek(parseInt(e.target.value))}
-                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                          className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
                         />
-                        <div className="flex justify-between text-xs text-gray-500">
+                        <div className="flex justify-between text-xs text-aurora-nav-muted">
                           <span>0°</span>
                           <span>180°</span>
                           <span>360°</span>
@@ -511,11 +511,11 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                     </div>
                   </div>
                 ) : (
-                  <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
+                  <div className="aspect-square bg-muted rounded-lg flex items-center justify-center">
                     <div className="text-center">
-                      <Settings className="mx-auto h-12 w-12 text-gray-400" />
-                      <h3 className="mt-4 text-lg font-medium text-gray-900">Sequence Not Generated</h3>
-                      <p className="mt-2 text-sm text-gray-500">
+                      <Settings className="mx-auto h-12 w-12 text-muted-foreground" />
+                      <h3 className="mt-4 text-lg font-medium text-foreground">Sequence Not Generated</h3>
+                      <p className="mt-2 text-sm text-aurora-nav-muted">
                         This sequence needs to be generated first
                       </p>
                       <Button className="mt-4" size="sm">
@@ -535,19 +535,19 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
-                    <p className="text-gray-500">Total Frames</p>
+                    <p className="text-aurora-nav-muted">Total Frames</p>
                     <p className="font-medium">{selectedSequenceData.frameCount}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Total Size</p>
+                    <p className="text-aurora-nav-muted">Total Size</p>
                     <p className="font-medium">{formatFileSize(selectedSequenceData.totalSize)}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Available Formats</p>
+                    <p className="text-aurora-nav-muted">Available Formats</p>
                     <p className="font-medium">{selectedSequenceData.formats.join(', ') || 'None'}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Last Generated</p>
+                    <p className="text-aurora-nav-muted">Last Generated</p>
                     <p className="font-medium">{formatDate(selectedSequenceData.lastGenerated)}</p>
                   </div>
                 </div>
@@ -556,9 +556,9 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
           </div>
         ) : (
           <div className="text-center py-12">
-            <Eye className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-4 text-lg font-medium text-gray-900">No sequence selected</h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <Eye className="mx-auto h-12 w-12 text-muted-foreground" />
+            <h3 className="mt-4 text-lg font-medium text-foreground">No sequence selected</h3>
+            <p className="mt-2 text-sm text-aurora-nav-muted">
               Select a sequence from the list to preview it
             </p>
           </div>

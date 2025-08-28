@@ -217,15 +217,15 @@ export function GenerationSettings({
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div>
-                <p className="text-gray-500">Estimated Size</p>
+                <p className="text-aurora-nav-muted">Estimated Size</p>
                 <p className="font-medium text-lg">{getEstimatedFileSize()}</p>
               </div>
               <div>
-                <p className="text-gray-500">Est. Duration</p>
+                <p className="text-aurora-nav-muted">Est. Duration</p>
                 <p className="font-medium text-lg">{getEstimatedDuration()}</p>
               </div>
               <div>
-                <p className="text-gray-500">Total Images</p>
+                <p className="text-aurora-nav-muted">Total Images</p>
                 <p className="font-medium text-lg">{localConfig.imageCount * localConfig.imageFormats.length}</p>
               </div>
             </div>
@@ -255,7 +255,7 @@ export function GenerationSettings({
                   onChange={(e) => updateConfig({ imageCount: parseInt(e.target.value) || 36 })}
                   disabled={isGenerating}
                 />
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-aurora-nav-muted">
                   Number of frames for 360° rotation (12-360, multiples of 12)
                 </p>
               </div>
@@ -350,7 +350,7 @@ export function GenerationSettings({
                   disabled={isGenerating}
                   className="w-full"
                 />
-                <div className="flex justify-between text-xs text-gray-500">
+                <div className="flex justify-between text-xs text-aurora-nav-muted">
                   <span>Lower size</span>
                   <span>{localConfig.qualitySettings.avif}%</span>
                   <span>Higher quality</span>
@@ -375,7 +375,7 @@ export function GenerationSettings({
                   disabled={isGenerating}
                   className="w-full"
                 />
-                <div className="flex justify-between text-xs text-gray-500">
+                <div className="flex justify-between text-xs text-aurora-nav-muted">
                   <span>Lower size</span>
                   <span>{localConfig.qualitySettings.webp}%</span>
                   <span>Higher quality</span>
@@ -400,7 +400,7 @@ export function GenerationSettings({
                   disabled={isGenerating}
                   className="w-full"
                 />
-                <div className="flex justify-between text-xs text-gray-500">
+                <div className="flex justify-between text-xs text-aurora-nav-muted">
                   <span>Faster</span>
                   <span>Level {localConfig.qualitySettings.png}</span>
                   <span>Smaller</span>

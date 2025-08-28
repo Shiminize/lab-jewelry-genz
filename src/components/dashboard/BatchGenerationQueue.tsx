@@ -261,23 +261,23 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
             <div>
-              <p className="text-gray-500">Total Jobs</p>
+              <p className="text-aurora-nav-muted">Total Jobs</p>
               <p className="font-semibold text-lg">{jobs.length}</p>
             </div>
             <div>
-              <p className="text-gray-500">Processing</p>
+              <p className="text-aurora-nav-muted">Processing</p>
               <p className="font-semibold text-lg text-green-600">
                 {jobs.filter(j => j.status === 'processing').length}
               </p>
             </div>
             <div>
-              <p className="text-gray-500">Completed</p>
+              <p className="text-aurora-nav-muted">Completed</p>
               <p className="font-semibold text-lg text-blue-600">
                 {jobs.filter(j => j.status === 'completed').length}
               </p>
             </div>
             <div>
-              <p className="text-gray-500">Failed</p>
+              <p className="text-aurora-nav-muted">Failed</p>
               <p className="font-semibold text-lg text-red-600">
                 {jobs.filter(j => j.status === 'error').length}
               </p>
@@ -312,19 +312,19 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
                     <div>
-                      <p className="text-gray-500">Models</p>
+                      <p className="text-aurora-nav-muted">Models</p>
                       <p className="font-medium">{job.modelIds.join(', ')}</p>
                     </div>
                     <div>
-                      <p className="text-gray-500">Materials</p>
+                      <p className="text-aurora-nav-muted">Materials</p>
                       <p className="font-medium">{job.materials.length} variants</p>
                     </div>
                     <div>
-                      <p className="text-gray-500">Created</p>
+                      <p className="text-aurora-nav-muted">Created</p>
                       <p className="font-medium">{formatTimeAgo(job.createdAt)}</p>
                     </div>
                     <div>
-                      <p className="text-gray-500">Duration</p>
+                      <p className="text-aurora-nav-muted">Duration</p>
                       <p className="font-medium">
                         {job.estimatedDuration ? formatDuration(job.estimatedDuration) : 'Unknown'}
                       </p>
@@ -337,7 +337,7 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span>
                           {job.currentModel && job.currentMaterial && (
-                            <span className="text-gray-600">
+                            <span className="text-aurora-nav-muted">
                               {job.currentModel} ({job.currentMaterial})
                               {job.currentFrame !== undefined && job.totalFrames && (
                                 <span className="ml-2">
@@ -349,7 +349,7 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
                         </span>
                         <span className="font-medium">{job.progress}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-muted rounded-full h-2">
                         <div 
                           className="bg-green-500 h-2 rounded-full transition-all duration-300"
                           style={{ width: `${job.progress}%` }}
@@ -440,9 +440,9 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
       {jobs.length === 0 && (
         <Card>
           <CardContent className="p-8 text-center">
-            <Settings className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-4 text-lg font-medium text-gray-900">No jobs in queue</h3>
-            <p className="mt-2 text-sm text-gray-500">
+            <Settings className="mx-auto h-12 w-12 text-muted-foreground" />
+            <h3 className="mt-4 text-lg font-medium text-foreground">No jobs in queue</h3>
+            <p className="mt-2 text-sm text-aurora-nav-muted">
               Start a generation from the Models tab to see jobs here
             </p>
           </CardContent>

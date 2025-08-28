@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react'
 import type { Metadata } from 'next'
 import './globals.css'
-import { Header, Footer } from '@/components/layout'
+import { Footer } from '@/components/layout'
+import { AuroraNavigation } from '@/components/navigation'
 import { PerformanceMonitor } from '@/components/utils/PerformanceMonitor'
-import { NavigationProvider } from '@/contexts/NavigationProvider'
 import { ErrorProvider } from '@/contexts/ErrorContext'
 import { WithPageErrorBoundary } from '@/components/errors/ErrorBoundary'
 import { PageLoadingSkeleton } from '@/components/loading/PageLoadingSkeleton'
@@ -24,9 +24,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
-        {/* Preload critical 3D assets for better performance */}
-        <link rel="preload" href="/models/ring-classic-002.glb" as="fetch" type="model/gltf-binary" crossOrigin="anonymous" />
-        <link rel="preload" href="/models/ring-luxury-001.glb" as="fetch" type="model/gltf-binary" crossOrigin="anonymous" />
+        {/* 3D assets are loaded lazily when customizer is opened for optimal performance */}
         
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="//cdn.glowglitch.com" />
@@ -40,16 +38,14 @@ export default function RootLayout({
           <WebVitalsProvider>
             <ErrorProvider>
               <WithPageErrorBoundary>
-                <NavigationProvider>
-                  <Header />
-                  <main className="flex-1" id="main-content" tabIndex={-1}>
-                    <Suspense fallback={<PageLoadingSkeleton />}>
-                      {children}
-                    </Suspense>
-                  </main>
-                  <Footer />
-                  <PerformanceMonitor />
-                </NavigationProvider>
+                <AuroraNavigation />
+                <main className="flex-1" id="main-content" tabIndex={-1}>
+                  <Suspense fallback={<PageLoadingSkeleton />}>
+                    {children}
+                  </Suspense>
+                </main>
+                <Footer />
+                <PerformanceMonitor />
               </WithPageErrorBoundary>
             </ErrorProvider>
           </WebVitalsProvider>

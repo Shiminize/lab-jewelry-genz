@@ -226,9 +226,9 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           case 'processing': return 'bg-purple-100 text-purple-800 border-purple-200'
           case 'shipped': return 'bg-indigo-100 text-indigo-800 border-indigo-200'
           case 'delivered': return 'bg-green-100 text-green-800 border-green-200'
-          case 'cancelled': return 'bg-gray-100 text-gray-800 border-gray-200'
+          case 'cancelled': return 'bg-muted text-foreground border-border'
           case 'refunded': return 'bg-red-100 text-red-800 border-red-200'
-          default: return 'bg-gray-100 text-gray-800 border-gray-200'
+          default: return 'bg-muted text-foreground border-border'
         }
       } else if (type === 'payment') {
         switch (status) {
@@ -236,14 +236,14 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
           case 'failed': return 'bg-red-100 text-red-800 border-red-200'
           case 'refunded': return 'bg-orange-100 text-orange-800 border-orange-200'
-          default: return 'bg-gray-100 text-gray-800 border-gray-200'
+          default: return 'bg-muted text-foreground border-border'
         }
       } else {
         switch (status) {
           case 'delivered': return 'bg-green-100 text-green-800 border-green-200'
           case 'shipped': return 'bg-blue-100 text-blue-800 border-blue-200'
           case 'preparing': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-          default: return 'bg-gray-100 text-gray-800 border-gray-200'
+          default: return 'bg-muted text-foreground border-border'
         }
       }
     }
@@ -264,40 +264,40 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
 
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="text-foreground bg-white p-4 rounded-lg border shadow-sm">
+        <div className="text-foreground bg-background p-4 rounded-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <BodyText size="sm" className="text-gray-600 bg-white">Total Orders</BodyText>
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">Total Orders</BodyText>
               <H3 className="text-xl text-foreground">{metrics.totalOrders.toLocaleString()}</H3>
             </div>
             <Package className="w-8 h-8 text-accent" />
           </div>
         </div>
 
-        <div className="text-foreground bg-white p-4 rounded-lg border shadow-sm">
+        <div className="text-foreground bg-background p-4 rounded-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <BodyText size="sm" className="text-gray-600 bg-white">Avg Order Value</BodyText>
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">Avg Order Value</BodyText>
               <H3 className="text-xl text-foreground">${metrics.averageOrderValue.toFixed(0)}</H3>
             </div>
             <DollarSign className="w-8 h-8 text-accent" />
           </div>
         </div>
 
-        <div className="text-foreground bg-white p-4 rounded-lg border shadow-sm">
+        <div className="text-foreground bg-background p-4 rounded-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <BodyText size="sm" className="text-gray-600 bg-white">Guest Orders</BodyText>
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">Guest Orders</BodyText>
               <H3 className="text-xl text-foreground">{metrics.guestOrderPercentage.toFixed(1)}%</H3>
             </div>
             <User className="w-8 h-8 text-accent" />
           </div>
         </div>
 
-        <div className="text-foreground bg-white p-4 rounded-lg border shadow-sm">
+        <div className="text-foreground bg-background p-4 rounded-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <BodyText size="sm" className="text-gray-600 bg-white">Processing</BodyText>
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">Processing</BodyText>
               <H3 className="text-xl text-foreground">
                 {metrics.statusDistribution.processing?.count || 0}
               </H3>
@@ -312,7 +312,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
   // Filters component
   const FiltersPanel = () => (
     <div className={cn(
-      "text-foreground bg-white rounded-lg border shadow-sm transition-all duration-200",
+      "text-foreground bg-background rounded-lg border shadow-sm transition-all duration-200",
       showFilters ? "p-4 mb-4" : "hidden"
     )}>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -321,7 +321,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           <select
             value={filters.status || ''}
             onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <option value="">All Statuses</option>
             <option value="pending">Pending</option>
@@ -339,7 +339,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           <select
             value={filters.paymentStatus || ''}
             onChange={(e) => setFilters(prev => ({ ...prev, paymentStatus: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <option value="">All Payment Status</option>
             <option value="pending">Pending</option>
@@ -360,7 +360,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                 isGuest: value === '' ? undefined : value === 'guest' 
               }))
             }}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <option value="">All Customers</option>
             <option value="registered">Registered</option>
@@ -375,7 +375,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
             placeholder="Order number, email..."
             value={filters.search || ''}
             onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
       </div>
@@ -418,7 +418,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                 }
                 e.target.value = ''
               }}
-              className="px-3 py-1 text-sm border border-gray-300 rounded-md"
+              className="px-3 py-1 text-sm border border-border rounded-md"
               disabled={bulkActionLoading}
             >
               <option value="">Update Status...</option>
@@ -454,7 +454,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
 
   // Orders table component
   const OrdersTable = () => (
-    <div className="text-foreground bg-white rounded-lg border shadow-sm overflow-hidden">
+    <div className="text-foreground bg-background rounded-lg border shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-muted border-b">
@@ -470,7 +470,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                       setSelectedOrders([])
                     }
                   }}
-                  className="rounded border-gray-300 focus:ring-accent"
+                  className="rounded border-border focus:ring-accent"
                 />
               </th>
               <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Order</th>
@@ -484,7 +484,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           </thead>
           <tbody className="divide-y divide-gray-200">
             {orders.map((order) => (
-              <tr key={order._id} className="hover:bg-gray-50">
+              <tr key={order._id} className="hover:bg-muted">
                 <td className="px-4 py-3">
                   <input
                     type="checkbox"
@@ -496,7 +496,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                         setSelectedOrders(prev => prev.filter(id => id !== order._id))
                       }
                     }}
-                    className="rounded border-gray-300 focus:ring-accent"
+                    className="rounded border-border focus:ring-accent"
                   />
                 </td>
                 
@@ -505,7 +505,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                     <BodyText size="sm" className="font-medium text-foreground">
                       {order.orderNumber}
                     </BodyText>
-                    <BodyText size="xs" className="text-gray-600 bg-white">
+                    <BodyText size="xs" className="text-aurora-nav-muted bg-background">
                       {order.items.length} item{order.items.length !== 1 ? 's' : ''}
                     </BodyText>
                   </div>
@@ -516,11 +516,11 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                     <BodyText size="sm" className="text-foreground">
                       {order.userId?.name || `${order.guestDetails?.firstName} ${order.guestDetails?.lastName}`}
                     </BodyText>
-                    <BodyText size="xs" className="text-gray-600 bg-white">
+                    <BodyText size="xs" className="text-aurora-nav-muted bg-background">
                       {order.email}
                     </BodyText>
                     {order.isGuest && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs bg-gray-100 text-gray-800 mt-1">
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs bg-muted text-foreground mt-1">
                         Guest
                       </span>
                     )}
@@ -531,7 +531,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                   <div className="space-y-1">
                     <StatusBadge status={order.status} type="order" />
                     {order.shipping?.trackingNumber && (
-                      <BodyText size="xs" className="text-gray-600 bg-white">
+                      <BodyText size="xs" className="text-aurora-nav-muted bg-background">
                         {order.shipping.carrier} {order.shipping.trackingNumber}
                       </BodyText>
                     )}
@@ -546,7 +546,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                   <BodyText size="sm" className="font-medium text-foreground">
                     ${order.total.toFixed(2)}
                   </BodyText>
-                  <BodyText size="xs" className="text-gray-600 bg-white">
+                  <BodyText size="xs" className="text-aurora-nav-muted bg-background">
                     {order.currency}
                   </BodyText>
                 </td>
@@ -555,7 +555,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                   <BodyText size="sm" className="text-foreground">
                     {new Date(order.createdAt).toLocaleDateString()}
                   </BodyText>
-                  <BodyText size="xs" className="text-gray-600 bg-white">
+                  <BodyText size="xs" className="text-aurora-nav-muted bg-background">
                     {new Date(order.createdAt).toLocaleTimeString()}
                   </BodyText>
                 </td>
@@ -577,8 +577,8 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between px-4 py-3 border-t bg-gray-50">
-        <BodyText size="sm" className="text-gray-600 bg-gray-50">
+      <div className="flex items-center justify-between px-4 py-3 border-t bg-muted">
+        <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
           Page {currentPage} of {totalPages}
         </BodyText>
         
@@ -641,7 +641,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <H1 className="text-2xl text-foreground">Order Management</H1>
-          <BodyText className="text-gray-600 bg-background">
+          <BodyText className="text-aurora-nav-muted bg-background">
             Manage customer orders, track fulfillment, and process status updates
           </BodyText>
         </div>

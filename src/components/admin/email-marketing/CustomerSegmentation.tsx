@@ -128,7 +128,7 @@ const StatusBadge = ({ status }: { status: CustomerSegment['status'] }) => {
       case 'inactive':
         return { 
           text: 'Inactive', 
-          className: 'bg-gray-100 text-gray-800 border-gray-200',
+          className: 'bg-muted text-foreground border-border',
           icon: AlertCircle
         }
       case 'draft':
@@ -140,7 +140,7 @@ const StatusBadge = ({ status }: { status: CustomerSegment['status'] }) => {
       default:
         return { 
           text: status, 
-          className: 'bg-gray-100 text-gray-800 border-gray-200',
+          className: 'bg-muted text-foreground border-border',
           icon: AlertCircle
         }
     }
@@ -206,7 +206,7 @@ const MetricCard = ({
   }
 
   return (
-    <div className="text-foreground bg-white p-4 rounded-lg border space-y-3">
+    <div className="text-foreground bg-background p-4 rounded-lg border space-y-3">
       <div className="flex items-center justify-between">
         <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
           <Icon className="w-4 h-4 text-accent" />
@@ -216,7 +216,7 @@ const MetricCard = ({
             "text-xs font-medium",
             trend === 'up' && "text-green-600",
             trend === 'down' && "text-red-600",
-            trend === 'neutral' && "text-gray-600"
+            trend === 'neutral' && "text-aurora-nav-muted"
           )}>
             {trend === 'up' ? '↗' : trend === 'down' ? '↘' : '→'}
           </div>
@@ -226,10 +226,10 @@ const MetricCard = ({
         <div className="text-xl font-bold text-foreground">
           {formatValue(value, format)}
         </div>
-        <BodyText size="sm" className="text-gray-600 bg-white mb-1">
+        <BodyText size="sm" className="text-aurora-nav-muted bg-background mb-1">
           {title}
         </BodyText>
-        <BodyText size="xs" className="text-gray-600 bg-white">
+        <BodyText size="xs" className="text-aurora-nav-muted bg-background">
           {subtitle}
         </BodyText>
       </div>
@@ -255,18 +255,18 @@ const SegmentFilters = ({
   }
 
   return (
-    <div className="text-foreground bg-white p-4 rounded-lg border space-y-4">
+    <div className="text-foreground bg-background p-4 rounded-lg border space-y-4">
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Search */}
         <form onSubmit={handleSearch} className="flex-1">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-aurora-nav-muted" />
             <input
               type="text"
               placeholder="Search segments..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              className="w-full pl-10 pr-4 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
               aria-label="Search customer segments"
             />
           </div>
@@ -276,7 +276,7 @@ const SegmentFilters = ({
         <select
           value={filters.status || ''}
           onChange={(e) => onFiltersChange({ ...filters, status: e.target.value })}
-          className="px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           aria-label="Filter by status"
         >
           <option value="">All Status</option>
@@ -289,7 +289,7 @@ const SegmentFilters = ({
         <select
           value={filters.type || ''}
           onChange={(e) => onFiltersChange({ ...filters, type: e.target.value })}
-          className="px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           aria-label="Filter by segment type"
         >
           <option value="">All Types</option>
@@ -339,7 +339,7 @@ const SegmentActions = ({
             className="fixed inset-0 z-10" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 top-8 z-20 w-48 bg-white border border-border rounded-lg shadow-lg py-1">
+          <div className="absolute right-0 top-8 z-20 w-48 bg-background border border-border rounded-lg shadow-lg py-1">
             <button
               onClick={() => { onView(segment._id); setIsOpen(false) }}
               className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted flex items-center gap-2"
@@ -400,7 +400,7 @@ const SegmentCard = ({
   onAnalytics: (id: string) => void
 }) => {
   return (
-    <div className="text-foreground bg-white p-6 rounded-lg border hover:border-accent transition-colors">
+    <div className="text-foreground bg-background p-6 rounded-lg border hover:border-accent transition-colors">
       {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
@@ -409,10 +409,10 @@ const SegmentCard = ({
             <StatusBadge status={segment.status} />
             <TypeBadge type={segment.type} />
           </div>
-          <BodyText size="sm" className="text-gray-600 bg-white mb-2">
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background mb-2">
             {segment.description}
           </BodyText>
-          <div className="flex items-center gap-4 text-xs text-gray-600 bg-white">
+          <div className="flex items-center gap-4 text-xs text-aurora-nav-muted bg-background">
             <span>Created {new Date(segment.createdAt).toLocaleDateString()}</span>
             {segment.lastUsed && (
               <span>Last used {new Date(segment.lastUsed).toLocaleDateString()}</span>
@@ -435,7 +435,7 @@ const SegmentCard = ({
           <div className="text-lg font-semibold text-foreground">
             {segment.customerCount.toLocaleString()}
           </div>
-          <BodyText size="xs" className="text-gray-600 bg-muted">
+          <BodyText size="xs" className="text-aurora-nav-muted bg-muted">
             Customers
           </BodyText>
         </div>
@@ -443,7 +443,7 @@ const SegmentCard = ({
           <div className="text-lg font-semibold text-foreground">
             {segment.campaignsUsed}
           </div>
-          <BodyText size="xs" className="text-gray-600 bg-muted">
+          <BodyText size="xs" className="text-aurora-nav-muted bg-muted">
             Campaigns
           </BodyText>
         </div>
@@ -451,7 +451,7 @@ const SegmentCard = ({
           <div className="text-lg font-semibold text-foreground">
             {(segment.conversionRate || 0).toFixed(1)}%
           </div>
-          <BodyText size="xs" className="text-gray-600 bg-muted">
+          <BodyText size="xs" className="text-aurora-nav-muted bg-muted">
             Conversion
           </BodyText>
         </div>
@@ -459,7 +459,7 @@ const SegmentCard = ({
           <div className="text-lg font-semibold text-foreground">
             ${(segment.revenue || 0).toLocaleString()}
           </div>
-          <BodyText size="xs" className="text-gray-600 bg-muted">
+          <BodyText size="xs" className="text-aurora-nav-muted bg-muted">
             Revenue
           </BodyText>
         </div>
@@ -608,10 +608,10 @@ export default function CustomerSegmentation({
   // Error state
   if (error) {
     return (
-      <div className="text-foreground bg-white p-6 rounded-lg border text-center">
+      <div className="text-foreground bg-background p-6 rounded-lg border text-center">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <H2 className="mb-2 text-foreground">Failed to Load Segments</H2>
-        <BodyText className="text-gray-600 bg-white mb-4">
+        <BodyText className="text-aurora-nav-muted bg-background mb-4">
           {error}
         </BodyText>
         <Button variant="primary" size="md" onClick={fetchSegments}>
@@ -663,7 +663,7 @@ export default function CustomerSegmentation({
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <H2 className="text-foreground">Customer Segments</H2>
-          <BodyText className="text-gray-600 bg-background">
+          <BodyText className="text-aurora-nav-muted bg-background">
             Create and manage targeted customer segments for email campaigns
           </BodyText>
         </div>
@@ -688,10 +688,10 @@ export default function CustomerSegmentation({
 
       {/* Segments Grid */}
       {segments.length === 0 ? (
-        <div className="text-foreground bg-white p-8 rounded-lg border text-center">
-          <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+        <div className="text-foreground bg-background p-8 rounded-lg border text-center">
+          <Target className="w-12 h-12 text-aurora-nav-muted mx-auto mb-4" />
           <H2 className="mb-2 text-foreground">No Segments Found</H2>
-          <BodyText className="text-gray-600 bg-white mb-6">
+          <BodyText className="text-aurora-nav-muted bg-background mb-6">
             {filters.search || filters.status || filters.type
               ? 'No segments match your current filters.'
               : 'Get started by creating your first customer segment.'}

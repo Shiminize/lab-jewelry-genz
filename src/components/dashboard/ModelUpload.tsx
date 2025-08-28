@@ -197,7 +197,7 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
           <div
             className={`
               relative border-2 border-dashed rounded-lg p-8 text-center transition-all cursor-pointer
-              ${isDragOver ? 'border-blue-400 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}
+              ${isDragOver ? 'border-blue-400 bg-blue-50' : 'border-border hover:border-border'}
               ${isGenerating ? 'opacity-50 pointer-events-none' : ''}
             `}
             onDragOver={handleDragOver}
@@ -216,22 +216,22 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
             />
             
             <div className="space-y-4">
-              <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+              <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center">
                 {isDragOver ? (
                   <Plus className="w-8 h-8 text-blue-500" />
                 ) : (
-                  <Folder className="w-8 h-8 text-gray-400" />
+                  <Folder className="w-8 h-8 text-muted-foreground" />
                 )}
               </div>
               
               <div>
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-foreground">
                   {isDragOver ? 'Drop files here' : 'Upload GLB files'}
                 </h3>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-aurora-nav-muted mt-1">
                   Drag and drop your GLB models here, or click to browse
                 </p>
-                <p className="text-xs text-gray-400 mt-2">
+                <p className="text-xs text-muted-foreground mt-2">
                   Supports GLB files up to 50MB each
                 </p>
               </div>
@@ -263,7 +263,7 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
               {uploadedFiles.map((uploadedFile) => (
                 <div
                   key={uploadedFile.id}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between p-3 bg-muted rounded-lg"
                 >
                   <div className="flex items-center gap-3 flex-1">
                     <div className="flex-shrink-0">
@@ -279,10 +279,10 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
                     </div>
                     
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-foreground truncate">
                         {uploadedFile.file.name}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-aurora-nav-muted">
                         {formatFileSize(uploadedFile.file.size)}
                       </p>
                       

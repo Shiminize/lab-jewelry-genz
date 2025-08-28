@@ -409,7 +409,7 @@ export function CustomizableProductsPanel() {
       case 'partial':
         return <AlertCircle className="w-4 h-4 text-yellow-600" />
       default:
-        return <Package className="w-4 h-4 text-gray-400" />
+        return <Package className="w-4 h-4 text-muted-foreground" />
     }
   }
 
@@ -434,8 +434,8 @@ export function CustomizableProductsPanel() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900">Customizable Products</h2>
-          <p className="text-slate-600 mt-1">
+          <h2 className="text-2xl font-bold text-foreground">Customizable Products</h2>
+          <p className="text-aurora-nav-muted mt-1">
             Manage scalable customization and 3D asset generation
           </p>
         </div>
@@ -477,14 +477,14 @@ export function CustomizableProductsPanel() {
               {activeJobs.map(job => {
                 const product = products.find(p => p.id === job.productId)
                 return (
-                  <div key={job.jobId} className="flex items-center justify-between p-3 bg-white rounded-lg border">
+                  <div key={job.jobId} className="flex items-center justify-between p-3 bg-background rounded-lg border">
                     <div className="flex-1">
                       <div className="flex items-center gap-3">
                         <div className="flex-1">
-                          <h4 className="font-medium text-slate-900">
+                          <h4 className="font-medium text-foreground">
                             {product?.name || job.productId}
                           </h4>
-                          <p className="text-sm text-slate-600">
+                          <p className="text-sm text-aurora-nav-muted">
                             {job.currentMaterial ? `Generating ${job.currentMaterial}` : 'Starting generation...'}
                           </p>
                         </div>
@@ -492,7 +492,7 @@ export function CustomizableProductsPanel() {
                           <div className="text-lg font-bold text-blue-600">
                             {job.progress}%
                           </div>
-                          <div className="text-xs text-slate-500">
+                          <div className="text-xs text-aurora-nav-muted">
                             {job.materials.length} materials
                           </div>
                         </div>
@@ -552,7 +552,7 @@ export function CustomizableProductsPanel() {
               {isLoading ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader className="w-6 h-6 animate-spin text-blue-600" />
-                  <span className="ml-2 text-slate-600">Loading products...</span>
+                  <span className="ml-2 text-aurora-nav-muted">Loading products...</span>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -562,7 +562,7 @@ export function CustomizableProductsPanel() {
                       className={`border rounded-lg p-4 cursor-pointer transition-all ${
                         selectedProducts.includes(product.id)
                           ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          : 'border-border hover:border-border'
                       }`}
                       onClick={() => {
                         setSelectedProducts(prev =>
@@ -574,10 +574,10 @@ export function CustomizableProductsPanel() {
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
-                          <h3 className="font-medium text-slate-900 text-sm">
+                          <h3 className="font-medium text-foreground text-sm">
                             {product.name}
                           </h3>
-                          <p className="text-xs text-slate-500 mt-1">
+                          <p className="text-xs text-aurora-nav-muted mt-1">
                             {product.jewelryType} • {product.baseModel}
                           </p>
                         </div>
@@ -592,7 +592,7 @@ export function CustomizableProductsPanel() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           {getAssetStatusIcon(product.assetStatus)}
-                          <span className="text-xs text-slate-600">
+                          <span className="text-xs text-aurora-nav-muted">
                             {getAssetStatusText(product.assetStatus)}
                           </span>
                         </div>
@@ -603,7 +603,7 @@ export function CustomizableProductsPanel() {
                       </div>
                       
                       {product.generationProgress !== undefined && (
-                        <div className="mt-2 w-full bg-gray-200 rounded-full h-1.5">
+                        <div className="mt-2 w-full bg-muted rounded-full h-1.5">
                           <div 
                             className="bg-blue-600 h-1.5 rounded-full transition-all duration-500"
                             style={{ width: `${product.generationProgress}%` }}
@@ -612,7 +612,7 @@ export function CustomizableProductsPanel() {
                       )}
                       
                       {product.lastGenerated && (
-                        <p className="text-xs text-slate-400 mt-2">
+                        <p className="text-xs text-muted-foreground mt-2">
                           Last generated: {new Date(product.lastGenerated).toLocaleDateString()}
                         </p>
                       )}
@@ -634,8 +634,8 @@ export function CustomizableProductsPanel() {
             </CardHeader>
             <CardContent>
               {generationJobs.length === 0 ? (
-                <div className="text-center py-12 text-slate-500">
-                  <Palette className="w-12 h-12 mx-auto mb-4 text-slate-300" />
+                <div className="text-center py-12 text-aurora-nav-muted">
+                  <Palette className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
                   <p>No generation jobs yet</p>
                   <p className="text-sm">Select products and start generation to see jobs here</p>
                 </div>
@@ -647,10 +647,10 @@ export function CustomizableProductsPanel() {
                       <div key={job.jobId} className="border rounded-lg p-4">
                         <div className="flex items-center justify-between mb-2">
                           <div>
-                            <h4 className="font-medium text-slate-900">
+                            <h4 className="font-medium text-foreground">
                               {product?.name || job.productId}
                             </h4>
-                            <p className="text-sm text-slate-600">
+                            <p className="text-sm text-aurora-nav-muted">
                               Job ID: {job.jobId.substring(0, 12)}...
                             </p>
                           </div>
@@ -666,7 +666,7 @@ export function CustomizableProductsPanel() {
                         </div>
                         
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-slate-600">
+                          <span className="text-aurora-nav-muted">
                             Materials: {job.materials.join(', ')}
                           </span>
                           <span className="font-medium">
@@ -675,7 +675,7 @@ export function CustomizableProductsPanel() {
                         </div>
                         
                         {job.status === 'processing' && (
-                          <div className="mt-2 w-full bg-gray-200 rounded-full h-2">
+                          <div className="mt-2 w-full bg-muted rounded-full h-2">
                             <div 
                               className="bg-blue-600 h-2 rounded-full transition-all duration-500"
                               style={{ width: `${job.progress}%` }}

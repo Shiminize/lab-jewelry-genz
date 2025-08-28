@@ -55,13 +55,13 @@ export default function QualityPage() {
               <h1 className="text-4xl font-headline text-foreground mb-6">
                 You're All Set!
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
+              <p className="text-xl text-aurora-nav-muted mb-8">
                 Your warranty is now active. We've sent confirmation details to {formData.email}. 
                 Screenshot this page or save that email – you might need it later.
               </p>
-              <div className="bg-white p-6 rounded-lg border border-border mb-8">
+              <div className="bg-background p-6 rounded-lg border border-border mb-8">
                 <h3 className="text-lg font-headline text-foreground mb-4">Your Warranty Details</h3>
-                <div className="text-left text-gray-600 space-y-2">
+                <div className="text-left text-aurora-nav-muted space-y-2">
                   <p><strong>Order:</strong> {formData.orderNumber}</p>
                   <p><strong>Product:</strong> {formData.productName}</p>
                   <p><strong>Coverage:</strong> 2 years from purchase</p>
@@ -91,7 +91,7 @@ export default function QualityPage() {
             <h1 className="text-4xl lg:text-6xl font-headline mb-6 text-foreground">
               Protect Your Investment
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p className="text-xl text-aurora-nav-muted max-w-2xl mx-auto mb-8 leading-relaxed">
               Register your warranty in 2 minutes. If we messed up, we'll fix it. 
               2 years, no questions asked.
             </p>
@@ -108,34 +108,34 @@ export default function QualityPage() {
             </h2>
             
             <div className="grid md:grid-cols-3 gap-6 mb-12">
-              <div className="bg-white p-6 rounded-lg border border-border text-center">
+              <div className="bg-background p-6 rounded-lg border border-border text-center">
                 <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">🔧</span>
                 </div>
                 <h3 className="text-lg font-headline text-foreground mb-3">Manufacturing Issues</h3>
-                <p className="text-gray-600">Stones falling out, prongs breaking, weird discoloration – basically if it's our fault</p>
+                <p className="text-aurora-nav-muted">Stones falling out, prongs breaking, weird discoloration – basically if it's our fault</p>
               </div>
 
-              <div className="bg-white p-6 rounded-lg border border-border text-center">
+              <div className="bg-background p-6 rounded-lg border border-border text-center">
                 <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">📐</span>
                 </div>
                 <h3 className="text-lg font-headline text-foreground mb-3">Sizing Issues</h3>
-                <p className="text-gray-600">Wrong size? No worries. One free resize within 60 days (some complex designs have limits)</p>
+                <p className="text-aurora-nav-muted">Wrong size? No worries. One free resize within 60 days (some complex designs have limits)</p>
               </div>
 
-              <div className="bg-white p-6 rounded-lg border border-border text-center">
+              <div className="bg-background p-6 rounded-lg border border-border text-center">
                 <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">💎</span>
                 </div>
                 <h3 className="text-lg font-headline text-foreground mb-3">Stone Quality</h3>
-                <p className="text-gray-600">Chips, cracks, or cloudiness that wasn't there when you got it? We'll make it right</p>
+                <p className="text-aurora-nav-muted">Chips, cracks, or cloudiness that wasn't there when you got it? We'll make it right</p>
               </div>
             </div>
 
             <div className="bg-muted text-foreground p-6 rounded-lg">
               <h3 className="text-lg font-headline text-foreground mb-3">Not Covered (Just Being Honest)</h3>
-              <div className="text-gray-600 space-y-1">
+              <div className="text-aurora-nav-muted space-y-1">
                 <p>• Normal wear and tear (scratches from daily life)</p>
                 <p>• Damage from accidents or rough treatment</p>
                 <p>• Loss or theft (get insurance for that)</p>
@@ -162,13 +162,13 @@ export default function QualityPage() {
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                       step >= num 
                         ? 'bg-accent text-foreground' 
-                        : 'bg-white text-gray-600'
+                        : 'bg-background text-aurora-nav-muted'
                     }`}>
                       {num}
                     </div>
                     {num < 3 && (
                       <div className={`w-16 h-1 mx-2 ${
-                        step > num ? 'bg-accent' : 'bg-white'
+                        step > num ? 'bg-accent' : 'bg-background'
                       }`} />
                     )}
                   </div>
@@ -176,7 +176,7 @@ export default function QualityPage() {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg border border-border">
+            <form onSubmit={handleSubmit} className="bg-background p-8 rounded-lg border border-border">
               {/* Step 1: Order Information */}
               {step === 1 && (
                 <div className="space-y-6">
@@ -194,7 +194,7 @@ export default function QualityPage() {
                       placeholder="Like #12345 or GLW-2024-001"
                       required
                     />
-                    <p className="text-xs text-gray-600 mt-1">Check your email confirmation or receipt</p>
+                    <p className="text-xs text-aurora-nav-muted mt-1">Check your email confirmation or receipt</p>
                   </div>
 
                   <div>
@@ -266,7 +266,7 @@ export default function QualityPage() {
                       placeholder="where@youcheck.email"
                       required
                     />
-                    <p className="text-xs text-gray-600 mt-1">We'll send your warranty confirmation here</p>
+                    <p className="text-xs text-aurora-nav-muted mt-1">We'll send your warranty confirmation here</p>
                   </div>
 
                   <div className="flex gap-4">
@@ -328,7 +328,7 @@ export default function QualityPage() {
                       placeholder="Like 'Classic Solitaire' or whatever it was called"
                       required
                     />
-                    <p className="text-xs text-gray-600 mt-1">Check your order confirmation if you're not sure</p>
+                    <p className="text-xs text-aurora-nav-muted mt-1">Check your order confirmation if you're not sure</p>
                   </div>
 
                   <div className="flex gap-4">
@@ -363,11 +363,11 @@ export default function QualityPage() {
             <h2 className="text-2xl font-headline text-foreground mb-4">
               Questions About Your Warranty?
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-aurora-nav-muted mb-6">
               Need to make a claim or have questions about coverage? 
               We're here to help.
             </p>
-            <div className="space-y-2 text-gray-600">
+            <div className="space-y-2 text-aurora-nav-muted">
               <p><strong>Email:</strong> warranty@glowglitch.com</p>
               <p><strong>Response time:</strong> Within 24 hours</p>
             </div>

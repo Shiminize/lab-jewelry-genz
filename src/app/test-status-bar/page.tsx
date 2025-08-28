@@ -22,13 +22,13 @@ export default function TestStatusBarPage() {
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-4xl mx-auto">
         <H1 className="text-foreground mb-4">MaterialStatusBar Test Page</H1>
-        <BodyText className="text-gray-600 mb-8">
+        <BodyText className="text-aurora-nav-muted mb-8">
           This page tests the MaterialStatusBar component in isolation to verify 
           positioning, responsive behavior, and CLAUDE_RULES compliance.
         </BodyText>
 
         <div className="space-y-6">
-          <div className="p-6 bg-white rounded-xl border border-border">
+          <div className="p-6 bg-background rounded-xl border border-border">
             <h2 className="font-headline text-lg text-foreground mb-4">Component Controls</h2>
             <button
               onClick={() => setIsVisible(!isVisible)}
@@ -38,7 +38,7 @@ export default function TestStatusBarPage() {
             </button>
           </div>
 
-          <div className="p-6 bg-white rounded-xl border border-border">
+          <div className="p-6 bg-background rounded-xl border border-border">
             <h2 className="font-headline text-lg text-foreground mb-4">Material Selection Preview</h2>
             <div className="space-y-2 font-body text-sm text-foreground">
               <div>Metal: {materialSelection.metal}</div>
@@ -54,7 +54,7 @@ export default function TestStatusBarPage() {
                 <h3 className="font-headline text-lg text-foreground mb-2">
                   Test Content Block {i + 1}
                 </h3>
-                <BodyText className="text-gray-600">
+                <BodyText className="text-aurora-nav-muted">
                   This content helps test that the fixed-position status bar doesn't 
                   interfere with page scrolling and content interaction. The status bar 
                   should remain visible at the bottom while this content scrolls normally.

@@ -146,7 +146,7 @@ export default function CommissionHistory() {
       case 'failed':
         return <XCircle className="w-4 h-4 text-red-600" />
       default:
-        return <Clock className="w-4 h-4 text-gray-400" />
+        return <Clock className="w-4 h-4 text-aurora-nav-muted" />
     }
   }
 
@@ -183,8 +183,8 @@ export default function CommissionHistory() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">Commission History</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-xl font-semibold text-foreground">Commission History</h2>
+          <p className="text-sm text-aurora-nav-muted">
             Track your earnings and payout history
           </p>
         </div>
@@ -195,14 +195,14 @@ export default function CommissionHistory() {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-border">
         <nav className="flex space-x-8">
           <button
             onClick={() => setActiveTab('transactions')}
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'transactions'
                 ? 'border-amber-500 text-amber-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                : 'border-transparent text-aurora-nav-muted hover:text-foreground hover:border-border'
             }`}
           >
             Transactions
@@ -212,7 +212,7 @@ export default function CommissionHistory() {
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'payouts'
                 ? 'border-amber-500 text-amber-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                : 'border-transparent text-aurora-nav-muted hover:text-foreground hover:border-border'
             }`}
           >
             Payouts
@@ -225,11 +225,11 @@ export default function CommissionHistory() {
         <CardContent className="p-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex items-center space-x-2">
-              <Filter className="w-4 h-4 text-gray-400" />
+              <Filter className="w-4 h-4 text-aurora-nav-muted" />
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               >
                 <option value="all">All Status</option>
                 <option value="pending">Pending</option>
@@ -240,11 +240,11 @@ export default function CommissionHistory() {
             </div>
 
             <div className="flex items-center space-x-2">
-              <Calendar className="w-4 h-4 text-gray-400" />
+              <Calendar className="w-4 h-4 text-aurora-nav-muted" />
               <select
                 value={periodFilter}
                 onChange={(e) => setPeriodFilter(e.target.value)}
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               >
                 <option value="all">All Time</option>
                 <option value="30">Last 30 Days</option>
@@ -263,9 +263,9 @@ export default function CommissionHistory() {
           {transactions.length === 0 ? (
             <Card>
               <CardContent className="text-center py-12">
-                <DollarSign className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <div className="text-lg font-medium text-gray-900 mb-2">No transactions found</div>
-                <p className="text-gray-500">
+                <DollarSign className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <div className="text-lg font-medium text-foreground mb-2">No transactions found</div>
+                <p className="text-aurora-nav-muted">
                   Your commission transactions will appear here once you start making sales.
                 </p>
               </CardContent>
@@ -279,10 +279,10 @@ export default function CommissionHistory() {
                       <div className="flex items-center space-x-2">
                         {getStatusIcon(transaction.status)}
                         <div>
-                          <div className="font-medium text-gray-900">
+                          <div className="font-medium text-foreground">
                             Order #{transaction.orderId.slice(-8)}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-aurora-nav-muted">
                             {formatDate(transaction.createdAt)}
                           </div>
                         </div>
@@ -290,10 +290,10 @@ export default function CommissionHistory() {
                     </div>
 
                     <div className="text-right">
-                      <div className="font-semibold text-lg text-gray-900">
+                      <div className="font-semibold text-lg text-foreground">
                         {formatCurrency(transaction.commissionAmount)}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-aurora-nav-muted">
                         {transaction.commissionRate}% of {formatCurrency(transaction.orderAmount)}
                       </div>
                     </div>
@@ -314,8 +314,8 @@ export default function CommissionHistory() {
                   </div>
 
                   {transaction.notes && (
-                    <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-                      <div className="text-sm text-gray-600">{transaction.notes}</div>
+                    <div className="mt-4 p-3 bg-muted rounded-lg">
+                      <div className="text-sm text-aurora-nav-muted">{transaction.notes}</div>
                     </div>
                   )}
                 </CardContent>
@@ -329,9 +329,9 @@ export default function CommissionHistory() {
           {payouts.length === 0 ? (
             <Card>
               <CardContent className="text-center py-12">
-                <TrendingUp className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <div className="text-lg font-medium text-gray-900 mb-2">No payouts yet</div>
-                <p className="text-gray-500">
+                <TrendingUp className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <div className="text-lg font-medium text-foreground mb-2">No payouts yet</div>
+                <p className="text-aurora-nav-muted">
                   Your payouts will appear here once you reach the minimum payout threshold.
                 </p>
               </CardContent>
@@ -345,10 +345,10 @@ export default function CommissionHistory() {
                       <div className="flex items-center space-x-2">
                         {getStatusIcon(payout.status)}
                         <div>
-                          <div className="font-medium text-gray-900">
+                          <div className="font-medium text-foreground">
                             Payout #{payout.id}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-aurora-nav-muted">
                             {payout.transactionCount} transactions • {payout.paymentMethod}
                           </div>
                         </div>
@@ -356,10 +356,10 @@ export default function CommissionHistory() {
                     </div>
 
                     <div className="text-right">
-                      <div className="font-semibold text-lg text-gray-900">
+                      <div className="font-semibold text-lg text-foreground">
                         {formatCurrency(payout.amount, payout.currency)}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-aurora-nav-muted">
                         Scheduled: {formatDate(payout.payoutDate)}
                       </div>
                     </div>
@@ -373,27 +373,27 @@ export default function CommissionHistory() {
 
                   <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                      <span className="text-gray-500">Payment Method:</span>
+                      <span className="text-aurora-nav-muted">Payment Method:</span>
                       <div className="font-medium">{payout.paymentMethod}</div>
                     </div>
                     
                     {payout.paymentReference && (
                       <div>
-                        <span className="text-gray-500">Reference:</span>
+                        <span className="text-aurora-nav-muted">Reference:</span>
                         <div className="font-medium font-mono">{payout.paymentReference}</div>
                       </div>
                     )}
                     
                     {payout.completedAt && (
                       <div>
-                        <span className="text-gray-500">Completed:</span>
+                        <span className="text-aurora-nav-muted">Completed:</span>
                         <div className="font-medium">{formatDate(payout.completedAt)}</div>
                       </div>
                     )}
                     
                     {payout.failureReason && (
                       <div>
-                        <span className="text-gray-500">Failure Reason:</span>
+                        <span className="text-aurora-nav-muted">Failure Reason:</span>
                         <div className="font-medium text-red-600">{payout.failureReason}</div>
                       </div>
                     )}
@@ -413,25 +413,25 @@ export default function CommissionHistory() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(transactions.reduce((sum, t) => sum + t.commissionAmount, 0))}
               </div>
-              <div className="text-sm text-gray-500">Total Earned</div>
+              <div className="text-sm text-aurora-nav-muted">Total Earned</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(payouts.filter(p => p.status === 'completed').reduce((sum, p) => sum + p.amount, 0))}
               </div>
-              <div className="text-sm text-gray-500">Total Paid Out</div>
+              <div className="text-sm text-aurora-nav-muted">Total Paid Out</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(
                   transactions.filter(t => ['pending', 'approved'].includes(t.status))
                     .reduce((sum, t) => sum + t.commissionAmount, 0)
                 )}
               </div>
-              <div className="text-sm text-gray-500">Pending</div>
+              <div className="text-sm text-aurora-nav-muted">Pending</div>
             </div>
           </div>
         </CardContent>

@@ -59,7 +59,7 @@ export default function TestLoadingPage() {
           <h1 className="font-headline text-3xl text-foreground">
             3D Customizer Loading States Demo
           </h1>
-          <p className="font-body text-gray-600 bg-background">
+          <p className="font-body text-aurora-nav-muted bg-background">
             Interactive demonstration of CLAUDE_RULES compliant loading components
           </p>
         </div>
@@ -89,13 +89,13 @@ export default function TestLoadingPage() {
 
         {/* Progress Info */}
         <div className="text-center space-y-2">
-          <div className="font-body text-sm text-gray-600 bg-background">
+          <div className="font-body text-sm text-aurora-nav-muted bg-background">
             Current Phase: <span className="font-semibold text-foreground">{phase}</span>
           </div>
-          <div className="font-body text-sm text-gray-600 bg-background">
+          <div className="font-body text-sm text-aurora-nav-muted bg-background">
             Progress: <span className="font-semibold text-foreground">{Math.round(progress * 100)}%</span>
           </div>
-          <div className="font-body text-sm text-gray-600 bg-background">
+          <div className="font-body text-sm text-aurora-nav-muted bg-background">
             Frames: <span className="font-semibold text-foreground">{loadedFrames}/{frameCount}</span>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function TestLoadingPage() {
           <h3 className="font-headline text-lg text-foreground mb-4">
             CLAUDE_RULES Compliance Features
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-body text-sm text-gray-600 bg-muted">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-body text-sm text-aurora-nav-muted bg-muted">
             <div className="space-y-2">
               <h4 className="font-semibold text-foreground">Design System</h4>
               <ul className="space-y-1">

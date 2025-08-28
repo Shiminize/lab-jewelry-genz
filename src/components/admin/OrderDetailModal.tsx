@@ -367,13 +367,13 @@ export default function OrderDetailModal({ isOpen, onClose, orderId }: OrderDeta
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-background max-w-4xl w-full max-h-[90vh] rounded-lg shadow-xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b bg-white">
+        <div className="flex items-center justify-between p-6 border-b bg-background">
           <div>
             <H2 className="text-foreground">
               {order ? `Order ${order.orderNumber}` : 'Loading Order...'}
             </H2>
             {order && (
-              <BodyText className="text-gray-600 bg-white">
+              <BodyText className="text-aurora-nav-muted bg-background">
                 Created {new Date(order.createdAt).toLocaleString()}
               </BodyText>
             )}
@@ -415,7 +415,7 @@ export default function OrderDetailModal({ isOpen, onClose, orderId }: OrderDeta
         {order && (
           <>
             {/* Tabs */}
-            <div className="flex border-b bg-white">
+            <div className="flex border-b bg-background">
               {[
                 { id: 'overview', label: 'Overview', icon: Eye },
                 { id: 'items', label: 'Items', icon: Package },
@@ -432,7 +432,7 @@ export default function OrderDetailModal({ isOpen, onClose, orderId }: OrderDeta
                       "flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors",
                       activeTab === tab.id
                         ? "border-accent text-accent bg-accent/5"
-                        : "border-transparent text-gray-600 hover:text-foreground hover:border-gray-300"
+                        : "border-transparent text-aurora-nav-muted hover:text-foreground hover:border-border"
                     )}
                   >
                     <Icon className="w-4 h-4" />
@@ -508,19 +508,19 @@ const OverviewTab = ({ order }: { order: OrderDetailData }) => (
     {/* Order Summary */}
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Financial Summary */}
-      <div className="text-foreground bg-white rounded-lg border p-4">
+      <div className="text-foreground bg-background rounded-lg border p-4">
         <H3 className="mb-4 text-foreground">Order Summary</H3>
         <div className="space-y-2">
           <div className="flex justify-between">
-            <BodyText className="text-gray-600 bg-white">Subtotal:</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">Subtotal:</BodyText>
             <BodyText className="text-foreground">${order.subtotal.toFixed(2)}</BodyText>
           </div>
           <div className="flex justify-between">
-            <BodyText className="text-gray-600 bg-white">Shipping:</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">Shipping:</BodyText>
             <BodyText className="text-foreground">${order.shipping.toFixed(2)}</BodyText>
           </div>
           <div className="flex justify-between">
-            <BodyText className="text-gray-600 bg-white">Tax:</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">Tax:</BodyText>
             <BodyText className="text-foreground">${order.tax.toFixed(2)}</BodyText>
           </div>
           {order.discount > 0 && (
@@ -537,23 +537,23 @@ const OverviewTab = ({ order }: { order: OrderDetailData }) => (
       </div>
 
       {/* Admin Metadata */}
-      <div className="text-foreground bg-white rounded-lg border p-4">
+      <div className="text-foreground bg-background rounded-lg border p-4">
         <H3 className="mb-4 text-foreground">Admin Information</H3>
         <div className="space-y-3">
           <div className="flex justify-between items-center">
-            <BodyText className="text-gray-600 bg-white">Risk Level:</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">Risk Level:</BodyText>
             <RiskBadge level={order.adminMetadata.riskLevel} />
           </div>
           <div className="flex justify-between">
-            <BodyText className="text-gray-600 bg-white">Profit Margin:</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">Profit Margin:</BodyText>
             <BodyText className="text-foreground">${order.adminMetadata.profitMargin.toFixed(2)}</BodyText>
           </div>
           <div className="flex justify-between items-center">
-            <BodyText className="text-gray-600 bg-white">Priority:</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">Priority:</BodyText>
             <PriorityBadge priority={order.adminMetadata.fulfillmentPriority} />
           </div>
           <div className="flex justify-between items-center">
-            <BodyText className="text-gray-600 bg-white">Actions Required:</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">Actions Required:</BodyText>
             {order.adminMetadata.requiresAction ? (
               <span className="text-orange-600 font-medium">Yes</span>
             ) : (
@@ -576,7 +576,7 @@ const ItemsTab = ({ order }: { order: OrderDetailData }) => (
   <div className="space-y-4">
     <H3 className="text-foreground">Order Items ({order.items.length})</H3>
     {order.items.map((item, index) => (
-      <div key={index} className="text-foreground bg-white rounded-lg border p-4">
+      <div key={index} className="text-foreground bg-background rounded-lg border p-4">
         <div className="flex items-start gap-4">
           <img
             src={item.productImage}
@@ -585,26 +585,26 @@ const ItemsTab = ({ order }: { order: OrderDetailData }) => (
           />
           <div className="flex-1">
             <H3 className="text-foreground">{item.productName}</H3>
-            <BodyText className="text-gray-600 bg-white">SKU: {item.productSKU}</BodyText>
-            <BodyText className="text-gray-600 bg-white">
+            <BodyText className="text-aurora-nav-muted bg-background">SKU: {item.productSKU}</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">
               Quantity: {item.quantity} × ${item.unitPrice.toFixed(2)}
             </BodyText>
             
             {/* Customizations */}
             {item.customizations && (
-              <div className="mt-2 p-2 bg-gray-50 rounded">
-                <BodyText size="sm" className="font-medium text-gray-700">Customizations:</BodyText>
+              <div className="mt-2 p-2 bg-muted rounded">
+                <BodyText size="sm" className="font-medium text-foreground">Customizations:</BodyText>
                 {item.customizations.material && (
-                  <BodyText size="sm" className="text-gray-600">Material: {item.customizations.material}</BodyText>
+                  <BodyText size="sm" className="text-aurora-nav-muted">Material: {item.customizations.material}</BodyText>
                 )}
                 {item.customizations.gemstone && (
-                  <BodyText size="sm" className="text-gray-600">Gemstone: {item.customizations.gemstone}</BodyText>
+                  <BodyText size="sm" className="text-aurora-nav-muted">Gemstone: {item.customizations.gemstone}</BodyText>
                 )}
                 {item.customizations.size && (
-                  <BodyText size="sm" className="text-gray-600">Size: {item.customizations.size}</BodyText>
+                  <BodyText size="sm" className="text-aurora-nav-muted">Size: {item.customizations.size}</BodyText>
                 )}
                 {item.customizations.engraving && (
-                  <BodyText size="sm" className="text-gray-600">
+                  <BodyText size="sm" className="text-aurora-nav-muted">
                     Engraving: "{item.customizations.engraving.text}"
                   </BodyText>
                 )}
@@ -635,28 +635,28 @@ const ItemsTab = ({ order }: { order: OrderDetailData }) => (
 const CustomerTab = ({ order }: { order: OrderDetailData }) => (
   <div className="space-y-6">
     {/* Customer Information */}
-    <div className="text-foreground bg-white rounded-lg border p-4">
+    <div className="text-foreground bg-background rounded-lg border p-4">
       <H3 className="mb-4 text-foreground">Customer Information</H3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <BodyText size="sm" className="text-gray-600 bg-white">Name:</BodyText>
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background">Name:</BodyText>
           <BodyText className="text-foreground">
             {order.userId?.name || `${order.guestDetails?.firstName} ${order.guestDetails?.lastName}`}
           </BodyText>
         </div>
         <div>
-          <BodyText size="sm" className="text-gray-600 bg-white">Email:</BodyText>
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background">Email:</BodyText>
           <BodyText className="text-foreground">{order.email}</BodyText>
         </div>
         <div>
-          <BodyText size="sm" className="text-gray-600 bg-white">Customer Type:</BodyText>
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background">Customer Type:</BodyText>
           <BodyText className="text-foreground">
             {order.isGuest ? 'Guest Customer' : 'Registered Customer'}
           </BodyText>
         </div>
         {order.userId && (
           <div>
-            <BodyText size="sm" className="text-gray-600 bg-white">Member Since:</BodyText>
+            <BodyText size="sm" className="text-aurora-nav-muted bg-background">Member Since:</BodyText>
             <BodyText className="text-foreground">
               {new Date(order.userId.createdAt).toLocaleDateString()}
             </BodyText>
@@ -666,45 +666,45 @@ const CustomerTab = ({ order }: { order: OrderDetailData }) => (
     </div>
 
     {/* Customer Metrics */}
-    <div className="text-foreground bg-white rounded-lg border p-4">
+    <div className="text-foreground bg-background rounded-lg border p-4">
       <H3 className="mb-4 text-foreground">Customer Metrics</H3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="text-center">
           <BodyText className="text-2xl font-bold text-accent">
             {order.customerMetrics.totalOrders}
           </BodyText>
-          <BodyText size="sm" className="text-gray-600 bg-white">Total Orders</BodyText>
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background">Total Orders</BodyText>
         </div>
         <div className="text-center">
           <BodyText className="text-2xl font-bold text-accent">
             ${order.customerMetrics.totalSpent.toFixed(0)}
           </BodyText>
-          <BodyText size="sm" className="text-gray-600 bg-white">Total Spent</BodyText>
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background">Total Spent</BodyText>
         </div>
         <div className="text-center">
           <BodyText className="text-2xl font-bold text-accent">
             ${order.customerMetrics.averageOrderValue.toFixed(0)}
           </BodyText>
-          <BodyText size="sm" className="text-gray-600 bg-white">Avg Order Value</BodyText>
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background">Avg Order Value</BodyText>
         </div>
         <div className="text-center">
           <BodyText className="text-2xl font-bold text-accent">
             {Math.floor((new Date().getTime() - new Date(order.customerMetrics.firstOrderDate).getTime()) / (1000 * 60 * 60 * 24))}
           </BodyText>
-          <BodyText size="sm" className="text-gray-600 bg-white">Days as Customer</BodyText>
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background">Days as Customer</BodyText>
         </div>
       </div>
     </div>
 
     {/* Order History */}
-    <div className="text-foreground bg-white rounded-lg border p-4">
+    <div className="text-foreground bg-background rounded-lg border p-4">
       <H3 className="mb-4 text-foreground">Recent Order History</H3>
       <div className="space-y-2">
         {order.customerOrderHistory.map((historyOrder, index) => (
           <div key={index} className="flex justify-between items-center py-2 border-b last:border-b-0">
             <div>
               <BodyText className="text-foreground">{historyOrder.orderNumber}</BodyText>
-              <BodyText size="sm" className="text-gray-600 bg-white">
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                 {new Date(historyOrder.createdAt).toLocaleDateString()}
               </BodyText>
             </div>
@@ -731,13 +731,13 @@ const TimelineTab = ({ order }: { order: OrderDetailData }) => (
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <BodyText className="font-medium text-foreground">{event.status}</BodyText>
-              <BodyText size="sm" className="text-gray-600 bg-white">
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                 {new Date(event.createdAt).toLocaleString()}
               </BodyText>
             </div>
-            <BodyText className="text-gray-600 bg-white">{event.message}</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">{event.message}</BodyText>
             {event.updatedBy && (
-              <BodyText size="sm" className="text-gray-500">Updated by: {event.updatedBy}</BodyText>
+              <BodyText size="sm" className="text-aurora-nav-muted">Updated by: {event.updatedBy}</BodyText>
             )}
           </div>
         </div>
@@ -750,10 +750,10 @@ const TimelineTab = ({ order }: { order: OrderDetailData }) => (
         <H3 className="text-foreground mb-4">Admin Notes</H3>
         <div className="space-y-3">
           {order.adminNotes.map((note, index) => (
-            <div key={index} className="text-foreground bg-white rounded-lg border p-3">
+            <div key={index} className="text-foreground bg-background rounded-lg border p-3">
               <div className="flex items-center gap-2 mb-2">
                 <MessageSquare className="w-4 h-4 text-accent" />
-                <BodyText size="sm" className="text-gray-600 bg-white">
+                <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                   {new Date(note.createdAt).toLocaleString()}
                 </BodyText>
                 <span className={cn(
@@ -811,7 +811,7 @@ const ActionsTab = ({
 }) => (
   <div className="space-y-6">
     {/* Status Update */}
-    <div className="text-foreground bg-white rounded-lg border p-4">
+    <div className="text-foreground bg-background rounded-lg border p-4">
       <div className="flex items-center justify-between mb-4">
         <H3 className="text-foreground">Update Order Status</H3>
         <Button
@@ -831,7 +831,7 @@ const ActionsTab = ({
             <select
               value={statusForm.status}
               onChange={(e) => setStatusForm({ ...statusForm, status: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <option value="pending">Pending</option>
               <option value="confirmed">Confirmed</option>
@@ -849,7 +849,7 @@ const ActionsTab = ({
               value={statusForm.message}
               onChange={(e) => setStatusForm({ ...statusForm, message: e.target.value })}
               placeholder="Additional information about this status change..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               rows={3}
             />
           </div>
@@ -860,7 +860,7 @@ const ActionsTab = ({
               id="notifyCustomer"
               checked={statusForm.notifyCustomer}
               onChange={(e) => setStatusForm({ ...statusForm, notifyCustomer: e.target.checked })}
-              className="rounded border-gray-300 focus:ring-accent"
+              className="rounded border-border focus:ring-accent"
             />
             <label htmlFor="notifyCustomer" className="text-sm text-foreground">
               Notify customer via email
@@ -877,14 +877,14 @@ const ActionsTab = ({
           </Button>
         </div>
       ) : (
-        <BodyText className="text-gray-600 bg-white">
+        <BodyText className="text-aurora-nav-muted bg-background">
           Current status: <span className="font-medium text-foreground">{order.status}</span>
         </BodyText>
       )}
     </div>
 
     {/* Shipping Information */}
-    <div className="text-foreground bg-white rounded-lg border p-4">
+    <div className="text-foreground bg-background rounded-lg border p-4">
       <div className="flex items-center justify-between mb-4">
         <H3 className="text-foreground">Shipping Information</H3>
         <Button
@@ -906,7 +906,7 @@ const ActionsTab = ({
                 type="text"
                 value={shippingForm.trackingNumber}
                 onChange={(e) => setShippingForm({ ...shippingForm, trackingNumber: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               />
             </div>
             
@@ -915,7 +915,7 @@ const ActionsTab = ({
               <select
                 value={shippingForm.carrier}
                 onChange={(e) => setShippingForm({ ...shippingForm, carrier: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               >
                 <option value="">Select Carrier</option>
                 <option value="UPS">UPS</option>
@@ -932,7 +932,7 @@ const ActionsTab = ({
               type="date"
               value={shippingForm.estimatedDelivery}
               onChange={(e) => setShippingForm({ ...shippingForm, estimatedDelivery: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           
@@ -967,14 +967,14 @@ const ActionsTab = ({
               )}
             </>
           ) : (
-            <BodyText className="text-gray-600 bg-white">No tracking information available</BodyText>
+            <BodyText className="text-aurora-nav-muted bg-background">No tracking information available</BodyText>
           )}
         </div>
       )}
     </div>
 
     {/* Add Note */}
-    <div className="text-foreground bg-white rounded-lg border p-4">
+    <div className="text-foreground bg-background rounded-lg border p-4">
       <div className="flex items-center justify-between mb-4">
         <H3 className="text-foreground">Add Note</H3>
         <Button
@@ -995,7 +995,7 @@ const ActionsTab = ({
               value={noteForm.note}
               onChange={(e) => setNoteForm({ ...noteForm, note: e.target.value })}
               placeholder="Add a note about this order..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+              className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               rows={4}
             />
           </div>
@@ -1006,7 +1006,7 @@ const ActionsTab = ({
               id="isInternal"
               checked={noteForm.isInternal}
               onChange={(e) => setNoteForm({ ...noteForm, isInternal: e.target.checked })}
-              className="rounded border-gray-300 focus:ring-accent"
+              className="rounded border-border focus:ring-accent"
             />
             <label htmlFor="isInternal" className="text-sm text-foreground">
               Internal note (not visible to customer)
@@ -1029,13 +1029,13 @@ const ActionsTab = ({
 
 // Helper Components
 const StatusCard = ({ title, status, type, icon: Icon, description }: any) => (
-  <div className="text-foreground bg-white rounded-lg border p-4">
+  <div className="text-foreground bg-background rounded-lg border p-4">
     <div className="flex items-center gap-3 mb-2">
       <Icon className="w-5 h-5 text-accent" />
       <H3 className="text-foreground">{title}</H3>
     </div>
     <StatusBadge status={status} type={type} />
-    <BodyText size="sm" className="text-gray-600 bg-white mt-2">{description}</BodyText>
+    <BodyText size="sm" className="text-aurora-nav-muted bg-background mt-2">{description}</BodyText>
   </div>
 )
 
@@ -1048,9 +1048,9 @@ const StatusBadge = ({ status, type }: { status: string; type: string }) => {
         case 'processing': return 'bg-purple-100 text-purple-800 border-purple-200'
         case 'shipped': return 'bg-indigo-100 text-indigo-800 border-indigo-200'
         case 'delivered': return 'bg-green-100 text-green-800 border-green-200'
-        case 'cancelled': return 'bg-gray-100 text-gray-800 border-gray-200'
+        case 'cancelled': return 'bg-muted text-foreground border-border'
         case 'refunded': return 'bg-red-100 text-red-800 border-red-200'
-        default: return 'bg-gray-100 text-gray-800 border-gray-200'
+        default: return 'bg-muted text-foreground border-border'
       }
     } else if (type === 'payment') {
       switch (status) {
@@ -1058,14 +1058,14 @@ const StatusBadge = ({ status, type }: { status: string; type: string }) => {
         case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
         case 'failed': return 'bg-red-100 text-red-800 border-red-200'
         case 'refunded': return 'bg-orange-100 text-orange-800 border-orange-200'
-        default: return 'bg-gray-100 text-gray-800 border-gray-200'
+        default: return 'bg-muted text-foreground border-border'
       }
     } else {
       switch (status) {
         case 'delivered': return 'bg-green-100 text-green-800 border-green-200'
         case 'shipped': return 'bg-blue-100 text-blue-800 border-blue-200'
         case 'preparing': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-        default: return 'bg-gray-100 text-gray-800 border-gray-200'
+        default: return 'bg-muted text-foreground border-border'
       }
     }
   }
@@ -1096,7 +1096,7 @@ const RiskBadge = ({ level }: { level: 'low' | 'medium' | 'high' }) => {
 
 const PriorityBadge = ({ priority }: { priority: 'low' | 'medium' | 'high' | 'urgent' }) => {
   const colors = {
-    low: 'bg-gray-100 text-gray-800 border-gray-200',
+    low: 'bg-muted text-foreground border-border',
     medium: 'bg-blue-100 text-blue-800 border-blue-200',
     high: 'bg-orange-100 text-orange-800 border-orange-200',
     urgent: 'bg-red-100 text-red-800 border-red-200'
@@ -1110,7 +1110,7 @@ const PriorityBadge = ({ priority }: { priority: 'low' | 'medium' | 'high' | 'ur
 }
 
 const AddressCard = ({ title, address }: { title: string; address: Address }) => (
-  <div className="text-foreground bg-white rounded-lg border p-4">
+  <div className="text-foreground bg-background rounded-lg border p-4">
     <H3 className="mb-3 text-foreground">{title}</H3>
     <div className="space-y-1">
       <BodyText className="text-foreground">

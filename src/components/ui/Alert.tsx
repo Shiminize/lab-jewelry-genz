@@ -5,15 +5,16 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const alertVariants = cva(
-  'relative w-full border px-4 py-3 text-sm font-body',
+  'relative w-full border px-4 py-3 text-sm font-body aurora-living-component aurora-interactive-shadow',
   {
     variants: {
       variant: {
         default: 'bg-background text-foreground border-border',
-        warning: 'bg-accent/10 text-foreground border-accent/50',
-        error: 'bg-error/10 text-foreground border-error/50',
-        success: 'bg-cta/10 text-foreground border-cta/50',
-        info: 'bg-accent/10 text-foreground border-accent/50'
+        warning: 'bg-accent/10 text-foreground border-accent/30 aurora-shimmer-overlay',
+        error: 'bg-cta/10 text-foreground border-cta/30',
+        success: 'bg-accent/10 text-foreground border-accent/30',
+        info: 'bg-foreground/10 text-foreground border-foreground/30',
+        aurora: 'bg-gradient-to-r from-accent/10 to-foreground/10 text-foreground border-accent/30 aurora-pulse'
       }
     },
     defaultVariants: {

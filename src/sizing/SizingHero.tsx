@@ -39,7 +39,7 @@ export function SizingHero({ selectedTool, setSelectedTool }: SizingHeroProps) {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-background py-12 lg:py-20 border-b border-gray-100/30">
+      <section className="bg-background py-12 lg:py-20 border-b border-border/30">
         <div className="container-luxury">
           <div className="max-w-4xl mx-auto align-marketing">
             <Ruler className="w-16 h-16 mx-auto mb-8 text-accent" />
@@ -76,7 +76,7 @@ export function SizingHero({ selectedTool, setSelectedTool }: SizingHeroProps) {
       </section>
 
       {/* Tool Selection */}
-      <section className="bg-muted py-8 sticky top-0 z-10 border-b border-gray-100/30">
+      <section className="bg-muted py-8 sticky top-0 z-10 border-b border-border/30">
         <div className="container-luxury">
           <div className="flex flex-wrap justify-center gap-4">
             {tools.map((tool) => (

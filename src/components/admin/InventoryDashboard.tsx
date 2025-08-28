@@ -124,7 +124,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       case 'in-stock': return <CheckCircle className="w-5 h-5 text-green-500" />
       case 'low-stock': return <AlertTriangle className="w-5 h-5 text-yellow-500" />
       case 'out-of-stock': return <XCircle className="w-5 h-5 text-red-500" />
-      default: return <Clock className="w-5 h-5 text-gray-500" />
+      default: return <Clock className="w-5 h-5 text-aurora-nav-muted" />
     }
   }
 
@@ -134,7 +134,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       case 'high': return 'text-orange-600 bg-orange-50 border-orange-200'
       case 'medium': return 'text-yellow-600 bg-yellow-50 border-yellow-200'
       case 'low': return 'text-accent bg-accent/10 border-accent/20'
-      default: return 'text-gray-600 bg-muted border-border'
+      default: return 'text-aurora-nav-muted bg-muted border-border'
     }
   }
 
@@ -160,7 +160,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <H1 className="text-foreground">Inventory Management</H1>
-          <BodyText className="text-gray-600 bg-background">Monitor stock levels, alerts, and inventory analytics</BodyText>
+          <BodyText className="text-aurora-nav-muted bg-background">Monitor stock levels, alerts, and inventory analytics</BodyText>
         </div>
         <div className="flex gap-2">
           <Button
@@ -184,20 +184,20 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="text-foreground bg-white p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-lg border">
           <div className="flex items-center justify-between">
             <div>
-              <BodyText size="sm" className="text-gray-600 bg-white font-medium">Total Products</BodyText>
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">Total Products</BodyText>
               <H3 className="text-foreground">{summary.totalProducts || 0}</H3>
             </div>
             <Package className="w-8 h-8 text-accent" />
           </div>
         </div>
 
-        <div className="text-foreground bg-white p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-lg border">
           <div className="flex items-center justify-between">
             <div>
-              <BodyText size="sm" className="text-gray-600 bg-white font-medium">Inventory Value</BodyText>
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">Inventory Value</BodyText>
               <H3 className="text-foreground">
                 ${summary.totalInventoryValue?.toLocaleString() || 0}
               </H3>
@@ -206,20 +206,20 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
           </div>
         </div>
 
-        <div className="text-foreground bg-white p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-lg border">
           <div className="flex items-center justify-between">
             <div>
-              <BodyText size="sm" className="text-gray-600 bg-white font-medium">Low Stock Alerts</BodyText>
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">Low Stock Alerts</BodyText>
               <H3 className="text-foreground">{summary.lowStockProducts || 0}</H3>
             </div>
             <AlertTriangle className="w-8 h-8 text-accent" />
           </div>
         </div>
 
-        <div className="text-foreground bg-white p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-lg border">
           <div className="flex items-center justify-between">
             <div>
-              <BodyText size="sm" className="text-gray-600 bg-white font-medium">Out of Stock</BodyText>
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">Out of Stock</BodyText>
               <H3 className="text-foreground">{summary.outOfStockProducts || 0}</H3>
             </div>
             <XCircle className="w-8 h-8 text-accent" />
@@ -267,13 +267,13 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       {activeTab === 'overview' && (
         <div className="space-y-6">
           {/* Recent Alerts */}
-          <div className="text-foreground bg-white rounded-lg border">
+          <div className="text-foreground bg-background rounded-lg border">
             <div className="p-6 border-b border-border">
               <H3 className="text-foreground">Recent Alerts</H3>
             </div>
             <div className="p-6">
               {alerts.slice(0, 5).length === 0 ? (
-                <BodyText className="text-gray-600 bg-white text-center py-8">No active alerts</BodyText>
+                <BodyText className="text-aurora-nav-muted bg-background text-center py-8">No active alerts</BodyText>
               ) : (
                 <div className="space-y-3">
                   {alerts.slice(0, 5).map((alert, index) => (
@@ -284,8 +284,8 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
                       <div className="flex items-start justify-between">
                         <div>
                           <BodyText className="font-medium text-foreground">{alert.productName}</BodyText>
-                          <BodyText size="sm" className="text-gray-600 bg-white opacity-90">{alert.message}</BodyText>
-                          <BodyText size="xs" className="text-gray-600 bg-white opacity-75 mt-1">{alert.category}</BodyText>
+                          <BodyText size="sm" className="text-aurora-nav-muted bg-background opacity-90">{alert.message}</BodyText>
+                          <BodyText size="xs" className="text-aurora-nav-muted bg-background opacity-75 mt-1">{alert.category}</BodyText>
                         </div>
                         <span className={`px-2 py-1 rounded text-xs font-medium ${getAlertSeverityColor(alert.severity)}`}>
                           {alert.severity.toUpperCase()}
@@ -303,24 +303,24 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       {activeTab === 'products' && (
         <div className="space-y-4">
           {/* Filters */}
-          <div className="bg-white p-4 rounded-lg border border-gray-200">
+          <div className="bg-background p-4 rounded-lg border border-border">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-aurora-nav-muted" />
                   <input
                     type="text"
                     placeholder="Search products..."
                     value={filters.search}
                     onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+                    className="pl-10 pr-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
                   />
                 </div>
               </div>
               <select
                 value={filters.status}
                 onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Status</option>
                 <option value="in-stock">In Stock</option>
@@ -331,60 +331,60 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
           </div>
 
           {/* Products Table */}
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <div className="bg-background rounded-lg border border-border overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-border">
+                <thead className="bg-muted">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                       Product
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                       Stock
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                       Price
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                       Performance
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-right text-xs font-medium text-aurora-nav-muted uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-background divide-y divide-border">
                   {filteredProducts.map((product) => (
-                    <tr key={product._id} className="hover:bg-gray-50">
+                    <tr key={product._id} className="hover:bg-muted">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div>
-                          <div className="text-sm font-medium text-gray-900">{product.name}</div>
-                          <div className="text-sm text-gray-500">{product.category}</div>
+                          <div className="text-sm font-medium text-foreground">{product.name}</div>
+                          <div className="text-sm text-aurora-nav-muted">{product.category}</div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-2">
                           {getStockStatusIcon(product.stockStatus)}
-                          <span className="text-sm text-gray-900 capitalize">
+                          <span className="text-sm text-foreground capitalize">
                             {product.stockStatus.replace('-', ' ')}
                           </span>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">
+                        <div className="text-sm text-foreground">
                           {product.availableInventory} / {product.totalInventory}
                         </div>
-                        <div className="text-sm text-gray-500">Available / Total</div>
+                        <div className="text-sm text-aurora-nav-muted">Available / Total</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">${product.basePrice}</div>
+                        <div className="text-sm text-foreground">${product.basePrice}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{product.analytics?.views || 0} views</div>
-                        <div className="text-sm text-gray-500">{product.analytics?.purchases || 0} sales</div>
+                        <div className="text-sm text-foreground">{product.analytics?.views || 0} views</div>
+                        <div className="text-sm text-aurora-nav-muted">{product.analytics?.purchases || 0} sales</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button
@@ -408,16 +408,16 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
 
       {activeTab === 'alerts' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-lg border border-gray-200">
-            <div className="p-6 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900">Inventory Alerts</h3>
+          <div className="bg-background rounded-lg border border-border">
+            <div className="p-6 border-b border-border">
+              <h3 className="text-lg font-semibold text-foreground">Inventory Alerts</h3>
             </div>
             <div className="p-6">
               {alerts.length === 0 ? (
                 <div className="text-center py-12">
                   <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">All Clear!</h3>
-                  <p className="text-gray-500">No inventory alerts at this time.</p>
+                  <h3 className="text-lg font-medium text-foreground mb-2">All Clear!</h3>
+                  <p className="text-aurora-nav-muted">No inventory alerts at this time.</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -465,9 +465,9 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
 
       {activeTab === 'analytics' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Inventory Analytics</h3>
-            <p className="text-gray-500">Advanced analytics coming soon...</p>
+          <div className="bg-background p-6 rounded-lg border border-border">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Inventory Analytics</h3>
+            <p className="text-aurora-nav-muted">Advanced analytics coming soon...</p>
           </div>
         </div>
       )}
@@ -475,13 +475,13 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       {/* Restock Modal */}
       {showRestockModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Restock Products</h3>
-            <p className="text-gray-600 mb-4">Restock functionality will be implemented in the next phase.</p>
+          <div className="bg-background rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Restock Products</h3>
+            <p className="text-aurora-nav-muted mb-4">Restock functionality will be implemented in the next phase.</p>
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setShowRestockModal(false)}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 border border-border rounded-lg hover:bg-muted transition-colors"
               >
                 Cancel
               </button>

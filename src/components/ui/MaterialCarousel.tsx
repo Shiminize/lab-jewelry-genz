@@ -213,7 +213,7 @@ export const MaterialCarousel: React.FC<MaterialCarouselProps> = ({
                     <div className="font-medium text-sm truncate">
                       {material.displayName}
                     </div>
-                    <div className="text-xs text-gray-600 bg-background flex items-center space-x-2">
+                    <div className="text-xs text-aurora-nav-muted flex items-center space-x-2">
                       <span>
                         {material.priceModifier >= 0 ? '+' : ''}
                         ${Math.abs(material.priceModifier)}

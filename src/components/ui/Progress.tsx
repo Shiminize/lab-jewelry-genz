@@ -25,15 +25,16 @@ const progressVariants = cva(
 )
 
 const progressBarVariants = cva(
-  'h-full transition-all duration-300 ease-in-out',
+  'h-full transition-all duration-300 ease-in-out aurora-shimmer-overlay',
   {
     variants: {
       variant: {
-        default: 'bg-cta',
-        accent: 'bg-accent',
-        success: 'bg-green-500',
-        warning: 'bg-yellow-500',
-        error: 'bg-red-500'
+        default: 'bg-gradient-to-r from-accent to-cta aurora-pulse',
+        aurora: 'bg-gradient-to-r from-foreground via-accent to-cta aurora-gradient-shift',
+        accent: 'bg-foreground aurora-interactive-shadow',
+        success: 'bg-accent',
+        warning: 'bg-accent/80',
+        error: 'bg-cta'
       }
     },
     defaultVariants: {
@@ -78,7 +79,7 @@ export function Progress({
         />
       </div>
       {showValue && (
-        <div className="flex justify-between text-xs text-gray-600">
+        <div className="flex justify-between text-xs text-aurora-nav-muted">
           <span>{value}</span>
           <span>{max}</span>
         </div>

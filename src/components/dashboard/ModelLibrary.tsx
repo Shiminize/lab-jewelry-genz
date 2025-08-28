@@ -188,7 +188,7 @@ export function ModelLibrary({
   }
 
   const getSequenceStatus = (model: GLBModel) => {
-    if (!model.hasSequences) return { color: 'bg-gray-100 text-gray-600', text: 'No sequences' }
+    if (!model.hasSequences) return { color: 'bg-muted text-aurora-nav-muted', text: 'No sequences' }
     if (model.sequenceCount < 144) return { color: 'bg-yellow-100 text-yellow-600', text: 'Partial' }
     return { color: 'bg-green-100 text-green-600', text: 'Complete' }
   }
@@ -234,7 +234,7 @@ export function ModelLibrary({
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
             <div className="flex items-center gap-4 flex-1">
               <div className="relative flex-1 max-w-sm">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                 <Input
                   placeholder="Search models..."
                   value={searchTerm}
@@ -292,7 +292,7 @@ export function ModelLibrary({
                     <CardTitle className="text-lg font-medium truncate">
                       {model.name}
                     </CardTitle>
-                    <p className="text-sm text-gray-500 truncate">
+                    <p className="text-sm text-aurora-nav-muted truncate">
                       {model.fileName}
                     </p>
                   </div>
@@ -304,19 +304,19 @@ export function ModelLibrary({
               
               <CardContent className="pt-0">
                 {/* Model Preview Placeholder */}
-                <div className="aspect-square bg-gray-100 rounded-lg mb-3 flex items-center justify-center">
-                  <FileIcon className="w-8 h-8 text-gray-400" />
+                <div className="aspect-square bg-muted rounded-lg mb-3 flex items-center justify-center">
+                  <FileIcon className="w-8 h-8 text-muted-foreground" />
                 </div>
                 
                 {/* Model Info */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-500">Size:</span>
+                    <span className="text-aurora-nav-muted">Size:</span>
                     <span>{formatFileSize(model.size)}</span>
                   </div>
                   
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-500">Sequences:</span>
+                    <span className="text-aurora-nav-muted">Sequences:</span>
                     <Badge className={`${sequenceStatus.color} text-xs`}>
                       {sequenceStatus.text}
                     </Badge>
@@ -324,7 +324,7 @@ export function ModelLibrary({
                   
                   {model.sequenceCount > 0 && (
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-500">Images:</span>
+                      <span className="text-aurora-nav-muted">Images:</span>
                       <span>{model.sequenceCount}</span>
                     </div>
                   )}
@@ -352,9 +352,9 @@ export function ModelLibrary({
 
       {filteredModels.length === 0 && (
         <div className="text-center py-12">
-          <AlertCircle className="mx-auto h-12 w-12 text-gray-400" />
-          <h3 className="mt-4 text-lg font-medium text-gray-900">No models found</h3>
-          <p className="mt-2 text-sm text-gray-500">
+          <AlertCircle className="mx-auto h-12 w-12 text-muted-foreground" />
+          <h3 className="mt-4 text-lg font-medium text-foreground">No models found</h3>
+          <p className="mt-2 text-sm text-aurora-nav-muted">
             {searchTerm || filterCategory !== 'all' 
               ? 'Try adjusting your search or filter criteria'
               : 'Upload GLB files to get started'
@@ -365,13 +365,13 @@ export function ModelLibrary({
 
       {/* Selection Summary */}
       {selectedModels.length > 0 && (
-        <div className="fixed bottom-6 right-6 bg-white rounded-lg shadow-lg border p-4 min-w-[300px]">
+        <div className="fixed bottom-6 right-6 bg-background rounded-lg shadow-lg border p-4 min-w-[300px]">
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="font-medium text-gray-900">
+              <h4 className="font-medium text-foreground">
                 {selectedModels.length} model{selectedModels.length !== 1 ? 's' : ''} selected
               </h4>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-aurora-nav-muted">
                 Will generate {selectedModels.length * 4} material variants
               </p>
             </div>

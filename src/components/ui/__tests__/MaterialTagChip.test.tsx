@@ -37,7 +37,7 @@ describe('MaterialTagChip', () => {
       const chip = screen.getByRole('button', { name: /add 1ct lab diamond filter/i })
       expect(chip).toBeInTheDocument()
       expect(chip).toHaveTextContent('1CT Lab Diamond')
-      expect(chip).toHaveClass('text-accent', 'bg-white')
+      expect(chip).toHaveClass('text-accent', 'bg-background')
     })
 
     it('renders metal tag with correct styling', () => {
@@ -55,7 +55,7 @@ describe('MaterialTagChip', () => {
       const chip = screen.getByRole('button', { name: /add 1ct filter/i })
       expect(chip).toBeInTheDocument()
       expect(chip).toHaveTextContent('1CT')
-      expect(chip).toHaveClass('text-foreground', 'bg-white')
+      expect(chip).toHaveClass('text-foreground', 'bg-background')
     })
 
     it('renders with icon when provided', () => {
@@ -265,7 +265,7 @@ describe('MaterialTagChip', () => {
       render(<MaterialTagChip tag={mockStoneTag} />)
       
       const chip = screen.getByRole('button')
-      expect(chip).toHaveClass('text-accent', 'bg-white', 'border-accent/20')
+      expect(chip).toHaveClass('text-accent', 'bg-background', 'border-accent/20')
     })
 
     it('applies metal category styling correctly', () => {
@@ -279,7 +279,7 @@ describe('MaterialTagChip', () => {
       render(<MaterialTagChip tag={mockCaratTag} />)
       
       const chip = screen.getByRole('button')
-      expect(chip).toHaveClass('text-foreground', 'bg-white', 'border-border')
+      expect(chip).toHaveClass('text-foreground', 'bg-background', 'border-border')
     })
 
     it('overrides category styling when selected', () => {

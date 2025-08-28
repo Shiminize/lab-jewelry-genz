@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { MinimalistHeader } from '@/components/navigation/MinimalistHeader'
+import { AuroraNavigation } from '@/components/navigation'
 import { MinimalistMoissaniteHero } from 'html-demo/MinimalistMoissaniteHero'
 import { MinimalistWireframes } from 'html-demo/MinimalistWireframes'
 import { Button } from '@/components/ui/Button'
@@ -82,41 +82,41 @@ export default function MinimalistDemoPage() {
               <h2 className="text-foreground bg-background font-headline font-bold text-3xl lg:text-4xl">
                 Minimalist Design Strategy
               </h2>
-              <p className="text-gray-600 bg-background font-body text-lg">
+              <p className="text-aurora-nav-muted bg-background font-body text-lg">
                 This redesign focuses on promoting our volume products (Moissanite + 925 Silver) 
                 while maintaining the luxury positioning outlined in our PRD.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white rounded-xl p-6 space-y-4">
+              <div className="bg-background rounded-xl p-6 space-y-4">
                 <div className="w-12 h-12 bg-cta/10 rounded-xl flex items-center justify-center mx-auto">
                   <Sparkles className="w-6 h-6 text-cta" />
                 </div>
-                <h3 className="text-foreground bg-white font-semibold text-lg">Product Focus</h3>
-                <p className="text-gray-600 bg-white text-sm">
+                <h3 className="text-foreground bg-background font-semibold text-lg">Product Focus</h3>
+                <p className="text-aurora-nav-muted bg-background text-sm">
                   Hero section prominently features Moissanite collection with clear value propositions: 
                   2.5x brighter, 70% more affordable, 90% more sustainable.
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl p-6 space-y-4">
+              <div className="bg-background rounded-xl p-6 space-y-4">
                 <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mx-auto">
                   <div className="w-6 h-6 bg-accent rounded-sm" />
                 </div>
-                <h3 className="text-foreground bg-white font-semibold text-lg">Simplified Navigation</h3>
-                <p className="text-gray-600 bg-white text-sm">
+                <h3 className="text-foreground bg-background font-semibold text-lg">Simplified Navigation</h3>
+                <p className="text-aurora-nav-muted bg-background text-sm">
                   Reduced from 8+ categories to 4 core sections: Moissanite, Custom Design, 
                   Collections, and Creators program.
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl p-6 space-y-4">
+              <div className="bg-background rounded-xl p-6 space-y-4">
                 <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto">
                   <div className="w-6 h-6 bg-green-500 rounded-full" />
                 </div>
-                <h3 className="text-foreground bg-white font-semibold text-lg">PRD Compliance</h3>
-                <p className="text-gray-600 bg-white text-sm">
+                <h3 className="text-foreground bg-background font-semibold text-lg">PRD Compliance</h3>
+                <p className="text-aurora-nav-muted bg-background text-sm">
                   Uses approved color combinations and typography system from PRD. 
                   Maintains accessibility and performance requirements.
                 </p>
@@ -126,13 +126,13 @@ export default function MinimalistDemoPage() {
             <div className="bg-gradient-to-r from-cta/5 to-accent/5 rounded-xl p-6">
               <h3 className="text-foreground bg-background font-semibold text-lg mb-4">Key Improvements</h3>
               <div className="grid md:grid-cols-2 gap-4 text-left">
-                <ul className="space-y-2 text-sm text-gray-600 bg-background">
+                <ul className="space-y-2 text-sm text-aurora-nav-muted bg-background">
                   <li>• Moissanite prominently featured in header banner</li>
                   <li>• 3D customizer elevated to primary navigation</li>
                   <li>• Creator program integration throughout</li>
                   <li>• Social proof positioned strategically</li>
                 </ul>
-                <ul className="space-y-2 text-sm text-gray-600 bg-background">
+                <ul className="space-y-2 text-sm text-aurora-nav-muted bg-background">
                   <li>• Reduced cognitive load with cleaner hierarchy</li>
                   <li>• Mobile-first responsive design</li>
                   <li>• Clear value propositions and CTAs</li>
@@ -211,7 +211,7 @@ export default function MinimalistDemoPage() {
       {/* Footer */}
       <footer className="bg-muted/50 py-8">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-600 bg-background text-sm">
+          <p className="text-aurora-nav-muted bg-background text-sm">
             Minimalist redesign prototype • Based on {' '}
             <button
               onClick={() => window.open('/Docs/PRD_COMPLETE_2025.md', '_blank')}

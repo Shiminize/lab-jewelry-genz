@@ -103,8 +103,8 @@ export default function CustomizationPanel({
 
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">Choose Your Material</h3>
-        <p className="text-sm text-gray-600 mb-4">Select from our collection of recycled precious metals</p>
+        <h3 className="text-lg font-semibold text-foreground">Choose Your Material</h3>
+        <p className="text-sm text-aurora-nav-muted mb-4">Select from our collection of recycled precious metals</p>
         <div className="grid grid-cols-2 gap-3">
           {product.customization.materials.map((material) => (
             <button
@@ -113,19 +113,19 @@ export default function CustomizationPanel({
               className={`relative p-4 rounded-lg border-2 transition-all duration-200 text-left ${
                 customization.material === material.id
                   ? 'border-amber-500 bg-amber-50'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
+                  : 'border-border hover:border-border bg-background'
               }`}
             >
               {/* Material Color Preview */}
               <div
-                className="w-8 h-8 rounded-full mb-3 border-2 border-gray-200"
+                className="w-8 h-8 rounded-full mb-3 border-2 border-border"
                 style={{ backgroundColor: material.color }}
               />
               
               <div className="space-y-1">
-                <div className="font-medium text-gray-900">{material.name}</div>
+                <div className="font-medium text-foreground">{material.name}</div>
                 {material.description && (
-                  <div className="text-xs text-gray-600">{material.description}</div>
+                  <div className="text-xs text-aurora-nav-muted">{material.description}</div>
                 )}
                 {getPriceModifier(material.priceModifier) && (
                   <div className="text-sm font-medium text-amber-600">
@@ -156,7 +156,7 @@ export default function CustomizationPanel({
 
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">Gemstone</h3>
+        <h3 className="text-lg font-semibold text-foreground">Gemstone</h3>
         <div className="grid grid-cols-2 gap-3">
           {product.customization.gemstones.map((gemstone) => (
             <button
@@ -165,24 +165,24 @@ export default function CustomizationPanel({
               className={`relative p-4 rounded-lg border-2 transition-all duration-200 text-left ${
                 customization.gemstone === gemstone.id
                   ? 'border-amber-500 bg-amber-50'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
+                  : 'border-border hover:border-border bg-background'
               }`}
             >
               {/* Gemstone Color Preview */}
               <div
-                className="w-8 h-8 rounded-full mb-3 border-2 border-gray-200 relative overflow-hidden"
+                className="w-8 h-8 rounded-full mb-3 border-2 border-border relative overflow-hidden"
                 style={{ backgroundColor: gemstone.color }}
               >
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-white/40" />
               </div>
               
               <div className="space-y-1">
-                <div className="font-medium text-gray-900">{gemstone.name}</div>
-                <div className="text-xs text-gray-600">
+                <div className="font-medium text-foreground">{gemstone.name}</div>
+                <div className="text-xs text-aurora-nav-muted">
                   {gemstone.size} • {gemstone.clarity}
                 </div>
                 {gemstone.description && (
-                  <div className="text-xs text-gray-600">{gemstone.description}</div>
+                  <div className="text-xs text-aurora-nav-muted">{gemstone.description}</div>
                 )}
                 {getPriceModifier(gemstone.priceModifier) && (
                   <div className="text-sm font-medium text-amber-600">
@@ -213,7 +213,7 @@ export default function CustomizationPanel({
 
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">Size</h3>
+        <h3 className="text-lg font-semibold text-foreground">Size</h3>
         <div className="grid grid-cols-4 gap-2">
           {product.customization.sizes.map((size) => (
             <button
@@ -222,10 +222,10 @@ export default function CustomizationPanel({
               className={`relative p-3 rounded-lg border-2 transition-all duration-200 text-center ${
                 customization.size === size.value
                   ? 'border-amber-500 bg-amber-50'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
+                  : 'border-border hover:border-border bg-background'
               }`}
             >
-              <div className="font-medium text-gray-900">{size.label}</div>
+              <div className="font-medium text-foreground">{size.label}</div>
               {getPriceModifier(size.priceModifier) && (
                 <div className="text-xs font-medium text-amber-600 mt-1">
                   {getPriceModifier(size.priceModifier)}
@@ -254,7 +254,7 @@ export default function CustomizationPanel({
 
     return (
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">Finish</h3>
+        <h3 className="text-lg font-semibold text-foreground">Finish</h3>
         <div className="space-y-2">
           {product.customization.finishes.map((finish) => (
             <button
@@ -263,13 +263,13 @@ export default function CustomizationPanel({
               className={`w-full p-4 rounded-lg border-2 transition-all duration-200 text-left ${
                 customization.finish === finish.id
                   ? 'border-amber-500 bg-amber-50'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
+                  : 'border-border hover:border-border bg-background'
               }`}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-medium text-gray-900">{finish.name}</div>
-                  <div className="text-sm text-gray-600 mt-1">{finish.description}</div>
+                  <div className="font-medium text-foreground">{finish.name}</div>
+                  <div className="text-sm text-aurora-nav-muted mt-1">{finish.description}</div>
                 </div>
                 <div className="flex items-center space-x-2">
                   {getPriceModifier(finish.priceModifier) && (
@@ -302,7 +302,7 @@ export default function CustomizationPanel({
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-900">Make It Personal</h3>
+          <h3 className="text-lg font-semibold text-foreground">Make It Personal</h3>
           {priceModifier > 0 && (
             <div className="text-sm font-medium text-amber-600">
               +${priceModifier.toFixed(2)}
@@ -313,7 +313,7 @@ export default function CustomizationPanel({
         <div className="space-y-4">
           {/* Engraving Text Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Engraving Text
             </label>
             <textarea
@@ -321,14 +321,14 @@ export default function CustomizationPanel({
               onChange={(e) => handleEngravingChange(e.target.value)}
               maxLength={maxLength}
               placeholder="Add your personal message..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
+              className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
               rows={3}
             />
             <div className="flex justify-between items-center mt-1">
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-aurora-nav-muted">
                 Max {maxLength} characters
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-aurora-nav-muted">
                 {engravingText.length}/{maxLength}
               </div>
             </div>
@@ -337,7 +337,7 @@ export default function CustomizationPanel({
           {/* Font Selection */}
           {fonts?.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 Font Style
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -348,7 +348,7 @@ export default function CustomizationPanel({
                     className={`p-3 rounded-lg border-2 transition-all duration-200 text-center capitalize ${
                       selectedFont === font
                         ? 'border-amber-500 bg-amber-50'
-                        : 'border-gray-200 hover:border-gray-300 bg-white'
+                        : 'border-border hover:border-border bg-background'
                     }`}
                   >
                     {font}
@@ -361,7 +361,7 @@ export default function CustomizationPanel({
           {/* Position Selection */}
           {positions?.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
                 Position
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -372,7 +372,7 @@ export default function CustomizationPanel({
                     className={`p-3 rounded-lg border-2 transition-all duration-200 text-center capitalize ${
                       selectedPosition === position
                         ? 'border-amber-500 bg-amber-50'
-                        : 'border-gray-200 hover:border-gray-300 bg-white'
+                        : 'border-border hover:border-border bg-background'
                     }`}
                   >
                     {position}
@@ -403,9 +403,9 @@ export default function CustomizationPanel({
   })
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div className="bg-background rounded-xl shadow-sm border border-border overflow-hidden">
       {/* Section Tabs */}
-      <div className="border-b border-gray-200 bg-gray-50">
+      <div className="border-b border-border bg-muted">
         <nav className="flex space-x-4 p-4 overflow-x-auto" aria-label="Customization options">
           {sections.map((section) => (
             <button
@@ -414,7 +414,7 @@ export default function CustomizationPanel({
               className={`whitespace-nowrap py-2 px-4 text-sm font-medium rounded-lg transition-colors ${
                 activeSection === section.id
                   ? 'bg-amber-100 text-amber-700 border-amber-300'
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                  : 'text-aurora-nav-muted hover:text-foreground hover:bg-muted'
               }`}
             >
               {section.label}
@@ -441,8 +441,8 @@ export default function CustomizationPanel({
 
         {!activeSection && (
           <div className="text-center py-8">
-            <div className="text-gray-500 text-lg mb-2">Choose Your Perfect Style</div>
-            <div className="text-gray-400 text-sm">
+            <div className="text-aurora-nav-muted text-lg mb-2">Choose Your Perfect Style</div>
+            <div className="text-muted-foreground text-sm">
               Select from the customization options above to personalize your jewelry
             </div>
           </div>
@@ -450,22 +450,22 @@ export default function CustomizationPanel({
       </div>
 
       {/* Price Summary */}
-      <div className="border-t border-gray-200 bg-gray-50 px-6 py-4">
+      <div className="border-t border-border bg-muted px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-sm text-gray-600">Total Price</div>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-sm text-aurora-nav-muted">Total Price</div>
+            <div className="text-2xl font-bold text-foreground">
               ${customPrice.toFixed(2)}
             </div>
             {customPrice !== product.price.base && (
-              <div className="text-sm text-gray-500 line-through">
+              <div className="text-sm text-aurora-nav-muted line-through">
                 ${product.price.base.toFixed(2)}
               </div>
             )}
           </div>
           <div className="text-right">
-            <div className="text-sm text-gray-600">SKU</div>
-            <div className="text-sm font-mono text-gray-900">{customSKU}</div>
+            <div className="text-sm text-aurora-nav-muted">SKU</div>
+            <div className="text-sm font-mono text-foreground">{customSKU}</div>
           </div>
         </div>
       </div>

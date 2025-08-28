@@ -243,9 +243,9 @@ export default function PayoutRequest() {
     return (
       <Card>
         <CardContent className="text-center py-12">
-          <AlertTriangle className="w-12 h-12 text-red-300 mx-auto mb-4" />
-          <div className="text-lg font-medium text-gray-900 mb-2">Unable to load payout information</div>
-          <p className="text-gray-500">Please try again later</p>
+          <AlertTriangle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+          <div className="text-lg font-medium text-foreground mb-2">Unable to load payout information</div>
+          <p className="text-aurora-nav-muted">Please try again later</p>
         </CardContent>
       </Card>
     )
@@ -254,7 +254,7 @@ export default function PayoutRequest() {
   return (
     <div className="space-y-6">
       {success && (
-        <Card className="border-green-200 bg-green-50">
+        <Card className="border-border bg-muted">
           <CardContent className="p-4">
             <div className="flex items-center space-x-2 text-green-800">
               <CheckCircle className="w-5 h-5" />
@@ -275,22 +275,22 @@ export default function PayoutRequest() {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(eligibility.totalEarnings)}
               </div>
-              <div className="text-sm text-gray-500">Total Earned</div>
+              <div className="text-sm text-aurora-nav-muted">Total Earned</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-amber-600">
                 {formatCurrency(eligibility.availableForPayout)}
               </div>
-              <div className="text-sm text-gray-500">Available for Payout</div>
+              <div className="text-sm text-aurora-nav-muted">Available for Payout</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-600">
+              <div className="text-2xl font-bold text-aurora-nav-muted">
                 {formatCurrency(eligibility.minimumPayout)}
               </div>
-              <div className="text-sm text-gray-500">Minimum Payout</div>
+              <div className="text-sm text-aurora-nav-muted">Minimum Payout</div>
             </div>
           </div>
 
@@ -304,7 +304,7 @@ export default function PayoutRequest() {
           </div>
 
           {!eligibility.isEligible && (
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+            <div className="bg-muted border border-border rounded-lg p-4">
               <div className="flex items-start space-x-2">
                 <Info className="w-5 h-5 text-amber-600 mt-0.5" />
                 <div className="text-sm text-amber-800">
@@ -333,7 +333,7 @@ export default function PayoutRequest() {
           </CardHeader>
           <CardContent className="space-y-6">
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="bg-muted border border-border rounded-lg p-4">
                 <div className="flex items-start space-x-2">
                   <AlertTriangle className="w-5 h-5 text-red-600 mt-0.5" />
                   <div className="text-sm text-red-800">{error}</div>
@@ -343,11 +343,11 @@ export default function PayoutRequest() {
 
             {/* Amount */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
                 Payout Amount
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-aurora-nav-muted">$</span>
                 <Input
                   type="number"
                   value={payoutAmount}
@@ -359,14 +359,14 @@ export default function PayoutRequest() {
                   step="0.01"
                 />
               </div>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-aurora-nav-muted mt-1">
                 Maximum: {formatCurrency(eligibility.availableForPayout)}
               </p>
             </div>
 
             {/* Payment Method */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
+              <label className="block text-sm font-medium text-aurora-nav-muted mb-3">
                 Payment Method
               </label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -376,16 +376,16 @@ export default function PayoutRequest() {
                     onClick={() => handleMethodChange(method.id)}
                     className={`p-4 border rounded-lg text-left transition-colors ${
                       selectedMethod === method.id
-                        ? 'border-amber-500 bg-amber-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        ? 'border-amber-500 bg-muted'
+                        : 'border-border hover:border-border'
                     }`}
                   >
                     <div className="flex items-center space-x-2 mb-2">
                       {method.icon}
                       <span className="font-medium">{method.name}</span>
                     </div>
-                    <p className="text-xs text-gray-600 mb-1">{method.description}</p>
-                    <p className="text-xs text-gray-500">Min: ${method.minAmount}</p>
+                    <p className="text-xs text-aurora-nav-muted mb-1">{method.description}</p>
+                    <p className="text-xs text-aurora-nav-muted">Min: ${method.minAmount}</p>
                   </button>
                 ))}
               </div>
@@ -394,7 +394,7 @@ export default function PayoutRequest() {
             {/* Payment Details */}
             {selectedMethod && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
+                <label className="block text-sm font-medium text-aurora-nav-muted mb-3">
                   Payment Details
                 </label>
                 <div className="space-y-3">
@@ -402,7 +402,7 @@ export default function PayoutRequest() {
                     .find(m => m.id === selectedMethod)
                     ?.fields.map((field) => (
                       <div key={field.name}>
-                        <label className="block text-xs font-medium text-gray-600 mb-1">
+                        <label className="block text-xs font-medium text-aurora-nav-muted mb-1">
                           {field.label} {field.required && '*'}
                         </label>
                         <Input

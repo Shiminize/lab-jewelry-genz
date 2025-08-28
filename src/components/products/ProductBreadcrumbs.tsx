@@ -35,18 +35,18 @@ export default function ProductBreadcrumbs({ category, subcategory, productName 
         {breadcrumbs.map((breadcrumb, index) => (
           <li key={index} className="flex items-center">
             {index > 0 && (
-              <svg className="w-4 h-4 text-gray-400 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-muted-foreground mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             )}
             {index === breadcrumbs.length - 1 ? (
-              <span className="text-gray-500 font-medium truncate max-w-[200px]">
+              <span className="text-aurora-nav-muted font-medium truncate max-w-[200px]">
                 {breadcrumb.label}
               </span>
             ) : (
               <Link
                 href={breadcrumb.href}
-                className="text-gray-600 hover:text-amber-600 transition-colors duration-200 font-medium"
+                className="text-aurora-nav-muted hover:text-amber-600 transition-colors duration-200 font-medium"
               >
                 {breadcrumb.label}
               </Link>

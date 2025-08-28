@@ -189,10 +189,10 @@ export function AutocompleteDropdown({
     if (featured) return <Sparkles className="w-4 h-4 text-accent" />
     
     switch (type) {
-      case 'product': return <Search className="w-4 h-4 text-gray-600" />
-      case 'category': return <Tag className="w-4 h-4 text-gray-600" />
-      case 'material': return <TrendingUp className="w-4 h-4 text-gray-600" />
-      default: return <Search className="w-4 h-4 text-gray-600" />
+      case 'product': return <Search className="w-4 h-4 text-aurora-nav-muted" />
+      case 'category': return <Tag className="w-4 h-4 text-aurora-nav-muted" />
+      case 'material': return <TrendingUp className="w-4 h-4 text-aurora-nav-muted" />
+      default: return <Search className="w-4 h-4 text-aurora-nav-muted" />
     }
   }
 
@@ -205,7 +205,7 @@ export function AutocompleteDropdown({
     <div className={cn('relative w-full', className)}>
       {/* Search Input */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-5 h-5 pointer-events-none" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-aurora-nav-muted w-5 h-5 pointer-events-none" />
         <input
           ref={inputRef}
           type="text"
@@ -216,7 +216,7 @@ export function AutocompleteDropdown({
           onKeyDown={handleKeyDown}
           className={cn(
             'w-full pl-10 pr-4 py-3 border border-border rounded-lg',
-            'bg-background text-foreground placeholder:text-gray-600',
+            'bg-background text-foreground placeholder:text-aurora-nav-muted',
             'focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent',
             'transition-all duration-200'
           )}
@@ -230,7 +230,7 @@ export function AutocompleteDropdown({
         {/* Loading indicator */}
         {isLoading && (
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-            <div className="w-5 h-5 border-2 border-gray-300 border-t-accent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-aurora-nav-border border-t-accent rounded-full animate-spin" />
           </div>
         )}
       </div>
@@ -241,7 +241,7 @@ export function AutocompleteDropdown({
           ref={dropdownRef}
           className={cn(
             'absolute top-full left-0 right-0 mt-2 z-50',
-            'bg-white border border-border rounded-lg shadow-lg',
+            'bg-background border border-border rounded-lg shadow-lg',
             'max-h-96 overflow-y-auto'
           )}
           role="listbox"
@@ -249,7 +249,7 @@ export function AutocompleteDropdown({
           {/* Recent Searches */}
           {showRecentSearches && (
             <>
-              <div className="px-4 py-2 text-sm text-gray-600 border-b border-border bg-muted/50">
+              <div className="px-4 py-2 text-sm text-aurora-nav-muted border-b border-border bg-muted/50">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   Recent Searches
@@ -264,7 +264,7 @@ export function AutocompleteDropdown({
                   )}
                   onClick={() => handleSearch(search)}
                 >
-                  <Clock className="w-4 h-4 text-gray-500" />
+                  <Clock className="w-4 h-4 text-aurora-nav-muted" />
                   <span className="text-foreground">{search}</span>
                 </button>
               ))}
@@ -276,7 +276,7 @@ export function AutocompleteDropdown({
           {showSuggestions && (
             <>
               {!showRecentSearches && (
-                <div className="px-4 py-2 text-sm text-gray-600 border-b border-border bg-muted/50">
+                <div className="px-4 py-2 text-sm text-aurora-nav-muted border-b border-border bg-muted/50">
                   Suggestions
                 </div>
               )}
@@ -307,7 +307,7 @@ export function AutocompleteDropdown({
                     </div>
                     
                     {suggestion.count && (
-                      <div className="text-xs text-gray-600 mt-0.5">
+                      <div className="text-xs text-aurora-nav-muted mt-0.5">
                         {suggestion.count} items
                       </div>
                     )}
@@ -325,8 +325,8 @@ export function AutocompleteDropdown({
 
           {/* No results */}
           {query.length >= 2 && !isLoading && suggestions.length === 0 && (
-            <div className="px-4 py-6 text-center text-gray-600">
-              <Search className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+            <div className="px-4 py-6 text-center text-aurora-nav-muted">
+              <Search className="w-8 h-8 mx-auto mb-2 text-aurora-nav-muted" />
               <div className="text-sm">No suggestions found for &quot;{query}&quot;</div>
               <button
                 className="mt-2 text-xs text-accent hover:underline"

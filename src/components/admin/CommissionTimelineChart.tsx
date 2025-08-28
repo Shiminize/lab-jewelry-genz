@@ -106,16 +106,16 @@ export default function CommissionTimelineChart() {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg">
-          <p className="font-medium text-gray-900 mb-2">{formatDate(label)}</p>
+        <div className="bg-background p-4 border border-border rounded-lg shadow-lg">
+          <p className="font-medium text-foreground mb-2">{formatDate(label)}</p>
           {payload.map((entry: any, index: number) => (
             <div key={index} className="flex items-center space-x-2">
               <div 
                 className="w-3 h-3 rounded-full" 
                 style={{ backgroundColor: entry.color }}
               />
-              <span className="text-sm text-gray-600 capitalize">{entry.dataKey}:</span>
-              <span className="text-sm font-medium text-gray-900">
+              <span className="text-sm text-aurora-nav-muted capitalize">{entry.dataKey}:</span>
+              <span className="text-sm font-medium text-foreground">
                 {formatCurrency(entry.value)}
               </span>
             </div>
@@ -136,13 +136,13 @@ export default function CommissionTimelineChart() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Commission Timeline</h2>
+        <h2 className="text-2xl font-bold text-foreground">Commission Timeline</h2>
         <div className="flex items-center space-x-2">
-          <Filter className="h-4 w-4 text-gray-500" />
+          <Filter className="h-4 w-4 text-aurora-nav-muted" />
           <select 
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value as '7d' | '30d' | '90d')}
-            className="border border-gray-300 rounded-md px-3 py-1 text-sm"
+            className="border border-border rounded-md px-3 py-1 text-sm"
           >
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
@@ -157,13 +157,13 @@ export default function CommissionTimelineChart() {
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
               <DollarSign className="h-4 w-4 text-green-600" />
-              <span className="text-sm font-medium text-gray-600">Total Earned</span>
+              <span className="text-sm font-medium text-aurora-nav-muted">Total Earned</span>
             </div>
             <div className="mt-2">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(summary.totalEarned)}
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-aurora-nav-muted">
                 Avg per creator: {formatCurrency(summary.averageCommission)}
               </div>
             </div>
@@ -174,13 +174,13 @@ export default function CommissionTimelineChart() {
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
               <TrendingUp className="h-4 w-4 text-blue-600" />
-              <span className="text-sm font-medium text-gray-600">Total Paid</span>
+              <span className="text-sm font-medium text-aurora-nav-muted">Total Paid</span>
             </div>
             <div className="mt-2">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(summary.totalPaid)}
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-aurora-nav-muted">
                 {summary.conversionRate.toFixed(1)}% payout rate
               </div>
             </div>
@@ -191,10 +191,10 @@ export default function CommissionTimelineChart() {
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
               <Calendar className="h-4 w-4 text-orange-600" />
-              <span className="text-sm font-medium text-gray-600">Pending</span>
+              <span className="text-sm font-medium text-aurora-nav-muted">Pending</span>
             </div>
             <div className="mt-2">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(summary.totalPending)}
               </div>
               <Badge variant="secondary" className="mt-1">
@@ -208,10 +208,10 @@ export default function CommissionTimelineChart() {
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
               <DollarSign className="h-4 w-4 text-purple-600" />
-              <span className="text-sm font-medium text-gray-600">Approved</span>
+              <span className="text-sm font-medium text-aurora-nav-muted">Approved</span>
             </div>
             <div className="mt-2">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(summary.totalApproved)}
               </div>
               <Badge variant="outline" className="mt-1 text-green-700 border-green-300">
@@ -319,9 +319,9 @@ export default function CommissionTimelineChart() {
                       className="w-3 h-3 rounded-full" 
                       style={{ backgroundColor: item.color }}
                     />
-                    <span className="text-sm text-gray-600">{item.status}</span>
+                    <span className="text-sm text-aurora-nav-muted">{item.status}</span>
                   </div>
-                  <span className="text-sm font-medium text-gray-900">
+                  <span className="text-sm font-medium text-foreground">
                     {formatCurrency(item.amount)}
                   </span>
                 </div>

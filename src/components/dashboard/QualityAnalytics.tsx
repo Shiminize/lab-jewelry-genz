@@ -203,7 +203,7 @@ export function QualityAnalytics() {
       case 'high': return 'bg-red-100 text-red-800'
       case 'medium': return 'bg-yellow-100 text-yellow-800'
       case 'low': return 'bg-green-100 text-green-800'
-      default: return 'bg-gray-100 text-gray-800'
+      default: return 'bg-muted text-foreground'
     }
   }
 
@@ -228,9 +228,9 @@ export function QualityAnalytics() {
   if (!metrics) {
     return (
       <div className="text-center py-12">
-        <BarChart3 className="mx-auto h-12 w-12 text-gray-400" />
-        <h3 className="mt-4 text-lg font-medium text-gray-900">No analytics data</h3>
-        <p className="mt-2 text-sm text-gray-500">
+        <BarChart3 className="mx-auto h-12 w-12 text-muted-foreground" />
+        <h3 className="mt-4 text-lg font-medium text-foreground">No analytics data</h3>
+        <p className="mt-2 text-sm text-aurora-nav-muted">
           Generate some sequences to see quality analytics
         </p>
       </div>
@@ -242,8 +242,8 @@ export function QualityAnalytics() {
       {/* Header Controls */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Quality Analytics</h2>
-          <p className="text-gray-600">Performance metrics and optimization insights</p>
+          <h2 className="text-2xl font-bold text-foreground">Quality Analytics</h2>
+          <p className="text-aurora-nav-muted">Performance metrics and optimization insights</p>
         </div>
         <div className="flex items-center space-x-2">
           <Button variant="outline" size="sm">
@@ -258,7 +258,7 @@ export function QualityAnalytics() {
       </div>
 
       {/* Tab Navigation */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-border">
         <nav className="-mb-px flex space-x-8">
           {[
             { id: 'overview', label: 'Overview', icon: BarChart3 },
@@ -272,7 +272,7 @@ export function QualityAnalytics() {
               className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm ${
                 selectedTab === tab.id
                   ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-aurora-nav-muted hover:text-foreground hover:border-border'
               }`}
             >
               <tab.icon className="w-4 h-4 mr-2" />
@@ -290,8 +290,8 @@ export function QualityAnalytics() {
               <div className="flex items-center">
                 <FileImage className="h-8 w-8 text-blue-600" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Images</p>
-                  <p className="text-2xl font-bold text-gray-900">{metrics.generationStats.totalImages}</p>
+                  <p className="text-sm font-medium text-aurora-nav-muted">Total Images</p>
+                  <p className="text-2xl font-bold text-foreground">{metrics.generationStats.totalImages}</p>
                 </div>
               </div>
             </CardContent>
@@ -302,8 +302,8 @@ export function QualityAnalytics() {
               <div className="flex items-center">
                 <HardDrive className="h-8 w-8 text-green-600" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Size</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-aurora-nav-muted">Total Size</p>
+                  <p className="text-2xl font-bold text-foreground">
                     {formatFileSize(metrics.generationStats.totalSize)}
                   </p>
                 </div>
@@ -316,8 +316,8 @@ export function QualityAnalytics() {
               <div className="flex items-center">
                 <Clock className="h-8 w-8 text-orange-600" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Avg Gen Time</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-aurora-nav-muted">Avg Gen Time</p>
+                  <p className="text-2xl font-bold text-foreground">
                     {Math.round(metrics.generationStats.avgGenerationTime / 60)}m
                   </p>
                 </div>
@@ -330,8 +330,8 @@ export function QualityAnalytics() {
               <div className="flex items-center">
                 <Award className="h-8 w-8 text-purple-600" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Success Rate</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-aurora-nav-muted">Success Rate</p>
+                  <p className="text-2xl font-bold text-foreground">
                     {metrics.generationStats.successRate}%
                   </p>
                 </div>
@@ -361,30 +361,30 @@ export function QualityAnalytics() {
                     
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
-                        <p className="text-gray-500">Avg File Size</p>
+                        <p className="text-aurora-nav-muted">Avg File Size</p>
                         <p className="font-medium">{format.avgSize} KB</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Compression</p>
+                        <p className="text-aurora-nav-muted">Compression</p>
                         <p className="font-medium">{format.compressionRatio}%</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Load Time</p>
+                        <p className="text-aurora-nav-muted">Load Time</p>
                         <p className="font-medium">{format.loadTime}s</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Quality Score</p>
+                        <p className="text-aurora-nav-muted">Quality Score</p>
                         <p className="font-medium">{format.qualityScore}/100</p>
                       </div>
                     </div>
 
                     {/* Compression Bar */}
                     <div className="mt-3">
-                      <div className="flex justify-between text-xs text-gray-500 mb-1">
+                      <div className="flex justify-between text-xs text-aurora-nav-muted mb-1">
                         <span>Compression Ratio</span>
                         <span>{format.compressionRatio}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-muted rounded-full h-2">
                         <div 
                           className="bg-blue-600 h-2 rounded-full"
                           style={{ width: `${format.compressionRatio}%` }}
@@ -427,15 +427,15 @@ export function QualityAnalytics() {
                     
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div>
-                        <p className="text-gray-500">Load Time</p>
+                        <p className="text-aurora-nav-muted">Load Time</p>
                         <p className="font-medium">{device.avgLoadTime}s</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Memory Usage</p>
+                        <p className="text-aurora-nav-muted">Memory Usage</p>
                         <p className="font-medium">{device.memoryUsage} MB</p>
                       </div>
                       <div>
-                        <p className="text-gray-500">Recommended</p>
+                        <p className="text-aurora-nav-muted">Recommended</p>
                         <p className="font-medium">{device.recommendedFormat}</p>
                       </div>
                     </div>
@@ -459,12 +459,12 @@ export function QualityAnalytics() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-gray-900">{rec.title}</h4>
+                      <h4 className="font-medium text-foreground">{rec.title}</h4>
                       <Badge className={getImpactColor(rec.impact)}>
                         {rec.impact} impact
                       </Badge>
                     </div>
-                    <p className="text-sm text-gray-600 mb-3">{rec.description}</p>
+                    <p className="text-sm text-aurora-nav-muted mb-3">{rec.description}</p>
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-medium text-blue-600">{rec.action}</p>
                       <Button size="sm" variant="outline">

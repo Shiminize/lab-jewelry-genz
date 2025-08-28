@@ -86,7 +86,7 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       case 'draft':
         return { 
           text: 'Draft', 
-          className: 'bg-gray-100 text-gray-800 border-gray-200',
+          className: 'bg-muted text-foreground border-border',
           icon: Edit
         }
       case 'scheduled':
@@ -116,7 +116,7 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       default:
         return { 
           text: status, 
-          className: 'bg-gray-100 text-gray-800 border-gray-200',
+          className: 'bg-muted text-foreground border-border',
           icon: AlertCircle
         }
     }
@@ -150,7 +150,7 @@ const MetricCard = ({
   icon: React.ComponentType<{ className?: string }>
   trend?: 'up' | 'down' | 'neutral'
 }) => (
-  <div className="text-foreground bg-white p-4 rounded-lg border space-y-3">
+  <div className="text-foreground bg-background p-4 rounded-lg border space-y-3">
     <div className="flex items-center justify-between">
       <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
         <Icon className="w-4 h-4 text-accent" />
@@ -160,7 +160,7 @@ const MetricCard = ({
           "text-xs font-medium",
           trend === 'up' && "text-green-600",
           trend === 'down' && "text-red-600",
-          trend === 'neutral' && "text-gray-600"
+          trend === 'neutral' && "text-aurora-nav-muted"
         )}>
           {trend === 'up' ? '↗' : trend === 'down' ? '↘' : '→'}
         </div>
@@ -171,7 +171,7 @@ const MetricCard = ({
         {value.toLocaleString()}
       </div>
       <div className="flex items-center justify-between">
-        <BodyText size="sm" className="text-gray-600 bg-white">
+        <BodyText size="sm" className="text-aurora-nav-muted bg-background">
           {title}
         </BodyText>
         {percentage !== undefined && (
@@ -186,7 +186,7 @@ const MetricCard = ({
 
 // Campaign timeline component
 const CampaignTimeline = ({ timeline }: { timeline: CampaignDetailsResponse['timeline'] }) => (
-  <div className="text-foreground bg-white p-6 rounded-lg border">
+  <div className="text-foreground bg-background p-6 rounded-lg border">
     <H3 className="mb-4 text-foreground">Campaign Timeline</H3>
     <div className="space-y-4">
       {timeline.map((event, index) => (
@@ -197,11 +197,11 @@ const CampaignTimeline = ({ timeline }: { timeline: CampaignDetailsResponse['tim
               <BodyText className="font-medium text-foreground">
                 {event.event}
               </BodyText>
-              <BodyText size="sm" className="text-gray-600 bg-white">
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                 {new Date(event.timestamp).toLocaleString()}
               </BodyText>
             </div>
-            <BodyText size="sm" className="text-gray-600 bg-white">
+            <BodyText size="sm" className="text-aurora-nav-muted bg-background">
               {event.description}
               {event.count && ` (${event.count.toLocaleString()})`}
             </BodyText>
@@ -214,7 +214,7 @@ const CampaignTimeline = ({ timeline }: { timeline: CampaignDetailsResponse['tim
 
 // Email preview component
 const EmailPreview = ({ campaign }: { campaign: Campaign }) => (
-  <div className="text-foreground bg-white p-6 rounded-lg border">
+  <div className="text-foreground bg-background p-6 rounded-lg border">
     <H3 className="mb-4 text-foreground">Email Preview</H3>
     
     <div className="border border-border rounded-lg overflow-hidden">
@@ -224,14 +224,14 @@ const EmailPreview = ({ campaign }: { campaign: Campaign }) => (
           Subject: {campaign.subject}
         </div>
         {campaign.content.preheader && (
-          <div className="text-xs text-gray-600">
+          <div className="text-xs text-aurora-nav-muted">
             Preheader: {campaign.content.preheader}
           </div>
         )}
       </div>
       
       {/* Email content */}
-      <div className="p-4 max-h-64 overflow-auto bg-white">
+      <div className="p-4 max-h-64 overflow-auto bg-background">
         <div 
           className="text-sm"
           dangerouslySetInnerHTML={{ __html: campaign.content.html }}
@@ -314,10 +314,10 @@ export default function CampaignDetails({
   // Error state
   if (error || !data) {
     return (
-      <div className="text-foreground bg-white p-6 rounded-lg border text-center">
+      <div className="text-foreground bg-background p-6 rounded-lg border text-center">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <H2 className="mb-2 text-foreground">Failed to Load Campaign</H2>
-        <BodyText className="text-gray-600 bg-white mb-4">
+        <BodyText className="text-aurora-nav-muted bg-background mb-4">
           {error || 'Campaign not found'}
         </BodyText>
         <Button variant="primary" size="md" onClick={onBack}>
@@ -345,7 +345,7 @@ export default function CampaignDetails({
             <H1 className="text-foreground">{campaign.name}</H1>
             <div className="flex items-center gap-3">
               <StatusBadge status={campaign.status} />
-              <BodyText size="sm" className="text-gray-600 bg-background">
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                 Created {new Date(campaign.createdAt).toLocaleDateString()}
               </BodyText>
             </div>
@@ -406,11 +406,11 @@ export default function CampaignDetails({
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Campaign Information */}
-          <div className="text-foreground bg-white p-6 rounded-lg border">
+          <div className="text-foreground bg-background p-6 rounded-lg border">
             <H2 className="mb-4 text-foreground">Campaign Information</H2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                   Campaign Type
                 </BodyText>
                 <BodyText className="text-foreground capitalize">
@@ -418,7 +418,7 @@ export default function CampaignDetails({
                 </BodyText>
               </div>
               <div>
-                <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                   Subject Line
                 </BodyText>
                 <BodyText className="text-foreground">
@@ -426,7 +426,7 @@ export default function CampaignDetails({
                 </BodyText>
               </div>
               <div>
-                <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                   Created By
                 </BodyText>
                 <BodyText className="text-foreground">
@@ -434,7 +434,7 @@ export default function CampaignDetails({
                 </BodyText>
               </div>
               <div>
-                <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                   Last Updated
                 </BodyText>
                 <BodyText className="text-foreground">
@@ -443,7 +443,7 @@ export default function CampaignDetails({
               </div>
               {campaign.sentAt && (
                 <div>
-                  <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                  <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                     Sent Date
                   </BodyText>
                   <BodyText className="text-foreground">
@@ -453,7 +453,7 @@ export default function CampaignDetails({
               )}
               {campaign.scheduledAt && (
                 <div>
-                  <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                  <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                     Scheduled For
                   </BodyText>
                   <BodyText className="text-foreground">
@@ -465,13 +465,13 @@ export default function CampaignDetails({
           </div>
 
           {/* Target Audience */}
-          <div className="text-foreground bg-white p-6 rounded-lg border">
+          <div className="text-foreground bg-background p-6 rounded-lg border">
             <H2 className="mb-4 text-foreground">Target Audience</H2>
             <div className="space-y-3">
               {segments.map(segment => (
                 <div key={segment._id} className="flex items-center justify-between p-3 bg-muted rounded-lg">
                   <BodyText className="text-foreground">{segment.name}</BodyText>
-                  <BodyText size="sm" className="text-gray-600 bg-muted">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
                     {segment.customerCount.toLocaleString()} customers
                   </BodyText>
                 </div>
@@ -494,11 +494,11 @@ export default function CampaignDetails({
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Performance Summary */}
-          <div className="text-foreground bg-white p-6 rounded-lg border">
+          <div className="text-foreground bg-background p-6 rounded-lg border">
             <H3 className="mb-4 text-foreground">Performance Summary</H3>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <BodyText size="sm" className="text-gray-600 bg-white">Delivery Rate</BodyText>
+                <BodyText size="sm" className="text-aurora-nav-muted bg-background">Delivery Rate</BodyText>
                 <BodyText className="font-medium text-foreground">
                   {campaign.analytics.sent > 0 
                     ? ((campaign.analytics.delivered / campaign.analytics.sent) * 100).toFixed(1)
@@ -506,19 +506,19 @@ export default function CampaignDetails({
                 </BodyText>
               </div>
               <div className="flex justify-between items-center">
-                <BodyText size="sm" className="text-gray-600 bg-white">Open Rate</BodyText>
+                <BodyText size="sm" className="text-aurora-nav-muted bg-background">Open Rate</BodyText>
                 <BodyText className="font-medium text-foreground">
                   {campaign.analytics.openRate.toFixed(1)}%
                 </BodyText>
               </div>
               <div className="flex justify-between items-center">
-                <BodyText size="sm" className="text-gray-600 bg-white">Click Rate</BodyText>
+                <BodyText size="sm" className="text-aurora-nav-muted bg-background">Click Rate</BodyText>
                 <BodyText className="font-medium text-foreground">
                   {campaign.analytics.clickRate.toFixed(1)}%
                 </BodyText>
               </div>
               <div className="flex justify-between items-center">
-                <BodyText size="sm" className="text-gray-600 bg-white">Unsubscribe Rate</BodyText>
+                <BodyText size="sm" className="text-aurora-nav-muted bg-background">Unsubscribe Rate</BodyText>
                 <BodyText className="font-medium text-foreground">
                   {campaign.analytics.sent > 0 
                     ? ((campaign.analytics.unsubscribed / campaign.analytics.sent) * 100).toFixed(2)
@@ -526,7 +526,7 @@ export default function CampaignDetails({
                 </BodyText>
               </div>
               <div className="flex justify-between items-center">
-                <BodyText size="sm" className="text-gray-600 bg-white">Bounce Rate</BodyText>
+                <BodyText size="sm" className="text-aurora-nav-muted bg-background">Bounce Rate</BodyText>
                 <BodyText className="font-medium text-foreground">
                   {campaign.analytics.sent > 0 
                     ? ((campaign.analytics.bounced / campaign.analytics.sent) * 100).toFixed(2)
@@ -540,7 +540,7 @@ export default function CampaignDetails({
           <EmailPreview campaign={campaign} />
 
           {/* Quick Actions */}
-          <div className="text-foreground bg-white p-6 rounded-lg border">
+          <div className="text-foreground bg-background p-6 rounded-lg border">
             <H3 className="mb-4 text-foreground">Quick Actions</H3>
             <div className="space-y-2">
               <Button variant="outline" size="md" className="w-full">

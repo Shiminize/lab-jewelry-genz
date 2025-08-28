@@ -124,8 +124,8 @@ export default function CreatorApplicationPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Application Submitted!</h1>
-            <p className="text-lg text-gray-600">{submitMessage}</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Application Submitted!</h1>
+            <p className="text-lg text-aurora-nav-muted">{submitMessage}</p>
           </div>
 
           <Card className="max-w-2xl mx-auto">
@@ -138,17 +138,17 @@ export default function CreatorApplicationPage() {
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Application ID</label>
+                  <label className="text-sm font-medium text-aurora-nav-muted">Application ID</label>
                   <p className="font-mono text-sm">{applicationResult.applicationId}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-500">Creator Code</label>
+                  <label className="text-sm font-medium text-aurora-nav-muted">Creator Code</label>
                   <p className="font-bold text-purple-600">{applicationResult.creatorCode}</p>
                 </div>
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-500">Status</label>
+                <label className="text-sm font-medium text-aurora-nav-muted">Status</label>
                 <div className="flex items-center gap-2 mt-1">
                   <Badge variant={applicationResult.status === 'approved' ? 'default' : 'secondary'}>
                     {applicationResult.status === 'approved' ? 'APPROVED' : 'PENDING REVIEW'}
@@ -162,13 +162,13 @@ export default function CreatorApplicationPage() {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-500">Review Timeline</label>
-                <p className="text-sm text-gray-700">{applicationResult.estimatedReviewTime}</p>
+                <label className="text-sm font-medium text-aurora-nav-muted">Review Timeline</label>
+                <p className="text-sm text-foreground">{applicationResult.estimatedReviewTime}</p>
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-500">Next Steps</label>
-                <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                <label className="text-sm font-medium text-aurora-nav-muted">Next Steps</label>
+                <ul className="list-disc list-inside text-sm text-foreground space-y-1">
                   {applicationResult.nextSteps.map((step: string, index: number) => (
                     <li key={index}>{step}</li>
                   ))}
@@ -219,9 +219,9 @@ export default function CreatorApplicationPage() {
             <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900">Join the Creator Program</h1>
+            <h1 className="text-3xl font-bold text-foreground">Join the Creator Program</h1>
           </div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-aurora-nav-muted max-w-2xl mx-auto">
             Earn industry-leading commissions promoting jewelry that aligns with your values. 
             Join 1,200+ creators earning an average of $850/month.
           </p>
@@ -233,21 +233,21 @@ export default function CreatorApplicationPage() {
             <CardContent className="p-6 text-center">
               <DollarSign className="w-8 h-8 text-green-500 mx-auto mb-3" />
               <h3 className="font-semibold mb-2">Up to 20% Commission</h3>
-              <p className="text-sm text-gray-600">Industry-leading rates based on performance</p>
+              <p className="text-sm text-aurora-nav-muted">Industry-leading rates based on performance</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-6 text-center">
               <TrendingUp className="w-8 h-8 text-blue-500 mx-auto mb-3" />
               <h3 className="font-semibold mb-2">Real-time Analytics</h3>
-              <p className="text-sm text-gray-600">Track performance and optimize your content</p>
+              <p className="text-sm text-aurora-nav-muted">Track performance and optimize your content</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-6 text-center">
               <Users className="w-8 h-8 text-purple-500 mx-auto mb-3" />
               <h3 className="font-semibold mb-2">Creator Community</h3>
-              <p className="text-sm text-gray-600">Connect with like-minded creators</p>
+              <p className="text-sm text-aurora-nav-muted">Connect with like-minded creators</p>
             </CardContent>
           </Card>
         </div>
@@ -261,11 +261,11 @@ export default function CreatorApplicationPage() {
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Basic Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
+                <h3 className="text-lg font-semibold text-foreground">Basic Information</h3>
                 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-foreground mb-1">
                       Display Name *
                     </label>
                     <Input
@@ -276,7 +276,7 @@ export default function CreatorApplicationPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-foreground mb-1">
                       Email Address *
                     </label>
                     <Input
@@ -290,27 +290,27 @@ export default function CreatorApplicationPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-foreground mb-1">
                     Bio (Max 500 characters)
                   </label>
                   <textarea
                     value={formData.bio}
                     onChange={(e) => updateFormData('bio', e.target.value)}
                     placeholder="Tell us about yourself and your content..."
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 h-24 resize-none"
+                    className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 h-24 resize-none"
                     maxLength={500}
                   />
-                  <p className="text-xs text-gray-500 mt-1">{formData.bio.length}/500 characters</p>
+                  <p className="text-xs text-aurora-nav-muted mt-1">{formData.bio.length}/500 characters</p>
                 </div>
               </div>
 
               {/* Social Links */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Social Media Presence</h3>
+                <h3 className="text-lg font-semibold text-foreground">Social Media Presence</h3>
                 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Instagram</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Instagram</label>
                     <Input
                       value={formData.socialLinks.instagram}
                       onChange={(e) => updateNestedFormData('socialLinks', 'instagram', e.target.value)}
@@ -318,7 +318,7 @@ export default function CreatorApplicationPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">TikTok</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">TikTok</label>
                     <Input
                       value={formData.socialLinks.tiktok}
                       onChange={(e) => updateNestedFormData('socialLinks', 'tiktok', e.target.value)}
@@ -326,7 +326,7 @@ export default function CreatorApplicationPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">YouTube</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">YouTube</label>
                     <Input
                       value={formData.socialLinks.youtube}
                       onChange={(e) => updateNestedFormData('socialLinks', 'youtube', e.target.value)}
@@ -334,7 +334,7 @@ export default function CreatorApplicationPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Website</label>
                     <Input
                       type="url"
                       value={formData.socialLinks.website}
@@ -347,11 +347,11 @@ export default function CreatorApplicationPage() {
 
               {/* Audience Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Audience Information</h3>
+                <h3 className="text-lg font-semibold text-foreground">Audience Information</h3>
                 
                 <div className="grid md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Follower Count</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Follower Count</label>
                     <Input
                       value={formData.audience.size}
                       onChange={(e) => updateNestedFormData('audience', 'size', e.target.value)}
@@ -359,7 +359,7 @@ export default function CreatorApplicationPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Demographics</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Demographics</label>
                     <Input
                       value={formData.audience.demographics}
                       onChange={(e) => updateNestedFormData('audience', 'demographics', e.target.value)}
@@ -367,7 +367,7 @@ export default function CreatorApplicationPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Engagement Rate</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Engagement Rate</label>
                     <Input
                       value={formData.audience.engagement}
                       onChange={(e) => updateNestedFormData('audience', 'engagement', e.target.value)}
@@ -379,15 +379,15 @@ export default function CreatorApplicationPage() {
 
               {/* Payment Information */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">Payment Information</h3>
+                <h3 className="text-lg font-semibold text-foreground">Payment Information</h3>
                 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method *</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Payment Method *</label>
                     <select
                       value={formData.paymentInfo.method}
                       onChange={(e) => updateNestedFormData('paymentInfo', 'method', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                       required
                     >
                       <option value="paypal">PayPal</option>
@@ -396,7 +396,7 @@ export default function CreatorApplicationPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-foreground mb-1">
                       Requested Commission Rate (%)
                     </label>
                     <Input
@@ -406,12 +406,12 @@ export default function CreatorApplicationPage() {
                       value={formData.requestedCommissionRate}
                       onChange={(e) => updateFormData('requestedCommissionRate', Number(e.target.value))}
                     />
-                    <p className="text-xs text-gray-500 mt-1">Standard rates: 10-20% based on performance</p>
+                    <p className="text-xs text-aurora-nav-muted mt-1">Standard rates: 10-20% based on performance</p>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-foreground mb-1">
                     Payment Details * 
                   </label>
                   <Input
@@ -438,7 +438,7 @@ export default function CreatorApplicationPage() {
                     className="mt-1"
                     required
                   />
-                  <label htmlFor="terms" className="text-sm text-gray-700">
+                  <label htmlFor="terms" className="text-sm text-foreground">
                     I agree to the{' '}
                     <a href="/creator-terms" className="text-purple-600 underline" target="_blank">
                       Creator Program Terms & Conditions
@@ -453,7 +453,7 @@ export default function CreatorApplicationPage() {
               </div>
 
               {/* Submit */}
-              <div className="pt-6 border-t border-gray-200">
+              <div className="pt-6 border-t border-border">
                 {submitStatus === 'error' && (
                   <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
                     <div className="flex items-center gap-2">
@@ -472,7 +472,7 @@ export default function CreatorApplicationPage() {
                   {submitStatus === 'submitting' ? 'Submitting Application...' : 'Submit Application'}
                 </Button>
 
-                <p className="text-xs text-gray-500 text-center mt-3">
+                <p className="text-xs text-aurora-nav-muted text-center mt-3">
                   Your application will be reviewed within 2-3 business days. 
                   High-engagement creators may be auto-approved.
                 </p>

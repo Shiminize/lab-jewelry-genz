@@ -2,19 +2,21 @@
 
 /**
  * Loading Spinner Component
- * Customizable loading spinner for various UI states
+ * CLAUDE_RULES compliant loading spinner for various UI states
  */
+
+import { cn } from '@/lib/utils'
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg' | 'xl'
-  color?: 'amber' | 'gray' | 'white' | 'blue'
+  variant?: 'accent' | 'cta' | 'foreground' | 'background'
   className?: string
   text?: string
 }
 
 export default function LoadingSpinner({ 
   size = 'md', 
-  color = 'amber', 
+  variant = 'accent', 
   className = '',
   text 
 }: LoadingSpinnerProps) {
@@ -25,11 +27,11 @@ export default function LoadingSpinner({
     xl: 'w-12 h-12'
   }
 
-  const colorClasses = {
-    amber: 'border-amber-500',
-    gray: 'border-gray-500',
-    white: 'border-white',
-    blue: 'border-blue-500'
+  const variantClasses = {
+    accent: 'border-accent',        // Champagne gold
+    cta: 'border-cta',             // Coral gold  
+    foreground: 'border-foreground', // Graphite green
+    background: 'border-background'  // Ivory (for dark backgrounds)
   }
 
   const textSizeClasses = {
@@ -40,16 +42,20 @@ export default function LoadingSpinner({
   }
 
   return (
-    <div className={`flex flex-col items-center justify-center space-y-3 ${className}`}>
+    <div className={cn("flex flex-col items-center justify-center space-y-3", className)}>
       <div
-        className={`animate-spin rounded-full border-2 border-t-transparent ${sizeClasses[size]} ${colorClasses[color]}`}
+        className={cn(
+          "animate-spin rounded-full border-2 border-t-transparent",
+          sizeClasses[size],
+          variantClasses[variant]
+        )}
         role="status"
         aria-label="Loading"
       >
         <span className="sr-only">Loading...</span>
       </div>
       {text && (
-        <p className={`text-gray-600 ${textSizeClasses[size]} font-medium`}>
+        <p className={cn("text-aurora-nav-muted font-medium", textSizeClasses[size])}>
           {text}
         </p>
       )}

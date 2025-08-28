@@ -39,7 +39,7 @@ const statusBarVariants = cva(
 )
 
 const contentVariants = cva(
-  'bg-white shadow-lg border-t border-border transition-all duration-200',
+  'bg-background shadow-lg border-t border-border transition-all duration-200',
   {
     variants: {
       layout: {
@@ -146,7 +146,7 @@ export function MaterialStatusBar({
             {!isExpanded && (
               <button
                 onClick={handleToggleExpanded}
-                className="w-full flex items-center justify-between p-2 -m-2 text-foreground bg-white hover:bg-muted/50 rounded-lg transition-colors duration-200 touch-manipulation"
+                className="w-full flex items-center justify-between p-2 -m-2 text-foreground bg-background hover:bg-muted/50 rounded-lg transition-colors duration-200 touch-manipulation"
                 aria-expanded="false"
                 aria-controls="material-details"
                 aria-label="Show material selection details"
@@ -157,7 +157,7 @@ export function MaterialStatusBar({
                     Current Selection
                   </span>
                 </div>
-                <ChevronUp size={16} className="text-gray-600 flex-shrink-0" />
+                <ChevronUp size={16} className="text-aurora-nav-muted flex-shrink-0" />
               </button>
             )}
 
@@ -171,7 +171,7 @@ export function MaterialStatusBar({
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={handleToggleExpanded}
-                      className="p-1 text-gray-600 hover:text-foreground transition-colors duration-200 touch-manipulation"
+                      className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 touch-manipulation"
                       aria-expanded="true"
                       aria-controls="material-details"
                       aria-label="Hide material selection details"
@@ -180,7 +180,7 @@ export function MaterialStatusBar({
                     </button>
                     <button
                       onClick={handleDismiss}
-                      className="p-1 text-gray-600 hover:text-foreground transition-colors duration-200 touch-manipulation"
+                      className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 touch-manipulation"
                       aria-label="Close material selection display"
                     >
                       <X size={16} />
@@ -203,7 +203,7 @@ export function MaterialStatusBar({
             </span>
             <button
               onClick={handleDismiss}
-              className="p-1 text-gray-600 hover:text-foreground transition-colors duration-200 ml-2"
+              className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 ml-2"
               aria-label="Close material selection display"
             >
               <X size={14} />

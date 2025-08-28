@@ -80,7 +80,7 @@ const StepProgress = ({
   const currentIndex = wizardSteps.findIndex(step => step.id === currentStep)
 
   return (
-    <div className="text-foreground bg-white p-6 rounded-lg border">
+    <div className="text-foreground bg-background p-6 rounded-lg border">
       <div className="flex items-center justify-between">
         {wizardSteps.map((step, index) => {
           const Icon = step.icon
@@ -97,8 +97,8 @@ const StepProgress = ({
                   'w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-colors',
                   isCompleted && 'bg-green-100 text-green-800 border-2 border-green-200',
                   isCurrent && !isCompleted && 'bg-accent text-background border-2 border-accent',
-                  !isCurrent && !isCompleted && isAccessible && 'bg-gray-100 text-gray-600 border-2 border-gray-200 hover:bg-gray-200',
-                  !isAccessible && 'bg-gray-50 text-gray-400 border-2 border-gray-100 cursor-not-allowed'
+                  !isCurrent && !isCompleted && isAccessible && 'bg-muted text-aurora-nav-muted border-2 border-border hover:bg-muted',
+                  !isAccessible && 'bg-muted text-aurora-nav-muted border-2 border-border cursor-not-allowed'
                 )}
               >
                 {isCompleted ? (
@@ -111,7 +111,7 @@ const StepProgress = ({
               {index < wizardSteps.length - 1 && (
                 <div className={cn(
                   'w-16 h-0.5 mx-4',
-                  (isCompleted || (index < currentIndex)) ? 'bg-green-200' : 'bg-gray-200'
+                  (isCompleted || (index < currentIndex)) ? 'bg-green-200' : 'bg-muted'
                 )} />
               )}
             </div>
@@ -123,7 +123,7 @@ const StepProgress = ({
         <H3 className="text-foreground">
           {wizardSteps.find(step => step.id === currentStep)?.label}
         </H3>
-        <BodyText size="sm" className="text-gray-600 bg-white">
+        <BodyText size="sm" className="text-aurora-nav-muted bg-background">
           Step {currentIndex + 1} of {wizardSteps.length}
         </BodyText>
       </div>
@@ -176,10 +176,10 @@ const DetailsStep = ({
   ]
 
   return (
-    <div className="text-foreground bg-white p-6 rounded-lg border space-y-6">
+    <div className="text-foreground bg-background p-6 rounded-lg border space-y-6">
       <div>
         <H2 className="mb-4 text-foreground">Campaign Details</H2>
-        <BodyText className="text-gray-600 bg-white">
+        <BodyText className="text-aurora-nav-muted bg-background">
           Set up the basic information for your email campaign.
         </BodyText>
       </div>
@@ -211,7 +211,7 @@ const DetailsStep = ({
             value={formData.name}
             onChange={(e) => onChange({ name: e.target.value })}
             placeholder="Enter campaign name..."
-            className="w-full px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+            className="w-full px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           />
         </div>
 
@@ -241,7 +241,7 @@ const DetailsStep = ({
                 />
                 <div>
                   <div className="font-medium text-foreground">{type.label}</div>
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     {type.description}
                   </BodyText>
                 </div>
@@ -260,9 +260,9 @@ const DetailsStep = ({
             value={formData.subject}
             onChange={(e) => onChange({ subject: e.target.value })}
             placeholder="Enter email subject line..."
-            className="w-full px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+            className="w-full px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           />
-          <BodyText size="sm" className="text-gray-600 bg-white mt-1">
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background mt-1">
             Keep it under 50 characters for better open rates
           </BodyText>
         </div>
@@ -277,9 +277,9 @@ const DetailsStep = ({
             value={formData.preheader}
             onChange={(e) => onChange({ preheader: e.target.value })}
             placeholder="Preview text that appears after subject line..."
-            className="w-full px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+            className="w-full px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           />
-          <BodyText size="sm" className="text-gray-600 bg-white mt-1">
+          <BodyText size="sm" className="text-aurora-nav-muted bg-background mt-1">
             This text appears in email previews (optional)
           </BodyText>
         </div>
@@ -317,10 +317,10 @@ const ContentStep = ({
 
   return (
     <div className="space-y-6">
-      <div className="text-foreground bg-white p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-lg border">
         <div className="mb-4">
           <H2 className="text-foreground">Content & Template</H2>
-          <BodyText className="text-gray-600 bg-white">
+          <BodyText className="text-aurora-nav-muted bg-background">
             Choose a template and customize your email content.
           </BodyText>
         </div>
@@ -359,12 +359,12 @@ const ContentStep = ({
                 onClick={() => handleTemplateSelect(template)}
               >
                 <div className="aspect-video bg-muted rounded mb-3 flex items-center justify-center">
-                  <Mail className="w-8 h-8 text-gray-400" />
+                  <Mail className="w-8 h-8 text-aurora-nav-muted" />
                 </div>
                 <H3 className="text-sm font-medium text-foreground mb-1">
                   {template.name}
                 </H3>
-                <BodyText size="sm" className="text-gray-600 bg-white">
+                <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                   {template.description}
                 </BodyText>
                 <div className="mt-2">
@@ -380,7 +380,7 @@ const ContentStep = ({
 
       {/* Content Editor */}
       {selectedTemplate && (
-        <div className="text-foreground bg-white p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-lg border">
           <H3 className="mb-4 text-foreground">Email Content</H3>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -395,7 +395,7 @@ const ContentStep = ({
                   content: { ...formData.content, html: e.target.value }
                 })}
                 placeholder="Enter HTML content..."
-                className="w-full h-64 px-3 py-2 font-mono text-sm text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                className="w-full h-64 px-3 py-2 font-mono text-sm text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
               />
             </div>
 
@@ -404,7 +404,7 @@ const ContentStep = ({
               <label className="block text-sm font-medium text-foreground mb-2">
                 Preview
               </label>
-              <div className="h-64 border border-border rounded-lg overflow-auto bg-white">
+              <div className="h-64 border border-border rounded-lg overflow-auto bg-background">
                 <div 
                   className="p-4 text-sm"
                   dangerouslySetInnerHTML={{ __html: formData.content.html }}
@@ -424,9 +424,9 @@ const ContentStep = ({
                 content: { ...formData.content, text: e.target.value }
               })}
               placeholder="Plain text version (auto-generated if empty)..."
-              className="w-full h-32 px-3 py-2 font-mono text-sm text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              className="w-full h-32 px-3 py-2 font-mono text-sm text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
             />
-            <BodyText size="sm" className="text-gray-600 bg-white mt-1">
+            <BodyText size="sm" className="text-aurora-nav-muted bg-background mt-1">
               Plain text version for email clients that don't support HTML
             </BodyText>
           </div>
@@ -462,10 +462,10 @@ const TargetingStep = ({
 
   return (
     <div className="space-y-6">
-      <div className="text-foreground bg-white p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-lg border">
         <div className="mb-4">
           <H2 className="text-foreground">Audience Targeting</H2>
-          <BodyText className="text-gray-600 bg-white">
+          <BodyText className="text-aurora-nav-muted bg-background">
             Select customer segments to target with this campaign.
           </BodyText>
         </div>
@@ -496,7 +496,7 @@ const TargetingStep = ({
             <div className="text-2xl font-bold text-foreground mb-1">
               {totalAudience.toLocaleString()} customers
             </div>
-            <BodyText size="sm" className="text-gray-600 bg-accent/5">
+            <BodyText size="sm" className="text-aurora-nav-muted bg-accent/5">
               Across {selectedSegments.length} segment{selectedSegments.length !== 1 ? 's' : ''}
             </BodyText>
           </div>
@@ -540,7 +540,7 @@ const TargetingStep = ({
                       )}
                     </div>
                   </div>
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     {segment.description}
                   </BodyText>
                 </div>
@@ -568,7 +568,7 @@ const TargetingStep = ({
                 <Zap className="w-5 h-5 text-accent" />
                 <div>
                   <div className="font-medium text-foreground">Send Immediately</div>
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     Send the campaign right after review
                   </BodyText>
                 </div>
@@ -589,7 +589,7 @@ const TargetingStep = ({
                 <Calendar className="w-5 h-5 text-accent" />
                 <div>
                   <div className="font-medium text-foreground">Schedule for Later</div>
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     Choose a specific date and time to send
                   </BodyText>
                 </div>
@@ -608,7 +608,7 @@ const TargetingStep = ({
                 onChange={(e) => onChange({ 
                   trigger: { ...formData.trigger, scheduledAt: e.target.value }
                 })}
-                className="px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
               />
             </div>
           )}
@@ -638,10 +638,10 @@ const ReviewStep = ({
 
   return (
     <div className="space-y-6">
-      <div className="text-foreground bg-white p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-lg border">
         <div className="mb-6">
           <H2 className="text-foreground">Review & Send</H2>
-          <BodyText className="text-gray-600 bg-white">
+          <BodyText className="text-aurora-nav-muted bg-background">
             Review your campaign details before sending.
           </BodyText>
         </div>
@@ -651,14 +651,14 @@ const ReviewStep = ({
           {/* Basic Details */}
           <div className="space-y-4">
             <div>
-              <BodyText size="sm" className="font-medium text-gray-600 bg-white">
+              <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background">
                 Campaign Name
               </BodyText>
               <div className="text-foreground font-medium">{formData.name}</div>
             </div>
 
             <div>
-              <BodyText size="sm" className="font-medium text-gray-600 bg-white">
+              <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background">
                 Type
               </BodyText>
               <div className="text-foreground font-medium capitalize">
@@ -667,7 +667,7 @@ const ReviewStep = ({
             </div>
 
             <div>
-              <BodyText size="sm" className="font-medium text-gray-600 bg-white">
+              <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background">
                 Subject Line
               </BodyText>
               <div className="text-foreground font-medium">{formData.subject}</div>
@@ -675,7 +675,7 @@ const ReviewStep = ({
 
             {formData.preheader && (
               <div>
-                <BodyText size="sm" className="font-medium text-gray-600 bg-white">
+                <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background">
                   Preheader
                 </BodyText>
                 <div className="text-foreground font-medium">{formData.preheader}</div>
@@ -686,7 +686,7 @@ const ReviewStep = ({
           {/* Audience & Template */}
           <div className="space-y-4">
             <div>
-              <BodyText size="sm" className="font-medium text-gray-600 bg-white">
+              <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background">
                 Template
               </BodyText>
               <div className="text-foreground font-medium">
@@ -695,26 +695,26 @@ const ReviewStep = ({
             </div>
 
             <div>
-              <BodyText size="sm" className="font-medium text-gray-600 bg-white">
+              <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background">
                 Target Audience
               </BodyText>
               <div className="text-foreground font-medium">
                 {totalAudience.toLocaleString()} customers
               </div>
-              <BodyText size="sm" className="text-gray-600 bg-white">
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                 Across {selectedSegments.length} segment{selectedSegments.length !== 1 ? 's' : ''}
               </BodyText>
             </div>
 
             <div>
-              <BodyText size="sm" className="font-medium text-gray-600 bg-white">
+              <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background">
                 Send Method
               </BodyText>
               <div className="text-foreground font-medium">
                 {formData.trigger.type === 'immediate' ? 'Send Immediately' : 'Scheduled'}
               </div>
               {formData.trigger.type === 'scheduled' && formData.trigger.scheduledAt && (
-                <BodyText size="sm" className="text-gray-600 bg-white">
+                <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                   {new Date(formData.trigger.scheduledAt).toLocaleString()}
                 </BodyText>
               )}
@@ -724,7 +724,7 @@ const ReviewStep = ({
 
         {/* Selected Segments */}
         <div className="mb-6">
-          <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-3">
+          <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-3">
             Selected Segments
           </BodyText>
           <div className="space-y-2">
@@ -732,7 +732,7 @@ const ReviewStep = ({
               <div key={segment._id} className="flex justify-between items-center p-3 bg-muted rounded-lg">
                 <div>
                   <div className="font-medium text-foreground">{segment.name}</div>
-                  <BodyText size="sm" className="text-gray-600 bg-muted">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
                     {segment.description}
                   </BodyText>
                 </div>
@@ -740,7 +740,7 @@ const ReviewStep = ({
                   <div className="font-medium text-foreground">
                     {segment.customerCount.toLocaleString()}
                   </div>
-                  <BodyText size="sm" className="text-gray-600 bg-muted">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
                     customers
                   </BodyText>
                 </div>
@@ -751,7 +751,7 @@ const ReviewStep = ({
 
         {/* Email Preview */}
         <div>
-          <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-3">
+          <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-3">
             Email Preview
           </BodyText>
           <div className="border border-border rounded-lg overflow-hidden">
@@ -761,14 +761,14 @@ const ReviewStep = ({
                 <strong>Subject:</strong> {formData.subject}
               </div>
               {formData.preheader && (
-                <div className="text-sm text-gray-600 mt-1">
+                <div className="text-sm text-aurora-nav-muted mt-1">
                   {formData.preheader}
                 </div>
               )}
             </div>
             
             {/* Email Content */}
-            <div className="p-4 max-h-64 overflow-auto bg-white">
+            <div className="p-4 max-h-64 overflow-auto bg-background">
               <div 
                 className="text-sm"
                 dangerouslySetInnerHTML={{ __html: formData.content.html }}
@@ -1032,7 +1032,7 @@ export default function CampaignWizard({
             </Button>
             <div>
               <H2 className="text-foreground">Create Email Campaign</H2>
-              <BodyText className="text-gray-600 bg-background">
+              <BodyText className="text-aurora-nav-muted bg-background">
                 Set up your email marketing campaign step by step
               </BodyText>
             </div>
@@ -1076,7 +1076,7 @@ export default function CampaignWizard({
 
         {loading && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="text-foreground bg-white p-6 rounded-lg border text-center">
+            <div className="text-foreground bg-background p-6 rounded-lg border text-center">
               <div className="animate-spin w-8 h-8 border-2 border-accent border-t-transparent rounded-full mx-auto mb-4" />
               <BodyText className="text-foreground">
                 {currentStep === 'review' ? 'Processing campaign...' : 'Saving...'}

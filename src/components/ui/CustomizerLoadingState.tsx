@@ -18,7 +18,7 @@ const loadingVariants = cva(
       variant: {
         luxury: 'text-foreground bg-background border border-border', // Main content on ivory
         patience: 'text-foreground bg-muted border border-border', // Content on section backgrounds  
-        recovery: 'text-foreground bg-white border border-border' // Content on cards/surfaces
+        recovery: 'text-foreground bg-background border border-border' // Content on cards/surfaces
       },
       size: {
         sm: 'min-h-[200px] max-w-sm',
@@ -174,7 +174,7 @@ export function CustomizerLoadingState({
             />
             
             {/* Progress Details */}
-            <div className="flex justify-between items-center text-sm text-gray-600 bg-background font-body">
+            <div className="flex justify-between items-center text-sm text-aurora-nav-muted font-body">
               <span>{percentage}% complete</span>
               {estimatedTime && estimatedTime > 0 && (
                 <span>{estimatedTime}s remaining</span>
@@ -183,7 +183,7 @@ export function CustomizerLoadingState({
             
             {/* Frame Counter */}
             {frameCount > 0 && (
-              <div className="text-sm text-gray-600 bg-background font-body text-center">
+              <div className="text-sm text-aurora-nav-muted font-body text-center">
                 {loadedFrames} of {frameCount} angles ready
               </div>
             )}
@@ -193,7 +193,7 @@ export function CustomizerLoadingState({
         {/* Loading Tips */}
         {showTips && (
           <div className="mt-4 p-4 bg-muted border border-border max-w-sm">
-            <p className="text-sm text-gray-600 bg-muted font-body italic">
+            <p className="text-sm text-aurora-nav-muted font-body italic">
               {currentTip}
             </p>
           </div>

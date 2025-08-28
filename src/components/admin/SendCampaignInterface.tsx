@@ -109,7 +109,7 @@ const TestEmailManager = ({
           value={newEmail}
           onChange={(e) => setNewEmail(e.target.value)}
           placeholder="Enter test email address..."
-          className="flex-1 px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          className="flex-1 px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           onKeyPress={(e) => e.key === 'Enter' && addEmail()}
         />
         <Button 
@@ -124,7 +124,7 @@ const TestEmailManager = ({
 
       {testEmails.length > 0 && (
         <div className="space-y-2">
-          <BodyText size="sm" className="font-medium text-gray-600 bg-white">
+          <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background">
             Test Recipients ({testEmails.length})
           </BodyText>
           <div className="space-y-1">
@@ -215,7 +215,7 @@ const SendProgressDisplay = ({
             {progress.progress.toFixed(1)}%
           </BodyText>
         </div>
-        <div className="w-full bg-white rounded-full h-2">
+        <div className="w-full bg-background rounded-full h-2">
           <div 
             className="bg-accent h-2 rounded-full transition-all duration-500"
             style={{ width: `${progress.progress}%` }}
@@ -229,7 +229,7 @@ const SendProgressDisplay = ({
           <div className="text-lg font-bold text-foreground">
             {progress.sent}
           </div>
-          <BodyText size="sm" className="text-gray-600">
+          <BodyText size="sm" className="text-aurora-nav-muted">
             Sent
           </BodyText>
         </div>
@@ -237,7 +237,7 @@ const SendProgressDisplay = ({
           <div className="text-lg font-bold text-foreground">
             {progress.total - progress.sent - progress.failed}
           </div>
-          <BodyText size="sm" className="text-gray-600">
+          <BodyText size="sm" className="text-aurora-nav-muted">
             Remaining
           </BodyText>
         </div>
@@ -248,7 +248,7 @@ const SendProgressDisplay = ({
           )}>
             {progress.failed}
           </div>
-          <BodyText size="sm" className="text-gray-600">
+          <BodyText size="sm" className="text-aurora-nav-muted">
             Failed
           </BodyText>
         </div>
@@ -256,7 +256,7 @@ const SendProgressDisplay = ({
 
       {/* Time Estimate */}
       {progress.estimatedTimeRemaining && progress.status === 'sending' && (
-        <BodyText size="sm" className="text-gray-600 mb-4">
+        <BodyText size="sm" className="text-aurora-nav-muted mb-4">
           Estimated time remaining: {Math.ceil(progress.estimatedTimeRemaining / 60)} minutes
         </BodyText>
       )}
@@ -504,10 +504,10 @@ export default function SendCampaignInterface({
     return (
       <div className="min-h-screen bg-background">
         <div className="max-w-4xl mx-auto p-6">
-          <div className="text-foreground bg-white p-8 rounded-lg border text-center">
+          <div className="text-foreground bg-background p-8 rounded-lg border text-center">
             <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <H2 className="mb-2 text-foreground">Failed to Load Campaign</H2>
-            <BodyText className="text-gray-600 bg-white mb-6">
+            <BodyText className="text-aurora-nav-muted bg-background mb-6">
               {error || 'Campaign not found'}
             </BodyText>
             <Button variant="primary" size="md" onClick={onBack}>
@@ -530,7 +530,7 @@ export default function SendCampaignInterface({
           <div className="flex items-center gap-4">
             <div>
               <H1 className="text-foreground">Sending: {campaign.name}</H1>
-              <BodyText className="text-gray-600 bg-background">
+              <BodyText className="text-aurora-nav-muted bg-background">
                 Campaign send in progress
               </BodyText>
             </div>
@@ -571,7 +571,7 @@ export default function SendCampaignInterface({
           </Button>
           <div>
             <H1 className="text-foreground">Send Campaign: {campaign.name}</H1>
-            <BodyText className="text-gray-600 bg-background">
+            <BodyText className="text-aurora-nav-muted bg-background">
               Configure send options and launch your email campaign
             </BodyText>
           </div>
@@ -581,7 +581,7 @@ export default function SendCampaignInterface({
           {/* Send Configuration */}
           <div className="lg:col-span-2 space-y-6">
             {/* Send Mode */}
-            <div className="text-foreground bg-white p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-lg border">
               <H2 className="mb-4 text-foreground">Send Mode</H2>
               
               <div className="space-y-4">
@@ -597,7 +597,7 @@ export default function SendCampaignInterface({
                     <Send className="w-5 h-5 text-accent" />
                     <div>
                       <div className="font-medium text-foreground">Live Campaign</div>
-                      <BodyText size="sm" className="text-gray-600 bg-white">
+                      <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                         Send to all selected audience segments
                       </BodyText>
                     </div>
@@ -616,7 +616,7 @@ export default function SendCampaignInterface({
                     <TestTube className="w-5 h-5 text-accent" />
                     <div>
                       <div className="font-medium text-foreground">Test Mode</div>
-                      <BodyText size="sm" className="text-gray-600 bg-white">
+                      <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                         Send test emails to specific addresses
                       </BodyText>
                     </div>
@@ -638,7 +638,7 @@ export default function SendCampaignInterface({
 
             {/* Send Timing */}
             {!sendOptions.testMode && (
-              <div className="text-foreground bg-white p-6 rounded-lg border">
+              <div className="text-foreground bg-background p-6 rounded-lg border">
                 <H2 className="mb-4 text-foreground">Send Timing</H2>
                 
                 <div className="space-y-4">
@@ -655,7 +655,7 @@ export default function SendCampaignInterface({
                       <Zap className="w-5 h-5 text-accent" />
                       <div>
                         <div className="font-medium text-foreground">Send Immediately</div>
-                        <BodyText size="sm" className="text-gray-600 bg-white">
+                        <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                           Start sending right after confirmation
                         </BodyText>
                       </div>
@@ -675,7 +675,7 @@ export default function SendCampaignInterface({
                       <Calendar className="w-5 h-5 text-accent" />
                       <div>
                         <div className="font-medium text-foreground">Schedule for Later</div>
-                        <BodyText size="sm" className="text-gray-600 bg-white">
+                        <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                           Choose a specific date and time
                         </BodyText>
                       </div>
@@ -694,7 +694,7 @@ export default function SendCampaignInterface({
                         value={sendOptions.scheduledAt || ''}
                         onChange={(e) => setSendOptions({ ...sendOptions, scheduledAt: e.target.value })}
                         min={new Date().toISOString().slice(0, 16)}
-                        className="px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                        className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
                       />
                     </div>
 
@@ -705,7 +705,7 @@ export default function SendCampaignInterface({
                       <select
                         value={sendOptions.timezone}
                         onChange={(e) => setSendOptions({ ...sendOptions, timezone: e.target.value })}
-                        className="px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                        className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
                       >
                         <option value="America/New_York">Eastern Time (ET)</option>
                         <option value="America/Chicago">Central Time (CT)</option>
@@ -720,7 +720,7 @@ export default function SendCampaignInterface({
             )}
 
             {/* Advanced Options */}
-            <div className="text-foreground bg-white p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-lg border">
               <H2 className="mb-4 text-foreground">Send Options</H2>
               
               <div className="space-y-4">
@@ -732,7 +732,7 @@ export default function SendCampaignInterface({
                   />
                   <div>
                     <div className="font-medium text-foreground">Exclude Unsubscribed</div>
-                    <BodyText size="sm" className="text-gray-600 bg-white">
+                    <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                       Automatically exclude unsubscribed users
                     </BodyText>
                   </div>
@@ -746,7 +746,7 @@ export default function SendCampaignInterface({
                   />
                   <div>
                     <div className="font-medium text-foreground">Track Opens</div>
-                    <BodyText size="sm" className="text-gray-600 bg-white">
+                    <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                       Track when emails are opened
                     </BodyText>
                   </div>
@@ -760,7 +760,7 @@ export default function SendCampaignInterface({
                   />
                   <div>
                     <div className="font-medium text-foreground">Track Clicks</div>
-                    <BodyText size="sm" className="text-gray-600 bg-white">
+                    <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                       Track when links are clicked
                     </BodyText>
                   </div>
@@ -772,26 +772,26 @@ export default function SendCampaignInterface({
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Campaign Summary */}
-            <div className="text-foreground bg-white p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-lg border">
               <H3 className="mb-4 text-foreground">Campaign Summary</H3>
               
               <div className="space-y-4">
                 <div>
-                  <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                  <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                     Campaign Name
                   </BodyText>
                   <div className="text-foreground font-medium">{campaign.name}</div>
                 </div>
 
                 <div>
-                  <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                  <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                     Subject Line
                   </BodyText>
                   <div className="text-foreground font-medium">{campaign.subject}</div>
                 </div>
 
                 <div>
-                  <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                  <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                     Campaign Type
                   </BodyText>
                   <div className="text-foreground font-medium capitalize">
@@ -802,7 +802,7 @@ export default function SendCampaignInterface({
             </div>
 
             {/* Audience Summary */}
-            <div className="text-foreground bg-white p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-lg border">
               <H3 className="mb-4 text-foreground">Target Audience</H3>
               
               <div className="flex items-center gap-4 mb-4">
@@ -813,7 +813,7 @@ export default function SendCampaignInterface({
                   <div className="text-2xl font-bold text-foreground">
                     {sendOptions.testMode ? sendOptions.testEmails.length : totalAudience.toLocaleString()}
                   </div>
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     {sendOptions.testMode ? 'Test recipients' : 'Total recipients'}
                   </BodyText>
                 </div>
@@ -824,7 +824,7 @@ export default function SendCampaignInterface({
                   {segments.map(segment => (
                     <div key={segment._id} className="flex justify-between items-center text-sm">
                       <span className="text-foreground">{segment.name}</span>
-                      <span className="text-gray-600">{segment.customerCount.toLocaleString()}</span>
+                      <span className="text-aurora-nav-muted">{segment.customerCount.toLocaleString()}</span>
                     </div>
                   ))}
                 </div>
@@ -832,19 +832,19 @@ export default function SendCampaignInterface({
             </div>
 
             {/* Email Preview */}
-            <div className="text-foreground bg-white p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-lg border">
               <H3 className="mb-4 text-foreground">Email Preview</H3>
               
               <div className="border border-border rounded-lg overflow-hidden">
                 <div className="bg-muted p-3 border-b border-border">
                   <div className="text-sm font-medium">{campaign.subject}</div>
                   {campaign.content.preheader && (
-                    <div className="text-xs text-gray-600 mt-1">
+                    <div className="text-xs text-aurora-nav-muted mt-1">
                       {campaign.content.preheader}
                     </div>
                   )}
                 </div>
-                <div className="p-3 max-h-32 overflow-auto bg-white">
+                <div className="p-3 max-h-32 overflow-auto bg-background">
                   <div 
                     className="text-xs"
                     dangerouslySetInnerHTML={{ __html: campaign.content.html }}

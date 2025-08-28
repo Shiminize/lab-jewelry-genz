@@ -56,7 +56,7 @@ export default function CatalogPage() {
             <H1 className="mb-4">
               Lab-Grown Diamond Jewelry Collection
             </H1>
-            <BodyText size="lg" className="text-gray-600 mb-6">
+            <BodyText size="lg" className="text-aurora-nav-muted mb-6">
               Your jewelry, reimagined: From sterling silver to platinum, we offer lab-grown diamonds, moissanite, and sustainable gems that spark conversation and change. 
               Customize your piece, support ethical innovation, and wear a story that's uniquely yours.
             </BodyText>
@@ -74,7 +74,7 @@ export default function CatalogPage() {
         <div className="container mx-auto px-4 py-12">
           <div className="text-center mb-8">
             <H1 className="mb-2">Shop by Category</H1>
-            <BodyText className="text-gray-600">
+            <BodyText className="text-aurora-nav-muted">
               Find the perfect piece for any occasion
             </BodyText>
           </div>

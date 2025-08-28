@@ -29,19 +29,19 @@ export default function ReferralPage() {
                 <h2 className="text-3xl font-headline mb-6 text-foreground">
                   Your Friends Deserve Better Than Mined Diamonds Too
                 </h2>
-                <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+                <p className="text-xl text-aurora-nav-muted max-w-2xl mx-auto mb-8">
                   You found the secret to guilt-free gorgeous jewelry—now share it! When your friends discover 
                   lab-grown diamonds, you both win. They get $25 off, you get $50 credit. It's like getting paid to be a good friend.
                 </p>
                 
-                <div className="bg-white p-8 rounded-lg border border-border mb-8">
+                <div className="bg-background p-8 rounded-lg border border-border mb-8">
                   <div className="text-center mb-6">
                     <div className="inline-block bg-accent/10 px-6 py-3 rounded-lg mb-4">
                       <span className="text-2xl font-headline text-accent">
                         {mockReferralCode}
                       </span>
                     </div>
-                    <p className="text-gray-600">Your Referral Code</p>
+                    <p className="text-aurora-nav-muted">Your Referral Code</p>
                   </div>
                   
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -60,21 +60,21 @@ export default function ReferralPage() {
                       <span className="text-2xl">💰</span>
                     </div>
                     <h3 className="font-medium text-foreground mb-2">You Get Paid $50</h3>
-                    <p className="text-sm text-gray-600">Basically free jewelry for being awesome</p>
+                    <p className="text-sm text-aurora-nav-muted">Basically free jewelry for being awesome</p>
                   </div>
                   <div className="text-center">
                     <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center mx-auto mb-4">
                       <span className="text-2xl">🎁</span>
                     </div>
                     <h3 className="font-medium text-foreground mb-2">They Save $25</h3>
-                    <p className="text-sm text-gray-600">Their first sustainable jewelry purchase</p>
+                    <p className="text-sm text-aurora-nav-muted">Their first sustainable jewelry purchase</p>
                   </div>
                   <div className="text-center">
                     <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center mx-auto mb-4">
                       <span className="text-2xl">♾️</span>
                     </div>
                     <h3 className="font-medium text-foreground mb-2">Unlimited Good Karma</h3>
-                    <p className="text-sm text-gray-600">The more you share, the more you save</p>
+                    <p className="text-sm text-aurora-nav-muted">The more you share, the more you save</p>
                   </div>
                 </div>
               </div>

@@ -193,7 +193,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search Input */}
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-aurora-nav-muted w-5 h-5" />
             <input
               type="text"
               placeholder="Search products, collections, materials..."
@@ -202,7 +202,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
               data-testid="product-search-input"
               className={cn(
                 'w-full pl-10 pr-4 py-3 border border rounded-lg',
-                'bg-background text-foreground placeholder:text-gray-600',
+                'bg-background text-foreground placeholder:text-aurora-nav-muted',
                 'focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent',
                 'transition-all duration-200'
               )}

@@ -293,7 +293,7 @@ export default function Dashboard3D() {
 
         {/* Main Dashboard Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-7 lg:w-auto lg:grid-cols-7 bg-white shadow-sm border">
+          <TabsList className="grid w-full grid-cols-7 lg:w-auto lg:grid-cols-7 bg-background shadow-sm border">
             <TabsTrigger value="customizable" className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 py-2 sm:py-3 text-xs sm:text-sm">
               <Package className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="sm:hidden">Products</span>

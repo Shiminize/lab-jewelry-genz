@@ -62,7 +62,7 @@ export default function MaterialTagDemoPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-2">MaterialTagChip Integration Demo</h1>
-        <p className="text-gray-600 mb-8">
+        <p className="text-aurora-nav-muted mb-8">
           Testing MaterialTagChip integration with ProductCard component. Click on the material tags to see the functionality.
         </p>
         
@@ -81,7 +81,7 @@ export default function MaterialTagDemoPage() {
           ))}
         </div>
 
-        <div className="mt-12 p-6 bg-gray-50 rounded-lg">
+        <div className="mt-12 p-6 bg-muted rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Expected Behavior</h2>
           <ul className="space-y-2 text-sm">
             <li><strong>Product 1:</strong> Should show "14K Gold", "Moissanite", "1.5CT" tags</li>

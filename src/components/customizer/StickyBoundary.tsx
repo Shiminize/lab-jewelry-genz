@@ -48,7 +48,7 @@ const contentVariants = cva(
         compact: 'flex items-center space-x-2 rounded-lg'
       },
       background: {
-        card: 'bg-white shadow-sm',
+        card: 'bg-background shadow-sm',
         subtle: 'bg-background border-border/50'
       }
     },
@@ -132,7 +132,7 @@ export function StickyBoundary({
             {onMinimize && (
               <button
                 onClick={onMinimize}
-                className="p-1 text-gray-600 hover:text-foreground transition-colors duration-200 rounded touch-manipulation"
+                className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 rounded touch-manipulation"
                 aria-label="Minimize material selection display"
                 title="Minimize"
               >
@@ -143,7 +143,7 @@ export function StickyBoundary({
             {onClose && (
               <button
                 onClick={onClose}
-                className="p-1 text-gray-600 hover:text-foreground transition-colors duration-200 rounded touch-manipulation"
+                className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 rounded touch-manipulation"
                 aria-label="Close material selection display"
                 title="Close"
               >
@@ -177,7 +177,7 @@ export function StickyBoundaryMinimized({
       <div
         className={cn(
           contentVariants({ layout: 'compact', background: 'subtle' }),
-          'p-2 cursor-pointer hover:bg-white hover:shadow-sm'
+          'p-2 cursor-pointer hover:bg-background hover:shadow-sm'
         )}
         onClick={onExpand}
         role="button"
@@ -191,7 +191,7 @@ export function StickyBoundaryMinimized({
         }}
       >
         <div className="w-2 h-2 bg-accent rounded-full" aria-hidden="true" />
-        <span className="font-body text-xs text-gray-600">
+        <span className="font-body text-xs text-aurora-nav-muted">
           Current Selection
         </span>
       </div>

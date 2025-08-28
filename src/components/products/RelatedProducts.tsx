@@ -69,7 +69,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
         {[1, 2, 3, 4, 5].map((star) => (
           <svg
             key={star}
-            className={`w-3 h-3 ${star <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
+            className={`w-3 h-3 ${star <= rating ? 'text-accent' : 'text-aurora-nav-muted'}`}
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -84,7 +84,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
     <div className="max-w-6xl mx-auto">
       {/* Section Header */}
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
+        <h2 className="text-2xl font-bold text-foreground">{title}</h2>
         
         {products.length > visibleCount && (
           <div className="flex items-center space-x-2">
@@ -93,8 +93,8 @@ export default function RelatedProducts({ products, title = "You Might Also Like
               disabled={currentIndex === 0}
               className={`p-2 rounded-full border ${
                 currentIndex === 0
-                  ? 'border-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-900'
+                  ? 'border-border/30 text-aurora-nav-muted cursor-not-allowed'
+                  : 'border-border text-foreground hover:border-accent hover:text-accent'
               } transition-colors`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,8 +106,8 @@ export default function RelatedProducts({ products, title = "You Might Also Like
               disabled={currentIndex >= maxIndex}
               className={`p-2 rounded-full border ${
                 currentIndex >= maxIndex
-                  ? 'border-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-900'
+                  ? 'border-border/30 text-aurora-nav-muted cursor-not-allowed'
+                  : 'border-border text-foreground hover:border-accent hover:text-accent'
               } transition-colors`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,13 +135,13 @@ export default function RelatedProducts({ products, title = "You Might Also Like
               }`}
             >
               <div
-                className="group bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300"
+                className="group bg-background border border-border hover:border-accent/50 hover:shadow-lg transition-all duration-300"
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
               >
                 <Link href={`/products/${product.slug}`}>
                   {/* Product Image */}
-                  <div className="relative aspect-square overflow-hidden bg-gray-100">
+                  <div className="relative aspect-square overflow-hidden bg-muted/20">
                     <Image
                       src={hoveredProduct === product.id && product.media.gallery[1] 
                         ? product.media.gallery[1] 
@@ -156,13 +156,13 @@ export default function RelatedProducts({ products, title = "You Might Also Like
                     {/* Quick Actions Overlay */}
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-x-2">
-                        <button className="p-2 bg-white rounded-full shadow-lg hover:shadow-xl transition-shadow">
-                          <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button className="p-2 bg-background rounded-full shadow-lg hover:shadow-xl transition-shadow">
+                          <svg className="w-4 h-4 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                           </svg>
                         </button>
-                        <button className="p-2 bg-white rounded-full shadow-lg hover:shadow-xl transition-shadow">
-                          <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <button className="p-2 bg-background rounded-full shadow-lg hover:shadow-xl transition-shadow">
+                          <svg className="w-4 h-4 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                           </svg>
@@ -173,7 +173,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
                     {/* Discount Badge */}
                     {product.price.current < product.price.base && (
                       <div className="absolute top-2 left-2">
-                        <span className="px-2 py-1 bg-red-500 text-white text-xs font-medium rounded-full">
+                        <span className="px-2 py-1 bg-cta text-background text-xs font-medium rounded-full">
                           Sale
                         </span>
                       </div>
@@ -183,30 +183,30 @@ export default function RelatedProducts({ products, title = "You Might Also Like
                   {/* Product Info */}
                   <div className="p-4 space-y-3">
                     {/* Category */}
-                    <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                    <div className="text-xs font-medium text-aurora-nav-muted uppercase tracking-wide">
                       {product.category}
                     </div>
 
                     {/* Product Name */}
-                    <h3 className="font-semibold text-gray-900 group-hover:text-amber-600 transition-colors line-clamp-2">
+                    <h3 className="font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-2">
                       {product.name}
                     </h3>
 
                     {/* Rating */}
                     <div className="flex items-center space-x-2">
                       {renderStars(product.rating)}
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-aurora-nav-muted">
                         ({product.reviewCount})
                       </span>
                     </div>
 
                     {/* Price */}
                     <div className="flex items-center space-x-2">
-                      <span className="text-lg font-bold text-gray-900">
+                      <span className="text-lg font-bold text-foreground">
                         ${product.price.current.toFixed(2)}
                       </span>
                       {product.price.current < product.price.base && (
-                        <span className="text-sm text-gray-500 line-through">
+                        <span className="text-sm text-aurora-nav-muted line-through">
                           ${product.price.base.toFixed(2)}
                         </span>
                       )}
@@ -219,7 +219,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
                         // Add to cart logic here
                         console.log('Quick add to cart:', product.id)
                       }}
-                      className="w-full py-2 px-4 bg-amber-600 text-white text-sm font-medium rounded-lg hover:bg-amber-700 transition-colors opacity-0 group-hover:opacity-100 duration-300"
+                      className="w-full py-2 px-4 bg-cta text-background text-sm font-medium rounded-lg hover:bg-cta-hover transition-colors opacity-0 group-hover:opacity-100 duration-300"
                     >
                       Quick Add
                     </button>
@@ -239,7 +239,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentIndex ? 'bg-amber-500' : 'bg-gray-300'
+                index === currentIndex ? 'bg-accent' : 'bg-border/50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -251,7 +251,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
       <div className="text-center mt-8">
         <Link
           href="/products"
-          className="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-400 transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-border text-base font-medium rounded-lg text-foreground bg-background hover:bg-muted/10 hover:border-accent transition-colors"
         >
           View All Products
           <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

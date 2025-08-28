@@ -157,8 +157,8 @@ export default function ReferralLinks() {
       {/* Header and Controls */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">Referral Links</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-xl font-semibold text-foreground">Referral Links</h2>
+          <p className="text-sm text-aurora-nav-muted">
             Manage and track your referral links performance
           </p>
         </div>
@@ -174,7 +174,7 @@ export default function ReferralLinks() {
             {/* Search */}
             <div className="flex-1">
               <div className="relative">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-aurora-nav-muted" />
                 <Input
                   type="text"
                   placeholder="Search links by title, URL, or description..."
@@ -187,11 +187,11 @@ export default function ReferralLinks() {
 
             {/* Status Filter */}
             <div className="flex items-center space-x-2">
-              <Filter className="w-4 h-4 text-gray-400" />
+              <Filter className="w-4 h-4 text-aurora-nav-muted" />
               <select
                 value={activeFilter}
                 onChange={(e) => setActiveFilter(e.target.value as any)}
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               >
                 <option value="all">All Links</option>
                 <option value="active">Active Only</option>
@@ -206,9 +206,9 @@ export default function ReferralLinks() {
       {links.length === 0 ? (
         <Card>
           <CardContent className="text-center py-12">
-            <Link2 className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <div className="text-lg font-medium text-gray-900 mb-2">No referral links found</div>
-            <p className="text-gray-500 mb-6">
+            <Link2 className="w-12 h-12 text-aurora-nav-muted mx-auto mb-4" />
+            <div className="text-lg font-medium text-foreground mb-2">No referral links found</div>
+            <p className="text-aurora-nav-muted mb-6">
               {searchTerm || activeFilter !== 'all' 
                 ? 'Try adjusting your search or filters'
                 : 'Create your first referral link to start earning commissions'
@@ -229,11 +229,11 @@ export default function ReferralLinks() {
                   <div className="flex-1 space-y-2">
                     <div className="flex items-start justify-between">
                       <div>
-                        <h3 className="font-medium text-gray-900">
+                        <h3 className="font-medium text-foreground">
                           {link.title || 'Untitled Link'}
                         </h3>
                         {link.description && (
-                          <p className="text-sm text-gray-600 mt-1">{link.description}</p>
+                          <p className="text-sm text-aurora-nav-muted mt-1">{link.description}</p>
                         )}
                       </div>
                       <Badge 
@@ -247,8 +247,8 @@ export default function ReferralLinks() {
                     {/* URLs */}
                     <div className="space-y-1">
                       <div className="flex items-center space-x-2">
-                        <span className="text-xs text-gray-500">Short URL:</span>
-                        <code className="text-xs bg-gray-100 px-2 py-1 rounded">{link.shortUrl}</code>
+                        <span className="text-xs text-aurora-nav-muted">Short URL:</span>
+                        <code className="text-xs bg-muted px-2 py-1 rounded">{link.shortUrl}</code>
                         <Button
                           size="sm"
                           variant="ghost"
@@ -263,8 +263,8 @@ export default function ReferralLinks() {
                         </Button>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <span className="text-xs text-gray-500">Target:</span>
-                        <span className="text-xs text-gray-700 truncate max-w-md">
+                        <span className="text-xs text-aurora-nav-muted">Target:</span>
+                        <span className="text-xs text-aurora-nav-muted truncate max-w-md">
                           {link.originalUrl}
                         </span>
                         <Button
@@ -283,31 +283,31 @@ export default function ReferralLinks() {
                   <div className="lg:w-64 border-t lg:border-t-0 lg:border-l pt-4 lg:pt-0 lg:pl-6">
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <div>
-                        <div className="text-lg font-semibold text-gray-900">{link.clickCount}</div>
-                        <div className="text-xs text-gray-500 flex items-center justify-center">
+                        <div className="text-lg font-semibold text-foreground">{link.clickCount}</div>
+                        <div className="text-xs text-aurora-nav-muted flex items-center justify-center">
                           <MousePointer className="w-3 h-3 mr-1" />
                           Clicks
                         </div>
                       </div>
                       <div>
-                        <div className="text-lg font-semibold text-gray-900">{link.conversionCount}</div>
-                        <div className="text-xs text-gray-500 flex items-center justify-center">
+                        <div className="text-lg font-semibold text-foreground">{link.conversionCount}</div>
+                        <div className="text-xs text-aurora-nav-muted flex items-center justify-center">
                           <Target className="w-3 h-3 mr-1" />
                           Sales
                         </div>
                       </div>
                       <div>
-                        <div className="text-lg font-semibold text-gray-900">
+                        <div className="text-lg font-semibold text-foreground">
                           {getConversionRate(link.clickCount, link.conversionCount)}%
                         </div>
-                        <div className="text-xs text-gray-500 flex items-center justify-center">
+                        <div className="text-xs text-aurora-nav-muted flex items-center justify-center">
                           <TrendingUp className="w-3 h-3 mr-1" />
                           CVR
                         </div>
                       </div>
                     </div>
 
-                    <div className="mt-4 text-xs text-gray-500 text-center">
+                    <div className="mt-4 text-xs text-aurora-nav-muted text-center">
                       Created: {formatDate(link.createdAt)}
                       {link.lastClickedAt && (
                         <div>Last click: {formatDate(link.lastClickedAt)}</div>
@@ -356,7 +356,7 @@ export default function ReferralLinks() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-aurora-nav-muted">
                 Showing {((pagination.page - 1) * pagination.limit) + 1} to {Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total} links
               </div>
               <div className="flex items-center space-x-2">
@@ -368,7 +368,7 @@ export default function ReferralLinks() {
                 >
                   Previous
                 </Button>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-aurora-nav-muted">
                   Page {pagination.page} of {pagination.pages}
                 </span>
                 <Button

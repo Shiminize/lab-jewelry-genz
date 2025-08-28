@@ -140,12 +140,12 @@ export default function ConversionFunnelChart() {
     if (active && payload && payload.length) {
       const data = payload[0].payload
       return (
-        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
-          <p className="font-medium text-gray-900">{data.name}</p>
-          <p className="text-sm text-gray-600">
+        <div className="bg-background p-3 border border-border rounded-lg shadow-lg">
+          <p className="font-medium text-foreground">{data.name}</p>
+          <p className="text-sm text-aurora-nav-muted">
             Users: <span className="font-medium">{formatNumber(data.value)}</span>
           </p>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-aurora-nav-muted">
             Conversion: <span className="font-medium">{data.percentage.toFixed(1)}%</span>
           </p>
           {data.dropOff > 0 && (
@@ -189,12 +189,12 @@ export default function ConversionFunnelChart() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Conversion Funnel Analysis</h2>
+        <h2 className="text-2xl font-bold text-foreground">Conversion Funnel Analysis</h2>
         <div className="flex items-center space-x-4">
           <select 
             value={selectedCreator}
             onChange={(e) => setSelectedCreator(e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-1 text-sm"
+            className="border border-border rounded-md px-3 py-1 text-sm"
           >
             <option value="all">All Creators</option>
             <option value="SARAH2024">@SARAH2024</option>
@@ -203,7 +203,7 @@ export default function ConversionFunnelChart() {
           <select 
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value as '7d' | '30d' | '90d')}
-            className="border border-gray-300 rounded-md px-3 py-1 text-sm"
+            className="border border-border rounded-md px-3 py-1 text-sm"
           >
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
@@ -217,8 +217,8 @@ export default function ConversionFunnelChart() {
         <Card>
           <CardContent className="p-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-900">13.12%</div>
-              <div className="text-sm text-gray-600">Overall Conversion Rate</div>
+              <div className="text-2xl font-bold text-foreground">13.12%</div>
+              <div className="text-sm text-aurora-nav-muted">Overall Conversion Rate</div>
               <Badge variant="secondary" className="mt-1 bg-green-100 text-green-800">
                 +2.3% vs last period
               </Badge>
@@ -229,9 +229,9 @@ export default function ConversionFunnelChart() {
         <Card>
           <CardContent className="p-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-900">{formatNumber(funnelData[0]?.value || 0)}</div>
-              <div className="text-sm text-gray-600">Total Clicks</div>
-              <div className="text-xs text-gray-500 mt-1">Starting traffic</div>
+              <div className="text-2xl font-bold text-foreground">{formatNumber(funnelData[0]?.value || 0)}</div>
+              <div className="text-sm text-aurora-nav-muted">Total Clicks</div>
+              <div className="text-xs text-aurora-nav-muted mt-1">Starting traffic</div>
             </div>
           </CardContent>
         </Card>
@@ -239,9 +239,9 @@ export default function ConversionFunnelChart() {
         <Card>
           <CardContent className="p-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-900">{formatNumber(funnelData[funnelData.length - 1]?.value || 0)}</div>
-              <div className="text-sm text-gray-600">Conversions</div>
-              <div className="text-xs text-gray-500 mt-1">Completed purchases</div>
+              <div className="text-2xl font-bold text-foreground">{formatNumber(funnelData[funnelData.length - 1]?.value || 0)}</div>
+              <div className="text-sm text-aurora-nav-muted">Conversions</div>
+              <div className="text-xs text-aurora-nav-muted mt-1">Completed purchases</div>
             </div>
           </CardContent>
         </Card>
@@ -249,9 +249,9 @@ export default function ConversionFunnelChart() {
         <Card>
           <CardContent className="p-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-900">{formatCurrency(82500)}</div>
-              <div className="text-sm text-gray-600">Revenue Generated</div>
-              <div className="text-xs text-gray-500 mt-1">From conversions</div>
+              <div className="text-2xl font-bold text-foreground">{formatCurrency(82500)}</div>
+              <div className="text-sm text-aurora-nav-muted">Revenue Generated</div>
+              <div className="text-xs text-aurora-nav-muted mt-1">From conversions</div>
             </div>
           </CardContent>
         </Card>
@@ -288,7 +288,7 @@ export default function ConversionFunnelChart() {
                     />
                     {index < funnelData.length - 1 && (
                       <div className="flex justify-center mt-2 mb-2">
-                        <TrendingDown className="h-6 w-6 text-gray-400" />
+                        <TrendingDown className="h-6 w-6 text-aurora-nav-muted" />
                       </div>
                     )}
                   </div>
@@ -310,19 +310,19 @@ export default function ConversionFunnelChart() {
                 const dropOffUsers = prevStage.value - stage.value
                 
                 return (
-                  <div key={stage.name} className="p-3 bg-gray-50 rounded-lg">
+                  <div key={stage.name} className="p-3 bg-muted rounded-lg">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-gray-700">
+                      <span className="text-sm font-medium text-foreground">
                         {prevStage.name} → {stage.name}
                       </span>
                       <Badge variant="outline" className="text-red-700 border-red-300">
                         -{stage.dropOff}%
                       </Badge>
                     </div>
-                    <div className="text-xs text-gray-600">
+                    <div className="text-xs text-aurora-nav-muted">
                       Lost {formatNumber(dropOffUsers)} users
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                    <div className="w-full bg-muted rounded-full h-2 mt-2">
                       <div 
                         className="bg-red-400 h-2 rounded-full transition-all duration-500"
                         style={{ width: `${stage.dropOff}%` }}
@@ -348,11 +348,11 @@ export default function ConversionFunnelChart() {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-2">
                     <Badge variant="outline">@{creator.creatorCode}</Badge>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-aurora-nav-muted">
                       {creator.conversionRate.toFixed(1)}% conversion rate
                     </span>
                   </div>
-                  <div className="text-sm font-medium text-gray-900">
+                  <div className="text-sm font-medium text-foreground">
                     {formatCurrency(creator.totalRevenue)} revenue
                   </div>
                 </div>
@@ -370,7 +370,7 @@ export default function ConversionFunnelChart() {
                         <div>{formatNumber(stage.value)}</div>
                         <div className="opacity-80">{stage.percentage.toFixed(1)}%</div>
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">{stage.name}</div>
+                      <div className="text-xs text-aurora-nav-muted mt-1">{stage.name}</div>
                     </div>
                   ))}
                 </div>

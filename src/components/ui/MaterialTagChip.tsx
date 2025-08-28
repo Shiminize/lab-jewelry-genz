@@ -11,12 +11,12 @@ const materialTagChipVariants = cva(
   {
     variants: {
       category: {
-        // Stone Tags: Use `text-accent bg-white` (champagne gold on white)
-        stone: 'text-accent bg-white border-accent/20 hover:bg-muted hover:text-foreground',
+        // Stone Tags: Use `text-accent bg-background` (Aurora Nebula Purple on background)
+        stone: 'text-accent bg-background border-accent/20 hover:bg-muted hover:text-foreground',
         // Metal Tags: Use `text-foreground bg-muted` (graphite on muted background)  
-        metal: 'text-foreground bg-muted border-border hover:bg-white hover:text-foreground',
-        // Carat Tags: Use `text-foreground bg-white` (graphite on white)
-        carat: 'text-foreground bg-white border-border hover:bg-muted hover:text-foreground'
+        metal: 'text-foreground bg-muted border-border hover:bg-background hover:text-foreground',
+        // Carat Tags: Use `text-foreground bg-background` (graphite on background)
+        carat: 'text-foreground bg-background border-border hover:bg-muted hover:text-foreground'
       },
       selected: {
         // Selected State: Use `text-background bg-cta` (white on coral gold)
@@ -68,13 +68,13 @@ export interface MaterialTagChipProps
 }
 
 /**
- * MaterialTagChip - CLAUDE_RULES Compliant Component
+ * MaterialTagChip - AURORA DESIGN SYSTEM Compliant Component
  * 
- * Displays material-specific tags with strict design system compliance:
- * - Stone Tags: Champagne gold on white (text-accent bg-white)
+ * Displays material-specific tags with strict Aurora color compliance:
+ * - Stone Tags: Aurora Nebula Purple on background (text-accent bg-background)
  * - Metal Tags: Graphite on muted background (text-foreground bg-muted)  
- * - Carat Tags: Graphite on white (text-foreground bg-white)
- * - Selected: White on coral gold (text-background bg-cta)
+ * - Carat Tags: Graphite on background (text-foreground bg-background)
+ * - Selected: White on Aurora purple (text-background bg-cta)
  * 
  * Features:
  * - WCAG 2.1 AA accessibility compliance

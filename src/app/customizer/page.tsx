@@ -242,7 +242,7 @@ export default function CustomizerPage() {
                     {/* Gen Z Appeal Badge */}
                     {product.metadata.genZAppeal && (
                       <div className="mt-1">
-                        <div className="text-accent bg-white rounded px-1 py-0.5 line-clamp-1 text-xs">
+                        <div className="text-accent bg-background rounded px-1 py-0.5 line-clamp-1 text-xs">
                           ✨ {product.targetEmotion}
                         </div>
                       </div>

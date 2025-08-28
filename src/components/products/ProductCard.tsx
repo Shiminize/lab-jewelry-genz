@@ -30,24 +30,24 @@ interface ProductCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const variantStyles = {
   standard: {
-    container: 'group cursor-pointer',
-    imageContainer: 'aspect-square mb-4 relative overflow-hidden bg-muted',
-    image: 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
-    content: 'space-y-2',
-    actions: 'absolute inset-0 bg-foreground/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2',
+    container: 'group cursor-pointer aurora-living-component aurora-card transform-gpu perspective-1000 hover:scale-105 transition-all duration-700 hover:shadow-2xl hover:shadow-accent/20',
+    imageContainer: 'aspect-square mb-4 relative overflow-hidden bg-gradient-to-br from-background to-muted rounded-xl transform-gpu group-hover:rotateX-2 group-hover:rotateY-2 transition-all duration-700',
+    image: 'w-full h-full object-cover transition-all duration-700 group-hover:scale-115 group-hover:rotate-2 group-hover:brightness-110 group-hover:saturate-110',
+    content: 'space-y-2 transform-gpu group-hover:translateZ-4 transition-all duration-500',
+    actions: 'absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-end justify-center pb-4 space-x-2 backdrop-blur-sm',
   },
   featured: {
-    container: 'group cursor-pointer border border-accent/20 rounded-xl p-4 bg-accent/5 hover:bg-accent/10 transition-colors',
-    imageContainer: 'aspect-square mb-4 relative overflow-hidden bg-muted',
-    image: 'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
-    content: 'space-y-3',
-    actions: 'absolute inset-0 bg-foreground/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2',
+    container: 'group cursor-pointer aurora-living-component aurora-card border-2 border-foreground/30 rounded-2xl p-6 bg-gradient-to-br from-background via-background to-background hover:border-accent/50 transition-all duration-700 aurora-pulse transform-gpu hover:scale-110 hover:rotateY-3 hover:shadow-2xl hover:shadow-foreground/30',
+    imageContainer: 'aspect-square mb-6 relative overflow-hidden bg-gradient-to-br from-background to-muted rounded-xl transform-gpu group-hover:rotateX-3 group-hover:rotateY-1 transition-all duration-700',
+    image: 'w-full h-full object-cover transition-all duration-700 group-hover:scale-120 group-hover:rotate-3 group-hover:brightness-115 group-hover:saturate-125',
+    content: 'space-y-4 transform-gpu group-hover:translateZ-6 transition-all duration-500',
+    actions: 'absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-end justify-center pb-6 space-x-3 backdrop-blur-md',
   },
   compact: {
-    container: 'group cursor-pointer flex space-x-3',
-    imageContainer: 'w-16 h-16 relative overflow-hidden rounded-md bg-muted flex-shrink-0',
-    image: 'w-full h-full object-cover',
-    content: 'flex-1 min-w-0 space-y-1',
+    container: 'group cursor-pointer flex space-x-3 aurora-interactive-shadow rounded-lg p-2 hover:bg-background/50 transition-all duration-400 transform-gpu hover:scale-102 hover:shadow-lg hover:shadow-accent/10',
+    imageContainer: 'w-16 h-16 relative overflow-hidden rounded-lg bg-gradient-to-br from-background to-muted flex-shrink-0 transform-gpu group-hover:rotateY-1 transition-all duration-400',
+    image: 'w-full h-full object-cover transition-all duration-400 group-hover:scale-115 group-hover:brightness-105',
+    content: 'flex-1 min-w-0 space-y-1 transform-gpu group-hover:translateX-1 transition-all duration-300',
     actions: 'hidden', // No hover actions for compact variant
   },
 }
@@ -153,8 +153,27 @@ export function ProductCard({
       {...restProps}
     >
       <Link href={`/products/${product.slug || product._id}`}>
-        {/* Product Image */}
+        {/* Aurora Enhanced Product Image */}
         <div className={styles.imageContainer}>
+          {/* Aurora Shimmer Effect */}
+          <div className="absolute inset-0 aurora-shimmer-overlay opacity-0 group-hover:opacity-30 transition-opacity duration-500 z-10 pointer-events-none" />
+          
+          {/* Aurora Floating Sparkles */}
+          <div className="absolute inset-0 pointer-events-none z-20">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-1 h-1 bg-accent-secondary rounded-full opacity-0 group-hover:opacity-60 aurora-floating transition-opacity duration-700"
+                style={{
+                  left: `${20 + i * 25}%`,
+                  top: `${15 + i * 20}%`,
+                  animationDelay: `${i * 0.3}s`,
+                  animationDuration: `${2 + i * 0.5}s`
+                }}
+              />
+            ))}
+          </div>
+
           {!imageError ? (
             <Image
               src={product.primaryImage || '/images/placeholder-product.jpg'}
@@ -165,77 +184,78 @@ export function ProductCard({
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-muted">
-              <Sparkles className="w-8 h-8 text-foreground" />
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-background to-muted">
+              <Sparkles className="w-8 h-8 text-foreground aurora-pulse" />
             </div>
           )}
           
-          {/* Discount badge */}
+          {/* Aurora Enhanced Discount Badge */}
           {hasDiscount && variant !== 'compact' && (
-            <div className="absolute top-2 left-2 bg-cta text-background px-2 py-1 rounded-md text-xs font-semibold">
+            <div className="absolute top-3 left-3 bg-gradient-to-r from-cta to-accent text-background px-3 py-1 rounded-full text-xs font-semibold aurora-pulse shadow-lg">
               -{discountPercentage}%
             </div>
           )}
 
-          {/* Wishlist button */}
+          {/* Aurora Enhanced Wishlist Button */}
           {variant !== 'compact' && (
             <Button
               variant="ghost"
               size="md"
-              className="absolute top-2 right-2 bg-background/80 hover:bg-background text-foreground opacity-0 group-hover:opacity-100 transition-opacity p-2 min-h-11 min-w-11"
+              className="absolute top-3 right-3 bg-background/90 hover:bg-background text-foreground opacity-0 group-hover:opacity-100 transition-all duration-500 p-2 min-h-11 min-w-11 aurora-interactive-shadow rounded-full backdrop-blur-sm"
               onClick={handleWishlistClick}
               aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
             >
               <Heart 
                 size={16} 
                 className={cn(
-                  'transition-colors',
-                  isWishlisted ? 'fill-cta text-cta' : 'text-foreground'
+                  'transition-all duration-300',
+                  isWishlisted ? 'fill-accent-secondary text-accent-secondary aurora-pulse' : 'text-foreground hover:text-accent-secondary'
                 )} 
               />
             </Button>
           )}
 
-          {/* Hover actions */}
+          {/* Aurora Enhanced Hover Actions */}
           {variant !== 'compact' && (
             <div className={styles.actions}>
               <Button
                 variant="secondary"
                 size="md"
                 onClick={handleQuickViewClick}
-                className="bg-background/90 hover:bg-background text-foreground"
+                className="bg-background/95 hover:bg-background text-foreground aurora-interactive-shadow backdrop-blur-sm"
               >
-                <Eye size={16} className="mr-1" />
+                <Eye size={16} className="mr-2" />
                 View Details
               </Button>
               <Button
                 variant="primary"
                 size="md"
                 onClick={handleAddToCartClick}
+                className="bg-cta text-background shadow-lg"
               >
-                <ShoppingCart size={16} className="mr-1" />
+                <ShoppingCart size={16} className="mr-2" />
                 Add to Cart
               </Button>
             </div>
           )}
         </div>
 
-        {/* Product Info */}
+        {/* Aurora Enhanced Product Info */}
         <div className={styles.content}>
-          <div>
+          <div className="space-y-1">
             <BodyText 
               size={variant === 'compact' ? 'sm' : 'md'} 
               weight="medium" 
-              className="line-clamp-2"
+              className="line-clamp-2 group-hover:aurora-gradient-text transition-all duration-500"
             >
               {product.name || 'Untitled Product'}
             </BodyText>
-            <MutedText size={variant === 'compact' ? 'sm' : 'md'} className="capitalize">
+            <MutedText size={variant === 'compact' ? 'sm' : 'md'} className="capitalize text-aurora-nav-muted group-hover:text-foreground transition-colors duration-300">
               {product.category?.replace('-', ' ') || 'jewelry'}
             </MutedText>
           </div>
 
-          {/* Material Tags - Primary filtering system */}
+          {/* Aurora Enhanced Material Tags - Primary filtering system */}
           {materialTags.length > 0 && variant !== 'compact' && (
             <div className="flex flex-wrap gap-1 mt-2" role="group" aria-label="Product material filters">
               {materialTags.slice(0, variant === 'featured' ? 4 : 3).map((tag) => (
@@ -244,18 +264,18 @@ export function ProductCard({
                   tag={tag}
                   onClick={handleMaterialTagClick}
                   size={variant === 'featured' ? 'md' : 'sm'}
-                  className="transition-all duration-200"
+                  className="transition-all duration-200 hover:aurora-shimmer-overlay group-hover:scale-105"
                 />
               ))}
               {materialTags.length > (variant === 'featured' ? 4 : 3) && (
-                <div className="text-xs text-gray-600 self-center ml-1">
+                <div className="text-xs text-aurora-nav-muted/60 group-hover:text-foreground self-center ml-1 transition-colors duration-300 aurora-pulse">
                   +{materialTags.length - (variant === 'featured' ? 4 : 3)} more
                 </div>
               )}
             </div>
           )}
 
-          {/* Compact variant material tags */}
+          {/* Aurora Enhanced Compact Material Tags */}
           {materialTags.length > 0 && variant === 'compact' && (
             <div className="flex flex-wrap gap-1 mt-1" role="group" aria-label="Product material filters">
               {materialTags.slice(0, 2).map((tag) => (
@@ -264,20 +284,20 @@ export function ProductCard({
                   tag={tag}
                   onClick={handleMaterialTagClick}
                   size="sm"
-                  className="transition-all duration-200"
+                  className="transition-all duration-200 group-hover:aurora-shimmer-overlay"
                 />
               ))}
               {materialTags.length > 2 && (
-                <div className="text-xs text-gray-600 self-center ml-1">
+                <div className="text-xs text-aurora-nav-muted/60 group-hover:text-foreground self-center ml-1 transition-colors duration-300 aurora-pulse">
                   +{materialTags.length - 2}
                 </div>
               )}
             </div>
           )}
 
-          {/* Fallback to legacy tags if no material specs available */}
+          {/* Aurora Fallback Tags - Legacy support with Aurora styling */}
           {materialTags.length === 0 && product.metadata?.tags && product.metadata.tags.length > 0 && (
-            <div className="text-xs text-gray-600 mt-2">
+            <div className="text-xs text-aurora-nav-muted/70 group-hover:text-foreground mt-2 transition-colors duration-300">
               {product.metadata.tags.slice(0, variant === 'compact' ? 2 : 3).join(' • ')}
               {product.metadata.tags.length > (variant === 'compact' ? 2 : 3) && (
                 <span> +{product.metadata.tags.length - (variant === 'compact' ? 2 : 3)} more</span>
@@ -285,28 +305,31 @@ export function ProductCard({
             </div>
           )}
 
-          {/* Pricing and Stock */}
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
+          {/* Aurora Enhanced Pricing and Stock */}
+          <div className="space-y-3">
+            <div className="flex items-center space-x-3">
               <BodyText 
                 size={variant === 'featured' ? 'lg' : 'md'} 
                 weight="semibold" 
-                className="text-foreground"
+                className="text-foreground group-hover:aurora-gradient-text transition-all duration-500"
               >
                 {formatPrice(basePrice, currency)}
               </BodyText>
               {hasDiscount && originalPrice && (
                 <MutedText 
                   size="sm" 
-                  className="line-through"
+                  className="line-through text-aurora-nav-muted/60 group-hover:text-foreground/80 transition-colors duration-300">
                 >
                   {formatPrice(originalPrice, currency)}
                 </MutedText>
               )}
+              {hasDiscount && (
+                <div className="aurora-pulse w-1 h-1 bg-accent-secondary rounded-full" />
+              )}
             </div>
             
-            {/* Real-time inventory status */}
-            <div className="flex items-center justify-between">
+            {/* Aurora Enhanced Real-time inventory status */}
+            <div className="flex items-center justify-between aurora-interactive-shadow rounded-lg p-2 bg-gradient-to-r from-background/50 to-transparent group-hover:from-background/30 transition-all duration-300">
               <StockIndicator productId={product._id} />
               {variant !== 'compact' && (
                 <LiveStockCounter productId={product._id} />
@@ -314,29 +337,32 @@ export function ProductCard({
             </div>
           </div>
 
-          {/* Featured badge */}
+          {/* Aurora Enhanced Featured Badge */}
           {variant === 'featured' && (
-            <div className="flex items-center space-x-1 text-accent">
-              <Sparkles size={14} />
-              <MutedText size="sm" className="text-accent font-medium">
+            <div className="flex items-center space-x-2 p-3 bg-gradient-to-r from-accent/10 to-aurora-nav-muted/10 rounded-lg aurora-interactive-shadow group-hover:from-accent/20 group-hover:to-aurora-nav-muted/20 transition-all duration-500">
+              <Sparkles size={16} className="text-accent-secondary aurora-pulse" />
+              <MutedText size="sm" className="text-foreground font-semibold aurora-gradient-text">
                 Featured Design
               </MutedText>
+              <div className="aurora-floating w-1 h-1 bg-accent-secondary rounded-full" />
             </div>
           )}
 
-          {/* Compact variant actions */}
+          {/* Aurora Enhanced Compact Actions */}
           {variant === 'compact' && (
             <div className="flex space-x-2">
               <Button
                 variant="ghost"
                 size="md"
                 onClick={handleWishlistClick}
-                className="p-2 min-h-11 min-w-11"
+                className="p-2 min-h-11 min-w-11 hover:bg-accent-interactive/10 aurora-interactive-shadow group-hover:scale-105 transition-all duration-300"
               >
                 <Heart 
                   size={14} 
                   className={cn(
-                    isWishlisted ? 'fill-cta text-cta' : 'text-foreground'
+                    isWishlisted 
+                      ? 'fill-accent-secondary text-accent-secondary' 
+                      : 'text-aurora-nav-muted hover:text-accent-secondary'
                   )} 
                 />
               </Button>
@@ -344,9 +370,12 @@ export function ProductCard({
                 variant="ghost"
                 size="md"
                 onClick={handleAddToCartClick}
-                className="p-2 min-h-11 min-w-11"
+                className="p-2 min-h-11 min-w-11 hover:bg-foreground/10 aurora-interactive-shadow group-hover:scale-105 transition-all duration-300"
               >
-                <ShoppingCart size={14} className="text-foreground" />
+                <ShoppingCart 
+                  size={14} 
+                  className="text-aurora-nav-muted hover:text-foreground aurora-pulse transition-colors duration-200" 
+                />
               </Button>
             </div>
           )}

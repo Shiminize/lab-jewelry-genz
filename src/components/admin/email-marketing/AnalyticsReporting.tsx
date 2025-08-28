@@ -147,7 +147,7 @@ const MetricCard = ({
     switch (trend) {
       case 'up': return 'text-green-600'
       case 'down': return 'text-red-600'
-      default: return 'text-gray-600'
+      default: return 'text-aurora-nav-muted'
     }
   }
 
@@ -163,7 +163,7 @@ const MetricCard = ({
 
   return (
     <div className={cn(
-      "text-foreground bg-white rounded-lg border space-y-3",
+      "text-foreground bg-background rounded-lg border space-y-3",
       size === 'lg' ? 'p-6' : size === 'sm' ? 'p-3' : 'p-4'
     )}>
       <div className="flex items-center justify-between">
@@ -193,11 +193,11 @@ const MetricCard = ({
         )}>
           {formatValue(value, format)}
         </div>
-        <BodyText size="sm" className="text-gray-600 bg-white">
+        <BodyText size="sm" className="text-aurora-nav-muted bg-background">
           {title}
         </BodyText>
         {subtitle && (
-          <BodyText size="xs" className="text-gray-600 bg-white">
+          <BodyText size="xs" className="text-aurora-nav-muted bg-background">
             {subtitle}
           </BodyText>
         )}
@@ -232,7 +232,7 @@ const TopPerformersTable = ({
   }
 
   return (
-    <div className="text-foreground bg-white p-6 rounded-lg border">
+    <div className="text-foreground bg-background p-6 rounded-lg border">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
           <Icon className="w-4 h-4 text-accent" />
@@ -245,7 +245,7 @@ const TopPerformersTable = ({
           <thead>
             <tr className="border-b border-border">
               {columns.map(column => (
-                <th key={column.key} className="text-left py-2 px-3 text-sm font-medium text-gray-600 bg-white">
+                <th key={column.key} className="text-left py-2 px-3 text-sm font-medium text-aurora-nav-muted bg-background">
                   {column.label}
                 </th>
               ))}
@@ -267,7 +267,7 @@ const TopPerformersTable = ({
       
       {data.length === 0 && (
         <div className="text-center py-8">
-          <BodyText className="text-gray-600 bg-white">
+          <BodyText className="text-aurora-nav-muted bg-background">
             No data available for the selected period
           </BodyText>
         </div>
@@ -281,7 +281,7 @@ const EngagementFunnel = ({ data }: { data: AnalyticsMetrics['engagementFlow'] }
   const maxUsers = Math.max(...data.map(step => step.users))
   
   return (
-    <div className="text-foreground bg-white p-6 rounded-lg border">
+    <div className="text-foreground bg-background p-6 rounded-lg border">
       <div className="flex items-center gap-3 mb-6">
         <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
           <Activity className="w-4 h-4 text-accent" />
@@ -302,7 +302,7 @@ const EngagementFunnel = ({ data }: { data: AnalyticsMetrics['engagementFlow'] }
                   {step.step}
                 </BodyText>
                 <div className="flex items-center gap-4">
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     {step.users.toLocaleString()} users
                   </BodyText>
                   {index < data.length - 1 && (
@@ -338,11 +338,11 @@ const DeviceBreakdown = ({ data }: { data: AnalyticsMetrics['deviceStats'] }) =>
     { name: 'Desktop', value: data.desktop, color: 'bg-blue-500' },
     { name: 'Mobile', value: data.mobile, color: 'bg-green-500' },
     { name: 'Tablet', value: data.tablet, color: 'bg-orange-500' },
-    { name: 'Unknown', value: data.unknown, color: 'bg-gray-500' }
+    { name: 'Unknown', value: data.unknown, color: 'bg-muted0' }
   ]
 
   return (
-    <div className="text-foreground bg-white p-6 rounded-lg border">
+    <div className="text-foreground bg-background p-6 rounded-lg border">
       <div className="flex items-center gap-3 mb-6">
         <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
           <Target className="w-4 h-4 text-accent" />
@@ -362,7 +362,7 @@ const DeviceBreakdown = ({ data }: { data: AnalyticsMetrics['deviceStats'] }) =>
                   <BodyText className="text-foreground">{device.name}</BodyText>
                 </div>
                 <div className="flex items-center gap-4">
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     {device.value.toLocaleString()}
                   </BodyText>
                   <BodyText size="sm" className="text-foreground font-medium">
@@ -478,10 +478,10 @@ export default function AnalyticsReporting() {
   // Error state
   if (error) {
     return (
-      <div className="text-foreground bg-white p-6 rounded-lg border text-center">
+      <div className="text-foreground bg-background p-6 rounded-lg border text-center">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <H2 className="mb-2 text-foreground">Failed to Load Analytics</H2>
-        <BodyText className="text-gray-600 bg-white mb-4">
+        <BodyText className="text-aurora-nav-muted bg-background mb-4">
           {error}
         </BodyText>
         <Button variant="primary" size="md" onClick={() => fetchAnalytics()}>
@@ -500,7 +500,7 @@ export default function AnalyticsReporting() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <H2 className="text-foreground">Email Analytics & Reporting</H2>
-          <BodyText className="text-gray-600 bg-background">
+          <BodyText className="text-aurora-nav-muted bg-background">
             Comprehensive insights into your email marketing performance
           </BodyText>
         </div>
@@ -508,7 +508,7 @@ export default function AnalyticsReporting() {
           <select
             value={dateRange}
             onChange={(e) => handleDateRangeChange(e.target.value)}
-            className="px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+            className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           >
             {dateRanges.map(range => (
               <option key={range.value} value={range.value}>
@@ -529,7 +529,7 @@ export default function AnalyticsReporting() {
 
       {/* Custom Date Range */}
       {dateRange === 'custom' && (
-        <div className="text-foreground bg-white p-4 rounded-lg border">
+        <div className="text-foreground bg-background p-4 rounded-lg border">
           <div className="flex items-center gap-4">
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
@@ -539,7 +539,7 @@ export default function AnalyticsReporting() {
                 type="date"
                 value={customDateRange.start}
                 onChange={(e) => setCustomDateRange(prev => ({ ...prev, start: e.target.value }))}
-                className="px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
               />
             </div>
             <div>
@@ -550,7 +550,7 @@ export default function AnalyticsReporting() {
                 type="date"
                 value={customDateRange.end}
                 onChange={(e) => setCustomDateRange(prev => ({ ...prev, end: e.target.value }))}
-                className="px-3 py-2 font-body text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
               />
             </div>
             <div className="mt-6">

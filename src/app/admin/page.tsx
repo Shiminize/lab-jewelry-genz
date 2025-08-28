@@ -138,7 +138,7 @@ const MetricCard = ({
     switch (trend) {
       case 'up': return 'text-green-600'
       case 'down': return 'text-red-600'
-      default: return 'text-gray-600'
+      default: return 'text-aurora-nav-muted'
     }
   }
 
@@ -147,7 +147,7 @@ const MetricCard = ({
   return (
     <div 
       className={cn(
-        "text-foreground bg-white p-4 sm:p-6 rounded-lg border shadow-sm",
+        "text-foreground bg-background p-4 sm:p-6 rounded-lg border shadow-sm",
         "transition-all duration-200 hover:shadow-md",
         "touch-manipulation min-h-[120px] flex flex-col justify-between",
         onClick && "cursor-pointer hover:scale-102 active:scale-98",
@@ -171,7 +171,7 @@ const MetricCard = ({
       
       <div className="flex-1 space-y-1 sm:space-y-2">
         <H3 className="text-lg sm:text-xl text-foreground leading-tight">{formatValue(value, format)}</H3>
-        <BodyText size="sm" className="text-gray-600 bg-white font-medium">
+        <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">
           {title}
         </BodyText>
         {subtitle && (
@@ -184,7 +184,7 @@ const MetricCard = ({
         {target && (
           <div className="mt-2 sm:mt-3">
             <div className="flex justify-between items-center mb-1">
-              <BodyText size="xs" className="text-gray-600 bg-white">
+              <BodyText size="xs" className="text-aurora-nav-muted bg-background">
                 Target: {formatValue(target, format)}
               </BodyText>
               <BodyText size="xs" className="text-foreground font-semibold">
@@ -214,7 +214,7 @@ const QuickActions = () => {
   ]
 
   return (
-    <div className="text-foreground bg-white p-4 sm:p-6 rounded-lg border shadow-sm">
+    <div className="text-foreground bg-background p-4 sm:p-6 rounded-lg border shadow-sm">
       <H3 className="mb-4 text-foreground">Quick Actions</H3>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {actions.map((action, index) => {
@@ -335,12 +335,12 @@ export default function AdminDashboard() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
           <div>
             <H1 className="text-xl sm:text-2xl text-foreground">Admin Dashboard</H1>
-            <BodyText size="sm" className="text-gray-600 bg-background">
+            <BodyText size="sm" className="text-aurora-nav-muted bg-background">
               Business metrics and operational overview
             </BodyText>
           </div>
           <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-            <BodyText size="xs sm:text-sm" className="text-gray-600 bg-background flex-1 sm:flex-none">
+            <BodyText size="xs sm:text-sm" className="text-aurora-nav-muted bg-background flex-1 sm:flex-none">
               Updated: {lastUpdated.toLocaleTimeString()}
             </BodyText>
             <Button
@@ -453,7 +453,7 @@ export default function AdminDashboard() {
       <QuickActions />
 
       {/* System Alerts - Mobile Optimized */}
-      <div className="text-foreground bg-white p-4 sm:p-6 rounded-lg border shadow-sm">
+      <div className="text-foreground bg-background p-4 sm:p-6 rounded-lg border shadow-sm">
         <H3 className="mb-3 sm:mb-4 text-foreground">System Alerts</H3>
         <div className="space-y-2 sm:space-y-3">
           {alerts.length === 0 ? (
@@ -476,7 +476,7 @@ export default function AdminDashboard() {
                   case 'high': return 'bg-orange-50 border-orange-200 text-orange-800'
                   case 'medium': return 'bg-yellow-50 border-yellow-200 text-yellow-800'
                   case 'low': return 'bg-green-50 border-green-200 text-green-800'
-                  default: return 'bg-gray-50 border-gray-200 text-gray-800'
+                  default: return 'bg-muted border-border text-foreground'
                 }
               }
 
@@ -486,7 +486,7 @@ export default function AdminDashboard() {
                   case 'high': return <AlertTriangle className="w-5 h-5 text-orange-600" />
                   case 'medium': return <AlertCircle className="w-5 h-5 text-yellow-600" />
                   case 'low': return <TrendingUp className="w-5 h-5 text-green-600" />
-                  default: return <AlertCircle className="w-5 h-5 text-gray-600" />
+                  default: return <AlertCircle className="w-5 h-5 text-aurora-nav-muted" />
                 }
               }
 

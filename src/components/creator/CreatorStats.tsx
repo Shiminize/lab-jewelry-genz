@@ -130,13 +130,13 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
     <div className="space-y-6">
       {/* Period Selector */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900">Performance Overview</h2>
+        <h2 className="text-xl font-semibold text-foreground">Performance Overview</h2>
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-600">Period:</span>
+          <span className="text-sm text-aurora-nav-muted">Period:</span>
           <select
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            className="border border-border rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           >
             <option value="7">Last 7 days</option>
             <option value="30">Last 30 days</option>
@@ -153,13 +153,13 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Clicks</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-sm font-medium text-aurora-nav-muted">Total Clicks</p>
+                <p className="text-2xl font-bold text-foreground">
                   {stats?.clicks.totalClicks.toLocaleString() || '0'}
                 </p>
-                <p className="text-xs text-gray-500">Last {period} days</p>
+                <p className="text-xs text-aurora-nav-muted">Last {period} days</p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
                 <MousePointer className="w-6 h-6 text-blue-600" />
               </div>
             </div>
@@ -171,15 +171,15 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Conversions</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-sm font-medium text-aurora-nav-muted">Conversions</p>
+                <p className="text-2xl font-bold text-foreground">
                   {stats?.clicks.conversions.toLocaleString() || '0'}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-aurora-nav-muted">
                   {stats?.conversionRate || '0'}% conversion rate
                 </p>
               </div>
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
                 <Target className="w-6 h-6 text-green-600" />
               </div>
             </div>
@@ -191,15 +191,15 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Period Earnings</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-sm font-medium text-aurora-nav-muted">Period Earnings</p>
+                <p className="text-2xl font-bold text-foreground">
                   {formatCurrency(stats?.period.periodCommission || 0)}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-aurora-nav-muted">
                   {stats?.period.periodSales || 0} sales
                 </p>
               </div>
-              <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
                 <DollarSign className="w-6 h-6 text-amber-600" />
               </div>
             </div>
@@ -211,13 +211,13 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Earnings</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-sm font-medium text-aurora-nav-muted">Total Earnings</p>
+                <p className="text-2xl font-bold text-foreground">
                   {formatCurrency(stats?.allTime.totalCommission || 0)}
                 </p>
-                <p className="text-xs text-gray-500">All time</p>
+                <p className="text-xs text-aurora-nav-muted">All time</p>
               </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
                 <Award className="w-6 h-6 text-purple-600" />
               </div>
             </div>
@@ -238,20 +238,20 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <div className="text-sm text-gray-600">Commission Rate</div>
-                <div className="text-lg font-semibold text-gray-900">
+                <div className="text-sm text-aurora-nav-muted">Commission Rate</div>
+                <div className="text-lg font-semibold text-foreground">
                   {creator.commissionRate}%
                 </div>
               </div>
               <div>
-                <div className="text-sm text-gray-600">Minimum Payout</div>
-                <div className="text-lg font-semibold text-gray-900">
+                <div className="text-sm text-aurora-nav-muted">Minimum Payout</div>
+                <div className="text-lg font-semibold text-foreground">
                   {formatCurrency(creator.minimumPayout)}
                 </div>
               </div>
               <div>
-                <div className="text-sm text-gray-600">Avg. Order Value</div>
-                <div className="text-lg font-semibold text-gray-900">
+                <div className="text-sm text-aurora-nav-muted">Avg. Order Value</div>
+                <div className="text-lg font-semibold text-foreground">
                   {stats?.period.periodSales 
                     ? formatCurrency(stats.period.periodOrderValue / stats.period.periodSales)
                     : '$0.00'
@@ -259,8 +259,8 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
                 </div>
               </div>
               <div>
-                <div className="text-sm text-gray-600">Total Sales</div>
-                <div className="text-lg font-semibold text-gray-900">
+                <div className="text-sm text-aurora-nav-muted">Total Sales</div>
+                <div className="text-lg font-semibold text-foreground">
                   {stats?.allTime.totalSales.toLocaleString() || '0'}
                 </div>
               </div>
@@ -268,8 +268,8 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
 
             {creator.metrics.lastSaleDate && (
               <div className="pt-4 border-t">
-                <div className="text-sm text-gray-600">Last Sale</div>
-                <div className="text-sm font-medium text-gray-900">
+                <div className="text-sm text-aurora-nav-muted">Last Sale</div>
+                <div className="text-sm font-medium text-foreground">
                   {formatDate(creator.metrics.lastSaleDate)}
                 </div>
               </div>
@@ -289,17 +289,17 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
             {stats?.recentTransactions.length ? (
               <div className="space-y-3">
                 {stats.recentTransactions.slice(0, 5).map((transaction) => (
-                  <div key={transaction.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div key={transaction.id} className="flex items-center justify-between p-3 bg-muted rounded-lg">
                     <div>
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-foreground">
                         Order #{transaction.orderId.slice(-8)}
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-aurora-nav-muted">
                         {formatDate(transaction.createdAt)}
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm font-semibold text-gray-900">
+                      <div className="text-sm font-semibold text-foreground">
                         {formatCurrency(transaction.commissionAmount)}
                       </div>
                       <Badge 
@@ -318,9 +318,9 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
               </div>
             ) : (
               <div className="text-center py-8">
-                <Eye className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                <div className="text-sm text-gray-500">No transactions yet</div>
-                <div className="text-xs text-gray-400">
+                <Eye className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <div className="text-sm text-aurora-nav-muted">No transactions yet</div>
+                <div className="text-xs text-aurora-nav-muted">
                   Start sharing your referral links to earn commissions!
                 </div>
               </div>

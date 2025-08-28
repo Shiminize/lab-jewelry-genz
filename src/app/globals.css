@@ -2,3 +2,485 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Aurora Design System - Core Animation System */
+:root {
+  /* Aurora Color System */
+  --aurora-pink: #FF6B9D;
+  --nebula-purple: #6B46C1;
+  --deep-space: #0A0E27;
+  --aurora-deep-space: #0A0E27;
+  --aurora-nebula-purple: #6B46C1;
+  --aurora-crimson: #C44569;
+  --aurora-plum: #723C70;
+  --aurora-lunar-grey: #F7F7F9;
+  --aurora-emerald-flash: #10B981;
+  --aurora-amber-glow: #F59E0B;
+  
+  /* Dynamic Shadow Colors */
+  --aurora-shadow-color: var(--aurora-nebula-purple);
+  --aurora-shadow-gold: #FFD700;
+  --aurora-shadow-diamond: #B9F2FF;
+  --aurora-shadow-emerald: var(--aurora-emerald-flash);
+  
+  /* Aurora Navigation System Colors */
+  --aurora-nav-surface: var(--aurora-lunar-grey);
+  --aurora-nav-hover: color-mix(in lch, var(--aurora-nebula-purple) 8%, var(--aurora-lunar-grey));
+  --aurora-nav-active: var(--aurora-nebula-purple);
+  --aurora-nav-text: var(--aurora-deep-space);
+  --aurora-nav-muted: color-mix(in lch, var(--aurora-deep-space) 60%, transparent);
+  --aurora-nav-border: color-mix(in lch, var(--aurora-nebula-purple) 12%, transparent);
+  --aurora-nav-glass: color-mix(in lch, var(--aurora-lunar-grey) 95%, transparent);
+  --aurora-nav-backdrop: color-mix(in lch, var(--aurora-lunar-grey) 85%, transparent);
+  
+  /* Mobile Navigation Safe Areas */
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Aurora Hardware-Accelerated Animations */
+@keyframes aurora-gradient-shift {
+  0%, 100% { 
+    background-position: 0% 50%; 
+    transform: translate3d(0, 0, 0); 
+  }
+  50% { 
+    background-position: 100% 50%; 
+    transform: translate3d(0, 0, 0); 
+  }
+}
+
+@keyframes aurora-float {
+  0%, 100% { 
+    transform: translate3d(0, 0px, 0) rotate(0deg); 
+  }
+  50% { 
+    transform: translate3d(0, -10px, 0) rotate(2deg); 
+  }
+}
+
+@keyframes aurora-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 20px color-mix(in lch, var(--aurora-nebula-purple) 30%, transparent);
+    transform: translate3d(0, 0, 0);
+  }
+  50% { 
+    box-shadow: 0 0 30px color-mix(in lch, var(--aurora-pink) 40%, transparent);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes aurora-shimmer {
+  0% { 
+    background-position: -200% 0;
+    transform: translate3d(0, 0, 0);
+  }
+  100% { 
+    background-position: 200% 0;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes aurora-rotate {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(360deg); }
+}
+
+@keyframes aurora-breathe {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0) scale(1); 
+    opacity: 0.8; 
+  }
+  50% { 
+    transform: translate3d(0, 0, 0) scale(1.05); 
+    opacity: 1; 
+  }
+}
+
+@keyframes aurora-glow {
+  0%, 100% { 
+    box-shadow: 0 0 10px var(--aurora-pink), 0 0 20px var(--aurora-nebula-purple), 0 0 30px var(--aurora-plum);
+    transform: translate3d(0, 0, 0);
+  }
+  50% { 
+    box-shadow: 0 0 20px var(--aurora-crimson), 0 0 40px var(--aurora-pink), 0 0 60px var(--aurora-nebula-purple);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Aurora Hardware-Accelerated Interactive Utilities */
+.aurora-gradient-text {
+  background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: aurora-gradient-shift 4s ease-in-out infinite;
+  will-change: background-position;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-interactive-shadow {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px color-mix(in lch, var(--aurora-shadow-color) 15%, transparent);
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-interactive-shadow:hover {
+  transform: translate3d(0, -8px, 0);
+  box-shadow: 0 16px 48px color-mix(in lch, var(--aurora-shadow-color) 25%, transparent);
+}
+
+.aurora-shimmer-overlay {
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    color-mix(in lch, var(--aurora-pink) 20%, transparent) 50%,
+    transparent 100%);
+  background-size: 200% 100%;
+  animation: aurora-shimmer 2s infinite;
+  will-change: background-position;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-floating {
+  animation: aurora-float 3s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.aurora-pulse {
+  animation: aurora-pulse 2s ease-in-out infinite;
+  will-change: box-shadow, transform;
+  backface-visibility: hidden;
+}
+
+.aurora-breathe {
+  animation: aurora-breathe 4s ease-in-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.aurora-glow {
+  animation: aurora-glow 3s ease-in-out infinite;
+  will-change: box-shadow, transform;
+  backface-visibility: hidden;
+}
+
+/* Aurora Extended Hardware-Accelerated Gradient System */
+.aurora-gradient-shift {
+  background: linear-gradient(270deg, var(--aurora-nebula-purple), var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+  background-size: 400% 400%;
+  animation: aurora-gradient-shift 6s ease infinite;
+  will-change: background-position;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Aurora Hardware-Accelerated Button Animations */
+.aurora-button-primary {
+  background: linear-gradient(135deg, var(--aurora-nebula-purple), var(--aurora-pink));
+  background-size: 200% 200%;
+  animation: aurora-gradient-shift 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.aurora-button-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    color-mix(in lch, white 30%, transparent), 
+    transparent);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-button-primary:hover::before {
+  transform: translate3d(200%, 0, 0);
+}
+
+.aurora-button-primary:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 8px 25px color-mix(in lch, var(--aurora-nebula-purple) 40%, transparent);
+}
+
+/* Aurora Hardware-Accelerated Card Interactions */
+.aurora-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in lch, var(--aurora-nebula-purple) 20%, transparent);
+  border-radius: 21px; /* Fibonacci */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease;
+  will-change: transform, box-shadow, background;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.aurora-card:hover {
+  background: rgba(255, 255, 255, 0.98);
+  transform: translate3d(0, -12px, 0) scale(1.02);
+  box-shadow: 0 20px 60px color-mix(in lch, var(--aurora-nebula-purple) 20%, transparent);
+}
+
+/* Aurora Hardware-Accelerated Living Components */
+.aurora-living-component {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-living-component::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, color-mix(in lch, var(--aurora-pink) 10%, transparent) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  animation: aurora-rotate 20s linear infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-living-component:hover::after {
+  opacity: 1;
+}
+
+/* Aurora 3D Transform Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.hover\:rotateX-2:hover {
+  transform: rotateX(2deg) translate3d(0, 0, 0);
+}
+
+.hover\:rotateX-3:hover {
+  transform: rotateX(3deg) translate3d(0, 0, 0);
+}
+
+.hover\:rotateY-1:hover {
+  transform: rotateY(1deg) translate3d(0, 0, 0);
+}
+
+.hover\:rotateY-2:hover {
+  transform: rotateY(2deg) translate3d(0, 0, 0);
+}
+
+.hover\:rotateY-3:hover {
+  transform: rotateY(3deg) translate3d(0, 0, 0);
+}
+
+.hover\:translateZ-4:hover {
+  transform: translateZ(4px);
+}
+
+.hover\:translateZ-6:hover {
+  transform: translateZ(6px);
+}
+
+.hover\:translateX-1:hover {
+  transform: translateX(4px);
+}
+
+.hover\:scale-102:hover {
+  transform: scale(1.02);
+}
+
+.hover\:scale-115:hover {
+  transform: scale(1.15);
+}
+
+.hover\:scale-120:hover {
+  transform: scale(1.20);
+}
+
+.group:hover .group-hover\:rotateX-2 {
+  transform: rotateX(2deg) translate3d(0, 0, 0);
+}
+
+.group:hover .group-hover\:rotateX-3 {
+  transform: rotateX(3deg) translate3d(0, 0, 0);
+}
+
+.group:hover .group-hover\:rotateY-1 {
+  transform: rotateY(1deg) translate3d(0, 0, 0);
+}
+
+.group:hover .group-hover\:rotateY-2 {
+  transform: rotateY(2deg) translate3d(0, 0, 0);
+}
+
+.group:hover .group-hover\:translateZ-4 {
+  transform: translateZ(4px);
+}
+
+.group:hover .group-hover\:translateZ-6 {
+  transform: translateZ(6px);
+}
+
+.group:hover .group-hover\:translateX-1 {
+  transform: translateX(4px);
+}
+
+.group:hover .group-hover\:scale-115 {
+  transform: scale(1.15);
+}
+
+.group:hover .group-hover\:scale-120 {
+  transform: scale(1.20);
+}
+
+.group:hover .group-hover\:brightness-105 {
+  filter: brightness(1.05);
+}
+
+.group:hover .group-hover\:brightness-110 {
+  filter: brightness(1.10);
+}
+
+.group:hover .group-hover\:brightness-115 {
+  filter: brightness(1.15);
+}
+
+.group:hover .group-hover\:saturate-110 {
+  filter: saturate(1.10);
+}
+
+.group:hover .group-hover\:saturate-125 {
+  filter: saturate(1.25);
+}
+
+/* Aurora Living Product Card 3D Effects */
+.aurora-depth-layer {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.aurora-depth-layer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    color-mix(in lch, var(--aurora-pink) 5%, transparent) 0%,
+    color-mix(in lch, var(--aurora-plum) 5%, transparent) 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: -1;
+  transform: translateZ(-10px);
+}
+
+.aurora-depth-layer:hover::before {
+  opacity: 1;
+}
+
+/* Aurora Enhanced Filter Effects */
+.group:hover .group-hover\:brightness-105 {
+  filter: brightness(1.05) contrast(1.02);
+}
+
+.group:hover .group-hover\:brightness-110 {
+  filter: brightness(1.10) contrast(1.05);
+}
+
+.group:hover .group-hover\:brightness-115 {
+  filter: brightness(1.15) contrast(1.08);
+}
+
+.group:hover .group-hover\:saturate-110 {
+  filter: saturate(1.10) hue-rotate(2deg);
+}
+
+.group:hover .group-hover\:saturate-125 {
+  filter: saturate(1.25) hue-rotate(5deg);
+}
+
+/* Aurora Mobile Navigation Styles */
+.safe-area-inset-bottom {
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Mobile Navigation Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .fixed.bottom-0 {
+    padding-bottom: max(var(--safe-area-inset-bottom), 0.5rem);
+  }
+}
+
+/* Hamburger Menu Animation */
+.hamburger-line {
+  transition: all 0.3s ease;
+}
+
+.hamburger-open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger-open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Navigation Backdrop Blur */
+.nav-backdrop {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Aurora Responsive Motion */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-gradient-text,
+  .aurora-floating,
+  .aurora-pulse,
+  .aurora-breathe,
+  .aurora-glow,
+  .aurora-gradient-shift,
+  .aurora-button-primary {
+    animation: none;
+  }
+  
+  .aurora-interactive-shadow:hover,
+  .aurora-button-primary:hover,
+  .aurora-card:hover,
+  .hover\:rotateX-2:hover,
+  .hover\:rotateX-3:hover,
+  .hover\:rotateY-1:hover,
+  .hover\:rotateY-2:hover,
+  .hover\:rotateY-3:hover,
+  .group:hover .group-hover\:rotateX-2,
+  .group:hover .group-hover\:rotateX-3,
+  .group:hover .group-hover\:rotateY-1,
+  .group:hover .group-hover\:rotateY-2 {
+    transform: none;
+  }
+}

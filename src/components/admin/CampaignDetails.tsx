@@ -107,7 +107,7 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       case 'draft':
         return { 
           text: 'Draft', 
-          className: 'bg-gray-100 text-gray-800 border-gray-200',
+          className: 'bg-muted text-foreground border-border',
           icon: Edit3
         }
       case 'scheduled':
@@ -137,7 +137,7 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       default:
         return { 
           text: status, 
-          className: 'bg-gray-100 text-gray-800 border-gray-200',
+          className: 'bg-muted text-foreground border-border',
           icon: AlertCircle
         }
     }
@@ -183,7 +183,7 @@ const MetricCard = ({
   }
 
   return (
-    <div className="text-foreground bg-white p-6 rounded-lg border space-y-4">
+    <div className="text-foreground bg-background p-6 rounded-lg border space-y-4">
       <div className="flex items-center justify-between">
         <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
           <Icon className="w-5 h-5 text-accent" />
@@ -206,7 +206,7 @@ const MetricCard = ({
         <div className="text-2xl font-bold text-foreground mb-1">
           {formatValue(value, format)}
         </div>
-        <BodyText size="sm" className="text-gray-600 bg-white">
+        <BodyText size="sm" className="text-aurora-nav-muted bg-background">
           {title}
         </BodyText>
       </div>
@@ -343,7 +343,7 @@ const CampaignTimeline = ({
   events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
   return (
-    <div className="text-foreground bg-white p-6 rounded-lg border">
+    <div className="text-foreground bg-background p-6 rounded-lg border">
       <H3 className="mb-4 text-foreground">Campaign Timeline</H3>
       
       <div className="space-y-4">
@@ -352,7 +352,7 @@ const CampaignTimeline = ({
           return (
             <div key={index} className="flex items-start gap-4">
               <div className={cn(
-                'w-8 h-8 rounded-full flex items-center justify-center bg-white border-2',
+                'w-8 h-8 rounded-full flex items-center justify-center bg-background border-2',
                 event.color === 'text-blue-600' && 'border-blue-200',
                 event.color === 'text-green-600' && 'border-green-200'
               )}>
@@ -360,10 +360,10 @@ const CampaignTimeline = ({
               </div>
               <div className="flex-1 min-w-0">
                 <div className="font-medium text-foreground">{event.title}</div>
-                <BodyText size="sm" className="text-gray-600 bg-white">
+                <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                   {event.description}
                 </BodyText>
-                <BodyText size="xs" className="text-gray-500 bg-white">
+                <BodyText size="xs" className="text-aurora-nav-muted bg-background">
                   {new Date(event.date).toLocaleDateString()} at{' '}
                   {new Date(event.date).toLocaleTimeString()}
                 </BodyText>
@@ -385,19 +385,19 @@ const AnalyticsCharts = ({
   return (
     <div className="space-y-6">
       {/* Performance Over Time */}
-      <div className="text-foreground bg-white p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-lg border">
         <H3 className="mb-4 text-foreground">Performance Timeline</H3>
         
         {analytics.timeline.length > 0 ? (
           <div className="space-y-4">
-            <BodyText className="text-gray-600 bg-white">
+            <BodyText className="text-aurora-nav-muted bg-background">
               Daily opens, clicks, and revenue data
             </BodyText>
             {/* Chart would go here - using placeholder for now */}
             <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
               <div className="text-center">
-                <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                <BodyText className="text-gray-600 bg-muted">
+                <BarChart3 className="w-12 h-12 text-aurora-nav-muted mx-auto mb-2" />
+                <BodyText className="text-aurora-nav-muted bg-muted">
                   Analytics Chart Placeholder
                 </BodyText>
               </div>
@@ -405,8 +405,8 @@ const AnalyticsCharts = ({
           </div>
         ) : (
           <div className="text-center py-8">
-            <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <BodyText className="text-gray-600 bg-white">
+            <BarChart3 className="w-12 h-12 text-aurora-nav-muted mx-auto mb-4" />
+            <BodyText className="text-aurora-nav-muted bg-background">
               No analytics data available yet
             </BodyText>
           </div>
@@ -415,7 +415,7 @@ const AnalyticsCharts = ({
 
       {/* Top Links */}
       {analytics.topLinks.length > 0 && (
-        <div className="text-foreground bg-white p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-lg border">
           <H3 className="mb-4 text-foreground">Top Clicked Links</H3>
           
           <div className="space-y-3">
@@ -427,7 +427,7 @@ const AnalyticsCharts = ({
                     <div className="font-medium text-foreground truncate">
                       {link.url}
                     </div>
-                    <BodyText size="sm" className="text-gray-600 bg-muted">
+                    <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
                       {link.clicks} clicks ({link.clickRate.toFixed(1)}% rate)
                     </BodyText>
                   </div>
@@ -440,7 +440,7 @@ const AnalyticsCharts = ({
 
       {/* Device Breakdown */}
       {analytics.deviceBreakdown.length > 0 && (
-        <div className="text-foreground bg-white p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-lg border">
           <H3 className="mb-4 text-foreground">Device Breakdown</H3>
           
           <div className="space-y-3">
@@ -454,7 +454,7 @@ const AnalyticsCharts = ({
                       style={{ width: `${device.percentage}%` }}
                     />
                   </div>
-                  <BodyText size="sm" className="text-gray-600 bg-white w-12 text-right">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background w-12 text-right">
                     {device.percentage.toFixed(1)}%
                   </BodyText>
                 </div>
@@ -707,10 +707,10 @@ export default function CampaignDetails({
     return (
       <div className="min-h-screen bg-background">
         <div className="max-w-6xl mx-auto p-6">
-          <div className="text-foreground bg-white p-8 rounded-lg border text-center">
+          <div className="text-foreground bg-background p-8 rounded-lg border text-center">
             <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <H2 className="mb-2 text-foreground">Failed to Load Campaign</H2>
-            <BodyText className="text-gray-600 bg-white mb-6">
+            <BodyText className="text-aurora-nav-muted bg-background mb-6">
               {error || 'Campaign not found'}
             </BodyText>
             <div className="flex gap-3 justify-center">
@@ -746,7 +746,7 @@ export default function CampaignDetails({
                 <H1 className="text-foreground">{campaign.name}</H1>
                 <StatusBadge status={campaign.status} />
               </div>
-              <BodyText className="text-gray-600 bg-background">
+              <BodyText className="text-aurora-nav-muted bg-background">
                 {campaign.subject}
               </BodyText>
             </div>
@@ -796,13 +796,13 @@ export default function CampaignDetails({
           {/* Campaign Details */}
           <div className="lg:col-span-2 space-y-6">
             {/* Basic Information */}
-            <div className="text-foreground bg-white p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-lg border">
               <H2 className="mb-4 text-foreground">Campaign Information</H2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                    <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                       Campaign Type
                     </BodyText>
                     <div className="text-foreground font-medium capitalize">
@@ -811,7 +811,7 @@ export default function CampaignDetails({
                   </div>
 
                   <div>
-                    <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                    <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                       Template
                     </BodyText>
                     <div className="text-foreground font-medium">
@@ -820,7 +820,7 @@ export default function CampaignDetails({
                   </div>
 
                   <div>
-                    <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                    <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                       Created By
                     </BodyText>
                     <div className="text-foreground font-medium">
@@ -831,7 +831,7 @@ export default function CampaignDetails({
 
                 <div className="space-y-4">
                   <div>
-                    <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                    <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                       Created Date
                     </BodyText>
                     <div className="text-foreground font-medium">
@@ -841,7 +841,7 @@ export default function CampaignDetails({
 
                   {campaign.sentAt && (
                     <div>
-                      <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                      <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                         Sent Date
                       </BodyText>
                       <div className="text-foreground font-medium">
@@ -851,7 +851,7 @@ export default function CampaignDetails({
                   )}
 
                   <div>
-                    <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-1">
+                    <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                       Last Updated
                     </BodyText>
                     <div className="text-foreground font-medium">
@@ -864,7 +864,7 @@ export default function CampaignDetails({
               {/* Preheader */}
               {campaign.content.preheader && (
                 <div className="mt-6 pt-6 border-t border-border">
-                  <BodyText size="sm" className="font-medium text-gray-600 bg-white mb-2">
+                  <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-2">
                     Preheader Text
                   </BodyText>
                   <BodyText className="text-foreground">
@@ -875,7 +875,7 @@ export default function CampaignDetails({
             </div>
 
             {/* Target Audience */}
-            <div className="text-foreground bg-white p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-lg border">
               <H2 className="mb-4 text-foreground">Target Audience</H2>
               
               <div className="flex items-center gap-4 mb-6">
@@ -886,7 +886,7 @@ export default function CampaignDetails({
                   <div className="text-2xl font-bold text-foreground">
                     {totalAudience.toLocaleString()}
                   </div>
-                  <BodyText className="text-gray-600 bg-white">
+                  <BodyText className="text-aurora-nav-muted bg-background">
                     Total recipients across {segments.length} segment{segments.length !== 1 ? 's' : ''}
                   </BodyText>
                 </div>
@@ -902,7 +902,7 @@ export default function CampaignDetails({
                       <div className="font-medium text-foreground">
                         {segment.customerCount.toLocaleString()}
                       </div>
-                      <BodyText size="sm" className="text-gray-600 bg-muted">
+                      <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
                         customers
                       </BodyText>
                     </div>
@@ -912,7 +912,7 @@ export default function CampaignDetails({
             </div>
 
             {/* Email Preview */}
-            <div className="text-foreground bg-white p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-lg border">
               <H2 className="mb-4 text-foreground">Email Preview</H2>
               
               <div className="border border-border rounded-lg overflow-hidden">
@@ -922,14 +922,14 @@ export default function CampaignDetails({
                     <strong>Subject:</strong> {campaign.subject}
                   </div>
                   {campaign.content.preheader && (
-                    <div className="text-sm text-gray-600 mt-1">
+                    <div className="text-sm text-aurora-nav-muted mt-1">
                       {campaign.content.preheader}
                     </div>
                   )}
                 </div>
                 
                 {/* Email Content */}
-                <div className="p-4 max-h-96 overflow-auto bg-white">
+                <div className="p-4 max-h-96 overflow-auto bg-background">
                   <div 
                     className="text-sm"
                     dangerouslySetInnerHTML={{ __html: campaign.content.html }}
@@ -950,12 +950,12 @@ export default function CampaignDetails({
             <CampaignTimeline campaign={campaign} />
 
             {/* Quick Stats */}
-            <div className="text-foreground bg-white p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-lg border">
               <H3 className="mb-4 text-foreground">Quick Stats</H3>
               
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     Delivered
                   </BodyText>
                   <div className="font-medium text-foreground">
@@ -964,7 +964,7 @@ export default function CampaignDetails({
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     Bounced
                   </BodyText>
                   <div className="font-medium text-foreground">
@@ -973,7 +973,7 @@ export default function CampaignDetails({
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     Unsubscribed
                   </BodyText>
                   <div className="font-medium text-foreground">
@@ -982,7 +982,7 @@ export default function CampaignDetails({
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <BodyText size="sm" className="text-gray-600 bg-white">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     Conversion Rate
                   </BodyText>
                   <div className="font-medium text-foreground">

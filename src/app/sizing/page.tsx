@@ -73,7 +73,7 @@ export default function SizingPage() {
             <h1 className="text-4xl lg:text-6xl font-headline mb-6 text-foreground">
               Find Your Perfect Size
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p className="text-xl text-aurora-nav-muted max-w-2xl mx-auto mb-8 leading-relaxed">
               No more guessing games. Use our sizing tools to get it right the first time, 
               because returning stuff is annoying.
             </p>
@@ -118,9 +118,9 @@ export default function SizingPage() {
               
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Method 1: Circumference Measurement */}
-                <div className="bg-white p-6 rounded-lg border border-border">
+                <div className="bg-background p-6 rounded-lg border border-border">
                   <h3 className="text-xl font-headline text-foreground mb-4">Method 1: Measure Circumference</h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-aurora-nav-muted mb-4">
                     Wrap a string around your finger, mark where it overlaps, then measure the length.
                   </p>
                   
@@ -137,7 +137,7 @@ export default function SizingPage() {
                         placeholder="Like 16.5 or 18.2"
                         step="0.1"
                       />
-                      <p className="text-xs text-gray-600 mt-1">Room temperature is best - not when you're hot or cold</p>
+                      <p className="text-xs text-aurora-nav-muted mt-1">Room temperature is best - not when you're hot or cold</p>
                     </div>
                     
                     <Button 
@@ -152,9 +152,9 @@ export default function SizingPage() {
                 </div>
 
                 {/* Method 2: Existing Ring */}
-                <div className="bg-white p-6 rounded-lg border border-border">
+                <div className="bg-background p-6 rounded-lg border border-border">
                   <h3 className="text-xl font-headline text-foreground mb-4">Method 2: I Know My Size</h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-aurora-nav-muted mb-4">
                     Already know your US ring size? Enter it here to see all the conversions.
                   </p>
                   
@@ -194,28 +194,28 @@ export default function SizingPage() {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <div>
                       <div className="text-2xl font-headline text-accent">{calculatedSize.US}</div>
-                      <div className="text-sm text-gray-600">US Size</div>
+                      <div className="text-sm text-aurora-nav-muted">US Size</div>
                     </div>
                     <div>
                       <div className="text-2xl font-headline text-accent">{calculatedSize.UK}</div>
-                      <div className="text-sm text-gray-600">UK Size</div>
+                      <div className="text-sm text-aurora-nav-muted">UK Size</div>
                     </div>
                     <div>
                       <div className="text-2xl font-headline text-accent">{calculatedSize.EU}</div>
-                      <div className="text-sm text-gray-600">EU Size</div>
+                      <div className="text-sm text-aurora-nav-muted">EU Size</div>
                     </div>
                     <div>
                       <div className="text-2xl font-headline text-accent">{calculatedSize.JP}</div>
-                      <div className="text-sm text-gray-600">Japan Size</div>
+                      <div className="text-sm text-aurora-nav-muted">Japan Size</div>
                     </div>
                   </div>
                 </div>
               )}
 
               {/* Sizing Tips */}
-              <div className="mt-8 bg-white p-6 rounded-lg border border-border">
+              <div className="mt-8 bg-background p-6 rounded-lg border border-border">
                 <h3 className="text-lg font-headline text-foreground mb-4">Pro Tips for Accurate Sizing</h3>
-                <div className="grid md:grid-cols-2 gap-6 text-gray-600">
+                <div className="grid md:grid-cols-2 gap-6 text-aurora-nav-muted">
                   <div>
                     <p className="font-medium mb-2">Best Time to Measure:</p>
                     <ul className="space-y-1 text-sm">
@@ -251,7 +251,7 @@ export default function SizingPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <h3 className="text-xl font-headline text-foreground mb-4">Choose Your Length</h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-aurora-nav-muted mb-6">
                     Different lengths create different looks. Click on a length to see how it typically sits.
                   </p>
                   
@@ -268,16 +268,16 @@ export default function SizingPage() {
                       className={`p-4 border rounded-lg cursor-pointer transition-all ${
                         selectedLength === option.length 
                           ? 'border-accent bg-accent text-foreground' 
-                          : 'border-border bg-white hover:border-accent'
+                          : 'border-border bg-background hover:border-accent'
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <div>
                           <div className="font-headline text-lg">{option.length} - {option.name}</div>
-                          <div className={`text-sm ${selectedLength === option.length ? 'text-foreground' : 'text-gray-600'}`}>
+                          <div className={`text-sm ${selectedLength === option.length ? 'text-foreground' : 'text-aurora-nav-muted'}`}>
                             {option.description}
                           </div>
-                          <div className={`text-xs italic ${selectedLength === option.length ? 'text-foreground' : 'text-gray-600'}`}>
+                          <div className={`text-xs italic ${selectedLength === option.length ? 'text-foreground' : 'text-aurora-nav-muted'}`}>
                             {option.style}
                           </div>
                         </div>
@@ -289,9 +289,9 @@ export default function SizingPage() {
                   ))}
                 </div>
 
-                <div className="bg-white p-6 rounded-lg border border-border">
+                <div className="bg-background p-6 rounded-lg border border-border">
                   <h3 className="text-lg font-headline text-foreground mb-4">Sizing Yourself</h3>
-                  <div className="space-y-4 text-gray-600">
+                  <div className="space-y-4 text-aurora-nav-muted">
                     <div>
                       <p className="font-medium mb-2">What You Need:</p>
                       <p className="text-sm">A measuring tape or string + ruler</p>
@@ -317,7 +317,7 @@ export default function SizingPage() {
                   {selectedLength && (
                     <div className="mt-4 p-4 bg-muted text-foreground rounded-lg">
                       <p className="font-medium">You selected: {selectedLength}</p>
-                      <p className="text-sm text-gray-600 mt-1">
+                      <p className="text-sm text-aurora-nav-muted mt-1">
                         This length is great for {selectedLength === '16"' ? 'a modern, close-to-neck look' : 
                         selectedLength === '18"' ? 'everyday wear and most outfits' :
                         selectedLength === '20"' ? 'showcasing pendants or charms' :
@@ -343,9 +343,9 @@ export default function SizingPage() {
               </h2>
               
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-white p-6 rounded-lg border border-border">
+                <div className="bg-background p-6 rounded-lg border border-border">
                   <h3 className="text-xl font-headline text-foreground mb-4">Measure Your Wrist</h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-aurora-nav-muted mb-4">
                     Wrap a measuring tape around your wrist bone, or use a string and measure it.
                   </p>
                   
@@ -387,7 +387,7 @@ export default function SizingPage() {
                             />
                             <div>
                               <div className="font-medium text-foreground">{option.label}</div>
-                              <div className="text-sm text-gray-600">{option.desc}</div>
+                              <div className="text-sm text-aurora-nav-muted">{option.desc}</div>
                             </div>
                           </label>
                         ))}
@@ -396,7 +396,7 @@ export default function SizingPage() {
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-lg border border-border">
+                <div className="bg-background p-6 rounded-lg border border-border">
                   <h3 className="text-xl font-headline text-foreground mb-4">Your Bracelet Size</h3>
                   
                   {wristSize && fitPreference ? (
@@ -406,12 +406,12 @@ export default function SizingPage() {
                           (fitPreference === 'snug' ? 0.5 : 
                            fitPreference === 'comfortable' ? 0.75 : 1)).toFixed(2)}"
                       </div>
-                      <div className="text-gray-600 mb-4">Recommended bracelet size</div>
+                      <div className="text-aurora-nav-muted mb-4">Recommended bracelet size</div>
                       
                       <div className="bg-muted text-foreground p-4 rounded-lg text-left">
                         <p className="font-medium mb-2">Size Breakdown:</p>
-                        <p className="text-sm text-gray-600">Your wrist: {wristSize}"</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-aurora-nav-muted">Your wrist: {wristSize}"</p>
+                        <p className="text-sm text-aurora-nav-muted">
                           Added for {fitPreference} fit: +{
                             fitPreference === 'snug' ? '0.5' : 
                             fitPreference === 'comfortable' ? '0.75' : '1'
@@ -420,7 +420,7 @@ export default function SizingPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="text-center text-gray-600">
+                    <div className="text-center text-aurora-nav-muted">
                       <Ruler className="w-12 h-12 mx-auto mb-4 text-muted" />
                       <p>Enter your measurements above to see your recommended bracelet size</p>
                     </div>
@@ -439,7 +439,7 @@ export default function SizingPage() {
             <h2 className="text-2xl font-headline text-foreground mb-6">
               Still Not Sure?
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-aurora-nav-muted mb-6">
               If you're between sizes or have questions, we're here to help. 
               Plus, we offer free exchanges if the size isn't quite right.
             </p>

@@ -137,10 +137,10 @@ export default function LiveConversionFeed() {
     <div className="space-y-6">
       {/* Connection Status */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Live Activity Feed</h2>
+        <h2 className="text-2xl font-bold text-foreground">Live Activity Feed</h2>
         <div className="flex items-center space-x-2">
-          <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
-          <span className="text-sm text-gray-600">
+          <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-muted0' : 'bg-red-500'}`} />
+          <span className="text-sm text-aurora-nav-muted">
             {isConnected ? 'Connected' : 'Disconnected'}
           </span>
         </div>
@@ -152,10 +152,10 @@ export default function LiveConversionFeed() {
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
               <DollarSign className="h-4 w-4 text-green-600" />
-              <span className="text-sm font-medium text-gray-600">Total Revenue</span>
+              <span className="text-sm font-medium text-aurora-nav-muted">Total Revenue</span>
             </div>
             <div className="mt-2">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(kpis.totalRevenue)}
               </div>
             </div>
@@ -166,10 +166,10 @@ export default function LiveConversionFeed() {
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
               <TrendingUp className="h-4 w-4 text-blue-600" />
-              <span className="text-sm font-medium text-gray-600">Conversions</span>
+              <span className="text-sm font-medium text-aurora-nav-muted">Conversions</span>
             </div>
             <div className="mt-2">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {kpis.totalConversions.toLocaleString()}
               </div>
             </div>
@@ -180,10 +180,10 @@ export default function LiveConversionFeed() {
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
               <Users className="h-4 w-4 text-purple-600" />
-              <span className="text-sm font-medium text-gray-600">Active Creators</span>
+              <span className="text-sm font-medium text-aurora-nav-muted">Active Creators</span>
             </div>
             <div className="mt-2">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {kpis.activeCreators}
               </div>
             </div>
@@ -194,10 +194,10 @@ export default function LiveConversionFeed() {
           <CardContent className="p-4">
             <div className="flex items-center space-x-2">
               <DollarSign className="h-4 w-4 text-orange-600" />
-              <span className="text-sm font-medium text-gray-600">Avg Order Value</span>
+              <span className="text-sm font-medium text-aurora-nav-muted">Avg Order Value</span>
             </div>
             <div className="mt-2">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-foreground">
                 {formatCurrency(kpis.averageOrderValue)}
               </div>
             </div>
@@ -220,30 +220,30 @@ export default function LiveConversionFeed() {
           <CardContent>
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {recentConversions.length === 0 ? (
-                <div className="text-center text-gray-500 py-8">
-                  <TrendingUp className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                <div className="text-center text-aurora-nav-muted py-8">
+                  <TrendingUp className="h-8 w-8 mx-auto mb-2 text-aurora-nav-muted" />
                   <p>Waiting for conversions...</p>
                 </div>
               ) : (
                 recentConversions.map((conversion) => (
                   <div
                     key={conversion.id}
-                    className="flex items-start justify-between p-3 bg-green-50 border border-green-200 rounded-lg"
+                    className="flex items-start justify-between p-3 bg-muted border border-border rounded-lg"
                   >
                     <div className="flex-1">
                       <div className="flex items-center space-x-2">
                         <Badge variant="outline" className="text-green-700 border-green-300">
                           @{conversion.creatorCode}
                         </Badge>
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-aurora-nav-muted">
                           {formatTime(conversion.timestamp)}
                         </span>
                       </div>
                       <div className="mt-1">
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-foreground">
                           {formatCurrency(conversion.orderAmount)} order
                         </div>
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-aurora-nav-muted">
                           Commission: {formatCurrency(conversion.commissionAmount)} ({conversion.commissionRate}%)
                         </div>
                       </div>
@@ -269,38 +269,38 @@ export default function LiveConversionFeed() {
           <CardContent>
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {recentClicks.length === 0 ? (
-                <div className="text-center text-gray-500 py-8">
-                  <Users className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                <div className="text-center text-aurora-nav-muted py-8">
+                  <Users className="h-8 w-8 mx-auto mb-2 text-aurora-nav-muted" />
                   <p>Waiting for clicks...</p>
                 </div>
               ) : (
                 recentClicks.map((click) => (
                   <div
                     key={click.id}
-                    className="flex items-start justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg"
+                    className="flex items-start justify-between p-3 bg-muted border border-border rounded-lg"
                   >
                     <div className="flex-1">
                       <div className="flex items-center space-x-2">
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-aurora-nav-muted">
                           {formatTime(click.timestamp)}
                         </span>
                       </div>
                       <div className="mt-1 space-y-1">
                         <div className="flex items-center space-x-2">
-                          <MapPin className="h-3 w-3 text-gray-400" />
-                          <span className="text-sm text-gray-600">
+                          <MapPin className="h-3 w-3 text-aurora-nav-muted" />
+                          <span className="text-sm text-aurora-nav-muted">
                             {getLocationString(click.location)}
                           </span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <Smartphone className="h-3 w-3 text-gray-400" />
-                          <span className="text-sm text-gray-600">
+                          <Smartphone className="h-3 w-3 text-aurora-nav-muted" />
+                          <span className="text-sm text-aurora-nav-muted">
                             {click.deviceType}
                           </span>
                         </div>
                         {click.referrer && (
                           <div className="flex items-center space-x-2">
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-aurora-nav-muted">
                               From: {new URL(click.referrer).hostname}
                             </span>
                           </div>

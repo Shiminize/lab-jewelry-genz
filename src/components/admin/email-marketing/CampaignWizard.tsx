@@ -83,14 +83,14 @@ const StepIndicator = ({
                 ? 'bg-cta text-background border-cta' 
                 : isActive 
                   ? 'bg-accent text-foreground border-accent'
-                  : 'text-gray-600 bg-white border-border'
+                  : 'text-aurora-nav-muted bg-background border-border'
             )}>
               {isCompleted ? <Check className="w-5 h-5" /> : stepNumber}
             </div>
             <div className="ml-3 text-sm">
               <div className={cn(
                 'font-medium',
-                isActive ? 'text-foreground' : 'text-gray-600'
+                isActive ? 'text-foreground' : 'text-aurora-nav-muted'
               )}>
                 {label}
               </div>
@@ -122,7 +122,7 @@ const CampaignDetailsStep = ({
   <div className="space-y-6">
     <div>
       <H2 className="text-foreground mb-2">Campaign Details</H2>
-      <BodyText className="text-gray-600 bg-white">
+      <BodyText className="text-aurora-nav-muted bg-background">
         Start by giving your campaign a name and selecting the type.
       </BodyText>
     </div>
@@ -138,7 +138,7 @@ const CampaignDetailsStep = ({
           onChange={(e) => onChange({ name: e.target.value })}
           placeholder="Enter campaign name"
           className={cn(
-            'w-full px-4 py-3 text-foreground bg-white border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent',
+            'w-full px-4 py-3 text-foreground bg-background border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent',
             errors.name ? 'border-red-500' : 'border-border'
           )}
         />
@@ -157,7 +157,7 @@ const CampaignDetailsStep = ({
           value={data.type || ''}
           onChange={(e) => onChange({ type: e.target.value as CampaignData['type'] })}
           className={cn(
-            'w-full px-4 py-3 text-foreground bg-white border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent',
+            'w-full px-4 py-3 text-foreground bg-background border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent',
             errors.type ? 'border-red-500' : 'border-border'
           )}
         >
@@ -187,7 +187,7 @@ const CampaignDetailsStep = ({
         onChange={(e) => onChange({ subject: e.target.value })}
         placeholder="Enter email subject line"
         className={cn(
-          'w-full px-4 py-3 text-foreground bg-white border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent',
+          'w-full px-4 py-3 text-foreground bg-background border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent',
           errors.subject ? 'border-red-500' : 'border-border'
         )}
       />
@@ -207,9 +207,9 @@ const CampaignDetailsStep = ({
         value={data.preheader || ''}
         onChange={(e) => onChange({ preheader: e.target.value })}
         placeholder="Optional preview text that appears after the subject line"
-        className="w-full px-4 py-3 text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+        className="w-full px-4 py-3 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
       />
-      <BodyText size="sm" className="text-gray-600 bg-white mt-1">
+      <BodyText size="sm" className="text-aurora-nav-muted bg-background mt-1">
         This text appears in email previews alongside your subject line.
       </BodyText>
     </div>
@@ -233,7 +233,7 @@ const ContentTemplateStep = ({
   <div className="space-y-6">
     <div>
       <H2 className="text-foreground mb-2">Content & Template</H2>
-      <BodyText className="text-gray-600 bg-white">
+      <BodyText className="text-aurora-nav-muted bg-background">
         Choose a template and customize your email content.
       </BodyText>
     </div>
@@ -267,10 +267,10 @@ const ContentTemplateStep = ({
               )}
             >
               <div className="aspect-video bg-muted rounded mb-3 flex items-center justify-center">
-                <FileText className="w-8 h-8 text-gray-400" />
+                <FileText className="w-8 h-8 text-aurora-nav-muted" />
               </div>
               <H3 className="text-foreground text-sm mb-1">{template.name}</H3>
-              <BodyText size="xs" className="text-gray-600 bg-white">
+              <BodyText size="xs" className="text-aurora-nav-muted bg-background">
                 {template.description}
               </BodyText>
             </div>
@@ -298,7 +298,7 @@ const ContentTemplateStep = ({
           })}
           placeholder="Enter HTML content..."
           rows={12}
-          className="w-full px-4 py-3 text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent font-mono text-sm"
+          className="w-full px-4 py-3 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent font-mono text-sm"
         />
       </div>
 
@@ -313,7 +313,7 @@ const ContentTemplateStep = ({
           })}
           placeholder="Enter plain text content..."
           rows={12}
-          className="w-full px-4 py-3 text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+          className="w-full px-4 py-3 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
         />
       </div>
     </div>
@@ -347,7 +347,7 @@ const AudienceTargetingStep = ({
     <div className="space-y-6">
       <div>
         <H2 className="text-foreground mb-2">Audience Targeting</H2>
-        <BodyText className="text-gray-600 bg-white">
+        <BodyText className="text-aurora-nav-muted bg-background">
           Select which customer segments should receive this campaign.
         </BodyText>
       </div>
@@ -355,7 +355,7 @@ const AudienceTargetingStep = ({
       {loadingSegments ? (
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="animate-pulse text-foreground bg-white p-4 rounded-lg border">
+            <div key={i} className="animate-pulse text-foreground bg-background p-4 rounded-lg border">
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
                   <div className="h-5 bg-muted rounded w-32"></div>
@@ -372,7 +372,7 @@ const AudienceTargetingStep = ({
             <div
               key={segment._id}
               className={cn(
-                'text-foreground bg-white p-4 rounded-lg border-2 cursor-pointer transition-colors',
+                'text-foreground bg-background p-4 rounded-lg border-2 cursor-pointer transition-colors',
                 (data.segments || []).includes(segment._id)
                   ? 'border-accent bg-accent/5'
                   : 'border-border hover:border-accent/50'
@@ -382,14 +382,14 @@ const AudienceTargetingStep = ({
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <H3 className="text-foreground mb-1">{segment.name}</H3>
-                  <BodyText size="sm" className="text-gray-600 bg-white mb-2">
+                  <BodyText size="sm" className="text-aurora-nav-muted bg-background mb-2">
                     {segment.description}
                   </BodyText>
                   <div className="flex items-center gap-4">
-                    <BodyText size="sm" className="text-gray-600 bg-white">
+                    <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                       {segment.customerCount.toLocaleString()} customers
                     </BodyText>
-                    <span className="text-xs px-2 py-1 bg-muted text-gray-600 rounded">
+                    <span className="text-xs px-2 py-1 bg-muted text-aurora-nav-muted rounded">
                       {segment.type}
                     </span>
                   </div>
@@ -454,40 +454,40 @@ const ReviewSendStep = ({
     <div className="space-y-6">
       <div>
         <H2 className="text-foreground mb-2">Review & Send</H2>
-        <BodyText className="text-gray-600 bg-white">
+        <BodyText className="text-aurora-nav-muted bg-background">
           Review your campaign details and choose how to proceed.
         </BodyText>
       </div>
 
       {/* Campaign Summary */}
-      <div className="text-foreground bg-white p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-lg border">
         <H3 className="text-foreground mb-4">Campaign Summary</H3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <BodyText size="sm" className="text-gray-600 bg-white mb-1">Campaign Name</BodyText>
+            <BodyText size="sm" className="text-aurora-nav-muted bg-background mb-1">Campaign Name</BodyText>
             <BodyText className="text-foreground">{data.name}</BodyText>
           </div>
           <div>
-            <BodyText size="sm" className="text-gray-600 bg-white mb-1">Campaign Type</BodyText>
+            <BodyText size="sm" className="text-aurora-nav-muted bg-background mb-1">Campaign Type</BodyText>
             <BodyText className="text-foreground">
               {data.type.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
             </BodyText>
           </div>
           <div>
-            <BodyText size="sm" className="text-gray-600 bg-white mb-1">Subject Line</BodyText>
+            <BodyText size="sm" className="text-aurora-nav-muted bg-background mb-1">Subject Line</BodyText>
             <BodyText className="text-foreground">{data.subject}</BodyText>
           </div>
           <div>
-            <BodyText size="sm" className="text-gray-600 bg-white mb-1">Recipients</BodyText>
+            <BodyText size="sm" className="text-aurora-nav-muted bg-background mb-1">Recipients</BodyText>
             <BodyText className="text-foreground">{data.segments.length} segment(s) selected</BodyText>
           </div>
         </div>
       </div>
 
       {/* Test Email */}
-      <div className="text-foreground bg-white p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-lg border">
         <H3 className="text-foreground mb-4">Send Test Email</H3>
-        <BodyText className="text-gray-600 bg-white mb-4">
+        <BodyText className="text-aurora-nav-muted bg-background mb-4">
           Send a test email to yourself to preview how it will look.
         </BodyText>
         <div className="flex gap-3">
@@ -496,7 +496,7 @@ const ReviewSendStep = ({
             value={testEmail}
             onChange={(e) => setTestEmail(e.target.value)}
             placeholder="Enter email address"
-            className="flex-1 px-4 py-2 text-foreground bg-white border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+            className="flex-1 px-4 py-2 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
           />
           <Button
             variant="secondary"
@@ -511,7 +511,7 @@ const ReviewSendStep = ({
       </div>
 
       {/* Send Options */}
-      <div className="text-foreground bg-white p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-lg border">
         <H3 className="text-foreground mb-4">Send Options</H3>
         <div className="space-y-4">
           <label className="flex items-center gap-3">
@@ -526,7 +526,7 @@ const ReviewSendStep = ({
             />
             <div>
               <BodyText className="text-foreground">Send immediately</BodyText>
-              <BodyText size="sm" className="text-gray-600 bg-white">
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                 Campaign will be sent as soon as you click create
               </BodyText>
             </div>
@@ -544,7 +544,7 @@ const ReviewSendStep = ({
             />
             <div>
               <BodyText className="text-foreground">Save as draft</BodyText>
-              <BodyText size="sm" className="text-gray-600 bg-white">
+              <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                 Save campaign to send later
               </BodyText>
             </div>
@@ -754,7 +754,7 @@ export default function CampaignWizard({
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="text-foreground bg-background max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-lg">
         {/* Header */}
-        <div className="text-foreground bg-white p-6 border-b border-border rounded-t-lg">
+        <div className="text-foreground bg-background p-6 border-b border-border rounded-t-lg">
           <div className="flex items-center justify-between">
             <H1 className="text-foreground">Create New Campaign</H1>
             <Button variant="ghost" size="sm" onClick={onClose || onCancel}>
@@ -802,7 +802,7 @@ export default function CampaignWizard({
           {/* Loading overlay for final step */}
           {creating && (
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-              <div className="text-foreground bg-white p-8 rounded-lg text-center">
+              <div className="text-foreground bg-background p-8 rounded-lg text-center">
                 <RefreshCw className="w-8 h-8 text-accent animate-spin mx-auto mb-4" />
                 <H3 className="text-foreground">Creating Campaign...</H3>
               </div>

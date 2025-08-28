@@ -90,7 +90,7 @@ export default function CreatorDashboard() {
         <Card>
           <CardContent className="text-center py-12">
             <div className="text-red-600 text-lg mb-4">Error Loading Dashboard</div>
-            <p className="text-gray-600 mb-6">{error}</p>
+            <p className="text-aurora-nav-muted mb-6">{error}</p>
             <Button onClick={fetchCreatorProfile}>Try Again</Button>
           </CardContent>
         </Card>
@@ -103,8 +103,8 @@ export default function CreatorDashboard() {
       <div className="max-w-4xl mx-auto p-6">
         <Card>
           <CardContent className="text-center py-12">
-            <div className="text-gray-600 text-lg mb-4">Creator Profile Not Found</div>
-            <p className="text-gray-500 mb-6">You need to apply to become a creator first.</p>
+            <div className="text-aurora-nav-muted text-lg mb-4">Creator Profile Not Found</div>
+            <p className="text-aurora-nav-muted mb-6">You need to apply to become a creator first.</p>
             <Button onClick={() => window.location.href = '/creators/apply'}>
               Apply to Become a Creator
             </Button>
@@ -119,8 +119,8 @@ export default function CreatorDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Creator Dashboard</h1>
-          <p className="text-gray-600">Welcome back, {creator.displayName}!</p>
+          <h1 className="text-3xl font-bold text-foreground">Creator Dashboard</h1>
+          <p className="text-aurora-nav-muted">Welcome back, {creator.displayName}!</p>
         </div>
         <div className="flex items-center space-x-4">
           <Badge 
@@ -134,7 +134,7 @@ export default function CreatorDashboard() {
             {creator.status}
           </Badge>
           <div className="text-right">
-            <div className="text-sm text-gray-500">Creator Code</div>
+            <div className="text-sm text-aurora-nav-muted">Creator Code</div>
             <div className="font-mono font-bold text-amber-600">{creator.creatorCode}</div>
           </div>
         </div>
@@ -147,8 +147,8 @@ export default function CreatorDashboard() {
             <div className="flex items-center space-x-3">
               <div className="w-4 h-4 bg-yellow-500 rounded-full animate-pulse"></div>
               <div>
-                <div className="font-medium text-gray-900">Application Under Review</div>
-                <div className="text-sm text-gray-600">
+                <div className="font-medium text-foreground">Application Under Review</div>
+                <div className="text-sm text-aurora-nav-muted">
                   Your creator application is being reviewed. You'll receive an email once it's approved.
                 </div>
               </div>
@@ -163,8 +163,8 @@ export default function CreatorDashboard() {
             <div className="flex items-center space-x-3">
               <div className="w-4 h-4 bg-red-500 rounded-full"></div>
               <div>
-                <div className="font-medium text-gray-900">Account Suspended</div>
-                <div className="text-sm text-gray-600">
+                <div className="font-medium text-foreground">Account Suspended</div>
+                <div className="text-sm text-aurora-nav-muted">
                   Your creator account has been suspended. Please contact support for more information.
                 </div>
               </div>

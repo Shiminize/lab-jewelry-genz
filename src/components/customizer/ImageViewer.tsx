@@ -234,7 +234,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
           </div>
           <div className="space-y-2">
             <p className="text-sm font-medium text-foreground">Preview Unavailable</p>
-            <p className="text-xs text-gray-600">This angle is being processed</p>
+            <p className="text-xs text-aurora-nav-muted">This angle is being processed</p>
             <button 
               onClick={() => {
                 setImageLoadAttempt(0)
@@ -320,7 +320,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
     <div 
       ref={containerRef}
       className={cn(
-        "relative aspect-square bg-white rounded-lg overflow-hidden cursor-grab active:cursor-grabbing select-none transition-all duration-200",
+        "relative aspect-square bg-background rounded-lg overflow-hidden cursor-grab active:cursor-grabbing select-none transition-all duration-200",
         isGesturing && touchFeedback === 'subtle' && "shadow-sm",
         isGesturing && touchFeedback === 'prominent' && "shadow-md",
         className

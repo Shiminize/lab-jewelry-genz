@@ -542,20 +542,20 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
         {/* Search Bar */}
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-aurora-nav-muted w-5 h-5" />
             <input
               ref={searchInputRef}
               type="text"
               placeholder="Search products, collections, materials..."
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full pl-10 pr-10 py-3 border border rounded-lg bg-background text-foreground placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
+              className="w-full pl-10 pr-10 py-3 border border rounded-lg bg-background text-foreground placeholder:text-aurora-nav-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
               data-testid="enhanced-search-input"
             />
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-foreground p-2 min-h-11 min-w-11 flex items-center justify-center rounded"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-aurora-nav-muted hover:text-foreground p-2 min-h-11 min-w-11 flex items-center justify-center rounded"
                 aria-label="Clear search"
               >
                 <X className="w-5 h-5" />
@@ -611,7 +611,7 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
                     'p-3 min-h-11 min-w-11 transition-colors flex items-center justify-center',
                     viewMode === mode 
                       ? 'bg-accent text-background' 
-                      : 'text-gray-600 hover:text-foreground'
+                      : 'text-aurora-nav-muted hover:text-foreground'
                   )}
                 >
                   <Icon className="w-4 h-4" />

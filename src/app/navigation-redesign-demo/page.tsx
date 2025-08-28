@@ -1,10 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ScientificHeader } from '@/components/navigation/ScientificHeader'
-import { GeneticMegaMenu } from '@/components/navigation/GeneticMegaMenu'
-import { DNAMobileDrawer } from '@/components/navigation/DNAMobileDrawer'
-import { TrustSignalBar } from '@/components/navigation/TrustSignalBar'
+import { AuroraNavigation } from '@/components/navigation'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'

@@ -43,9 +43,9 @@ const valueCardVariants = cva(
   {
     variants: {
       style: {
-        glassmorphism: 'bg-white border border-accent shadow-xl',
-        minimal: 'space-y-8 bg-white border border-accent',
-        bordered: 'border-2 border-accent shadow-xl bg-white hover:border-accent'
+        glassmorphism: 'bg-background border border-accent shadow-xl',
+        minimal: 'space-y-8 bg-background border border-accent',
+        bordered: 'border-2 border-accent shadow-xl bg-background hover:border-accent'
       },
       state: {
         default: 'hover:shadow-xl hover:scale-[1.03] hover:-translate-y-2',
@@ -70,7 +70,7 @@ const iconContainerVariants = cva(
         large: 'w-24 h-24'
       },
       style: {
-        glassmorphism: 'bg-white rounded-full border border-accent shadow-xl',
+        glassmorphism: 'bg-background rounded-full border border-accent shadow-xl',
         gradient: 'bg-muted rounded-full border border-accent',
         minimal: 'bg-muted rounded-full'
       },
@@ -92,8 +92,8 @@ const trustBadgeVariants = cva(
   {
     variants: {
       style: {
-        glassmorphism: 'bg-white border border-accent shadow-lg',
-        accent: 'bg-white border border-accent text-accent',
+        glassmorphism: 'bg-background border border-accent shadow-lg',
+        accent: 'bg-background border border-accent text-accent',
         minimal: 'bg-muted border border-accent'
       },
       state: {
@@ -283,7 +283,7 @@ export function EnhancedValueProposition({
         
         <BodyText 
           size="lg" 
-          className="text-gray-600 max-w-4xl mx-auto leading-relaxed text-lg sm:text-xl lg:text-2xl font-light"
+          className="text-aurora-nav-muted max-w-4xl mx-auto leading-relaxed text-lg sm:text-xl lg:text-2xl font-light"
         >
           {description}
         </BodyText>
@@ -437,7 +437,7 @@ export function EnhancedValueProposition({
                         </span>
                         
                         {/* Shimmer effect */}
-                        <div className="absolute inset-0 -skew-x-12 bg-white opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-500 rounded-full" />
+                        <div className="absolute inset-0 -skew-x-12 bg-background opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-500 rounded-full" />
                       </div>
                     )
                   })}
@@ -480,7 +480,7 @@ export function EnhancedValueProposition({
                 return (
                   <div 
                     key={index}
-                    className="group p-4 bg-white border border-accent hover:border-accent transition-all duration-300 hover:scale-105"
+                    className="group p-4 bg-background border border-accent hover:border-accent transition-all duration-300 hover:scale-105"
                   >
                     <div className="flex flex-col items-center space-y-2">
                       <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -490,7 +490,7 @@ export function EnhancedValueProposition({
                         <div className="font-semibold text-foreground text-sm">
                           {item.text}
                         </div>
-                        <MutedText size="xs" className="text-gray-600">
+                        <MutedText size="xs" className="text-aurora-nav-muted">
                           {item.subtitle}
                         </MutedText>
                       </div>

@@ -143,7 +143,7 @@ export function AdvancedMaterialEditor({
         value={(material[property] as number) || 0}
         onChange={(e) => handleSliderChange(property, parseFloat(e.target.value))}
         disabled={disabled}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer slider"
       />
     </div>
   )

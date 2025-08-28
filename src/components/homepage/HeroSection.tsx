@@ -190,17 +190,29 @@ export function HeroSection({
 
   return (
     <section
-      className={cn(heroVariants({ overlay, textPosition }), className)}
+      className={cn(
+        heroVariants({ overlay, textPosition }), 
+        className
+      )}
       {...props}
     >
-      {/* Video Background with Lazy Loading */}
+      {/* Aurora Enhanced Background */}
       <div ref={intersectionRef} className="absolute inset-0 z-0">
+        {/* Aurora Gradient Overlay */}
+        <div 
+          className="absolute inset-0 z-5"
+          style={{
+            background: 'linear-gradient(135deg, #2a2b36 0%, #4a4a5a 50%, #d4af37 100%)',
+            opacity: videoLoaded ? 0.3 : 0.7,
+            transition: 'opacity 1s ease-in-out'
+          }}
+        />
         {!videoError && shouldLoadVideo && (
           <>
             <video
               ref={videoRef}
               className={cn(
-                "absolute inset-0 w-full h-full object-cover transition-opacity duration-500",
+                "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000",
                 !videoLoaded && "opacity-0"
               )}
               autoPlay={!prefersReducedMotion}
@@ -218,17 +230,21 @@ export function HeroSection({
               Your browser does not support the video tag.
             </video>
             
-            {/* Video Loading Progress Indicator */}
+            {/* Aurora Enhanced Loading Progress */}
             {!videoLoaded && loadingProgress > 0 && loadingProgress < 100 && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-sm z-30">
-                <div className="flex flex-col items-center space-y-4">
-                  <div className="w-24 h-24 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
-                  <div className="text-white/80 font-medium">
-                    Loading video... {loadingProgress.toFixed(0)}%
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-foreground to-foreground/80 backdrop-blur-sm z-30">
+                <div className="flex flex-col items-center space-y-6">
+                  <div className="w-32 h-32 border-4 border-transparent bg-gradient-to-r from-accent to-aurora-nav-muted rounded-full p-1">
+                    <div className="w-full h-full bg-foreground rounded-full flex items-center justify-center">
+                      <div className="w-16 h-16 bg-gradient-to-r from-accent to-aurora-nav-muted rounded-full" />
+                    </div>
                   </div>
-                  <div className="w-48 h-2 bg-white/20 rounded-full overflow-hidden">
+                  <div className="text-white font-body text-xl">
+                    Preparing Aurora Experience... {loadingProgress.toFixed(0)}%
+                  </div>
+                  <div className="w-64 h-3 bg-background/10 rounded-full overflow-hidden border border-high-contrast/20">
                     <div 
-                      className="h-full bg-primary transition-all duration-300" 
+                      className="h-full bg-gradient-to-r from-accent to-aurora-nav-muted transition-all duration-300" 
                       style={{ width: `${loadingProgress}%` }}
                     />
                   </div>
@@ -238,18 +254,27 @@ export function HeroSection({
           </>
         )}
         
-        {/* Fallback Image - Always show until video loads */}
+        {/* Enhanced Fallback Image with Aurora Overlay */}
         {(videoError || !videoLoaded || !shouldLoadVideo) && (
-          <Image
-            src={fallbackImageSrc}
-            alt={fallbackImageAlt}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-            onLoad={() => console.log('✅ Hero fallback image loaded successfully')}
-            onError={() => console.error('❌ Hero fallback image failed to load')}
-          />
+          <>
+            <Image
+              src={fallbackImageSrc}
+              alt={fallbackImageAlt}
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+              onLoad={() => console.log('✅ Hero fallback image loaded successfully')}
+              onError={() => console.error('❌ Hero fallback image failed to load')}
+            />
+            {/* Aurora Gradient Overlay on fallback */}
+            <div 
+              className="absolute inset-0 z-5"
+              style={{
+                background: 'linear-gradient(135deg, rgba(42,43,54,0.6) 0%, rgba(74,74,90,0.4) 50%, rgba(212,175,55,0.3) 100%)'
+              }}
+            />
+          </>
         )}
         
         {/* Overlay for text readability */}
@@ -265,7 +290,7 @@ export function HeroSection({
         />
       </div>
 
-      {/* Hero Content */}
+      {/* Aurora Enhanced Hero Content */}
       <div 
         className={cn(
           "relative z-20 flex min-h-screen items-center",
@@ -277,48 +302,51 @@ export function HeroSection({
           initial="hidden"
           animate="visible"
         >
-          {/* Headline */}
+          {/* Aurora Enhanced Headline */}
           <motion.h1 
             className={cn(
-              "font-headline text-background",
+              "font-headline text-white aurora-gradient-text",
               "text-4xl md:text-6xl lg:text-7xl",
-              "leading-tight tracking-tight mb-6"
+              "leading-tight tracking-tight mb-6",
+              "drop-shadow-2xl"
             )}
             variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { delay: 0.2, duration: 0.8 } }
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { delay: 0.2, duration: 1.2, ease: "easeOut" } }
             }}
           >
             {headline}
           </motion.h1>
 
-          {/* Sub-headline */}
+          {/* Aurora Enhanced Sub-headline */}
           <motion.p 
             className={cn(
-              "font-body text-background",
-              "text-lg md:text-xl lg:text-2xl leading-relaxed mb-8",
-              "max-w-3xl mx-auto"
+              "font-body text-white/95",
+              "text-lg md:text-xl lg:text-2xl leading-relaxed mb-10",
+              "max-w-3xl mx-auto",
+              "drop-shadow-lg"
             )}
             variants={{
               hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { delay: 0.4, duration: 0.8 } }
+              visible: { opacity: 1, y: 0, transition: { delay: 0.4, duration: 1.0, ease: "easeOut" } }
             }}
           >
             {subHeadline}
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Aurora Enhanced CTA Buttons */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-6 justify-center"
             variants={{
               hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.8 } }
+              visible: { opacity: 1, y: 0, transition: { delay: 0.6, duration: 1.0, ease: "easeOut" } }
             }}
           >
             <Button
               variant="primary"
               size="lg"
               onClick={handlePrimaryCta}
+              className="text-white font-semibold"
             >
               {primaryCtaText}
             </Button>
@@ -326,19 +354,38 @@ export function HeroSection({
             <Button
               variant="outline"
               size="lg"
-              className="text-background border-background hover:bg-background hover:text-foreground"
+              className="text-high-contrast border-high-contrast/50 hover:bg-high-contrast/10 hover:text-high-contrast hover:border-high-contrast backdrop-blur-sm"
               onClick={handleSecondaryCta}
             >
               {secondaryCtaText}
             </Button>
           </motion.div>
+
+          {/* Aurora Sparkle Effect */}
+          <div className="absolute inset-0 pointer-events-none">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-high-contrast/60 rounded-full aurora-floating"
+                style={{
+                  left: `${20 + i * 15}%`,
+                  top: `${30 + i * 10}%`,
+                  animationDelay: `${i * 0.5}s`,
+                  animationDuration: `${3 + i * 0.5}s`
+                }}
+              />
+            ))}
+          </div>
         </motion.div>
       </div>
 
-      {/* Video Error Notification */}
+      {/* Aurora Enhanced Error Notification */}
       {videoError && (
-        <div className="absolute top-4 right-4 z-50 bg-red-500/90 text-white px-4 py-2 rounded-md text-sm">
-          Video failed to load. Using fallback image.
+        <div className="absolute top-4 right-4 z-50 bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-xl text-sm backdrop-blur-sm">
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-high-contrast rounded-full" />
+            <span>Video unavailable. Aurora experience continues with fallback.</span>
+          </div>
         </div>
       )}
     </section>

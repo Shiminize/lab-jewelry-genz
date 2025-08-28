@@ -122,7 +122,7 @@ export default function AdminSidebar() {
           variant="outline"
           size="sm"
           onClick={toggleMenu}
-          className="text-foreground bg-white shadow-lg transition-transform duration-200 hover:scale-105 active:scale-95"
+          className="text-foreground bg-background shadow-lg transition-transform duration-200 hover:scale-105 active:scale-95"
           aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
         >
           {isMobileMenuOpen ? (
@@ -154,7 +154,7 @@ export default function AdminSidebar() {
       <aside 
         className={cn(
           "fixed md:static inset-y-0 left-0 z-40 w-64 transform transition-transform duration-300 ease-in-out",
-          "text-foreground bg-white border-r border-border shadow-lg md:shadow-none",
+          "text-foreground bg-background border-r border-border shadow-lg md:shadow-none",
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
       >
@@ -162,7 +162,7 @@ export default function AdminSidebar() {
           {/* Logo/Brand Header */}
           <div className="p-6 border-b border-border">
             <H3 className="text-foreground">GlowGlitch Admin</H3>
-            <BodyText size="sm" className="text-gray-600 bg-white">
+            <BodyText size="sm" className="text-aurora-nav-muted bg-background">
               Luxury jewelry platform
             </BodyText>
           </div>
@@ -184,7 +184,7 @@ export default function AdminSidebar() {
                     "touch-manipulation min-h-[48px]", // Touch-optimized minimum height
                     isActive 
                       ? "text-background bg-cta font-medium transform scale-105" 
-                      : "text-foreground bg-white hover:text-foreground hover:scale-102"
+                      : "text-foreground bg-background hover:text-foreground hover:scale-102"
                   )}
                   aria-current={isActive ? 'page' : undefined}
                 >
@@ -208,7 +208,7 @@ export default function AdminSidebar() {
                       size="xs" 
                       className={cn(
                         "truncate",
-                        isActive ? "text-background/80" : "text-gray-600"
+                        isActive ? "text-background/80" : "text-aurora-nav-muted"
                       )}
                     >
                       {item.description}
@@ -221,7 +221,7 @@ export default function AdminSidebar() {
 
           {/* Footer */}
           <div className="p-4 border-t border-border">
-            <BodyText size="xs" className="text-gray-600 bg-white text-center">
+            <BodyText size="xs" className="text-aurora-nav-muted bg-background text-center">
               Admin Panel v2.0
             </BodyText>
           </div>

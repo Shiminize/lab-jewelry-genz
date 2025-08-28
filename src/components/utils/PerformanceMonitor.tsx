@@ -109,7 +109,7 @@ export function PerformanceMonitor() {
         <h3 className="font-semibold text-foreground">Performance</h3>
         <button 
           onClick={() => setIsVisible(false)}
-          className="text-gray-500 hover:text-foreground"
+          className="text-aurora-nav-muted hover:text-foreground"
           aria-label="Close performance monitor"
         >
           ×

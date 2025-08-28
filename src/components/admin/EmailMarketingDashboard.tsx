@@ -47,7 +47,7 @@ interface DashboardMetrics {
 
 // Loading state component following approved colors
 const LoadingState = () => (
-  <div className="p-6 bg-white rounded-lg border">
+  <div className="p-6 bg-background rounded-lg border">
     <div className="animate-pulse space-y-4">
       <div className="h-8 bg-muted rounded w-1/3"></div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -65,7 +65,7 @@ const LoadingState = () => (
 
 // Error state component using approved typography/background combinations
 const ErrorState = ({ message, onRetry }: { message: string; onRetry: () => void }) => (
-  <div className="text-foreground bg-white p-6 rounded-lg border">
+  <div className="text-foreground bg-background p-6 rounded-lg border">
     <div className="flex items-center gap-3">
       <AlertCircle className="w-5 h-5 text-red-500" />
       <BodyText className="text-foreground">{message}</BodyText>
@@ -91,7 +91,7 @@ const MetricsCard = ({
   icon: React.ComponentType<{ className?: string }>
   trend?: 'up' | 'down' | 'neutral'
 }) => (
-  <div className="text-foreground bg-white p-6 rounded-lg border space-y-3">
+  <div className="text-foreground bg-background p-6 rounded-lg border space-y-3">
     <div className="flex items-center justify-between">
       <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
         <Icon className="w-5 h-5 text-accent" />
@@ -101,7 +101,7 @@ const MetricsCard = ({
           "text-sm font-medium",
           trend === 'up' && "text-green-600",
           trend === 'down' && "text-red-600",
-          trend === 'neutral' && "text-gray-600"
+          trend === 'neutral' && "text-aurora-nav-muted"
         )}>
           {trend === 'up' ? '↗' : trend === 'down' ? '↘' : '→'}
         </div>
@@ -109,7 +109,7 @@ const MetricsCard = ({
     </div>
     <div>
       <H3 className="text-foreground">{value}</H3>
-      <BodyText size="sm" className="text-gray-600 bg-background">
+      <BodyText size="sm" className="text-aurora-nav-muted bg-background">
         {title}
       </BodyText>
       <BodyText size="xs" className="text-foreground bg-muted">
@@ -170,14 +170,14 @@ const OverviewContent = ({
       </div>
 
       {/* Performance Summary */}
-      <div className="text-foreground bg-white p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-lg border">
         <H2 className="mb-4 text-foreground">Performance Overview</H2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center p-4 bg-muted rounded-lg">
             <div className="text-2xl font-bold text-background bg-foreground p-2 rounded mb-1">
               {metrics.openRate}%
             </div>
-            <BodyText size="sm" className="text-gray-600 bg-muted">
+            <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
               Average Open Rate
             </BodyText>
           </div>
@@ -185,7 +185,7 @@ const OverviewContent = ({
             <div className="text-2xl font-bold text-foreground mb-1">
               {metrics.clickRate}%
             </div>
-            <BodyText size="sm" className="text-gray-600 bg-muted">
+            <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
               Average Click Rate
             </BodyText>
           </div>
@@ -193,7 +193,7 @@ const OverviewContent = ({
             <div className="text-2xl font-bold text-foreground mb-1">
               ${metrics.revenue.toLocaleString()}
             </div>
-            <BodyText size="sm" className="text-gray-600 bg-muted">
+            <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
               Email Revenue
             </BodyText>
           </div>
@@ -201,7 +201,7 @@ const OverviewContent = ({
       </div>
 
       {/* Quick Actions */}
-      <div className="text-foreground bg-white p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-lg border">
         <H2 className="mb-4 text-foreground">Quick Actions</H2>
         <div className="flex flex-wrap gap-3">
           <Button variant="primary" size="md" onClick={onCreateCampaign}>
@@ -224,8 +224,8 @@ const OverviewContent = ({
             <Activity className="w-4 h-4" />
             Performance Insights
           </Button>
-          <div className="text-accent bg-white p-2 rounded border">
-            <BodyText size="sm" className="text-accent bg-white">Quick tip: Use segments to target specific customer groups</BodyText>
+          <div className="text-accent bg-background p-2 rounded border">
+            <BodyText size="sm" className="text-accent bg-background">Quick tip: Use segments to target specific customer groups</BodyText>
           </div>
         </div>
       </div>
@@ -248,9 +248,9 @@ type CampaignView = 'list' | 'create' | 'details' | 'edit' | 'send'
 
 // Placeholder content for other sections
 const PlaceholderContent = ({ section }: { section: string }) => (
-  <div className="text-foreground bg-white p-8 rounded-lg border text-center">
+  <div className="text-foreground bg-background p-8 rounded-lg border text-center">
     <H2 className="mb-4 text-foreground">{section} Management</H2>
-    <BodyText className="text-gray-600 bg-white mb-6">
+    <BodyText className="text-aurora-nav-muted bg-background mb-6">
       This section is coming soon. Full {section.toLowerCase()} management functionality will be available here.
     </BodyText>
     <Button variant="primary" size="md">
@@ -352,11 +352,11 @@ export default function EmailMarketingDashboard() {
 
   // Mobile navigation (touch-optimized)
   const mobileNavigation = (
-    <div className="md:hidden bg-white border rounded-lg p-2 mb-4">
+    <div className="md:hidden bg-background border rounded-lg p-2 mb-4">
       <select 
         value={activeSection}
         onChange={(e) => setActiveSection(e.target.value as EmailSection)}
-        className="w-full p-3 font-body text-foreground bg-white border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+        className="w-full p-3 font-body text-foreground bg-background border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
         aria-label="Email marketing sections"
       >
         {emailSections.map(section => (
@@ -466,12 +466,12 @@ export default function EmailMarketingDashboard() {
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto p-6 space-y-6 text-foreground bg-background">
         
-        {/* Header Section - Typography combination #3: text-foreground bg-white */}
-        <div className="text-foreground bg-white p-6 rounded-lg border space-y-4">
+        {/* Header Section - Typography combination #3: text-foreground bg-background */}
+        <div className="text-foreground bg-background p-6 rounded-lg border space-y-4">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
               <H1 className="text-foreground">Email Marketing</H1>
-              <BodyText className="text-gray-600 bg-white">
+              <BodyText className="text-aurora-nav-muted bg-background">
                 Manage campaigns, segments, and automation
               </BodyText>
             </div>
@@ -492,7 +492,7 @@ export default function EmailMarketingDashboard() {
         {mobileNavigation}
 
         {/* Desktop Navigation - Following inventory pattern */}
-        <div className="hidden md:block bg-white rounded-lg border">
+        <div className="hidden md:block bg-background rounded-lg border">
           <nav 
             className="border-b border-border"
             role="tablist"
