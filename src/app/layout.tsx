@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import type { Metadata } from 'next'
 import './globals.css'
 import { Footer } from '@/components/layout'
-import { AuroraNavigation } from '@/components/navigation'
+import { Header } from '@/components/layout/Header'
 import { PerformanceMonitor } from '@/components/utils/PerformanceMonitor'
 import { ErrorProvider } from '@/contexts/ErrorContext'
 import { WithPageErrorBoundary } from '@/components/errors/ErrorBoundary'
@@ -38,7 +38,7 @@ export default function RootLayout({
           <WebVitalsProvider>
             <ErrorProvider>
               <WithPageErrorBoundary>
-                <AuroraNavigation />
+                <Header />
                 <main className="flex-1" id="main-content" tabIndex={-1}>
                   <Suspense fallback={<PageLoadingSkeleton />}>
                     {children}

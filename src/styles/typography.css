@@ -1,0 +1,353 @@
+/**
+ * Enhanced Typography System for Luxury Jewelry E-commerce
+ * CLAUDE_RULES compliant: Aurora Design System typography foundation
+ * 
+ * Features:
+ * - Fluid typography with clamp() for responsive scaling
+ * - 4-level visual hierarchy (Display, Headline, Body, Caption)
+ * - Luxury jewelry-specific typography variants
+ * - Aurora Design System color integration
+ * - Mobile-first responsive implementation
+ */
+
+/* ===== TYPOGRAPHY SCALE FOUNDATION ===== */
+
+:root {
+  /* Fluid Typography Scale - Mobile First */
+  --type-scale-display: clamp(2.5rem, 6vw, 4rem);       /* 40px → 64px */
+  --type-scale-h1: clamp(2rem, 5vw, 3rem);              /* 32px → 48px */
+  --type-scale-h2: clamp(1.5rem, 4vw, 2.25rem);         /* 24px → 36px */
+  --type-scale-h3: clamp(1.25rem, 3vw, 1.75rem);        /* 20px → 28px */
+  --type-scale-h4: clamp(1.125rem, 2.5vw, 1.5rem);      /* 18px → 24px */
+  --type-scale-body-lg: clamp(1.125rem, 2vw, 1.25rem);  /* 18px → 20px */
+  --type-scale-body: clamp(1rem, 1.5vw, 1.125rem);      /* 16px → 18px */
+  --type-scale-body-sm: clamp(0.875rem, 1vw, 1rem);     /* 14px → 16px */
+  --type-scale-caption: clamp(0.75rem, 1vw, 0.875rem);  /* 12px → 14px */
+
+  /* Line Height Scale */
+  --line-height-tight: 1.1;    /* For display and large headlines */
+  --line-height-snug: 1.25;    /* For headlines */
+  --line-height-normal: 1.5;   /* For body text */
+  --line-height-relaxed: 1.625; /* For long-form content */
+
+  /* Letter Spacing */
+  --letter-spacing-tighter: -0.02em;
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+}
+
+/* ===== DISPLAY TYPOGRAPHY ===== */
+
+.typography-display {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tighter);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-display-gradient {
+  background: linear-gradient(135deg, var(--aurora-nebula-purple) 0%, var(--aurora-pink) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: aurora-gradient-shift 4s ease-in-out infinite;
+}
+
+/* ===== HEADLINE TYPOGRAPHY ===== */
+
+.typography-h1 {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-h2 {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h2);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-h3 {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-h4 {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h4);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+/* ===== BODY TYPOGRAPHY ===== */
+
+.typography-body-lg {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-body {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-body-sm {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-caption {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--aurora-nav-muted, #6B7280);
+  text-transform: uppercase;
+}
+
+/* ===== LUXURY JEWELRY SPECIFIC TYPOGRAPHY ===== */
+
+.typography-price-display {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-nebula-purple, #6B46C1);
+}
+
+.typography-price-small {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-carat-display {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--aurora-nav-muted, #6B7280);
+  text-transform: uppercase;
+}
+
+.typography-metal-type {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--aurora-deep-space, #0A0E27);
+  text-transform: uppercase;
+}
+
+.typography-cta {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--aurora-deep-space, #0A0E27);
+  text-transform: uppercase;
+}
+
+/* ===== TEXT COLOR VARIANTS ===== */
+
+.text-muted {
+  color: var(--aurora-nav-muted, #6B7280) !important;
+}
+
+.text-aurora-accent {
+  color: var(--aurora-nebula-purple, #6B46C1) !important;
+}
+
+.text-aurora-pink {
+  color: var(--aurora-pink, #FF6B9D) !important;
+}
+
+.text-aurora-crimson {
+  color: var(--aurora-crimson, #C44569) !important;
+}
+
+.text-success {
+  color: var(--aurora-emerald-flash, #10B981) !important;
+}
+
+.text-warning {
+  color: var(--aurora-amber-glow, #F59E0B) !important;
+}
+
+.text-high-contrast {
+  color: var(--white, #FFFFFF) !important;
+}
+
+/* ===== INTERACTIVE TYPOGRAPHY ===== */
+
+.typography-link {
+  color: var(--aurora-nebula-purple, #6B46C1);
+  text-decoration: none;
+  transition: color 200ms ease;
+  cursor: pointer;
+}
+
+.typography-link:hover {
+  color: var(--aurora-crimson, #C44569);
+  text-decoration: underline;
+  text-decoration-color: var(--aurora-pink, #FF6B9D);
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 2px;
+}
+
+.typography-link:focus {
+  outline: 2px solid var(--aurora-pink, #FF6B9D);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ===== NAVIGATION TYPOGRAPHY ===== */
+
+.typography-nav-primary {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-nav-text, #0A0E27);
+}
+
+.typography-nav-secondary {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-nav-muted, #6B7280);
+}
+
+.typography-nav-category {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--aurora-nav-text, #0A0E27);
+  text-transform: uppercase;
+}
+
+/* ===== RESPONSIVE ENHANCEMENTS ===== */
+
+@media (max-width: 768px) {
+  .typography-display {
+    line-height: var(--line-height-snug);
+    text-align: center;
+  }
+  
+  .typography-h1 {
+    line-height: var(--line-height-snug);
+  }
+  
+  .typography-price-display {
+    font-size: var(--type-scale-h3);
+  }
+}
+
+@media (max-width: 480px) {
+  .typography-display {
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .typography-h1 {
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .typography-cta,
+  .typography-metal-type,
+  .typography-carat-display {
+    letter-spacing: var(--letter-spacing-wide);
+  }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .typography-display-gradient {
+    animation: none;
+    background: var(--aurora-nebula-purple, #6B46C1);
+    background-clip: initial;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    color: var(--aurora-nebula-purple, #6B46C1);
+  }
+  
+  .typography-link {
+    transition: none;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+  .typography-display,
+  .typography-h1,
+  .typography-h2,
+  .typography-h3,
+  .typography-h4,
+  .typography-body,
+  .typography-body-lg,
+  .typography-body-sm,
+  .typography-caption,
+  .typography-price-display,
+  .typography-price-small,
+  .typography-carat-display,
+  .typography-metal-type,
+  .typography-cta {
+    color: #000 !important;
+  }
+  
+  .typography-link {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+}

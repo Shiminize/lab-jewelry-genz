@@ -128,9 +128,25 @@ class RealTimeInventoryManager extends EventEmitter {
 
   // Start periodic inventory updates
   private startInventoryUpdates() {
-    this.updateInterval = setInterval(() => {
-      this.simulateInventoryChanges()
-    }, 10000) // Update every 10 seconds for demo
+    // CRITICAL FIX: Use GlobalHealthMonitor instead of separate interval
+    try {
+      const GlobalHealthMonitor = require('./global-health-monitor').default
+      const healthMonitor = GlobalHealthMonitor.getInstance()
+      
+      // Register inventory updates with global monitor to prevent cascade
+      healthMonitor.registerService('realtime-inventory-updates', async () => {
+        this.simulateInventoryChanges()
+        return { status: 'inventory-updated' }
+      }, Math.max(10000, 60000)) // Minimum 60 seconds via global monitor (was 10s for demo)
+      
+      console.log('📦 RealtimeInventory: Registered with GlobalHealthMonitor')
+    } catch (error) {
+      console.warn('[RealtimeInventory] Failed to register with GlobalHealthMonitor:', error)
+      // Fallback to original method if GlobalHealthMonitor fails
+      this.updateInterval = setInterval(() => {
+        this.simulateInventoryChanges()
+      }, 10000) // Update every 10 seconds for demo
+    }
   }
 
   // Simulate inventory changes for demo
@@ -331,15 +347,38 @@ class RealTimeInventoryManager extends EventEmitter {
 
   // Clean up expired reservations
   private startReservationCleanup() {
-    setInterval(() => {
-      const now = new Date()
-      const expiredReservations = Array.from(this.reservations.entries())
-        .filter(([_, reservation]) => reservation.expiresAt < now)
+    // CRITICAL FIX: Use GlobalHealthMonitor instead of separate interval
+    try {
+      const GlobalHealthMonitor = require('./global-health-monitor').default
+      const healthMonitor = GlobalHealthMonitor.getInstance()
+      
+      // Register reservation cleanup with global monitor to prevent cascade
+      healthMonitor.registerService('realtime-inventory-cleanup', async () => {
+        const now = new Date()
+        const expiredReservations = Array.from(this.reservations.entries())
+          .filter(([_, reservation]) => reservation.expiresAt < now)
 
-      expiredReservations.forEach(([id, _]) => {
-        this.releaseReservation(id)
-      })
-    }, 60000) // Check every minute
+        expiredReservations.forEach(([id, _]) => {
+          this.releaseReservation(id)
+        })
+        
+        return { status: 'reservations-cleaned', expired: expiredReservations.length }
+      }, 60000) // 60 seconds via global monitor
+      
+      console.log('🧹 RealtimeInventory: Cleanup registered with GlobalHealthMonitor')
+    } catch (error) {
+      console.warn('[RealtimeInventory] Failed to register cleanup with GlobalHealthMonitor:', error)
+      // Fallback to original method if GlobalHealthMonitor fails
+      setInterval(() => {
+        const now = new Date()
+        const expiredReservations = Array.from(this.reservations.entries())
+          .filter(([_, reservation]) => reservation.expiresAt < now)
+
+        expiredReservations.forEach(([id, _]) => {
+          this.releaseReservation(id)
+        })
+      }, 60000) // Check every minute
+    }
   }
 
   // Get current inventory for a product

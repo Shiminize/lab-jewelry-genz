@@ -56,18 +56,37 @@ export interface OptimizationRecommendation {
 }
 
 export class ResourceOptimizer {
+  private static instance: ResourceOptimizer | null = null
   private config: ProductionConfig
   private cleanupInterval?: NodeJS.Timeout
   private monitoringInterval?: NodeJS.Timeout
   private metrics: ResourceMetrics
   private lastCleanup = 0
   private gcForced = false
+  private isInitialized = false
 
-  constructor() {
+  private constructor() {
     this.config = getProductionConfig()
     this.metrics = this.initializeMetrics()
+  }
+
+  static getInstance(): ResourceOptimizer {
+    if (!ResourceOptimizer.instance) {
+      ResourceOptimizer.instance = new ResourceOptimizer()
+    }
+    return ResourceOptimizer.instance
+  }
+
+  initialize(): void {
+    if (this.isInitialized) {
+      console.log('🔧 ResourceOptimizer already initialized, skipping')
+      return
+    }
+    
     this.startMonitoring()
     this.scheduleCleanup()
+    this.isInitialized = true
+    console.log('🔧 ResourceOptimizer initialized')
   }
 
   private initializeMetrics(): ResourceMetrics {
@@ -121,14 +140,17 @@ export class ResourceOptimizer {
   }
 
   async updateMetrics(): Promise<ResourceMetrics> {
-    // Update memory metrics
+    // Update memory metrics (aligned with GlobalHealthMonitor calculation)
     const memUsage = process.memoryUsage()
+    const usedMB = Math.round(memUsage.heapUsed / 1024 / 1024)
+    const systemLimitMB = 2048 // 2GB system limit (matches GlobalHealthMonitor)
+    
     this.metrics.memory = {
-      used: Math.round(memUsage.heapUsed / 1024 / 1024),
+      used: usedMB,
       free: Math.round((memUsage.heapTotal - memUsage.heapUsed) / 1024 / 1024),
       total: Math.round(memUsage.heapTotal / 1024 / 1024),
-      percentage: Math.round((memUsage.heapUsed / memUsage.heapTotal) * 100),
-      isOverLimit: memUsage.heapUsed > (this.config.resources.maxMemoryMB * 1024 * 1024)
+      percentage: Math.round((usedMB / systemLimitMB) * 100), // Use system limit, not heap total
+      isOverLimit: usedMB > (this.config.resources.maxMemoryMB || 1024)
     }
 
     // Update CPU metrics
@@ -227,20 +249,33 @@ export class ResourceOptimizer {
   async performOptimizations(): Promise<OptimizationRecommendation[]> {
     const recommendations: OptimizationRecommendation[] = []
 
-    // Memory optimization
-    if (this.metrics.memory.percentage > 80) {
+    // Memory optimization with tiered response
+    if (this.metrics.memory.percentage > 50) { // Adjusted for system limit calculation
+      const severity = this.metrics.memory.percentage > 95 ? 'critical' 
+                      : this.metrics.memory.percentage > 85 ? 'high' 
+                      : 'medium'
+                      
       recommendations.push({
         type: 'memory',
-        severity: this.metrics.memory.percentage > 90 ? 'critical' : 'high',
+        severity: severity,
         message: `Memory usage at ${this.metrics.memory.percentage}%`,
-        action: 'Force garbage collection and clear caches',
+        action: severity === 'critical' ? 'Advanced memory cleanup' : 'Force garbage collection and clear caches',
         autoFixAvailable: true
       })
 
-      if (!this.gcForced && this.metrics.memory.percentage > 85) {
-        await this.forceGarbageCollection()
-        this.gcForced = true
-        setTimeout(() => { this.gcForced = false }, 30000) // Reset after 30s
+      // Tiered memory cleanup response
+      if (!this.gcForced) {
+        if (this.metrics.memory.percentage > 80) {
+          // Critical: Advanced cleanup
+          await this.performAdvancedMemoryCleanup()
+          this.gcForced = true
+          setTimeout(() => { this.gcForced = false }, 60000) // Reset after 60s for critical situations
+        } else if (this.metrics.memory.percentage > 60) {
+          // High: Normal cleanup
+          await this.forceGarbageCollection()
+          this.gcForced = true
+          setTimeout(() => { this.gcForced = false }, 30000) // Reset after 30s
+        }
       }
     }
 
@@ -335,7 +370,7 @@ export class ResourceOptimizer {
     this.clearInternalCaches()
     
     // Force GC if memory usage is high
-    if (this.metrics.memory.percentage > 70) {
+    if (this.metrics.memory.percentage > 50) {
       await this.forceGarbageCollection()
     }
   }
@@ -346,7 +381,8 @@ export class ResourceOptimizer {
     const safeToClear = moduleKeys.filter(key => 
       !key.includes('node_modules') && 
       !key.includes('production-config') &&
-      !key.includes('generation-service')
+      !key.includes('generation-service') &&
+      !key.includes('global-health-monitor') // Protect singleton
     )
     
     safeToClear.forEach(key => {
@@ -356,15 +392,66 @@ export class ResourceOptimizer {
     console.log(`🧹 Cleared ${safeToClear.length} cached modules`)
   }
 
+  /**
+   * Advanced memory cleanup for memory pressure situations
+   */
+  async performAdvancedMemoryCleanup(): Promise<void> {
+    console.log('🆘 Performing advanced memory cleanup due to memory pressure')
+    
+    try {
+      // 1. Clear internal caches aggressively  
+      this.clearInternalCaches()
+      
+      // 2. Force multiple garbage collections with delays
+      if (global.gc) {
+        for (let i = 0; i < 3; i++) {
+          global.gc()
+          await new Promise(resolve => setTimeout(resolve, 100)) // 100ms between GC calls
+        }
+        console.log('🧹 Performed 3 aggressive garbage collections')
+      }
+      
+      // 3. Clear material cache if available
+      try {
+        const MaterialCache = require('./material-cache')
+        if (MaterialCache?.default?.clear) {
+          MaterialCache.default.clear()
+          console.log('🧹 Cleared material cache')
+        }
+      } catch (error) {
+        // Material cache not available or already cleared
+      }
+      
+      // 4. Clear admin cache if available
+      try {
+        const AdminCache = require('./admin-cache')
+        if (AdminCache?.adminCache?.clear) {
+          AdminCache.adminCache.clear()
+          console.log('🧹 Cleared admin cache')
+        }
+      } catch (error) {
+        // Admin cache not available or already cleared
+      }
+      
+      // 5. Run disk cleanup to free up space
+      await this.cleanupDiskSpace()
+      
+      console.log('✅ Advanced memory cleanup completed')
+      
+    } catch (error) {
+      console.error('❌ Advanced memory cleanup failed:', error)
+    }
+  }
+
   getMetrics(): ResourceMetrics {
     return { ...this.metrics }
   }
 
   getMemoryPressure(): 'low' | 'medium' | 'high' | 'critical' {
     const percentage = this.metrics.memory.percentage
-    if (percentage < 70) return 'low'      // Increased from 60% for sequence generation
-    if (percentage < 85) return 'medium'   // Increased from 75% for sequence generation  
-    if (percentage < 95) return 'high'     // Increased from 90% for sequence generation
+    if (percentage < 50) return 'low'      // Adjusted for system limit calculation
+    if (percentage < 70) return 'medium'   // Adjusted for system limit calculation  
+    if (percentage < 85) return 'high'     // Adjusted for system limit calculation
     return 'critical'
   }
 

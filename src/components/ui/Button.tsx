@@ -79,7 +79,7 @@ export function Button({
     >
       {isLoading ? (
         <div className="flex items-center space-x-2 aurora-shimmer-overlay">
-          <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin aurora-pulse" />
+          <div className="w-4 h-4 border-2 border-current border-t-transparent animate-spin aurora-pulse" />
           <span className="aurora-gradient-text">Loading...</span>
         </div>
       ) : (

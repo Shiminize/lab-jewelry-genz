@@ -6,15 +6,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ResourceOptimizer } from '@/lib/resource-optimizer'
 
-let resourceOptimizer: ResourceOptimizer | null = null
-
-function getResourceOptimizer(): ResourceOptimizer {
-  if (!resourceOptimizer) {
-    resourceOptimizer = new ResourceOptimizer()
-  }
-  return resourceOptimizer
-}
-
 export async function POST(request: NextRequest) {
   try {
     const { type } = await request.json()
@@ -26,7 +17,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const optimizer = getResourceOptimizer()
+    const optimizer = ResourceOptimizer.getInstance()
+    optimizer.initialize()
     let result: any = {}
 
     switch (type) {

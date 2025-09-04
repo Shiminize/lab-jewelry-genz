@@ -1,0 +1,131 @@
+import { NextRequest, NextResponse } from 'next/server'
+
+/**
+ * Navigation Data API Endpoint
+ * CLAUDE_RULES: Performance optimization - serves external navigation data
+ * Reduces bundle size by ~280KB by externalizing static data
+ */
+
+const navigationData = {
+  rings: {
+    label: 'Rings',
+    description: 'Discover our collection of ethically crafted rings, from engagement to everyday elegance.',
+    categories: [
+      { id: 'engagement', label: 'Engagement Rings', href: '/catalog?category=rings&type=engagement', description: 'Lab-grown diamond solitaires & settings' },
+      { id: 'wedding', label: 'Wedding Bands', href: '/catalog?category=rings&type=wedding', description: 'Classic & modern matching bands' },
+      { id: 'fashion', label: 'Fashion Rings', href: '/catalog?category=rings&type=fashion', description: 'Statement rings & everyday elegance' },
+      { id: 'men', label: "Men's Rings", href: '/catalog?category=rings&gender=men', description: 'Sophisticated masculine designs' },
+      { id: 'stackable', label: 'Stackable Rings', href: '/catalog?category=rings&type=stackable', description: 'Mix & match ring collections' },
+      { id: 'vintage', label: 'Vintage Inspired', href: '/catalog?category=rings&style=vintage', description: 'Art deco & heritage designs' },
+      { id: 'custom', label: 'Custom Design', href: '/customizer?category=rings', description: 'Create your unique piece' }
+    ],
+    featuredProducts: [
+      { id: '1', name: 'Classic Solitaire 1.5ct', price: '$1,299', image: '/glitchglow_logo_empty_gold.png', href: '/products/classic-solitaire', badge: 'Bestseller' },
+      { id: '2', name: 'Modern Band Set', price: '$899', image: '/glitchglow_logo_empty_gold.png', href: '/products/modern-band', badge: 'New' },
+      { id: '3', name: 'Custom Engagement', price: 'From $999', image: '/glitchglow_logo_empty_gold.png', href: '/customizer?template=engagement' }
+    ],
+    quickLinks: [
+      { id: 'sizing', label: 'Ring Sizing Guide', href: '/sizing' },
+      { id: 'care', label: 'Care Instructions', href: '/care' },
+      { id: 'returns', label: '60-Day Returns', href: '/returns' },
+      { id: 'warranty', label: 'Lifetime Warranty', href: '/warranty' }
+    ]
+  },
+  necklaces: {
+    label: 'Necklaces',
+    description: 'Elegant chains, pendants, and statement pieces crafted with ethical materials.',
+    categories: [
+      { id: 'pendants', label: 'Pendant Necklaces', href: '/catalog?category=necklaces&type=pendants', description: 'Diamond & gemstone pendants' },
+      { id: 'chains', label: 'Chain Necklaces', href: '/catalog?category=necklaces&type=chains', description: 'Gold, silver & platinum chains' },
+      { id: 'chokers', label: 'Chokers', href: '/catalog?category=necklaces&type=chokers', description: 'Contemporary choker designs' },
+      { id: 'layered', label: 'Layered Sets', href: '/catalog?category=necklaces&type=layered', description: 'Multi-strand necklace collections' },
+      { id: 'statement', label: 'Statement Pieces', href: '/catalog?category=necklaces&type=statement', description: 'Bold & dramatic designs' },
+      { id: 'everyday', label: 'Everyday Elegance', href: '/catalog?category=necklaces&type=everyday', description: 'Simple & versatile pieces' }
+    ],
+    featuredProducts: [
+      { id: '1', name: 'Diamond Pendant', price: '$899', image: '/glitchglow_logo_empty_gold.png', href: '/products/diamond-pendant', badge: 'New' },
+      { id: '2', name: 'Gold Chain 18"', price: '$699', image: '/glitchglow_logo_empty_gold.png', href: '/products/gold-chain' },
+      { id: '3', name: 'Custom Pendant', price: 'From $399', image: '/glitchglow_logo_empty_gold.png', href: '/customizer?template=pendant' }
+    ],
+    quickLinks: [
+      { id: 'length-guide', label: 'Length Guide', href: '/sizing#necklaces' },
+      { id: 'care', label: 'Care Instructions', href: '/care' },
+      { id: 'metal-guide', label: 'Metal Guide', href: '/materials' },
+      { id: 'engraving', label: 'Engraving Service', href: '/services/engraving' }
+    ]
+  },
+  earrings: {
+    label: 'Earrings',
+    description: 'Stunning studs, hoops, and statement earrings for every occasion.',
+    categories: [
+      { id: 'studs', label: 'Stud Earrings', href: '/catalog?category=earrings&type=studs', description: 'Diamond & gemstone studs' },
+      { id: 'hoops', label: 'Hoop Earrings', href: '/catalog?category=earrings&type=hoops', description: 'Classic to statement hoops' },
+      { id: 'drops', label: 'Drop Earrings', href: '/catalog?category=earrings&type=drops', description: 'Elegant hanging designs' },
+      { id: 'chandelier', label: 'Chandelier Earrings', href: '/catalog?category=earrings&type=chandelier', description: 'Dramatic statement pieces' },
+      { id: 'huggie', label: 'Huggie Earrings', href: '/catalog?category=earrings&type=huggie', description: 'Close-fitting hoop styles' },
+      { id: 'climber', label: 'Ear Climbers', href: '/catalog?category=earrings&type=climber', description: 'Modern ascending designs' }
+    ],
+    featuredProducts: [
+      { id: '1', name: 'Diamond Studs', price: '$599', image: '/glitchglow_logo_empty_gold.png', href: '/products/diamond-studs', badge: 'Bestseller' },
+      { id: '2', name: 'Gold Hoops', price: '$399', image: '/glitchglow_logo_empty_gold.png', href: '/products/gold-hoops' },
+      { id: '3', name: 'Custom Studs', price: 'From $299', image: '/glitchglow_logo_empty_gold.png', href: '/customizer?template=studs' }
+    ],
+    quickLinks: [
+      { id: 'care', label: 'Care Instructions', href: '/care' },
+      { id: 'sizing', label: 'Fit Guide', href: '/sizing#earrings' },
+      { id: 'piercing', label: 'Piercing Guide', href: '/guides/piercing' },
+      { id: 'backs', label: 'Earring Backs', href: '/accessories/earring-backs' }
+    ]
+  },
+  customizer: {
+    label: 'Customize',
+    description: 'Design your perfect piece with our advanced 3D customizer.',
+    categories: [
+      { id: 'rings', label: 'Design Your Ring', href: '/customizer?category=rings', description: 'Create your perfect ring' },
+      { id: 'necklaces', label: 'Design Necklaces', href: '/customizer?category=necklaces', description: 'Custom pendants & chains' },
+      { id: 'earrings', label: 'Design Earrings', href: '/customizer?category=earrings', description: 'Custom studs & drops' },
+      { id: 'materials', label: 'Choose Materials', href: '/customizer#materials', description: 'Lab diamonds & precious metals' },
+      { id: 'settings', label: 'Ring Settings', href: '/customizer?type=settings', description: 'Solitaire, halo & vintage styles' },
+      { id: 'preview', label: '3D Preview', href: '/customizer#preview', description: 'See your design in 360°' }
+    ],
+    featuredProducts: [
+      { id: '1', name: 'Custom Ring', price: 'From $999', image: '/glitchglow_logo_empty_gold.png', href: '/customizer?template=solitaire', badge: 'Popular' },
+      { id: '2', name: 'Custom Pendant', price: 'From $399', image: '/glitchglow_logo_empty_gold.png', href: '/customizer?template=pendant' },
+      { id: '3', name: 'Custom Earrings', price: 'From $299', image: '/glitchglow_logo_empty_gold.png', href: '/customizer?template=studs' }
+    ],
+    quickLinks: [
+      { id: 'guide', label: 'Design Guide', href: '/customizer/guide' },
+      { id: 'materials', label: 'Material Guide', href: '/customizer/materials' },
+      { id: 'consultation', label: 'Free Consultation', href: '/services/consultation' },
+      { id: 'gallery', label: 'Design Gallery', href: '/gallery' }
+    ]
+  },
+  defaultFeatures: [
+    { id: '1', title: 'Lab-Grown Diamonds', description: 'Ethically sourced, conflict-free diamonds' },
+    { id: '2', title: 'Lifetime Warranty', description: 'Comprehensive coverage for your investment' },
+    { id: '3', title: 'Free Resizing', description: 'Perfect fit guarantee within 60 days' }
+  ]
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    // Add CORS headers for cross-origin requests
+    const headers = {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    }
+
+    return NextResponse.json(navigationData, { headers })
+    
+  } catch (error) {
+    console.error('Navigation data API error:', error)
+    
+    return NextResponse.json(
+      { error: 'Failed to fetch navigation data' },
+      { status: 500 }
+    )
+  }
+}

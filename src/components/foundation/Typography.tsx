@@ -4,16 +4,31 @@ import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-// Typography variants following the design system
+// Enhanced typography variants with luxury jewelry focus
+const displayVariants = cva(
+  'typography-display',
+  {
+    variants: {
+      gradient: {
+        true: 'typography-display-gradient',
+        false: ''
+      }
+    },
+    defaultVariants: {
+      gradient: false
+    }
+  }
+)
+
 const headlineVariants = cva(
   'font-headline text-foreground',
   {
     variants: {
       level: {
-        h1: 'text-4xl lg:text-5xl font-bold tracking-tight leading-tight',
-        h2: 'text-2xl lg:text-3xl font-semibold tracking-tight leading-tight',
-        h3: 'text-xl lg:text-2xl font-semibold tracking-tight leading-snug',
-        h4: 'text-lg lg:text-xl font-semibold leading-snug',
+        h1: 'typography-h1',
+        h2: 'typography-h2', 
+        h3: 'typography-h3',
+        h4: 'typography-h4',
       }
     },
     defaultVariants: {
@@ -27,9 +42,9 @@ const bodyVariants = cva(
   {
     variants: {
       size: {
-        sm: 'text-sm leading-relaxed',
-        md: 'text-base leading-relaxed',
-        lg: 'text-lg leading-relaxed',
+        sm: 'typography-body-sm',
+        md: 'typography-body',
+        lg: 'typography-body-lg',
       },
       weight: {
         regular: 'font-normal',
@@ -43,6 +58,52 @@ const bodyVariants = cva(
     }
   }
 )
+
+const priceVariants = cva(
+  'font-headline',
+  {
+    variants: {
+      size: {
+        display: 'typography-price-display',
+        small: 'typography-price-small'
+      }
+    },
+    defaultVariants: {
+      size: 'display'
+    }
+  }
+)
+
+const jewelrySpecVariants = cva(
+  'font-body',
+  {
+    variants: {
+      type: {
+        carat: 'typography-carat-display',
+        metal: 'typography-metal-type',
+        caption: 'typography-caption'
+      }
+    },
+    defaultVariants: {
+      type: 'caption'
+    }
+  }
+)
+
+// Display Component
+interface DisplayProps extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof displayVariants> {
+  children: React.ReactNode
+  as?: 'h1' | 'h2' | 'div'
+}
+
+export function DisplayText({ className, gradient = false, as = 'h1', children, ...props }: DisplayProps) {
+  const Component = as
+  return (
+    <Component className={cn(displayVariants({ gradient }), className)} {...props}>
+      {children}
+    </Component>
+  )
+}
 
 // Headline Components
 interface HeadlineProps extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof headlineVariants> {
@@ -109,15 +170,62 @@ export function BodyText({
 }
 
 // Specialized text components
+// Price Display Components
+interface PriceDisplayProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof priceVariants> {
+  children: React.ReactNode
+  currency?: string
+  as?: 'span' | 'div' | 'p'
+}
+
+export function PriceDisplay({ 
+  className, 
+  size = 'display', 
+  currency = '$',
+  as = 'span', 
+  children, 
+  ...props 
+}: PriceDisplayProps) {
+  const Component = as
+  return (
+    <Component className={cn(priceVariants({ size }), className)} {...props}>
+      {currency}{children}
+    </Component>
+  )
+}
+
+// Jewelry Specification Components
+interface JewelrySpecProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof jewelrySpecVariants> {
+  children: React.ReactNode
+  as?: 'span' | 'div' | 'p'
+}
+
+export function CaratDisplay({ className, type = 'carat', as = 'span', children, ...props }: JewelrySpecProps) {
+  const Component = as
+  return (
+    <Component className={cn(jewelrySpecVariants({ type }), className)} {...props}>
+      {children}
+    </Component>
+  )
+}
+
+export function MetalTypeDisplay({ className, type = 'metal', as = 'span', children, ...props }: JewelrySpecProps) {
+  const Component = as
+  return (
+    <Component className={cn(jewelrySpecVariants({ type }), className)} {...props}>
+      {children}
+    </Component>
+  )
+}
+
 interface MutedTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   children: React.ReactNode
   size?: 'sm' | 'md'
-  variant?: 'default' | 'light' // Add variant for different muted levels
+  variant?: 'default' | 'light'
 }
 
 export function MutedText({ className, size = 'md', variant = 'default', children, ...props }: MutedTextProps) {
-  const sizeClass = size === 'sm' ? 'text-sm' : 'text-base'
-  const colorClass = 'text-aurora-nav-muted' // CLAUDE_RULES compliant: approved combination #2 (text-aurora-nav-muted bg-background)
+  const sizeClass = size === 'sm' ? 'typography-body-sm' : 'typography-body'
+  const colorClass = 'text-muted' // CLAUDE_RULES compliant: Aurora muted text color
   return (
     <span className={cn('font-body', colorClass, sizeClass, className)} {...props}>
       {children}
@@ -125,28 +233,73 @@ export function MutedText({ className, size = 'md', variant = 'default', childre
   )
 }
 
-interface CTATextProps extends React.HTMLAttributes<HTMLSpanElement> {
+// Caption Text Component
+interface CaptionTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   children: React.ReactNode
-  size?: 'sm' | 'md' | 'lg'
+  as?: 'span' | 'div' | 'p'
 }
 
-export function CTAText({ className, size = 'md', children, ...props }: CTATextProps) {
-  const sizeClasses = {
-    sm: 'text-sm',
-    md: 'text-base', 
-    lg: 'text-lg'
-  }
+export function CaptionText({ className, as = 'span', children, ...props }: CaptionTextProps) {
+  const Component = as
+  return (
+    <Component className={cn('typography-caption', className)} {...props}>
+      {children}
+    </Component>
+  )
+}
+
+interface CTATextProps extends React.HTMLAttributes<HTMLSpanElement> {
+  children: React.ReactNode
+  as?: 'span' | 'div' | 'button'
+}
+
+export function CTAText({ className, as = 'span', children, ...props }: CTATextProps) {
+  const Component = as
+  return (
+    <Component className={cn('typography-cta', className)} {...props}>
+      {children}
+    </Component>
+  )
+}
+
+// Navigation Typography Components
+interface NavTextProps extends React.HTMLAttributes<HTMLSpanElement> {
+  children: React.ReactNode
+  variant?: 'primary' | 'secondary' | 'category'
+  as?: 'span' | 'div' | 'p'
+}
+
+export function NavText({ 
+  className, 
+  variant = 'primary', 
+  as = 'span', 
+  children, 
+  ...props 
+}: NavTextProps) {
+  const Component = as
+  const variantClass = {
+    primary: 'typography-nav-primary',
+    secondary: 'typography-nav-secondary', 
+    category: 'typography-nav-category'
+  }[variant]
   
   return (
-    <span 
-      className={cn(
-        'font-body font-semibold text-foreground uppercase tracking-wider', 
-        sizeClasses[size], 
-        className
-      )} 
-      {...props}
-    >
+    <Component className={cn(variantClass, className)} {...props}>
       {children}
-    </span>
+    </Component>
+  )
+}
+
+// Link Typography Component
+interface LinkTextProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  children: React.ReactNode
+  href: string
+}
+
+export function LinkText({ className, children, ...props }: LinkTextProps) {
+  return (
+    <a className={cn('typography-link', className)} {...props}>
+      {children}
+    </a>
   )
 }

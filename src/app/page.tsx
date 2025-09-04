@@ -14,9 +14,10 @@ import type { ProductDisplayDTO } from '@/types/product-dto'
 // Server-side data fetching function
 async function getFeaturedProducts(): Promise<ProductDisplayDTO[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'
     const response = await fetch(`${baseUrl}/api/featured-products?limit=6`, {
-      next: { revalidate: 300 } // Cache for 5 minutes
+      next: { revalidate: 300 }, // Cache for 5 minutes
+      timeout: 5000 // 5 second timeout
     })
     
     if (!response.ok) {

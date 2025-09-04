@@ -239,7 +239,8 @@ async function getExistingSequences() {
 
 async function startGeneration(request: GenerationRequest) {
   const service = EnhancedGenerationService.getInstance()
-  const optimizer = new ResourceOptimizer()
+  const optimizer = ResourceOptimizer.getInstance()
+  optimizer.initialize()
   
   logger.info('Starting 3D generation', { 
     modelCount: request.modelIds?.length || 0,

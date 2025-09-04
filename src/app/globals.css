@@ -3,38 +3,99 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Aurora Design System - Core Animation System */
+/* Aurora Design System Variables */
+@import '../styles/aurora-variables.css';
+
+/* Clean animation system - performance optimized */
+
+/* Aurora Design System variables are imported from aurora-variables.css */
 :root {
-  /* Aurora Color System */
-  --aurora-pink: #FF6B9D;
-  --nebula-purple: #6B46C1;
-  --deep-space: #0A0E27;
-  --aurora-deep-space: #0A0E27;
-  --aurora-nebula-purple: #6B46C1;
-  --aurora-crimson: #C44569;
-  --aurora-plum: #723C70;
-  --aurora-lunar-grey: #F7F7F9;
-  --aurora-emerald-flash: #10B981;
-  --aurora-amber-glow: #F59E0B;
-  
-  /* Dynamic Shadow Colors */
-  --aurora-shadow-color: var(--aurora-nebula-purple);
-  --aurora-shadow-gold: #FFD700;
-  --aurora-shadow-diamond: #B9F2FF;
-  --aurora-shadow-emerald: var(--aurora-emerald-flash);
-  
-  /* Aurora Navigation System Colors */
-  --aurora-nav-surface: var(--aurora-lunar-grey);
-  --aurora-nav-hover: color-mix(in lch, var(--aurora-nebula-purple) 8%, var(--aurora-lunar-grey));
-  --aurora-nav-active: var(--aurora-nebula-purple);
-  --aurora-nav-text: var(--aurora-deep-space);
-  --aurora-nav-muted: color-mix(in lch, var(--aurora-deep-space) 60%, transparent);
-  --aurora-nav-border: color-mix(in lch, var(--aurora-nebula-purple) 12%, transparent);
-  --aurora-nav-glass: color-mix(in lch, var(--aurora-lunar-grey) 95%, transparent);
-  --aurora-nav-backdrop: color-mix(in lch, var(--aurora-lunar-grey) 85%, transparent);
+  /* Aurora Navigation System Colors - Apple-Style Solid Colors */
+  --aurora-nav-bg: #F7F7F9; /* Lunar Grey - main navigation background */
+  --aurora-nav-surface: #F7F7F9; /* Alias for nav-bg - mobile drawer surface */
+  --aurora-nav-dropdown: #FFFFFF; /* Pure white for dropdown menus */
+  --aurora-nav-text: #0A0E27; /* Deep Space for high contrast text */
+  --aurora-nav-hover: #F0F0F2; /* Slightly darker grey for hover states */
+  --aurora-nav-active: #6B46C1; /* Nebula Purple for active states */
+  --aurora-nav-border: #E5E7EB; /* Subtle grey for borders */
+  --aurora-nav-muted: #6B7280; /* Mid-grey for secondary text */
+  --aurora-nav-shadow: rgba(0, 0, 0, 0.08); /* Clean shadow without color tint */
   
   /* Mobile Navigation Safe Areas */
   --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Import Enhanced Typography System */
+@import '../styles/typography.css';
+
+/* Apple-Style Navigation Transitions - No Flicker System */
+
+/* Core Apple Navigation Transitions */
+.apple-nav-transition {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+.apple-nav-hover {
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: background-color, color;
+}
+
+.apple-nav-shadow {
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: box-shadow;
+}
+
+/* Apple-Style Dropdown Animations */
+@keyframes appleDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) translateZ(0) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0) scale(1);
+  }
+}
+
+@keyframes appleDropdownOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) translateZ(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) translateZ(0) scale(0.98);
+  }
+}
+
+.apple-dropdown-in {
+  animation: appleDropdownIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.apple-dropdown-out {
+  animation: appleDropdownOut 0.2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Legacy morph animations for backwards compatibility */
+.morph-in {
+  animation: appleDropdownIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.morph-out {
+  animation: appleDropdownOut 0.2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 /* Aurora Hardware-Accelerated Animations */
@@ -49,61 +110,14 @@
   }
 }
 
-@keyframes aurora-float {
+/* Essential animations only - optimized for 60fps */
+
+@keyframes aurora-gradient-shift {
   0%, 100% { 
-    transform: translate3d(0, 0px, 0) rotate(0deg); 
+    background-position: 0% 50%; 
   }
   50% { 
-    transform: translate3d(0, -10px, 0) rotate(2deg); 
-  }
-}
-
-@keyframes aurora-pulse {
-  0%, 100% { 
-    box-shadow: 0 0 20px color-mix(in lch, var(--aurora-nebula-purple) 30%, transparent);
-    transform: translate3d(0, 0, 0);
-  }
-  50% { 
-    box-shadow: 0 0 30px color-mix(in lch, var(--aurora-pink) 40%, transparent);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes aurora-shimmer {
-  0% { 
-    background-position: -200% 0;
-    transform: translate3d(0, 0, 0);
-  }
-  100% { 
-    background-position: 200% 0;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes aurora-rotate {
-  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  100% { transform: translate3d(0, 0, 0) rotate(360deg); }
-}
-
-@keyframes aurora-breathe {
-  0%, 100% { 
-    transform: translate3d(0, 0, 0) scale(1); 
-    opacity: 0.8; 
-  }
-  50% { 
-    transform: translate3d(0, 0, 0) scale(1.05); 
-    opacity: 1; 
-  }
-}
-
-@keyframes aurora-glow {
-  0%, 100% { 
-    box-shadow: 0 0 10px var(--aurora-pink), 0 0 20px var(--aurora-nebula-purple), 0 0 30px var(--aurora-plum);
-    transform: translate3d(0, 0, 0);
-  }
-  50% { 
-    box-shadow: 0 0 20px var(--aurora-crimson), 0 0 40px var(--aurora-pink), 0 0 60px var(--aurora-nebula-purple);
-    transform: translate3d(0, 0, 0);
+    background-position: 100% 50%; 
   }
 }
 
@@ -131,39 +145,14 @@
   box-shadow: 0 16px 48px color-mix(in lch, var(--aurora-shadow-color) 25%, transparent);
 }
 
+/* Essential animation classes only */
 .aurora-shimmer-overlay {
-  background: linear-gradient(90deg, 
-    transparent 0%,
-    color-mix(in lch, var(--aurora-pink) 20%, transparent) 50%,
-    transparent 100%);
-  background-size: 200% 100%;
-  animation: aurora-shimmer 2s infinite;
-  will-change: background-position;
-  transform: translate3d(0, 0, 0);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
 }
 
-.aurora-floating {
-  animation: aurora-float 3s ease-in-out infinite;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-.aurora-pulse {
-  animation: aurora-pulse 2s ease-in-out infinite;
-  will-change: box-shadow, transform;
-  backface-visibility: hidden;
-}
-
-.aurora-breathe {
-  animation: aurora-breathe 4s ease-in-out infinite;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-}
-
-.aurora-glow {
-  animation: aurora-glow 3s ease-in-out infinite;
-  will-change: box-shadow, transform;
-  backface-visibility: hidden;
+.aurora-shimmer-overlay:hover {
+  opacity: 1;
 }
 
 /* Aurora Extended Hardware-Accelerated Gradient System */
@@ -213,208 +202,64 @@
 }
 
 /* Aurora Hardware-Accelerated Card Interactions */
+/* Simplified card component with CLAUDE_RULES geometric design */
 .aurora-card {
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
   border: 1px solid color-mix(in lch, var(--aurora-nebula-purple) 20%, transparent);
-  border-radius: 21px; /* Fibonacci */
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease;
-  will-change: transform, box-shadow, background;
+  border-radius: 0px; /* CLAUDE_RULES: Geometric design only */
+  transition: box-shadow 0.3s ease;
   transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
 }
 
 .aurora-card:hover {
   background: rgba(255, 255, 255, 0.98);
-  transform: translate3d(0, -12px, 0) scale(1.02);
-  box-shadow: 0 20px 60px color-mix(in lch, var(--aurora-nebula-purple) 20%, transparent);
+  box-shadow: 0 8px 24px color-mix(in lch, var(--aurora-nebula-purple) 15%, transparent);
 }
 
 /* Aurora Hardware-Accelerated Living Components */
+/* Simplified living component - no complex animations */
 .aurora-living-component {
   position: relative;
-  overflow: hidden;
-  transform: translate3d(0, 0, 0);
+  transition: opacity 0.3s ease;
 }
 
-.aurora-living-component::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, color-mix(in lch, var(--aurora-pink) 10%, transparent) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  animation: aurora-rotate 20s linear infinite;
-  pointer-events: none;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
+.aurora-living-component:hover {
+  opacity: 0.95;
 }
 
-.aurora-living-component:hover::after {
-  opacity: 1;
-}
-
-/* Aurora 3D Transform Utilities */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
+/* Essential transform utilities only */
 .transform-gpu {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  will-change: transform;
 }
 
-.hover\:rotateX-2:hover {
-  transform: rotateX(2deg) translate3d(0, 0, 0);
-}
-
-.hover\:rotateX-3:hover {
-  transform: rotateX(3deg) translate3d(0, 0, 0);
-}
-
-.hover\:rotateY-1:hover {
-  transform: rotateY(1deg) translate3d(0, 0, 0);
-}
-
-.hover\:rotateY-2:hover {
-  transform: rotateY(2deg) translate3d(0, 0, 0);
-}
-
-.hover\:rotateY-3:hover {
-  transform: rotateY(3deg) translate3d(0, 0, 0);
-}
-
-.hover\:translateZ-4:hover {
-  transform: translateZ(4px);
-}
-
-.hover\:translateZ-6:hover {
-  transform: translateZ(6px);
-}
-
-.hover\:translateX-1:hover {
-  transform: translateX(4px);
-}
-
+/* Simple hover effects - no complex 3D transforms */
 .hover\:scale-102:hover {
   transform: scale(1.02);
+  transition: transform 0.2s ease;
 }
 
-.hover\:scale-115:hover {
-  transform: scale(1.15);
-}
-
-.hover\:scale-120:hover {
-  transform: scale(1.20);
-}
-
-.group:hover .group-hover\:rotateX-2 {
-  transform: rotateX(2deg) translate3d(0, 0, 0);
-}
-
-.group:hover .group-hover\:rotateX-3 {
-  transform: rotateX(3deg) translate3d(0, 0, 0);
-}
-
-.group:hover .group-hover\:rotateY-1 {
-  transform: rotateY(1deg) translate3d(0, 0, 0);
-}
-
-.group:hover .group-hover\:rotateY-2 {
-  transform: rotateY(2deg) translate3d(0, 0, 0);
-}
-
-.group:hover .group-hover\:translateZ-4 {
-  transform: translateZ(4px);
-}
-
-.group:hover .group-hover\:translateZ-6 {
-  transform: translateZ(6px);
-}
-
-.group:hover .group-hover\:translateX-1 {
-  transform: translateX(4px);
-}
-
-.group:hover .group-hover\:scale-115 {
-  transform: scale(1.15);
-}
-
-.group:hover .group-hover\:scale-120 {
-  transform: scale(1.20);
-}
-
+/* Simplified filter effects */
 .group:hover .group-hover\:brightness-105 {
   filter: brightness(1.05);
-}
-
-.group:hover .group-hover\:brightness-110 {
-  filter: brightness(1.10);
-}
-
-.group:hover .group-hover\:brightness-115 {
-  filter: brightness(1.15);
-}
-
-.group:hover .group-hover\:saturate-110 {
-  filter: saturate(1.10);
-}
-
-.group:hover .group-hover\:saturate-125 {
-  filter: saturate(1.25);
+  transition: filter 0.2s ease;
 }
 
 /* Aurora Living Product Card 3D Effects */
+/* Simplified depth layer - no 3D transforms */
 .aurora-depth-layer {
   position: relative;
-  transform-style: preserve-3d;
+  transition: background-color 0.3s ease;
 }
 
-.aurora-depth-layer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-    color-mix(in lch, var(--aurora-pink) 5%, transparent) 0%,
-    color-mix(in lch, var(--aurora-plum) 5%, transparent) 100%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-  z-index: -1;
-  transform: translateZ(-10px);
+.aurora-depth-layer:hover {
+  background-color: color-mix(in lch, var(--aurora-nebula-purple) 2%, transparent);
 }
 
-.aurora-depth-layer:hover::before {
-  opacity: 1;
-}
-
-/* Aurora Enhanced Filter Effects */
-.group:hover .group-hover\:brightness-105 {
-  filter: brightness(1.05) contrast(1.02);
-}
-
-.group:hover .group-hover\:brightness-110 {
-  filter: brightness(1.10) contrast(1.05);
-}
-
-.group:hover .group-hover\:brightness-115 {
-  filter: brightness(1.15) contrast(1.08);
-}
-
-.group:hover .group-hover\:saturate-110 {
-  filter: saturate(1.10) hue-rotate(2deg);
-}
-
-.group:hover .group-hover\:saturate-125 {
-  filter: saturate(1.25) hue-rotate(5deg);
+/* Essential filter effects only */
+.hover\:brightness-110:hover {
+  filter: brightness(1.10);
+  transition: filter 0.2s ease;
 }
 
 /* Aurora Mobile Navigation Styles */
@@ -434,9 +279,36 @@
   }
 }
 
-/* Hamburger Menu Animation */
+/* Apple-Style Mobile Drawer - Explicit Aurora Colors (CLAUDE_RULES FIX) */
+.apple-mobile-drawer {
+  background-color: var(--aurora-nav-surface) !important;
+  color: var(--aurora-nav-text) !important;
+}
+
+.apple-mobile-header {
+  background-color: var(--aurora-nav-surface) !important;
+  color: var(--aurora-nav-text) !important;
+}
+
+.apple-mobile-search {
+  background-color: var(--aurora-nav-surface) !important;
+}
+
+.apple-mobile-nav-container {
+  background-color: var(--aurora-nav-surface) !important;
+}
+
+.apple-mobile-actions {
+  background-color: var(--aurora-nav-surface) !important;
+}
+
+/* Hamburger Menu Animation - Apple-Style */
 .hamburger-line {
-  transition: all 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .hamburger-open .hamburger-line:nth-child(1) {
@@ -457,13 +329,9 @@
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
-/* Aurora Responsive Motion */
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .aurora-gradient-text,
-  .aurora-floating,
-  .aurora-pulse,
-  .aurora-breathe,
-  .aurora-glow,
   .aurora-gradient-shift,
   .aurora-button-primary {
     animation: none;
@@ -472,15 +340,129 @@
   .aurora-interactive-shadow:hover,
   .aurora-button-primary:hover,
   .aurora-card:hover,
-  .hover\:rotateX-2:hover,
-  .hover\:rotateX-3:hover,
-  .hover\:rotateY-1:hover,
-  .hover\:rotateY-2:hover,
-  .hover\:rotateY-3:hover,
-  .group:hover .group-hover\:rotateX-2,
-  .group:hover .group-hover\:rotateX-3,
-  .group:hover .group-hover\:rotateY-1,
-  .group:hover .group-hover\:rotateY-2 {
+  .hover\:scale-102:hover {
     transform: none;
+  }
+  
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* =================================================================
+ * JAMES ALLEN-STYLE FULL-WIDTH NAVIGATION UTILITIES
+ * Phase 4 Implementation - Option 1 (Visual Full-Width)
+ * Performance optimized with CSS containment and hardware acceleration
+ * ================================================================= */
+
+/* Full-Width Navigation Bar */
+.aurora-full-width-nav {
+  width: 100vw !important;
+  position: relative;
+  contain: layout style paint;
+  will-change: transform;
+}
+
+/* Full-Width Mega Menu (Option 1 - Visual Full-Width) */
+.aurora-mega-menu-fullwidth {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateZ(0); /* Hardware acceleration + centering */
+  width: 100vw;
+  max-width: 100vw;
+  top: 100%;
+  z-index: 50;
+  contain: layout style paint;
+  will-change: transform;
+}
+
+/* Content Wrapper for Full-Width Elements */
+.aurora-fullwidth-content {
+  max-width: 1280px; /* max-w-7xl equivalent - maintains readability */
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* Responsive Content Wrapper */
+@media (max-width: 640px) {
+  .aurora-fullwidth-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .aurora-fullwidth-content {
+    max-width: 1536px; /* 2xl on very large screens */
+  }
+}
+
+/* Z-Index Layer Management for Full-Width Navigation */
+:root {
+  --z-navigation: 40;
+  --z-mega-menu: 50;
+  --z-mobile-menu: 60;
+  --z-modal-overlay: 70;
+  --z-dropdown: 1001;
+}
+
+.aurora-nav-layer {
+  z-index: var(--z-navigation);
+}
+
+.aurora-mega-menu-layer {
+  z-index: var(--z-mega-menu);
+}
+
+.aurora-mobile-menu-layer {
+  z-index: var(--z-mobile-menu);
+}
+
+/* Performance Optimizations for Full-Width Navigation */
+.aurora-nav-optimized {
+  contain: layout style paint;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Mobile Full-Width Adjustments */
+@media (max-width: 768px) {
+  .aurora-mega-menu-fullwidth {
+    width: 100vw;
+    left: 0;
+    transform: none;
+    margin-left: calc(-1 * var(--container-padding, 1rem));
+    margin-right: calc(-1 * var(--container-padding, 1rem));
+  }
+  
+  .aurora-fullwidth-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Accessibility Enhancements for Full-Width Navigation */
+.aurora-full-width-nav:focus-within {
+  outline: 2px solid var(--aurora-nebula-purple);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Support for Full-Width Elements */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-mega-menu-fullwidth,
+  .aurora-full-width-nav {
+    transition: none;
+    transform: translateX(-50%);
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .aurora-full-width-nav,
+  .aurora-mega-menu-fullwidth {
+    border: 2px solid currentColor;
   }
 }

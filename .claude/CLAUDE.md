@@ -1,4 +1,4 @@
-# GlowGlitch (Lumina Lab) Project Instructions
+# GlowGlitch Project Instructions
 
 ## Project Context
 This is the GlowGlitch/Lumina Lab luxury e-commerce platform specializing in lab-grown diamond jewelry with advanced 3D customization capabilities.
@@ -77,5 +77,62 @@ The project has several memory files available through the Serena MCP server:
 - mongodb_database_foundation
 - 3D_customizer_implementation_achievements
 - nextauth_authentication_implementation
+
+## Limit Scope of Changes
+- Only modify the part of the code explicitly mentioned in the prompt.
+- Avoid altering global variables or state unless specified.
+- Do not refactor or rewrite entire sections unless explicitly requested.
+  
+## Maintain Modular Structure
+- Ensure each change is modular and independent. Avoid dependencies across sections unless explicitly stated.
+- Changes should be self-contained within their designated functions, components, or sections.
+
+## Preserve Existing Code
+- Do not modify or remove existing code unless specifically instructed.
+- Preserve the original structure, comments, and style unless an update is necessary.
+
+## Compatibility with Existing Features
+- Ensure new changes do not break or conflict with existing features.
+- If modifications affect other parts of the code, clarify this and ask for confirmation before implementing changes.
+
+## Maintain Consistent Code Style
+- Follow the existing coding style and conventions in terms of indentation, variable naming, function signatures, etc.
+- Ensure any new code added adheres to the same style to maintain readability and consistency.
+
+## Version Control and Rollbacks
+- Always work in a new branch and ensure that changes are committed separately.
+- If changes are experimental or untested, make sure they’re added to a staging branch first and tested locally.
+- Follow Git commit conventions: use meaningful commit messages like `feat:`, `fix:`, `docs:` to indicate the type of change.
+
+## Testing and Validation
+- Test all changes locally before committing. If possible, use automated tests to validate functionality.
+- If changes might affect user interface elements, manually check for visual regressions.
+
+## Backward Compatibility
+- Ensure that any changes made do not break the compatibility with previous features or versions of the code.
+- For updates to existing functions or APIs, ensure backward compatibility unless otherwise requested.
+
+## Error Handling and Logging
+- Any new code should handle errors gracefully and log relevant information for debugging purposes.
+- Avoid silent failures. Ensure errors are communicated clearly for easy debugging.
+
+## Documentation and Comments
+- Add clear comments to explain any non-obvious changes or logic.
+- If changes affect functionality that needs to be used later, document these changes in the code comments.
+  
+##  UI/UX Consistency
+- If making UI/UX changes, ensure they align with the existing design system and user flow.
+- Avoid altering global styles or color schemes unless explicitly stated.
+
+##  Avoid Unintended Modifications
+- Double-check that only the required changes are made. Ensure no other files or sections of the code are inadvertently altered.
+- Limit changes to styles or elements that were specifically requested in the prompt.
+
+---
+
+## Execution Guidelines:
+1. **Commit and Test:** Before executing any change, test it locally and make sure it doesn’t break any existing functionality.
+2. **Branching:** Always create a new branch for each change and p
+
 
 Always reference these memories when working on related features.

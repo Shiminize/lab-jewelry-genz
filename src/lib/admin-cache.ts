@@ -243,18 +243,30 @@ export async function preloadAdminCache(): Promise<void> {
 
 // Cache performance monitoring
 export function setupCacheMonitoring(): void {
-  // Log cache statistics every 5 minutes
-  setInterval(() => {
-    const stats = adminCache.getStats()
-    console.log('[CACHE] Statistics:', {
-      entries: stats.size,
-      maxEntries: stats.maxSize,
-      memoryUsage: `${(stats.memoryUsage / 1024).toFixed(1)}KB`,
-      utilizationPercent: `${((stats.size / stats.maxSize) * 100).toFixed(1)}%`
-    })
-  }, 5 * 60 * 1000)
+  // CRITICAL FIX: Use GlobalHealthMonitor instead of separate intervals
+  if (typeof window === 'undefined') {
+    // Server-side only - use GlobalHealthMonitor
+    try {
+      const GlobalHealthMonitor = require('./global-health-monitor').default
+      const healthMonitor = GlobalHealthMonitor.getInstance()
+      
+      // Register cache monitoring with global monitor to prevent cascade
+      healthMonitor.registerService('admin-cache-monitoring', async () => {
+        const stats = adminCache.getStats()
+        console.log('[CACHE] Statistics:', {
+          entries: stats.size,
+          maxEntries: stats.maxSize,
+          memoryUsage: `${(stats.memoryUsage / 1024).toFixed(1)}KB`,
+          utilizationPercent: `${((stats.size / stats.maxSize) * 100).toFixed(1)}%`
+        })
+        return { status: 'cache-stats-logged', entries: stats.size }
+      }, 5 * 60 * 1000) // 5 minutes via global monitor
+    } catch (error) {
+      console.warn('[CACHE] Failed to register with GlobalHealthMonitor:', error)
+    }
+  }
 
-  // Clear cache on memory pressure (browser only)
+  // Clear cache on memory pressure (browser only - keep as is since it's client-side)
   if (typeof window !== 'undefined') {
     // Listen for memory pressure events
     if ('memory' in performance) {

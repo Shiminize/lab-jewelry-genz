@@ -7,18 +7,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { ResourceOptimizer } from '@/lib/resource-optimizer'
 import { EnhancedGenerationService } from '@/lib/enhanced-generation-service'
 
-let resourceOptimizer: ResourceOptimizer | null = null
-
-function getResourceOptimizer(): ResourceOptimizer {
-  if (!resourceOptimizer) {
-    resourceOptimizer = new ResourceOptimizer()
-  }
-  return resourceOptimizer
-}
-
 export async function GET() {
   try {
-    const optimizer = getResourceOptimizer()
+    const optimizer = ResourceOptimizer.getInstance()
+    optimizer.initialize()
     const generationService = EnhancedGenerationService.getInstance()
 
     // Get current system metrics

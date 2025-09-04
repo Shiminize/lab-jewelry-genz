@@ -385,11 +385,20 @@ export function withAPIMonitoring<T extends any[], R>(
   }
 }
 
-// Cleanup interval - run every 30 minutes
+// CRITICAL FIX: Use GlobalHealthMonitor instead of separate interval
 if (typeof window === 'undefined') { // Server-side only
-  setInterval(() => {
-    performanceMonitor.cleanupMetrics()
-  }, 30 * 60 * 1000)
+  try {
+    const GlobalHealthMonitor = require('./global-health-monitor').default
+    const healthMonitor = GlobalHealthMonitor.getInstance()
+    
+    // Register cleanup with global monitor to prevent cascade
+    healthMonitor.registerService('performance-cleanup', async () => {
+      performanceMonitor.cleanupMetrics()
+      return { status: 'performance-metrics-cleaned' }
+    }, 30 * 60 * 1000) // 30 minutes via global monitor
+  } catch (error) {
+    console.warn('[Performance] Failed to register with GlobalHealthMonitor:', error)
+  }
 }
 
 export default performanceMonitor

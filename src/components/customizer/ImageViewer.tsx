@@ -25,7 +25,8 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   onGestureEnd,
   autoRotate = true // Default to auto-rotate for minimalist experience
 }) => {
-  const [imageLoadStates, setImageLoadStates] = useState<Record<number, 'loading' | 'loaded' | 'error'>>({})
+  const [imageLoadStates, setImageLoadStates] = useState<Record<number, 'loading' | 'loaded' | 'error' | 'failed'>>({})
+  const [failedAssetPaths, setFailedAssetPaths] = useState<Set<string>>(new Set())
   
   // Touch gesture refs
   const containerRef = useRef<HTMLDivElement>(null)
@@ -38,15 +39,21 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   const autoRotateRef = useRef<NodeJS.Timeout | null>(null)
   const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Multi-format fallback with cache-busting for updated images - CLAUDE_RULES: <100ms performance
+  // Multi-format fallback WITHOUT cache-busting to prevent 404 spam
   const imagePaths = useMemo(() => {
     if (!assetPath) return []
+    
+    // Skip if this asset path has failed before
+    if (failedAssetPaths.has(assetPath)) {
+      console.log(`🚫 [SKIP] Asset path ${assetPath} previously failed, not retrying`)
+      return []
+    }
+    
     // Priority order: webp (smallest) -> avif (modern) -> png (fallback)
     const formats = ['webp', 'avif', 'png']
-    // Add timestamp for cache-busting to ensure fresh images are loaded
-    const timestamp = Date.now()
-    return formats.map(format => `${assetPath}/${currentFrame}.${format}?v=${timestamp}`)
-  }, [assetPath, currentFrame])
+    // Remove cache-busting to prevent continuous 404s
+    return formats.map(format => `${assetPath}/${currentFrame}.${format}`)
+  }, [assetPath, currentFrame, failedAssetPaths])
 
   // Current active image source
   const [currentImageSrc, setCurrentImageSrc] = useState<string | null>(null)
@@ -82,10 +89,15 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
         }
       }
       
-      // If all formats fail, set error state
-      console.error(`❌ [IMAGE FALLBACK] All formats failed for frame ${currentFrame}`)
+      // If all formats fail, mark asset path as failed and stop retrying
+      console.error(`❌ [IMAGE FALLBACK] All formats failed for frame ${currentFrame}, marking ${assetPath} as failed`)
       setCurrentImageSrc(null)
       setImageLoadAttempt(prev => prev + 1)
+      
+      // Mark this asset path as permanently failed to prevent future retries
+      if (assetPath) {
+        setFailedAssetPaths(prev => new Set(prev).add(assetPath))
+      }
     }
 
     loadImageWithFallback()
@@ -123,22 +135,23 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
       ]
 
       for (const frameIndex of framesToPreload) {
-        if (imageLoadStates[frameIndex] !== 'loaded' && imageLoadStates[frameIndex] !== 'loading') {
+        const frameState = imageLoadStates[frameIndex]
+        // Skip if already loaded, loading, or permanently failed
+        if (frameState !== 'loaded' && frameState !== 'loading' && frameState !== 'failed') {
           setImageLoadStates(prev => ({
             ...prev,
             [frameIndex]: 'loading'
           }))
 
-          // Try formats in priority order for preloading with cache-busting
+          // Try formats in priority order for preloading WITHOUT cache-busting
           const formats = ['webp', 'avif', 'png']
           let loaded = false
-          const timestamp = Date.now()
           
           for (const format of formats) {
             if (loaded) break
             
             try {
-              const framePath = `${assetPath}/${frameIndex}.${format}?v=${timestamp}`
+              const framePath = `${assetPath}/${frameIndex}.${format}`
               await new Promise<void>((resolve, reject) => {
                 const img = new Image()
                 img.onload = () => {
@@ -155,13 +168,18 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
           }
           
           if (!loaded) {
-            handleImageError(frameIndex)
+            // Mark frame as failed to prevent continuous retries
+            setImageLoadStates(prev => ({
+              ...prev,
+              [frameIndex]: 'failed'
+            }))
+            console.log(`🚫 [PRELOAD] Frame ${frameIndex} permanently failed, stopping retries`)
           }
         }
       }
     }
 
-    if (assetPath && totalFrames > 0) {
+    if (assetPath && totalFrames > 0 && !failedAssetPaths.has(assetPath)) {
       preloadFramesWithFallback()
     }
   }, [assetPath, currentFrame, totalFrames, imageLoadStates])

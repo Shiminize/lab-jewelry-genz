@@ -97,7 +97,19 @@ class CustomizerPerformanceMonitor {
         }
       }
 
-      setInterval(checkMemory, this.config.reportInterval)
+      // CRITICAL FIX: Use GlobalHealthMonitor instead of separate interval
+      try {
+        const GlobalHealthMonitor = require('./global-health-monitor').default
+        const healthMonitor = GlobalHealthMonitor.getInstance()
+        
+        // Register memory checking with global monitor to prevent cascade
+        healthMonitor.registerService('customizer-performance-memory', async () => {
+          checkMemory()
+          return { status: 'customizer-memory-checked' }
+        }, Math.max(this.config.reportInterval, 60000)) // Minimum 60 seconds via global monitor
+      } catch (error) {
+        console.warn('[CustomizerPerformance] Failed to register with GlobalHealthMonitor:', error)
+      }
     }
   }
 

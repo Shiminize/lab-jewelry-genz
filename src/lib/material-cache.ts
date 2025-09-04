@@ -6,7 +6,7 @@
 
 import { ProductListMaterialSpecs, MetalType, StoneType } from '@/types/product-dto'
 import { performanceMonitor } from '@/lib/performance-monitor'
-import { redis } from '@/lib/redis-client'
+import { getRedisClient } from '@/lib/redis-client'
 
 /**
  * In-memory cache for ultra-fast material spec lookups
@@ -193,22 +193,50 @@ export class MaterialSpecCache {
    * Start periodic cleanup
    */
   private startCleanup(): void {
-    this.cleanupTimer = setInterval(() => {
-      const now = Date.now()
-      const expired: string[] = []
+    // CRITICAL FIX: Use GlobalHealthMonitor instead of separate interval
+    try {
+      const GlobalHealthMonitor = require('./global-health-monitor').default
+      const healthMonitor = GlobalHealthMonitor.getInstance()
       
-      this.cache.forEach((entry, key) => {
-        if (now - entry.timestamp > this.ttl) {
-          expired.push(key)
+      // Register cleanup with global monitor to prevent cascade
+      healthMonitor.registerService('material-cache-cleanup', async () => {
+        const now = Date.now()
+        const expired: string[] = []
+        
+        this.cache.forEach((entry, key) => {
+          if (now - entry.timestamp > this.ttl) {
+            expired.push(key)
+          }
+        })
+        
+        expired.forEach(key => this.cache.delete(key))
+        
+        if (expired.length > 0) {
+          console.log(`[MaterialCache] Cleaned ${expired.length} expired entries`)
         }
-      })
-      
-      expired.forEach(key => this.cache.delete(key))
-      
-      if (expired.length > 0) {
-        console.log(`[MaterialCache] Cleaned ${expired.length} expired entries`)
-      }
-    }, this.cleanupInterval)
+        
+        return { status: 'material-cache-cleaned', expired: expired.length }
+      }, Math.max(this.cleanupInterval, 60000)) // Minimum 60 seconds via global monitor
+    } catch (error) {
+      console.warn('[MaterialCache] Failed to register with GlobalHealthMonitor:', error)
+      // Fallback to original method if GlobalHealthMonitor fails
+      this.cleanupTimer = setInterval(() => {
+        const now = Date.now()
+        const expired: string[] = []
+        
+        this.cache.forEach((entry, key) => {
+          if (now - entry.timestamp > this.ttl) {
+            expired.push(key)
+          }
+        })
+        
+        expired.forEach(key => this.cache.delete(key))
+        
+        if (expired.length > 0) {
+          console.log(`[MaterialCache] Cleaned ${expired.length} expired entries`)
+        }
+      }, this.cleanupInterval)
+    }
   }
   
   /**
@@ -235,6 +263,7 @@ export class RedisMaterialCache {
    * Get material specs from Redis
    */
   async get(productId: string): Promise<ProductListMaterialSpecs | null> {
+    const redis = getRedisClient()
     if (!redis) return null
     
     const startTime = performance.now()
@@ -275,6 +304,7 @@ export class RedisMaterialCache {
    * Set material specs in Redis
    */
   async set(productId: string, specs: ProductListMaterialSpecs): Promise<void> {
+    const redis = getRedisClient()
     if (!redis) return
     
     const startTime = performance.now()
@@ -300,6 +330,7 @@ export class RedisMaterialCache {
    * Bulk set with pipeline for efficiency
    */
   async bulkSet(entries: Array<{ productId: string; specs: ProductListMaterialSpecs }>): Promise<void> {
+    const redis = getRedisClient()
     if (!redis) return
     
     const startTime = performance.now()
@@ -335,6 +366,7 @@ export class RedisMaterialCache {
    * Invalidate cache entry
    */
   async invalidate(productId: string): Promise<void> {
+    const redis = getRedisClient()
     if (!redis) return
     
     try {
@@ -349,6 +381,7 @@ export class RedisMaterialCache {
    * Clear all material cache entries
    */
   async clear(): Promise<void> {
+    const redis = getRedisClient()
     if (!redis) return
     
     try {
@@ -392,6 +425,7 @@ export class CatalogPageCache {
    * Get cached catalog page
    */
   async get(params: any): Promise<any | null> {
+    const redis = getRedisClient()
     if (!redis) return null
     
     const startTime = performance.now()
@@ -432,6 +466,7 @@ export class CatalogPageCache {
    * Set catalog page in cache
    */
   async set(params: any, data: any): Promise<void> {
+    const redis = getRedisClient()
     if (!redis) return
     
     const startTime = performance.now()
@@ -457,6 +492,7 @@ export class CatalogPageCache {
    * Invalidate all catalog pages (used after product updates)
    */
   async invalidateAll(): Promise<void> {
+    const redis = getRedisClient()
     if (!redis) return
     
     try {

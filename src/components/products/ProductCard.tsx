@@ -319,7 +319,6 @@ export function ProductCard({
                 <MutedText 
                   size="sm" 
                   className="line-through text-aurora-nav-muted/60 group-hover:text-foreground/80 transition-colors duration-300">
-                >
                   {formatPrice(originalPrice, currency)}
                 </MutedText>
               )}

@@ -1,6 +1,4 @@
-'use client'
-
-import React, { forwardRef } from 'react'
+import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -32,7 +30,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             'text-sm text-foreground placeholder:text-aurora-nav-muted',
             'focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent aurora-interactive-shadow',
             'disabled:cursor-not-allowed disabled:opacity-50',
-            'transition-colors aurora-shimmer-overlay',
+            'transition-all duration-300 ease-in-out aurora-shimmer-overlay',
+            'rounded-md', // Aurora Border Radius: Medium (8px)
+            'focus:scale-[1.02]', // Aurora Interactive: subtle scale
             error && 'border-error focus:ring-error focus:border-error aurora-pulse',
             className
           )}
@@ -47,7 +47,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {hint && !error && (
           <p 
             id={`${inputId}-hint`}
-            className="mt-2 text-xs text-aurora-nav-muted"
+            className="mt-2 text-xs text-aurora-nav-muted rounded-sm px-2 py-1"
           >
             {hint}
           </p>
@@ -57,7 +57,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <p 
             id={`${inputId}-error`}
             role="alert"
-            className="mt-2 text-xs text-error"
+            className="mt-2 text-xs text-error rounded-sm px-2 py-1 bg-red-50"
           >
             {error}
           </p>
@@ -97,7 +97,9 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             'text-sm text-foreground placeholder:text-aurora-nav-muted resize-none',
             'focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent aurora-interactive-shadow',
             'disabled:cursor-not-allowed disabled:opacity-50',
-            'transition-colors aurora-shimmer-overlay',
+            'transition-all duration-300 ease-in-out aurora-shimmer-overlay',
+            'rounded-md', // Aurora Border Radius: Medium (8px)
+            'focus:scale-[1.02]', // Aurora Interactive: subtle scale
             error && 'border-error focus:ring-error focus:border-error aurora-pulse',
             className
           )}
@@ -112,7 +114,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {hint && !error && (
           <p 
             id={`${textareaId}-hint`}
-            className="mt-2 text-xs text-aurora-nav-muted"
+            className="mt-2 text-xs text-aurora-nav-muted rounded-sm px-2 py-1"
           >
             {hint}
           </p>
@@ -122,7 +124,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           <p 
             id={`${textareaId}-error`}
             role="alert"
-            className="mt-2 text-xs text-error"
+            className="mt-2 text-xs text-error rounded-sm px-2 py-1 bg-red-50"
           >
             {error}
           </p>

@@ -10,14 +10,15 @@ module.exports = {
     extend: {
       borderRadius: {
         'none': '0px',
-        'sm': '3px',   // Fibonacci sequence: 3px
-        'DEFAULT': '5px', // Fibonacci sequence: 5px
-        'md': '8px',   // Fibonacci sequence: 8px
-        'lg': '13px',  // Fibonacci sequence: 13px
-        'xl': '21px',  // Fibonacci sequence: 21px
-        '2xl': '34px', // Fibonacci sequence: 34px
-        '3xl': '34px', // Max Aurora radius
-        'full': '9999px', // Keep full for circular elements
+        'micro': '3px',   // Aurora: Micro radius
+        'sm': '5px',      // Aurora: Small radius  
+        'DEFAULT': '8px', // Aurora: Medium radius
+        'md': '8px',      // Aurora: Medium radius
+        'lg': '13px',     // Aurora: Large radius
+        'xl': '21px',     // Aurora: XL radius
+        '2xl': '34px',    // Aurora: XXL radius
+        '3xl': '34px',    // Aurora: XXL radius
+        'full': '9999px', // Standard full radius for circles
       },
       fontFamily: {
         headline: ['Fraunces', 'serif'],
@@ -25,8 +26,8 @@ module.exports = {
       },
       colors: {
         // Aurora Design System Foundation Colors
-        background: '#FEFCF9', // Ivory mist (keep existing)
-        foreground: '#2D3A32', // Graphite green (keep existing) 
+        background: '#F7F7F9', // Aurora Lunar Grey (official Aurora color)
+        foreground: '#0A0E27', // Aurora Deep Space (official Aurora color) 
         muted: '#F1F2F6',      // Aurora: Starlight Gray
         accent: '#6B46C1',     // Aurora: Nebula Purple (REPLACED champagne gold)
         'accent-secondary': '#FF6B9D', // Aurora: Pink for highlights
@@ -65,7 +66,7 @@ module.exports = {
         'aurora-nav-gradient-end': '#FFFFFF',   // Pure white gradient end
         
         // Material Colors (for customizer previews) - Aurora Mapped
-        'material-gold': '#6B46C1',      // Aurora: Nebula Purple (was #FFD700)
+        'material-gold': '#FFD700',      // Actual gold color (restored)
         'material-platinum': '#F7F7F9',  // Aurora: Lunar Grey (was #E5E4E2)
         'material-silver': '#E2E8F0',    // Aurora: Quantum border (was #C0C0C0)
         'material-white-gold': '#F1F2F6', // Aurora: Starlight Gray (was #F8F8FF)
@@ -105,6 +106,11 @@ module.exports = {
         'shadow-gold': '#FFD700',        // Gold product shadows
         'shadow-diamond': '#B9F2FF',     // Diamond prismatic shadows
         'shadow-emerald': '#10B981',     // Emerald shadows
+        
+        // Aurora CSS Variable Aliases (for consistency)
+        'aurora-bg': 'var(--aurora-lunar-grey)',      // Primary background
+        'aurora-text': 'var(--aurora-deep-space)',    // Primary text
+        'aurora-accent': 'var(--aurora-nebula-purple)', // Primary accent
       },
       spacing: {
         '18': '4.5rem',
@@ -192,6 +198,12 @@ module.exports = {
         'aurora-float': '0 8px 24px rgba(107, 70, 193, 0.15)', // Float shadow
         'aurora-hover': '0 16px 48px rgba(107, 70, 193, 0.12)', // Hover shadow
         'aurora-modal': '0 24px 64px rgba(107, 70, 193, 0.1)', // Modal shadow
+        
+        // Aurora Shadow System - Exact specification
+        'near': '0 2px 8px color-mix(in srgb, #6B46C1 20%, transparent)',
+        'float': '0 8px 24px color-mix(in srgb, #6B46C1 15%, transparent)',
+        'hover': '0 16px 48px color-mix(in srgb, #6B46C1 12%, transparent)',
+        'modal': '0 24px 64px color-mix(in srgb, #6B46C1 10%, transparent)',
         
         // Aurora Material-Specific Shadows
         'aurora-gold': '0 8px 24px rgba(255, 215, 0, 0.15)', // Gold product shadow

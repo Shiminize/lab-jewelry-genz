@@ -133,11 +133,16 @@ export class PerformanceMonitor {
    */
   private initializeBrowserMonitoring(): void {
     try {
-      // Memory monitoring (if available)
+      // CRITICAL FIX: Use GlobalHealthMonitor instead of creating separate intervals
+      const GlobalHealthMonitor = require('./global-health-monitor').default
+      const healthMonitor = GlobalHealthMonitor.getInstance()
+      
+      // Register memory monitoring with global monitor to prevent cascade
       if ('memory' in performance) {
-        setInterval(() => {
+        healthMonitor.registerService('performance-monitor-memory', async () => {
           this.recordMemoryMetrics()
-        }, 10000) // Every 10 seconds
+          return { status: 'memory-metrics-recorded' }
+        }, 60000) // 60 seconds via global monitor
       }
     } catch (error) {
       console.warn('[PerformanceMonitor] Browser monitoring initialization failed:', error)

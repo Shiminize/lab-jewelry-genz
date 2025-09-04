@@ -900,12 +900,29 @@ GET    /api/creators/{code}/validate  # Validate referral code
 **Contrast**: All combinations exceed WCAG AA 4.5:1 minimum requirement
 **AI Enforcement**: Only these 7 combinations allowed
 
+#### Geometric Design System (REQUIRED 2025-08-29)
+**Complete Geometrical Container Standards**
+
+- **Border Radius Rules (MANDATORY)**:
+  - All UI components: `border-radius: 0` (sharp, geometric corners)
+  - NO rounded corners: Eliminate all `rounded-*` Tailwind classes
+  - Container consistency: Square/rectangular forms exclusively
+  - Luxury brand alignment: Clean, architectural aesthetic matching high-end jewelry design
+  - Implementation: Set Tailwind config `borderRadius: { DEFAULT: '0' }` 
+
+- **Geometric Design Principles**:
+  - Sharp, clean lines reflecting precision of lab-grown diamond cutting
+  - Architectural luxury aesthetic over consumer-friendly rounded design
+  - Visual consistency across all components (buttons, cards, inputs, modals)
+  - Enhanced premium perception through geometric sophistication
+  - Mobile touch-friendly while maintaining geometric integrity
+
 #### Component Library
-- **5-Variant Button System**: Primary, secondary, outline, ghost, accent variants (9 total buttons: Primary/Secondary 3 sizes each, others 1 size)
-- **Form Components**: Accessible inputs with clear validation states
-- **Product Cards**: Multiple layouts (standard, compact, featured)
-- **Navigation**: Responsive header with mobile-optimized menu
-- **Modals**: Overlay system for customizer and quick actions
+- **5-Variant Button System**: Primary, secondary, outline, ghost, accent variants (9 total buttons: Primary/Secondary 3 sizes each, others 1 size) - ALL with geometric corners
+- **Form Components**: Accessible inputs with clear validation states - Sharp rectangular borders
+- **Product Cards**: Multiple layouts (standard, compact, featured) - Geometric card containers
+- **Navigation**: Responsive header with mobile-optimized menu - Clean geometric mega menu
+- **Modals**: Overlay system for customizer and quick actions - Sharp container edges
 
 ### User Interface Requirements
 

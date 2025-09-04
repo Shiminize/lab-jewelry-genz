@@ -1,270 +1,143 @@
-### Claude Rules: GlowGlitch (Lumina Lab) Development Standards
 
-- **General principles**
-  - Mobile-first, touch-optimized, sub-3s global page loads
-  - Strict design-system usage; no generic Tailwind color/spacing utilities
-  - WCAG 2.1 AA accessibility throughout
-  - TypeScript everywhere; no any; strong interfaces
-  - Error-first coding with clear recovery paths and user-safe messages
+# Claude Code Development Rules – Simplicity-First, Maintainability & Architecture Enforcement
 
-- **Aurora Design System Compliance (Emotional Intelligence UI)**
-  - **AURORA CSS VARIABLES (REQUIRED)**
-    - **Primary Aurora Colors (UPDATED 2025-08-27):**
-      1. `var(--aurora-deep-space): #0A0E27` - Deep navy foundation color
-      2. `var(--aurora-nebula-purple): #6B46C1` - Primary brand purple (replaces gold accent)
-      3. `var(--aurora-pink): #FF6B9D` - Romantic accent pink (secondary accent)
-      4. `var(--aurora-crimson): #C44569` - Bold statement red (interactive states)
-      5. `var(--aurora-plum): #723C70` - Sophisticated deep purple
-      6. `var(--aurora-lunar-grey): #F7F7F9` - Light neutral grey
-      7. `var(--aurora-emerald-flash): #10B981` - Success/accent green
-      8. `var(--aurora-amber-glow): #F59E0B` - Warning/highlight amber
-    - **Aurora Animation Classes (ENCOURAGED)**
-      - `aurora-pulse` - Gentle pulsing animation for emphasis
-      - `aurora-shimmer-overlay` - Shimmer effect for premium feel
-      - `aurora-interactive-shadow` - Dynamic shadows on interaction
-      - `aurora-gradient-text` - Gradient text effects
-      - `aurora-floating` - Floating sparkle animations
-    - **ENCOURAGED: Aurora emotional intelligence color combinations**
-  - Aurora Tokens Preferred:
-    - Colors: Aurora CSS variables, Aurora animation classes, emotional theming
-    - Typography: `font-headline` (Fraunces), `font-body` (Inter) with Aurora text effects
-    - Spacing: `p-1..p-9`; gaps via `gap-*`, `space-y-*`
-  - Aurora-First Approach: Embrace Aurora variables and animations for emotional user experience
-  - **5-Variant Button System** (HTML Demo Standard - 9 Total Buttons):
-    - `primary`: `bg-cta text-high-contrast` (Aurora nebula purple + white text) - 3 sizes (sm, md, lg)
-    - `secondary`: `bg-background text-foreground border-border` (ivory + graphite + border) - 3 sizes (sm, md, lg)
-    - `outline`: `border-foreground text-foreground hover:bg-foreground hover:text-background` - 1 size (md)
-    - `ghost`: `text-foreground hover:bg-muted` (transparent with muted hover) - 1 size (md)
-    - `accent`: `bg-accent text-high-contrast` (Aurora nebula purple + white text) - 1 size (md)
-  - **Button Distribution**: Primary/Secondary (3 sizes each) + Accent/Outline/Ghost (1 size each) = 9 total buttons
-  - **High Contrast Requirements**: Use `text-background` (#FEFCF9) or `text-white` (#FFFFFF) for text on colored backgrounds
-  - Prefer system components: `src/components/ui`, `foundation/Typography`, CVA variants for variations
-  - Accessibility: ARIA labels, focus management, keyboard nav, 4.5:1 contrast minimum with HTML demo proven ratios
+## 1. Core Principles
+- **Do not over-engineer solutions.** Strive for simplicity and maintainability while being efficient.
+- Favor modularity, but **avoid over-modularization**.
+- Break functionality into **clear, independent modules/functions**.  
+- Avoid hardcoded values – use configuration options.
+- Use modern, efficient libraries when appropriate, but **justify their use** and avoid unnecessary complexity.
+- **Max file size: 300 lines.** Refactor beyond this point.
 
-- **Component architecture**
-  - Reuse first; add variants over duplicating components
-  - CVA for variants; stable prop interfaces; forward refs for inputs
-  - Composition over inheritance; avoid mixing business logic into presentation
-  - File placement:
-    - UI primitives → `src/components/ui`
-    - Layout/typography → `src/components/foundation`
-    - Page layout → `src/components/layout`
-    - Domain-specific → `src/components/[domain]`
-    - Forms → `src/components/forms`
-  - Performance: memoization, `useCallback`, dynamic imports for heavy components, image optimization
+---
 
-- **API standards (MUST)**
-  - Response envelope for success:
-```json
-{
-  "success": true,
-  "data": {},
-  "pagination": { "page": 1, "limit": 20, "total": 100, "totalPages": 5 },
-  "meta": { "timestamp": "ISO-8601", "version": "1.0.0" }
-}
-```
-  - Error envelope:
-```json
-{
-  "success": false,
-  "error": { "code": "MACHINE_CODE", "message": "Human-readable", "details": [] },
-  "meta": { "timestamp": "ISO-8601", "requestId": "req_xxx" }
-}
-```
-  - Status codes: 200/201 success; 400 validation; 401 unauthenticated; 403 forbidden; 404 not found; 409 conflict; 422 validation; 429 rate limit; 500 server
-  - Validation: Zod on all inputs (body, query, params); coerce query strings
-  - Auth: NextAuth.js with JWT; role checks (customer, creator, admin) per endpoint
-  - Rate limiting: enforce per endpoint type; return standard `X-RateLimit-*` headers and 429 JSON when exceeded
-  - Security headers: HSTS, X-Frame-Options, X-Content-Type-Options, strong CSP; CSRF protections for state-changing calls
-  - Logging: consistent `requestId`; no sensitive data in logs
-  - Pagination defaults: `page=1`, `limit<=50`; `sortBy`, `sortOrder` consistent
-  - Do not return raw DB records without shaping and filtering sensitive fields
+## 2. Feature Complexity Classification
+- **Simple Features (navigation, tabs, basic modals):** Direct component layer only; minimal local state (`useState`).
+- **Moderate Features (forms, search, validation):** Hook + component.
+- **Complex Features (3D viewers, dynamic filtering, advanced state):** Full service → hook → component.
 
-- **Required API endpoints (PRD/API docs)**
-  - Auth & users: `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/session`, `POST /api/auth/logout`, `GET/PUT /api/user/profile`, `POST/PUT/DELETE /api/user/addresses`
-  - Products: `GET /api/products` (filters/search/pagination), `GET /api/products/{id}`, `POST/PUT/DELETE /api/products` (admin), `GET /api/products/search`, `GET /api/products/categories`
-  - Cart: `GET/POST /api/cart`, `PUT/DELETE /api/cart/{productId}`, `DELETE /api/cart`
-  - Wishlist: `GET/POST /api/wishlist`, `DELETE /api/wishlist/{productId}`, `POST /api/wishlist/{productId}/move-to-cart`
-  - Orders: `GET /api/orders`, `GET /api/orders/{id}`, `POST /api/orders`, `PUT /api/orders/{id}/status` (admin), `POST /api/orders/{id}/cancel`, `GET /api/orders/{id}/tracking`
-  - Inventory: `GET /api/inventory/{productId}`, `POST /api/inventory/{productId}/reserve`, `POST /api/inventory/{productId}/release`, `PUT /api/inventory/{productId}` (admin)
-  - Creators: `POST /api/creators/apply`, `GET /api/creators/dashboard`, `GET /api/creators/commissions`, `GET /api/creators/analytics`, `PUT /api/creators/profile`, `GET /api/creators/{code}/validate`
-  - Webhooks: `POST /api/webhooks/stripe` (verify signatures)
+---
 
-- **Search, caching, performance**
-  - Elasticsearch for catalog search/autocomplete; Redis caching for hot product/filters
-  - MongoDB indexes per PRD schemas; avoid N+1; measure <300ms catalog response target
-  - Use CDN/WebP images; lazy loading; infinite scroll where appropriate
+## 3. Component Layer (`/src/components/`) – Presentation Only
+- No direct API calls (`fetch`, `axios`, etc.).
+- No business logic (only UI handling).
+- Allowed: simple state for UI interactions.
 
-- **CSS 3D customizer (MVP MUST, reliable approach)**
-  - Rendering: Pre-rendered image sequences (36 angles at 10° increments); CSS transforms for smooth rotation
-  - UX: drag/touch rotation; keyboard arrow navigation; gesture hints; progress indicators; graceful error fallback
-  - Features: live material/variant switching; real-time price calculation; save/share designs by URL; comparison view
-  - Performance: <100ms material changes; <2s target met; 90% smaller bundle size than WebGL
-  - Accessibility: ARIA labels; keyboard navigation; screen reader support; focus management
+---
 
-- **Payments & checkout**
-  - Stripe integration with PCI delegation; multiple payment methods (Stripe, PayPal, Apple/Google Pay)
-  - Server-side payment intents; webhook handling for success/failure/disputes
-  - Cart persistence: session-based for guests; DB-synced for auth; optimistic UI with rollback
-  - Order pipeline: validate inventory on checkout; track statuses; email confirmations
+## 4. Hook Layer (`/src/hooks/`) – Business Logic Orchestration
+- Orchestrates state and logic for its feature.
+- Only layer allowed to call `/src/services/`.
+- Must return only what is needed by the component.
 
-- **Security & privacy**
-  - JWT sessions with refresh; robust secret management; encryption in transit; optional encryption at rest for sensitive PII
-  - GDPR: export/delete endpoints and processes; consent tracking
-  - Input sanitization (XSS), parameterized queries, SSRF-safe fetches
-  - Rate limit defaults (example): Auth=5/min/IP, Catalog=100/min/IP, Cart=30/min/user, Orders=3/min/user, Admin=200/min/user
+---
 
-- **Data model (MongoDB, aligned to PRD)**
-  - Users: emails unique; addresses; preferences; cart; wishlist; creator profile; timestamps
-  - Products: name, description, category/subcategory, pricing, images, specifications, inventory (sku unique), SEO, metadata flags, timestamps
-  - Orders: orderNumber unique, user ref, items with product snapshot, totals, shipping/billing, payment (method/status/ids), tracking, creator attribution
-  - Indexing: as specified in PRD (text, sku, slug, category+featured, orders user+status, etc.)
+## 5. Service Layer (`/src/services/`) – API Communication
+- One service per API domain.
+- No React hooks inside services.
+- Basic data shaping only.
 
-- **Testing requirements**
-  - conduct end-to-end tests for components and business and users logic; API integration tests (mock DB/services); E2E with Playwright for core flows (catalog, product view, customize, cart, checkout happy-path)
-  - Accessibility tests for interactive UI; snapshot or visual tests for critical views
-  - Do not ship features without baseline tests
+---
 
-- **Observability & operations**
-  - Error tracking (Sentry), performance monitoring (DataDog); correlate with `requestId`
-  - Structured logs; no PII leakage; alerting for payment/inventory failures
+## 6. Navigation & Simple Interaction Rules
+- For static or direct navigation: implement directly in component (`next/link`, `router.push()`).
+- Do not create navigation managers unless multi-step/dynamic.
 
-- **Anti-patterns (NEVER)**
-  - Mixing business logic inside UI components
-  - Returning raw DB documents to clients
-  - Skipping Zod validation; skipping role checks
-  - **AVOIDING Aurora emotional intelligence and animations**
-  - **REMOVING Aurora CSS variables and replacing with generic colors**
-  - Hardcoding values that belong in config/tokens/env
+---
 
-- **Implementation checklist (enforce per PR/feature)**
-  - **Aurora design system implementation; embrace Aurora CSS variables and animations**
-  - **Aurora emotional intelligence integration where applicable**
-  - API envelope compliance; Zod validation; correct status codes; pagination/meta present
-  - Auth/role checks; rate limiting; security headers in place
-  - A11y: ARIA, keyboard, focus management, contrast, live regions (with Aurora animations)
-  - Tests: unit/integration/E2E present; **Aurora animation testing with Playwright vision mode**
-  - Performance: code-split heavy modules; images optimized; DB indexes in place; Aurora animations optimized
+## 7. Aurora Design System Compliance
+- Use tokens only from `AURORA_DESIGN_SYSTEM_SPECIFICATION.md`.
+- No new colors, font sizes, radii, or shadows.
+- For simple components: avoid unnecessary variant factories.
 
-- **Code snippets to standardize responses**
-  - Success helper
-```ts
-export function ok<T>(data: T, pagination?: any) {
-  return {
-    success: true,
-    data,
-    ...(pagination ? { pagination } : {}),
-    meta: { timestamp: new Date().toISOString(), version: '1.0.0' }
-  }
-}
-```
-  - Error helper
-```ts
-export function fail(code: string, message: string, details?: any) {
-  return {
-    success: false,
-    error: { code, message, ...(details ? { details } : {}) },
-    meta: { timestamp: new Date().toISOString(), requestId: crypto.randomUUID() }
-  }
-}
-```
+---
 
-- **Rate limit headers (example)**
-```http
-X-RateLimit-Limit: 100
-X-RateLimit-Remaining: 85
-X-RateLimit-Reset: 1692710400
-```
+## 8. Anti-Bloat & Maintainability Rules
+- **No excessive wrappers or abstraction layers.**
+- **Refactor any file >300 lines** into smaller modules.
+- **Limit functions per component/hook:**
+  - Simple: 1–2
+  - Moderate: 3–4
+  - Complex: requires explicit justification
+- Remove dead code after each implementation phase.
 
-- **3D acceptance criteria (enforce for MVP)**
-  - Metal change reflects visually <2s
-  - Price recalculates on stone/size change
-  - 3D viewer smooth on iPhone 12+/equivalent Android
-  - Fallback to 2D with UX parity if WebGL fails
-  - Design save/share with URL and preview image
+---
 
-- **Creator program (Phase P1)**
-  - Referral code validation API; accurate attribution; commission reporting; Stripe Connect payouts automation
+## 9. Implementation Flow
+1. Classify feature (simple / moderate / complex).
+2. Start with **minimum required structure**.
+3. Ask for confirmation before adding layers.
+4. Ensure modularity but **avoid splitting unnecessarily**.
 
-- **Update IMPLEMENTATION_STATUS.md after each major milestone, mark time and date**
+---
 
-- **Always use Serena**
+## 10. Simplicity & Maintainability Checkpoints
+- Before coding:
+  - Does this need global state? If no → skip context.
+  - Does this need remote data? If no → skip service.
+  - Is the code likely to exceed 300 lines? Plan modularity.
+- After coding:
+  - Are there unused abstractions? Remove them.
+  - Is each function/module clear in purpose? Refactor if not.
 
-- **Use Context7 MCP whenever is available**
+---
 
-- **Always Assign UI deisgner Sub agent to design new UI using tailwind as single source of truth**
+## 11. LLM-Specific Directives
+- Always propose **simplest viable implementation first**.
+- Never escalate architecture “for future-proofing” unless asked.
+- Navigation, tabs, modals = **component-only by default**.
 
-- **Always Assign Copywriter sub agent to generate new content matching our target audience's emotional appeal: Gen Z and Young millenium**
+---
 
-- **Always ask users if the instructions aren't clear enough or you think there's a better approach**
+## 12. Testing
+- Simple features: smoke tests only.
+- Moderate/complex: full phase-based testing (service → hook → component).
 
-- **When prompts are provided, always think in big picture if you have better approach or options. Let users know**
+---
 
-- **The orders of implementation plan provided should always consider system health and smooth functionality with risks/bugs/errors mitigated driven**
+## 13. Quick Decision Matrix
+| Task Type           | Layer                  | Example                        |
+|---------------------|------------------------|--------------------------------|
+| Static navigation   | Component only         | `<NavBar /> with next/link`    |
+| Form validation     | Hook + component       | `useFormValidation()`          |
+| API fetching        | Service + hook         | `productService.fetchAll()`    |
+| Complex flows       | Service + hook + comp. | 3D viewer, configurator        |
 
-- **Whenever a new feature is going to be implemented, call relevant agents to review current structure and artechit to evaluate what ncessary components/codes are missing for this feature to complete in a big picture scope**
+---
 
-- **Material-Only Tag System Implementation Rules (MANDATORY)**
-  - **System Health-Driven Implementation Order (STRICT)**
-    - Phase 1: Data layer foundation (DTOs, schemas, types)
-    - Phase 2: Database layer (indexes, queries, performance)
-    - Phase 3: API layer (endpoints, filtering, validation)
-    - Phase 4: UI layer (components, integration, interactions)
-    - **NEVER proceed to next phase without E2E validation passing**
-    - **ALWAYS implement E2E tests after each phase before moving forward**
-  
-  - **Material-Only Focus Enforcement (NON-NEGOTIABLE)**
-    - **EXCLUSIVE FOCUS**: Lab-grown diamonds, moissanite, and lab gems ONLY
-    - **FORBIDDEN**: Natural diamonds, mined gems, feature-based tags
-    - **REQUIRED CATEGORIES**: Stone Type, Carat Weight, Metal & Purity ONLY
-    - **NO FEATURE TAGS**: Eliminate sustainability, eco-friendly, or marketing tags
-    - **VALIDATION**: Every implementation must verify material-only constraint
-  
-  - **Phase-Based Development Methodology (ENFORCED)**
-    - Break complex features into discrete 15-20 phases maximum
-    - Each phase must include: Implementation + E2E Testing + Success Validation
-    - Use TodoWrite tool for ALL multi-step implementations
-    - Mark phases complete ONLY after E2E success criteria met
-    - **MANDATORY**: Call specialized agents for domain expertise validation
-  
-  - **Performance Compliance Framework (STRICT)**
-    - API responses: <300ms (use <50ms for material extraction services)
-    - Page loads: <3000ms for catalog with material filtering
-    - Material tag clicks: <300ms response time
-    - Database queries: <300ms with proper MongoDB indexing
-    - **VALIDATION**: Performance testing required for every implementation
-  
-  - **Type Safety & Security Boundaries (CRITICAL)**
-    - TypeScript strict mode with NO `any` types anywhere
-    - Proper client/server boundary separation (no server imports in client)
-    - Database credentials isolated to server-only environments
-    - Material filtering must use Zod validation for all parameters
-    - **FORBIDDEN**: Raw database records exposed to client
-  
-  - **Component Architecture Patterns (VALIDATED)**
-    - MaterialTagChip: Use CLAUDE_RULES approved color combinations only
-    - ProductCard: Integrate material tags using extraction service
-    - URL Parameters: Support shareable material filter states
-    - Error Boundaries: Graceful degradation for invalid material data
-    - **PATTERN**: UI components consume material data via services, not direct DB
-  
-  - **Testing & Validation Requirements (MANDATORY)**
-    - E2E tests with Playwright for complete material filtering workflow
-    - API integration tests for material parameter validation
-    - Performance tests validating <300ms response requirements
-    - Cross-browser compatibility for material tag interactions
-    - **COVERAGE**: Material tag click → URL update → API filter → results display
-  
-  - **Specialized Agent Integration (PROACTIVE)**
-    - Architecture Reviewer: Validate system design before implementation
-    - Performance Engineer: Optimize material query performance
-    - Security Auditor: Review client/server boundaries and data exposure
-    - UI/UX Designer: Ensure material tag components meet design standards
-    - **TIMING**: Call agents BEFORE implementation, not after issues arise
+## 14. Forbidden Practices
+- ❌ Over-engineering or creating excessive abstraction.
+- ❌ Hardcoding values instead of configs/tokens.
+- ❌ Files exceeding 450 lines without refactor.
+- ❌ Adding unapproved libraries that increase complexity.
+- ❌ `fetch()` calls in components.
 
-Keep this as the single source of truth for implementation decisions. When in doubt, choose the path that:
-- Adheres to design tokens
-- Preserves API envelope and security posture
-- Meets mobile-first performance and accessibility standards
+---
+
+## 15. File Length & Maintainability (Updated for Complex UI)
+
+- **Simple UI components (buttons, inputs, static nav bars):**  
+  - **Target:** ≤ 300 lines  
+  - **Hard limit:** 350 lines
+
+- **Moderate components (forms with validation, tab systems, modals):**  
+  - **Target:** ≤ 350 lines  
+  - **Hard limit:** 400 lines
+
+- **Complex UI components (mega navigation, configurators, multi-state panels):**  
+  - **Soft threshold:** ~350 lines  
+  - **Hard cap:** 450 lines  
+  - Exceeding 350 lines **requires justification** (e.g., additional states, featured sections, responsive layouts).  
+  - Refactor only when splitting **improves clarity and maintainability** — avoid artificial fragmentation.
+
+- **Absolute rule:**  
+  - **Never exceed 450 lines without documented approval** (design or technical lead sign-off).  
+  - When approaching the limit:  
+    1. Review for dead code or unused features.  
+    2. Extract only **non-UI logic** into hooks/services (not the layout itself).  
 
 
+---
+
+**Principle:**  
+*"Keep it simple, modular, and maintainable. Scale only when proven necessary."*

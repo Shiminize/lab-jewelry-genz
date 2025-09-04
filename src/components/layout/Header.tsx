@@ -1,20 +1,20 @@
 'use client'
 
 import React from 'react'
-import { AuroraNavigationContainer } from '@/components/navigation/aurora'
-import { NavigationErrorBoundary } from '@/components/navigation/shared/NavigationErrorBoundary'
+import { NavBar } from '@/components/navigation/NavBar'
 
 /**
- * Header Component - Aurora Design System Navigation
- * CLAUDE_RULES compliant: Error-first coding with clear recovery paths
- * Pure Aurora Design System with luxury jewelry UX patterns
+ * Header Component - Simplified Navigation System
+ * CLAUDE_RULES compliant: Simplified component-only approach
+ * Aurora Design System: Single responsive navigation for all viewports
+ * No unnecessary abstractions - direct implementation
  * Mobile-first responsive design with performance optimization
  * WCAG 2.1 AA accessible with proper focus management
  */
 export function Header() {
   return (
-    <NavigationErrorBoundary>
-      <AuroraNavigationContainer />
-    </NavigationErrorBoundary>
+    <header>
+      <NavBar />
+    </header>
   )
 }

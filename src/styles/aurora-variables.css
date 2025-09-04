@@ -1,0 +1,157 @@
+/**
+ * Aurora Design System CSS Variables
+ * AURORA_DESIGN_SYSTEM_SPECIFICATION.md compliant
+ * 
+ * These variables make Aurora tokens available to Tailwind CSS
+ */
+
+:root {
+  /* Aurora Color System - Exact Tokens */
+  --deep-space: #0A0E27;
+  --nebula-purple: #6B46C1;
+  --aurora-pink: #FF6B9D;
+  --aurora-crimson: #C44569;
+  --aurora-plum: #723C70;
+  --lunar-grey: #F7F7F9;
+  --emerald-flash: #10B981;
+  --amber-glow: #F59E0B;
+  
+  /* Aurora Shadow System */
+  --shadow-near: 0 2px 8px color-mix(in srgb, var(--nebula-purple) 20%, transparent);
+  --shadow-float: 0 8px 24px color-mix(in srgb, var(--nebula-purple) 15%, transparent);
+  --shadow-hover: 0 16px 48px color-mix(in srgb, var(--nebula-purple) 12%, transparent);
+  --shadow-modal: 0 24px 64px color-mix(in srgb, var(--nebula-purple) 10%, transparent);
+  
+  /* Aurora Typography Scale */
+  --font-hero: clamp(3rem, 8vw, 6rem);
+  --font-statement: clamp(2.5rem, 6vw, 4rem);
+  --font-title-xl: clamp(2rem, 4vw, 3rem);
+  --font-title-l: clamp(1.5rem, 3vw, 2.25rem);
+  --font-title-m: clamp(1.25rem, 2.5vw, 1.75rem);
+  --font-body-xl: clamp(1.125rem, 2vw, 1.5rem);
+  --font-body-l: 1.125rem;
+  --font-body-m: 1rem;
+  --font-small: 0.875rem;
+  --font-micro: 0.75rem;
+  
+  /* Aurora Border Radius System */
+  --radius-micro: 3px;
+  --radius-small: 5px;
+  --radius-medium: 8px;
+  --radius-large: 13px;
+  --radius-xl: 21px;
+  --radius-xxl: 34px;
+}
+
+/* Aurora Utility Classes */
+.aurora-gradient-text {
+  background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+.aurora-primary-gradient {
+  background: linear-gradient(135deg, var(--deep-space) 0%, var(--nebula-purple) 100%);
+}
+
+.aurora-interactive-shadow {
+  transition: all 0.3s ease;
+}
+
+.aurora-interactive-shadow:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Aurora Animations */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes iridescent-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes text-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aurora Components */
+.button-primary {
+  background: linear-gradient(135deg, var(--nebula-purple), var(--aurora-crimson));
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-medium);
+  font-weight: 600;
+  box-shadow: var(--shadow-near);
+  transition: all 0.3s ease;
+}
+
+.button-primary:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-hover);
+}
+
+.button-primary:active {
+  transform: scale(0.95);
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-large);
+  padding: 2rem;
+  box-shadow: var(--shadow-float);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.stat-card {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--emerald-flash);
+  border-radius: var(--radius-medium);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--emerald-flash);
+}
+
+/* Accessibility Support */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-gradient-text,
+  .aurora-interactive-shadow,
+  .button-primary,
+  .feature-card {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --aurora-pink: #FF1493;
+    --nebula-purple: #4B0082;
+  }
+}

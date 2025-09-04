@@ -31,28 +31,33 @@ interface ServiceHealthCallback {
   lastRun: number
 }
 
+// Declare global type for Node.js global object
+declare global {
+  var __globalHealthMonitor: GlobalHealthMonitor | undefined
+}
+
 class GlobalHealthMonitor {
-  private static instance: GlobalHealthMonitor | null = null
   private healthCheckInterval: NodeJS.Timeout | null = null
   private gcInterval: NodeJS.Timeout | null = null
   private serviceCallbacks: Map<string, ServiceHealthCallback> = new Map()
   private isRunning = false
   private lastHealthCheck: HealthCheckResult | null = null
 
-  // CLAUDE_RULES Performance Targets
-  private readonly HEALTH_CHECK_INTERVAL = 60000 // 60 seconds (was causing 19x/minute)
-  private readonly GC_INTERVAL = 300000 // 5 minutes (was causing 19x/minute)
+  // CLAUDE_RULES Performance Targets - Optimized for server stability
+  private readonly HEALTH_CHECK_INTERVAL = 60000 // 60 seconds (reduced from 1-3s cascade)
+  private readonly GC_INTERVAL = 300000 // 5 minutes (reduced from 1-3s cascade)
   private readonly MAX_DB_CONNECTIONS = 10 // CLAUDE_RULES limit
 
   private constructor() {
-    console.log('🏥 GlobalHealthMonitor: Singleton instance created')
+    console.log('🏥 GlobalHealthMonitor: TRUE GLOBAL singleton instance created')
   }
 
   static getInstance(): GlobalHealthMonitor {
-    if (!GlobalHealthMonitor.instance) {
-      GlobalHealthMonitor.instance = new GlobalHealthMonitor()
+    // Use global object to ensure true singleton across ALL Node.js contexts
+    if (!global.__globalHealthMonitor) {
+      global.__globalHealthMonitor = new GlobalHealthMonitor()
     }
-    return GlobalHealthMonitor.instance
+    return global.__globalHealthMonitor
   }
 
   /**
@@ -65,14 +70,22 @@ class GlobalHealthMonitor {
       return
     }
 
+    // Enforce minimum intervals to prevent server thrashing
+    const minInterval = 30000 // 30 seconds minimum
+    const actualInterval = Math.max(intervalMs, minInterval)
+    
+    if (actualInterval !== intervalMs) {
+      console.warn(`🏥 Service ${serviceName}: Interval increased from ${intervalMs}ms to ${actualInterval}ms for stability`)
+    }
+
     this.serviceCallbacks.set(serviceName, {
       serviceName,
       callback: healthCheckCallback,
-      interval: intervalMs,
+      interval: actualInterval,
       lastRun: 0
     })
 
-    console.log(`🏥 Registered service: ${serviceName} (interval: ${intervalMs}ms)`)
+    console.log(`🏥 Registered service: ${serviceName} (interval: ${actualInterval}ms)`)
   }
 
   /**
@@ -236,9 +249,9 @@ class GlobalHealthMonitor {
    * Reset singleton (for testing)
    */
   static reset(): void {
-    if (GlobalHealthMonitor.instance) {
-      GlobalHealthMonitor.instance.stop()
-      GlobalHealthMonitor.instance = null
+    if (global.__globalHealthMonitor) {
+      global.__globalHealthMonitor.stop()
+      global.__globalHealthMonitor = undefined
     }
   }
 }
