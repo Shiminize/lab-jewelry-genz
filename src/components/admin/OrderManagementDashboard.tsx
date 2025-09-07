@@ -264,7 +264,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
 
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="text-foreground bg-background p-4 rounded-lg border shadow-sm">
+        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
               <BodyText size="sm" className="text-aurora-nav-muted bg-background">Total Orders</BodyText>
@@ -274,7 +274,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           </div>
         </div>
 
-        <div className="text-foreground bg-background p-4 rounded-lg border shadow-sm">
+        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
               <BodyText size="sm" className="text-aurora-nav-muted bg-background">Avg Order Value</BodyText>
@@ -284,7 +284,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           </div>
         </div>
 
-        <div className="text-foreground bg-background p-4 rounded-lg border shadow-sm">
+        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
               <BodyText size="sm" className="text-aurora-nav-muted bg-background">Guest Orders</BodyText>
@@ -294,7 +294,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           </div>
         </div>
 
-        <div className="text-foreground bg-background p-4 rounded-lg border shadow-sm">
+        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
           <div className="flex items-center justify-between">
             <div>
               <BodyText size="sm" className="text-aurora-nav-muted bg-background">Processing</BodyText>
@@ -312,7 +312,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
   // Filters component
   const FiltersPanel = () => (
     <div className={cn(
-      "text-foreground bg-background rounded-lg border shadow-sm transition-all duration-200",
+      "text-foreground bg-background rounded-token-lg border shadow-sm transition-all duration-200",
       showFilters ? "p-4 mb-4" : "hidden"
     )}>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -321,7 +321,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           <select
             value={filters.status || ''}
             onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <option value="">All Statuses</option>
             <option value="pending">Pending</option>
@@ -339,7 +339,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           <select
             value={filters.paymentStatus || ''}
             onChange={(e) => setFilters(prev => ({ ...prev, paymentStatus: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <option value="">All Payment Status</option>
             <option value="pending">Pending</option>
@@ -360,7 +360,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                 isGuest: value === '' ? undefined : value === 'guest' 
               }))
             }}
-            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
           >
             <option value="">All Customers</option>
             <option value="registered">Registered</option>
@@ -375,7 +375,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
             placeholder="Order number, email..."
             value={filters.search || ''}
             onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
           />
         </div>
       </div>
@@ -403,7 +403,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
     if (selectedOrders.length === 0) return null
 
     return (
-      <div className="text-foreground bg-accent/10 border border-accent/20 rounded-lg p-4 mb-4">
+      <div className="text-foreground bg-accent/10 border border-accent/20 rounded-token-lg p-4 mb-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <BodyText className="text-foreground">
             {selectedOrders.length} order{selectedOrders.length !== 1 ? 's' : ''} selected
@@ -418,7 +418,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
                 }
                 e.target.value = ''
               }}
-              className="px-3 py-1 text-sm border border-border rounded-md"
+              className="px-3 py-1 text-sm border border-border rounded-token-md"
               disabled={bulkActionLoading}
             >
               <option value="">Update Status...</option>
@@ -454,7 +454,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
 
   // Orders table component
   const OrdersTable = () => (
-    <div className="text-foreground bg-background rounded-lg border shadow-sm overflow-hidden">
+    <div className="text-foreground bg-background rounded-token-lg border shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-muted border-b">
@@ -626,10 +626,10 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
           <div className="h-8 bg-muted rounded w-1/3 mb-4"></div>
           <div className="grid grid-cols-4 gap-4 mb-6">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-muted rounded-lg"></div>
+              <div key={i} className="h-24 bg-muted rounded-token-lg"></div>
             ))}
           </div>
-          <div className="h-96 bg-muted rounded-lg"></div>
+          <div className="h-96 bg-muted rounded-token-lg"></div>
         </div>
       </div>
     )
@@ -671,7 +671,7 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
 
       {/* Error state */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+        <div className="bg-red-50 border border-red-200 rounded-token-lg p-4">
           <div className="flex items-center gap-3">
             <AlertCircle className="w-5 h-5 text-red-600" />
             <BodyText className="text-red-800">{error}</BodyText>

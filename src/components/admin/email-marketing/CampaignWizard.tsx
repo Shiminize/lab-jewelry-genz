@@ -138,7 +138,7 @@ const CampaignDetailsStep = ({
           onChange={(e) => onChange({ name: e.target.value })}
           placeholder="Enter campaign name"
           className={cn(
-            'w-full px-4 py-3 text-foreground bg-background border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent',
+            'w-full px-4 py-3 text-foreground bg-background border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent',
             errors.name ? 'border-red-500' : 'border-border'
           )}
         />
@@ -157,7 +157,7 @@ const CampaignDetailsStep = ({
           value={data.type || ''}
           onChange={(e) => onChange({ type: e.target.value as CampaignData['type'] })}
           className={cn(
-            'w-full px-4 py-3 text-foreground bg-background border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent',
+            'w-full px-4 py-3 text-foreground bg-background border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent',
             errors.type ? 'border-red-500' : 'border-border'
           )}
         >
@@ -187,7 +187,7 @@ const CampaignDetailsStep = ({
         onChange={(e) => onChange({ subject: e.target.value })}
         placeholder="Enter email subject line"
         className={cn(
-          'w-full px-4 py-3 text-foreground bg-background border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent',
+          'w-full px-4 py-3 text-foreground bg-background border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent',
           errors.subject ? 'border-red-500' : 'border-border'
         )}
       />
@@ -207,7 +207,7 @@ const CampaignDetailsStep = ({
         value={data.preheader || ''}
         onChange={(e) => onChange({ preheader: e.target.value })}
         placeholder="Optional preview text that appears after the subject line"
-        className="w-full px-4 py-3 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+        className="w-full px-4 py-3 text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent"
       />
       <BodyText size="sm" className="text-aurora-nav-muted bg-background mt-1">
         This text appears in email previews alongside your subject line.
@@ -248,7 +248,7 @@ const ContentTemplateStep = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="animate-pulse">
-              <div className="h-32 bg-muted rounded-lg mb-3"></div>
+              <div className="h-32 bg-muted rounded-token-lg mb-3"></div>
               <div className="h-4 bg-muted rounded w-3/4"></div>
             </div>
           ))}
@@ -260,7 +260,7 @@ const ContentTemplateStep = ({
               key={template._id}
               onClick={() => onChange({ template: template._id })}
               className={cn(
-                'p-4 rounded-lg border-2 cursor-pointer transition-colors',
+                'p-4 rounded-token-lg border-2 cursor-pointer transition-colors',
                 data.template === template._id
                   ? 'border-accent bg-accent/5'
                   : 'border-border hover:border-accent/50'
@@ -298,7 +298,7 @@ const ContentTemplateStep = ({
           })}
           placeholder="Enter HTML content..."
           rows={12}
-          className="w-full px-4 py-3 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent font-mono text-sm"
+          className="w-full px-4 py-3 text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent font-mono text-sm"
         />
       </div>
 
@@ -313,7 +313,7 @@ const ContentTemplateStep = ({
           })}
           placeholder="Enter plain text content..."
           rows={12}
-          className="w-full px-4 py-3 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+          className="w-full px-4 py-3 text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent"
         />
       </div>
     </div>
@@ -353,11 +353,11 @@ const AudienceTargetingStep = ({
       </div>
 
       {loadingSegments ? (
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="animate-pulse text-foreground bg-background p-4 rounded-lg border">
+            <div key={i} className="animate-pulse text-foreground bg-background p-4 rounded-token-lg border">
               <div className="flex items-center justify-between">
-                <div className="space-y-2">
+                <div className="space-y-token-sm">
                   <div className="h-5 bg-muted rounded w-32"></div>
                   <div className="h-4 bg-muted rounded w-48"></div>
                 </div>
@@ -367,12 +367,12 @@ const AudienceTargetingStep = ({
           ))}
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           {segments.map((segment) => (
             <div
               key={segment._id}
               className={cn(
-                'text-foreground bg-background p-4 rounded-lg border-2 cursor-pointer transition-colors',
+                'text-foreground bg-background p-4 rounded-token-lg border-2 cursor-pointer transition-colors',
                 (data.segments || []).includes(segment._id)
                   ? 'border-accent bg-accent/5'
                   : 'border-border hover:border-accent/50'
@@ -418,7 +418,7 @@ const AudienceTargetingStep = ({
 
       {/* Summary */}
       {data.segments && data.segments.length > 0 && (
-        <div className="text-foreground bg-muted p-4 rounded-lg">
+        <div className="text-foreground bg-muted p-4 rounded-token-lg">
           <H3 className="text-foreground mb-2">Campaign Reach</H3>
           <BodyText className="text-foreground">
             This campaign will be sent to{' '}
@@ -460,7 +460,7 @@ const ReviewSendStep = ({
       </div>
 
       {/* Campaign Summary */}
-      <div className="text-foreground bg-background p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-token-lg border">
         <H3 className="text-foreground mb-4">Campaign Summary</H3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -485,7 +485,7 @@ const ReviewSendStep = ({
       </div>
 
       {/* Test Email */}
-      <div className="text-foreground bg-background p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-token-lg border">
         <H3 className="text-foreground mb-4">Send Test Email</H3>
         <BodyText className="text-aurora-nav-muted bg-background mb-4">
           Send a test email to yourself to preview how it will look.
@@ -496,7 +496,7 @@ const ReviewSendStep = ({
             value={testEmail}
             onChange={(e) => setTestEmail(e.target.value)}
             placeholder="Enter email address"
-            className="flex-1 px-4 py-2 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+            className="flex-1 px-4 py-2 text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent"
           />
           <Button
             variant="secondary"
@@ -511,9 +511,9 @@ const ReviewSendStep = ({
       </div>
 
       {/* Send Options */}
-      <div className="text-foreground bg-background p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-token-lg border">
         <H3 className="text-foreground mb-4">Send Options</H3>
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           <label className="flex items-center gap-3">
             <input
               type="radio"
@@ -752,7 +752,7 @@ export default function CampaignWizard({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="text-foreground bg-background max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-lg">
+      <div className="text-foreground bg-background max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-token-lg">
         {/* Header */}
         <div className="text-foreground bg-background p-6 border-b border-border rounded-t-lg">
           <div className="flex items-center justify-between">
@@ -802,7 +802,7 @@ export default function CampaignWizard({
           {/* Loading overlay for final step */}
           {creating && (
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-              <div className="text-foreground bg-background p-8 rounded-lg text-center">
+              <div className="text-foreground bg-background p-8 rounded-token-lg text-center">
                 <RefreshCw className="w-8 h-8 text-accent animate-spin mx-auto mb-4" />
                 <H3 className="text-foreground">Creating Campaign...</H3>
               </div>

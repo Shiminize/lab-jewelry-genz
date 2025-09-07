@@ -196,7 +196,7 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
         <CardContent>
           <div
             className={`
-              relative border-2 border-dashed rounded-lg p-8 text-center transition-all cursor-pointer
+              relative border-2 border-dashed rounded-token-lg p-8 text-center transition-all cursor-pointer
               ${isDragOver ? 'border-blue-400 bg-blue-50' : 'border-border hover:border-border'}
               ${isGenerating ? 'opacity-50 pointer-events-none' : ''}
             `}
@@ -215,7 +215,7 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
               disabled={isGenerating}
             />
             
-            <div className="space-y-4">
+            <div className="space-y-token-md">
               <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center">
                 {isDragOver ? (
                   <Plus className="w-8 h-8 text-blue-500" />
@@ -263,7 +263,7 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
               {uploadedFiles.map((uploadedFile) => (
                 <div
                   key={uploadedFile.id}
-                  className="flex items-center justify-between p-3 bg-muted rounded-lg"
+                  className="flex items-center justify-between p-3 bg-muted rounded-token-lg"
                 >
                   <div className="flex items-center gap-3 flex-1">
                     <div className="flex-shrink-0">

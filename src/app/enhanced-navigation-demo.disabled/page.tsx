@@ -165,11 +165,11 @@ export default function EnhancedNavigationDemo() {
                 </p>
 
                 {/* Features */}
-                <div className="space-y-2 mb-4">
+                <div className="space-y-token-sm mb-4">
                   <h4 className="text-sm font-medium text-foreground bg-background">Key Features:</h4>
                   <ul className="space-y-1">
                     {variant.features.map((feature, index) => (
-                      <li key={index} className="flex items-start space-x-2 text-xs text-aurora-nav-muted bg-background">
+                      <li key={index} className="flex items-start space-x-token-sm text-xs text-aurora-nav-muted bg-background">
                         <Sparkles className="w-3 h-3 text-blue-500 mt-0.5 flex-shrink-0" />
                         <span>{feature}</span>
                       </li>
@@ -253,13 +253,13 @@ export default function EnhancedNavigationDemo() {
                 variant="secondary"
                 size="sm"
                 onClick={() => setIsSelecting(true)}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-token-sm"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>Back to Selection</span>
               </Button>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <div className={cn(
                   "w-8 h-8 rounded-lg flex items-center justify-center text-white",
                   `bg-gradient-to-br ${activeOption.color}`
@@ -274,7 +274,7 @@ export default function EnhancedNavigationDemo() {
             </div>
 
             {/* Quick Switcher */}
-            <div className="hidden md:flex items-center space-x-2">
+            <div className="hidden md:flex items-center space-x-token-sm">
               {navigationVariants.map((variant) => (
                 <Button
                   key={variant.id}
@@ -313,13 +313,13 @@ export default function EnhancedNavigationDemo() {
           {/* Feature Highlights */}
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-background rounded-xl border border-border p-6">
-              <h3 className="font-semibold text-foreground bg-background mb-3 flex items-center space-x-2">
+              <h3 className="font-semibold text-foreground bg-background mb-3 flex items-center space-x-token-sm">
                 <Layers className="w-5 h-5 text-blue-600" />
                 <span>Personalization Features</span>
               </h3>
-              <ul className="space-y-2 text-sm text-foreground bg-background">
+              <ul className="space-y-token-sm text-sm text-foreground bg-background">
                 {activeOption.features.map((feature, index) => (
-                  <li key={index} className="flex items-start space-x-2">
+                  <li key={index} className="flex items-start space-x-token-sm">
                     <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
                     <span>{feature}</span>
                   </li>
@@ -328,24 +328,24 @@ export default function EnhancedNavigationDemo() {
             </div>
 
             <div className="bg-background rounded-xl border border-border p-6">
-              <h3 className="font-semibold text-foreground bg-background mb-3 flex items-center space-x-2">
+              <h3 className="font-semibold text-foreground bg-background mb-3 flex items-center space-x-token-sm">
                 <Calculator className="w-5 h-5 text-green-600" />
                 <span>Strategic Benefits</span>
               </h3>
-              <ul className="space-y-2 text-sm text-foreground bg-background">
-                <li className="flex items-start space-x-2">
+              <ul className="space-y-token-sm text-sm text-foreground bg-background">
+                <li className="flex items-start space-x-token-sm">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0" />
                   <span>Increased conversion to Moissanite + Silver products</span>
                 </li>
-                <li className="flex items-start space-x-2">
+                <li className="flex items-start space-x-token-sm">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0" />
                   <span>Enhanced customer engagement and satisfaction</span>
                 </li>
-                <li className="flex items-start space-x-2">
+                <li className="flex items-start space-x-token-sm">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0" />
                   <span>Psychological anchoring toward higher-value purchases</span>
                 </li>
-                <li className="flex items-start space-x-2">
+                <li className="flex items-start space-x-token-sm">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0" />
                   <span>Reduced decision fatigue through smart curation</span>
                 </li>

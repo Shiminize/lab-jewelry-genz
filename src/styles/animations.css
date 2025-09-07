@@ -1,0 +1,177 @@
+/* Aurora Animation System
+ * Extracted from globals.css for CLAUDE_RULES compliance
+ * Focus: Hardware-accelerated animations and interactive effects
+ */
+
+/* Essential animations only - optimized for 60fps */
+
+@keyframes aurora-gradient-shift {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
+
+/* Aurora Hardware-Accelerated Interactive Utilities */
+.aurora-gradient-text {
+  background: linear-gradient(45deg, var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: aurora-gradient-shift 4s ease-in-out infinite;
+  will-change: background-position;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-interactive-shadow {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px color-mix(in lch, var(--aurora-shadow-color) 15%, transparent);
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-interactive-shadow:hover {
+  transform: translate3d(0, -8px, 0);
+  box-shadow: 0 16px 48px color-mix(in lch, var(--aurora-shadow-color) 25%, transparent);
+}
+
+/* Essential animation classes only */
+.aurora-shimmer-overlay {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.aurora-shimmer-overlay:hover {
+  opacity: 1;
+}
+
+/* Aurora Extended Hardware-Accelerated Gradient System */
+.aurora-gradient-shift {
+  background: linear-gradient(270deg, var(--aurora-nebula-purple), var(--aurora-pink), var(--aurora-crimson), var(--aurora-plum));
+  background-size: 400% 400%;
+  animation: aurora-gradient-shift 6s ease infinite;
+  will-change: background-position;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Aurora Hardware-Accelerated Button Animations */
+.aurora-button-primary {
+  background: linear-gradient(135deg, var(--aurora-nebula-purple), var(--aurora-pink));
+  background-size: 200% 200%;
+  animation: aurora-gradient-shift 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.aurora-button-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    color-mix(in lch, white 30%, transparent), 
+    transparent);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-button-primary:hover::before {
+  transform: translate3d(200%, 0, 0);
+}
+
+.aurora-button-primary:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 8px 25px color-mix(in lch, var(--aurora-nebula-purple) 40%, transparent);
+}
+
+/* Aurora Hardware-Accelerated Card Interactions */
+/* Simplified card component with CLAUDE_RULES geometric design */
+.aurora-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid color-mix(in lch, var(--aurora-nebula-purple) 20%, transparent);
+  border-radius: 0px; /* CLAUDE_RULES: Geometric design only */
+  transition: box-shadow 0.3s ease;
+  transform: translate3d(0, 0, 0);
+}
+
+.aurora-card:hover {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 8px 24px color-mix(in lch, var(--aurora-nebula-purple) 15%, transparent);
+}
+
+/* Aurora Hardware-Accelerated Living Components */
+/* Simplified living component - no complex animations */
+.aurora-living-component {
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.aurora-living-component:hover {
+  opacity: 0.95;
+}
+
+/* Essential transform utilities only */
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Simple hover effects - no complex 3D transforms */
+.hover\:scale-102:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}
+
+/* Simplified filter effects */
+.group:hover .group-hover\:brightness-105 {
+  filter: brightness(1.05);
+  transition: filter 0.2s ease;
+}
+
+/* Aurora Living Product Card 3D Effects */
+/* Simplified depth layer - no 3D transforms */
+.aurora-depth-layer {
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.aurora-depth-layer:hover {
+  background-color: color-mix(in lch, var(--aurora-nebula-purple) 2%, transparent);
+}
+
+/* Essential filter effects only */
+.hover\:brightness-110:hover {
+  filter: brightness(1.10);
+  transition: filter 0.2s ease;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-gradient-text,
+  .aurora-gradient-shift,
+  .aurora-button-primary {
+    animation: none;
+  }
+  
+  .aurora-interactive-shadow:hover,
+  .aurora-button-primary:hover,
+  .aurora-card:hover,
+  .hover\:scale-102:hover {
+    transform: none;
+  }
+  
+  * {
+    transition-duration: 0.01ms;
+    animation-duration: 0.01ms;
+  }
+}

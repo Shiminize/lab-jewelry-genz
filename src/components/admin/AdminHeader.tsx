@@ -57,10 +57,10 @@ export default function AdminHeader() {
 
   const getSecurityIcon = (level: string) => {
     switch (level) {
-      case 'high': return <Shield className="w-3 h-3 text-green-600" />
-      case 'medium': return <Shield className="w-3 h-3 text-yellow-600" />
-      case 'low': return <AlertTriangle className="w-3 h-3 text-red-600" />
-      default: return <Shield className="w-3 h-3 text-aurora-nav-muted" />
+      case 'high': return <Shield className="w-3 h-3 text-accent" />
+      case 'medium': return <Shield className="w-3 h-3 text-foreground" />
+      case 'low': return <AlertTriangle className="w-3 h-3 text-destructive" />
+      default: return <Shield className="w-3 h-3 text-muted-foreground" />
     }
   }
 
@@ -77,9 +77,9 @@ export default function AdminHeader() {
               placeholder="Search admin functions..."
               className={cn(
                 "w-full pl-10 pr-4 py-2 text-sm font-body text-foreground bg-muted",
-                "border border-border rounded-lg",
+                "border border-border rounded-token-md",
                 "focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:bg-background",
-                "placeholder:text-aurora-nav-muted"
+                "placeholder:text-muted-foreground"
               )}
             />
           </div>
@@ -107,7 +107,7 @@ export default function AdminHeader() {
 
           {/* Session Security Info */}
           {sessionInfo && (
-            <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-muted rounded-lg">
+            <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-muted rounded-token-md">
               {getSecurityIcon(sessionInfo.securityLevel)}
               <div className="text-xs">
                 <div className="flex items-center gap-1">
@@ -125,11 +125,11 @@ export default function AdminHeader() {
                 {user.name}
               </BodyText>
               <div className="flex items-center gap-2">
-                <BodyText size="xs" className="text-aurora-nav-muted bg-background">
+                <BodyText size="xs" className="text-muted-foreground bg-background">
                   {user.role}
                 </BodyText>
                 {user.twoFactorEnabled && (
-                  <Shield className="w-3 h-3 text-green-600" title="2FA Enabled" />
+                  <Shield className="w-3 h-3 text-accent" title="2FA Enabled" />
                 )}
               </div>
             </div>

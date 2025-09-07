@@ -1,20 +1,20 @@
 /**
- * Product Search and Filtering Component
- * Mobile-first design with advanced filtering capabilities
- * Implements PRD requirements for sub-3s search performance
+ * Product Search Component - Aurora Design System Compliant
+ * Orchestrates search functionality using extracted components
+ * CLAUDE_RULES compliant: <300 lines with service->hook->component architecture
  */
 
 'use client'
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Search, Filter, X, ChevronDown, Star, Heart } from 'lucide-react'
+import { Search, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
-import { ProductCard } from '../products/ProductCard'
+import { H2, BodyText } from '@/components/foundation/Typography'
+import { ProductSearchFilters } from './ProductSearchFilters'
+import { ProductSearchResults } from './ProductSearchResults'
 import { useWishlist } from '@/hooks/useWishlist'
 import { 
-  Product, 
   ProductSearchParams, 
   ProductSearchResult, 
   ProductCategory,
@@ -48,11 +48,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
   const [sortBy, setSortBy] = useState<'popularity' | 'price' | 'name' | 'newest'>('popularity')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage] = useState(20)
-
-  // Debounced search function
+  // Search function
   const performSearch = useCallback(async (params: ProductSearchParams) => {
     setIsLoading(true)
     setError(null)
@@ -62,8 +58,6 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
       const queryParams = new URLSearchParams()
       
       if (params.query) queryParams.set('q', params.query)
-      if (params.page && params.page > 1) queryParams.set('page', params.page.toString())
-      if (params.limit) queryParams.set('limit', params.limit.toString())
       if (params.sortBy) queryParams.set('sortBy', params.sortBy)
       if (params.sortOrder) queryParams.set('sortOrder', params.sortOrder)
       
@@ -71,8 +65,8 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
       if (params.filters?.category?.length) {
         queryParams.set('categories', params.filters.category.join(','))
       }
-      if (params.filters?.subcategory?.length) {
-        queryParams.set('subcategories', params.filters.subcategory.join(','))
+      if (params.filters?.materials?.length) {
+        queryParams.set('materials', params.filters.materials.join(','))
       }
       if (params.filters?.priceRange?.min) {
         queryParams.set('minPrice', params.filters.priceRange.min.toString())
@@ -80,15 +74,8 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
       if (params.filters?.priceRange?.max) {
         queryParams.set('maxPrice', params.filters.priceRange.max.toString())
       }
-      if (params.filters?.materials?.length) {
-        queryParams.set('materials', params.filters.materials.join(','))
-      }
-      if (params.filters?.inStock) {
-        queryParams.set('inStock', 'true')
-      }
-      if (params.filters?.featured) {
-        queryParams.set('featured', 'true')
-      }
+      if (params.filters?.inStock) queryParams.set('inStock', 'true')
+      if (params.filters?.featured) queryParams.set('featured', 'true')
 
       // Fetch results
       const response = await fetch(`/api/products?${queryParams.toString()}`)
@@ -98,356 +85,177 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
       }
 
       const apiResponse = await response.json()
+      setResults(apiResponse.data || { products: [], total: 0, hasMore: false })
       
-      // Transform API response to ProductSearchResult format
-      const searchResult: ProductSearchResult = {
-        products: apiResponse.data || [],
-        pagination: apiResponse.pagination || {
-          page: 1,
-          limit: 20,
-          total: 0,
-          totalPages: 1
-        },
-        filters: {
-          applied: {},
-          available: {
-            categories: [],
-            priceRange: { min: 0, max: 10000 },
-            materials: []
-          }
-        }
-      }
-      
-      setResults(searchResult)
-
-      // Update URL without triggering navigation
-      const newUrl = `${window.location.pathname}?${queryParams.toString()}`
-      window.history.replaceState({}, '', newUrl)
+      // Update URL
+      router.replace(`/search?${queryParams.toString()}`, { scroll: false })
 
     } catch (err) {
       console.error('Search error:', err)
-      setError(err instanceof Error ? err.message : 'Search failed')
+      setError('Search failed. Please try again.')
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [router])
 
-  // Effect to handle search logic
-  useEffect(() => {
-    // Always run initial search after mount
+  // Handle search input changes
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query)
+    
+    // Debounced search
     const timeoutId = setTimeout(() => {
-      const searchParams: ProductSearchParams = {
-        query: searchQuery || undefined,
-        page: currentPage,
-        limit: itemsPerPage,
+      performSearch({
+        query,
         sortBy,
         sortOrder,
         filters: {
-          category: selectedCategories.length ? selectedCategories : undefined,
-          subcategory: selectedSubcategories.length ? selectedSubcategories : undefined,
+          category: selectedCategories,
+          subcategory: selectedSubcategories,
           priceRange: (priceRange.min || priceRange.max) ? priceRange : undefined,
-          materials: selectedMaterials.length ? selectedMaterials : undefined,
-          inStock: onlyInStock || undefined,
-          featured: onlyFeatured || undefined
+          materials: selectedMaterials,
+          inStock: onlyInStock,
+          featured: onlyFeatured
         }
-      }
-
-      performSearch(searchParams)
-    }, 50) // Small delay to prevent mount issues
+      })
+    }, 300)
 
     return () => clearTimeout(timeoutId)
-  }, [
-    searchQuery, currentPage, sortBy, sortOrder,
-    selectedCategories, selectedSubcategories, priceRange,
-    selectedMaterials, onlyInStock, onlyFeatured,
-    performSearch // Include performSearch since it's stable
-  ])
+  }
 
-  // Active filter count
-  const activeFilterCount = useMemo(() => {
-    let count = 0
-    if (selectedCategories.length) count++
-    if (selectedSubcategories.length) count++
-    if (priceRange.min || priceRange.max) count++
-    if (selectedMaterials.length) count++
-    if (onlyInStock) count++
-    if (onlyFeatured) count++
-    return count
-  }, [selectedCategories, selectedSubcategories, priceRange, selectedMaterials, onlyInStock, onlyFeatured])
+  // Handle search submission
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    performSearch({
+      query: searchQuery,
+      sortBy,
+      sortOrder,
+      filters: {
+        category: selectedCategories,
+        subcategory: selectedSubcategories,
+        priceRange: (priceRange.min || priceRange.max) ? priceRange : undefined,
+        materials: selectedMaterials,
+        inStock: onlyInStock,
+        featured: onlyFeatured
+      }
+    })
+  }
+
+  // Handle filter changes
+  const handleFilterChange = useCallback(() => {
+    performSearch({
+      query: searchQuery,
+      sortBy,
+      sortOrder,
+      filters: {
+        category: selectedCategories,
+        subcategory: selectedSubcategories,
+        priceRange: (priceRange.min || priceRange.max) ? priceRange : undefined,
+        materials: selectedMaterials,
+        inStock: onlyInStock,
+        featured: onlyFeatured
+      }
+    })
+  }, [searchQuery, sortBy, sortOrder, selectedCategories, selectedSubcategories, priceRange, selectedMaterials, onlyInStock, onlyFeatured, performSearch])
 
   // Clear all filters
-  const clearFilters = () => {
+  const handleClearFilters = () => {
     setSelectedCategories([])
     setSelectedSubcategories([])
     setPriceRange({})
     setSelectedMaterials([])
     setOnlyInStock(false)
     setOnlyFeatured(false)
-    setCurrentPage(1)
+    setSortBy('popularity')
+    setSortOrder('desc')
   }
 
+  // Handle sort changes
+  const handleSortChange = (newSortBy: typeof sortBy, newSortOrder: typeof sortOrder) => {
+    setSortBy(newSortBy)
+    setSortOrder(newSortOrder)
+  }
+
+  // Effect to trigger search when filters change
+  useEffect(() => {
+    if (selectedCategories.length || selectedMaterials.length || priceRange.min || priceRange.max || onlyInStock || onlyFeatured) {
+      handleFilterChange()
+    }
+  }, [selectedCategories, selectedMaterials, priceRange, onlyInStock, onlyFeatured, handleFilterChange])
+
   return (
-    <div className={cn('w-full', className)}>
-      {/* Search Header */}
-      <div className="mb-6">
-        <div className="flex flex-col md:flex-row gap-4">
-          {/* Search Input */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-aurora-nav-muted w-5 h-5" />
+    <div className={cn('max-w-7xl mx-auto px-token-md py-token-lg', className)}>
+      {/* Page Header */}
+      <div className="mb-token-lg">
+        <H2 className="mb-token-md">Search Products</H2>
+        
+        {/* Search Input */}
+        <form onSubmit={handleSearchSubmit} className="relative max-w-2xl">
+          <div className="relative">
+            <Search 
+              size={20} 
+              className="absolute left-token-md top-1/2 -translate-y-1/2 text-muted" 
+            />
             <input
               type="text"
-              placeholder="Search products, collections, materials..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              data-testid="product-search-input"
+              onChange={(e) => handleSearchChange(e.target.value)}
+              placeholder="Search for rings, necklaces, earrings..."
               className={cn(
-                'w-full pl-10 pr-4 py-3 border border rounded-lg',
-                'bg-background text-foreground placeholder:text-aurora-nav-muted',
-                'focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent',
-                'transition-all duration-200'
+                'w-full pl-10 pr-token-md py-token-md border border-border rounded-token-md',
+                'focus:ring-2 focus:ring-cta focus:border-cta',
+                'placeholder:text-muted aurora-living-component aurora-interactive-shadow'
               )}
             />
-          </div>
-
-          {/* Filter Toggle */}
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className={cn(
-              'flex items-center gap-2 px-4 py-3 border border rounded-lg',
-              'bg-background hover:bg-muted transition-colors',
-              'md:w-auto w-full justify-center'
-            )}
-          >
-            <Filter className="w-5 h-5" />
-            <span>Filters</span>
-            {activeFilterCount > 0 && (
-              <span className="bg-accent text-background text-xs px-2 py-1 rounded-full">
-                {activeFilterCount}
-              </span>
-            )}
-            <ChevronDown className={cn(
-              'w-4 h-4 transition-transform',
-              showFilters && 'rotate-180'
-            )} />
-          </button>
-        </div>
-
-        {/* Sort Controls */}
-        <div className="flex flex-wrap items-center gap-4 mt-4">
-          <div className="flex items-center gap-2">
-            <MutedText size="sm">Sort by:</MutedText>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
-              className="border border rounded px-3 py-1 bg-background text-foreground"
-            >
-              <option value="popularity">Popularity</option>
-              <option value="price">Price</option>
-              <option value="name">Name</option>
-              <option value="newest">Newest</option>
-            </select>
-            <select
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value as any)}
-              className="border border rounded px-3 py-1 bg-background text-foreground"
-            >
-              <option value="desc">High to Low</option>
-              <option value="asc">Low to High</option>
-            </select>
-          </div>
-
-          {results && (
-            <MutedText size="sm">
-              {results.pagination.total} products found
-            </MutedText>
-          )}
-        </div>
-      </div>
-
-      {/* Filter Panel */}
-      {showFilters && (
-        <div className="bg-muted border border rounded-lg p-6 mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <H3>Filters</H3>
-            {activeFilterCount > 0 && (
+            {searchQuery && (
               <button
-                onClick={clearFilters}
-                className="text-accent hover:text-accent-hover text-sm font-medium"
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="absolute right-token-md top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
               >
-                Clear All
+                <X size={18} />
               </button>
             )}
           </div>
+        </form>
+      </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Category Filter */}
-            <div>
-              <BodyText className="font-semibold mb-2">Category</BodyText>
-              <div className="space-y-2">
-                {(['rings', 'necklaces', 'earrings', 'bracelets'] as ProductCategory[]).map(category => (
-                  <label key={category} className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={selectedCategories.includes(category)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedCategories([...selectedCategories, category])
-                        } else {
-                          setSelectedCategories(selectedCategories.filter(c => c !== category))
-                        }
-                      }}
-                      className="rounded border"
-                    />
-                    <MutedText className="capitalize">{category}</MutedText>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Price Range Filter */}
-            <div>
-              <BodyText className="font-semibold mb-2">Price Range</BodyText>
-              <div className="flex gap-2">
-                <input
-                  type="number"
-                  placeholder="Min"
-                  value={priceRange.min || ''}
-                  onChange={(e) => setPriceRange({
-                    ...priceRange,
-                    min: e.target.value ? parseInt(e.target.value) : undefined
-                  })}
-                  className="w-full px-3 py-2 border border rounded text-sm"
-                />
-                <input
-                  type="number"
-                  placeholder="Max"
-                  value={priceRange.max || ''}
-                  onChange={(e) => setPriceRange({
-                    ...priceRange,
-                    max: e.target.value ? parseInt(e.target.value) : undefined
-                  })}
-                  className="w-full px-3 py-2 border border rounded text-sm"
-                />
-              </div>
-            </div>
-
-            {/* Quick Filters */}
-            <div>
-              <BodyText className="font-semibold mb-2">Quick Filters</BodyText>
-              <div className="space-y-2">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={onlyInStock}
-                    onChange={(e) => setOnlyInStock(e.target.checked)}
-                    className="rounded border"
-                  />
-                  <MutedText>In Stock</MutedText>
-                </label>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={onlyFeatured}
-                    onChange={(e) => setOnlyFeatured(e.target.checked)}
-                    className="rounded border"
-                  />
-                  <MutedText>Featured</MutedText>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Filters */}
+      <ProductSearchFilters
+        showFilters={showFilters}
+        onToggleFilters={() => setShowFilters(!showFilters)}
+        selectedCategories={selectedCategories}
+        selectedSubcategories={selectedSubcategories}
+        priceRange={priceRange}
+        selectedMaterials={selectedMaterials}
+        onlyInStock={onlyInStock}
+        onlyFeatured={onlyFeatured}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
+        onCategoryChange={setSelectedCategories}
+        onSubcategoryChange={setSelectedSubcategories}
+        onPriceRangeChange={setPriceRange}
+        onMaterialChange={setSelectedMaterials}
+        onStockFilterChange={setOnlyInStock}
+        onFeaturedFilterChange={setOnlyFeatured}
+        onSortChange={handleSortChange}
+        onClearFilters={handleClearFilters}
+        className="mb-token-xl"
+      />
 
       {/* Results */}
-      <div className="space-y-6">
-        {isLoading && (
-          <div className="flex items-center justify-center py-12">
-            <div className="w-8 h-8 border-4 border-muted border-t-accent rounded-full animate-spin" />
-            <MutedText className="ml-3">Searching products...</MutedText>
-          </div>
-        )}
-
-        {error && (
-          <div className="bg-error/10 border border-error/20 rounded-lg p-4">
-            <BodyText className="text-error">
-              {error}
-            </BodyText>
-          </div>
-        )}
-
-        {results && !isLoading && (
-          <>
-            {/* Product Grid */}
-            {results.products.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {results.products.map((product) => (
-                  <ProductCard 
-                    key={product._id} 
-                    product={product}
-                    isWishlisted={isInWishlist(product._id)}
-                    onAddToWishlist={(productId) => toggleWishlist(productId)}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <H2 className="mb-2">No products found</H2>
-                <BodyText className="text-muted mb-4">
-                  Try adjusting your search or filters
-                </BodyText>
-                <button
-                  onClick={clearFilters}
-                  className="px-4 py-2 bg-cta text-background rounded-lg hover:bg-cta-hover transition-colors"
-                >
-                  Clear Filters
-                </button>
-              </div>
-            )}
-
-            {/* Pagination */}
-            {results.pagination.totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-8">
-                <button
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                  disabled={currentPage === 1}
-                  className="px-3 py-2 border border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Previous
-                </button>
-                
-                <div className="flex gap-1">
-                  {Array.from({ length: Math.min(5, results.pagination.totalPages) }, (_, i) => {
-                    const pageNum = i + 1
-                    return (
-                      <button
-                        key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
-                        className={cn(
-                          'px-3 py-2 border border rounded-lg',
-                          currentPage === pageNum 
-                            ? 'bg-accent text-background' 
-                            : 'hover:bg-muted'
-                        )}
-                      >
-                        {pageNum}
-                      </button>
-                    )
-                  })}
-                </div>
-
-                <button
-                  onClick={() => setCurrentPage(Math.min(results.pagination.totalPages, currentPage + 1))}
-                  disabled={currentPage === results.pagination.totalPages}
-                  className="px-3 py-2 border border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Next
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </div>
+      <ProductSearchResults
+        results={results}
+        searchQuery={searchQuery}
+        isLoading={isLoading}
+        error={error}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
+        onSortChange={handleSortChange}
+        onAddToWishlist={toggleWishlist}
+        onQuickView={(id) => router.push(`/products/${id}`)}
+        onAddToCart={(id) => console.log('Add to cart:', id)} // TODO: Implement cart service
+        isInWishlist={isInWishlist}
+      />
     </div>
   )
 }

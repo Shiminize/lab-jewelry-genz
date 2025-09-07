@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 
 const tagChipVariants = cva(
   // Base styles
-  'inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap',
+  'inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-34 transition-all duration-200 cursor-pointer whitespace-nowrap',
   {
     variants: {
       variant: {

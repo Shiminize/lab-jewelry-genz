@@ -21,14 +21,14 @@ const enhancedValueVariants = cva(
   {
     variants: {
       spacing: {
-        comfortable: 'py-16 sm:py-20 lg:py-24',
-        compact: 'py-12 sm:py-16 lg:py-20',
-        spacious: 'py-20 sm:py-24 lg:py-32'
+        comfortable: 'py-token-4xl sm:py-token-5xl lg:py-token-6xl',
+        compact: 'py-token-3xl sm:py-token-4xl lg:py-token-5xl',
+        spacious: 'py-token-5xl sm:py-token-6xl lg:py-token-8xl'
       },
       layout: {
-        default: 'px-4 sm:px-6 lg:px-8',
-        wide: 'px-6 sm:px-8 lg:px-12',
-        contained: 'px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto'
+        default: 'px-token-md sm:px-token-lg lg:px-token-xl',
+        wide: 'px-token-lg sm:px-token-xl lg:px-token-3xl',
+        contained: 'px-token-md sm:px-token-lg lg:px-token-xl max-w-7xl mx-auto'
       }
     },
     defaultVariants: {
@@ -44,13 +44,13 @@ const valueCardVariants = cva(
     variants: {
       style: {
         glassmorphism: 'bg-background border border-accent shadow-xl',
-        minimal: 'space-y-8 bg-background border border-accent',
+        minimal: 'space-y-token-xl bg-background border border-accent',
         bordered: 'border-2 border-accent shadow-xl bg-background hover:border-accent'
       },
       state: {
-        default: 'hover:shadow-xl hover:scale-[1.03] hover:-translate-y-2',
-        active: 'shadow-xl scale-[1.03] -translate-y-2 border-accent bg-muted',
-        dimmed: 'opacity-60 scale-98 translate-y-1'
+        default: 'hover:shadow-xl hover:scale-[1.03] hover:-translate-y-token-sm',
+        active: 'shadow-xl scale-[1.03] -translate-y-token-sm border-accent bg-muted',
+        dimmed: 'opacity-60 scale-98 translate-y-token-xs'
       }
     },
     defaultVariants: {
@@ -65,9 +65,9 @@ const iconContainerVariants = cva(
   {
     variants: {
       size: {
-        small: 'w-16 h-16',
-        medium: 'w-20 h-20',
-        large: 'w-24 h-24'
+        small: 'w-token-4xl h-token-4xl',
+        medium: 'w-token-5xl h-token-5xl',
+        large: 'w-token-6xl h-token-6xl'
       },
       style: {
         glassmorphism: 'bg-background rounded-full border border-accent shadow-xl',
@@ -88,7 +88,7 @@ const iconContainerVariants = cva(
 )
 
 const trustBadgeVariants = cva(
-  'enhanced-trust-badge inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 shadow-md',
+  'enhanced-trust-badge inline-flex items-center gap-token-sm px-token-md py-token-sm rounded-token-full text-token-sm font-semibold transition-all duration-300 shadow-md',
   {
     variants: {
       style: {
@@ -97,7 +97,7 @@ const trustBadgeVariants = cva(
         minimal: 'bg-muted border border-accent'
       },
       state: {
-        default: 'hover:scale-110 hover:shadow-xl hover:border-accent hover:-translate-y-0.5',
+        default: 'hover:scale-110 hover:shadow-xl hover:border-accent hover:-translate-y-token-xs',
         interactive: 'cursor-pointer hover:bg-muted hover:scale-110 hover:shadow-xl active:scale-105'
       }
     },
@@ -375,7 +375,7 @@ export function EnhancedValueProposition({
               </div>
 
               {/* Content */}
-              <div className="relative space-y-4 text-center">
+              <div className="relative space-y-token-md text-center">
                 <H3 className="text-foreground group-hover:text-accent transition-colors duration-300">
                   {prop.headline}
                 </H3>
@@ -449,7 +449,7 @@ export function EnhancedValueProposition({
       </div>
 
       {/* Mobile Flow Indicators */}
-      <div className={`${mobileBreakpoint}:hidden flex justify-center mt-8 space-x-2`}>
+      <div className={`${mobileBreakpoint}:hidden flex justify-center mt-8 space-x-token-sm`}>
         {valueProps.map((_, index) => (
           <div key={index} className="flex items-center">
             <div className="w-8 h-1 bg-accent rounded-full" />
@@ -482,7 +482,7 @@ export function EnhancedValueProposition({
                     key={index}
                     className="group p-4 bg-background border border-accent hover:border-accent transition-all duration-300 hover:scale-105"
                   >
-                    <div className="flex flex-col items-center space-y-2">
+                    <div className="flex flex-col items-center space-y-token-sm">
                       <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                         <ItemIcon className="text-accent" size={20} />
                       </div>

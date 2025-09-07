@@ -230,7 +230,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
   const renderImagePreview = () => {
     if (!selectedSequenceData) {
       return (
-        <div className="flex items-center justify-center h-96 bg-muted rounded-lg">
+        <div className="flex items-center justify-center h-96 bg-muted rounded-token-lg">
           <div className="text-center">
             <div className="text-muted-foreground mb-2">📱</div>
             <p className="text-aurora-nav-muted">No sequence selected</p>
@@ -241,7 +241,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
 
     if (selectedSequenceData.frameCount === 0) {
       return (
-        <div className="flex items-center justify-center h-96 bg-muted rounded-lg">
+        <div className="flex items-center justify-center h-96 bg-muted rounded-token-lg">
           <div className="text-center">
             <div className="text-muted-foreground mb-2">🚫</div>
             <p className="text-aurora-nav-muted">No images available</p>
@@ -255,7 +255,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
     
     if (!imageUrl || imageError) {
       return (
-        <div className="flex items-center justify-center h-96 bg-muted rounded-lg">
+        <div className="flex items-center justify-center h-96 bg-muted rounded-token-lg">
           <div className="text-center">
             <div className="text-muted-foreground mb-2">⚠️</div>
             <p className="text-aurora-nav-muted">Image not found</p>
@@ -273,7 +273,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
     }
 
     return (
-      <div className="relative h-96 bg-muted rounded-lg overflow-hidden">
+      <div className="relative h-96 bg-muted rounded-token-lg overflow-hidden">
         <img
           src={imageUrl}
           alt={`${selectedSequenceData.modelName} - ${selectedSequenceData.material} - Frame ${currentFrame}`}
@@ -299,7 +299,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">Sequences</CardTitle>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <Button
                   size="sm"
                   variant={viewMode === 'grid' ? 'default' : 'outline'}
@@ -320,9 +320,9 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
             </div>
           </CardHeader>
           
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-token-md">
             {/* Search and Filter */}
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                 <Input
@@ -336,7 +336,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value as any)}
-                className="w-full px-3 py-2 border rounded-md text-sm"
+                className="w-full px-3 py-2 border rounded-token-md text-sm"
               >
                 <option value="all">All Statuses</option>
                 <option value="complete">Complete</option>
@@ -346,11 +346,11 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
             </div>
 
             {/* Sequence Items */}
-            <div className={`space-y-2 ${viewMode === 'grid' ? 'grid grid-cols-1 gap-2' : ''}`}>
+            <div className={`space-y-token-sm ${viewMode === 'grid' ? 'grid grid-cols-1 gap-2' : ''}`}>
               {filteredSequences.map((sequence) => (
                 <div
                   key={sequence.id}
-                  className={`p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm ${
+                  className={`p-3 rounded-token-lg border cursor-pointer transition-all hover:shadow-sm ${
                     selectedSequence === sequence.id 
                       ? 'border-blue-500 bg-blue-50' 
                       : 'border-border bg-background'
@@ -398,7 +398,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
       {/* Preview Area */}
       <div className="lg:col-span-2">
         {selectedSequenceData ? (
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             
             {/* Preview Card */}
             <Card>
@@ -407,7 +407,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                   <CardTitle className="text-lg">
                     {selectedSequenceData.modelName} - {selectedSequenceData.material}
                   </CardTitle>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-token-sm">
                     <Badge className={getStatusColor(selectedSequenceData.status)}>
                       {selectedSequenceData.status}
                     </Badge>
@@ -421,7 +421,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
               
               <CardContent>
                 {selectedSequenceData.frameCount > 0 ? (
-                  <div className="space-y-4">
+                  <div className="space-y-token-md">
                     {/* Image Preview */}
                     {renderImagePreview()}
                     
@@ -433,7 +433,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                     )}
 
                     {/* Format Selector */}
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-token-sm">
                       <span className="text-sm font-medium">Format:</span>
                       {(['avif', 'webp', 'png'] as const).map((format) => (
                         <Button
@@ -452,7 +452,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                     {/* Controls */}
                     <div className="space-y-3">
                       {/* Play Controls */}
-                      <div className="flex items-center justify-center space-x-2">
+                      <div className="flex items-center justify-center space-x-token-sm">
                         <Button
                           size="sm"
                           variant="outline"
@@ -493,14 +493,14 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                       </div>
 
                       {/* Frame Scrubber */}
-                      <div className="space-y-2">
+                      <div className="space-y-token-sm">
                         <input
                           type="range"
                           min="0"
                           max={selectedSequenceData.frameCount - 1}
                           value={currentFrame}
                           onChange={(e) => handleFrameSeek(parseInt(e.target.value))}
-                          className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+                          className="w-full h-2 bg-muted rounded-token-lg appearance-none cursor-pointer"
                         />
                         <div className="flex justify-between text-xs text-aurora-nav-muted">
                           <span>0°</span>
@@ -511,7 +511,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                     </div>
                   </div>
                 ) : (
-                  <div className="aspect-square bg-muted rounded-lg flex items-center justify-center">
+                  <div className="aspect-square bg-muted rounded-token-lg flex items-center justify-center">
                     <div className="text-center">
                       <Settings className="mx-auto h-12 w-12 text-muted-foreground" />
                       <h3 className="mt-4 text-lg font-medium text-foreground">Sequence Not Generated</h3>

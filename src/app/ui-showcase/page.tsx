@@ -110,7 +110,7 @@ export default function UIShowcasePage() {
                 <div key={index} className="bg-background border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
                   <div className="flex items-start gap-4">
                     <div className="text-4xl">{demo.image}</div>
-                    <div className="flex-1 space-y-4">
+                    <div className="flex-1 space-y-token-md">
                       <div>
                         <div className="flex items-center gap-3 mb-2">
                           <H3>{demo.title}</H3>
@@ -121,7 +121,7 @@ export default function UIShowcasePage() {
                         <BodyText size="sm" className="text-muted">{demo.description}</BodyText>
                       </div>
 
-                      <div className="space-y-2">
+                      <div className="space-y-token-sm">
                         <MutedText size="sm" className="font-medium">Key Features:</MutedText>
                         <div className="flex flex-wrap gap-2">
                           {demo.features.map((feature, idx) => (
@@ -256,7 +256,7 @@ export default function UIShowcasePage() {
                     {feature.description}
                   </BodyText>
                   
-                  <div className="space-y-2">
+                  <div className="space-y-token-sm">
                     <MutedText size="sm" className="font-medium">Planned Features:</MutedText>
                     <ul className="space-y-1">
                       {feature.features.map((item, idx) => (

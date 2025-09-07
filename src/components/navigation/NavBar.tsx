@@ -61,14 +61,13 @@ export function NavBar() {
   return (
     <>
       {/* Main Navigation Bar */}
-      <nav className="sticky top-0 w-full bg-[var(--lunar-grey)] z-50" 
-           style={{ boxShadow: 'var(--shadow-near)' }}>
-        <div className="max-w-[1440px] mx-auto px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
+      <nav className="sticky top-0 w-full bg-surface z-50 shadow-near">
+        <div className="max-w-screen-xl mx-auto px-token-lg">
+          <div className="flex items-center justify-between h-token-4xl md:h-token-5xl">
             
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="relative w-8 h-8 md:w-10 md:h-10">
+            <Link href="/" className="flex items-center space-x-token-sm">
+              <div className="relative w-token-lg h-token-lg md:w-token-xl md:h-token-xl">
                 <Image 
                   src="/glitchglow_logo_v3.1.png" 
                   alt="GlitchGlow Logo" 
@@ -78,23 +77,22 @@ export function NavBar() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-bold bg-gradient-to-r from-[var(--aurora-pink)] to-[var(--aurora-crimson)] bg-clip-text text-transparent"
-                      style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)' }}>
+                <span className="font-bold bg-gradient-primary bg-clip-text text-transparent text-token-lg md:text-token-xl">
                   GlitchGlow
                 </span>
-                <span className="text-[0.75rem] text-[var(--deep-space)] opacity-70 -mt-1">
+                <span className="text-token-xs text-text-secondary opacity-70 -mt-token-xs">
                   Uniquely Yours. Consciously Made
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-token-xl">
               {navItems.map((item) => (
                 <div key={item.id} className="relative"
                      onMouseEnter={() => item.hasDropdown && handleMouseEnter(item.id)}
                      onMouseLeave={handleMouseLeave}>
-                  <Link href={item.href} className={`text-[1rem] font-medium px-4 py-2 rounded-[5px] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:brightness-[1.15] hover:bg-purple-600/10 ${item.highlight ? 'bg-[var(--nebula-purple)] text-white hover:bg-[var(--aurora-crimson)]' : 'text-[var(--deep-space)]'}`}>
+                  <Link href={item.href} className={`text-token-base font-medium px-token-sm py-token-xs rounded-token-sm transition-all duration-300 ease-in-out hover:brightness-115 hover:scale-101 ${item.highlight ? 'bg-gradient-primary text-text-inverse hover:brightness-115' : 'text-text-primary hover:bg-surface-hover'}`}>
                     {item.label}
                   </Link>
                 </div>
@@ -102,22 +100,22 @@ export function NavBar() {
             </nav>
 
             {/* Action Icons */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               {[
                 { href: '/search', icon: Search, color: 'nebula-purple' },
                 { href: '/wishlist', icon: Heart, color: 'aurora-pink' },
                 { href: '/cart', icon: ShoppingBag, color: 'nebula-purple' }
               ].map(({ href, icon: Icon, color }) => (
                 <Link key={href} href={href} 
-                      className={`p-2 rounded-[5px] transition-all duration-300 hover:scale-110 ${color === 'nebula-purple' ? 'hover:bg-purple-600/10' : 'hover:bg-pink-500/10'}`}>
-                  <Icon className="w-5 h-5 text-[var(--deep-space)]" />
+                      className={`p-token-sm rounded-token-sm transition-all duration-300 hover:scale-110 ${color === 'nebula-purple' ? 'hover:bg-accent/10' : 'hover:bg-accent/10'}`}>
+                  <Icon className="w-token-sm h-token-sm text-text-primary" />
                 </Link>
               ))}
               
               {/* Mobile Menu Toggle */}
               <button onClick={() => setIsMobileOpen(!isMobileOpen)}
-                      className="md:hidden p-2 rounded-[5px] transition-all duration-300 hover:bg-pink-500/15">
-                {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                      className="md:hidden p-token-xs rounded-token-sm transition-all duration-300 hover:brightness-115 hover:scale-101 hover:bg-surface-hover">
+                {isMobileOpen ? <X className="w-token-lg h-token-lg" /> : <Menu className="w-token-lg h-token-lg" />}
               </button>
             </div>
           </div>
@@ -129,7 +127,7 @@ export function NavBar() {
             <div key={navItem.id} className={`
               absolute top-full left-0 w-screen overflow-hidden
               transition-all duration-[350ms] ease-[cubic-bezier(0.32,0.72,0,1)]
-              bg-gradient-to-br from-gray-50 to-gray-100
+              aurora-mega-menu
               ${activeDropdown === navItem.id ? 
                 'opacity-100 translate-y-0 scale-100 pointer-events-auto shadow-xl' : 
                 'opacity-0 -translate-y-3 scale-[0.98] pointer-events-none'}
@@ -137,34 +135,36 @@ export function NavBar() {
             onMouseEnter={() => handleMouseEnter(navItem.id)}
             onMouseLeave={handleMouseLeave}>
               {navItem.categories && (
-                <div className="max-w-[1440px] mx-auto px-12 py-8">
-                  <div className="grid grid-cols-5 gap-8">
+                <div className="max-w-[1440px] mx-auto px-token-xl py-token-xl">
+                  <div className="grid grid-cols-5 gap-token-xl">
                     {/* Primary Category Columns */}
                     {navItem.categories.map((category, idx) => (
                       <div key={category.title}
                            className="animate-fade-in"
                            style={{ animationDelay: `${idx * 50}ms` }}>
-                        <Link href={category.href}
-                              className="block group">
-                          <h3 className="text-[1.125rem] font-semibold text-[var(--deep-space)] mb-4 
-                                       transition-all duration-300 group-hover:text-[var(--nebula-purple)]
-                                       group-hover:scale-[1.02]">
-                            {category.title}
-                          </h3>
-                          <ul className="space-y-2">
+                        <div className="group">
+                          <Link href={category.href}
+                                className="block">
+                            <h3 className="text-token-lg font-semibold text-text-primary mb-token-sm 
+                                         transition-all duration-300 hover:text-accent
+                                         hover:scale-101">
+                              {category.title}
+                            </h3>
+                          </Link>
+                          <ul className="space-y-token-sm">
                             {category.items.map(item => (
                               <li key={item}>
                                 <Link href={`${category.href}&type=${item.toLowerCase().replace(/ /g, '-')}`}
-                                      className="text-[0.875rem] text-[var(--deep-space)] opacity-80
-                                               hover:opacity-100 hover:text-[var(--nebula-purple)]
-                                               transition-all duration-300 hover:translate-x-1 hover:scale-[1.02]
+                                      className="text-token-sm text-text-primary opacity-80
+                                               hover:opacity-100 hover:text-accent
+                                               transition-all duration-300 hover:translate-x-1 hover:scale-101
                                                inline-block">
                                   {item}
                                 </Link>
                               </li>
                             ))}
                           </ul>
-                        </Link>
+                        </div>
                       </div>
                     ))}
                     
@@ -172,22 +172,22 @@ export function NavBar() {
                     <div className="animate-fade-in"
                          style={{ animationDelay: '200ms' }}>
                       <div className="group">
-                        <h3 className="text-[1.125rem] font-semibold text-[var(--deep-space)] mb-4">
+                        <h3 className="text-token-lg font-semibold text-text-primary mb-token-sm">
                           Lab-Grown Spotlight
                         </h3>
-                        <div className="h-40 bg-gradient-to-br from-[var(--nebula-purple)] via-[var(--aurora-pink)] to-[var(--aurora-crimson)]
-                                      rounded-[13px] p-6 mb-4 transition-all duration-300
-                                      group-hover:scale-[1.02] group-hover:shadow-[var(--shadow-hover)]
-                                      flex flex-col justify-between text-white">
+                        <div className="h-token-10xl bg-gradient-primary
+                                      rounded-token-lg p-token-md mb-token-sm transition-all duration-300
+                                      group-hover:scale-101 group-hover:shadow-hover
+                                      flex flex-col justify-between text-text-inverse">
                           <div>
-                            <h4 className="text-[1rem] font-bold mb-2">Sustainable Luxury</h4>
-                            <p className="text-[0.875rem] opacity-90">Lab-grown diamonds with brilliant sparkle & ethical sourcing</p>
+                            <h4 className="text-token-base font-bold mb-token-xs">Sustainable Luxury</h4>
+                            <p className="text-token-sm opacity-90">Lab-grown diamonds with brilliant sparkle & ethical sourcing</p>
                           </div>
-                          <div className="mt-4">
+                          <div className="mt-token-sm">
                             <Link href="/lab-grown"
-                                  className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm
-                                           rounded-[8px] font-medium text-[0.875rem]
-                                           transition-all duration-300 hover:bg-white/30 hover:scale-105">
+                                  className="inline-flex items-center px-token-sm py-token-xs bg-surface/20 backdrop-blur-sm
+                                           rounded-token-md font-medium text-token-sm
+                                           transition-all duration-300 hover:bg-surface/30 hover:scale-101">
                               Explore Collection →
                             </Link>
                           </div>
@@ -209,22 +209,22 @@ export function NavBar() {
         ${isMobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
       `}>
         {/* Backdrop */}
-        <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
+        <div className="absolute inset-0 bg-text-primary/80 backdrop-blur-md"
              onClick={() => setIsMobileOpen(false)} />
         
         {/* Mobile Panel */}
         <div className={`
-          absolute right-0 top-0 h-full w-[90%] max-w-[400px]
-          bg-gradient-to-br from-[var(--deep-space)] to-[var(--nebula-purple)]
-          rounded-l-[13px] overflow-y-auto shadow-2xl
-          transition-transform duration-[380ms] ease-[cubic-bezier(0.32,0.72,0,1)]
+          absolute right-0 top-0 h-full w-[90%] max-w-aurora-lg
+          bg-gradient-luxury-midnight
+          rounded-l-token-lg overflow-y-auto shadow-far
+          transition-transform duration-300 ease-in-out
           ${isMobileOpen ? 'translate-x-0' : 'translate-x-full'}
         `}>
           
           {/* Mobile Header */}
-          <div className="flex items-center justify-between p-6 border-b border-white/20">
-            <div className="flex items-center space-x-2">
-              <div className="relative w-6 h-6">
+          <div className="flex items-center justify-between p-token-lg border-b border-text-inverse/20">
+            <div className="flex items-center space-x-token-sm">
+              <div className="relative w-token-lg h-token-lg">
                 <Image 
                   src="/glitchglow_logo_v3.1.png" 
                   alt="GlitchGlow Logo" 
@@ -232,38 +232,38 @@ export function NavBar() {
                   className="object-contain"
                 />
               </div>
-              <span className="font-semibold text-white text-xl md:text-2xl">GlitchGlow</span>
+              <span className="font-semibold text-text-inverse text-token-xl md:text-token-2xl">GlitchGlow</span>
             </div>
             <button onClick={() => setIsMobileOpen(false)}
-                    className="p-2 rounded-[5px] transition-all duration-300
-                             hover:bg-white/20 hover:scale-110">
-              <X className="w-6 h-6 text-white" />
+                    className="p-token-sm rounded-token-sm transition-all duration-300
+                             hover:bg-text-inverse/20 hover:scale-110">
+              <X className="w-token-lg h-token-lg text-text-inverse" />
             </button>
           </div>
           
           {/* Mobile Navigation */}
-          <nav className="p-6 space-y-2">
+          <nav className="p-token-lg space-y-token-sm">
             {navItems.map((item) => (
               <div key={item.id}>
                 <div className="flex items-center justify-between">
                   <Link href={item.href} onClick={() => setIsMobileOpen(false)}
-                        className={`flex-1 py-3 text-lg font-medium transition-all duration-300 hover:translate-x-2 ${item.highlight ? 'text-[var(--aurora-pink)]' : 'text-white hover:text-[var(--aurora-pink)]'}`}>
+                        className={`flex-1 py-token-sm text-token-lg font-medium transition-all duration-300 hover:translate-x-2 ${item.highlight ? 'text-accent' : 'text-text-inverse hover:text-accent'}`}>
                     {item.label}
                   </Link>
                   {item.hasDropdown && (
                     <button onClick={() => setMobileExpanded(mobileExpanded === item.id ? null : item.id)}
-                            className="p-2 text-white/60 hover:text-white transition-colors">
-                      <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${mobileExpanded === item.id ? 'rotate-180' : ''}`} />
+                            className="p-token-sm text-text-inverse/60 hover:text-text-inverse transition-colors">
+                      <ChevronDown className={`w-token-sm h-token-sm transition-transform duration-300 ${mobileExpanded === item.id ? 'rotate-180' : ''}`} />
                     </button>
                   )}
                 </div>
                 {/* Collapsible Submenu */}
                 {item.hasDropdown && item.categories && (
                   <div className={`overflow-hidden transition-all duration-[380ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${mobileExpanded === item.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                    <div className="pl-4 py-2 space-y-3 bg-black/20 rounded-[5px] mt-2">
+                    <div className="pl-token-md py-token-sm space-y-token-sm bg-text-primary/20 rounded-token-sm mt-token-sm">
                       {item.categories.map(cat => (
                         <Link key={cat.title} href={cat.href} onClick={() => setIsMobileOpen(false)}
-                              className="block text-sm text-white/80 hover:text-[var(--aurora-pink)] transition-all duration-300 hover:translate-x-2">
+                              className="block text-token-sm text-text-inverse/80 hover:text-accent transition-all duration-300 hover:translate-x-2">
                           {cat.title}
                         </Link>
                       ))}
@@ -274,15 +274,15 @@ export function NavBar() {
             ))}
             
             {/* Mobile Secondary Actions */}
-            <div className="pt-6 mt-6 border-t border-white/20 space-y-3">
+            <div className="pt-token-lg mt-token-lg border-t border-text-inverse/20 space-y-token-sm">
               {[
                 { href: '/account', icon: User, label: 'Account' },
                 { href: '/wishlist', icon: Heart, label: 'Wishlist' }
               ].map(({ href, icon: Icon, label }) => (
                 <Link key={href} href={href} onClick={() => setIsMobileOpen(false)}
-                      className="flex items-center space-x-3 text-white hover:text-[var(--aurora-pink)]
+                      className="flex items-center space-x-token-sm text-text-inverse hover:text-accent
                                transition-all duration-300 hover:translate-x-2">
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-token-sm h-token-sm" />
                   <span>{label}</span>
                 </Link>
               ))}

@@ -352,7 +352,7 @@ export default function InteractiveDemoPage() {
                   />
                 </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-token-md">
                   <div className="text-2xl font-semibold text-accent">
                     ${quickViewProduct.basePrice.toLocaleString()}
                   </div>

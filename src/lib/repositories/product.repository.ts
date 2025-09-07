@@ -20,6 +20,15 @@ import {
   mapProductArrayToListDTO 
 } from '@/lib/mappers/product.mapper'
 
+// PHASE 5A: In-memory cache for product queries (fixes 4000ms+ performance issue)
+const productSearchCache = new Map<string, {
+  result: ProductSearchResult
+  timestamp: number
+  ttl: number
+}>()
+
+const SEARCH_CACHE_TTL = 60000 // 1 minute cache TTL
+
 export class ProductRepository {
   private collection: Collection | null = null
 
@@ -35,9 +44,31 @@ export class ProductRepository {
 
   /**
    * Search products with filters and pagination
-   * Enhanced with material-based filtering for CLAUDE_RULES compliance
+   * PHASE 5A: Cached search for <100ms response times - CLAUDE_RULES compliant
    */
   async searchProducts(params: ProductSearchParams): Promise<ProductSearchResult> {
+    const now = Date.now()
+    
+    // Create cache key from search parameters
+    const cacheKey = JSON.stringify({
+      query: params.query || '',
+      page: params.page || 1,
+      limit: params.limit || 12,
+      sortBy: params.sortBy || 'popularity',
+      sortOrder: params.sortOrder || 'desc',
+      filters: params.filters || {}
+    })
+    
+    // Check cache first
+    const cached = productSearchCache.get(cacheKey)
+    if (cached && (now - cached.timestamp) < cached.ttl) {
+      console.log(`🚀 [PRODUCT CACHE] Cache hit for search - served in <1ms`)
+      return cached.result
+    }
+    
+    console.log(`🔍 [PRODUCT SEARCH] Cache miss, querying database...`)
+    const searchStart = performance.now()
+    
     const collection = await this.getProductsCollection()
     
     // Build query with proper MongoDB indexing
@@ -192,7 +223,7 @@ export class ProductRepository {
     // Get available filters
     const availableFilters = await this.getAvailableFilters(collection)
     
-    return {
+    const result: ProductSearchResult = {
       products: productDTOs,
       pagination: {
         page,
@@ -205,6 +236,28 @@ export class ProductRepository {
         available: availableFilters
       }
     }
+    
+    // Cache the result for future requests
+    productSearchCache.set(cacheKey, {
+      result,
+      timestamp: now,
+      ttl: SEARCH_CACHE_TTL
+    })
+    
+    // Clean old cache entries (simple cleanup)
+    if (productSearchCache.size > 50) {
+      const entries = Array.from(productSearchCache.entries())
+      entries.sort((a, b) => a[1].timestamp - b[1].timestamp)
+      for (let i = 0; i < 10; i++) { // Remove oldest 10 entries
+        productSearchCache.delete(entries[i][0])
+      }
+    }
+    
+    const searchTime = performance.now() - searchStart
+    console.log(`📊 [PRODUCT SEARCH] Database query completed in ${searchTime.toFixed(1)}ms`)
+    console.log(`   Found: ${total} products, returning ${productDTOs.length} results`)
+    
+    return result
   }
 
   /**

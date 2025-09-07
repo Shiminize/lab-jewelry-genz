@@ -71,10 +71,10 @@ export function Tooltip({
   }
 
   const arrowClasses = {
-    top: 'top-full left-1/2 transform -translate-x-1/2 border-l-transparent border-r-transparent border-t-foreground',
-    bottom: 'bottom-full left-1/2 transform -translate-x-1/2 border-l-transparent border-r-transparent border-b-foreground',
-    left: 'left-full top-1/2 transform -translate-y-1/2 border-t-transparent border-b-transparent border-l-foreground',
-    right: 'right-full top-1/2 transform -translate-y-1/2 border-t-transparent border-b-transparent border-r-foreground'
+    top: 'top-full left-1/2 transform -translate-x-1/2 border-l-transparent border-r-transparent border-t-deep-space',
+    bottom: 'bottom-full left-1/2 transform -translate-x-1/2 border-l-transparent border-r-transparent border-b-deep-space',
+    left: 'left-full top-1/2 transform -translate-y-1/2 border-t-transparent border-b-transparent border-l-deep-space',
+    right: 'right-full top-1/2 transform -translate-y-1/2 border-t-transparent border-b-transparent border-r-deep-space'
   }
 
   if (disabled) {
@@ -97,8 +97,9 @@ export function Tooltip({
         <div
           ref={tooltipRef}
           className={cn(
-            'absolute z-50 px-3 py-2 text-sm text-background bg-foreground shadow-lg',
+            'absolute z-50 px-3 py-2 text-sm text-white bg-deep-space rounded-token-md',
             'animate-fade-in max-w-xs whitespace-normal',
+            'shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_15%,transparent)]', // Aurora shadow-float
             positionClasses[actualPosition],
             className
           )}

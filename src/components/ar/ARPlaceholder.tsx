@@ -48,8 +48,8 @@ export function ARPlaceholder({
       )}>
         <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-cta/5" />
         
-        <div className="relative flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-          <div className="flex items-center space-x-4">
+        <div className="relative flex flex-col md:flex-row items-center justify-between space-y-token-md md:space-y-0">
+          <div className="flex items-center space-x-token-md">
             <div className="flex-shrink-0 w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
               <Camera size={24} className="text-accent" />
             </div>
@@ -88,7 +88,7 @@ export function ARPlaceholder({
           </BodyText>
         </div>
 
-        <div className="bg-muted/20 rounded-lg p-4 space-y-3">
+        <div className="bg-muted/20 rounded-token-lg p-4 space-y-3">
           <H4 level="h4" className="flex items-center justify-center">
             <Bell size={16} className="mr-2" />
             Get Notified First
@@ -114,7 +114,7 @@ export function ARPlaceholder({
               </Button>
             </form>
           ) : (
-            <div className="flex items-center justify-center space-x-2 text-cta">
+            <div className="flex items-center justify-center space-x-token-sm text-cta">
               <CheckCircle size={16} />
               <BodyText size="sm" weight="medium">
                 You're on the list! We'll notify you when AR try-on is ready.
@@ -133,10 +133,10 @@ export function ARPlaceholder({
   if (variant === 'inline') {
     return (
       <div className={cn(
-        'border border-dashed border-accent/30 rounded-lg p-4 bg-accent/5 text-center',
+        'border border-dashed border-accent/30 rounded-token-lg p-4 bg-accent/5 text-center',
         className
       )}>
-        <div className="flex items-center justify-center space-x-2 mb-2">
+        <div className="flex items-center justify-center space-x-token-sm mb-2">
           <Camera size={16} className="text-accent" />
           <BodyText size="sm" weight="medium" className="text-accent">
             AR Try-On Coming Soon
@@ -161,7 +161,7 @@ export function ARPlaceholder({
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         <div>
           <H4 className="mb-2">🎯 AR Try-On</H4>
           <BodyText size="sm" className="text-muted">
@@ -169,23 +169,23 @@ export function ARPlaceholder({
           </BodyText>
         </div>
 
-        <div className="space-y-2">
-          <div className="flex items-center space-x-2">
+        <div className="space-y-token-sm">
+          <div className="flex items-center space-x-token-sm">
             <div className="w-2 h-2 bg-accent rounded-full" />
             <MutedText size="sm">Real-time ring sizing</MutedText>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-token-sm">
             <div className="w-2 h-2 bg-accent rounded-full" />
             <MutedText size="sm">Earring placement preview</MutedText>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-token-sm">
             <div className="w-2 h-2 bg-accent rounded-full" />
             <MutedText size="sm">Share AR photos instantly</MutedText>
           </div>
         </div>
 
         {!isSignedUp ? (
-          <form onSubmit={handleWaitlistSubmit} className="flex space-x-2">
+          <form onSubmit={handleWaitlistSubmit} className="flex space-x-token-sm">
             <Input
               type="email"
               placeholder="Email for early access"
@@ -204,7 +204,7 @@ export function ARPlaceholder({
             </Button>
           </form>
         ) : (
-          <div className="flex items-center space-x-2 text-cta">
+          <div className="flex items-center space-x-token-sm text-cta">
             <CheckCircle size={14} />
             <BodyText size="sm" weight="medium">
               You're on the waitlist!

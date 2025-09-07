@@ -538,7 +538,7 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
   return (
     <div className={cn('w-full space-y-6', className)}>
       {/* Search Header */}
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         {/* Search Bar */}
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
@@ -549,7 +549,7 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
               placeholder="Search products, collections, materials..."
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full pl-10 pr-10 py-3 border border rounded-lg bg-background text-foreground placeholder:text-aurora-nav-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
+              className="w-full pl-10 pr-10 py-3 border border rounded-token-lg bg-background text-foreground placeholder:text-aurora-nav-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
               data-testid="enhanced-search-input"
             />
             {searchQuery && (
@@ -598,7 +598,7 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
           {/* View and Sort Controls */}
           <div className="flex items-center gap-4">
             {/* View Mode */}
-            <div className="flex items-center border border rounded-lg">
+            <div className="flex items-center border border rounded-token-lg">
               {[
                 { mode: 'grid' as ViewMode, icon: Grid3X3 },
                 { mode: 'list' as ViewMode, icon: List },
@@ -623,7 +623,7 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
             <select
               value={sortBy}
               onChange={(e) => handleSortChange(e.target.value)}
-              className="border border rounded-lg px-3 py-2 bg-background text-foreground text-sm"
+              className="border border rounded-token-lg px-3 py-2 bg-background text-foreground text-sm"
             >
               {SORT_OPTIONS.map(option => (
                 <option key={option.value} value={option.value}>
@@ -678,7 +678,7 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="animate-pulse">
-                <div className="aspect-square bg-muted rounded-lg mb-4" />
+                <div className="aspect-square bg-muted rounded-token-lg mb-4" />
                 <div className="h-4 bg-muted rounded mb-2" />
                 <div className="h-3 bg-muted rounded w-2/3" />
               </div>
@@ -689,7 +689,7 @@ export function EnhancedProductSearch({ initialResults, className }: EnhancedPro
         {results && !isLoading && results.products.length > 0 && (
           <div className={cn(
             viewMode === 'grid' && 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6',
-            viewMode === 'list' && 'space-y-4',
+            viewMode === 'list' && 'space-y-token-md',
             viewMode === 'compact' && 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3'
           )}>
             {results.products.map((product) => (

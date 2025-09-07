@@ -4,7 +4,10 @@ import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-// Enhanced typography variants with luxury jewelry focus
+// Re-export Aurora Typography components from separate file (CLAUDE_RULES compliant)
+export * from './AuroraTypography'
+
+// Legacy display variants (maintained for backward compatibility)
 const displayVariants = cva(
   'typography-display',
   {
@@ -89,6 +92,8 @@ const jewelrySpecVariants = cva(
     }
   }
 )
+
+// ===== LEGACY COMPONENTS (MAINTAINED FOR COMPATIBILITY) =====
 
 // Display Component
 interface DisplayProps extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof displayVariants> {

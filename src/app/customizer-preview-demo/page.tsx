@@ -63,7 +63,7 @@ export default function CustomizerPreviewDemo() {
       <div className="max-w-6xl mx-auto px-4 py-8 border-t border-border">
         <div className="bg-muted/10 rounded-lg p-6">
           <H1 level="h3" className="text-foreground mb-4">Usage Information</H1>
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             <BodyText className="text-muted">
               <strong>Features:</strong> 3D model integration, real-time price updates, 
               simplified material/stone selection, mobile-optimized touch controls, 

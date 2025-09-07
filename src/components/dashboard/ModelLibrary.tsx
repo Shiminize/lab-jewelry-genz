@@ -246,7 +246,7 @@ export function ModelLibrary({
               <select
                 value={filterCategory}
                 onChange={(e) => setFilterCategory(e.target.value)}
-                className="px-3 py-2 border rounded-md text-sm"
+                className="px-3 py-2 border rounded-token-md text-sm"
               >
                 <option value="all">All Categories</option>
                 <option value="rings">Rings</option>
@@ -304,12 +304,12 @@ export function ModelLibrary({
               
               <CardContent className="pt-0">
                 {/* Model Preview Placeholder */}
-                <div className="aspect-square bg-muted rounded-lg mb-3 flex items-center justify-center">
+                <div className="aspect-square bg-muted rounded-token-lg mb-3 flex items-center justify-center">
                   <FileIcon className="w-8 h-8 text-muted-foreground" />
                 </div>
                 
                 {/* Model Info */}
-                <div className="space-y-2">
+                <div className="space-y-token-sm">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-aurora-nav-muted">Size:</span>
                     <span>{formatFileSize(model.size)}</span>
@@ -365,7 +365,7 @@ export function ModelLibrary({
 
       {/* Selection Summary */}
       {selectedModels.length > 0 && (
-        <div className="fixed bottom-6 right-6 bg-background rounded-lg shadow-lg border p-4 min-w-[300px]">
+        <div className="fixed bottom-6 right-6 bg-background rounded-token-lg shadow-lg border p-4 min-w-[300px]">
           <div className="flex items-center justify-between">
             <div>
               <h4 className="font-medium text-foreground">

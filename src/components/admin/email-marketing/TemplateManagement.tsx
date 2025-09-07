@@ -251,9 +251,9 @@ const MetricCard = ({
   }
 
   return (
-    <div className="text-foreground bg-background p-4 rounded-lg border space-y-3">
+    <div className="text-foreground bg-background p-4 rounded-token-lg border space-y-3">
       <div className="flex items-center justify-between">
-        <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
+        <div className="w-8 h-8 bg-accent/10 rounded-token-lg flex items-center justify-center">
           <Icon className="w-4 h-4 text-accent" />
         </div>
         {trend && (
@@ -300,7 +300,7 @@ const TemplateFilters = ({
   }
 
   return (
-    <div className="text-foreground bg-background p-4 rounded-lg border space-y-4">
+    <div className="text-foreground bg-background p-4 rounded-token-lg border space-y-token-md">
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Search */}
         <form onSubmit={handleSearch} className="flex-1">
@@ -311,7 +311,7 @@ const TemplateFilters = ({
               placeholder="Search templates..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              className="w-full pl-10 pr-4 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
               aria-label="Search email templates"
             />
           </div>
@@ -321,7 +321,7 @@ const TemplateFilters = ({
         <select
           value={filters.status || ''}
           onChange={(e) => onFiltersChange({ ...filters, status: e.target.value })}
-          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           aria-label="Filter by status"
         >
           <option value="">All Status</option>
@@ -334,7 +334,7 @@ const TemplateFilters = ({
         <select
           value={filters.category || ''}
           onChange={(e) => onFiltersChange({ ...filters, category: e.target.value })}
-          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           aria-label="Filter by category"
         >
           <option value="">All Categories</option>
@@ -349,7 +349,7 @@ const TemplateFilters = ({
         <select
           value={filters.type || ''}
           onChange={(e) => onFiltersChange({ ...filters, type: e.target.value })}
-          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           aria-label="Filter by template type"
         >
           <option value="">All Types</option>
@@ -401,7 +401,7 @@ const TemplateActions = ({
             className="fixed inset-0 z-10" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 top-8 z-20 w-48 bg-background border border-border rounded-lg shadow-lg py-1">
+          <div className="absolute right-0 top-8 z-20 w-48 bg-background border border-border rounded-token-lg shadow-lg py-1">
             <button
               onClick={() => { onView(template._id); setIsOpen(false) }}
               className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted flex items-center gap-2"
@@ -471,7 +471,7 @@ const TemplateCard = ({
   onToggleStatus: (id: string) => void
 }) => {
   return (
-    <div className="text-foreground bg-background p-6 rounded-lg border hover:border-accent transition-colors">
+    <div className="text-foreground bg-background p-6 rounded-token-lg border hover:border-accent transition-colors">
       {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
@@ -514,7 +514,7 @@ const TemplateCard = ({
       {/* Template Preview */}
       <div className="mb-4">
         {template.thumbnail ? (
-          <div className="w-full h-32 bg-muted rounded-lg border overflow-hidden">
+          <div className="w-full h-32 bg-muted rounded-token-lg border overflow-hidden">
             <img 
               src={template.thumbnail} 
               alt={`${template.name} preview`}
@@ -522,7 +522,7 @@ const TemplateCard = ({
             />
           </div>
         ) : (
-          <div className="w-full h-32 bg-muted rounded-lg border flex items-center justify-center">
+          <div className="w-full h-32 bg-muted rounded-token-lg border flex items-center justify-center">
             <FileText className="w-8 h-8 text-aurora-nav-muted" />
           </div>
         )}
@@ -530,7 +530,7 @@ const TemplateCard = ({
 
       {/* Performance Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="text-center p-3 bg-muted rounded-lg">
+        <div className="text-center p-3 bg-muted rounded-token-lg">
           <div className="text-lg font-semibold text-foreground">
             {template.performance.campaigns}
           </div>
@@ -538,7 +538,7 @@ const TemplateCard = ({
             Campaigns
           </BodyText>
         </div>
-        <div className="text-center p-3 bg-muted rounded-lg">
+        <div className="text-center p-3 bg-muted rounded-token-lg">
           <div className="text-lg font-semibold text-foreground">
             {template.performance.avgOpenRate.toFixed(1)}%
           </div>
@@ -546,7 +546,7 @@ const TemplateCard = ({
             Open Rate
           </BodyText>
         </div>
-        <div className="text-center p-3 bg-muted rounded-lg">
+        <div className="text-center p-3 bg-muted rounded-token-lg">
           <div className="text-lg font-semibold text-foreground">
             {template.performance.avgClickRate.toFixed(1)}%
           </div>
@@ -554,7 +554,7 @@ const TemplateCard = ({
             Click Rate
           </BodyText>
         </div>
-        <div className="text-center p-3 bg-muted rounded-lg">
+        <div className="text-center p-3 bg-muted rounded-token-lg">
           <div className="text-lg font-semibold text-foreground">
             {template.performance.totalSent.toLocaleString()}
           </div>
@@ -739,16 +739,16 @@ export default function TemplateManagement({
   if (loading && templates.length === 0) {
     return (
       <div className="space-y-6">
-        <div className="animate-pulse space-y-4">
+        <div className="animate-pulse space-y-token-md">
           <div className="h-8 bg-muted rounded w-1/3"></div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-muted rounded-lg"></div>
+              <div key={i} className="h-24 bg-muted rounded-token-lg"></div>
             ))}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-48 bg-muted rounded-lg"></div>
+              <div key={i} className="h-48 bg-muted rounded-token-lg"></div>
             ))}
           </div>
         </div>
@@ -759,7 +759,7 @@ export default function TemplateManagement({
   // Error state
   if (error) {
     return (
-      <div className="text-foreground bg-background p-6 rounded-lg border text-center">
+      <div className="text-foreground bg-background p-6 rounded-token-lg border text-center">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <H2 className="mb-2 text-foreground">Failed to Load Templates</H2>
         <BodyText className="text-aurora-nav-muted bg-background mb-4">
@@ -819,7 +819,7 @@ export default function TemplateManagement({
           </BodyText>
         </div>
         <div className="flex gap-2">
-          <div className="flex bg-background border rounded-lg">
+          <div className="flex bg-background border rounded-token-lg">
             <Button
               variant={viewMode === 'grid' ? 'accent' : 'ghost'}
               size="sm"
@@ -861,7 +861,7 @@ export default function TemplateManagement({
 
       {/* Templates Grid */}
       {templates.length === 0 ? (
-        <div className="text-foreground bg-background p-8 rounded-lg border text-center">
+        <div className="text-foreground bg-background p-8 rounded-token-lg border text-center">
           <FileText className="w-12 h-12 text-aurora-nav-muted mx-auto mb-4" />
           <H2 className="mb-2 text-foreground">No Templates Found</H2>
           <BodyText className="text-aurora-nav-muted bg-background mb-6">
@@ -878,7 +878,7 @@ export default function TemplateManagement({
         <div className={cn(
           viewMode === 'grid' 
             ? 'grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6'
-            : 'space-y-4'
+            : 'space-y-token-md'
         )}>
           {templates.map(template => (
             <TemplateCard

@@ -52,7 +52,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="max-w-md w-full space-y-8">
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-token-sm">
           <H1 className="">
             Sign in to GlowGlitch
           </H1>

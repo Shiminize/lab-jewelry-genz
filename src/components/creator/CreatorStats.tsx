@@ -131,12 +131,12 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
       {/* Period Selector */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-foreground">Performance Overview</h2>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-token-sm">
           <span className="text-sm text-aurora-nav-muted">Period:</span>
           <select
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
-            className="border border-border rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            className="border border-border rounded-token-lg px-3 py-1 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           >
             <option value="7">Last 7 days</option>
             <option value="30">Last 30 days</option>
@@ -160,7 +160,7 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
                 <p className="text-xs text-aurora-nav-muted">Last {period} days</p>
               </div>
               <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
-                <MousePointer className="w-6 h-6 text-blue-600" />
+                <MousePointer className="w-6 h-6 text-aurora-nebula-purple" />
               </div>
             </div>
           </CardContent>
@@ -180,7 +180,7 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
                 </p>
               </div>
               <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
-                <Target className="w-6 h-6 text-green-600" />
+                <Target className="w-6 h-6 text-aurora-emerald-flash" />
               </div>
             </div>
           </CardContent>
@@ -218,7 +218,7 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
                 <p className="text-xs text-aurora-nav-muted">All time</p>
               </div>
               <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
-                <Award className="w-6 h-6 text-purple-600" />
+                <Award className="w-6 h-6 text-aurora-nebula-purple" />
               </div>
             </div>
           </CardContent>
@@ -230,12 +230,12 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
         {/* Performance Summary */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-token-sm">
               <TrendingUp className="w-5 h-5" />
               <span>Performance Summary</span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-token-md">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <div className="text-sm text-aurora-nav-muted">Commission Rate</div>
@@ -280,7 +280,7 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
         {/* Recent Transactions */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-token-sm">
               <ShoppingCart className="w-5 h-5" />
               <span>Recent Transactions</span>
             </CardTitle>
@@ -289,7 +289,7 @@ export default function CreatorStats({ creator }: CreatorStatsProps) {
             {stats?.recentTransactions.length ? (
               <div className="space-y-3">
                 {stats.recentTransactions.slice(0, 5).map((transaction) => (
-                  <div key={transaction.id} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                  <div key={transaction.id} className="flex items-center justify-between p-3 bg-muted rounded-token-lg">
                     <div>
                       <div className="text-sm font-medium text-foreground">
                         Order #{transaction.orderId.slice(-8)}

@@ -1,13 +1,17 @@
 'use client'
 
 /**
- * Customization Panel Component
+ * Customization Panel Component - Refactored for CLAUDE_RULES compliance
  * Interactive panel for selecting product customization options
  * Supports materials, gemstones, sizes, finishes, and engraving
  */
 
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { MaterialSelection } from './customization/MaterialSelection'
+import { GemstoneSelection } from './customization/GemstoneSelection'
+import { SizeSelection } from './customization/SizeSelection'
+import { EngravingSelection } from './customization/EngravingSelection'
 
 interface CustomizationPanelProps {
   product: {
@@ -76,8 +80,7 @@ export default function CustomizationPanel({
   customization,
   onCustomizationChange,
   customPrice,
-  customSKU,
-  isValid
+  customSKU
 }: CustomizationPanelProps) {
   const [activeSection, setActiveSection] = useState<string | null>('material')
   const [engravingText, setEngravingText] = useState(customization.engraving || '')
@@ -102,51 +105,12 @@ export default function CustomizationPanel({
     if (!product.customization.materials?.length) return null
 
     return (
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-foreground">Choose Your Material</h3>
-        <p className="text-sm text-aurora-nav-muted mb-4">Select from our collection of recycled precious metals</p>
-        <div className="grid grid-cols-2 gap-3">
-          {product.customization.materials.map((material) => (
-            <button
-              key={material.id}
-              onClick={() => onCustomizationChange('material', material.id)}
-              className={`relative p-4 rounded-lg border-2 transition-all duration-200 text-left ${
-                customization.material === material.id
-                  ? 'border-amber-500 bg-amber-50'
-                  : 'border-border hover:border-border bg-background'
-              }`}
-            >
-              {/* Material Color Preview */}
-              <div
-                className="w-8 h-8 rounded-full mb-3 border-2 border-border"
-                style={{ backgroundColor: material.color }}
-              />
-              
-              <div className="space-y-1">
-                <div className="font-medium text-foreground">{material.name}</div>
-                {material.description && (
-                  <div className="text-xs text-aurora-nav-muted">{material.description}</div>
-                )}
-                {getPriceModifier(material.priceModifier) && (
-                  <div className="text-sm font-medium text-amber-600">
-                    {getPriceModifier(material.priceModifier)}
-                  </div>
-                )}
-              </div>
-
-              {customization.material === material.id && (
-                <div className="absolute top-2 right-2">
-                  <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                </div>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
+      <MaterialSelection
+        materials={product.customization.materials}
+        selectedMaterial={customization.material}
+        onMaterialChange={(materialId) => onCustomizationChange('material', materialId)}
+        customPrice={customPrice}
+      />
     )
   }
 
@@ -155,55 +119,11 @@ export default function CustomizationPanel({
     if (!product.customization.gemstones?.length) return null
 
     return (
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-foreground">Gemstone</h3>
-        <div className="grid grid-cols-2 gap-3">
-          {product.customization.gemstones.map((gemstone) => (
-            <button
-              key={gemstone.id}
-              onClick={() => onCustomizationChange('gemstone', gemstone.id)}
-              className={`relative p-4 rounded-lg border-2 transition-all duration-200 text-left ${
-                customization.gemstone === gemstone.id
-                  ? 'border-amber-500 bg-amber-50'
-                  : 'border-border hover:border-border bg-background'
-              }`}
-            >
-              {/* Gemstone Color Preview */}
-              <div
-                className="w-8 h-8 rounded-full mb-3 border-2 border-border relative overflow-hidden"
-                style={{ backgroundColor: gemstone.color }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-white/40" />
-              </div>
-              
-              <div className="space-y-1">
-                <div className="font-medium text-foreground">{gemstone.name}</div>
-                <div className="text-xs text-aurora-nav-muted">
-                  {gemstone.size} • {gemstone.clarity}
-                </div>
-                {gemstone.description && (
-                  <div className="text-xs text-aurora-nav-muted">{gemstone.description}</div>
-                )}
-                {getPriceModifier(gemstone.priceModifier) && (
-                  <div className="text-sm font-medium text-amber-600">
-                    {getPriceModifier(gemstone.priceModifier)}
-                  </div>
-                )}
-              </div>
-
-              {customization.gemstone === gemstone.id && (
-                <div className="absolute top-2 right-2">
-                  <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                </div>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
+      <GemstoneSelection
+        gemstones={product.customization.gemstones}
+        selectedGemstone={customization.gemstone}
+        onGemstoneChange={(gemstoneId) => onCustomizationChange('gemstone', gemstoneId)}
+      />
     )
   }
 
@@ -212,39 +132,11 @@ export default function CustomizationPanel({
     if (!product.customization.sizes?.length) return null
 
     return (
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-foreground">Size</h3>
-        <div className="grid grid-cols-4 gap-2">
-          {product.customization.sizes.map((size) => (
-            <button
-              key={size.value}
-              onClick={() => onCustomizationChange('size', size.value)}
-              className={`relative p-3 rounded-lg border-2 transition-all duration-200 text-center ${
-                customization.size === size.value
-                  ? 'border-amber-500 bg-amber-50'
-                  : 'border-border hover:border-border bg-background'
-              }`}
-            >
-              <div className="font-medium text-foreground">{size.label}</div>
-              {getPriceModifier(size.priceModifier) && (
-                <div className="text-xs font-medium text-amber-600 mt-1">
-                  {getPriceModifier(size.priceModifier)}
-                </div>
-              )}
-
-              {customization.size === size.value && (
-                <div className="absolute -top-1 -right-1">
-                  <div className="w-4 h-4 bg-amber-500 rounded-full flex items-center justify-center">
-                    <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                </div>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
+      <SizeSelection
+        sizes={product.customization.sizes}
+        selectedSize={customization.size}
+        onSizeChange={(size) => onCustomizationChange('size', size)}
+      />
     )
   }
 
@@ -253,14 +145,14 @@ export default function CustomizationPanel({
     if (!product.customization.finishes?.length) return null
 
     return (
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         <h3 className="text-lg font-semibold text-foreground">Finish</h3>
-        <div className="space-y-2">
+        <div className="space-y-token-sm">
           {product.customization.finishes.map((finish) => (
             <button
               key={finish.id}
               onClick={() => onCustomizationChange('finish', finish.id)}
-              className={`w-full p-4 rounded-lg border-2 transition-all duration-200 text-left ${
+              className={`w-full p-4 rounded-token-lg border-2 transition-all duration-200 text-left ${
                 customization.finish === finish.id
                   ? 'border-amber-500 bg-amber-50'
                   : 'border-border hover:border-border bg-background'
@@ -271,7 +163,7 @@ export default function CustomizationPanel({
                   <div className="font-medium text-foreground">{finish.name}</div>
                   <div className="text-sm text-aurora-nav-muted mt-1">{finish.description}</div>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-token-sm">
                   {getPriceModifier(finish.priceModifier) && (
                     <div className="text-sm font-medium text-amber-600">
                       {getPriceModifier(finish.priceModifier)}
@@ -297,92 +189,16 @@ export default function CustomizationPanel({
   const renderEngraving = () => {
     if (!product.customization.engraving?.enabled) return null
 
-    const { maxLength, fonts, positions, priceModifier } = product.customization.engraving
-
     return (
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-foreground">Make It Personal</h3>
-          {priceModifier > 0 && (
-            <div className="text-sm font-medium text-amber-600">
-              +${priceModifier.toFixed(2)}
-            </div>
-          )}
-        </div>
-
-        <div className="space-y-4">
-          {/* Engraving Text Input */}
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-2">
-              Engraving Text
-            </label>
-            <textarea
-              value={engravingText}
-              onChange={(e) => handleEngravingChange(e.target.value)}
-              maxLength={maxLength}
-              placeholder="Add your personal message..."
-              className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-colors"
-              rows={3}
-            />
-            <div className="flex justify-between items-center mt-1">
-              <div className="text-xs text-aurora-nav-muted">
-                Max {maxLength} characters
-              </div>
-              <div className="text-xs text-aurora-nav-muted">
-                {engravingText.length}/{maxLength}
-              </div>
-            </div>
-          </div>
-
-          {/* Font Selection */}
-          {fonts?.length > 0 && (
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Font Style
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                {fonts.map((font) => (
-                  <button
-                    key={font}
-                    onClick={() => setSelectedFont(font)}
-                    className={`p-3 rounded-lg border-2 transition-all duration-200 text-center capitalize ${
-                      selectedFont === font
-                        ? 'border-amber-500 bg-amber-50'
-                        : 'border-border hover:border-border bg-background'
-                    }`}
-                  >
-                    {font}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Position Selection */}
-          {positions?.length > 0 && (
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Position
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                {positions.map((position) => (
-                  <button
-                    key={position}
-                    onClick={() => setSelectedPosition(position)}
-                    className={`p-3 rounded-lg border-2 transition-all duration-200 text-center capitalize ${
-                      selectedPosition === position
-                        ? 'border-amber-500 bg-amber-50'
-                        : 'border-border hover:border-border bg-background'
-                    }`}
-                  >
-                    {position}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      <EngravingSelection
+        engraving={product.customization.engraving}
+        engravingText={engravingText}
+        onEngravingChange={handleEngravingChange}
+        onEngravingUpdate={(engraving) => {
+          setSelectedFont(engraving.font)
+          setSelectedPosition(engraving.position)
+        }}
+      />
     )
   }
 
@@ -406,12 +222,12 @@ export default function CustomizationPanel({
     <div className="bg-background rounded-xl shadow-sm border border-border overflow-hidden">
       {/* Section Tabs */}
       <div className="border-b border-border bg-muted">
-        <nav className="flex space-x-4 p-4 overflow-x-auto" aria-label="Customization options">
+        <nav className="flex space-x-token-md p-4 overflow-x-auto" aria-label="Customization options">
           {sections.map((section) => (
             <button
               key={section.id}
               onClick={() => setActiveSection(activeSection === section.id ? null : section.id)}
-              className={`whitespace-nowrap py-2 px-4 text-sm font-medium rounded-lg transition-colors ${
+              className={`whitespace-nowrap py-2 px-4 text-sm font-medium rounded-token-lg transition-colors ${
                 activeSection === section.id
                   ? 'bg-amber-100 text-amber-700 border-amber-300'
                   : 'text-aurora-nav-muted hover:text-foreground hover:bg-muted'

@@ -135,7 +135,7 @@ export default function CreatorApplicationPage() {
                 Application Details
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-token-md">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-aurora-nav-muted">Application ID</label>
@@ -260,7 +260,7 @@ export default function CreatorApplicationPage() {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Basic Information */}
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <h3 className="text-lg font-semibold text-foreground">Basic Information</h3>
                 
                 <div className="grid md:grid-cols-2 gap-4">
@@ -297,7 +297,7 @@ export default function CreatorApplicationPage() {
                     value={formData.bio}
                     onChange={(e) => updateFormData('bio', e.target.value)}
                     placeholder="Tell us about yourself and your content..."
-                    className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 h-24 resize-none"
+                    className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-purple-500 h-24 resize-none"
                     maxLength={500}
                   />
                   <p className="text-xs text-aurora-nav-muted mt-1">{formData.bio.length}/500 characters</p>
@@ -305,7 +305,7 @@ export default function CreatorApplicationPage() {
               </div>
 
               {/* Social Links */}
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <h3 className="text-lg font-semibold text-foreground">Social Media Presence</h3>
                 
                 <div className="grid md:grid-cols-2 gap-4">
@@ -346,7 +346,7 @@ export default function CreatorApplicationPage() {
               </div>
 
               {/* Audience Information */}
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <h3 className="text-lg font-semibold text-foreground">Audience Information</h3>
                 
                 <div className="grid md:grid-cols-3 gap-4">
@@ -378,7 +378,7 @@ export default function CreatorApplicationPage() {
               </div>
 
               {/* Payment Information */}
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <h3 className="text-lg font-semibold text-foreground">Payment Information</h3>
                 
                 <div className="grid md:grid-cols-2 gap-4">
@@ -387,7 +387,7 @@ export default function CreatorApplicationPage() {
                     <select
                       value={formData.paymentInfo.method}
                       onChange={(e) => updateNestedFormData('paymentInfo', 'method', e.target.value)}
-                      className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                       required
                     >
                       <option value="paypal">PayPal</option>
@@ -428,7 +428,7 @@ export default function CreatorApplicationPage() {
               </div>
 
               {/* Terms Agreement */}
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <div className="flex items-start gap-3">
                   <input
                     type="checkbox"
@@ -455,7 +455,7 @@ export default function CreatorApplicationPage() {
               {/* Submit */}
               <div className="pt-6 border-t border-border">
                 {submitStatus === 'error' && (
-                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
+                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-token-md">
                     <div className="flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 text-red-500" />
                       <p className="text-sm text-red-700">{submitMessage}</p>

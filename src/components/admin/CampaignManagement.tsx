@@ -91,7 +91,7 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       case 'active':
         return { 
           text: 'Active', 
-          className: 'bg-green-100 text-green-800 border-green-200',
+          className: 'bg-aurora-emerald-flash/10 text-aurora-emerald-flash border-aurora-emerald-flash/20',
           icon: Play
         }
       case 'draft':
@@ -103,19 +103,19 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       case 'scheduled':
         return { 
           text: 'Scheduled', 
-          className: 'bg-blue-100 text-blue-800 border-blue-200',
+          className: 'bg-aurora-nebula-purple/10 text-aurora-nebula-purple border-aurora-nebula-purple/20',
           icon: Clock
         }
       case 'paused':
         return { 
           text: 'Paused', 
-          className: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+          className: 'bg-aurora-amber-glow/10 text-aurora-amber-glow border-aurora-amber-glow/20',
           icon: Pause
         }
       case 'completed':
         return { 
           text: 'Completed', 
-          className: 'bg-green-100 text-green-800 border-green-200',
+          className: 'bg-aurora-emerald-flash/10 text-aurora-emerald-flash border-aurora-emerald-flash/20',
           icon: CheckCircle
         }
       case 'cancelled':
@@ -152,13 +152,13 @@ const TypeBadge = ({ type }: { type: Campaign['type'] }) => {
   const getTypeConfig = (type: Campaign['type']) => {
     switch (type) {
       case 'newsletter':
-        return { text: 'Newsletter', className: 'bg-blue-50 text-blue-700' }
+        return { text: 'Newsletter', className: 'bg-aurora-nebula-purple/10 text-aurora-nebula-purple' }
       case 'promotional':
-        return { text: 'Promotional', className: 'bg-purple-50 text-purple-700' }
+        return { text: 'Promotional', className: 'bg-aurora-nebula-purple/10 text-aurora-nebula-purple' }
       case 'abandoned-cart':
         return { text: 'Abandoned Cart', className: 'bg-orange-50 text-orange-700' }
       case 'welcome-series':
-        return { text: 'Welcome Series', className: 'bg-green-50 text-green-700' }
+        return { text: 'Welcome Series', className: 'bg-aurora-emerald-flash/10 text-aurora-emerald-flash' }
       case 'product-launch':
         return { text: 'Product Launch', className: 'bg-red-50 text-red-700' }
       case 'seasonal':
@@ -208,15 +208,15 @@ const MetricsCard = ({
   }
 
   return (
-    <div className="text-foreground bg-background p-4 rounded-lg border space-y-3">
+    <div className="text-foreground bg-background p-4 rounded-token-lg border space-y-3">
       <div className="flex items-center justify-between">
-        <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
+        <div className="w-8 h-8 bg-accent/10 rounded-token-lg flex items-center justify-center">
           <Icon className="w-4 h-4 text-accent" />
         </div>
         {trend && (
           <div className={cn(
             "text-xs font-medium",
-            trend === 'up' && "text-green-600",
+            trend === 'up' && "text-aurora-emerald-flash",
             trend === 'down' && "text-red-600",
             trend === 'neutral' && "text-aurora-nav-muted"
           )}>
@@ -279,7 +279,7 @@ const CampaignFilters = ({
   }
 
   return (
-    <div className="text-foreground bg-background p-4 rounded-lg border space-y-4">
+    <div className="text-foreground bg-background p-4 rounded-token-lg border space-y-token-md">
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Search */}
         <form onSubmit={handleSearch} className="flex-1">
@@ -290,7 +290,7 @@ const CampaignFilters = ({
               placeholder="Search campaigns..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+              className="w-full pl-10 pr-4 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
             />
           </div>
         </form>
@@ -299,7 +299,7 @@ const CampaignFilters = ({
         <select
           value={filters.status || ''}
           onChange={(e) => onFiltersChange({ ...filters, status: e.target.value })}
-          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
         >
           {statusOptions.map(option => (
             <option key={option.value} value={option.value}>
@@ -312,7 +312,7 @@ const CampaignFilters = ({
         <select
           value={filters.type || ''}
           onChange={(e) => onFiltersChange({ ...filters, type: e.target.value })}
-          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
         >
           {typeOptions.map(option => (
             <option key={option.value} value={option.value}>
@@ -366,7 +366,7 @@ const CampaignActions = ({
             className="fixed inset-0 z-10" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 top-8 z-20 w-48 bg-background border border-border rounded-lg shadow-lg py-1">
+          <div className="absolute right-0 top-8 z-20 w-48 bg-background border border-border rounded-token-lg shadow-lg py-1">
             <button
               onClick={() => { onView(campaign._id); setIsOpen(false) }}
               className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-muted flex items-center gap-2"
@@ -553,10 +553,10 @@ const CampaignCard = ({
   onView: (id: string) => void
 }) => {
   return (
-    <div className="text-foreground bg-background p-4 rounded-lg border space-y-4">
+    <div className="text-foreground bg-background p-4 rounded-token-lg border space-y-token-md">
       {/* Header */}
       <div className="flex justify-between items-start">
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-token-sm">
           <H3 className="text-foreground">{campaign.name}</H3>
           <BodyText size="sm" className="text-aurora-nav-muted bg-background">
             {campaign.subject}
@@ -579,7 +579,7 @@ const CampaignCard = ({
 
       {/* Metrics */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="text-center p-3 bg-muted rounded-lg">
+        <div className="text-center p-3 bg-muted rounded-token-lg">
           <div className="text-lg font-medium text-foreground">
             {campaign.analytics.sent.toLocaleString()}
           </div>
@@ -587,7 +587,7 @@ const CampaignCard = ({
             Sent
           </BodyText>
         </div>
-        <div className="text-center p-3 bg-muted rounded-lg">
+        <div className="text-center p-3 bg-muted rounded-token-lg">
           <div className="text-lg font-medium text-foreground">
             {campaign.analytics.openRate.toFixed(1)}%
           </div>
@@ -595,7 +595,7 @@ const CampaignCard = ({
             Open Rate
           </BodyText>
         </div>
-        <div className="text-center p-3 bg-muted rounded-lg">
+        <div className="text-center p-3 bg-muted rounded-token-lg">
           <div className="text-lg font-medium text-foreground">
             {campaign.analytics.clickRate.toFixed(1)}%
           </div>
@@ -603,7 +603,7 @@ const CampaignCard = ({
             Click Rate
           </BodyText>
         </div>
-        <div className="text-center p-3 bg-muted rounded-lg">
+        <div className="text-center p-3 bg-muted rounded-token-lg">
           <div className="text-lg font-medium text-foreground">
             ${campaign.analytics.revenue.toLocaleString()}
           </div>
@@ -839,14 +839,14 @@ export default function CampaignManagement({
   if (loading && !data) {
     return (
       <div className="space-y-6">
-        <div className="animate-pulse space-y-4">
+        <div className="animate-pulse space-y-token-md">
           <div className="h-8 bg-muted rounded w-1/3"></div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-muted rounded-lg"></div>
+              <div key={i} className="h-24 bg-muted rounded-token-lg"></div>
             ))}
           </div>
-          <div className="h-64 bg-muted rounded-lg"></div>
+          <div className="h-64 bg-muted rounded-token-lg"></div>
         </div>
       </div>
     )
@@ -855,7 +855,7 @@ export default function CampaignManagement({
   // Error state
   if (error) {
     return (
-      <div className="text-foreground bg-background p-6 rounded-lg border text-center">
+      <div className="text-foreground bg-background p-6 rounded-token-lg border text-center">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <H2 className="mb-2 text-foreground">Failed to Load Campaigns</H2>
         <BodyText className="text-aurora-nav-muted bg-background mb-4">
@@ -936,7 +936,7 @@ export default function CampaignManagement({
 
       {/* Campaigns List */}
       {data.campaigns.length === 0 ? (
-        <div className="text-foreground bg-background p-8 rounded-lg border text-center">
+        <div className="text-foreground bg-background p-8 rounded-token-lg border text-center">
           <Mail className="w-12 h-12 text-aurora-nav-muted mx-auto mb-4" />
           <H2 className="mb-2 text-foreground">No Campaigns Found</H2>
           <BodyText className="text-aurora-nav-muted bg-background mb-6">
@@ -953,7 +953,7 @@ export default function CampaignManagement({
       ) : (
         <>
           {/* Desktop Table */}
-          <div className="hidden lg:block text-foreground bg-background rounded-lg border overflow-hidden">
+          <div className="hidden lg:block text-foreground bg-background rounded-token-lg border overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-muted">
@@ -1000,7 +1000,7 @@ export default function CampaignManagement({
           </div>
 
           {/* Mobile Cards */}
-          <div className="lg:hidden space-y-4">
+          <div className="lg:hidden space-y-token-md">
             {data.campaigns.map(campaign => (
               <CampaignCard
                 key={campaign._id}

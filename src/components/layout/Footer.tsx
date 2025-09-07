@@ -156,7 +156,7 @@ function AccordionSection({ section, isOpen, onToggle, sectionKey }: AccordionSe
                 <Link
                   key={index}
                   href={link.href}
-                  className="flex items-center space-x-2 text-high-contrast hover:text-accent transition-colors duration-300 py-1"
+                  className="flex items-center space-x-token-sm text-high-contrast hover:text-accent transition-colors duration-300 py-1"
                 >
                   <div className="w-1.5 h-1.5 bg-accent rounded-full flex-shrink-0" />
                   <BodyText size="sm" className="text-current">{link.name}</BodyText>
@@ -278,12 +278,12 @@ export function Footer({ className }: FooterProps) {
               
               {/* Desktop navigation links */}
               {section.links && (
-                <div className="space-y-2">
+                <div className="space-y-token-sm">
                   {section.links.map((link, index) => (
                     <Link
                       key={index}
                       href={link.href}
-                      className="flex items-center space-x-2 text-high-contrast hover:text-accent transition-colors duration-300"
+                      className="flex items-center space-x-token-sm text-high-contrast hover:text-accent transition-colors duration-300"
                     >
                       <div className="w-1.5 h-1.5 bg-accent rounded-full" />
                       <BodyText size="sm" className="text-current">{link.name}</BodyText>
@@ -294,9 +294,9 @@ export function Footer({ className }: FooterProps) {
               
               {/* Desktop value items */}
               {section.items && (
-                <ul className="space-y-2">
+                <ul className="space-y-token-sm">
                   {section.items.map((item, index) => (
-                    <li key={index} className="flex items-start space-x-2">
+                    <li key={index} className="flex items-start space-x-token-sm">
                       <div className="w-1.5 h-1.5 bg-accent rounded-full mt-1.5" />
                       <BodyText size="sm" className="text-high-contrast">
                         {item}
@@ -308,13 +308,13 @@ export function Footer({ className }: FooterProps) {
               
               {/* Desktop FAQ */}
               {section.faqs && (
-                <div className="mt-4 space-y-2">
+                <div className="mt-4 space-y-token-sm">
                   <BodyText size="sm" weight="medium" className="text-high-contrast mb-3">
                     FAQ
                   </BodyText>
                   {section.faqs.map((faq, index) => (
                     <details key={index} className="group cursor-pointer">
-                      <summary className="flex items-start space-x-2 text-high-contrast hover:text-accent transition-colors list-none">
+                      <summary className="flex items-start space-x-token-sm text-high-contrast hover:text-accent transition-colors list-none">
                         <div className="w-1.5 h-1.5 bg-accent rounded-full mt-1.5" />
                         <BodyText size="sm">{faq.question}</BodyText>
                       </summary>
@@ -360,21 +360,21 @@ export function Footer({ className }: FooterProps) {
             </div>
             
             {/* Contact & Social */}
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
+            <div className="space-y-token-md">
+              <div className="space-y-token-sm">
+                <div className="flex items-center space-x-token-sm">
                   <Mail size={16} className="text-high-contrast" />
                   <a href="mailto:hello@glowglitch.com" className="text-high-contrast hover:text-accent transition-colors">
                     <BodyText size="sm">hello@glowglitch.com</BodyText>
                   </a>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-token-sm">
                   <Phone size={16} className="text-high-contrast" />
                   <a href="tel:+1-555-GLOW-GEM" className="text-high-contrast hover:text-accent transition-colors">
                     <BodyText size="sm">+1 (555) GLOW-GEM</BodyText>
                   </a>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-token-sm">
                   <MapPin size={16} className="text-high-contrast" />
                   <BodyText size="sm" className="text-high-contrast">
                     Available 24/7 Virtual consultations
@@ -383,7 +383,7 @@ export function Footer({ className }: FooterProps) {
               </div>
               
               {/* Social Links */}
-              <div className="flex space-x-4">
+              <div className="flex space-x-token-md">
                 {socialLinks.map((social) => (
                   <Button
                     key={social.name}
@@ -408,7 +408,7 @@ export function Footer({ className }: FooterProps) {
         
         {/* Legal Links */}
         <div className="py-6 border-t border-background/10">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-token-md md:space-y-0">
             <div className="flex flex-wrap justify-center md:justify-start gap-4">
               {legalLinks.map((link) => (
                 <Link

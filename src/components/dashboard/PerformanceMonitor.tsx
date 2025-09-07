@@ -165,7 +165,7 @@ export function PerformanceMonitor() {
     return (
       <Card>
         <CardContent className="p-6">
-          <div className="flex items-center justify-center space-x-2">
+          <div className="flex items-center justify-center space-x-token-sm">
             <RefreshCw className="w-4 h-4 animate-spin" />
             <span>Loading system metrics...</span>
           </div>
@@ -184,7 +184,7 @@ export function PerformanceMonitor() {
             Real-time system metrics and optimization recommendations
           </p>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-token-sm">
           <Button
             variant="outline"
             size="sm"
@@ -215,7 +215,7 @@ export function PerformanceMonitor() {
           <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-4">
+        <TabsContent value="overview" className="space-y-token-md">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Memory Usage */}
             <Card>
@@ -300,7 +300,7 @@ export function PerformanceMonitor() {
           </div>
         </TabsContent>
 
-        <TabsContent value="resources" className="space-y-4">
+        <TabsContent value="resources" className="space-y-token-md">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Memory Details */}
             <Card>
@@ -310,8 +310,8 @@ export function PerformanceMonitor() {
                   Memory Usage
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
+              <CardContent className="space-y-token-md">
+                <div className="space-y-token-sm">
                   <div className="flex justify-between text-sm">
                     <span>Used</span>
                     <span>{formatBytes(metrics?.memory.used || 0)}</span>
@@ -338,8 +338,8 @@ export function PerformanceMonitor() {
                   Disk Usage
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
+              <CardContent className="space-y-token-md">
+                <div className="space-y-token-sm">
                   <div className="flex justify-between text-sm">
                     <span>Used</span>
                     <span>{formatBytes(metrics?.disk.used || 0)}</span>
@@ -364,13 +364,13 @@ export function PerformanceMonitor() {
           </div>
         </TabsContent>
 
-        <TabsContent value="generation" className="space-y-4">
+        <TabsContent value="generation" className="space-y-token-md">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
                 <CardTitle>Job Statistics</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-token-md">
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-sm">Total Jobs</span>
@@ -396,7 +396,7 @@ export function PerformanceMonitor() {
               <CardHeader>
                 <CardTitle>Performance</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-token-md">
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-sm">Avg Completion</span>
@@ -426,7 +426,7 @@ export function PerformanceMonitor() {
               <CardHeader>
                 <CardTitle>Current Status</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-token-md">
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-sm">Active Jobs</span>
@@ -450,8 +450,8 @@ export function PerformanceMonitor() {
           </div>
         </TabsContent>
 
-        <TabsContent value="recommendations" className="space-y-4">
-          <div className="space-y-4">
+        <TabsContent value="recommendations" className="space-y-token-md">
+          <div className="space-y-token-md">
             {recommendations.length === 0 ? (
               <Card>
                 <CardContent className="p-6 text-center">

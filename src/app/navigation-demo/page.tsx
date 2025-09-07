@@ -48,7 +48,7 @@ export default function NavigationDemoPage() {
       <div className="relative">
         <AuroraNavigation />
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4 mx-4 mt-4">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-token-sm">
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
             <span className="text-sm font-medium text-blue-800">
               Aurora Navigation System Active - Simplified & Functional
@@ -76,7 +76,7 @@ export default function NavigationDemoPage() {
           <div className="grid lg:grid-cols-3 gap-8 mb-16">
             
             {/* Option 1: Volume-First */}
-            <div className="bg-background rounded-2xl border border-border p-6 space-y-4">
+            <div className="bg-background rounded-2xl border border-border p-6 space-y-token-md">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-cta/20 to-accent/20 rounded-xl flex items-center justify-center">
                   <Layers className="w-6 h-6 text-cta" />
@@ -88,7 +88,7 @@ export default function NavigationDemoPage() {
                 Direct promotion strategy with Moissanite prominently featured in navigation and pricing transparency.
               </p>
               
-              <div className="space-y-2">
+              <div className="space-y-token-sm">
                 <h4 className="text-foreground bg-background font-medium text-sm">Key Features:</h4>
                 <div className="space-y-1">
                   {[
@@ -97,7 +97,7 @@ export default function NavigationDemoPage() {
                     'Volume incentives and badges',
                     '24-48hr shipping emphasis'
                   ].map((feature, index) => (
-                    <div key={index} className="flex items-center space-x-2 text-xs text-aurora-nav-muted bg-background">
+                    <div key={index} className="flex items-center space-x-token-sm text-xs text-aurora-nav-muted bg-background">
                       <Check className="w-3 h-3 text-green-600" />
                       <span>{feature}</span>
                     </div>
@@ -111,7 +111,7 @@ export default function NavigationDemoPage() {
             </div>
 
             {/* Option 2: Creator-Led */}
-            <div className="bg-background rounded-2xl border border-border p-6 space-y-4">
+            <div className="bg-background rounded-2xl border border-border p-6 space-y-token-md">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center">
                   <Users className="w-6 h-6 text-purple-600" />
@@ -123,7 +123,7 @@ export default function NavigationDemoPage() {
                 Leverages creator influence and social proof to drive Moissanite adoption through authentic content.
               </p>
               
-              <div className="space-y-2">
+              <div className="space-y-token-sm">
                 <h4 className="text-foreground bg-background font-medium text-sm">Key Features:</h4>
                 <div className="space-y-1">
                   {[
@@ -132,7 +132,7 @@ export default function NavigationDemoPage() {
                     'Social commerce features',
                     'Community-driven recommendations'
                   ].map((feature, index) => (
-                    <div key={index} className="flex items-center space-x-2 text-xs text-aurora-nav-muted bg-background">
+                    <div key={index} className="flex items-center space-x-token-sm text-xs text-aurora-nav-muted bg-background">
                       <Check className="w-3 h-3 text-green-600" />
                       <span>{feature}</span>
                     </div>
@@ -146,7 +146,7 @@ export default function NavigationDemoPage() {
             </div>
 
             {/* Option 3: Smart Value */}
-            <div className="bg-background rounded-2xl border border-border p-6 space-y-4">
+            <div className="bg-background rounded-2xl border border-border p-6 space-y-token-md">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-green-100 rounded-xl flex items-center justify-center">
                   <Brain className="w-6 h-6 text-blue-600" />
@@ -158,7 +158,7 @@ export default function NavigationDemoPage() {
                 AI-driven personalization that intelligently promotes volume products based on user behavior.
               </p>
               
-              <div className="space-y-2">
+              <div className="space-y-token-sm">
                 <h4 className="text-foreground bg-background font-medium text-sm">Key Features:</h4>
                 <div className="space-y-1">
                   {[
@@ -167,7 +167,7 @@ export default function NavigationDemoPage() {
                     'Behavioral adaptation system',
                     'Gamified impact scoring'
                   ].map((feature, index) => (
-                    <div key={index} className="flex items-center space-x-2 text-xs text-aurora-nav-muted bg-background">
+                    <div key={index} className="flex items-center space-x-token-sm text-xs text-aurora-nav-muted bg-background">
                       <Check className="w-3 h-3 text-green-600" />
                       <span>{feature}</span>
                     </div>
@@ -188,9 +188,9 @@ export default function NavigationDemoPage() {
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <h3 className="text-foreground bg-background font-semibold text-lg">Phase 1: A/B Testing</h3>
-                <ul className="space-y-2 text-sm text-aurora-nav-muted bg-background">
+                <ul className="space-y-token-sm text-sm text-aurora-nav-muted bg-background">
                   <li>• Test each navigation option with 33% traffic split</li>
                   <li>• Monitor Moissanite collection engagement rates</li>
                   <li>• Track 3D customizer usage and conversions</li>
@@ -198,9 +198,9 @@ export default function NavigationDemoPage() {
                 </ul>
               </div>
               
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <h3 className="text-foreground bg-background font-semibold text-lg">Phase 2: Optimization</h3>
-                <ul className="space-y-2 text-sm text-aurora-nav-muted bg-background">
+                <ul className="space-y-token-sm text-sm text-aurora-nav-muted bg-background">
                   <li>• Implement winning navigation option</li>
                   <li>• Integrate successful elements from other options</li>
                   <li>• Fine-tune Moissanite promotion strategies</li>
@@ -217,19 +217,19 @@ export default function NavigationDemoPage() {
             </h2>
             
             <div className="grid md:grid-cols-4 gap-6">
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-token-sm">
                 <div className="text-3xl font-bold text-cta bg-background">+35%</div>
                 <div className="text-sm text-aurora-nav-muted bg-background">Moissanite Page Visits</div>
               </div>
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-token-sm">
                 <div className="text-3xl font-bold text-accent bg-background">+40%</div>
                 <div className="text-sm text-aurora-nav-muted bg-background">3D Customizer Usage</div>
               </div>
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-token-sm">
                 <div className="text-3xl font-bold text-green-600">+50%</div>
                 <div className="text-sm text-aurora-nav-muted bg-background">Creator Sign-ups</div>
               </div>
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-token-sm">
                 <div className="text-3xl font-bold text-blue-600">+25%</div>
                 <div className="text-sm text-aurora-nav-muted bg-background">Mobile Conversion</div>
               </div>

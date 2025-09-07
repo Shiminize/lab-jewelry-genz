@@ -87,7 +87,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
         <h2 className="text-2xl font-bold text-foreground">{title}</h2>
         
         {products.length > visibleCount && (
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-token-sm">
             <button
               onClick={prevSlide}
               disabled={currentIndex === 0}
@@ -155,7 +155,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
                     
                     {/* Quick Actions Overlay */}
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-x-2">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-x-token-sm">
                         <button className="p-2 bg-background rounded-full shadow-lg hover:shadow-xl transition-shadow">
                           <svg className="w-4 h-4 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -193,7 +193,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
                     </h3>
 
                     {/* Rating */}
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-token-sm">
                       {renderStars(product.rating)}
                       <span className="text-xs text-aurora-nav-muted">
                         ({product.reviewCount})
@@ -201,7 +201,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
                     </div>
 
                     {/* Price */}
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-token-sm">
                       <span className="text-lg font-bold text-foreground">
                         ${product.price.current.toFixed(2)}
                       </span>
@@ -219,7 +219,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
                         // Add to cart logic here
                         console.log('Quick add to cart:', product.id)
                       }}
-                      className="w-full py-2 px-4 bg-cta text-background text-sm font-medium rounded-lg hover:bg-cta-hover transition-colors opacity-0 group-hover:opacity-100 duration-300"
+                      className="w-full py-2 px-4 bg-cta text-background text-sm font-medium rounded-token-lg hover:bg-cta-hover transition-colors opacity-0 group-hover:opacity-100 duration-300"
                     >
                       Quick Add
                     </button>
@@ -233,7 +233,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
 
       {/* Dots Indicator */}
       {products.length > visibleCount && (
-        <div className="flex justify-center space-x-2 mt-6">
+        <div className="flex justify-center space-x-token-sm mt-6">
           {Array.from({ length: maxIndex + 1 }, (_, index) => (
             <button
               key={index}
@@ -251,7 +251,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
       <div className="text-center mt-8">
         <Link
           href="/products"
-          className="inline-flex items-center px-6 py-3 border border-border text-base font-medium rounded-lg text-foreground bg-background hover:bg-muted/10 hover:border-accent transition-colors"
+          className="inline-flex items-center px-6 py-3 border border-border text-base font-medium rounded-token-lg text-foreground bg-background hover:bg-muted/10 hover:border-accent transition-colors"
         >
           View All Products
           <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

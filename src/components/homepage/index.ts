@@ -8,7 +8,7 @@ export { ValuePropositionSection } from './ValuePropositionSection'
 export { EnhancedValueProposition } from './EnhancedValueProposition'
 export { FeaturedProductsSection } from './FeaturedProductsSection'
 export { CustomizerPreviewSection } from './CustomizerPreviewSection'
-export { default as StyleQuizSection } from './StyleQuizSection'
+export { StyleQuizSection } from './StyleQuizSection'
 export { default as SocialProofSection } from './SocialProofSection'
 export { SustainabilityStorySection } from './SustainabilityStorySection'
 

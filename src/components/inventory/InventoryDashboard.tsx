@@ -61,14 +61,14 @@ export function InventoryDashboard({ className }: InventoryDashboardProps) {
   if (isLoading) {
     return (
       <div className={cn('space-y-6', className)}>
-        <div className="animate-pulse space-y-4">
+        <div className="animate-pulse space-y-token-md">
           <div className="h-8 bg-muted rounded w-1/3" />
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-24 bg-muted rounded-lg" />
+              <div key={i} className="h-24 bg-muted rounded-token-lg" />
             ))}
           </div>
-          <div className="h-64 bg-muted rounded-lg" />
+          <div className="h-64 bg-muted rounded-token-lg" />
         </div>
       </div>
     )
@@ -228,13 +228,13 @@ function StatsCard({ title, value, icon: Icon, trend, color }: StatsCardProps) {
   }
 
   return (
-    <div className="p-4 border border-border rounded-lg bg-background">
+    <div className="p-4 border border-border rounded-token-lg bg-background">
       <div className="flex items-center justify-between">
         <div>
           <MutedText size="sm" className="mb-1">{title}</MutedText>
           <BodyText size="xl" weight="bold">{value}</BodyText>
         </div>
-        <div className={cn('p-2 rounded-lg', colorClasses[color])}>
+        <div className={cn('p-2 rounded-token-lg', colorClasses[color])}>
           <Icon className="w-5 h-5" />
         </div>
       </div>
@@ -257,7 +257,7 @@ function StatsCard({ title, value, icon: Icon, trend, color }: StatsCardProps) {
 // Inventory Health Overview
 function InventoryHealthOverview({ stats, isHealthy }: { stats: any; isHealthy: boolean }) {
   return (
-    <div className="p-6 border border-border rounded-lg bg-background">
+    <div className="p-6 border border-border rounded-token-lg bg-background">
       <div className="flex items-center justify-between mb-4">
         <H3>Inventory Health</H3>
         <div className={cn(
@@ -268,7 +268,7 @@ function InventoryHealthOverview({ stats, isHealthy }: { stats: any; isHealthy: 
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         <div className="flex items-center justify-between">
           <BodyText>Overall Health Score</BodyText>
           <BodyText weight="semibold">{stats.stockHealthPercentage}%</BodyText>
@@ -307,8 +307,8 @@ function InventoryHealthOverview({ stats, isHealthy }: { stats: any; isHealthy: 
 // Quick Stats
 function QuickStats({ stats, alerts }: { stats: any; alerts: any[] }) {
   return (
-    <div className="space-y-4">
-      <div className="p-4 border border-border rounded-lg bg-background">
+    <div className="space-y-token-md">
+      <div className="p-4 border border-border rounded-token-lg bg-background">
         <div className="flex items-center gap-2 mb-3">
           <Activity className="w-4 h-4 text-accent" />
           <BodyText weight="medium">Quick Stats</BodyText>
@@ -333,12 +333,12 @@ function QuickStats({ stats, alerts }: { stats: any; alerts: any[] }) {
         </div>
       </div>
 
-      <div className="p-4 border border-border rounded-lg bg-background">
+      <div className="p-4 border border-border rounded-token-lg bg-background">
         <div className="flex items-center gap-2 mb-3">
           <AlertTriangle className="w-4 h-4 text-warning" />
           <BodyText weight="medium">Active Alerts</BodyText>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-token-sm">
           <div className="flex justify-between">
             <MutedText size="sm">Critical</MutedText>
             <BodyText size="sm" className="text-destructive">
@@ -393,7 +393,7 @@ function ProductsTab({
   onStatusFilterChange: (status: InventoryUpdate['status'] | 'all') => void
 }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-token-md">
       {/* Filter */}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
@@ -437,7 +437,7 @@ function InventoryStatusGrid({
   products: InventoryUpdate[] 
 }) {
   return (
-    <div className="border border-border rounded-lg p-4">
+    <div className="border border-border rounded-token-lg p-4">
       <BodyText weight="medium" className="mb-4">{title}</BodyText>
       <div className="space-y-3 max-h-64 overflow-y-auto">
         {products.length === 0 ? (

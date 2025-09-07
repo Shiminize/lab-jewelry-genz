@@ -13,16 +13,39 @@
 /* ===== TYPOGRAPHY SCALE FOUNDATION ===== */
 
 :root {
-  /* Fluid Typography Scale - Mobile First */
-  --type-scale-display: clamp(2.5rem, 6vw, 4rem);       /* 40px → 64px */
-  --type-scale-h1: clamp(2rem, 5vw, 3rem);              /* 32px → 48px */
-  --type-scale-h2: clamp(1.5rem, 4vw, 2.25rem);         /* 24px → 36px */
-  --type-scale-h3: clamp(1.25rem, 3vw, 1.75rem);        /* 20px → 28px */
-  --type-scale-h4: clamp(1.125rem, 2.5vw, 1.5rem);      /* 18px → 24px */
-  --type-scale-body-lg: clamp(1.125rem, 2vw, 1.25rem);  /* 18px → 20px */
-  --type-scale-body: clamp(1rem, 1.5vw, 1.125rem);      /* 16px → 18px */
-  --type-scale-body-sm: clamp(0.875rem, 1vw, 1rem);     /* 14px → 16px */
-  --type-scale-caption: clamp(0.75rem, 1vw, 0.875rem);  /* 12px → 14px */
+  /* Aurora Design System Typography Scale - EXACT SPECIFICATION */
+  /* Hero: clamp(3rem, 8vw, 6rem) */
+  /* Statement: clamp(2.5rem, 6vw, 4rem) */
+  /* Title XL: clamp(2rem, 4vw, 3rem) */
+  /* Title L: clamp(1.5rem, 3vw, 2.25rem) */
+  /* Title M: clamp(1.25rem, 2.5vw, 1.75rem) */
+  /* Body XL: clamp(1.125rem, 2vw, 1.5rem) */
+  /* Body L: 1.125rem */
+  /* Body M: 1rem */
+  /* Small: 0.875rem */
+  /* Micro: 0.75rem */
+  
+  --type-scale-hero: clamp(3rem, 8vw, 6rem);           /* Aurora Hero */
+  --type-scale-statement: clamp(2.5rem, 6vw, 4rem);    /* Aurora Statement */
+  --type-scale-title-xl: clamp(2rem, 4vw, 3rem);       /* Aurora Title XL */
+  --type-scale-title-l: clamp(1.5rem, 3vw, 2.25rem);   /* Aurora Title L */
+  --type-scale-title-m: clamp(1.25rem, 2.5vw, 1.75rem); /* Aurora Title M */
+  --type-scale-body-xl: clamp(1.125rem, 2vw, 1.5rem);  /* Aurora Body XL */
+  --type-scale-body-l: 1.125rem;                       /* Aurora Body L */
+  --type-scale-body-m: 1rem;                           /* Aurora Body M */
+  --type-scale-small: 0.875rem;                        /* Aurora Small */
+  --type-scale-micro: 0.75rem;                         /* Aurora Micro */
+  
+  /* Legacy aliases for backward compatibility during migration */
+  --type-scale-display: var(--type-scale-hero);        /* Maps to Aurora Hero */
+  --type-scale-h1: var(--type-scale-title-xl);         /* Maps to Aurora Title XL */
+  --type-scale-h2: var(--type-scale-title-l);          /* Maps to Aurora Title L */
+  --type-scale-h3: var(--type-scale-title-m);          /* Maps to Aurora Title M */
+  --type-scale-h4: var(--type-scale-body-xl);          /* Maps to Aurora Body XL */
+  --type-scale-body-lg: var(--type-scale-body-xl);     /* Maps to Aurora Body XL */
+  --type-scale-body: var(--type-scale-body-m);         /* Maps to Aurora Body M */
+  --type-scale-body-sm: var(--type-scale-small);       /* Maps to Aurora Small */
+  --type-scale-caption: var(--type-scale-micro);       /* Maps to Aurora Micro */
 
   /* Line Height Scale */
   --line-height-tight: 1.1;    /* For display and large headlines */
@@ -46,7 +69,99 @@
   --font-weight-extrabold: 800;
 }
 
-/* ===== DISPLAY TYPOGRAPHY ===== */
+/* ===== AURORA DESIGN SYSTEM TYPOGRAPHY CLASSES ===== */
+
+.aurora-hero {
+  font-family: 'Celestial Sans', var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-hero);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tighter);
+  color: var(--deep-space, #0A0E27);
+}
+
+.aurora-statement {
+  font-family: 'Celestial Sans', var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-statement);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--deep-space, #0A0E27);
+}
+
+.aurora-title-xl {
+  font-family: 'Celestial Sans', var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-title-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--deep-space, #0A0E27);
+}
+
+.aurora-title-l {
+  font-family: 'Celestial Sans', var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-title-l);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--deep-space, #0A0E27);
+}
+
+.aurora-title-m {
+  font-family: 'Celestial Sans', var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-title-m);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--deep-space, #0A0E27);
+}
+
+.aurora-body-xl {
+  font-family: 'Celestial Sans', var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-xl);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--deep-space, #0A0E27);
+}
+
+.aurora-body-l {
+  font-family: 'Celestial Sans', var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-l);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--deep-space, #0A0E27);
+}
+
+.aurora-body-m {
+  font-family: 'Celestial Sans', var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-m);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--deep-space, #0A0E27);
+}
+
+.aurora-small {
+  font-family: 'Celestial Sans', var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--deep-space, #0A0E27);
+}
+
+.aurora-micro {
+  font-family: 'Celestial Sans', var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-micro);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--deep-space, #0A0E27);
+}
+
+/* ===== LEGACY TYPOGRAPHY (MAINTAINED FOR COMPATIBILITY) ===== */
 
 .typography-display {
   font-family: var(--font-headline), 'Fraunces', serif;
@@ -54,7 +169,7 @@
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   letter-spacing: var(--letter-spacing-tighter);
-  color: var(--aurora-deep-space, #0A0E27);
+  color: var(--deep-space, #0A0E27);
 }
 
 .typography-display-gradient {
@@ -195,32 +310,32 @@
 
 /* ===== TEXT COLOR VARIANTS ===== */
 
-.text-muted {
-  color: var(--aurora-nav-muted, #6B7280) !important;
+.text-muted.text-muted {
+  color: var(--aurora-nav-muted, #6B7280);
 }
 
-.text-aurora-accent {
-  color: var(--aurora-nebula-purple, #6B46C1) !important;
+.text-aurora-accent.text-aurora-accent {
+  color: var(--aurora-nebula-purple, #6B46C1);
 }
 
-.text-aurora-pink {
-  color: var(--aurora-pink, #FF6B9D) !important;
+.text-aurora-pink.text-aurora-pink {
+  color: var(--aurora-pink, #FF6B9D);
 }
 
-.text-aurora-crimson {
-  color: var(--aurora-crimson, #C44569) !important;
+.text-aurora-crimson.text-aurora-crimson {
+  color: var(--aurora-crimson, #C44569);
 }
 
-.text-success {
-  color: var(--aurora-emerald-flash, #10B981) !important;
+.text-success.text-success {
+  color: var(--aurora-emerald-flash, #10B981);
 }
 
-.text-warning {
-  color: var(--aurora-amber-glow, #F59E0B) !important;
+.text-warning.text-warning {
+  color: var(--aurora-amber-glow, #F59E0B);
 }
 
-.text-high-contrast {
-  color: var(--white, #FFFFFF) !important;
+.text-high-contrast.text-high-contrast {
+  color: var(--white, #FFFFFF);
 }
 
 /* ===== INTERACTIVE TYPOGRAPHY ===== */
@@ -343,11 +458,11 @@
   .typography-carat-display,
   .typography-metal-type,
   .typography-cta {
-    color: #000 !important;
+    color: #000;
   }
   
   .typography-link {
-    color: #000 !important;
-    text-decoration: underline !important;
+    color: #000;
+    text-decoration: underline;
   }
 }

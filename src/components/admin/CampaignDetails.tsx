@@ -101,7 +101,7 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       case 'active':
         return { 
           text: 'Active', 
-          className: 'bg-green-100 text-green-800 border-green-200',
+          className: 'bg-aurora-emerald-flash/10 text-aurora-emerald-flash border-aurora-emerald-flash/20',
           icon: Play
         }
       case 'draft':
@@ -113,19 +113,19 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       case 'scheduled':
         return { 
           text: 'Scheduled', 
-          className: 'bg-blue-100 text-blue-800 border-blue-200',
+          className: 'bg-aurora-nebula-purple/10 text-aurora-nebula-purple border-aurora-nebula-purple/20',
           icon: Clock
         }
       case 'paused':
         return { 
           text: 'Paused', 
-          className: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+          className: 'bg-aurora-amber-glow/10 text-aurora-amber-glow border-aurora-amber-glow/20',
           icon: Pause
         }
       case 'completed':
         return { 
           text: 'Completed', 
-          className: 'bg-green-100 text-green-800 border-green-200',
+          className: 'bg-aurora-emerald-flash/10 text-aurora-emerald-flash border-aurora-emerald-flash/20',
           icon: CheckCircle
         }
       case 'cancelled':
@@ -183,15 +183,15 @@ const MetricCard = ({
   }
 
   return (
-    <div className="text-foreground bg-background p-6 rounded-lg border space-y-4">
+    <div className="text-foreground bg-background p-6 rounded-token-lg border space-y-token-md">
       <div className="flex items-center justify-between">
-        <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+        <div className="w-10 h-10 bg-accent/10 rounded-token-lg flex items-center justify-center">
           <Icon className="w-5 h-5 text-accent" />
         </div>
         {change && (
           <div className={cn(
             "flex items-center gap-1 text-sm font-medium",
-            change.isIncrease ? "text-green-600" : "text-red-600"
+            change.isIncrease ? "text-aurora-emerald-flash" : "text-red-600"
           )}>
             {change.isIncrease ? (
               <TrendingUp className="w-4 h-4" />
@@ -314,7 +314,7 @@ const CampaignTimeline = ({
     title: 'Campaign Created',
     description: `Created by ${campaign.creatorName || 'Unknown'}`,
     icon: Edit3,
-    color: 'text-blue-600'
+    color: 'text-aurora-nebula-purple'
   })
 
   // Add sent event
@@ -324,7 +324,7 @@ const CampaignTimeline = ({
       title: 'Campaign Sent',
       description: `Sent to ${campaign.analytics.sent.toLocaleString()} recipients`,
       icon: Send,
-      color: 'text-green-600'
+      color: 'text-aurora-emerald-flash'
     })
   }
 
@@ -335,7 +335,7 @@ const CampaignTimeline = ({
       title: 'Campaign Completed',
       description: 'Campaign finished sending',
       icon: CheckCircle,
-      color: 'text-green-600'
+      color: 'text-aurora-emerald-flash'
     })
   }
 
@@ -343,18 +343,18 @@ const CampaignTimeline = ({
   events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
   return (
-    <div className="text-foreground bg-background p-6 rounded-lg border">
+    <div className="text-foreground bg-background p-6 rounded-token-lg border">
       <H3 className="mb-4 text-foreground">Campaign Timeline</H3>
       
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         {events.map((event, index) => {
           const Icon = event.icon
           return (
             <div key={index} className="flex items-start gap-4">
               <div className={cn(
                 'w-8 h-8 rounded-full flex items-center justify-center bg-background border-2',
-                event.color === 'text-blue-600' && 'border-blue-200',
-                event.color === 'text-green-600' && 'border-green-200'
+                event.color === 'text-aurora-nebula-purple' && 'border-aurora-nebula-purple/20',
+                event.color === 'text-aurora-emerald-flash' && 'border-aurora-emerald-flash/20'
               )}>
                 <Icon className={cn('w-4 h-4', event.color)} />
               </div>
@@ -385,16 +385,16 @@ const AnalyticsCharts = ({
   return (
     <div className="space-y-6">
       {/* Performance Over Time */}
-      <div className="text-foreground bg-background p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-token-lg border">
         <H3 className="mb-4 text-foreground">Performance Timeline</H3>
         
         {analytics.timeline.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             <BodyText className="text-aurora-nav-muted bg-background">
               Daily opens, clicks, and revenue data
             </BodyText>
             {/* Chart would go here - using placeholder for now */}
-            <div className="h-64 bg-muted rounded-lg flex items-center justify-center">
+            <div className="h-64 bg-muted rounded-token-lg flex items-center justify-center">
               <div className="text-center">
                 <BarChart3 className="w-12 h-12 text-aurora-nav-muted mx-auto mb-2" />
                 <BodyText className="text-aurora-nav-muted bg-muted">
@@ -415,12 +415,12 @@ const AnalyticsCharts = ({
 
       {/* Top Links */}
       {analytics.topLinks.length > 0 && (
-        <div className="text-foreground bg-background p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-token-lg border">
           <H3 className="mb-4 text-foreground">Top Clicked Links</H3>
           
           <div className="space-y-3">
             {analytics.topLinks.map((link, index) => (
-              <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 bg-muted rounded-token-lg">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <ExternalLink className="w-4 h-4 text-accent flex-shrink-0" />
                   <div className="min-w-0 flex-1">
@@ -440,7 +440,7 @@ const AnalyticsCharts = ({
 
       {/* Device Breakdown */}
       {analytics.deviceBreakdown.length > 0 && (
-        <div className="text-foreground bg-background p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-token-lg border">
           <H3 className="mb-4 text-foreground">Device Breakdown</H3>
           
           <div className="space-y-3">
@@ -692,10 +692,10 @@ export default function CampaignDetails({
             <div className="h-8 bg-muted rounded w-1/3"></div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="h-24 bg-muted rounded-lg"></div>
+                <div key={i} className="h-24 bg-muted rounded-token-lg"></div>
               ))}
             </div>
-            <div className="h-64 bg-muted rounded-lg"></div>
+            <div className="h-64 bg-muted rounded-token-lg"></div>
           </div>
         </div>
       </div>
@@ -707,7 +707,7 @@ export default function CampaignDetails({
     return (
       <div className="min-h-screen bg-background">
         <div className="max-w-6xl mx-auto p-6">
-          <div className="text-foreground bg-background p-8 rounded-lg border text-center">
+          <div className="text-foreground bg-background p-8 rounded-token-lg border text-center">
             <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <H2 className="mb-2 text-foreground">Failed to Load Campaign</H2>
             <BodyText className="text-aurora-nav-muted bg-background mb-6">
@@ -796,11 +796,11 @@ export default function CampaignDetails({
           {/* Campaign Details */}
           <div className="lg:col-span-2 space-y-6">
             {/* Basic Information */}
-            <div className="text-foreground bg-background p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-token-lg border">
               <H2 className="mb-4 text-foreground">Campaign Information</H2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
+                <div className="space-y-token-md">
                   <div>
                     <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                       Campaign Type
@@ -829,7 +829,7 @@ export default function CampaignDetails({
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-token-md">
                   <div>
                     <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                       Created Date
@@ -875,11 +875,11 @@ export default function CampaignDetails({
             </div>
 
             {/* Target Audience */}
-            <div className="text-foreground bg-background p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-token-lg border">
               <H2 className="mb-4 text-foreground">Target Audience</H2>
               
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-accent/10 rounded-token-lg flex items-center justify-center">
                   <Users className="w-6 h-6 text-accent" />
                 </div>
                 <div>
@@ -894,7 +894,7 @@ export default function CampaignDetails({
 
               <div className="space-y-3">
                 {segments.map(segment => (
-                  <div key={segment._id} className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                  <div key={segment._id} className="flex justify-between items-center p-3 bg-muted rounded-token-lg">
                     <div className="font-medium text-foreground">
                       {segment.name}
                     </div>
@@ -912,10 +912,10 @@ export default function CampaignDetails({
             </div>
 
             {/* Email Preview */}
-            <div className="text-foreground bg-background p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-token-lg border">
               <H2 className="mb-4 text-foreground">Email Preview</H2>
               
-              <div className="border border-border rounded-lg overflow-hidden">
+              <div className="border border-border rounded-token-lg overflow-hidden">
                 {/* Email Header */}
                 <div className="bg-muted p-4 border-b border-border">
                   <div className="text-sm">
@@ -950,10 +950,10 @@ export default function CampaignDetails({
             <CampaignTimeline campaign={campaign} />
 
             {/* Quick Stats */}
-            <div className="text-foreground bg-background p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-token-lg border">
               <H3 className="mb-4 text-foreground">Quick Stats</H3>
               
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <div className="flex justify-between items-center">
                   <BodyText size="sm" className="text-aurora-nav-muted bg-background">
                     Delivered

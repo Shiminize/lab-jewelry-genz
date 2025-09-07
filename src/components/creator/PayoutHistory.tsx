@@ -128,11 +128,11 @@ export default function PayoutHistory() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'completed':
-        return <CheckCircle className="w-4 h-4 text-green-600" />
+        return <CheckCircle className="w-4 h-4 text-aurora-emerald-flash" />
       case 'processing':
-        return <Clock className="w-4 h-4 text-blue-600" />
+        return <Clock className="w-4 h-4 text-aurora-nebula-purple" />
       case 'pending':
-        return <AlertTriangle className="w-4 h-4 text-yellow-600" />
+        return <AlertTriangle className="w-4 h-4 text-aurora-amber-glow" />
       case 'failed':
         return <XCircle className="w-4 h-4 text-red-600" />
       default:
@@ -192,7 +192,7 @@ export default function PayoutHistory() {
         </div>
 
         {/* Status Filter */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-token-sm">
           <Filter className="w-4 h-4 text-aurora-nav-muted" />
           <select
             value={statusFilter}
@@ -200,7 +200,7 @@ export default function PayoutHistory() {
               setStatusFilter(e.target.value)
               setCurrentPage(1)
             }}
-            className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            className="border border-border rounded-token-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -226,7 +226,7 @@ export default function PayoutHistory() {
           </CardContent>
         </Card>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           {data.payouts.map((payout) => (
             <Card key={payout._id}>
               <CardContent className="p-6">
@@ -255,7 +255,7 @@ export default function PayoutHistory() {
                     </div>
 
                     {payout.paymentReference && (
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-token-sm">
                         <span className="text-sm text-aurora-nav-muted">Reference:</span>
                         <code className="text-sm bg-muted px-2 py-1 rounded font-mono">
                           {payout.paymentReference}
@@ -311,7 +311,7 @@ export default function PayoutHistory() {
               <div className="text-sm text-aurora-nav-muted">
                 Showing {((data.pagination.page - 1) * data.pagination.limit) + 1} to {Math.min(data.pagination.page * data.pagination.limit, data.pagination.total)} of {data.pagination.total} payouts
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <Button
                   size="sm"
                   variant="outline"

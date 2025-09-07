@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server'
 import { jwtVerify, type JWTPayload } from 'jose'
 import { checkRateLimit, getRateLimitHeaders, AUTH_ERRORS } from '@/lib/jwt-utils'
 import { getClientIP, createErrorResponse } from '@/lib/api-utils'
+import { generateCSRFToken } from '@/lib/security'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
 const JWT_COOKIE_NAME = 'auth-token'
@@ -16,6 +17,7 @@ const PUBLIC_ROUTES = [
   '/api/auth/login',
   '/api/auth/register',
   '/api/auth/refresh',
+  '/api/products/validate-price', // Allow price validation without auth for security
 ]
 
 const STATIC_RESOURCES = [
@@ -101,6 +103,18 @@ export async function middleware(request: NextRequest) {
     response.headers.set('x-user-email', payload.email || '')
     response.headers.set('x-user-role', payload.role || '')
     response.headers.set('x-request-id', crypto.randomUUID())
+    
+    // Add CSRF token for state-changing requests
+    if (request.method !== 'GET' && request.method !== 'HEAD') {
+      const csrfToken = generateCSRFToken()
+      response.headers.set('x-csrf-token', csrfToken)
+      response.cookies.set('csrf-token', csrfToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        path: '/'
+      })
+    }
     
     // Add rate limit headers
     const rateLimitHeaders = getRateLimitHeaders(rateLimitResult)

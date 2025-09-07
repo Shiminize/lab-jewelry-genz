@@ -83,9 +83,9 @@ export function InventoryAlerts({
 
   if (isLoading) {
     return (
-      <div className={cn('animate-pulse space-y-2', className)}>
+      <div className={cn('animate-pulse space-y-token-sm', className)}>
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="h-12 bg-muted rounded-lg" />
+          <div key={i} className="h-12 bg-muted rounded-token-lg" />
         ))}
       </div>
     )
@@ -94,7 +94,7 @@ export function InventoryAlerts({
   // Toast variant - floating notifications
   if (variant === 'toast') {
     return (
-      <div className={cn('fixed top-4 right-4 z-50 space-y-2 max-w-sm', className)}>
+      <div className={cn('fixed top-4 right-4 z-50 space-y-token-sm max-w-sm', className)}>
         {filteredAlerts.map(alert => (
           <AlertCard 
             key={alert.id} 
@@ -130,7 +130,7 @@ export function InventoryAlerts({
         </Button>
 
         {isExpanded && (
-          <div className="absolute top-full right-0 mt-2 w-80 bg-background border border-border rounded-lg shadow-lg z-50">
+          <div className="absolute top-full right-0 mt-2 w-80 bg-background border border-border rounded-token-lg shadow-lg z-50">
             <div className="p-4 border-b border-border">
               <div className="flex items-center justify-between">
                 <H3>Inventory Alerts</H3>
@@ -147,7 +147,7 @@ export function InventoryAlerts({
                   <MutedText>No active alerts</MutedText>
                 </div>
               ) : (
-                <div className="p-2 space-y-2">
+                <div className="p-2 space-y-token-sm">
                   {filteredAlerts.map(alert => (
                     <AlertCard 
                       key={alert.id} 
@@ -175,7 +175,7 @@ export function InventoryAlerts({
 
   // Panel variant - full display
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn('space-y-token-md', className)}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -200,7 +200,7 @@ export function InventoryAlerts({
       {alerts.length > 0 && (
         <div className="flex items-center gap-2">
           <Filter className="w-4 h-4 text-muted-foreground" />
-          <div className="flex border border-border rounded-lg">
+          <div className="flex border border-border rounded-token-lg">
             {[
               { key: 'all', label: 'All', count: alerts.length },
               { key: 'critical', label: 'Critical', count: criticalAlerts.length },
@@ -271,7 +271,7 @@ function AlertCard({ alert, onDismiss, variant = 'detailed' }: AlertCardProps) {
   }
 
   const getAlertStyles = () => {
-    const base = "border rounded-lg transition-all duration-200"
+    const base = "border rounded-token-lg transition-all duration-200"
     
     switch (alert.severity) {
       case 'error':

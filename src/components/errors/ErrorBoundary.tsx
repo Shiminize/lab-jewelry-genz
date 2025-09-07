@@ -88,19 +88,19 @@ const VARIANT_STYLES = {
   },
   section: {
     container: 'w-full py-16 flex items-center justify-center bg-muted',
-    content: 'text-center space-y-4 p-6 max-w-lg mx-auto',
+    content: 'text-center space-y-token-md p-6 max-w-lg mx-auto',
     icon: 'w-16 h-16',
     title: 'text-xl lg:text-2xl'
   },
   component: {
-    container: 'w-full h-48 flex items-center justify-center bg-muted rounded-lg border border-border',
+    container: 'w-full h-48 flex items-center justify-center bg-muted rounded-token-lg border border-border',
     content: 'text-center space-y-3 p-4 max-w-sm mx-auto',
     icon: 'w-12 h-12',
     title: 'text-lg'
   },
   viewer: {
     container: 'relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-xl border bg-muted flex items-center justify-center',
-    content: 'text-center space-y-4 p-6 max-w-md mx-auto',
+    content: 'text-center space-y-token-md p-6 max-w-md mx-auto',
     icon: 'w-14 h-14',
     title: 'text-lg'
   }

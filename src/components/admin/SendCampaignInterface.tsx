@@ -102,14 +102,14 @@ const TestEmailManager = ({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-token-md">
       <div className="flex gap-2">
         <input
           type="email"
           value={newEmail}
           onChange={(e) => setNewEmail(e.target.value)}
           placeholder="Enter test email address..."
-          className="flex-1 px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+          className="flex-1 px-3 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
           onKeyPress={(e) => e.key === 'Enter' && addEmail()}
         />
         <Button 
@@ -123,7 +123,7 @@ const TestEmailManager = ({
       </div>
 
       {testEmails.length > 0 && (
-        <div className="space-y-2">
+        <div className="space-y-token-sm">
           <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background">
             Test Recipients ({testEmails.length})
           </BodyText>
@@ -196,7 +196,7 @@ const SendProgressDisplay = ({
 
   return (
     <div className={cn(
-      'p-6 rounded-lg border',
+      'p-6 rounded-token-lg border',
       config.bgColor,
       config.borderColor
     )}>
@@ -491,8 +491,8 @@ export default function SendCampaignInterface({
         <div className="max-w-4xl mx-auto p-6">
           <div className="animate-pulse space-y-6">
             <div className="h-8 bg-muted rounded w-1/3"></div>
-            <div className="h-32 bg-muted rounded-lg"></div>
-            <div className="h-64 bg-muted rounded-lg"></div>
+            <div className="h-32 bg-muted rounded-token-lg"></div>
+            <div className="h-64 bg-muted rounded-token-lg"></div>
           </div>
         </div>
       </div>
@@ -504,7 +504,7 @@ export default function SendCampaignInterface({
     return (
       <div className="min-h-screen bg-background">
         <div className="max-w-4xl mx-auto p-6">
-          <div className="text-foreground bg-background p-8 rounded-lg border text-center">
+          <div className="text-foreground bg-background p-8 rounded-token-lg border text-center">
             <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <H2 className="mb-2 text-foreground">Failed to Load Campaign</H2>
             <BodyText className="text-aurora-nav-muted bg-background mb-6">
@@ -581,10 +581,10 @@ export default function SendCampaignInterface({
           {/* Send Configuration */}
           <div className="lg:col-span-2 space-y-6">
             {/* Send Mode */}
-            <div className="text-foreground bg-background p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-token-lg border">
               <H2 className="mb-4 text-foreground">Send Mode</H2>
               
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
                     type="radio"
@@ -638,10 +638,10 @@ export default function SendCampaignInterface({
 
             {/* Send Timing */}
             {!sendOptions.testMode && (
-              <div className="text-foreground bg-background p-6 rounded-lg border">
+              <div className="text-foreground bg-background p-6 rounded-token-lg border">
                 <H2 className="mb-4 text-foreground">Send Timing</H2>
                 
-                <div className="space-y-4">
+                <div className="space-y-token-md">
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input
                       type="radio"
@@ -684,7 +684,7 @@ export default function SendCampaignInterface({
                 </div>
 
                 {sendOptions.sendTime === 'scheduled' && (
-                  <div className="mt-6 pt-6 border-t border-border space-y-4">
+                  <div className="mt-6 pt-6 border-t border-border space-y-token-md">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
                         Scheduled Date & Time
@@ -694,7 +694,7 @@ export default function SendCampaignInterface({
                         value={sendOptions.scheduledAt || ''}
                         onChange={(e) => setSendOptions({ ...sendOptions, scheduledAt: e.target.value })}
                         min={new Date().toISOString().slice(0, 16)}
-                        className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                        className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
                       />
                     </div>
 
@@ -705,7 +705,7 @@ export default function SendCampaignInterface({
                       <select
                         value={sendOptions.timezone}
                         onChange={(e) => setSendOptions({ ...sendOptions, timezone: e.target.value })}
-                        className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                        className="px-3 py-2 font-body text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:ring-offset-2"
                       >
                         <option value="America/New_York">Eastern Time (ET)</option>
                         <option value="America/Chicago">Central Time (CT)</option>
@@ -720,10 +720,10 @@ export default function SendCampaignInterface({
             )}
 
             {/* Advanced Options */}
-            <div className="text-foreground bg-background p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-token-lg border">
               <H2 className="mb-4 text-foreground">Send Options</H2>
               
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input
                     type="checkbox"
@@ -772,10 +772,10 @@ export default function SendCampaignInterface({
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Campaign Summary */}
-            <div className="text-foreground bg-background p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-token-lg border">
               <H3 className="mb-4 text-foreground">Campaign Summary</H3>
               
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <div>
                   <BodyText size="sm" className="font-medium text-aurora-nav-muted bg-background mb-1">
                     Campaign Name
@@ -802,11 +802,11 @@ export default function SendCampaignInterface({
             </div>
 
             {/* Audience Summary */}
-            <div className="text-foreground bg-background p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-token-lg border">
               <H3 className="mb-4 text-foreground">Target Audience</H3>
               
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-accent/10 rounded-token-lg flex items-center justify-center">
                   <Users className="w-6 h-6 text-accent" />
                 </div>
                 <div>
@@ -820,7 +820,7 @@ export default function SendCampaignInterface({
               </div>
 
               {!sendOptions.testMode && (
-                <div className="space-y-2">
+                <div className="space-y-token-sm">
                   {segments.map(segment => (
                     <div key={segment._id} className="flex justify-between items-center text-sm">
                       <span className="text-foreground">{segment.name}</span>
@@ -832,10 +832,10 @@ export default function SendCampaignInterface({
             </div>
 
             {/* Email Preview */}
-            <div className="text-foreground bg-background p-6 rounded-lg border">
+            <div className="text-foreground bg-background p-6 rounded-token-lg border">
               <H3 className="mb-4 text-foreground">Email Preview</H3>
               
-              <div className="border border-border rounded-lg overflow-hidden">
+              <div className="border border-border rounded-token-lg overflow-hidden">
                 <div className="bg-muted p-3 border-b border-border">
                   <div className="text-sm font-medium">{campaign.subject}</div>
                   {campaign.content.preheader && (

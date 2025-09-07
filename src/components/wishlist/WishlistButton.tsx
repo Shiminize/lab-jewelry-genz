@@ -30,7 +30,7 @@ export function WishlistButton({
     <Link
       href="/wishlist"
       className={cn(
-        'relative group flex items-center gap-2 p-2 rounded-lg',
+        'relative group flex items-center gap-2 p-2 rounded-token-md',
         'hover:bg-accent/10 transition-colors',
         className
       )}
@@ -58,7 +58,7 @@ export function WishlistButton({
       )}
       
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background/50 rounded-lg">
+        <div className="absolute inset-0 flex items-center justify-center bg-background/50 rounded-token-md">
           <div className="w-4 h-4 border-2 border-accent border-t-transparent rounded-full animate-spin" />
         </div>
       )}

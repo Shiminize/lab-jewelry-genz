@@ -6,7 +6,13 @@
     "dev": "node --expose-gc server.js",
     "dev:next": "next dev",
     "dev:test": "PORT=3001 node --expose-gc server.js",
+    "dev:demo": "TAILWIND_MODE=aurora NEXT_PUBLIC_DESIGN_VERSION=demo node --expose-gc server.js",
+    "dev:hybrid": "TAILWIND_MODE=aurora NEXT_PUBLIC_DESIGN_VERSION=hybrid node --expose-gc server.js",
+    "dev:aurora": "TAILWIND_MODE=aurora NEXT_PUBLIC_DESIGN_VERSION=demo NEXT_PUBLIC_DEV_AURORA_TOGGLE=true node --expose-gc server.js",
     "build": "next build",
+    "build:demo": "TAILWIND_MODE=aurora NEXT_PUBLIC_DESIGN_VERSION=demo next build",
+    "build:hybrid": "TAILWIND_MODE=aurora NEXT_PUBLIC_DESIGN_VERSION=hybrid next build",
+    "build:compare": "npm run build && npm run build:demo && node scripts/compare-builds.js",
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "test": "jest --detectOpenHandles",
@@ -134,6 +140,7 @@
     "jest": "^29.0.0",
     "jest-environment-jsdom": "^29.0.0",
     "puppeteer": "^24.18.0",
+    "shadcn": "^3.2.1",
     "sharp": "^0.33.5",
     "undici": "^5.28.0"
   }

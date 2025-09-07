@@ -168,7 +168,7 @@ export default function AdminSidebar() {
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto" role="navigation" aria-label="Admin navigation">
+          <nav className="flex-1 px-4 py-6 space-y-token-sm overflow-y-auto" role="navigation" aria-label="Admin navigation">
             {adminNavItems.map((item) => {
               const Icon = item.icon
               const isActive = isActiveRoute(item.href)
@@ -179,7 +179,7 @@ export default function AdminSidebar() {
                   href={item.href}
                   onClick={closeMenu}
                   className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
+                    "flex items-center gap-3 px-3 py-2 rounded-token-lg transition-all duration-200",
                     "hover:bg-muted focus:bg-muted focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2",
                     "touch-manipulation min-h-[48px]", // Touch-optimized minimum height
                     isActive 

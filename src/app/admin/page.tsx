@@ -169,7 +169,7 @@ const MetricCard = ({
         )}
       </div>
       
-      <div className="flex-1 space-y-1 sm:space-y-2">
+      <div className="flex-1 space-y-1 sm:space-y-token-sm">
         <H3 className="text-lg sm:text-xl text-foreground leading-tight">{formatValue(value, format)}</H3>
         <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">
           {title}
@@ -329,7 +329,7 @@ export default function AdminDashboard() {
   if (!metrics) return null
 
   return (
-    <div className="space-y-4 sm:space-y-6 p-4 sm:p-0">
+    <div className="space-y-token-md sm:space-y-6 p-4 sm:p-0">
       {/* Header - Mobile Optimized */}
       <div className="flex flex-col gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
@@ -455,7 +455,7 @@ export default function AdminDashboard() {
       {/* System Alerts - Mobile Optimized */}
       <div className="text-foreground bg-background p-4 sm:p-6 rounded-lg border shadow-sm">
         <H3 className="mb-3 sm:mb-4 text-foreground">System Alerts</H3>
-        <div className="space-y-2 sm:space-y-3">
+        <div className="space-y-token-sm sm:space-y-3">
           {alerts.length === 0 ? (
             <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
               <TrendingUp className="w-5 h-5 text-green-600" />

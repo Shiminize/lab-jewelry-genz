@@ -8,7 +8,7 @@ export default function IconTestPage() {
     <div className="p-8 space-y-6">
       <h1 className="text-2xl font-bold mb-6">Atlas Icons Test</h1>
       
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         <h2 className="text-lg font-semibold">Common Icons (via mappings)</h2>
         <div className="flex flex-wrap gap-4">
           <div className="flex flex-col items-center p-4 border rounded">
@@ -34,7 +34,7 @@ export default function IconTestPage() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         <h2 className="text-lg font-semibold">Preset Components</h2>
         <div className="flex flex-wrap gap-4">
           <div className="flex flex-col items-center p-4 border rounded">
@@ -56,7 +56,7 @@ export default function IconTestPage() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         <h2 className="text-lg font-semibold">Direct Atlas Icon Names</h2>
         <div className="flex flex-wrap gap-4">
           <div className="flex flex-col items-center p-4 border rounded">
@@ -74,7 +74,7 @@ export default function IconTestPage() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         <h2 className="text-lg font-semibold">Size Variations</h2>
         <div className="flex items-center gap-4">
           <Icon name="heart" size={16} color="red" />
@@ -85,7 +85,7 @@ export default function IconTestPage() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         <h2 className="text-lg font-semibold">Aurora Colors</h2>
         <div className="flex items-center gap-4">
           <Icon name="gem" size={32} color="var(--aurora-pink)" />

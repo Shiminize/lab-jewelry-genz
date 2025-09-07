@@ -141,14 +141,14 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
   if (loading) {
     return (
       <div className={`p-6 ${className}`}>
-        <div className="animate-pulse space-y-4">
+        <div className="animate-pulse space-y-token-md">
           <div className="h-8 bg-muted rounded w-1/3"></div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-muted rounded-lg"></div>
+              <div key={i} className="h-24 bg-muted rounded-token-lg"></div>
             ))}
           </div>
-          <div className="h-64 bg-muted rounded-lg"></div>
+          <div className="h-64 bg-muted rounded-token-lg"></div>
         </div>
       </div>
     )
@@ -184,7 +184,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="text-foreground bg-background p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-token-lg border">
           <div className="flex items-center justify-between">
             <div>
               <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">Total Products</BodyText>
@@ -194,7 +194,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
           </div>
         </div>
 
-        <div className="text-foreground bg-background p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-token-lg border">
           <div className="flex items-center justify-between">
             <div>
               <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">Inventory Value</BodyText>
@@ -206,7 +206,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
           </div>
         </div>
 
-        <div className="text-foreground bg-background p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-token-lg border">
           <div className="flex items-center justify-between">
             <div>
               <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">Low Stock Alerts</BodyText>
@@ -216,7 +216,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
           </div>
         </div>
 
-        <div className="text-foreground bg-background p-6 rounded-lg border">
+        <div className="text-foreground bg-background p-6 rounded-token-lg border">
           <div className="flex items-center justify-between">
             <div>
               <BodyText size="sm" className="text-aurora-nav-muted bg-background font-medium">Out of Stock</BodyText>
@@ -267,7 +267,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       {activeTab === 'overview' && (
         <div className="space-y-6">
           {/* Recent Alerts */}
-          <div className="text-foreground bg-background rounded-lg border">
+          <div className="text-foreground bg-background rounded-token-lg border">
             <div className="p-6 border-b border-border">
               <H3 className="text-foreground">Recent Alerts</H3>
             </div>
@@ -279,7 +279,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
                   {alerts.slice(0, 5).map((alert, index) => (
                     <div
                       key={index}
-                      className={`p-4 rounded-lg border ${getAlertSeverityColor(alert.severity)}`}
+                      className={`p-4 rounded-token-lg border ${getAlertSeverityColor(alert.severity)}`}
                     >
                       <div className="flex items-start justify-between">
                         <div>
@@ -301,9 +301,9 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       )}
 
       {activeTab === 'products' && (
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           {/* Filters */}
-          <div className="bg-background p-4 rounded-lg border border-border">
+          <div className="bg-background p-4 rounded-token-lg border border-border">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
@@ -313,14 +313,14 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
                     placeholder="Search products..."
                     value={filters.search}
                     onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-                    className="pl-10 pr-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+                    className="pl-10 pr-4 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
                   />
                 </div>
               </div>
               <select
                 value={filters.status}
                 onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-                className="px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-3 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Status</option>
                 <option value="in-stock">In Stock</option>
@@ -331,7 +331,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
           </div>
 
           {/* Products Table */}
-          <div className="bg-background rounded-lg border border-border overflow-hidden">
+          <div className="bg-background rounded-token-lg border border-border overflow-hidden">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-border">
                 <thead className="bg-muted">
@@ -407,8 +407,8 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       )}
 
       {activeTab === 'alerts' && (
-        <div className="space-y-4">
-          <div className="bg-background rounded-lg border border-border">
+        <div className="space-y-token-md">
+          <div className="bg-background rounded-token-lg border border-border">
             <div className="p-6 border-b border-border">
               <h3 className="text-lg font-semibold text-foreground">Inventory Alerts</h3>
             </div>
@@ -420,11 +420,11 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
                   <p className="text-aurora-nav-muted">No inventory alerts at this time.</p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-token-md">
                   {alerts.map((alert, index) => (
                     <div
                       key={index}
-                      className={`p-4 rounded-lg border ${getAlertSeverityColor(alert.severity)}`}
+                      className={`p-4 rounded-token-lg border ${getAlertSeverityColor(alert.severity)}`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -465,7 +465,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
 
       {activeTab === 'analytics' && (
         <div className="space-y-6">
-          <div className="bg-background p-6 rounded-lg border border-border">
+          <div className="bg-background p-6 rounded-token-lg border border-border">
             <h3 className="text-lg font-semibold text-foreground mb-4">Inventory Analytics</h3>
             <p className="text-aurora-nav-muted">Advanced analytics coming soon...</p>
           </div>
@@ -475,19 +475,19 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
       {/* Restock Modal */}
       {showRestockModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-background rounded-lg p-6 w-full max-w-md">
+          <div className="bg-background rounded-token-lg p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold text-foreground mb-4">Restock Products</h3>
             <p className="text-aurora-nav-muted mb-4">Restock functionality will be implemented in the next phase.</p>
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setShowRestockModal(false)}
-                className="px-4 py-2 border border-border rounded-lg hover:bg-muted transition-colors"
+                className="px-4 py-2 border border-border rounded-token-lg hover:bg-muted transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={() => setShowRestockModal(false)}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-blue-600 text-white rounded-token-lg hover:bg-blue-700 transition-colors"
               >
                 Continue
               </button>

@@ -217,11 +217,11 @@ export function MaterialEditor() {
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-token-sm">
             {materials.map((material) => (
               <div
                 key={material.id}
-                className={`p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm ${
+                className={`p-3 rounded-token-lg border cursor-pointer transition-all hover:shadow-sm ${
                   selectedMaterial === material.id 
                     ? 'border-blue-500 bg-blue-50' 
                     : 'border-border bg-background'
@@ -251,7 +251,7 @@ export function MaterialEditor() {
             ))}
             
             {isCreatingNew && (
-              <div className="p-3 rounded-lg border border-dashed border-border bg-muted">
+              <div className="p-3 rounded-token-lg border border-dashed border-border bg-muted">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-aurora-nav-muted">Create new material?</span>
                   <div className="flex space-x-1">
@@ -273,11 +273,11 @@ export function MaterialEditor() {
           <CardHeader className="pb-3">
             <CardTitle className="text-lg">Presets</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-token-sm">
             {presets.map((preset) => (
               <div
                 key={preset.id}
-                className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                className={`p-3 rounded-token-lg border cursor-pointer transition-all ${
                   activePreset === preset.id 
                     ? 'border-purple-500 bg-purple-50' 
                     : 'border-border bg-background hover:bg-muted'
@@ -310,7 +310,7 @@ export function MaterialEditor() {
                 <CardTitle className="text-lg">
                   Edit Material: {selectedMaterialData.name}
                 </CardTitle>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-token-sm">
                   <Button
                     size="sm"
                     variant="outline"
@@ -349,7 +349,7 @@ export function MaterialEditor() {
                   <label className="text-sm font-medium text-foreground mb-2 block">
                     Live Preview
                   </label>
-                  <div className="aspect-square border border-border rounded-lg p-4 bg-gradient-to-br from-muted to-muted">
+                  <div className="aspect-square border border-border rounded-token-lg p-4 bg-gradient-to-br from-muted to-muted">
                     <div 
                       className="w-full h-full rounded-full shadow-lg"
                       style={getPreviewStyle(selectedMaterialData)}
@@ -357,7 +357,7 @@ export function MaterialEditor() {
                   </div>
                 </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-token-md">
                   {/* Basic Properties */}
                   <div>
                     <label className="text-sm font-medium text-foreground mb-2 block">
@@ -421,7 +421,7 @@ export function MaterialEditor() {
                     onChange={(e) => updateMaterial(selectedMaterialData.id, { 
                       metallic: parseFloat(e.target.value) 
                     })}
-                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+                    className="w-full h-2 bg-muted rounded-token-lg appearance-none cursor-pointer"
                   />
                   <div className="flex justify-between text-xs text-aurora-nav-muted mt-1">
                     <span>Dielectric</span>
@@ -444,7 +444,7 @@ export function MaterialEditor() {
                     onChange={(e) => updateMaterial(selectedMaterialData.id, { 
                       roughness: parseFloat(e.target.value) 
                     })}
-                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+                    className="w-full h-2 bg-muted rounded-token-lg appearance-none cursor-pointer"
                   />
                   <div className="flex justify-between text-xs text-aurora-nav-muted mt-1">
                     <span>Mirror</span>
@@ -454,7 +454,7 @@ export function MaterialEditor() {
               </div>
 
               {/* Material Science Info */}
-              <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="bg-blue-50 p-4 rounded-token-lg">
                 <h4 className="font-medium text-blue-900 mb-2 flex items-center">
                   <Sun className="w-4 h-4 mr-2" />
                   Material Properties Guide

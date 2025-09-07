@@ -138,7 +138,7 @@ export default function LiveConversionFeed() {
       {/* Connection Status */}
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-foreground">Live Activity Feed</h2>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-token-sm">
           <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-muted0' : 'bg-red-500'}`} />
           <span className="text-sm text-aurora-nav-muted">
             {isConnected ? 'Connected' : 'Disconnected'}
@@ -150,7 +150,7 @@ export default function LiveConversionFeed() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <DollarSign className="h-4 w-4 text-green-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Total Revenue</span>
             </div>
@@ -164,7 +164,7 @@ export default function LiveConversionFeed() {
 
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <TrendingUp className="h-4 w-4 text-blue-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Conversions</span>
             </div>
@@ -178,7 +178,7 @@ export default function LiveConversionFeed() {
 
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <Users className="h-4 w-4 text-purple-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Active Creators</span>
             </div>
@@ -192,7 +192,7 @@ export default function LiveConversionFeed() {
 
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <DollarSign className="h-4 w-4 text-orange-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Avg Order Value</span>
             </div>
@@ -209,7 +209,7 @@ export default function LiveConversionFeed() {
         {/* Recent Conversions */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-token-sm">
               <DollarSign className="h-5 w-5 text-green-600" />
               <span>Recent Conversions</span>
               <Badge variant="secondary" className="ml-auto">
@@ -218,7 +218,7 @@ export default function LiveConversionFeed() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4 max-h-96 overflow-y-auto">
+            <div className="space-y-token-md max-h-96 overflow-y-auto">
               {recentConversions.length === 0 ? (
                 <div className="text-center text-aurora-nav-muted py-8">
                   <TrendingUp className="h-8 w-8 mx-auto mb-2 text-aurora-nav-muted" />
@@ -228,10 +228,10 @@ export default function LiveConversionFeed() {
                 recentConversions.map((conversion) => (
                   <div
                     key={conversion.id}
-                    className="flex items-start justify-between p-3 bg-muted border border-border rounded-lg"
+                    className="flex items-start justify-between p-3 bg-muted border border-border rounded-token-lg"
                   >
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-token-sm">
                         <Badge variant="outline" className="text-green-700 border-green-300">
                           @{conversion.creatorCode}
                         </Badge>
@@ -258,7 +258,7 @@ export default function LiveConversionFeed() {
         {/* Recent Clicks */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-token-sm">
               <Users className="h-5 w-5 text-blue-600" />
               <span>Recent Clicks</span>
               <Badge variant="secondary" className="ml-auto">
@@ -267,7 +267,7 @@ export default function LiveConversionFeed() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4 max-h-96 overflow-y-auto">
+            <div className="space-y-token-md max-h-96 overflow-y-auto">
               {recentClicks.length === 0 ? (
                 <div className="text-center text-aurora-nav-muted py-8">
                   <Users className="h-8 w-8 mx-auto mb-2 text-aurora-nav-muted" />
@@ -277,29 +277,29 @@ export default function LiveConversionFeed() {
                 recentClicks.map((click) => (
                   <div
                     key={click.id}
-                    className="flex items-start justify-between p-3 bg-muted border border-border rounded-lg"
+                    className="flex items-start justify-between p-3 bg-muted border border-border rounded-token-lg"
                   >
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-token-sm">
                         <span className="text-sm text-aurora-nav-muted">
                           {formatTime(click.timestamp)}
                         </span>
                       </div>
                       <div className="mt-1 space-y-1">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-token-sm">
                           <MapPin className="h-3 w-3 text-aurora-nav-muted" />
                           <span className="text-sm text-aurora-nav-muted">
                             {getLocationString(click.location)}
                           </span>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-token-sm">
                           <Smartphone className="h-3 w-3 text-aurora-nav-muted" />
                           <span className="text-sm text-aurora-nav-muted">
                             {click.deviceType}
                           </span>
                         </div>
                         {click.referrer && (
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-token-sm">
                             <span className="text-xs text-aurora-nav-muted">
                               From: {new URL(click.referrer).hostname}
                             </span>

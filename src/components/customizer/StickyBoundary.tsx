@@ -27,8 +27,8 @@ const boundaryVariants = cva(
         standard: 'min-h-16'
       },
       position: {
-        'bottom-aligned': 'mt-4',
-        'inline': 'mt-2'
+        'bottom-aligned': 'mt-token-md',
+        'inline': 'mt-token-sm'
       }
     },
     defaultVariants: {
@@ -44,8 +44,8 @@ const contentVariants = cva(
   {
     variants: {
       layout: {
-        horizontal: 'flex items-center justify-between rounded-lg',
-        compact: 'flex items-center space-x-2 rounded-lg'
+        horizontal: 'flex items-center justify-between rounded-token-lg',
+        compact: 'flex items-center space-x-token-sm rounded-token-lg'
       },
       background: {
         card: 'bg-background shadow-sm',
@@ -109,11 +109,11 @@ export function StickyBoundary({
             layout: 'horizontal',
             background: 'card'
           }),
-          'p-3'
+          'p-token-sm'
         )}
       >
         {/* Material Selection Display */}
-        <div className="flex items-center space-x-2 min-w-0 flex-1">
+        <div className="flex items-center space-x-token-sm min-w-0 flex-1">
           {/* Material indicator dot */}
           <div 
             className="w-2 h-2 bg-cta rounded-full flex-shrink-0" 
@@ -128,11 +128,11 @@ export function StickyBoundary({
 
         {/* Control buttons (optional) */}
         {showControls && (
-          <div className="flex items-center space-x-1 flex-shrink-0">
+          <div className="flex items-center space-x-token-xs flex-shrink-0">
             {onMinimize && (
               <button
                 onClick={onMinimize}
-                className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 rounded touch-manipulation"
+                className="p-token-xs text-aurora-nav-muted hover:text-foreground transition-colors duration-200 rounded touch-manipulation"
                 aria-label="Minimize material selection display"
                 title="Minimize"
               >
@@ -143,7 +143,7 @@ export function StickyBoundary({
             {onClose && (
               <button
                 onClick={onClose}
-                className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 rounded touch-manipulation"
+                className="p-token-xs text-aurora-nav-muted hover:text-foreground transition-colors duration-200 rounded touch-manipulation"
                 aria-label="Close material selection display"
                 title="Close"
               >
@@ -177,7 +177,7 @@ export function StickyBoundaryMinimized({
       <div
         className={cn(
           contentVariants({ layout: 'compact', background: 'subtle' }),
-          'p-2 cursor-pointer hover:bg-background hover:shadow-sm'
+          'p-token-sm cursor-pointer hover:bg-background hover:shadow-sm'
         )}
         onClick={onExpand}
         role="button"
@@ -190,7 +190,7 @@ export function StickyBoundaryMinimized({
           }
         }}
       >
-        <div className="w-2 h-2 bg-accent rounded-full" aria-hidden="true" />
+        <div className="w-2 h-2 bg-emerald-flash rounded-full" aria-hidden="true" />
         <span className="font-body text-xs text-aurora-nav-muted">
           Current Selection
         </span>

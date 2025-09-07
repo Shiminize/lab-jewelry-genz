@@ -4,20 +4,21 @@ import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
+import { useABTest } from '@/hooks/useDesignVersion'
 
 const valuePropositionVariants = cva(
   'bg-background',
   {
     variants: {
       spacing: {
-        comfortable: 'py-16 sm:py-20 lg:py-24',
-        compact: 'py-12 sm:py-16 lg:py-20',
-        spacious: 'py-20 sm:py-24 lg:py-32'
+        comfortable: 'py-token-4xl sm:py-token-5xl lg:py-token-6xl',
+        compact: 'py-token-3xl sm:py-token-4xl lg:py-token-5xl',
+        spacious: 'py-token-5xl sm:py-token-6xl lg:py-token-8xl'
       },
       layout: {
-        default: 'px-4 sm:px-6 lg:px-8',
-        wide: 'px-6 sm:px-8 lg:px-12',
-        contained: 'px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto'
+        default: 'px-token-md sm:px-token-lg lg:px-token-xl',
+        wide: 'px-token-lg sm:px-token-xl lg:px-token-3xl',
+        contained: 'px-token-md sm:px-token-lg lg:px-token-xl max-w-7xl mx-auto'
       }
     },
     defaultVariants: {
@@ -28,7 +29,7 @@ const valuePropositionVariants = cva(
 )
 
 const gridVariants = cva(
-  'grid gap-8 lg:gap-12',
+  'grid gap-token-xl lg:gap-token-3xl',
   {
     variants: {
       columns: {
@@ -54,14 +55,14 @@ const valueCardVariants = cva(
   {
     variants: {
       style: {
-        minimal: 'space-y-4',
-        card: 'bg-muted/30 p-6 lg:p-8 space-y-4 hover:bg-muted/40 transition-colors duration-300',
-        bordered: 'border border-muted p-6 lg:p-8 space-y-4 hover:border-accent/30 transition-colors duration-300'
+        minimal: 'space-y-token-md',
+        card: 'bg-muted/30 p-6 lg:p-8 space-y-token-md hover:bg-muted/40 transition-colors duration-300 rounded-token-md',
+        bordered: 'border border-muted p-6 lg:p-8 space-y-token-md hover:border-accent/30 transition-colors duration-300 rounded-token-md'
       },
       emphasis: {
         none: '',
         subtle: 'transform hover:scale-[1.02] transition-transform duration-300',
-        strong: 'transform hover:scale-105 transition-all duration-300 hover:shadow-lg'
+        strong: 'transform hover:scale-105 transition-all duration-300 hover:shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_8%,transparent)]'
       }
     },
     defaultVariants: {
@@ -72,13 +73,13 @@ const valueCardVariants = cva(
 )
 
 const iconVariants = cva(
-  'flex items-center justify-center rounded-full',
+  'flex items-center justify-center',
   {
     variants: {
       size: {
-        sm: 'w-12 h-12 text-lg',
-        md: 'w-16 h-16 text-xl',
-        lg: 'w-20 h-20 text-2xl'
+        sm: 'w-12 h-12 text-lg rounded-34',
+        md: 'w-16 h-16 text-xl rounded-34',
+        lg: 'w-20 h-20 text-2xl rounded-34'
       },
       style: {
         accent: 'bg-accent/10 text-accent',
@@ -94,7 +95,7 @@ const iconVariants = cva(
 )
 
 const trustSignalVariants = cva(
-  'inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium',
+  'inline-flex items-center gap-2 px-3 py-1.5 rounded-34 text-sm font-medium',
   {
     variants: {
       variant: {
@@ -185,18 +186,35 @@ export function ValuePropositionSection({
   iconStyle = 'accent',
   ...props
 }: ValuePropositionSectionProps) {
+  // A/B Testing for Value Proposition Section
+  const { 
+    version, 
+    isAurora, 
+    trackInteraction, 
+    trackConversion 
+  } = useABTest('ValuePropositionSection')
+  
   return (
     <section
-      className={cn(valuePropositionVariants({ spacing, layout }), className)}
+      className={cn(
+        valuePropositionVariants({ spacing, layout }), 
+        // A/B Test: Add aurora glow for enhanced version
+        isAurora ? 'bg-gradient-to-b from-background to-background/95 backdrop-blur-sm' : '',
+        className
+      )}
       {...props}
     >
       {/* Section Header */}
       <div className="text-center max-w-4xl mx-auto mb-12 lg:mb-16">
         <H2 
           id="value-proposition-heading"
-          className="mb-4 lg:mb-6"
+          className={cn(
+            "mb-4 lg:mb-6",
+            // A/B Test: Enhanced headline styling for Aurora version
+            isAurora ? 'bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent' : ''
+          )}
         >
-          {headline}
+          {isAurora ? `${headline} ✨` : headline}
         </H2>
         <BodyText 
           size="lg" 
@@ -268,19 +286,43 @@ export function ValuePropositionSection({
             Join thousands who choose conscious luxury
           </MutedText>
           <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
-            <div className={cn(trustSignalVariants({ variant: 'accent' }))}>
+            <div 
+              className={cn(
+                trustSignalVariants({ variant: 'accent' }),
+                isAurora ? 'hover:scale-105 transition-transform cursor-pointer' : ''
+              )}
+              onClick={() => trackInteraction({ action: 'trust_signal_click', signal: 'conflict_free' })}
+            >
               <span>🌱</span>
               <span className="font-semibold">100% Conflict-Free</span>
             </div>
-            <div className={cn(trustSignalVariants({ variant: 'accent' }))}>
+            <div 
+              className={cn(
+                trustSignalVariants({ variant: 'accent' }),
+                isAurora ? 'hover:scale-105 transition-transform cursor-pointer' : ''
+              )}
+              onClick={() => trackInteraction({ action: 'trust_signal_click', signal: 'recycled_metal' })}
+            >
               <span>♻️</span>
               <span className="font-semibold">Recycled Metal</span>
             </div>
-            <div className={cn(trustSignalVariants({ variant: 'accent' }))}>
+            <div 
+              className={cn(
+                trustSignalVariants({ variant: 'accent' }),
+                isAurora ? 'hover:scale-105 transition-transform cursor-pointer' : ''
+              )}
+              onClick={() => trackInteraction({ action: 'trust_signal_click', signal: 'lab_grown' })}
+            >
               <span>🔬</span>
               <span className="font-semibold">Lab-Grown Certified</span>
             </div>
-            <div className={cn(trustSignalVariants({ variant: 'accent' }))}>
+            <div 
+              className={cn(
+                trustSignalVariants({ variant: 'accent' }),
+                isAurora ? 'hover:scale-105 transition-transform cursor-pointer' : ''
+              )}
+              onClick={() => trackInteraction({ action: 'trust_signal_click', signal: 'carbon_neutral' })}
+            >
               <span>🌍</span>
               <span className="font-semibold">Carbon Neutral</span>
             </div>

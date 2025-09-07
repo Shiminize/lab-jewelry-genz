@@ -40,7 +40,7 @@ export default function TestStatusBarPage() {
 
           <div className="p-6 bg-background rounded-xl border border-border">
             <h2 className="font-headline text-lg text-foreground mb-4">Material Selection Preview</h2>
-            <div className="space-y-2 font-body text-sm text-foreground">
+            <div className="space-y-token-sm font-body text-sm text-foreground">
               <div>Metal: {materialSelection.metal}</div>
               <div>Stone: {materialSelection.stone}</div>
               <div>Style: {materialSelection.style}</div>

@@ -128,10 +128,10 @@ export function AdvancedMaterialEditor({
     step?: number
     unit?: string
   }) => (
-    <div className="space-y-2">
+    <div className="space-y-token-sm">
       <div className="flex justify-between items-center">
         <MutedText size="sm" className="font-medium">{label}</MutedText>
-        <MutedText size="sm" className="text-accent">
+        <MutedText size="sm" className="text-emerald-flash">
           {((material[property] as number) || 0).toFixed(2)}{unit}
         </MutedText>
       </div>
@@ -143,16 +143,16 @@ export function AdvancedMaterialEditor({
         value={(material[property] as number) || 0}
         onChange={(e) => handleSliderChange(property, parseFloat(e.target.value))}
         disabled={disabled}
-        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer slider"
+        className="w-full h-2 bg-muted rounded-token-lg appearance-none cursor-pointer slider"
       />
     </div>
   )
 
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className={cn('space-y-token-lg', className)}>
       <div className="flex items-center justify-between">
         <H3>Advanced Material Editor</H3>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-token-sm">
           <Button
             variant={isRealTime ? 'primary' : 'outline'}
             size="sm"
@@ -170,7 +170,7 @@ export function AdvancedMaterialEditor({
           <CardTitle className="text-base">Quick Presets</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-token-sm">
             {Object.entries(presets).map(([name, presetMaterial]) => (
               <Button
                 key={name}
@@ -178,9 +178,9 @@ export function AdvancedMaterialEditor({
                 size="sm"
                 onClick={() => applyPreset(name)}
                 disabled={disabled}
-                className="justify-start h-auto p-3"
+                className="justify-start h-auto p-token-sm"
               >
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-token-sm">
                   <div 
                     className="w-4 h-4 rounded-full border border-border"
                     style={{ backgroundColor: presetMaterial.color }}
@@ -201,14 +201,14 @@ export function AdvancedMaterialEditor({
           <CardTitle className="text-base">Base Color</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div className="flex items-center space-x-4">
+          <div className="space-y-token-md">
+            <div className="flex items-center space-x-token-md">
               <input
                 type="color"
                 value={material.color}
                 onChange={(e) => handleColorChange(e.target.value)}
                 disabled={disabled}
-                className="w-12 h-12 rounded-lg border border-border cursor-pointer"
+                className="w-12 h-12 rounded-token-lg border border-border cursor-pointer"
               />
               <div className="flex-1">
                 <input
@@ -216,7 +216,7 @@ export function AdvancedMaterialEditor({
                   value={material.color}
                   onChange={(e) => handleColorChange(e.target.value)}
                   disabled={disabled}
-                  className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                  className="w-full px-token-sm py-token-sm text-sm border border-border rounded-token-lg focus:outline-none focus:aurora-focus-default"
                   placeholder="#FFFFFF"
                 />
               </div>
@@ -230,7 +230,7 @@ export function AdvancedMaterialEditor({
         <CardHeader>
           <CardTitle className="text-base">Physical Properties</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-token-md">
           <MaterialSlider
             label="Metalness"
             property="metalness"
@@ -257,7 +257,7 @@ export function AdvancedMaterialEditor({
         <CardHeader>
           <CardTitle className="text-base">Finish & Coating</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-token-md">
           <MaterialSlider
             label="Clear Coat"
             property="clearcoat"
@@ -293,9 +293,9 @@ export function AdvancedMaterialEditor({
       )}
 
       {/* Material Summary */}
-      <Card className="bg-accent/5 border-accent/20">
+      <Card className="bg-emerald-flash/5 border-emerald-flash/20">
         <CardContent className="pt-4">
-          <div className="text-xs space-y-1">
+          <div className="text-xs space-y-token-xs">
             <div className="flex justify-between">
               <span>Preset:</span>
               <span className="capitalize">{preset.replace('-', ' ')}</span>

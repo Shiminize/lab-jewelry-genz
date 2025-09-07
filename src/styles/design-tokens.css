@@ -1,0 +1,270 @@
+/* Aurora Design System - Design Tokens
+ * Centralized token system for CLAUDE_RULES compliance
+ * Single source of truth for all design values
+ */
+
+:root {
+  /* =================================================================
+   * FOUNDATION TOKENS
+   * ================================================================= */
+
+  /* Brand Colors - Core Palette */
+  --token-color-brand-primary: #6B46C1;    /* Nebula Purple */
+  --token-color-brand-secondary: #FF6B9D;  /* Aurora Pink */
+  --token-color-brand-tertiary: #C44569;   /* Aurora Crimson */
+  --token-color-brand-accent: #10B981;     /* Emerald Flash */
+
+  /* Neutral Colors - Greyscale System */
+  --token-color-neutral-0: #FFFFFF;        /* Pure White */
+  --token-color-neutral-50: #F7F7F9;       /* Lunar Grey */
+  --token-color-neutral-100: #F0F0F2;      /* Light Grey */
+  --token-color-neutral-200: #E5E7EB;      /* Border Grey */
+  --token-color-neutral-500: #6B7280;      /* Mid Grey */
+  --token-color-neutral-900: #0A0E27;      /* Deep Space */
+
+  /* Material Colors - Jewelry Specific */
+  --token-color-material-gold: #FFD700;           /* Gold */
+  --token-color-material-rose-gold: #F7A8B8;      /* Rose Gold */
+  --token-color-material-white-gold: #F8F8FF;     /* White Gold */
+  --token-color-material-platinum: #B9F2FF;       /* Platinum */
+
+  /* Semantic Colors - Functional States */
+  --token-color-success: #10B981;          /* Success Green */
+  --token-color-warning: #F59E0B;          /* Warning Amber */
+  --token-color-error: #EF4444;            /* Error Red */
+  --token-color-info: #3B82F6;             /* Info Blue */
+
+  /* =================================================================
+   * SPACING TOKENS
+   * ================================================================= */
+
+  --token-space-xs: 0.25rem;    /* 4px */
+  --token-space-sm: 0.5rem;     /* 8px */
+  --token-space-md: 1rem;       /* 16px */
+  --token-space-lg: 1.5rem;     /* 24px */
+  --token-space-xl: 2rem;       /* 32px */
+  --token-space-2xl: 3rem;      /* 48px */
+  --token-space-3xl: 4rem;      /* 64px */
+
+  /* Component Spacing */
+  --token-space-component-gap: var(--token-space-lg);
+  --token-space-section-gap: var(--token-space-3xl);
+
+  /* =================================================================
+   * TYPOGRAPHY TOKENS
+   * ================================================================= */
+
+  /* Font Families */
+  --token-font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --token-font-family-display: 'Fraunces', Georgia, serif;
+
+  /* Font Sizes - Modular Scale */
+  --token-font-size-xs: 0.75rem;     /* 12px */
+  --token-font-size-sm: 0.875rem;    /* 14px */
+  --token-font-size-base: 1rem;      /* 16px */
+  --token-font-size-lg: 1.125rem;    /* 18px */
+  --token-font-size-xl: 1.25rem;     /* 20px */
+  --token-font-size-2xl: 1.5rem;     /* 24px */
+  --token-font-size-3xl: 1.875rem;   /* 30px */
+  --token-font-size-4xl: 2.25rem;    /* 36px */
+
+  /* Font Weights */
+  --token-font-weight-normal: 400;
+  --token-font-weight-medium: 500;
+  --token-font-weight-semibold: 600;
+  --token-font-weight-bold: 700;
+
+  /* Line Heights */
+  --token-line-height-tight: 1.25;
+  --token-line-height-normal: 1.5;
+  --token-line-height-relaxed: 1.75;
+
+  /* =================================================================
+   * SIZING TOKENS
+   * ================================================================= */
+
+  /* Icon Sizes */
+  --token-size-icon-xs: 1rem;      /* 16px */
+  --token-size-icon-sm: 1.25rem;   /* 20px */
+  --token-size-icon-md: 1.5rem;    /* 24px */
+  --token-size-icon-lg: 2rem;      /* 32px */
+
+  /* Component Sizes */
+  --token-size-button-height: 2.75rem;     /* 44px - Touch target */
+  --token-size-input-height: 2.75rem;      /* 44px */
+  --token-size-card-min-width: 280px;      /* Minimum card width */
+
+  /* =================================================================
+   * BORDER TOKENS
+   * ================================================================= */
+
+  /* Border Widths */
+  --token-border-width-thin: 1px;
+  --token-border-width-medium: 2px;
+  --token-border-width-thick: 4px;
+
+  /* Border Radius - CLAUDE_RULES: Minimal geometric design */
+  --token-border-radius-none: 0px;
+  --token-border-radius-sm: 4px;
+  --token-border-radius-md: 8px;
+  --token-border-radius-lg: 12px;
+  --token-border-radius-full: 9999px;
+
+  /* =================================================================
+   * SHADOW TOKENS
+   * ================================================================= */
+
+  /* Elevation Shadows */
+  --token-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --token-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --token-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --token-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15);
+
+  /* Material-Specific Shadows */
+  --token-shadow-gold: 0 8px 32px color-mix(in srgb, var(--token-color-material-gold) 20%, transparent);
+  --token-shadow-platinum: 0 8px 32px color-mix(in srgb, var(--token-color-material-platinum) 20%, transparent);
+  --token-shadow-rose-gold: 0 8px 32px color-mix(in srgb, var(--token-color-material-rose-gold) 20%, transparent);
+  --token-shadow-white-gold: 0 8px 32px color-mix(in srgb, var(--token-color-material-white-gold) 20%, transparent);
+
+  /* =================================================================
+   * MOTION TOKENS
+   * ================================================================= */
+
+  /* Duration */
+  --token-duration-instant: 0ms;
+  --token-duration-fast: 150ms;
+  --token-duration-normal: 300ms;
+  --token-duration-slow: 500ms;
+
+  /* Easing Functions */
+  --token-ease-linear: linear;
+  --token-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --token-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --token-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* =================================================================
+   * Z-INDEX TOKENS
+   * ================================================================= */
+
+  --token-z-index-dropdown: 1000;
+  --token-z-index-modal: 1100;
+  --token-z-index-tooltip: 1200;
+  --token-z-index-toast: 1300;
+
+  /* =================================================================
+   * COMPONENT-SPECIFIC TOKENS
+   * ================================================================= */
+
+  /* Navigation */
+  --token-nav-height: 4rem;        /* 64px */
+  --token-nav-background: var(--token-color-neutral-50);
+  --token-nav-text: var(--token-color-neutral-900);
+  --token-nav-border: var(--token-color-neutral-200);
+
+  /* Cards */
+  --token-card-background: var(--token-color-neutral-0);
+  --token-card-border: var(--token-color-neutral-200);
+  --token-card-shadow: var(--token-shadow-md);
+
+  /* Buttons */
+  --token-button-primary-bg: var(--token-color-brand-primary);
+  --token-button-primary-text: var(--token-color-neutral-0);
+  --token-button-secondary-bg: transparent;
+  --token-button-secondary-text: var(--token-color-brand-primary);
+  --token-button-secondary-border: var(--token-color-brand-primary);
+
+  /* Form Controls */
+  --token-input-background: var(--token-color-neutral-0);
+  --token-input-border: var(--token-color-neutral-200);
+  --token-input-border-focus: var(--token-color-brand-primary);
+  --token-input-text: var(--token-color-neutral-900);
+  --token-input-placeholder: var(--token-color-neutral-500);
+
+  /* =================================================================
+   * BREAKPOINT TOKENS
+   * ================================================================= */
+
+  --token-breakpoint-sm: 640px;
+  --token-breakpoint-md: 768px;
+  --token-breakpoint-lg: 1024px;
+  --token-breakpoint-xl: 1280px;
+  --token-breakpoint-2xl: 1536px;
+
+  /* =================================================================
+   * BACKWARD COMPATIBILITY ALIASES
+   * ================================================================= */
+
+  /* Legacy Aurora variable aliases - for smooth transition */
+  --aurora-nebula-purple: var(--token-color-brand-primary, #6B46C1);
+  --aurora-pink: var(--token-color-brand-secondary, #FF6B9D);
+  --aurora-crimson: var(--token-color-brand-tertiary, #C44569);
+  --aurora-emerald-flash: var(--token-color-brand-accent, #10B981);
+  --aurora-nav-bg: var(--token-nav-background);
+  --aurora-nav-text: var(--token-nav-text);
+  --aurora-nav-border: var(--token-nav-border);
+  
+  /* Missing Aurora variables - Phase 1 repair */
+  --aurora-lunar-grey: var(--token-color-neutral-50, #F7F7F9);      /* #F7F7F9 */
+  --aurora-deep-space: var(--token-color-neutral-900, #0A0E27);     /* #0A0E27 */
+  --aurora-nav-muted: var(--token-color-neutral-500, #6B7280);      /* #6B7280 */
+  --aurora-amber-glow: var(--token-color-warning, #F59E0B);         /* #F59E0B */
+  --aurora-plum: #723C70;                                  /* Plum shadow - no token equivalent */
+
+  /* CRITICAL FIX: Ensure Aurora color classes exist with fallbacks */
+  --color-aurora-nebula-purple: var(--aurora-nebula-purple, #6B46C1);
+  --color-aurora-emerald-flash: var(--aurora-emerald-flash, #10B981);
+  --color-aurora-amber-glow: var(--aurora-amber-glow, #F59E0B);
+
+  /* Material shadow aliases */
+  --shadow-gold: var(--token-color-material-gold);
+  --shadow-platinum: var(--token-color-material-platinum);
+  --shadow-rose-gold: var(--token-color-material-rose-gold);
+  --shadow-white-gold: var(--token-color-material-white-gold);
+}
+
+/* =================================================================
+ * RESPONSIVE TOKEN OVERRIDES
+ * ================================================================= */
+
+/* Mobile-first adjustments */
+@media (max-width: 640px) {
+  :root {
+    --token-space-component-gap: var(--token-space-md);
+    --token-space-section-gap: var(--token-space-2xl);
+    --token-font-size-3xl: 1.5rem;   /* Smaller on mobile */
+    --token-font-size-4xl: 2rem;     /* Smaller on mobile */
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1536px) {
+  :root {
+    --token-space-section-gap: 5rem;  /* Larger section gaps */
+    --token-font-size-4xl: 3rem;      /* Larger display text */
+  }
+}
+
+/* =================================================================
+ * HIGH CONTRAST MODE SUPPORT
+ * ================================================================= */
+
+@media (prefers-contrast: high) {
+  :root {
+    --token-color-neutral-200: #000000;
+    --token-card-border: #000000;
+    --token-nav-border: #000000;
+    --token-border-width-thin: 2px;
+  }
+}
+
+/* =================================================================
+ * REDUCED MOTION SUPPORT
+ * ================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --token-duration-fast: 0ms;
+    --token-duration-normal: 0ms;
+    --token-duration-slow: 0ms;
+  }
+}

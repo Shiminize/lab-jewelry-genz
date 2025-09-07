@@ -186,12 +186,12 @@ export default function ReferralLinks() {
             </div>
 
             {/* Status Filter */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <Filter className="w-4 h-4 text-aurora-nav-muted" />
               <select
                 value={activeFilter}
                 onChange={(e) => setActiveFilter(e.target.value as any)}
-                className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                className="border border-border rounded-token-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               >
                 <option value="all">All Links</option>
                 <option value="active">Active Only</option>
@@ -220,13 +220,13 @@ export default function ReferralLinks() {
           </CardContent>
         </Card>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           {links.map((link) => (
             <Card key={link.id}>
               <CardContent className="p-6">
                 <div className="flex flex-col lg:flex-row gap-4">
                   {/* Link Info */}
-                  <div className="flex-1 space-y-2">
+                  <div className="flex-1 space-y-token-sm">
                     <div className="flex items-start justify-between">
                       <div>
                         <h3 className="font-medium text-foreground">
@@ -246,7 +246,7 @@ export default function ReferralLinks() {
 
                     {/* URLs */}
                     <div className="space-y-1">
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-token-sm">
                         <span className="text-xs text-aurora-nav-muted">Short URL:</span>
                         <code className="text-xs bg-muted px-2 py-1 rounded">{link.shortUrl}</code>
                         <Button
@@ -256,13 +256,13 @@ export default function ReferralLinks() {
                           className="h-6 w-6 p-0"
                         >
                           {copiedLink === link.id ? (
-                            <Check className="w-3 h-3 text-green-600" />
+                            <Check className="w-3 h-3 text-aurora-emerald-flash" />
                           ) : (
                             <Copy className="w-3 h-3" />
                           )}
                         </Button>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-token-sm">
                         <span className="text-xs text-aurora-nav-muted">Target:</span>
                         <span className="text-xs text-aurora-nav-muted truncate max-w-md">
                           {link.originalUrl}
@@ -359,7 +359,7 @@ export default function ReferralLinks() {
               <div className="text-sm text-aurora-nav-muted">
                 Showing {((pagination.page - 1) * pagination.limit) + 1} to {Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total} links
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <Button
                   size="sm"
                   variant="outline"

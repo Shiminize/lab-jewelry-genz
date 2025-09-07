@@ -259,13 +259,13 @@ export default function GeographicHeatMap() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-foreground">Geographic Analytics</h2>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-token-md">
+          <div className="flex items-center space-x-token-sm">
             <Filter className="h-4 w-4 text-aurora-nav-muted" />
             <select 
               value={selectedMetric}
               onChange={(e) => setSelectedMetric(e.target.value as 'clicks' | 'conversions' | 'revenue')}
-              className="border border-border rounded-md px-3 py-1 text-sm"
+              className="border border-border rounded-token-md px-3 py-1 text-sm"
             >
               <option value="clicks">Clicks</option>
               <option value="conversions">Conversions</option>
@@ -278,7 +278,7 @@ export default function GeographicHeatMap() {
               setCenter([0, 20])
               setSelectedLocation(null)
             }}
-            className="px-3 py-1 text-sm border border-border rounded-md hover:bg-muted"
+            className="px-3 py-1 text-sm border border-border rounded-token-md hover:bg-muted"
           >
             Reset View
           </button>
@@ -289,7 +289,7 @@ export default function GeographicHeatMap() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <Globe className="h-4 w-4 text-blue-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Countries</span>
             </div>
@@ -304,7 +304,7 @@ export default function GeographicHeatMap() {
 
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <Users className="h-4 w-4 text-green-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Total Clicks</span>
             </div>
@@ -319,7 +319,7 @@ export default function GeographicHeatMap() {
 
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <TrendingUp className="h-4 w-4 text-purple-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Conversions</span>
             </div>
@@ -334,7 +334,7 @@ export default function GeographicHeatMap() {
 
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <DollarSign className="h-4 w-4 text-orange-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Revenue</span>
             </div>
@@ -352,7 +352,7 @@ export default function GeographicHeatMap() {
         {/* Interactive Map */}
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-token-sm">
               <MapPin className="h-5 w-5" />
               <span>Global {selectedMetric.charAt(0).toUpperCase() + selectedMetric.slice(1)} Heat Map</span>
             </CardTitle>
@@ -424,11 +424,11 @@ export default function GeographicHeatMap() {
               </ComposableMap>
               
               {/* Legend */}
-              <div className="absolute bottom-4 left-4 bg-background p-3 rounded-lg border shadow-sm">
+              <div className="absolute bottom-4 left-4 bg-background p-3 rounded-token-lg border shadow-sm">
                 <div className="text-xs font-medium text-foreground mb-2">
                   {selectedMetric.charAt(0).toUpperCase() + selectedMetric.slice(1)} Intensity
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-token-sm">
                   <div className="w-4 h-4 bg-muted rounded"></div>
                   <span className="text-xs text-aurora-nav-muted">Low</span>
                   <div className="w-8 h-4 bg-gradient-to-r from-gray-200 to-red-600 rounded"></div>
@@ -498,7 +498,7 @@ export default function GeographicHeatMap() {
                   return (
                     <div 
                       key={`${location.country}-${location.city}`}
-                      className="flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-muted cursor-pointer"
+                      className="flex items-center justify-between p-3 bg-muted rounded-token-lg hover:bg-muted cursor-pointer"
                       onClick={() => handleMarkerClick(location)}
                     >
                       <div className="flex items-center space-x-3">

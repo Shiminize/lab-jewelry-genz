@@ -245,7 +245,7 @@ export function QualityAnalytics() {
           <h2 className="text-2xl font-bold text-foreground">Quality Analytics</h2>
           <p className="text-aurora-nav-muted">Performance metrics and optimization insights</p>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-token-sm">
           <Button variant="outline" size="sm">
             <Download className="w-4 h-4 mr-2" />
             Export Report
@@ -349,9 +349,9 @@ export function QualityAnalytics() {
               <CardTitle>Format Performance Comparison</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 {metrics.formatComparison.map((format) => (
-                  <div key={format.format} className="border rounded-lg p-4">
+                  <div key={format.format} className="border rounded-token-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <h4 className="font-medium text-lg">{format.format}</h4>
                       <Badge variant="outline">
@@ -407,9 +407,9 @@ export function QualityAnalytics() {
               <CardTitle>Device Performance Analysis</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 {metrics.devicePerformance.map((device, index) => (
-                  <div key={index} className="border rounded-lg p-4">
+                  <div key={index} className="border rounded-token-lg p-4">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center space-x-3">
                         {getDeviceIcon(device.tier)}
@@ -449,11 +449,11 @@ export function QualityAnalytics() {
 
       {/* Recommendations Tab */}
       {selectedTab === 'recommendations' && (
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           {metrics.qualityRecommendations.map((rec) => (
             <Card key={rec.id}>
               <CardContent className="p-4">
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-token-md">
                   <div className="flex-shrink-0">
                     {getRecommendationIcon(rec.type)}
                   </div>

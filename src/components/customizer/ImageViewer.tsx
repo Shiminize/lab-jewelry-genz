@@ -39,7 +39,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   const autoRotateRef = useRef<NodeJS.Timeout | null>(null)
   const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Multi-format fallback WITHOUT cache-busting to prevent 404 spam
+  // Multi-format fallback WITH frame validation to prevent 404 spam
   const imagePaths = useMemo(() => {
     if (!assetPath) return []
     
@@ -49,10 +49,26 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
       return []
     }
     
+    // ENHANCED FRAME VALIDATION: Handle variable frame counts per material
+    let validatedFrame = currentFrame
+    let maxFrames = totalFrames
+    
+    // Detect material-specific frame limits from asset path
+    if (assetPath.includes('rose-gold')) {
+      maxFrames = Math.min(totalFrames, 32) // Rose gold has max 32 frames
+    } else {
+      maxFrames = totalFrames // Other materials use full frame count
+    }
+    
+    // Clamp frame to available range instead of wrapping
+    if (currentFrame >= maxFrames) {
+      validatedFrame = maxFrames - 1
+      console.log(`🔄 [FRAME VALIDATION] Frame ${currentFrame} not available for ${assetPath}, clamping to frame ${validatedFrame} (max: ${maxFrames})`)
+    }
+    
     // Priority order: webp (smallest) -> avif (modern) -> png (fallback)
     const formats = ['webp', 'avif', 'png']
-    // Remove cache-busting to prevent continuous 404s
-    return formats.map(format => `${assetPath}/${currentFrame}.${format}`)
+    return formats.map(format => `${assetPath}/${validatedFrame}.${format}`)
   }, [assetPath, currentFrame, failedAssetPaths])
 
   // Current active image source
@@ -126,7 +142,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
     }))
   }
 
-  // Enhanced preload with multi-format fallback
+  // Enhanced preload with multi-format fallback AND frame validation
   useEffect(() => {
     const preloadFramesWithFallback = async () => {
       const framesToPreload = [
@@ -138,12 +154,24 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
         const frameState = imageLoadStates[frameIndex]
         // Skip if already loaded, loading, or permanently failed
         if (frameState !== 'loaded' && frameState !== 'loading' && frameState !== 'failed') {
+          
+          // PHASE 1 FIX: Apply same frame validation to preloading
+          const validatedFrame = assetPath?.includes('rose-gold') && frameIndex >= 32 
+            ? frameIndex % 32  // Wrap around for missing frames
+            : frameIndex
+          
+          // Skip preloading if frame was already validated to something else
+          if (validatedFrame !== frameIndex) {
+            console.log(`🔄 [PRELOAD] Skipping frame ${frameIndex}, validated to ${validatedFrame}`)
+            continue
+          }
+          
           setImageLoadStates(prev => ({
             ...prev,
             [frameIndex]: 'loading'
           }))
 
-          // Try formats in priority order for preloading WITHOUT cache-busting
+          // Try formats in priority order for preloading
           const formats = ['webp', 'avif', 'png']
           let loaded = false
           
@@ -151,7 +179,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
             if (loaded) break
             
             try {
-              const framePath = `${assetPath}/${frameIndex}.${format}`
+              const framePath = `${assetPath}/${validatedFrame}.${format}`
               await new Promise<void>((resolve, reject) => {
                 const img = new Image()
                 img.onload = () => {
@@ -231,10 +259,10 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   if (isLoading) {
     return (
       <div className={cn(
-        "flex items-center justify-center aspect-square bg-background rounded-lg",
+        "flex items-center justify-center aspect-square bg-background rounded-token-lg",
         className
       )}>
-        <div className="w-12 h-12 border-2 border-accent/30 border-t-accent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-2 border-foreground/30 border-t-foreground rounded-full animate-spin" />
       </div>
     )
   }
@@ -243,14 +271,14 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
   if (error || (!currentImageSrc && imagePaths.length > 0 && imageLoadAttempt > 0)) {
     return (
       <div className={cn(
-        "flex items-center justify-center aspect-square bg-background rounded-lg border border-border",
+        "flex items-center justify-center aspect-square bg-background rounded-token-lg border border-border",
         className
       )}>
-        <div className="text-center space-y-3 p-4">
+        <div className="text-center space-y-token-sm p-token-md">
           <div className="w-16 h-16 bg-muted/20 rounded-full flex items-center justify-center mx-auto">
             <div className="text-2xl opacity-60">💎</div>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-token-sm">
             <p className="text-sm font-medium text-foreground">Preview Unavailable</p>
             <p className="text-xs text-aurora-nav-muted">This angle is being processed</p>
             <button 
@@ -258,7 +286,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
                 setImageLoadAttempt(0)
                 setCurrentImageSrc(null)
               }}
-              className="text-xs text-accent hover:text-accent/80 underline"
+              className="text-xs text-emerald-flash hover:text-emerald-flash/80 underline"
             >
               Try Again
             </button>
@@ -338,7 +366,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
     <div 
       ref={containerRef}
       className={cn(
-        "relative aspect-square bg-background rounded-lg overflow-hidden cursor-grab active:cursor-grabbing select-none transition-all duration-200",
+        "relative aspect-square bg-background rounded-token-lg overflow-hidden cursor-grab active:cursor-grabbing select-none transition-all duration-200",
         isGesturing && touchFeedback === 'subtle' && "shadow-sm",
         isGesturing && touchFeedback === 'prominent' && "shadow-md",
         className
@@ -375,7 +403,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
         {/* Minimal loading overlay */}
         {isCurrentFrameLoading && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-6 h-6 border-2 border-accent/20 border-t-accent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-foreground/20 border-t-foreground rounded-full animate-spin" />
           </div>
         )}
 

@@ -116,7 +116,7 @@ export default function ButtonTestPage() {
               <code className="text-xs text-foreground opacity-75">ghost + md</code>
             </div>
           </div>
-          <div className="mt-4 space-y-2">
+          <div className="mt-4 space-y-token-sm">
             <div className="p-4 bg-surface rounded-lg border">
               <p className="text-sm text-foreground">
                 <strong>Accent:</strong> bg-accent (#D4AF37) + text-foreground (#2D3A32)
@@ -151,7 +151,7 @@ export default function ButtonTestPage() {
               <h3 className="text-lg font-headline font-semibold text-foreground mb-4">
                 HTML Demo Compliance
               </h3>
-              <ul className="space-y-2 text-sm text-foreground">
+              <ul className="space-y-token-sm text-sm text-foreground">
                 <li>✅ 5 variants exactly matching HTML demo CSS</li>
                 <li>✅ Size distribution: Primary/Secondary (sm, md, lg)</li>
                 <li>✅ Single size for Accent/Outline/Ghost (md only)</li>
@@ -164,7 +164,7 @@ export default function ButtonTestPage() {
               <h3 className="text-lg font-headline font-semibold text-foreground mb-4">
                 Design Token Usage
               </h3>
-              <ul className="space-y-2 text-sm text-foreground">
+              <ul className="space-y-token-sm text-sm text-foreground">
                 <li>✅ bg-cta, bg-cta-hover for primary actions</li>
                 <li>✅ text-high-contrast for colored backgrounds</li>
                 <li>✅ bg-background, text-foreground for secondary</li>

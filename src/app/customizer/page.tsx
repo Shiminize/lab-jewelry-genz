@@ -12,7 +12,7 @@ const ProductCustomizer = dynamic(
   {
     loading: () => (
       <div className="flex items-center justify-center h-96 bg-background/50 rounded-lg animate-pulse">
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-token-md">
           <div className="w-12 h-12 border-2 border-accent border-t-transparent rounded-full animate-spin mx-auto" />
           <MutedText className="font-medium">Building your masterpiece...</MutedText>
         </div>
@@ -125,7 +125,7 @@ export default function CustomizerPage() {
   return (
     <PageContainer className="py-6 space-y-8">
       {/* Header Section */}
-      <div className="text-center space-y-4">
+      <div className="text-center space-y-token-md">
         <H1 className="text-foreground">Your Ring, Your Vibe ✨</H1>
         <MutedText className="text-lg max-w-2xl mx-auto">
           Build something that&apos;s actually you. 
@@ -133,7 +133,7 @@ export default function CustomizerPage() {
         </MutedText>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-2 gap-8 lg:items-start">
         {/* 3D Viewer Section - Delegated to ProductCustomizer */}
         <div className="space-y-6">
           <div className="text-center lg:text-left space-y-3">
@@ -149,7 +149,7 @@ export default function CustomizerPage() {
               initialMaterialId={selectedMaterialId}
               useOptimizedViewer={true}
               layout="clean-preview"
-              showControls={false}
+              showControls={true}
               showStatusBar={true}
               showFrameIndicator={false}
               autoRotate={true}
@@ -161,7 +161,7 @@ export default function CustomizerPage() {
 
           {/* Product Info Display */}
           {selectedProduct && (
-            <div className="bg-muted/10 rounded-lg p-4 space-y-2">
+            <div className="bg-muted/10 rounded-lg p-4 space-y-token-sm">
               <h3 className="font-headline text-lg text-foreground">
                 {selectedProduct.name}
               </h3>
@@ -182,14 +182,14 @@ export default function CustomizerPage() {
           {/* Material selection handled internally by ProductCustomizer component */}
 
           {/* Product Selection */}
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             <H2 className="text-foreground">Choose Your Style</H2>
             
             {/* Loading State */}
             {isLoading && (
               <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3">
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="p-3 border border-border rounded-lg space-y-2">
+                  <div key={i} className="p-3 border border-border rounded-lg space-y-token-sm">
                     <div className="aspect-square bg-muted/20 rounded animate-pulse" />
                     <div className="h-4 bg-muted/20 rounded animate-pulse" />
                     <div className="h-3 w-16 bg-muted/20 rounded animate-pulse" />
@@ -254,7 +254,7 @@ export default function CustomizerPage() {
           </div>
 
           {/* Price Display */}
-          <div className="bg-muted/20 rounded-lg p-6 space-y-4">
+          <div className="bg-muted/20 rounded-lg p-6 space-y-token-md">
             <div className="flex justify-between items-center">
               <span className="text-foreground font-medium">Total Price:</span>
               <span className="text-2xl font-headline text-cta">

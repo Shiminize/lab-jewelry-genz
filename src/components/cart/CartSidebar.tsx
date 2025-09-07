@@ -99,19 +99,19 @@ export function CartSidebar({
         {/* Cart Items */}
         <div className="flex-1 overflow-y-auto">
           {items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center p-6">
-              <div className="text-6xl text-muted mb-4">🛒</div>
-              <BodyText className="text-muted mb-4">Your cart is empty</BodyText>
+            <div className="flex flex-col items-center justify-center h-full text-center p-token-xl">
+              <div className="text-6xl text-muted mb-token-md">🛒</div>
+              <BodyText className="text-muted mb-token-md">Your cart is empty</BodyText>
               <Button variant="primary" onClick={onClose}>
                 Continue Shopping
               </Button>
             </div>
           ) : (
-            <div className="p-6 space-y-6">
+            <div className="p-token-xl space-y-token-xl">
               {items.map((item) => (
-                <div key={item._id} className="flex gap-4">
+                <div key={item._id} className="flex gap-token-md">
                   {/* Product Image */}
-                  <div className="w-20 h-20 bg-border-muted rounded-lg overflow-hidden flex-shrink-0">
+                  <div className="w-20 h-20 bg-border-muted rounded-token-md overflow-hidden flex-shrink-0">
                     <Image 
                       src={item.media?.primary || item.images?.primary || '/images/placeholder-product.jpg'} 
                       alt={item.name}
@@ -183,9 +183,9 @@ export function CartSidebar({
 
         {/* Cart Summary & Checkout */}
         {items.length > 0 && (
-          <div className="border-t bg-border-muted p-6 space-y-4">
+          <div className="border-t bg-border-muted p-6 space-y-token-md">
             {/* Order Summary */}
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <div className="flex justify-between text-sm">
                 <span>Subtotal:</span>
                 <span>${subtotal.toLocaleString()}</span>

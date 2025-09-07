@@ -32,7 +32,7 @@ export default function CarePage() {
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <div className="bg-background p-6 rounded-lg border border-border">
                 <h3 className="text-xl font-headline text-foreground mb-3">Before You Do Anything</h3>
-                <ul className="text-aurora-nav-muted space-y-2">
+                <ul className="text-aurora-nav-muted space-y-token-sm">
                   <li>• Take off your jewelry before you hit the gym, jump in the pool, or deep-clean your apartment</li>
                   <li>• Remove rings before you wash your hands with harsh soaps</li>
                   <li>• Skip the jewelry when you're cooking with oils or messy ingredients</li>
@@ -42,7 +42,7 @@ export default function CarePage() {
 
               <div className="bg-background p-6 rounded-lg border border-border">
                 <h3 className="text-xl font-headline text-foreground mb-3">After You Wear It</h3>
-                <ul className="text-aurora-nav-muted space-y-2">
+                <ul className="text-aurora-nav-muted space-y-token-sm">
                   <li>• Give it a gentle wipe with a soft cloth before putting it away</li>
                   <li>• Check for any loose stones or bent prongs (better safe than sorry)</li>
                   <li>• Store each piece separately so they don't scratch each other</li>
@@ -65,7 +65,7 @@ export default function CarePage() {
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="bg-background p-6 rounded-lg">
                 <h3 className="text-lg font-headline text-foreground mb-4">Lab-Grown Diamonds</h3>
-                <div className="text-aurora-nav-muted space-y-2">
+                <div className="text-aurora-nav-muted space-y-token-sm">
                   <p className="font-medium">What you need:</p>
                   <p>Warm water, mild dish soap, soft toothbrush</p>
                   <p className="font-medium mt-3">How to do it:</p>
@@ -75,7 +75,7 @@ export default function CarePage() {
 
               <div className="bg-background p-6 rounded-lg">
                 <h3 className="text-lg font-headline text-foreground mb-4">Moissanite</h3>
-                <div className="text-aurora-nav-muted space-y-2">
+                <div className="text-aurora-nav-muted space-y-token-sm">
                   <p className="font-medium">What you need:</p>
                   <p>Same as diamonds - they're basically indestructible</p>
                   <p className="font-medium mt-3">Pro tip:</p>
@@ -85,7 +85,7 @@ export default function CarePage() {
 
               <div className="bg-background p-6 rounded-lg">
                 <h3 className="text-lg font-headline text-foreground mb-4">Gold & Silver</h3>
-                <div className="text-aurora-nav-muted space-y-2">
+                <div className="text-aurora-nav-muted space-y-token-sm">
                   <p className="font-medium">What you need:</p>
                   <p>Jewelry cleaning cloth or mild soap solution</p>
                   <p className="font-medium mt-3">Avoid:</p>
@@ -106,7 +106,7 @@ export default function CarePage() {
             </h2>
             
             <div className="bg-background p-8 rounded-lg border border-border mb-8">
-              <div className="text-left space-y-4 text-aurora-nav-muted">
+              <div className="text-left space-y-token-md text-aurora-nav-muted">
                 <div>
                   <span className="inline-block w-8 h-8 bg-accent rounded-full text-background font-bold text-sm flex items-center justify-center mr-3 float-left mt-1">1</span>
                   <p><strong>Separate everything.</strong> Think of it like roommates - they need their own space or they'll fight. Use individual pouches or compartments.</p>
@@ -140,7 +140,7 @@ export default function CarePage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-background p-6 rounded-lg">
                 <h3 className="text-lg font-headline text-foreground mb-4 text-center">✅ Do This</h3>
-                <ul className="text-aurora-nav-muted space-y-2">
+                <ul className="text-aurora-nav-muted space-y-token-sm">
                   <li>• Clean your pieces regularly (monthly is fine)</li>
                   <li>• Check for loose stones or damage</li>
                   <li>• Store pieces separately</li>
@@ -152,7 +152,7 @@ export default function CarePage() {
 
               <div className="bg-background p-6 rounded-lg">
                 <h3 className="text-lg font-headline text-foreground mb-4 text-center">❌ Don't Do This</h3>
-                <ul className="text-aurora-nav-muted space-y-2">
+                <ul className="text-aurora-nav-muted space-y-token-sm">
                   <li>• Don't use toothpaste to clean jewelry</li>
                   <li>• Don't store everything in one tangled pile</li>
                   <li>• Don't wear jewelry in hot tubs or pools</li>

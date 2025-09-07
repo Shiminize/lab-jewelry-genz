@@ -115,11 +115,11 @@ export function FeaturedProductsSection({
   const activeWishlist = onAddToWishlist ? wishlistedItems : localWishlist
 
   return (
-    <Section background="default" className={cn('py-16 lg:py-24', className)}>
+    <Section background="default" className={cn('py-token-2xl lg:py-24', className)}>
       <PageContainer maxWidth="7xl">
         {/* Section Header */}
-        <div className="text-center mb-12 lg:mb-16">
-          <div className="flex items-center justify-center space-x-2 mb-4">
+        <div className="text-center mb-token-xl lg:mb-token-2xl">
+          <div className="flex items-center justify-center space-x-token-sm mb-4">
             <Star className="w-5 h-5 text-accent fill-accent" />
             <MutedText size="md" className="text-accent font-medium uppercase tracking-wider">
               Curated Collection
@@ -127,7 +127,7 @@ export function FeaturedProductsSection({
             <Star className="w-5 h-5 text-accent fill-accent" />
           </div>
           
-          <H2 className="mb-4 lg:mb-6">
+          <H2 className="mb-token-md lg:mb-token-lg">
             Discover Your Perfect Piece
           </H2>
           
@@ -139,7 +139,7 @@ export function FeaturedProductsSection({
         </div>
 
         {/* Featured Products Grid */}
-        <div className="mb-12 lg:mb-16">
+        <div className="mb-token-xl lg:mb-token-2xl">
           <ProductGrid
             products={featuredProducts}
             loading={loading}
@@ -149,7 +149,7 @@ export function FeaturedProductsSection({
             onQuickView={handleQuickView}
             onAddToCart={handleAddToCart}
             wishlistedItems={activeWishlist}
-            className="mb-8"
+            className="mb-token-xl"
             emptyMessage="No featured products available"
             emptyDescription="Check back soon for our latest curated collection."
           />
@@ -157,13 +157,13 @@ export function FeaturedProductsSection({
 
         {/* CTA Section */}
         <div className="text-center">
-          <div className="max-w-md mx-auto mb-8">
+          <div className="max-w-md mx-auto mb-token-xl">
             <BodyText size="md" className="text-foreground">
               Explore our complete collection of luxury jewelry pieces, each designed to tell your unique story.
             </BodyText>
           </div>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-token-md">
             <Button
               variant="primary"
               size="lg"
@@ -189,10 +189,10 @@ export function FeaturedProductsSection({
         </div>
 
         {/* Quality Badges */}
-        <div className="mt-16 pt-12 border-t border-border">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-3">
-              <div className="w-12 h-12 mx-auto bg-accent/10 rounded-full flex items-center justify-center">
+        <div className="mt-token-2xl pt-token-xl border-t border-border">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-token-xl text-center">
+            <div className="space-y-token-sm">
+              <div className="w-12 h-12 mx-auto bg-accent/10 rounded-34 flex items-center justify-center">
                 <Heart className="w-6 h-6 text-accent" />
               </div>
               <BodyText size="md" weight="semibold">
@@ -203,8 +203,8 @@ export function FeaturedProductsSection({
               </MutedText>
             </div>
             
-            <div className="space-y-3">
-              <div className="w-12 h-12 mx-auto bg-accent/10 rounded-full flex items-center justify-center">
+            <div className="space-y-token-sm">
+              <div className="w-12 h-12 mx-auto bg-accent/10 rounded-34 flex items-center justify-center">
                 <Star className="w-6 h-6 text-accent" />
               </div>
               <BodyText size="md" weight="semibold">
@@ -215,8 +215,8 @@ export function FeaturedProductsSection({
               </MutedText>
             </div>
             
-            <div className="space-y-3">
-              <div className="w-12 h-12 mx-auto bg-accent/10 rounded-full flex items-center justify-center">
+            <div className="space-y-token-sm">
+              <div className="w-12 h-12 mx-auto bg-accent/10 rounded-34 flex items-center justify-center">
                 <span className="text-2xl">🛡️</span>
               </div>
               <BodyText size="md" weight="semibold">
@@ -248,7 +248,7 @@ export function FeaturedProductsCompact({
     <FeaturedProductsSection
       {...props}
       productCount={4}
-      className={cn('py-12 lg:py-16', className)}
+      className={cn('py-token-xl lg:py-token-2xl', className)}
     />
   )
 }

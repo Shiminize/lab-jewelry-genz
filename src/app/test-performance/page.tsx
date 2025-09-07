@@ -78,7 +78,7 @@ export default function PerformanceTestPage() {
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-4xl mx-auto space-y-8">
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-token-md">
           <H1>CLAUDE_RULES Performance Test</H1>
           <BodyText className="text-aurora-nav-muted">
             Testing &lt;100ms material switching requirement with optimized preloader
@@ -86,7 +86,7 @@ export default function PerformanceTestPage() {
         </div>
         
         <div className="grid lg:grid-cols-2 gap-8">
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             <H2>Material Switcher</H2>
             <MaterialControls
               materials={TEST_MATERIALS}
@@ -102,11 +102,11 @@ export default function PerformanceTestPage() {
             </div>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             <H2>Performance Results</H2>
             
             {/* Summary Stats */}
-            <div className="bg-muted p-4 rounded-lg space-y-2">
+            <div className="bg-muted p-4 rounded-lg space-y-token-sm">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="text-sm text-aurora-nav-muted">Average Time</div>
@@ -134,7 +134,7 @@ export default function PerformanceTestPage() {
             </div>
             
             {/* Recent Switch Times */}
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <div className="text-sm font-medium">Recent Switches:</div>
               <div className="bg-background border border-border rounded-lg p-3 h-64 overflow-y-auto">
                 {switchTimes.length === 0 ? (
@@ -160,7 +160,7 @@ export default function PerformanceTestPage() {
         
         {/* Instructions */}
         <div className="bg-accent/10 border border-accent/20 rounded-lg p-4">
-          <div className="text-sm space-y-2">
+          <div className="text-sm space-y-token-sm">
             <div className="font-medium">Test Instructions:</div>
             <div>1. Wait for all materials to finish preloading</div>
             <div>2. Click different material buttons to test switch speed</div>

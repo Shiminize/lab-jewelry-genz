@@ -93,7 +93,7 @@ export default function SizingPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                className={`flex items-center space-x-token-sm px-4 py-2 rounded-lg font-medium transition-all ${
                   activeTab === tab.id
                     ? 'bg-foreground text-background'
                     : 'text-foreground hover:bg-muted'
@@ -124,7 +124,7 @@ export default function SizingPage() {
                     Wrap a string around your finger, mark where it overlaps, then measure the length.
                   </p>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-token-md">
                     <div>
                       <label htmlFor="circumference" className="block text-sm font-medium text-foreground mb-2">
                         Circumference (mm)
@@ -158,7 +158,7 @@ export default function SizingPage() {
                     Already know your US ring size? Enter it here to see all the conversions.
                   </p>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-token-md">
                     <div>
                       <label htmlFor="existingSize" className="block text-sm font-medium text-foreground mb-2">
                         Your US Ring Size
@@ -249,7 +249,7 @@ export default function SizingPage() {
               </h2>
               
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-4">
+                <div className="space-y-token-md">
                   <h3 className="text-xl font-headline text-foreground mb-4">Choose Your Length</h3>
                   <p className="text-aurora-nav-muted mb-6">
                     Different lengths create different looks. Click on a length to see how it typically sits.
@@ -291,7 +291,7 @@ export default function SizingPage() {
 
                 <div className="bg-background p-6 rounded-lg border border-border">
                   <h3 className="text-lg font-headline text-foreground mb-4">Sizing Yourself</h3>
-                  <div className="space-y-4 text-aurora-nav-muted">
+                  <div className="space-y-token-md text-aurora-nav-muted">
                     <div>
                       <p className="font-medium mb-2">What You Need:</p>
                       <p className="text-sm">A measuring tape or string + ruler</p>
@@ -349,7 +349,7 @@ export default function SizingPage() {
                     Wrap a measuring tape around your wrist bone, or use a string and measure it.
                   </p>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-token-md">
                     <div>
                       <label htmlFor="wristSize" className="block text-sm font-medium text-foreground mb-2">
                         Wrist Circumference (inches)
@@ -370,7 +370,7 @@ export default function SizingPage() {
                       <label className="block text-sm font-medium text-foreground mb-2">
                         How do you like your bracelets to fit?
                       </label>
-                      <div className="space-y-2">
+                      <div className="space-y-token-sm">
                         {[
                           { value: 'snug', label: 'Snug (+0.5")', desc: 'Sits close to wrist' },
                           { value: 'comfortable', label: 'Comfortable (+0.75")', desc: 'Most popular fit' },

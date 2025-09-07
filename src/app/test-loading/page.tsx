@@ -55,7 +55,7 @@ export default function TestLoadingPage() {
     <div className="min-h-screen bg-background p-8">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-token-md">
           <h1 className="font-headline text-3xl text-foreground">
             3D Customizer Loading States Demo
           </h1>
@@ -88,7 +88,7 @@ export default function TestLoadingPage() {
         </div>
 
         {/* Progress Info */}
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-token-sm">
           <div className="font-body text-sm text-aurora-nav-muted bg-background">
             Current Phase: <span className="font-semibold text-foreground">{phase}</span>
           </div>
@@ -115,7 +115,7 @@ export default function TestLoadingPage() {
 
         {/* Variant Showcase */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             <h3 className="font-headline text-xl text-foreground text-center">Luxury Variant</h3>
             <CustomizerLoadingState
               variant="luxury"
@@ -127,7 +127,7 @@ export default function TestLoadingPage() {
             />
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             <h3 className="font-headline text-xl text-foreground text-center">Patience Variant</h3>
             <CustomizerLoadingState
               variant="patience"
@@ -139,7 +139,7 @@ export default function TestLoadingPage() {
             />
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             <h3 className="font-headline text-xl text-foreground text-center">Recovery Variant</h3>
             <CustomizerLoadingState
               variant="recovery"
@@ -158,7 +158,7 @@ export default function TestLoadingPage() {
             CLAUDE_RULES Compliance Features
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-body text-sm text-aurora-nav-muted bg-muted">
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <h4 className="font-semibold text-foreground">Design System</h4>
               <ul className="space-y-1">
                 <li>✅ Only approved color combinations used</li>
@@ -167,7 +167,7 @@ export default function TestLoadingPage() {
                 <li>✅ 44px minimum touch targets</li>
               </ul>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <h4 className="font-semibold text-foreground">Accessibility</h4>
               <ul className="space-y-1">
                 <li>✅ ARIA labels and live regions</li>

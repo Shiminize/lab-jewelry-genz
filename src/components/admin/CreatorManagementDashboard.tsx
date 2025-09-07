@@ -276,7 +276,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       {/* Metrics Overview */}
       {metrics && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6" data-testid="metrics-overview">
-          <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
+          <div className="bg-background p-6 rounded-token-lg shadow-sm border border-border">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-aurora-nav-muted">Total Creators</p>
@@ -286,7 +286,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
             </div>
           </div>
 
-          <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
+          <div className="bg-background p-6 rounded-token-lg shadow-sm border border-border">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-aurora-nav-muted">Pending Applications</p>
@@ -296,7 +296,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
             </div>
           </div>
 
-          <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
+          <div className="bg-background p-6 rounded-token-lg shadow-sm border border-border">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-aurora-nav-muted">Active Creators</p>
@@ -306,7 +306,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
             </div>
           </div>
 
-          <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
+          <div className="bg-background p-6 rounded-token-lg shadow-sm border border-border">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-aurora-nav-muted">Approval Rate</p>
@@ -323,7 +323,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       )}
 
       {/* Controls */}
-      <div className="bg-background p-6 rounded-lg shadow-sm border border-border">
+      <div className="bg-background p-6 rounded-token-lg shadow-sm border border-border">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           {/* Search */}
           <div className="relative flex-1 max-w-md">
@@ -333,14 +333,14 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
               placeholder="Search creators by name, email, or code..."
               value={filters.search}
               onChange={(e) => handleSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
             />
           </div>
 
           {/* Filter Toggle */}
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground bg-muted rounded-lg hover:bg-muted transition-colors"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground bg-muted rounded-token-lg hover:bg-muted transition-colors"
           >
             <Filter className="h-4 w-4" />
             Filters
@@ -349,7 +349,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
           {/* Refresh */}
           <button
             onClick={fetchCreators}
-            className="px-4 py-2 text-sm font-medium text-white bg-coral-gold rounded-lg hover:bg-coral-gold/90 transition-colors"
+            className="px-4 py-2 text-sm font-medium text-white bg-coral-gold rounded-token-lg hover:bg-coral-gold/90 transition-colors"
           >
             Refresh
           </button>
@@ -357,13 +357,13 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
 
         {/* Filters Panel */}
         {showFilters && (
-          <div className="mt-4 p-4 bg-muted rounded-lg grid grid-cols-1 sm:grid-cols-3 gap-4" data-testid="filters-panel">
+          <div className="mt-4 p-4 bg-muted rounded-token-lg grid grid-cols-1 sm:grid-cols-3 gap-4" data-testid="filters-panel">
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">Status</label>
               <select
                 value={filters.status}
                 onChange={(e) => handleFilterChange('status', e.target.value)}
-                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
+                className="w-full px-3 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
               >
                 <option value="all">All Statuses</option>
                 <option value="pending">Pending</option>
@@ -378,7 +378,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
               <select
                 value={filters.tier}
                 onChange={(e) => handleFilterChange('tier', e.target.value)}
-                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
+                className="w-full px-3 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
               >
                 <option value="all">All Tiers</option>
                 <option value="bronze">Bronze</option>
@@ -393,7 +393,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
               <select
                 value={filters.limit}
                 onChange={(e) => handleFilterChange('limit', e.target.value)}
-                className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
+                className="w-full px-3 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-coral-gold focus:border-transparent"
               >
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -407,7 +407,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
 
       {/* Bulk Actions */}
       {selectedCreators.length > 0 && (
-        <div className="bg-coral-gold/10 border border-coral-gold/20 rounded-lg p-4" data-testid="bulk-actions-bar">
+        <div className="bg-coral-gold/10 border border-coral-gold/20 rounded-token-lg p-4" data-testid="bulk-actions-bar">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <span className="text-sm font-medium text-coral-gold">
@@ -449,7 +449,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       )}
 
       {/* Creators Table */}
-      <div className="bg-background rounded-lg shadow-sm border border-border overflow-hidden">
+      <div className="bg-background rounded-token-lg shadow-sm border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y border-border" data-testid="creators-table">
             <thead className="bg-muted">
@@ -580,14 +580,14 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
                 <button
                   onClick={() => setFilters(prev => ({ ...prev, page: Math.max(1, prev.page - 1) }))}
                   disabled={!pagination.hasPrev}
-                  className="relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-foreground bg-background hover:bg-muted disabled:opacity-50"
+                  className="relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-token-md text-foreground bg-background hover:bg-muted disabled:opacity-50"
                 >
                   Previous
                 </button>
                 <button
                   onClick={() => setFilters(prev => ({ ...prev, page: prev.page + 1 }))}
                   disabled={!pagination.hasNext}
-                  className="ml-3 relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-foreground bg-background hover:bg-muted disabled:opacity-50"
+                  className="ml-3 relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-token-md text-foreground bg-background hover:bg-muted disabled:opacity-50"
                 >
                   Next
                 </button>
@@ -602,7 +602,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
                   </p>
                 </div>
                 <div>
-                  <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                  <nav className="relative z-0 inline-flex rounded-token-md shadow-sm -space-x-px">
                     <button
                       onClick={() => setFilters(prev => ({ ...prev, page: Math.max(1, prev.page - 1) }))}
                       disabled={!pagination.hasPrev}
@@ -628,7 +628,7 @@ export default function CreatorManagementDashboard({ onCreatorSelect }: CreatorM
       </div>
 
       {creators.length === 0 && !loading && (
-        <div className="text-center py-12 bg-background rounded-lg border border-border">
+        <div className="text-center py-12 bg-background rounded-token-lg border border-border">
           <Users className="mx-auto h-12 w-12 text-aurora-nav-muted" />
           <h3 className="mt-2 text-sm font-medium text-foreground">No creators found</h3>
           <p className="mt-1 text-sm text-aurora-nav-muted">

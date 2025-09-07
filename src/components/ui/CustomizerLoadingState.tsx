@@ -65,9 +65,9 @@ const messageVariants = cva(
         recovery: 'text-foreground' // Graphite green on white
       },
       size: {
-        sm: 'space-y-2',
+        sm: 'space-y-token-sm',
         md: 'space-y-3',
-        lg: 'space-y-4'
+        lg: 'space-y-token-md'
       }
     },
     defaultVariants: {

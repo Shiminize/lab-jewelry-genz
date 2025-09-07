@@ -18,7 +18,7 @@ const statusBarVariants = cva(
     variants: {
       position: {
         'bottom-full': 'bottom-0 left-0 right-0',
-        'bottom-right': 'bottom-4 right-4'
+        'bottom-right': 'bottom-token-md right-token-md'
       },
       state: {
         collapsed: 'translate-y-0',
@@ -43,8 +43,8 @@ const contentVariants = cva(
   {
     variants: {
       layout: {
-        mobile: 'rounded-t-xl p-4',
-        desktop: 'rounded-xl p-3 border border-border shadow-xl'
+        mobile: 'rounded-t-xl p-token-md',
+        desktop: 'rounded-xl p-token-sm border border-border shadow-xl'
       }
     },
     defaultVariants: {
@@ -141,17 +141,17 @@ export function MaterialStatusBar({
       >
         {/* Mobile Layout */}
         {isMobile ? (
-          <div className="space-y-3">
+          <div className="space-y-token-sm">
             {/* Collapsed State - Touch Bar */}
             {!isExpanded && (
               <button
                 onClick={handleToggleExpanded}
-                className="w-full flex items-center justify-between p-2 -m-2 text-foreground bg-background hover:bg-muted/50 rounded-lg transition-colors duration-200 touch-manipulation"
+                className="w-full flex items-center justify-between p-token-sm -m-token-sm text-foreground bg-background hover:bg-muted/50 rounded-token-lg transition-colors duration-200 touch-manipulation"
                 aria-expanded="false"
                 aria-controls="material-details"
                 aria-label="Show material selection details"
               >
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-token-sm">
                   <div className="w-3 h-3 bg-cta rounded-full flex-shrink-0" aria-hidden="true" />
                   <span className="font-body text-sm text-foreground truncate">
                     Current Selection
@@ -163,15 +163,15 @@ export function MaterialStatusBar({
 
             {/* Expanded State - Full Details */}
             {isExpanded && (
-              <div id="material-details" className="space-y-3">
+              <div id="material-details" className="space-y-token-sm">
                 <div className="flex items-center justify-between">
                   <h3 className="font-body text-sm font-medium text-foreground">
                     Material Selection
                   </h3>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-token-sm">
                     <button
                       onClick={handleToggleExpanded}
-                      className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 touch-manipulation"
+                      className="p-token-xs text-aurora-nav-muted hover:text-foreground transition-colors duration-200 touch-manipulation"
                       aria-expanded="true"
                       aria-controls="material-details"
                       aria-label="Hide material selection details"
@@ -180,7 +180,7 @@ export function MaterialStatusBar({
                     </button>
                     <button
                       onClick={handleDismiss}
-                      className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 touch-manipulation"
+                      className="p-token-xs text-aurora-nav-muted hover:text-foreground transition-colors duration-200 touch-manipulation"
                       aria-label="Close material selection display"
                     >
                       <X size={16} />
@@ -196,14 +196,14 @@ export function MaterialStatusBar({
           </div>
         ) : (
           /* Desktop Layout - Always Expanded */
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-token-sm">
             <div className="w-2 h-2 bg-cta rounded-full flex-shrink-0" aria-hidden="true" />
             <span className="font-body text-sm text-foreground">
               {materialText}
             </span>
             <button
               onClick={handleDismiss}
-              className="p-1 text-aurora-nav-muted hover:text-foreground transition-colors duration-200 ml-2"
+              className="p-token-xs text-aurora-nav-muted hover:text-foreground transition-colors duration-200 ml-token-sm"
               aria-label="Close material selection display"
             >
               <X size={14} />

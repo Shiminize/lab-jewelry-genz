@@ -8,9 +8,11 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { Button } from '@/components/ui/Button'
+import { MaterialTagChip } from '@/components/ui/MaterialTagChip'
 import { cn } from '@/lib/utils'
 import { TouchGestureService, type GestureCallbacks } from '@/services/TouchGestureService'
 import type { Material, MaterialId } from '@/components/customizer/types'
+import type { MaterialTag } from '@/types/material-tags'
 
 export interface MaterialCarouselProps {
   materials: Material[]
@@ -49,6 +51,15 @@ export const MaterialCarousel: React.FC<MaterialCarouselProps> = ({
     lg: 'w-24 min-w-24'  // 96px
   }
 
+  // Convert Material to MaterialTag for compatibility with MaterialTagChip
+  const convertToMaterialTag = useCallback((material: Material): MaterialTag => ({
+    id: material.id,
+    displayName: material.displayName,
+    category: 'metal',
+    filterValue: material.id,
+    sortOrder: 0
+  }), [])
+
   // Handle material selection with performance measurement
   const handleMaterialSelect = useCallback((materialId: MaterialId) => {
     if (isDisabled || isDragging) return
@@ -60,6 +71,11 @@ export const MaterialCarousel: React.FC<MaterialCarouselProps> = ({
     const switchTime = performance.now() - startTime
     console.log(`[MATERIAL CAROUSEL] ${materialId}: ${switchTime.toFixed(2)}ms`)
   }, [onMaterialChange, isDisabled, isDragging])
+
+  // Handle MaterialTagChip click
+  const handleTagClick = useCallback((tag: MaterialTag) => {
+    handleMaterialSelect(tag.id as MaterialId)
+  }, [handleMaterialSelect])
 
   // Scroll utility functions
   const updateScrollState = useCallback(() => {
@@ -182,7 +198,7 @@ export const MaterialCarousel: React.FC<MaterialCarouselProps> = ({
   // Grid layout for larger screens
   if (layout === 'grid') {
     return (
-      <div className={cn("space-y-4", className)}>
+      <div className={cn("space-y-token-md", className)}>
         <h3 className="font-headline text-lg text-foreground">
           Metal Type
         </h3>
@@ -213,7 +229,7 @@ export const MaterialCarousel: React.FC<MaterialCarouselProps> = ({
                     <div className="font-medium text-sm truncate">
                       {material.displayName}
                     </div>
-                    <div className="text-xs text-aurora-nav-muted flex items-center space-x-2">
+                    <div className="text-xs text-aurora-nav-muted flex items-center space-x-token-sm">
                       <span>
                         {material.priceModifier >= 0 ? '+' : ''}
                         ${Math.abs(material.priceModifier)}
@@ -232,7 +248,7 @@ export const MaterialCarousel: React.FC<MaterialCarouselProps> = ({
 
   // Horizontal carousel layout
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn("space-y-token-md", className)}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="font-headline text-lg text-foreground">
@@ -297,53 +313,40 @@ export const MaterialCarousel: React.FC<MaterialCarouselProps> = ({
         >
           {materials.map((material) => {
             const isSelected = selectedMaterial === material.id
+            const materialTag = convertToMaterialTag(material)
             
             return (
-              <button
+              <div
                 key={material.id}
-                onClick={() => handleMaterialSelect(material.id)}
-                disabled={isDisabled || isDragging}
                 className={cn(
                   widthConfigs[itemWidth],
-                  "flex-shrink-0 p-3 border-2 transition-all duration-200",
-                  "hover:shadow-md focus:outline-none focus:ring-2 focus:ring-cta focus:ring-offset-2",
-                  "bg-background",
-                  isSelected
-                    ? 'border-cta bg-cta/10 shadow-sm' 
-                    : 'border-border hover:border-cta/50',
-                  isDisabled && "opacity-50 cursor-not-allowed"
+                  "flex-shrink-0"
                 )}
-                aria-pressed={isSelected}
-                aria-label={`Select ${material.displayName}`}
-                data-material={material.id}
               >
-                <div className="space-y-2 w-full">
-                  {/* Material color indicator */}
-                  <div 
-                    className="w-8 h-8 rounded-full border-2 border-border shadow-sm mx-auto"
-                    style={{ backgroundColor: material.pbrProperties.color }}
-                    aria-hidden="true"
-                  />
-                  
-                  {/* Material name */}
-                  <div className="text-xs font-medium text-foreground text-center line-clamp-2">
-                    {material.displayName}
-                  </div>
-                  
-                  {/* Price modifier */}
-                  <div className="text-xs text-muted-foreground text-center">
-                    {material.priceModifier >= 0 ? '+' : ''}
-                    ${Math.abs(material.priceModifier)}
-                  </div>
-                  
-                  {/* Selected indicator */}
-                  {isSelected && (
-                    <div className="text-cta text-center text-sm">
-                      ✓
-                    </div>
+                <MaterialTagChip
+                  tag={materialTag}
+                  selected={isSelected}
+                  onClick={() => !isDragging && handleTagClick(materialTag)}
+                  disabled={isDisabled || isDragging}
+                  size="sm"
+                  className={cn(
+                    "w-full min-h-[60px] transition-all duration-200"
                   )}
+                  icon={
+                    <div 
+                      className="w-6 h-6 rounded-full border border-border shadow-sm"
+                      style={{ backgroundColor: material.pbrProperties.color }}
+                      aria-hidden="true"
+                    />
+                  }
+                />
+                
+                {/* Price modifier display */}
+                <div className="text-xs text-muted-foreground text-center mt-1">
+                  {material.priceModifier >= 0 ? '+' : ''}
+                  ${Math.abs(material.priceModifier)}
                 </div>
-              </button>
+              </div>
             )
           })}
         </div>

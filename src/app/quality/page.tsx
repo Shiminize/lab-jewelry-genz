@@ -61,7 +61,7 @@ export default function QualityPage() {
               </p>
               <div className="bg-background p-6 rounded-lg border border-border mb-8">
                 <h3 className="text-lg font-headline text-foreground mb-4">Your Warranty Details</h3>
-                <div className="text-left text-aurora-nav-muted space-y-2">
+                <div className="text-left text-aurora-nav-muted space-y-token-sm">
                   <p><strong>Order:</strong> {formData.orderNumber}</p>
                   <p><strong>Product:</strong> {formData.productName}</p>
                   <p><strong>Coverage:</strong> 2 years from purchase</p>
@@ -367,7 +367,7 @@ export default function QualityPage() {
               Need to make a claim or have questions about coverage? 
               We're here to help.
             </p>
-            <div className="space-y-2 text-aurora-nav-muted">
+            <div className="space-y-token-sm text-aurora-nav-muted">
               <p><strong>Email:</strong> warranty@glowglitch.com</p>
               <p><strong>Response time:</strong> Within 24 hours</p>
             </div>

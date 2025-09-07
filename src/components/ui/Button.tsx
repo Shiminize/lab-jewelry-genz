@@ -5,26 +5,33 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center font-body font-semibold transition-all focus:outline-2 focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer border-none aurora-living-component',
+  // Base styles using ONLY tokens from tailwind.config.js - CLAUDE_RULES compliant
+  'inline-flex items-center justify-center font-semibold transition-all duration-300 ease-in-out focus:outline-2 focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer border-none rounded-token-md',
   {
     variants: {
       variant: {
-        // Aurora Enhanced Primary Button - Emotional Intelligence
-        primary: 'bg-cta text-background hover:scale-105 shadow-lg hover:shadow-xl aurora-button-primary aurora-interactive-shadow',
-        // Aurora Enhanced Secondary Button
-        secondary: 'bg-background text-foreground border border-border hover:bg-muted aurora-interactive-shadow aurora-shimmer-overlay',
-        outline: 'bg-transparent text-foreground border border-foreground hover:bg-foreground hover:text-background aurora-interactive-shadow aurora-pulse',
-        ghost: 'bg-transparent text-foreground hover:bg-muted aurora-interactive-shadow aurora-breathe',
-        // Aurora Enhanced Accent Button - Full Emotional Experience
-        accent: 'bg-accent text-foreground hover:opacity-90 aurora-interactive-shadow aurora-shimmer-overlay aurora-floating'
+        // Primary: Token-based gradient with hover:brightness-115 and hover:scale-101
+        primary: 'text-neutral-0 bg-gradient-primary hover:brightness-115 hover:scale-101 shadow-near hover:shadow-hover',
+        
+        // Secondary: Token background with interactive states
+        secondary: 'bg-neutral-50 text-neutral-900 border border-neutral-200 hover:bg-neutral-0 hover:brightness-115 hover:scale-101 shadow-soft hover:shadow-near',
+        
+        // Outline: Token border with transform states
+        outline: 'bg-transparent text-neutral-900 border border-neutral-900 hover:bg-neutral-900 hover:text-neutral-0 hover:brightness-115 hover:scale-101',
+        
+        // Ghost: Clean hover with token background
+        ghost: 'bg-transparent text-neutral-900 hover:bg-neutral-50 hover:brightness-115 hover:scale-101',
+        
+        // Accent: Tertiary gradient with token compliance
+        accent: 'bg-gradient-tertiary text-neutral-0 hover:brightness-115 hover:scale-101 shadow-near hover:shadow-hover'
       },
       size: {
-        // CLAUDE_RULES Button Sizes: Primary/Secondary (3 sizes) + Outline/Ghost/Accent (flexible)
-        sm: 'min-h-9 px-4 text-sm', // 36px min-height, 16px padding
-        md: 'min-h-11 px-6 text-base', // 44px min-height, 24px padding  
-        lg: 'min-h-12 px-12 text-lg', // 48px min-height, 48px padding
-        icon: 'w-9 h-9 p-0 aurora-pulse',
-        'icon-lg': 'w-11 h-11 p-0 aurora-pulse'
+        // Proper Tailwind utilities mapped to design-tokens.css values
+        sm: 'px-2 py-1 text-sm min-h-[2rem]',        // 8px, 4px, 32px
+        md: 'px-4 py-2 text-base min-h-[2.75rem]',   // 16px, 8px, 44px (token-size-button-height)
+        lg: 'px-6 py-4 text-lg min-h-[3.5rem]',     // 24px, 16px, 56px
+        icon: 'w-10 h-10 p-0',                      // 40px (2.5rem)
+        'icon-lg': 'w-12 h-12 p-0'                  // 48px (3rem)
       }
     },
     defaultVariants: {
@@ -78,14 +85,14 @@ export function Button({
       {...props}
     >
       {isLoading ? (
-        <div className="flex items-center space-x-2 aurora-shimmer-overlay">
-          <div className="w-4 h-4 border-2 border-current border-t-transparent animate-spin aurora-pulse" />
-          <span className="aurora-gradient-text">Loading...</span>
+        <div className="flex items-center space-x-token-xs">
+          <div className="w-4 h-4 border-2 border-current border-t-transparent animate-spin rounded-full" />
+          <span>Loading...</span>
         </div>
       ) : (
         <div className={cn(
           'flex items-center',
-          icon && 'space-x-2'
+          icon && 'space-x-1'
         )}>
           {icon && iconPosition === 'left' && (
             <span className="flex-shrink-0">{icon}</span>

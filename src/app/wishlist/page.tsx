@@ -70,7 +70,7 @@ export default function WishlistPage() {
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-12">
           <div className="flex items-center justify-center py-24">
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-token-md">
               <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto" />
               <MutedText>Loading your wishlist...</MutedText>
             </div>

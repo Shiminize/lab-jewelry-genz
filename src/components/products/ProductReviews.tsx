@@ -97,7 +97,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
       <div className="max-w-4xl mx-auto">
         <div className="animate-pulse space-y-6">
           <div className="h-6 bg-muted rounded w-1/4"></div>
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             {[1, 2, 3].map(i => (
               <div key={i} className="h-24 bg-muted rounded"></div>
             ))}
@@ -114,14 +114,14 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
         <h2 className="text-2xl font-bold text-foreground">Customer Reviews</h2>
         <button
           onClick={() => setShowWriteReview(true)}
-          className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+          className="px-4 py-2 bg-amber-600 text-white rounded-token-lg hover:bg-amber-700 transition-colors"
         >
           Write a Review
         </button>
       </div>
 
       {/* Review Summary */}
-      <div className="bg-muted rounded-lg p-6">
+      <div className="bg-muted rounded-token-lg p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Average Rating */}
           <div className="text-center">
@@ -135,7 +135,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
           </div>
 
           {/* Rating Distribution */}
-          <div className="space-y-2">
+          <div className="space-y-token-sm">
             {[5, 4, 3, 2, 1].map((rating) => (
               <div key={rating} className="flex items-center space-x-3">
                 <button
@@ -168,12 +168,12 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
 
       {/* Filters and Sort */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-token-md">
           <span className="text-sm font-medium text-foreground">Sort by:</span>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as any)}
-            className="border border-border rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+            className="border border-border rounded-token-lg px-3 py-1 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
           >
             <option value="newest">Newest First</option>
             <option value="oldest">Oldest First</option>
@@ -202,7 +202,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
           </div>
         ) : (
           reviews.map((review) => (
-            <div key={review.id} className="bg-background border border-border rounded-lg p-6">
+            <div key={review.id} className="bg-background border border-border rounded-token-lg p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
@@ -211,7 +211,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                     </span>
                   </div>
                   <div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-token-sm">
                       <span className="font-medium text-foreground">{review.userName}</span>
                       {review.verified && (
                         <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
@@ -219,7 +219,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center space-x-2 mt-1">
+                    <div className="flex items-center space-x-token-sm mt-1">
                       {renderStars(review.rating, 'sm')}
                       <span className="text-sm text-muted-foreground">
                         {new Date(review.createdAt).toLocaleDateString()}
@@ -236,13 +236,13 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
               <p className="text-foreground mb-4">{review.comment}</p>
 
               {review.images && review.images.length > 0 && (
-                <div className="flex space-x-2 mb-4">
+                <div className="flex space-x-token-sm mb-4">
                   {review.images.map((image, index) => (
                     <img
                       key={index}
                       src={image}
                       alt={`Review image ${index + 1}`}
-                      className="w-16 h-16 object-cover rounded-lg border border-border"
+                      className="w-16 h-16 object-cover rounded-token-lg border border-border"
                     />
                   ))}
                 </div>
@@ -265,12 +265,12 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
       {/* Write Review Modal Placeholder */}
       {showWriteReview && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-background rounded-lg p-6 w-full max-w-md">
+          <div className="bg-background rounded-token-lg p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold mb-4">Write a Review</h3>
             <p className="text-aurora-nav-muted mb-4">Review functionality coming soon!</p>
             <button
               onClick={() => setShowWriteReview(false)}
-              className="w-full py-2 bg-foreground text-background rounded-lg hover:bg-foreground"
+              className="w-full py-2 bg-foreground text-background rounded-token-lg hover:bg-foreground"
             >
               Close
             </button>

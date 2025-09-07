@@ -70,7 +70,7 @@ export default function CartDemoPage() {
             </BodyText>
 
             {/* Demo Controls */}
-            <div className="space-y-4">
+            <div className="space-y-token-md">
               <div className="flex flex-wrap justify-center gap-4">
                 <Button
                   variant="primary"
@@ -111,7 +111,7 @@ export default function CartDemoPage() {
             <div className="grid md:grid-cols-2 gap-6 text-left">
               <div className="space-y-3">
                 <h3 className="font-semibold text-accent">Cart Features</h3>
-                <ul className="space-y-2 text-sm text-muted">
+                <ul className="space-y-token-sm text-sm text-muted">
                   <li>• Slide-out sidebar animation</li>
                   <li>• Responsive mobile & desktop</li>
                   <li>• Quantity controls</li>
@@ -123,7 +123,7 @@ export default function CartDemoPage() {
               
               <div className="space-y-3">
                 <h3 className="font-semibold text-accent">UI States</h3>
-                <ul className="space-y-2 text-sm text-muted">
+                <ul className="space-y-token-sm text-sm text-muted">
                   <li>• Empty cart state</li>
                   <li>• Populated cart state</li>
                   <li>• Product customizations display</li>

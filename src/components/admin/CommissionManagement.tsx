@@ -235,7 +235,7 @@ export default function CommissionManagement() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card>
             <CardContent className="p-6">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <DollarSign className="w-8 h-8 text-amber-600" />
                 <div>
                   <div className="text-2xl font-bold text-foreground">
@@ -249,7 +249,7 @@ export default function CommissionManagement() {
 
           <Card>
             <CardContent className="p-6">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <TrendingUp className="w-8 h-8 text-green-600" />
                 <div>
                   <div className="text-2xl font-bold text-foreground">
@@ -263,7 +263,7 @@ export default function CommissionManagement() {
 
           <Card>
             <CardContent className="p-6">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <Clock className="w-8 h-8 text-yellow-600" />
                 <div>
                   <div className="text-2xl font-bold text-foreground">
@@ -277,7 +277,7 @@ export default function CommissionManagement() {
 
           <Card>
             <CardContent className="p-6">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <Users className="w-8 h-8 text-blue-600" />
                 <div>
                   <div className="text-2xl font-bold text-foreground">
@@ -309,7 +309,7 @@ export default function CommissionManagement() {
               </div>
 
               {/* Status Filter */}
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <Filter className="w-4 h-4 text-aurora-nav-muted" />
                 <select
                   value={statusFilter}
@@ -317,7 +317,7 @@ export default function CommissionManagement() {
                     setStatusFilter(e.target.value)
                     setCurrentPage(1)
                   }}
-                  className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                  className="border border-border rounded-token-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                 >
                   <option value="all">All Status</option>
                   <option value="pending">Pending</option>
@@ -330,14 +330,14 @@ export default function CommissionManagement() {
 
             {/* Bulk Actions */}
             {selectedTransactions.length > 0 && (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <span className="text-sm text-aurora-nav-muted">
                   {selectedTransactions.length} selected
                 </span>
                 <select
                   value={bulkAction}
                   onChange={(e) => setBulkAction(e.target.value)}
-                  className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                  className="border border-border rounded-token-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                 >
                   <option value="">Bulk Actions</option>
                   <option value="approve">Approve Selected</option>
@@ -423,7 +423,7 @@ export default function CommissionManagement() {
                         </div>
                       </td>
                       <td className="py-3 px-4">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-token-sm">
                           {getStatusIcon(transaction.status)}
                           <Badge variant={getStatusColor(transaction.status)} className="capitalize">
                             {transaction.status}
@@ -455,7 +455,7 @@ export default function CommissionManagement() {
               <div className="text-sm text-aurora-nav-muted">
                 Showing {((data.pagination.page - 1) * data.pagination.limit) + 1} to {Math.min(data.pagination.page * data.pagination.limit, data.pagination.total)} of {data.pagination.total} transactions
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <Button
                   size="sm"
                   variant="outline"

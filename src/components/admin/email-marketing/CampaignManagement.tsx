@@ -166,7 +166,7 @@ const CampaignActions = ({
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-1 w-48 text-foreground bg-background rounded-lg border shadow-lg z-10">
+        <div className="absolute right-0 mt-1 w-48 text-foreground bg-background rounded-token-lg border shadow-lg z-10">
           <div className="py-1">
             <button
               onClick={() => { onView(campaign._id); setIsOpen(false) }}
@@ -215,12 +215,12 @@ const CampaignActions = ({
 
 // Loading skeleton
 const LoadingSkeleton = () => (
-  <div className="space-y-4">
+  <div className="space-y-token-md">
     {[...Array(5)].map((_, i) => (
-      <div key={i} className="text-foreground bg-background p-6 rounded-lg border">
+      <div key={i} className="text-foreground bg-background p-6 rounded-token-lg border">
         <div className="animate-pulse">
           <div className="flex justify-between items-start mb-4">
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <div className="h-5 bg-muted rounded w-48"></div>
               <div className="h-4 bg-muted rounded w-32"></div>
             </div>
@@ -240,7 +240,7 @@ const LoadingSkeleton = () => (
 
 // Error state
 const ErrorState = ({ message, onRetry }: { message: string; onRetry: () => void }) => (
-  <div className="text-foreground bg-background p-8 rounded-lg border text-center">
+  <div className="text-foreground bg-background p-8 rounded-token-lg border text-center">
     <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
     <H3 className="text-foreground mb-2">Unable to Load Campaigns</H3>
     <BodyText className="text-aurora-nav-muted bg-background mb-6">{message}</BodyText>
@@ -253,7 +253,7 @@ const ErrorState = ({ message, onRetry }: { message: string; onRetry: () => void
 
 // Empty state
 const EmptyState = ({ onCreateCampaign }: { onCreateCampaign: () => void }) => (
-  <div className="text-foreground bg-background p-12 rounded-lg border text-center">
+  <div className="text-foreground bg-background p-12 rounded-token-lg border text-center">
     <Mail className="w-16 h-16 text-aurora-nav-muted mx-auto mb-6" />
     <H2 className="text-foreground mb-2">No Campaigns Yet</H2>
     <BodyText className="text-aurora-nav-muted bg-background mb-8 max-w-md mx-auto">
@@ -369,7 +369,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
       {/* Summary Cards */}
       {summary && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="text-foreground bg-background p-6 rounded-lg border text-center">
+          <div className="text-foreground bg-background p-6 rounded-token-lg border text-center">
             <div className="text-2xl font-bold text-foreground mb-1">
               {summary.totalCampaigns}
             </div>
@@ -377,7 +377,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
               Total Campaigns
             </BodyText>
           </div>
-          <div className="text-foreground bg-background p-6 rounded-lg border text-center">
+          <div className="text-foreground bg-background p-6 rounded-token-lg border text-center">
             <div className="text-2xl font-bold text-foreground mb-1">
               {summary.activeCampaigns}
             </div>
@@ -385,7 +385,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
               Active Campaigns
             </BodyText>
           </div>
-          <div className="text-foreground bg-background p-6 rounded-lg border text-center">
+          <div className="text-foreground bg-background p-6 rounded-token-lg border text-center">
             <div className="text-2xl font-bold text-foreground mb-1">
               {summary.avgOpenRate.toFixed(1)}%
             </div>
@@ -393,7 +393,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
               Avg Open Rate
             </BodyText>
           </div>
-          <div className="text-foreground bg-background p-6 rounded-lg border text-center">
+          <div className="text-foreground bg-background p-6 rounded-token-lg border text-center">
             <div className="text-2xl font-bold text-foreground mb-1">
               {summary.avgClickRate.toFixed(1)}%
             </div>
@@ -405,7 +405,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
       )}
 
       {/* Controls */}
-      <div className="text-foreground bg-background p-6 rounded-lg border">
+      <div className="text-foreground bg-background p-6 rounded-token-lg border">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           <div className="flex flex-col sm:flex-row gap-4 flex-1">
             {/* Search */}
@@ -416,7 +416,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
                 placeholder="Search campaigns..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent"
               />
             </div>
 
@@ -425,7 +425,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-3 py-2 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent"
+                className="px-3 py-2 text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent"
               >
                 <option value="all">All Status</option>
                 <option value="draft">Draft</option>
@@ -437,7 +437,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="px-3 py-2 text-foreground bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent"
+                className="px-3 py-2 text-foreground bg-background border border-border rounded-token-lg focus:ring-2 focus:ring-accent"
               >
                 <option value="all">All Types</option>
                 <option value="newsletter">Newsletter</option>
@@ -462,9 +462,9 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
       </div>
 
       {/* Campaign List */}
-      <div className="space-y-4">
+      <div className="space-y-token-md">
         {filteredCampaigns.map((campaign) => (
-          <div key={campaign._id} className="text-foreground bg-background p-6 rounded-lg border hover:border-accent transition-colors">
+          <div key={campaign._id} className="text-foreground bg-background p-6 rounded-token-lg border hover:border-accent transition-colors">
             <div className="flex justify-between items-start mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
@@ -490,7 +490,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="text-center p-4 bg-muted rounded-lg">
+              <div className="text-center p-4 bg-muted rounded-token-lg">
                 <div className="text-lg font-semibold text-foreground">
                   {campaign.analytics.sent.toLocaleString()}
                 </div>
@@ -498,7 +498,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
                   Emails Sent
                 </BodyText>
               </div>
-              <div className="text-center p-4 bg-muted rounded-lg">
+              <div className="text-center p-4 bg-muted rounded-token-lg">
                 <div className="text-lg font-semibold text-foreground">
                   {campaign.analytics.openRate.toFixed(1)}%
                 </div>
@@ -506,7 +506,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
                   Open Rate
                 </BodyText>
               </div>
-              <div className="text-center p-4 bg-muted rounded-lg">
+              <div className="text-center p-4 bg-muted rounded-token-lg">
                 <div className="text-lg font-semibold text-foreground">
                   {campaign.analytics.clickRate.toFixed(1)}%
                 </div>
@@ -514,7 +514,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
                   Click Rate
                 </BodyText>
               </div>
-              <div className="text-center p-4 bg-muted rounded-lg">
+              <div className="text-center p-4 bg-muted rounded-token-lg">
                 <div className="text-lg font-semibold text-foreground">
                   ${campaign.analytics.revenue.toLocaleString()}
                 </div>
@@ -529,7 +529,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between text-foreground bg-background p-4 rounded-lg border">
+        <div className="flex items-center justify-between text-foreground bg-background p-4 rounded-token-lg border">
           <BodyText className="text-aurora-nav-muted bg-background">
             Showing {((pagination.page - 1) * pagination.limit) + 1} to {Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total} campaigns
           </BodyText>

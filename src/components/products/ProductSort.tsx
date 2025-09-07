@@ -68,14 +68,14 @@ export function ProductSort({
   return (
     <div className={cn('flex items-center justify-between flex-wrap gap-4', className)}>
       {/* Results count */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-token-md">
         <MutedText size="md">
           {getResultsText()}
         </MutedText>
       </div>
 
       {/* Sort and view controls */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-token-md">
         {/* Sort dropdown */}
         <div className="relative">
           <Button
@@ -106,7 +106,7 @@ export function ProductSort({
                 className="fixed inset-0 z-10" 
                 onClick={() => setIsSortDropdownOpen(false)}
               />
-              <div className="absolute right-0 top-full mt-1 w-64 bg-background border border-border rounded-lg shadow-lg py-2 z-20">
+              <div className="absolute right-0 top-full mt-1 w-64 bg-background border border-border rounded-token-md shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_15%,transparent)] py-2 z-20">
                 {sortOptions.map((option) => (
                   <button
                     key={option.key}
@@ -128,7 +128,7 @@ export function ProductSort({
         </div>
 
         {/* View mode toggle */}
-        <div className="flex items-center border border-border rounded-lg overflow-hidden">
+        <div className="flex items-center border border-border rounded-token-md overflow-hidden">
           <Button
             variant={viewMode === 'grid' ? 'primary' : 'ghost'}
             size="sm"
@@ -196,7 +196,7 @@ export function ProductSortOnly({
             className="fixed inset-0 z-10" 
             onClick={() => setIsDropdownOpen(false)}
           />
-          <div className="absolute right-0 top-full mt-1 w-full min-w-[200px] bg-background border border-border rounded-lg shadow-lg py-2 z-20">
+          <div className="absolute right-0 top-full mt-1 w-full min-w-[200px] bg-background border border-border rounded-token-md shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_15%,transparent)] py-2 z-20">
             {options.map((option) => (
               <button
                 key={option.key}

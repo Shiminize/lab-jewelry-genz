@@ -28,10 +28,10 @@ export default function LoadingSpinner({
   }
 
   const variantClasses = {
-    accent: 'border-accent',        // Champagne gold
-    cta: 'border-cta',             // Coral gold  
-    foreground: 'border-foreground', // Graphite green
-    background: 'border-background'  // Ivory (for dark backgrounds)
+    accent: 'border-accent',        // Aurora accent
+    cta: 'border-cta',             // Aurora CTA  
+    foreground: 'border-foreground', // Aurora foreground
+    background: 'border-background'  // Aurora background
   }
 
   const textSizeClasses = {
@@ -45,7 +45,7 @@ export default function LoadingSpinner({
     <div className={cn("flex flex-col items-center justify-center space-y-3", className)}>
       <div
         className={cn(
-          "animate-spin rounded-full border-2 border-t-transparent",
+          "animate-spin rounded-34 border-2 border-t-transparent",
           sizeClasses[size],
           variantClasses[variant]
         )}
@@ -55,7 +55,7 @@ export default function LoadingSpinner({
         <span className="sr-only">Loading...</span>
       </div>
       {text && (
-        <p className={cn("text-aurora-nav-muted font-medium", textSizeClasses[size])}>
+        <p className={cn("text-foreground/60 font-medium", textSizeClasses[size])}>
           {text}
         </p>
       )}

@@ -151,7 +151,7 @@ export class AssetCacheService {
       const data = await response.json()
       const fetchTime = performance.now() - startTime
       
-      console.log(`[AssetCache] Fetched ${materialId} in ${fetchTime.toFixed(2)}ms`)
+      // Performance: Remove console.log for production
       
       if (data.success && data.data.assets.available) {
         const cachedAsset: CachedAsset = {
@@ -165,7 +165,7 @@ export class AssetCacheService {
           validationTimestamp: data.data.assets.validationTimestamp
         }
         
-        console.log(`[AssetCache] Cached ${materialId} with ${cachedAsset.availableFormats?.join(', ')} formats, ${cachedAsset.frameCount} frames`)
+        // Performance: Remove verbose caching logs for production
         
         // Cache the result
         this.setCachedAsset(productId, materialId, cachedAsset)
@@ -175,7 +175,7 @@ export class AssetCacheService {
       
       throw new Error(`Assets not available for ${materialId} - validation may have failed`)
     } catch (error) {
-      console.error(`[AssetCache] Failed to fetch ${materialId}:`, error)
+      // Performance: Silent error handling for production
       throw error
     }
   }

@@ -1,15 +1,15 @@
 /**
  * MaterialControls - Material Selection UI
- * Single responsibility: Handle material selection and display
+ * Redesigned with MinimalHoverCard for target hover state match
  * CLAUDE_RULES.md compliant with design system tokens
  */
 
 'use client'
 
 import React from 'react'
-import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
-import type { MaterialControlsProps, Material } from './types'
+import { MinimalHoverCard } from '@/components/ui/MinimalHoverCard'
+import type { MaterialControlsProps } from './types'
 
 export const MaterialControls: React.FC<MaterialControlsProps> = ({
   materials,
@@ -30,45 +30,44 @@ export const MaterialControls: React.FC<MaterialControlsProps> = ({
     console.log(`[MATERIAL SWITCH] ${materialId}: ${switchTime.toFixed(2)}ms`)
   }
 
+  // Get material variant for MinimalHoverCard
+  const getMaterialVariant = (materialId: string) => {
+    const id = materialId.toLowerCase()
+    if (id.includes('gold') && !id.includes('white') && !id.includes('rose')) return 'gold'
+    if (id.includes('platinum')) return 'platinum'
+    if (id.includes('rose')) return 'rose-gold'
+    if (id.includes('white')) return 'white-gold'
+    return 'default'
+  }
+
   return (
-    <div className={cn("space-y-4", className)}>
-      {/* Ultra-minimalist design - header removed for pure visual focus */}
-
-      {/* Minimalist material selection - visual only */}
-      <div className="grid grid-cols-4 gap-3">
-        {materials.map((material) => {
-          const isSelected = selectedMaterial === material.id
-          
-          return (
-            <Button
-              key={material.id}
-              variant="ghost"
-              onClick={() => handleMaterialSelect(material.id)}
-              disabled={isDisabled}
-              className={cn(
-                "h-16 w-16 p-2 rounded-full transition-all duration-200 hover:scale-105",
-                isSelected && "ring-2 ring-accent ring-offset-2 scale-110"
+    <div className={cn("flex flex-wrap gap-token-sm justify-center", className)}>
+      {materials.map((material) => {
+        const isSelected = selectedMaterial === material.id
+        const variant = getMaterialVariant(material.id)
+        
+        return (
+          <MinimalHoverCard
+            key={material.id}
+            variant={variant}
+            isSelected={isSelected}
+            disabled={isDisabled}
+            onClick={() => handleMaterialSelect(material.id)}
+            className="min-w-[140px] text-center"
+          >
+            <div className="flex flex-col items-center gap-token-sm">
+              <span className="font-medium text-sm">
+                {material.displayName}
+              </span>
+              {material.priceModifier !== 0 && (
+                <span className="text-xs opacity-70">
+                  {material.priceModifier > 0 ? '+' : ''}${material.priceModifier}
+                </span>
               )}
-              aria-pressed={isSelected}
-              aria-label={material.displayName}
-              data-material={material.id}
-            >
-              {/* Pure visual material indicator */}
-              <div 
-                className={cn(
-                  "w-10 h-10 rounded-full border shadow-sm transition-all duration-200",
-                  isSelected ? "border-accent/50 shadow-md" : "border-border/20"
-                )}
-                style={{ 
-                  backgroundColor: material.pbrProperties.color
-                }}
-              />
-            </Button>
-          )
-        })}
-      </div>
-
-      {/* Minimalist design - no additional text or properties */}
+            </div>
+          </MinimalHoverCard>
+        )
+      })}
     </div>
   )
 }

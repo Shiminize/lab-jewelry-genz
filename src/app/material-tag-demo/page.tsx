@@ -68,7 +68,7 @@ export default function MaterialTagDemoPage() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testProducts.map((product) => (
-            <div key={product._id} className="space-y-4">
+            <div key={product._id} className="space-y-token-md">
               <h3 className="text-lg font-semibold">{product.name}</h3>
               <ProductCard
                 product={product}
@@ -83,7 +83,7 @@ export default function MaterialTagDemoPage() {
 
         <div className="mt-12 p-6 bg-muted rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Expected Behavior</h2>
-          <ul className="space-y-2 text-sm">
+          <ul className="space-y-token-sm text-sm">
             <li><strong>Product 1:</strong> Should show "14K Gold", "Moissanite", "1.5CT" tags</li>
             <li><strong>Product 2:</strong> Should show "Platinum", "Lab Diamond", "2CT" tags</li>
             <li><strong>Product 3:</strong> Should show "925 Silver" tag only</li>

@@ -122,7 +122,7 @@ export default function CreatorDashboard() {
           <h1 className="text-3xl font-bold text-foreground">Creator Dashboard</h1>
           <p className="text-aurora-nav-muted">Welcome back, {creator.displayName}!</p>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-token-md">
           <Badge 
             variant={
               creator.status === 'approved' ? 'default' :
@@ -145,7 +145,7 @@ export default function CreatorDashboard() {
         <Card>
           <CardContent className="py-4">
             <div className="flex items-center space-x-3">
-              <div className="w-4 h-4 bg-yellow-500 rounded-full animate-pulse"></div>
+              <div className="w-4 h-4 bg-aurora-amber-glow rounded-full animate-pulse"></div>
               <div>
                 <div className="font-medium text-foreground">Application Under Review</div>
                 <div className="text-sm text-aurora-nav-muted">

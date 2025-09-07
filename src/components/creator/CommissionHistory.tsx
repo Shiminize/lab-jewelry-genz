@@ -136,12 +136,12 @@ export default function CommissionHistory() {
     switch (status) {
       case 'completed':
       case 'paid':
-        return <CheckCircle className="w-4 h-4 text-green-600" />
+        return <CheckCircle className="w-4 h-4 text-aurora-emerald-flash" />
       case 'processing':
       case 'approved':
-        return <Clock className="w-4 h-4 text-blue-600" />
+        return <Clock className="w-4 h-4 text-aurora-nebula-purple" />
       case 'pending':
-        return <AlertCircle className="w-4 h-4 text-yellow-600" />
+        return <AlertCircle className="w-4 h-4 text-aurora-amber-glow" />
       case 'cancelled':
       case 'failed':
         return <XCircle className="w-4 h-4 text-red-600" />
@@ -188,7 +188,7 @@ export default function CommissionHistory() {
             Track your earnings and payout history
           </p>
         </div>
-        <Button variant="outline" className="flex items-center space-x-2">
+        <Button variant="outline" className="flex items-center space-x-token-sm">
           <Download className="w-4 h-4" />
           <span>Export</span>
         </Button>
@@ -224,12 +224,12 @@ export default function CommissionHistory() {
       <Card>
         <CardContent className="p-4">
           <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <Filter className="w-4 h-4 text-aurora-nav-muted" />
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                className="border border-border rounded-token-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               >
                 <option value="all">All Status</option>
                 <option value="pending">Pending</option>
@@ -239,12 +239,12 @@ export default function CommissionHistory() {
               </select>
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <Calendar className="w-4 h-4 text-aurora-nav-muted" />
               <select
                 value={periodFilter}
                 onChange={(e) => setPeriodFilter(e.target.value)}
-                className="border border-border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                className="border border-border rounded-token-lg px-3 py-2 text-sm focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               >
                 <option value="all">All Time</option>
                 <option value="30">Last 30 Days</option>
@@ -259,7 +259,7 @@ export default function CommissionHistory() {
       {/* Content */}
       {activeTab === 'transactions' ? (
         // Transactions List
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           {transactions.length === 0 ? (
             <Card>
               <CardContent className="text-center py-12">
@@ -275,8 +275,8 @@ export default function CommissionHistory() {
               <Card key={transaction.id}>
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-token-md">
+                      <div className="flex items-center space-x-token-sm">
                         {getStatusIcon(transaction.status)}
                         <div>
                           <div className="font-medium text-foreground">
@@ -298,7 +298,7 @@ export default function CommissionHistory() {
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-token-md">
                       <Badge variant={getStatusColor(transaction.status)} className="capitalize">
                         {transaction.status}
                       </Badge>
@@ -314,7 +314,7 @@ export default function CommissionHistory() {
                   </div>
 
                   {transaction.notes && (
-                    <div className="mt-4 p-3 bg-muted rounded-lg">
+                    <div className="mt-4 p-3 bg-muted rounded-token-lg">
                       <div className="text-sm text-aurora-nav-muted">{transaction.notes}</div>
                     </div>
                   )}
@@ -325,7 +325,7 @@ export default function CommissionHistory() {
         </div>
       ) : (
         // Payouts List
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           {payouts.length === 0 ? (
             <Card>
               <CardContent className="text-center py-12">
@@ -341,8 +341,8 @@ export default function CommissionHistory() {
               <Card key={payout.id}>
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-token-md">
+                      <div className="flex items-center space-x-token-sm">
                         {getStatusIcon(payout.status)}
                         <div>
                           <div className="font-medium text-foreground">
@@ -364,7 +364,7 @@ export default function CommissionHistory() {
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-token-md">
                       <Badge variant={getStatusColor(payout.status)} className="capitalize">
                         {payout.status}
                       </Badge>

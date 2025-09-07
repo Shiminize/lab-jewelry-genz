@@ -104,7 +104,7 @@ export function PerformanceMonitor() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 bg-background/95 backdrop-blur-sm border border-border rounded-lg p-4 text-sm font-mono shadow-lg max-w-sm z-50">
+    <div className="fixed bottom-4 right-4 bg-background/95 backdrop-blur-sm border border-border rounded-token-lg p-4 text-sm font-mono shadow-lg max-w-sm z-50">
       <div className="flex items-center justify-between mb-2">
         <h3 className="font-semibold text-foreground">Performance</h3>
         <button 

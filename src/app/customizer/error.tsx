@@ -48,7 +48,7 @@ export default function CustomizerError({
         </div>
 
         {/* Error Content */}
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           <H1 className="text-foreground">Hang tight! The customizer is taking a moment</H1>
           <MutedText className="text-lg">
             Our 3D design tools are having a brief hiccup. 
@@ -72,7 +72,7 @@ export default function CustomizerError({
         )}
 
         {/* Recovery Actions */}
-        <div className="space-y-4">
+        <div className="space-y-token-md">
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               onClick={reset}

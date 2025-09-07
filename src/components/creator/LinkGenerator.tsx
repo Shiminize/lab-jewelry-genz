@@ -151,12 +151,12 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
       {/* Link Generator Form */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+          <CardTitle className="flex items-center space-x-token-sm">
             <Link2 className="w-5 h-5" />
             <span>Generate Referral Link</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-token-md">
           {/* URL Input */}
           <div>
             <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
@@ -179,7 +179,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
             <label className="block text-sm font-medium text-aurora-nav-muted mb-2">
               Custom Alias (Optional)
             </label>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <span className="text-sm text-aurora-nav-muted">glowglitch.com/ref/</span>
               <Input
                 type="text"
@@ -219,7 +219,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Check out this stunning collection of lab-grown diamond rings..."
-              className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+              className="w-full px-3 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
               rows={3}
               maxLength={200}
             />
@@ -233,7 +233,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
             <button
               type="button"
               onClick={() => setShowAdvancedOptions(!showAdvancedOptions)}
-              className="flex items-center space-x-2 text-sm font-medium text-aurora-nav-muted hover:text-amber-600"
+              className="flex items-center space-x-token-sm text-sm font-medium text-aurora-nav-muted hover:text-amber-600"
             >
               <span>Advanced Tracking Options</span>
               <span className={`transform transition-transform ${showAdvancedOptions ? 'rotate-180' : ''}`}>
@@ -242,7 +242,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
             </button>
             
             {showAdvancedOptions && (
-              <div className="mt-4 space-y-4 p-4 bg-muted rounded-lg border">
+              <div className="mt-4 space-y-token-md p-4 bg-muted rounded-token-lg border">
                 <p className="text-sm text-aurora-nav-muted mb-3">
                   UTM parameters help track where your traffic comes from and measure campaign performance.
                 </p>
@@ -327,7 +327,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
       {/* Quick Links */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+          <CardTitle className="flex items-center space-x-token-sm">
             <Sparkles className="w-5 h-5" />
             <span>Quick Links</span>
           </CardTitle>
@@ -338,7 +338,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
               <button
                 key={link.url}
                 onClick={() => handleQuickLink(link.url, link.label)}
-                className="flex items-center space-x-2 p-3 border border-border rounded-lg hover:border-border hover:bg-muted transition-colors"
+                className="flex items-center space-x-token-sm p-3 border border-border rounded-token-lg hover:border-border hover:bg-muted transition-colors"
               >
                 <span className="text-lg">{link.icon}</span>
                 <span className="text-sm font-medium text-aurora-nav-muted">{link.label}</span>
@@ -352,20 +352,20 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
       {generatedLink && (
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Check className="w-5 h-5 text-green-600" />
+            <CardTitle className="flex items-center space-x-token-sm">
+              <Check className="w-5 h-5 text-aurora-emerald-flash" />
               <span>Link Generated Successfully!</span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="bg-muted rounded-lg p-4">
+          <CardContent className="space-y-token-md">
+            <div className="bg-muted rounded-token-lg p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-aurora-nav-muted">Short URL:</span>
                 <Badge variant="secondary">
                   {generatedLink.isActive ? 'Active' : 'Inactive'}
                 </Badge>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-token-sm">
                 <code className="flex-1 text-sm bg-background px-3 py-2 rounded border">
                   {generatedLink.shortUrl}
                 </code>
@@ -375,7 +375,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
                   onClick={() => copyToClipboard(generatedLink.shortUrl, generatedLink.id)}
                 >
                   {copiedLink === generatedLink.id ? (
-                    <Check className="w-4 h-4 text-green-600" />
+                    <Check className="w-4 h-4 text-aurora-emerald-flash" />
                   ) : (
                     <Copy className="w-4 h-4" />
                   )}
@@ -424,7 +424,7 @@ export default function LinkGenerator({ creatorCode }: LinkGeneratorProps) {
           <CardTitle className="text-lg">💡 Tips for Effective Referral Links</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-2 text-sm text-aurora-nav-muted">
+          <ul className="space-y-token-sm text-sm text-aurora-nav-muted">
             <li>• Use descriptive titles and descriptions to increase click-through rates</li>
             <li>• Create custom aliases for easy sharing and brand recognition</li>
             <li>• Share links across your social media, blog, and email newsletter</li>

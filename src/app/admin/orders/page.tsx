@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import OrderManagementDashboard from '@/components/admin/OrderManagementDashboard'
-import OrderDetailModal from '@/components/admin/OrderDetailModal'
+import { OrderDetailModal } from '@/components/admin/OrderDetailModal'
 
 export default function AdminOrdersPage() {
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null)

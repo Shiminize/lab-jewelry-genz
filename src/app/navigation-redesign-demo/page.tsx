@@ -151,7 +151,7 @@ export default function NavigationRedesignDemo() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="text-sm text-slate-600 space-y-2">
+              <ul className="text-sm text-slate-600 space-y-token-sm">
                 <li>• Real-time genetic compatibility scoring</li>
                 <li>• Molecular structure visualizations</li>
                 <li>• Progressive scientific disclosure</li>
@@ -171,7 +171,7 @@ export default function NavigationRedesignDemo() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="text-sm text-slate-600 space-y-2">
+              <ul className="text-sm text-slate-600 space-y-token-sm">
                 <li>• Medical-grade precision validation</li>
                 <li>• Real-time social proof signals</li>
                 <li>• Laboratory network verification</li>
@@ -191,7 +191,7 @@ export default function NavigationRedesignDemo() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="text-sm text-slate-600 space-y-2">
+              <ul className="text-sm text-slate-600 space-y-token-sm">
                 <li>• Genetic rarity positioning (0.3%)</li>
                 <li>• Scientific certainty messaging</li>
                 <li>• Progressive engagement flow</li>
@@ -215,7 +215,7 @@ export default function NavigationRedesignDemo() {
                 <Beaker className="w-5 h-5 text-amber-600" />
                 Desktop Experience
               </h3>
-              <ul className="space-y-2 text-sm text-slate-600">
+              <ul className="space-y-token-sm text-sm text-slate-600">
                 <li>• Hover over navigation items to see scientific mega menu</li>
                 <li>• Notice DNA helix animations and compatibility badges</li>
                 <li>• Observe real-time trust signals and peer review counts</li>
@@ -228,7 +228,7 @@ export default function NavigationRedesignDemo() {
                 <Eye className="w-5 h-5 text-emerald-600" />
                 Mobile Experience
               </h3>
-              <ul className="space-y-2 text-sm text-slate-600">
+              <ul className="space-y-token-sm text-sm text-slate-600">
                 <li>• Tap hamburger menu for full-screen DNA discovery</li>
                 <li>• Swipe through genetic compatibility analysis</li>
                 <li>• Experience progressive disclosure of scientific concepts</li>

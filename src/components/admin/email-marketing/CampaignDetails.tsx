@@ -150,9 +150,9 @@ const MetricCard = ({
   icon: React.ComponentType<{ className?: string }>
   trend?: 'up' | 'down' | 'neutral'
 }) => (
-  <div className="text-foreground bg-background p-4 rounded-lg border space-y-3">
+  <div className="text-foreground bg-background p-4 rounded-token-lg border space-y-3">
     <div className="flex items-center justify-between">
-      <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
+      <div className="w-8 h-8 bg-accent/10 rounded-token-lg flex items-center justify-center">
         <Icon className="w-4 h-4 text-accent" />
       </div>
       {trend && (
@@ -186,9 +186,9 @@ const MetricCard = ({
 
 // Campaign timeline component
 const CampaignTimeline = ({ timeline }: { timeline: CampaignDetailsResponse['timeline'] }) => (
-  <div className="text-foreground bg-background p-6 rounded-lg border">
+  <div className="text-foreground bg-background p-6 rounded-token-lg border">
     <H3 className="mb-4 text-foreground">Campaign Timeline</H3>
-    <div className="space-y-4">
+    <div className="space-y-token-md">
       {timeline.map((event, index) => (
         <div key={index} className="flex items-start gap-3">
           <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0" />
@@ -214,10 +214,10 @@ const CampaignTimeline = ({ timeline }: { timeline: CampaignDetailsResponse['tim
 
 // Email preview component
 const EmailPreview = ({ campaign }: { campaign: Campaign }) => (
-  <div className="text-foreground bg-background p-6 rounded-lg border">
+  <div className="text-foreground bg-background p-6 rounded-token-lg border">
     <H3 className="mb-4 text-foreground">Email Preview</H3>
     
-    <div className="border border-border rounded-lg overflow-hidden">
+    <div className="border border-border rounded-token-lg overflow-hidden">
       {/* Email header */}
       <div className="bg-muted p-4 border-b border-border">
         <div className="text-sm font-medium text-foreground mb-1">
@@ -298,14 +298,14 @@ export default function CampaignDetails({
   if (loading) {
     return (
       <div className="space-y-6">
-        <div className="animate-pulse space-y-4">
+        <div className="animate-pulse space-y-token-md">
           <div className="h-8 bg-muted rounded w-1/3"></div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-muted rounded-lg"></div>
+              <div key={i} className="h-24 bg-muted rounded-token-lg"></div>
             ))}
           </div>
-          <div className="h-64 bg-muted rounded-lg"></div>
+          <div className="h-64 bg-muted rounded-token-lg"></div>
         </div>
       </div>
     )
@@ -314,7 +314,7 @@ export default function CampaignDetails({
   // Error state
   if (error || !data) {
     return (
-      <div className="text-foreground bg-background p-6 rounded-lg border text-center">
+      <div className="text-foreground bg-background p-6 rounded-token-lg border text-center">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
         <H2 className="mb-2 text-foreground">Failed to Load Campaign</H2>
         <BodyText className="text-aurora-nav-muted bg-background mb-4">
@@ -406,7 +406,7 @@ export default function CampaignDetails({
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Campaign Information */}
-          <div className="text-foreground bg-background p-6 rounded-lg border">
+          <div className="text-foreground bg-background p-6 rounded-token-lg border">
             <H2 className="mb-4 text-foreground">Campaign Information</H2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -465,11 +465,11 @@ export default function CampaignDetails({
           </div>
 
           {/* Target Audience */}
-          <div className="text-foreground bg-background p-6 rounded-lg border">
+          <div className="text-foreground bg-background p-6 rounded-token-lg border">
             <H2 className="mb-4 text-foreground">Target Audience</H2>
             <div className="space-y-3">
               {segments.map(segment => (
-                <div key={segment._id} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                <div key={segment._id} className="flex items-center justify-between p-3 bg-muted rounded-token-lg">
                   <BodyText className="text-foreground">{segment.name}</BodyText>
                   <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
                     {segment.customerCount.toLocaleString()} customers
@@ -494,9 +494,9 @@ export default function CampaignDetails({
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Performance Summary */}
-          <div className="text-foreground bg-background p-6 rounded-lg border">
+          <div className="text-foreground bg-background p-6 rounded-token-lg border">
             <H3 className="mb-4 text-foreground">Performance Summary</H3>
-            <div className="space-y-4">
+            <div className="space-y-token-md">
               <div className="flex justify-between items-center">
                 <BodyText size="sm" className="text-aurora-nav-muted bg-background">Delivery Rate</BodyText>
                 <BodyText className="font-medium text-foreground">
@@ -540,9 +540,9 @@ export default function CampaignDetails({
           <EmailPreview campaign={campaign} />
 
           {/* Quick Actions */}
-          <div className="text-foreground bg-background p-6 rounded-lg border">
+          <div className="text-foreground bg-background p-6 rounded-token-lg border">
             <H3 className="mb-4 text-foreground">Quick Actions</H3>
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <Button variant="outline" size="md" className="w-full">
                 <Download className="w-4 h-4" />
                 Export Analytics

@@ -79,7 +79,7 @@ const metricCardVariants = cva(
 )
 
 const processStepVariants = cva(
-  'relative flex flex-col items-center text-center space-y-4',
+  'relative flex flex-col items-center text-center space-y-token-md',
   {
     variants: {
       connector: {
@@ -398,11 +398,11 @@ export function SustainabilityStorySection({
                 key={index}
                 className={cn(metricCardVariants())}
               >
-                <div className="text-center space-y-4">
+                <div className="text-center space-y-token-md">
                   <div className="text-4xl mb-3">
                     {metric.icon}
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-token-sm">
                     <div className="text-3xl lg:text-4xl font-bold text-accent">
                       {metric.value}
                     </div>
@@ -542,12 +542,12 @@ export function SustainabilityStorySection({
             {certifications.map((cert, index) => (
               <div 
                 key={index}
-                className="text-center space-y-4"
+                className="text-center space-y-token-md"
               >
                 <div className="w-20 h-20 mx-auto bg-background flex items-center justify-center text-3xl shadow-sm border border-muted">
                   {cert.icon}
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-token-sm">
                   <div className={cn(certificationBadgeVariants({ variant: cert.variant }))}>
                     {cert.name}
                   </div>
@@ -581,15 +581,15 @@ export function SustainabilityStorySection({
 
           {/* Community Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <div className="text-2xl lg:text-3xl font-bold text-accent">50K+</div>
               <MutedText>Conscious consumers joined</MutedText>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <div className="text-2xl lg:text-3xl font-bold text-accent">2.5M</div>
               <MutedText>Tons of earth preserved</MutedText>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-token-sm">
               <div className="text-2xl lg:text-3xl font-bold text-accent">100%</div>
               <MutedText>Customer satisfaction</MutedText>
             </div>

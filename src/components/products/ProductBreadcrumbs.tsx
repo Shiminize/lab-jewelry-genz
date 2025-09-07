@@ -31,7 +31,7 @@ export default function ProductBreadcrumbs({ category, subcategory, productName 
 
   return (
     <nav className="flex" aria-label="Breadcrumb">
-      <ol className="flex items-center space-x-2">
+      <ol className="flex items-center space-x-token-sm">
         {breadcrumbs.map((breadcrumb, index) => (
           <li key={index} className="flex items-center">
             {index > 0 && (

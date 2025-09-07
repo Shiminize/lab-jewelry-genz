@@ -100,7 +100,7 @@ export default function ProductDetailPage() {
           <div className="grid lg:grid-cols-2 gap-12">
             
             {/* Image Gallery */}
-            <div className="space-y-4">
+            <div className="space-y-token-md">
               {/* Main Image */}
               <div className="aspect-square bg-background border rounded-lg overflow-hidden relative group">
                 <img 
@@ -231,7 +231,7 @@ export default function ProductDetailPage() {
               </div>
 
               {/* Features */}
-              <div className="space-y-4 pt-4 border-t">
+              <div className="space-y-token-md pt-4 border-t">
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="flex items-center gap-2">
                     <span className="text-success">✓</span>
@@ -291,7 +291,7 @@ export default function ProductDetailPage() {
                   <BodyText size="lg">{mockProduct.description}</BodyText>
                   <div className="prose max-w-none">
                     <h4 className="font-semibold mb-3">Why Choose Lab-Grown Diamonds?</h4>
-                    <ul className="space-y-2 text-muted">
+                    <ul className="space-y-token-sm text-muted">
                       <li>• Ethically sourced with zero environmental impact</li>
                       <li>• Chemically identical to mined diamonds</li>
                       <li>• 30-40% less expensive than traditional diamonds</li>
@@ -379,7 +379,7 @@ export default function ProductDetailPage() {
                   <div className="grid md:grid-cols-2 gap-8">
                     <div>
                       <h4 className="font-semibold mb-3">How to Measure</h4>
-                      <ol className="space-y-2 text-sm text-muted">
+                      <ol className="space-y-token-sm text-sm text-muted">
                         <li>1. Wrap a string around your finger</li>
                         <li>2. Mark where the string overlaps</li>
                         <li>3. Measure the length with a ruler</li>

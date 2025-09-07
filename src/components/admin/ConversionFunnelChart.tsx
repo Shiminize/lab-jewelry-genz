@@ -140,7 +140,7 @@ export default function ConversionFunnelChart() {
     if (active && payload && payload.length) {
       const data = payload[0].payload
       return (
-        <div className="bg-background p-3 border border-border rounded-lg shadow-lg">
+        <div className="bg-background p-3 border border-border rounded-token-lg shadow-lg">
           <p className="font-medium text-foreground">{data.name}</p>
           <p className="text-sm text-aurora-nav-muted">
             Users: <span className="font-medium">{formatNumber(data.value)}</span>
@@ -162,7 +162,7 @@ export default function ConversionFunnelChart() {
   const FunnelStageCard = ({ stage, isLast }: { stage: FunnelStage; isLast: boolean }) => (
     <div className="relative">
       <div 
-        className="p-4 rounded-lg border-2 text-white font-medium text-center transition-all hover:scale-105"
+        className="p-4 rounded-token-lg border-2 text-white font-medium text-center transition-all hover:scale-105"
         style={{ backgroundColor: stage.color, minHeight: '120px' }}
       >
         <div className="flex items-center justify-center mb-2">
@@ -190,11 +190,11 @@ export default function ConversionFunnelChart() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-foreground">Conversion Funnel Analysis</h2>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-token-md">
           <select 
             value={selectedCreator}
             onChange={(e) => setSelectedCreator(e.target.value)}
-            className="border border-border rounded-md px-3 py-1 text-sm"
+            className="border border-border rounded-token-md px-3 py-1 text-sm"
           >
             <option value="all">All Creators</option>
             <option value="SARAH2024">@SARAH2024</option>
@@ -203,7 +203,7 @@ export default function ConversionFunnelChart() {
           <select 
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value as '7d' | '30d' | '90d')}
-            className="border border-border rounded-md px-3 py-1 text-sm"
+            className="border border-border rounded-token-md px-3 py-1 text-sm"
           >
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
@@ -279,7 +279,7 @@ export default function ConversionFunnelChart() {
               </div>
               
               {/* Mobile Funnel Visualization */}
-              <div className="md:hidden space-y-4">
+              <div className="md:hidden space-y-token-md">
                 {funnelData.map((stage, index) => (
                   <div key={stage.name} className="relative">
                     <FunnelStageCard 
@@ -304,13 +304,13 @@ export default function ConversionFunnelChart() {
             <CardTitle>Drop-off Analysis</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-token-md">
               {funnelData.slice(1).map((stage, index) => {
                 const prevStage = funnelData[index]
                 const dropOffUsers = prevStage.value - stage.value
                 
                 return (
-                  <div key={stage.name} className="p-3 bg-muted rounded-lg">
+                  <div key={stage.name} className="p-3 bg-muted rounded-token-lg">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium text-foreground">
                         {prevStage.name} → {stage.name}
@@ -344,9 +344,9 @@ export default function ConversionFunnelChart() {
         <CardContent>
           <div className="space-y-6">
             {topCreatorFunnels.map((creator) => (
-              <div key={creator.creatorId} className="border rounded-lg p-4">
+              <div key={creator.creatorId} className="border rounded-token-lg p-4">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-token-sm">
                     <Badge variant="outline">@{creator.creatorCode}</Badge>
                     <span className="text-sm text-aurora-nav-muted">
                       {creator.conversionRate.toFixed(1)}% conversion rate

@@ -59,7 +59,7 @@ export default function PayoutRequest() {
     {
       id: 'paypal',
       name: 'PayPal',
-      icon: <span className="text-blue-600">💳</span>,
+      icon: <span className="text-aurora-nebula-purple">💳</span>,
       minAmount: 25,
       description: 'Fast and secure PayPal transfer',
       fields: [
@@ -75,7 +75,7 @@ export default function PayoutRequest() {
     {
       id: 'stripe',
       name: 'Debit Card',
-      icon: <CreditCard className="w-4 h-4 text-purple-600" />,
+      icon: <CreditCard className="w-4 h-4 text-aurora-nebula-purple" />,
       minAmount: 10,
       description: 'Direct transfer to your debit card',
       fields: [
@@ -98,7 +98,7 @@ export default function PayoutRequest() {
     {
       id: 'bank',
       name: 'Bank Transfer',
-      icon: <Building2 className="w-4 h-4 text-green-600" />,
+      icon: <Building2 className="w-4 h-4 text-aurora-emerald-flash" />,
       minAmount: 50,
       description: 'ACH transfer to your bank account',
       fields: [
@@ -256,7 +256,7 @@ export default function PayoutRequest() {
       {success && (
         <Card className="border-border bg-muted">
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2 text-green-800">
+            <div className="flex items-center space-x-token-sm text-aurora-emerald-flash">
               <CheckCircle className="w-5 h-5" />
               <span className="font-medium">{success}</span>
             </div>
@@ -267,12 +267,12 @@ export default function PayoutRequest() {
       {/* Eligibility Status */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+          <CardTitle className="flex items-center space-x-token-sm">
             <DollarSign className="w-5 h-5" />
             <span>Payout Eligibility</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-token-md">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-foreground">
@@ -304,8 +304,8 @@ export default function PayoutRequest() {
           </div>
 
           {!eligibility.isEligible && (
-            <div className="bg-muted border border-border rounded-lg p-4">
-              <div className="flex items-start space-x-2">
+            <div className="bg-muted border border-border rounded-token-lg p-4">
+              <div className="flex items-start space-x-token-sm">
                 <Info className="w-5 h-5 text-amber-600 mt-0.5" />
                 <div className="text-sm text-amber-800">
                   <div className="font-medium mb-1">Payout Requirements</div>
@@ -333,8 +333,8 @@ export default function PayoutRequest() {
           </CardHeader>
           <CardContent className="space-y-6">
             {error && (
-              <div className="bg-muted border border-border rounded-lg p-4">
-                <div className="flex items-start space-x-2">
+              <div className="bg-muted border border-border rounded-token-lg p-4">
+                <div className="flex items-start space-x-token-sm">
                   <AlertTriangle className="w-5 h-5 text-red-600 mt-0.5" />
                   <div className="text-sm text-red-800">{error}</div>
                 </div>
@@ -374,13 +374,13 @@ export default function PayoutRequest() {
                   <button
                     key={method.id}
                     onClick={() => handleMethodChange(method.id)}
-                    className={`p-4 border rounded-lg text-left transition-colors ${
+                    className={`p-4 border rounded-token-lg text-left transition-colors ${
                       selectedMethod === method.id
                         ? 'border-amber-500 bg-muted'
                         : 'border-border hover:border-border'
                     }`}
                   >
-                    <div className="flex items-center space-x-2 mb-2">
+                    <div className="flex items-center space-x-token-sm mb-2">
                       {method.icon}
                       <span className="font-medium">{method.name}</span>
                     </div>

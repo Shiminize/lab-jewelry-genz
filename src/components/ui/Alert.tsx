@@ -5,16 +5,16 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const alertVariants = cva(
-  'relative w-full border px-4 py-3 text-sm font-body aurora-living-component aurora-interactive-shadow',
+  'relative w-full border px-4 py-3 text-sm font-body aurora-living-component aurora-interactive-shadow rounded-token-md', // Aurora border radius: medium (8px)
   {
     variants: {
       variant: {
-        default: 'bg-background text-foreground border-border',
-        warning: 'bg-accent/10 text-foreground border-accent/30 aurora-shimmer-overlay',
-        error: 'bg-cta/10 text-foreground border-cta/30',
-        success: 'bg-accent/10 text-foreground border-accent/30',
-        info: 'bg-foreground/10 text-foreground border-foreground/30',
-        aurora: 'bg-gradient-to-r from-accent/10 to-foreground/10 text-foreground border-accent/30 aurora-pulse'
+        default: 'bg-lunar-grey text-deep-space border-border',
+        warning: 'bg-amber-glow/10 text-deep-space border-amber-glow/30 aurora-shimmer-overlay', // Aurora warning color
+        error: 'bg-error/10 text-deep-space border-error/30', // Aurora error color
+        success: 'bg-emerald-flash/10 text-deep-space border-emerald-flash/30', // Aurora success color
+        info: 'bg-nebula-purple/10 text-deep-space border-nebula-purple/30', // Aurora info color
+        aurora: 'bg-gradient-to-r from-aurora-pink/10 to-aurora-plum/10 text-deep-space border-aurora-pink/30 aurora-pulse'
       }
     },
     defaultVariants: {
@@ -37,7 +37,7 @@ export function Alert({ className, variant, children, icon, ...props }: AlertPro
       className={cn(alertVariants({ variant }), className)}
       {...props}
     >
-      <div className="flex items-start space-x-2">
+      <div className="flex items-start space-x-token-sm">
         {icon && (
           <div className="flex-shrink-0 mt-0.5">
             {icon}

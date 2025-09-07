@@ -477,7 +477,7 @@ export function CustomizableProductsPanel() {
               {activeJobs.map(job => {
                 const product = products.find(p => p.id === job.productId)
                 return (
-                  <div key={job.jobId} className="flex items-center justify-between p-3 bg-background rounded-lg border">
+                  <div key={job.jobId} className="flex items-center justify-between p-3 bg-background rounded-token-lg border">
                     <div className="flex-1">
                       <div className="flex items-center gap-3">
                         <div className="flex-1">
@@ -559,7 +559,7 @@ export function CustomizableProductsPanel() {
                   {products.map(product => (
                     <div
                       key={product.id}
-                      className={`border rounded-lg p-4 cursor-pointer transition-all ${
+                      className={`border rounded-token-lg p-4 cursor-pointer transition-all ${
                         selectedProducts.includes(product.id)
                           ? 'border-blue-500 bg-blue-50'
                           : 'border-border hover:border-border'
@@ -644,7 +644,7 @@ export function CustomizableProductsPanel() {
                   {generationJobs.map(job => {
                     const product = products.find(p => p.id === job.productId)
                     return (
-                      <div key={job.jobId} className="border rounded-lg p-4">
+                      <div key={job.jobId} className="border rounded-token-lg p-4">
                         <div className="flex items-center justify-between mb-2">
                           <div>
                             <h4 className="font-medium text-foreground">

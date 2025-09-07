@@ -106,10 +106,10 @@ export default function CommissionTimelineChart() {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-background p-4 border border-border rounded-lg shadow-lg">
+        <div className="bg-background p-4 border border-border rounded-token-lg shadow-lg">
           <p className="font-medium text-foreground mb-2">{formatDate(label)}</p>
           {payload.map((entry: any, index: number) => (
-            <div key={index} className="flex items-center space-x-2">
+            <div key={index} className="flex items-center space-x-token-sm">
               <div 
                 className="w-3 h-3 rounded-full" 
                 style={{ backgroundColor: entry.color }}
@@ -137,12 +137,12 @@ export default function CommissionTimelineChart() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-foreground">Commission Timeline</h2>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-token-sm">
           <Filter className="h-4 w-4 text-aurora-nav-muted" />
           <select 
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value as '7d' | '30d' | '90d')}
-            className="border border-border rounded-md px-3 py-1 text-sm"
+            className="border border-border rounded-token-md px-3 py-1 text-sm"
           >
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
@@ -155,7 +155,7 @@ export default function CommissionTimelineChart() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <DollarSign className="h-4 w-4 text-green-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Total Earned</span>
             </div>
@@ -172,7 +172,7 @@ export default function CommissionTimelineChart() {
 
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <TrendingUp className="h-4 w-4 text-blue-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Total Paid</span>
             </div>
@@ -189,7 +189,7 @@ export default function CommissionTimelineChart() {
 
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <Calendar className="h-4 w-4 text-orange-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Pending</span>
             </div>
@@ -206,7 +206,7 @@ export default function CommissionTimelineChart() {
 
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-token-sm">
               <DollarSign className="h-4 w-4 text-purple-600" />
               <span className="text-sm font-medium text-aurora-nav-muted">Approved</span>
             </div>
@@ -311,10 +311,10 @@ export default function CommissionTimelineChart() {
             </ResponsiveContainer>
             
             {/* Status Legend */}
-            <div className="mt-4 space-y-2">
+            <div className="mt-4 space-y-token-sm">
               {statusData.map((item, index) => (
                 <div key={index} className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-token-sm">
                     <div 
                       className="w-3 h-3 rounded-full" 
                       style={{ backgroundColor: item.color }}

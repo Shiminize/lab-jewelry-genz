@@ -78,7 +78,7 @@ export default function MinimalistDemoPage() {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <div className="space-y-4">
+            <div className="space-y-token-md">
               <h2 className="text-foreground bg-background font-headline font-bold text-3xl lg:text-4xl">
                 Minimalist Design Strategy
               </h2>
@@ -89,7 +89,7 @@ export default function MinimalistDemoPage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-background rounded-xl p-6 space-y-4">
+              <div className="bg-background rounded-xl p-6 space-y-token-md">
                 <div className="w-12 h-12 bg-cta/10 rounded-xl flex items-center justify-center mx-auto">
                   <Sparkles className="w-6 h-6 text-cta" />
                 </div>
@@ -100,7 +100,7 @@ export default function MinimalistDemoPage() {
                 </p>
               </div>
 
-              <div className="bg-background rounded-xl p-6 space-y-4">
+              <div className="bg-background rounded-xl p-6 space-y-token-md">
                 <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mx-auto">
                   <div className="w-6 h-6 bg-accent rounded-sm" />
                 </div>
@@ -111,7 +111,7 @@ export default function MinimalistDemoPage() {
                 </p>
               </div>
 
-              <div className="bg-background rounded-xl p-6 space-y-4">
+              <div className="bg-background rounded-xl p-6 space-y-token-md">
                 <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto">
                   <div className="w-6 h-6 bg-green-500 rounded-full" />
                 </div>
@@ -126,13 +126,13 @@ export default function MinimalistDemoPage() {
             <div className="bg-gradient-to-r from-cta/5 to-accent/5 rounded-xl p-6">
               <h3 className="text-foreground bg-background font-semibold text-lg mb-4">Key Improvements</h3>
               <div className="grid md:grid-cols-2 gap-4 text-left">
-                <ul className="space-y-2 text-sm text-aurora-nav-muted bg-background">
+                <ul className="space-y-token-sm text-sm text-aurora-nav-muted bg-background">
                   <li>• Moissanite prominently featured in header banner</li>
                   <li>• 3D customizer elevated to primary navigation</li>
                   <li>• Creator program integration throughout</li>
                   <li>• Social proof positioned strategically</li>
                 </ul>
-                <ul className="space-y-2 text-sm text-aurora-nav-muted bg-background">
+                <ul className="space-y-token-sm text-sm text-aurora-nav-muted bg-background">
                   <li>• Reduced cognitive load with cleaner hierarchy</li>
                   <li>• Mobile-first responsive design</li>
                   <li>• Clear value propositions and CTAs</li>
@@ -153,7 +153,7 @@ export default function MinimalistDemoPage() {
       <section className="py-16 bg-foreground text-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <div className="space-y-4">
+            <div className="space-y-token-md">
               <h2 className="font-headline font-bold text-3xl lg:text-4xl">
                 Implementation Strategy
               </h2>
@@ -164,9 +164,9 @@ export default function MinimalistDemoPage() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 text-left">
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <h3 className="font-semibold text-lg">Phase 1: Core Implementation</h3>
-                <ul className="space-y-2 text-sm text-background/80">
+                <ul className="space-y-token-sm text-sm text-background/80">
                   <li>• Replace existing header with minimalist version</li>
                   <li>• Implement Moissanite-focused hero section</li>
                   <li>• Update navigation hierarchy and categories</li>
@@ -174,9 +174,9 @@ export default function MinimalistDemoPage() {
                 </ul>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 <h3 className="font-semibold text-lg">Phase 2: Enhanced Features</h3>
-                <ul className="space-y-2 text-sm text-background/80">
+                <ul className="space-y-token-sm text-sm text-background/80">
                   <li>• Integrate creator program social proof</li>
                   <li>• Add interactive 3D product previews</li>
                   <li>• Implement conversion tracking for Moissanite</li>

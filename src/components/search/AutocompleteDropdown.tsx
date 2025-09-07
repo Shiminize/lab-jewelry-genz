@@ -215,7 +215,7 @@ export function AutocompleteDropdown({
           onFocus={() => onVisibilityChange(true)}
           onKeyDown={handleKeyDown}
           className={cn(
-            'w-full pl-10 pr-4 py-3 border border-border rounded-lg',
+            'w-full pl-10 pr-4 py-3 border border-border rounded-token-lg',
             'bg-background text-foreground placeholder:text-aurora-nav-muted',
             'focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent',
             'transition-all duration-200'
@@ -241,7 +241,7 @@ export function AutocompleteDropdown({
           ref={dropdownRef}
           className={cn(
             'absolute top-full left-0 right-0 mt-2 z-50',
-            'bg-background border border-border rounded-lg shadow-lg',
+            'bg-background border border-border rounded-token-lg shadow-lg',
             'max-h-96 overflow-y-auto'
           )}
           role="listbox"

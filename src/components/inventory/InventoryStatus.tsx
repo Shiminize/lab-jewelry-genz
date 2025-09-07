@@ -122,7 +122,7 @@ export function InventoryStatus({
 
   // Detailed variant - comprehensive information
   return (
-    <div className={cn('space-y-3 p-4 border border-border rounded-lg', className)}>
+    <div className={cn('space-y-3 p-4 border border-border rounded-token-lg', className)}>
       {/* Status Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">

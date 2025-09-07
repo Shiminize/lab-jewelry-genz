@@ -9,7 +9,7 @@ import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 const progressVariants = cva(
-  'w-full overflow-hidden rounded-full bg-muted',
+  'w-full overflow-hidden rounded-34 bg-muted',
   {
     variants: {
       size: {
@@ -79,7 +79,7 @@ export function Progress({
         />
       </div>
       {showValue && (
-        <div className="flex justify-between text-xs text-aurora-nav-muted">
+        <div className="flex justify-between text-xs text-foreground/60">
           <span>{value}</span>
           <span>{max}</span>
         </div>

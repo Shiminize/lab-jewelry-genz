@@ -133,7 +133,7 @@ export function ErrorNotificationComponent({
       aria-live="polite"
     >
       <div className={cn(
-        'rounded-lg border shadow-lg p-4',
+        'rounded-token-lg border shadow-lg p-4',
         style.bgColor,
         style.borderColor,
         'backdrop-blur-sm'
@@ -219,7 +219,7 @@ export function ErrorNotificationContainer({
 
   return (
     <div 
-      className={cn('fixed top-4 right-4 z-50 space-y-2', className)}
+      className={cn('fixed top-4 right-4 z-50 space-y-token-sm', className)}
       aria-live="polite"
       aria-label="Error notifications"
     >

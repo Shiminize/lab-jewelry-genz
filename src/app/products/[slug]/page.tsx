@@ -173,7 +173,7 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <Suspense fallback={
-            <div className="space-y-4">
+            <div className="space-y-token-md">
               <div className="h-8 bg-muted rounded animate-pulse"></div>
               <div className="h-4 bg-muted rounded animate-pulse"></div>
               <div className="h-6 bg-muted rounded animate-pulse w-1/2"></div>
@@ -221,7 +221,7 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
               {/* Features */}
               <div>
                 <h3 className="text-lg font-semibold text-foreground mb-4">Features</h3>
-                <ul className="space-y-2">
+                <ul className="space-y-token-sm">
                   <li className="flex items-start">
                     <span className="text-amber-500 mr-2">✓</span>
                     <span className="text-foreground">Lab-grown diamonds</span>
@@ -262,7 +262,7 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
           <Suspense fallback={
             <div className="max-w-4xl mx-auto">
               <div className="h-6 bg-muted rounded animate-pulse mb-6"></div>
-              <div className="space-y-4">
+              <div className="space-y-token-md">
                 {[1, 2, 3].map(i => (
                   <div key={i} className="h-24 bg-muted rounded animate-pulse"></div>
                 ))}

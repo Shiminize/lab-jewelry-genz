@@ -196,7 +196,7 @@ export function GenerationSettings({
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-token-md">
             <div>
               <label className="text-sm font-medium mb-2 block">Quick Presets</label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -245,7 +245,7 @@ export function GenerationSettings({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="text-sm font-medium mb-2 block">Image Count</label>
-              <div className="space-y-2">
+              <div className="space-y-token-sm">
                 <Input
                   type="number"
                   min="12"
@@ -302,7 +302,7 @@ export function GenerationSettings({
             <label className="text-sm font-medium mb-3 block">Output Formats</label>
             <div className="grid grid-cols-3 gap-3">
               {['avif', 'webp', 'png'].map((format) => (
-                <label key={format} className="flex items-center space-x-2 cursor-pointer">
+                <label key={format} className="flex items-center space-x-token-sm cursor-pointer">
                   <input
                     type="checkbox"
                     checked={localConfig.imageFormats.includes(format)}
@@ -335,7 +335,7 @@ export function GenerationSettings({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label className="text-sm font-medium mb-2 block">AVIF Quality</label>
-              <div className="space-y-2">
+              <div className="space-y-token-sm">
                 <Input
                   type="range"
                   min="20"
@@ -360,7 +360,7 @@ export function GenerationSettings({
 
             <div>
               <label className="text-sm font-medium mb-2 block">WebP Quality</label>
-              <div className="space-y-2">
+              <div className="space-y-token-sm">
                 <Input
                   type="range"
                   min="20"
@@ -385,7 +385,7 @@ export function GenerationSettings({
 
             <div>
               <label className="text-sm font-medium mb-2 block">PNG Compression</label>
-              <div className="space-y-2">
+              <div className="space-y-token-sm">
                 <Input
                   type="range"
                   min="0"
@@ -427,7 +427,7 @@ export function GenerationSettings({
                 value={localConfig.lighting}
                 onChange={(e) => updateConfig({ lighting: e.target.value as GenerationConfig['lighting'] })}
                 disabled={isGenerating}
-                className="w-full px-3 py-2 border rounded-md text-sm"
+                className="w-full px-3 py-2 border rounded-token-md text-sm"
               >
                 <option value="studio">Studio (Professional)</option>
                 <option value="natural">Natural (Outdoor)</option>
@@ -442,7 +442,7 @@ export function GenerationSettings({
                 value={localConfig.background}
                 onChange={(e) => updateConfig({ background: e.target.value as GenerationConfig['background'] })}
                 disabled={isGenerating}
-                className="w-full px-3 py-2 border rounded-md text-sm"
+                className="w-full px-3 py-2 border rounded-token-md text-sm"
               >
                 <option value="transparent">Transparent</option>
                 <option value="white">White</option>
@@ -453,7 +453,7 @@ export function GenerationSettings({
           </div>
 
           <div className="flex items-center space-x-6">
-            <label className="flex items-center space-x-2 cursor-pointer">
+            <label className="flex items-center space-x-token-sm cursor-pointer">
               <input
                 type="checkbox"
                 checked={localConfig.antialiasing}

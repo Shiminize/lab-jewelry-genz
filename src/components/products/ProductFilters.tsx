@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { H4, BodyText, MutedText } from '@/components/foundation/Typography'
 import { cn } from '@/lib/utils'
+import { filterData } from './ProductFiltersData'
 
 export interface FilterOptions {
   priceRange: [number, number]
@@ -25,32 +26,7 @@ interface ProductFiltersProps {
   className?: string
 }
 
-const filterData = {
-  categories: [
-    { id: 'rings', name: 'Rings', count: 156 },
-    { id: 'necklaces', name: 'Necklaces', count: 89 },
-    { id: 'earrings', name: 'Earrings', count: 124 },
-    { id: 'bracelets', name: 'Bracelets', count: 67 },
-  ],
-  materials: [
-    { id: '14k-gold', name: '14K Gold', count: 245 },
-    { id: '18k-gold', name: '18K Gold', count: 198 },
-    { id: 'white-gold', name: 'White Gold', count: 167 },
-    { id: 'rose-gold', name: 'Rose Gold', count: 156 },
-    { id: 'platinum', name: 'Platinum', count: 89 },
-  ],
-  stoneTypes: [
-    { id: 'diamond', name: 'Diamond', count: 387 },
-    { id: 'emerald', name: 'Emerald', count: 45 },
-    { id: 'sapphire', name: 'Sapphire', count: 67 },
-    { id: 'ruby', name: 'Ruby', count: 34 },
-  ],
-  stoneQualities: [
-    { id: 'premium', name: 'Premium (VVS)', count: 156 },
-    { id: 'signature', name: 'Signature (VS)', count: 234 },
-    { id: 'classic', name: 'Classic (SI)', count: 198 },
-  ],
-}
+// Filter data imported from ProductFiltersData.tsx
 
 export function ProductFilters({ 
   filters, 
@@ -140,14 +116,14 @@ export function ProductFilters({
     selectedItems: string[]
     onToggle: (id: string) => void 
   }) => (
-    <div className="space-y-2">
+    <div className="space-y-token-sm">
       {items.map(item => (
         <label key={item.id} className="flex items-center space-x-3 cursor-pointer">
           <input
             type="checkbox"
             checked={selectedItems.includes(item.id)}
             onChange={() => onToggle(item.id)}
-            className="w-4 h-4 text-cta bg-background border-border rounded focus:ring-cta focus:ring-2"
+            className="w-4 h-4 text-cta bg-background border-border rounded-sm focus:ring-cta focus:ring-2"
           />
           <div className="flex-1 flex items-center justify-between">
             <BodyText size="sm">{item.name}</BodyText>
@@ -159,8 +135,8 @@ export function ProductFilters({
   )
 
   const PriceRangeFilter = () => (
-    <div className="space-y-4">
-      <div className="flex space-x-4">
+    <div className="space-y-token-md">
+      <div className="flex space-x-token-md">
         <div>
           <MutedText size="sm" className="mb-1">Min Price</MutedText>
           <Input
@@ -188,7 +164,7 @@ export function ProductFilters({
           />
         </div>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-token-sm">
         {[
           { label: 'Under $1,000', range: [0, 1000] as [number, number] },
           { label: '$1,000 - $2,500', range: [1000, 2500] as [number, number] },
@@ -198,7 +174,7 @@ export function ProductFilters({
         ].map(({ label, range }) => (
           <button
             key={label}
-            className="block w-full text-left px-2 py-1 text-sm text-muted hover:text-foreground hover:bg-muted/20 rounded"
+            className="block w-full text-left px-2 py-1 text-sm text-muted hover:text-foreground hover:bg-muted/20 rounded-sm"
             onClick={() => updateFilter('priceRange', range)}
           >
             {label}
@@ -252,7 +228,7 @@ export function ProductFilters({
             type="checkbox"
             checked={filters.inStock}
             onChange={(e) => updateFilter('inStock', e.target.checked)}
-            className="w-4 h-4 text-cta bg-background border-border rounded focus:ring-cta focus:ring-2"
+            className="w-4 h-4 text-cta bg-background border-border rounded-sm focus:ring-cta focus:ring-2"
           />
           <BodyText size="sm">In Stock Only</BodyText>
         </label>
@@ -286,7 +262,7 @@ export function ProductFilters({
           <SlidersHorizontal size={16} className="mr-2" />
           Filters
           {hasActiveFilters && (
-            <span className="ml-2 px-2 py-0.5 bg-cta text-background text-xs rounded-full">
+            <span className="ml-2 px-2 py-0.5 bg-cta text-background text-xs rounded-token-lg">
               {filters.categories.length + filters.materials.length + filters.stoneTypes.length + filters.stoneQualities.length + (filters.inStock ? 1 : 0)}
             </span>
           )}
@@ -315,7 +291,7 @@ export function ProductFilters({
       {isMobileFiltersOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="fixed inset-0 bg-foreground/50" onClick={() => setIsMobileFiltersOpen(false)} />
-          <div className="fixed inset-x-0 bottom-0 max-h-[80vh] bg-background rounded-t-xl p-6 overflow-y-auto">
+          <div className="fixed inset-x-0 bottom-0 max-h-[80vh] bg-background rounded-t-lg p-6 overflow-y-auto shadow-[0_24px_64px_color-mix(in_srgb,var(--nebula-purple)_10%,transparent)]">
             <div className="flex items-center justify-between mb-6">
               <H4 level="h4">Filters</H4>
               <Button
@@ -327,7 +303,7 @@ export function ProductFilters({
               </Button>
             </div>
             {filtersContent}
-            <div className="flex space-x-4 pt-6 border-t border-border mt-6">
+            <div className="flex space-x-token-md pt-6 border-t border-border mt-6">
               <Button
                 variant="outline"
                 size="lg"

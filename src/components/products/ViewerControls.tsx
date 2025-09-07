@@ -38,14 +38,14 @@ export default function ViewerControls({
   }
 
   return (
-    <div className="flex items-center justify-between bg-background rounded-lg shadow-sm border border-border p-3">
+    <div className="flex items-center justify-between bg-background rounded-token-lg shadow-sm border border-border p-3">
       {/* View Mode Toggle */}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-token-sm">
         <span className="text-sm font-medium text-foreground">View:</span>
-        <div className="flex bg-muted rounded-lg p-1">
+        <div className="flex bg-muted rounded-token-lg p-1">
           <button
             onClick={() => onViewModeChange('3d')}
-            className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${
+            className={`px-3 py-1.5 text-sm font-medium rounded-token-md transition-all duration-200 ${
               viewMode === '3d'
                 ? 'bg-background text-foreground shadow-sm'
                 : 'text-aurora-nav-muted hover:text-foreground'
@@ -60,7 +60,7 @@ export default function ViewerControls({
           </button>
           <button
             onClick={() => onViewModeChange('gallery')}
-            className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${
+            className={`px-3 py-1.5 text-sm font-medium rounded-token-md transition-all duration-200 ${
               viewMode === 'gallery'
                 ? 'bg-background text-foreground shadow-sm'
                 : 'text-aurora-nav-muted hover:text-foreground'
@@ -77,14 +77,14 @@ export default function ViewerControls({
       </div>
 
       {/* Control Buttons */}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-token-sm">
         {/* 3D Controls */}
         {viewMode === '3d' && (
           <>
             {/* Auto Rotate Toggle */}
             <button
               onClick={() => onAutoRotateToggle(!autoRotate)}
-              className={`p-2 rounded-lg transition-all duration-200 ${
+              className={`p-2 rounded-token-lg transition-all duration-200 ${
                 autoRotate
                   ? 'bg-amber-100 text-amber-700 hover:bg-amber-200'
                   : 'bg-muted text-aurora-nav-muted hover:bg-muted'
@@ -110,7 +110,7 @@ export default function ViewerControls({
         <button
           onClick={onReset}
           disabled={!canReset}
-          className={`p-2 rounded-lg transition-all duration-200 ${
+          className={`p-2 rounded-token-lg transition-all duration-200 ${
             canReset
               ? 'bg-muted text-aurora-nav-muted hover:bg-muted'
               : 'bg-muted text-muted-foreground cursor-not-allowed'
@@ -125,7 +125,7 @@ export default function ViewerControls({
         {/* Fullscreen Toggle */}
         <button
           onClick={handleFullscreen}
-          className="p-2 rounded-lg bg-muted text-aurora-nav-muted hover:bg-muted transition-all duration-200"
+          className="p-2 rounded-token-lg bg-muted text-aurora-nav-muted hover:bg-muted transition-all duration-200"
           title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
         >
           {isFullscreen ? (
@@ -141,15 +141,15 @@ export default function ViewerControls({
 
         {/* Help/Info */}
         <div className="relative group">
-          <button className="p-2 rounded-lg bg-muted text-aurora-nav-muted hover:bg-muted transition-all duration-200">
+          <button className="p-2 rounded-token-lg bg-muted text-aurora-nav-muted hover:bg-muted transition-all duration-200">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </button>
           
           {/* Tooltip */}
-          <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-foreground text-background text-xs rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
-            <div className="space-y-2">
+          <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-foreground text-background text-xs rounded-token-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
+            <div className="space-y-token-sm">
               <div className="font-semibold">3D Viewer Controls:</div>
               <div>• <strong>Drag:</strong> Rotate the model</div>
               <div>• <strong>Scroll:</strong> Zoom in/out</div>
