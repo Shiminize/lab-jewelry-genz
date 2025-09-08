@@ -466,8 +466,7 @@ class AuditLogger {
       }
       
       // Log to console in development, would integrate with logging service in production
-      console.log('AUDIT:', JSON.stringify(logEntry))
-      
+
       // TODO: Integrate with proper audit logging service (e.g., AWS CloudTrail, DataDog)
     } catch (error) {
       console.error('Audit logging failed:', error)

@@ -65,9 +65,7 @@ async function handler(request: NextRequest) {
       // Check if we have customizable products in database
       if (scalableResult && (scalableResult as any).products && (scalableResult as any).products.length > 0) {
         const responseTime = Date.now() - startTime
-        
-        console.log(`✅ Scalable customization service: ${(scalableResult as any).products.length} products, ${responseTime}ms`)
-        
+
         // Transform for compatibility with existing frontend
         const transformedProducts = (scalableResult as any).products.map((product: any) => ({
           id: product._id || product.id,
@@ -127,7 +125,7 @@ async function handler(request: NextRequest) {
         
         return response
       } else {
-        console.log('ℹ️ No customizable products found in database, falling back to seed data')
+
         useScalableService = false
       }
       
@@ -137,8 +135,7 @@ async function handler(request: NextRequest) {
     }
 
     // Fallback to seed data for MVP compatibility
-    console.log('📦 Using seed data fallback for customizable products')
-    
+
     // Filter products based on query parameters
     let filteredProducts = seedProducts.products
 

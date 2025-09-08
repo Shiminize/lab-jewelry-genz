@@ -187,8 +187,6 @@ export async function trackMultiTouchClick(clickData: {
 
     await click.save()
 
-    console.log(`Multi-touch click tracked: Journey ${customerJourneyId}, Touchpoint ${touchpointSequence}`)
-    
     return {
       success: true,
       clickId: click._id,
@@ -296,8 +294,6 @@ export async function processMultiTouchConversion(
         }
       }
     }
-
-    console.log(`Multi-touch conversion processed: ${transactions.length} transactions created for order ${orderId}`)
 
     return {
       success: true,

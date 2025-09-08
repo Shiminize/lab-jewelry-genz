@@ -333,16 +333,16 @@ export const authOptions: NextAuthOptions = {
   // Events
   events: {
     async signIn({ user, account, profile, isNewUser }) {
-      console.log(`User signed in: ${user.email} via ${account?.provider}`)
+
     },
     async signOut({ session, token }) {
-      console.log(`User signed out: ${token?.email}`)
+
     },
     async createUser({ user }) {
-      console.log(`New user created: ${user.email}`)
+
     },
     async linkAccount({ user, account, profile }) {
-      console.log(`Account linked: ${user.email} to ${account.provider}`)
+
     },
     async session({ session, token }) {
       // Session access logging could go here

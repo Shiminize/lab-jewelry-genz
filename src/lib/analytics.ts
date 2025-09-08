@@ -85,7 +85,7 @@ class AnalyticsService {
 
       // In development, log events for debugging
       if (!this.isProduction) {
-        console.log('📊 Analytics Event:', event.event, event.properties)
+
       }
     } catch (error) {
       console.error('Analytics tracking error:', error)

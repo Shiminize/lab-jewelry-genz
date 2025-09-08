@@ -23,8 +23,7 @@ function logSecure(message: string, context?: Record<string, any>) {
     customer: context.customer ? '[REDACTED]' : undefined,
     receipt_email: context.receipt_email ? '[REDACTED]' : undefined
   } : undefined
-  
-  console.log(message, sanitizedContext)
+
 }
 
 function errorSecure(message: string, error?: any) {
@@ -232,7 +231,6 @@ export async function POST(request: NextRequest) {
     }
 
     // Log webhook event for debugging
-    console.log(`Received Stripe webhook: ${event.type}`)
 
     // Handle different event types
     switch (event.type) {
@@ -253,7 +251,7 @@ export async function POST(request: NextRequest) {
         break
 
       default:
-        console.log(`Unhandled webhook event type: ${event.type}`)
+
     }
 
     return ok({ 

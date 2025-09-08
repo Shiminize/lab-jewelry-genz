@@ -537,7 +537,7 @@ export default function CustomerSegmentation({
     if (onEditSegment) {
       onEditSegment(id)
     } else {
-      console.log('Edit segment:', id)
+
     }
   }
 
@@ -575,12 +575,12 @@ export default function CustomerSegmentation({
     if (onViewSegment) {
       onViewSegment(id)
     } else {
-      console.log('View segment:', id)
+
     }
   }
 
   const handleAnalytics = (id: string) => {
-    console.log('View analytics for segment:', id)
+
     // TODO: Navigate to segment analytics view
   }
 

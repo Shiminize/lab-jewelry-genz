@@ -193,7 +193,7 @@ export class CustomizerSharing {
     try {
       // This would require html2canvas or similar library
       // For now, return placeholder
-      console.log('Screenshot capture would be implemented here')
+
       return null
     } catch (error) {
       console.error('Failed to capture screenshot:', error)
@@ -221,16 +221,7 @@ export class CustomizerSharing {
     }
 
     // Also track with our internal analytics
-    console.log('📊 Share Analytics:', {
-      platform,
-      material: state.currentMaterial,
-      features: {
-        zoom: state.zoomLevel !== 1,
-        autoRotate: state.isAutoRotating,
-        comparison: state.isComparisonMode
-      },
-      success
-    })
+
   }
 
   // Get share analytics data

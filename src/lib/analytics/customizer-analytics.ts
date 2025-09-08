@@ -117,7 +117,7 @@ export class CustomizerAnalytics {
 
     // Console logging for development (remove in production)
     if (process.env.NODE_ENV === 'development') {
-      console.log('📊 Analytics:', eventName, properties)
+
     }
 
     // Auto-flush every 10 events to prevent data loss
@@ -267,10 +267,7 @@ export class CustomizerAnalytics {
         })
       } else {
         // Development: Log to console with summary
-        console.log('📊 Analytics Flush:', {
-          sessionId: this.sessionId,
-          eventCount: this.events.length,
-          sessionSummary: this.getSessionSummary()
+
         })
       }
 

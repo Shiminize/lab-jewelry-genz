@@ -112,8 +112,7 @@ class Customizable3DBridgeService {
       this.activeJobs.set(jobId, progress)
       
       const responseTime = performance.now() - startTime
-      console.log(`✅ Asset generation started for product ${productId}: ${responseTime.toFixed(2)}ms`)
-      
+
       return progress
       
     } catch (error) {
@@ -152,8 +151,7 @@ class Customizable3DBridgeService {
       )
       
       const responseTime = performance.now() - startTime
-      console.log(`✅ Configuration assets started for ${configurationId}: ${responseTime.toFixed(2)}ms`)
-      
+
       return progress
       
     } catch (error) {

@@ -103,8 +103,7 @@ export class EnhancedGenerationService {
     
     // Start the global monitor if not already running
     healthMonitor.start()
-    
-    console.log('📊 EnhancedGenerationService: Registered with GlobalHealthMonitor')
+
   }
   
   private setupCleanupTasks(): void {
@@ -123,8 +122,7 @@ export class EnhancedGenerationService {
         throw error
       }
     }, this.config.generation.cleanupIntervalMinutes * 60 * 1000)
-    
-    console.log('🧹 EnhancedGenerationService: Cleanup registered with GlobalHealthMonitor')
+
   }
   
   private setupJobPersistence(): void {
@@ -142,8 +140,7 @@ export class EnhancedGenerationService {
         throw error
       }
     }, 30000) // Every 30 seconds
-    
-    console.log('💾 EnhancedGenerationService: Job persistence registered with GlobalHealthMonitor')
+
   }
 
   private async recoverInterruptedJobs(): Promise<void> {

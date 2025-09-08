@@ -654,7 +654,7 @@ export default function TemplateManagement({
     if (onEditTemplate) {
       onEditTemplate(id)
     } else {
-      console.log('Edit template:', id)
+
     }
   }
 
@@ -692,7 +692,7 @@ export default function TemplateManagement({
     if (onViewTemplate) {
       onViewTemplate(id)
     } else {
-      console.log('View template:', id)
+
     }
   }
 

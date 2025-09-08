@@ -217,7 +217,7 @@ export default function RelatedProducts({ products, title = "You Might Also Like
                       onClick={(e) => {
                         e.preventDefault()
                         // Add to cart logic here
-                        console.log('Quick add to cart:', product.id)
+
                       }}
                       className="w-full py-2 px-4 bg-cta text-background text-sm font-medium rounded-token-lg hover:bg-cta-hover transition-colors opacity-0 group-hover:opacity-100 duration-300"
                     >

@@ -105,9 +105,7 @@ export const generateMaterialPath = (modelId: string, materialId: string): strin
   }
   
   const filesystemMaterialId = MATERIAL_ID_TO_FILESYSTEM_MAP[materialId] || materialId
-  
-  console.log(`🔧 [PATH FIX] Material ID mapping: ${materialId} → ${filesystemMaterialId}`)
-  
+
   // Convert separate model/material to unified directory naming that matches filesystem
   // Example: ring-classic-002 + 18k-rose-gold → ring-classic-002-rose-gold
   return `images/products/3d-sequences/${modelId}-${filesystemMaterialId}`

@@ -549,8 +549,7 @@ export default function CampaignDetails({
       setActionLoading(true)
       
       // TODO: Implement duplication API call
-      console.log('Duplicate campaign:', campaignId)
-      
+
     } catch (error) {
       alert(error instanceof Error ? error.message : 'Failed to duplicate campaign')
     } finally {

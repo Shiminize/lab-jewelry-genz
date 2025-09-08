@@ -345,7 +345,7 @@ class MaterialValidationService {
    * Pre-warm cache with approved materials for instant validation
    */
   private prewarmCache(): void {
-    console.log('🚀 Pre-warming material validation cache for E2E performance...')
+
     const startTime = performance.now()
     
     // Pre-validate all approved materials
@@ -367,7 +367,7 @@ class MaterialValidationService {
     }
     
     const warmupTime = performance.now() - startTime
-    console.log(`✅ Material cache pre-warmed in ${warmupTime}ms (${this.validationCache.size} entries)`)
+
   }
 
   static getInstance(): MaterialValidationService {
@@ -393,14 +393,14 @@ class MaterialValidationService {
       if (cacheTime > 1) {
         console.warn(`Cache lookup took ${cacheTime}ms (target: <1ms for cache hits)`)
       } else {
-        console.log(`✅ Cache hit for material: ${materialId} (${cacheTime.toFixed(2)}ms)`)
+
       }
       
       return cached
     }
 
     // Cache miss - perform validation and cache result
-    console.log(`🔍 Cache miss for material: ${materialId}, performing validation...`)
+
     const validation = this.performMaterialValidation(materialId)
     
     const validationTime = performance.now() - startTime
@@ -409,7 +409,7 @@ class MaterialValidationService {
     if (validationTime > 5) {
       console.warn(`Material validation took ${validationTime}ms (target: <5ms, cache miss)`)
     } else {
-      console.log(`✅ Material validation completed: ${materialId} (${validationTime.toFixed(2)}ms)`)
+
     }
     
     return validation

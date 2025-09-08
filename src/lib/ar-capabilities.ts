@@ -64,7 +64,7 @@ async function detectWebXR(): Promise<boolean> {
     const isSupported = await xr.isSessionSupported('immersive-ar')
     return isSupported
   } catch (error) {
-    console.log('WebXR not available:', error)
+
     return false
   }
 }
@@ -76,7 +76,7 @@ async function detectCamera(): Promise<boolean> {
     const devices = await navigator.mediaDevices.enumerateDevices()
     return devices.some(device => device.kind === 'videoinput')
   } catch (error) {
-    console.log('Camera detection failed:', error)
+
     return false
   }
 }
@@ -115,7 +115,7 @@ async function detectMotionSensors(): Promise<boolean> {
     
     return false
   } catch (error) {
-    console.log('Motion sensor detection failed:', error)
+
     return false
   }
 }

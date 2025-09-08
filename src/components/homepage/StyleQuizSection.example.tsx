@@ -14,7 +14,7 @@ import type { QuizResult } from './StyleQuizSection'
 // Example 1: Default Configuration
 export function StyleQuizExample() {
   const handleQuizComplete = (result: QuizResult) => {
-    console.log('Quiz completed:', result)
+
     // In a real app, you might:
     // - Track analytics event
     // - Save to user profile
@@ -42,7 +42,7 @@ export function StyleQuizCompactExample() {
       showSocialShare={false}
       onQuizComplete={(result) => {
         // Handle result without social sharing
-        console.log('Compact quiz result:', result)
+
       }}
     />
   )
@@ -87,7 +87,7 @@ export function HomepageWithQuiz() {
           localStorage.setItem('userPersonality', JSON.stringify(result.personalityType))
           
           // Show success message or redirect
-          console.log(`Welcome, ${result.personalityType.name}!`)
+
         }}
         showSocialShare={true}
       />

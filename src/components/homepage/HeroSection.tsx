@@ -119,7 +119,7 @@ export function HeroSection({
   useEffect(() => {
     // Use a timer-based approach instead of intersection observer for above-the-fold hero
     const timer = setTimeout(() => {
-      console.log('🎬 Starting deferred video load after page stabilization')
+
       setShouldLoadVideo(true)
     }, 1500) // Load video 1.5s after page load
 
@@ -128,7 +128,7 @@ export function HeroSection({
 
   // Enhanced video loading and error handling
   const handleVideoLoad = () => {
-    console.log('✅ Hero video loaded successfully')
+
     setVideoLoaded(true)
     setVideoError(false)
     setLoadingProgress(100)
@@ -158,18 +158,18 @@ export function HeroSection({
       if (video.duration > 0) {
         const progress = (video.buffered.length > 0 ? video.buffered.end(0) / video.duration : 0) * 100
         setLoadingProgress(progress)
-        console.log(`📊 Video loading progress: ${progress.toFixed(1)}%`)
+
       }
     }
   }
 
   const handleVideoLoadStart = () => {
-    console.log('🎬 Hero video loading started:', videoSrc)
+
     setLoadingProgress(5)
   }
 
   const handleVideoCanPlay = () => {
-    console.log('▶️ Hero video can start playing')
+
     setLoadingProgress(90)
   }
 
@@ -315,7 +315,7 @@ export function HeroSection({
               className="object-cover"
               priority
               sizes="100vw"
-              onLoad={() => console.log('✅ Hero fallback image loaded successfully')}
+              onLoad={() => {}}
               onError={() => console.error('❌ Hero fallback image failed to load')}
             />
             {/* Aurora Gradient Overlay on fallback */}

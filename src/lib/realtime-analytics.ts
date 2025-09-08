@@ -68,7 +68,6 @@ export function emitConversionEvent(conversion: ConversionEvent) {
       timestamp: new Date().toISOString()
     })
 
-    console.log(`🎯 Real-time conversion event emitted: ${conversion.id}`)
   }
 }
 
@@ -91,7 +90,6 @@ export function emitClickEvent(click: ClickEvent) {
       timestamp: new Date().toISOString()
     })
 
-    console.log(`👆 Real-time click event emitted: ${click.id}`)
   }
 }
 
@@ -106,7 +104,6 @@ export function emitKPIUpdate(kpis: KPIUpdate) {
       timestamp: new Date().toISOString()
     })
 
-    console.log(`📊 KPI update emitted: ${kpis.totalConversions} conversions`)
   }
 }
 
@@ -134,7 +131,6 @@ export function emitTierPromotion(creatorId: string, newTier: string, oldTier: s
       }
     })
 
-    console.log(`🎉 Tier promotion emitted: Creator ${creatorId} promoted to ${newTier}`)
   }
 }
 
@@ -162,7 +158,6 @@ export function emitPayoutNotification(creatorId: string, amount: number, payout
       }
     })
 
-    console.log(`💰 Payout notification emitted: $${amount} to creator ${creatorId}`)
   }
 }
 

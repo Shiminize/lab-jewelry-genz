@@ -140,9 +140,7 @@ export async function trackConversion(data: ConversionData): Promise<ConversionR
     if (creator.updateMetrics) {
       await creator.updateMetrics()
     }
-    
-    console.log(`Conversion tracked successfully: Order ${orderId}, Creator ${creator.creatorCode}, Commission $${commissionAmount.toFixed(2)}`)
-    
+
     // Emit real-time conversion event
     emitConversionEvent({
       id: transaction._id.toString(),

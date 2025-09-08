@@ -82,7 +82,7 @@ export default function ProductDetailView({ product }: ProductDetailViewProps) {
       const result = await response.json()
 
       if (result.success) {
-        console.log('Added to cart successfully:', result.data)
+
         // Success notification would go here
       } else {
         console.error('Failed to add to cart:', result.error)

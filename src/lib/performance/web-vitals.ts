@@ -113,7 +113,6 @@ export function initWebVitals() {
     })
   })
 
-  console.log('🔍 Web Vitals monitoring initialized - tracking Core Web Vitals')
 }
 
 /**
@@ -130,7 +129,7 @@ function recordWebVital(metric: PerformanceMetric) {
   } else if (isWarning) {
     console.warn(`⚠️ WARNING Web Vital: ${metric.name} = ${metric.value}${metric.unit} (threshold: ${metric.threshold.warning}${metric.unit})`)
   } else {
-    console.log(`✅ Good Web Vital: ${metric.name} = ${metric.value}${metric.unit}`)
+
   }
 
   // Send to performance monitoring system if available

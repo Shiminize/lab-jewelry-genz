@@ -212,7 +212,7 @@ export class MaterialSpecCache {
         expired.forEach(key => this.cache.delete(key))
         
         if (expired.length > 0) {
-          console.log(`[MaterialCache] Cleaned ${expired.length} expired entries`)
+
         }
         
         return { status: 'material-cache-cleaned', expired: expired.length }
@@ -233,7 +233,7 @@ export class MaterialSpecCache {
         expired.forEach(key => this.cache.delete(key))
         
         if (expired.length > 0) {
-          console.log(`[MaterialCache] Cleaned ${expired.length} expired entries`)
+
         }
       }, this.cleanupInterval)
     }
@@ -499,7 +499,7 @@ export class CatalogPageCache {
       const keys = await redis.keys(`${this.keyPrefix}*`)
       if (keys.length > 0) {
         await redis.del(...keys)
-        console.log(`[CatalogPageCache] Invalidated ${keys.length} catalog pages`)
+
       }
     } catch (error) {
       console.error('[CatalogPageCache] Invalidate all error:', error)

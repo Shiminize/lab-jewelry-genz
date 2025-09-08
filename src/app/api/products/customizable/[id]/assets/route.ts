@@ -56,11 +56,10 @@ async function validateAssetAvailability(assetPath: string): Promise<{
   // Check cache first
   const cached = assetValidationCache.get(assetPath)
   if (cached && (now - cached.timestamp) < cached.ttl) {
-    console.log(`🚀 [ASSET CACHE] Cache hit for ${assetPath} - served in <1ms`)
+
     return cached.result
   }
-  
-  console.log(`🔍 [ASSET VALIDATION] Cache miss, validating: ${assetPath}`)
+
   const validationStart = performance.now()
   
   // PHASE 5A: Simplified validation - check just first few frames and webp format for speed
@@ -82,7 +81,7 @@ async function validateAssetAvailability(assetPath: string): Promise<{
     
     if (frameNumbers.length > 0) {
       actualFrameCount = Math.max(...frameNumbers) + 1 // Frames are 0-indexed
-      console.log(`📊 [FRAME COUNT] Detected ${actualFrameCount} frames for ${assetPath}`)
+
     }
   } catch (error) {
     console.warn(`⚠️ [FRAME COUNT] Could not read directory ${assetPath}, using default: ${actualFrameCount}`)
@@ -167,11 +166,7 @@ async function validateAssetAvailability(assetPath: string): Promise<{
   }
   
   const validationTime = performance.now() - validationStart
-  console.log(`📊 [ASSET VALIDATION] Results (${validationTime.toFixed(1)}ms):`)
-  console.log(`   Available: ${available}`)
-  console.log(`   Sample frames: ${totalValidFrames}/6, actual total: ${result.totalValidFrames}`)
-  console.log(`   Available formats: ${Array.from(availableFormats).join(', ')}`)
-  
+
   return result
 }
 
@@ -204,8 +199,7 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
         if (cached) {
           const cachedResponse = JSON.parse(cached)
           const cacheTime = performance.now() - startTime
-          console.log(`🚀 [CACHE HIT] Assets for ${id}:${materialId} served in ${cacheTime.toFixed(2)}ms`)
-          
+
           return NextResponse.json({
             ...cachedResponse,
             performance: {
@@ -225,11 +219,7 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
     }
     
     // 🔍 PHASE 1 DEBUG: Log initial request parameters
-    console.log(`\n🔍 [CUSTOMIZER DEBUG] API Request Details:`)
-    console.log(`   Product ID: ${id}`)
-    console.log(`   Material ID: ${materialId}`)
-    console.log(`   Request URL: ${request.url}`)
-    
+
     // PHASE 2 SECURITY: Enhanced input validation with whitelisting
     if (!id) {
       return createErrorResponse(
@@ -273,16 +263,15 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
       product = await customizableProductService.getCustomizableProductById(id, false)
       if (product) {
         isScalableProduct = true
-        console.log(`✅ [CUSTOMIZER DEBUG] Product found in scalable system: ${id}`)
+
       }
     } catch (error) {
-      console.log(`🔄 [CUSTOMIZER DEBUG] Product ${id} not found in scalable system, checking seed data fallback`)
+
     }
 
     // If not found in database, check if it exists in seed data and create mock response
     if (!product) {
-      console.log(`🔄 [CUSTOMIZER DEBUG] Product ${id} not in database, providing seed data compatible response`)
-      
+
       // PHASE 2 SECURITY: Already validated above with ALLOWED_PRODUCT_IDS
       const seedProductExists = ALLOWED_PRODUCT_IDS.test(id)
       
@@ -304,7 +293,7 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
         name: `Customizable ${id.charAt(0).toUpperCase() + id.slice(1)}`,
         category: 'B'
       }
-      console.log(`📝 [CUSTOMIZER DEBUG] Mock product created:`, product)
+
     }
 
     // Get available 3D assets
@@ -312,7 +301,7 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
     
     if (isScalableProduct) {
       // Use bridge service for actual scalable products
-      console.log(`🌉 [CUSTOMIZER DEBUG] Using bridge service for scalable product`)
+
       assetInfo = await customizable3DBridgeService.getProductAssets(id, materialId)
     } else {
       // Use standardized path generation matching actual filesystem structure
@@ -321,20 +310,13 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
         'ring-002': 'ring-classic-002', 
         'ring-003': 'ring-diamond-003'
       }
-      
-      console.log(`🗺️ [CUSTOMIZER DEBUG] MODEL_MAP lookup:`)
-      console.log(`   Input ID: ${id}`)
-      console.log(`   Available mappings:`, MODEL_MAP)
-      
+
       const modelId = MODEL_MAP[id] || 'ring-classic-002' // Default to existing model
-      console.log(`   Resolved Model ID: ${modelId}`)
-      console.log(`   Material ID: ${materialId || 'platinum'}`)
-      
+
       const assetPath = generateMaterialPath(modelId, materialId || 'platinum')
-      console.log(`🎯 [CUSTOMIZER DEBUG] Generated asset path: ${assetPath}`)
-      
+
       // PHASE 1: Validate actual file availability with multi-format support
-      console.log(`📁 [CUSTOMIZER DEBUG] Validating filesystem path: public/${assetPath}`)
+
       const validation = await validateAssetAvailability(assetPath)
       
       assetInfo = {
@@ -348,12 +330,7 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
         frameAvailability: validation.frameAvailability,
         validationTimestamp: new Date().toISOString()
       }
-      
-      console.log(`🎭 [CUSTOMIZER DEBUG] Validated asset info:`, {
-        available: assetInfo.available,
-        totalFrames: assetInfo.frameCount,
-        formats: assetInfo.availableFormats
-      })
+
     }
     
     const responseTime = performance.now() - startTime
@@ -399,9 +376,6 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
       }
     }
 
-    console.log(`📤 [CUSTOMIZER DEBUG] Final API response data:`, JSON.stringify(response.data, null, 2))
-    console.log(`⏱️ [CUSTOMIZER DEBUG] Response time: ${Math.round(responseTime)}ms\n`)
-
     // PHASE 2: Cache the response for future requests (5 minute TTL)
     if (redis && response.success) {
       try {
@@ -411,7 +385,7 @@ async function getHandler(request: NextRequest, { params }: RouteParams) {
           meta: response.meta
         }
         await redis.set(cacheKey, JSON.stringify(cacheData), 300000) // 5 minutes TTL
-        console.log(`💾 [CACHE WRITE] Cached assets for ${id}:${materialId}`)
+
       } catch (error) {
         console.warn('Redis cache write error:', error)
       }
@@ -542,7 +516,7 @@ async function postHandler(request: NextRequest, { params }: RouteParams) {
     try {
       product = await customizableProductService.getCustomizableProductById(id, true)
     } catch (error) {
-      console.log(`Product ${id} not found in scalable system, checking seed data fallback`)
+
     }
     
     // For seed data products, we need to restrict POST to database products only

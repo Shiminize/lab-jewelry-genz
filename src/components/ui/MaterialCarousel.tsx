@@ -69,7 +69,7 @@ export const MaterialCarousel: React.FC<MaterialCarouselProps> = ({
     
     // CLAUDE_RULES: <100ms material switch requirement
     const switchTime = performance.now() - startTime
-    console.log(`[MATERIAL CAROUSEL] ${materialId}: ${switchTime.toFixed(2)}ms`)
+
   }, [onMaterialChange, isDisabled, isDragging])
 
   // Handle MaterialTagChip click

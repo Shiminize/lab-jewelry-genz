@@ -17,9 +17,7 @@ export async function GET(request: NextRequest) {
     const frameAvailability: Record<number, string[]> = {}
     const availableFormats = new Set<string>()
     let totalValidFrames = 0
-    
-    console.log(`🔍 [TEST CONCURRENCY] Checking availability for: ${assetPath}`)
-    
+
     // Create all file paths to check
     const filePaths: Array<{frame: number, format: string, path: string}> = []
     for (let frame = 0; frame < 36; frame++) {

@@ -251,10 +251,7 @@ async function simulateEmailSend(campaign: any, recipient: any): Promise<boolean
   const success = Math.random() > 0.05
   
   if (success) {
-    console.log(`📧 EMAIL SENT (Simulated)`)
-    console.log(`   Campaign: ${campaign.name}`)
-    console.log(`   To: ${recipient.email}`)
-    console.log(`   Subject: ${campaign.subject}`)
+
   }
   
   return success

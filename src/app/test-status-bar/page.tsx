@@ -69,7 +69,7 @@ export default function TestStatusBarPage() {
           materialSelection={materialSelection}
           onDismiss={() => setIsVisible(false)}
           onToggleExpanded={(expanded) => {
-            console.log('Status bar expanded:', expanded)
+
           }}
         />
       </div>

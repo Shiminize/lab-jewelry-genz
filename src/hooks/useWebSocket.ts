@@ -48,12 +48,12 @@ export function useWebSocket(): UseWebSocketReturn {
 
     // Connection event handlers
     socket.on('connect', () => {
-      console.log('🔌 WebSocket connected:', socket.id)
+
       setIsConnected(true)
     })
 
     socket.on('disconnect', (reason) => {
-      console.log('🔌 WebSocket disconnected:', reason)
+
       setIsConnected(false)
     })
 
@@ -64,7 +64,7 @@ export function useWebSocket(): UseWebSocketReturn {
 
     // Job progress updates
     socket.on('job-progress', (progress: JobProgress) => {
-      console.log('📡 Job progress update:', progress)
+
       setJobProgress(prev => {
         const updated = new Map(prev)
         updated.set(progress.jobId, progress)
@@ -84,14 +84,14 @@ export function useWebSocket(): UseWebSocketReturn {
   const joinJobRoom = (jobId: string) => {
     if (socketRef.current?.connected) {
       socketRef.current.emit('join-job', jobId)
-      console.log(`📱 Joined job room: ${jobId}`)
+
     }
   }
 
   const leaveJobRoom = (jobId: string) => {
     if (socketRef.current?.connected) {
       socketRef.current.emit('leave-job', jobId)
-      console.log(`📤 Left job room: ${jobId}`)
+
     }
   }
 

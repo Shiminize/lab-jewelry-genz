@@ -66,7 +66,7 @@ export default function PerformanceTestPage() {
     setSwitchTimes(prev => [...prev.slice(-10), newEntry]) // Keep last 10 results
     
     // Log for performance test script to read
-    console.log(`PERFORMANCE_RESULT: ${materialId} = ${switchTime.toFixed(1)}ms`)
+
   }
   
   const averageTime = switchTimes.length > 0 ? 

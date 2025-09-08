@@ -79,11 +79,10 @@ class SystemHealthMonitorService {
    */
   public startMonitoring(): void {
     if (this.isMonitoring) {
-      console.log('🏥 System health monitoring already active')
+
       return
     }
 
-    console.log('🏥 Starting system health monitoring...')
     this.isMonitoring = true
 
     // CRITICAL FIX: Use GlobalHealthMonitor instead of creating duplicate intervals
@@ -103,8 +102,7 @@ class SystemHealthMonitorService {
         throw error
       }
     }, 5000) // Every 5 seconds
-    
-    console.log('📊 SystemHealthMonitorService: Registered with GlobalHealthMonitor')
+
   }
 
   /**
@@ -113,8 +111,6 @@ class SystemHealthMonitorService {
   public stopMonitoring(): void {
     if (!this.isMonitoring) return
 
-    console.log('🏥 Stopping system health monitoring...')
-    
     if (this.monitoringInterval) {
       clearInterval(this.monitoringInterval)
       this.monitoringInterval = null
@@ -125,7 +121,7 @@ class SystemHealthMonitorService {
     this.observers = []
 
     this.isMonitoring = false
-    console.log('✅ System health monitoring stopped')
+
   }
 
   /**
@@ -268,7 +264,7 @@ class SystemHealthMonitorService {
     if (status !== 'healthy') {
       console.warn(`⚠️ Health metric ${name}: ${value}${unit} (threshold: ${threshold}${unit})`)
     } else if (name === 'materialSwitchTime' && value < 10) {
-      console.log(`⚡ Excellent material switch: ${value}ms`)
+
     }
   }
 
@@ -318,7 +314,6 @@ class SystemHealthMonitorService {
       this.alerts.splice(0, this.alerts.length - 50)
     }
 
-    console.log(`🚨 Health alert [${severity.toUpperCase()}]: ${message}`)
   }
 
   /**
@@ -386,7 +381,7 @@ class SystemHealthMonitorService {
   public clearData(): void {
     this.metrics.clear()
     this.alerts.length = 0
-    console.log('🧹 Health monitoring data cleared')
+
   }
 
   /**

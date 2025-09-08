@@ -79,14 +79,14 @@ export class ResourceOptimizer {
 
   initialize(): void {
     if (this.isInitialized) {
-      console.log('🔧 ResourceOptimizer already initialized, skipping')
+
       return
     }
     
     this.startMonitoring()
     this.scheduleCleanup()
     this.isInitialized = true
-    console.log('🔧 ResourceOptimizer initialized')
+
   }
 
   private initializeMetrics(): ResourceMetrics {
@@ -116,8 +116,7 @@ export class ResourceOptimizer {
         throw error
       }
     }, this.config.monitoring.metricsInterval)
-    
-    console.log('🔧 ResourceOptimizer: Registered with GlobalHealthMonitor')
+
   }
 
   private scheduleCleanup(): void {
@@ -135,8 +134,7 @@ export class ResourceOptimizer {
         throw error
       }
     }, this.config.generation.cleanupIntervalMinutes * 60 * 1000)
-    
-    console.log('🧹 ResourceOptimizer: Cleanup registered with GlobalHealthMonitor')
+
   }
 
   async updateMetrics(): Promise<ResourceMetrics> {
@@ -309,7 +307,7 @@ export class ResourceOptimizer {
   private async forceGarbageCollection(): Promise<void> {
     if (global.gc) {
       global.gc()
-      console.log('🧹 Forced garbage collection completed')
+
     } else {
       console.warn('Garbage collection not available - run with --expose-gc flag')
     }
@@ -356,7 +354,6 @@ export class ResourceOptimizer {
       }
 
       this.lastCleanup = now
-      console.log(`🧹 Disk cleanup completed: ${Math.round(cleanedSize / 1024 / 1024)}MB freed`)
 
     } catch (error) {
       console.error('Disk cleanup failed:', error)
@@ -388,16 +385,14 @@ export class ResourceOptimizer {
     safeToClear.forEach(key => {
       delete require.cache[key]
     })
-    
-    console.log(`🧹 Cleared ${safeToClear.length} cached modules`)
+
   }
 
   /**
    * Advanced memory cleanup for memory pressure situations
    */
   async performAdvancedMemoryCleanup(): Promise<void> {
-    console.log('🆘 Performing advanced memory cleanup due to memory pressure')
-    
+
     try {
       // 1. Clear internal caches aggressively  
       this.clearInternalCaches()
@@ -408,7 +403,7 @@ export class ResourceOptimizer {
           global.gc()
           await new Promise(resolve => setTimeout(resolve, 100)) // 100ms between GC calls
         }
-        console.log('🧹 Performed 3 aggressive garbage collections')
+
       }
       
       // 3. Clear material cache if available
@@ -416,7 +411,7 @@ export class ResourceOptimizer {
         const MaterialCache = require('./material-cache')
         if (MaterialCache?.default?.clear) {
           MaterialCache.default.clear()
-          console.log('🧹 Cleared material cache')
+
         }
       } catch (error) {
         // Material cache not available or already cleared
@@ -427,7 +422,7 @@ export class ResourceOptimizer {
         const AdminCache = require('./admin-cache')
         if (AdminCache?.adminCache?.clear) {
           AdminCache.adminCache.clear()
-          console.log('🧹 Cleared admin cache')
+
         }
       } catch (error) {
         // Admin cache not available or already cleared
@@ -435,9 +430,7 @@ export class ResourceOptimizer {
       
       // 5. Run disk cleanup to free up space
       await this.cleanupDiskSpace()
-      
-      console.log('✅ Advanced memory cleanup completed')
-      
+
     } catch (error) {
       console.error('❌ Advanced memory cleanup failed:', error)
     }

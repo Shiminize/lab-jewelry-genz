@@ -88,7 +88,7 @@ export class GenerationService {
         try {
           activeProcess.kill('SIGTERM')
           activeProcesses.delete(jobId)
-          console.log(`🛑 Killed generation process for job ${jobId}`)
+
         } catch (error) {
           console.error(`Failed to kill process for job ${jobId}:`, error)
         }
@@ -236,7 +236,7 @@ export class GenerationService {
         startTime: job.startTime,
         endTime: job.endTime
       })
-      console.log(`📡 Emitted job progress for ${jobId}: ${job.progress}%`)
+
     }
   }
 
@@ -269,8 +269,7 @@ export class GenerationService {
 
       child.stdout.on('data', (data) => {
         const output = data.toString()
-        console.log(`Generation output: ${output}`)
-        
+
         // Parse progress from script output
         const frameMatch = output.match(/Frame (\d+)\/(\d+)/)
         if (frameMatch) {

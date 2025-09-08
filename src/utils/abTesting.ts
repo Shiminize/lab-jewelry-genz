@@ -297,7 +297,7 @@ export class ABTestingService {
     if (process.env.NODE_ENV === 'development') {
       this.testAssignments.clear();
       this.conversionEvents.length = 0;
-      console.log('🧪 A/B Test data cleared');
+
     }
   }
 
@@ -307,7 +307,7 @@ export class ABTestingService {
   private trackEvent(eventType: string, data: any): void {
     // In development, log to console
     if (process.env.NODE_ENV === 'development') {
-      console.log(`🔬 AB Test Event: ${eventType}`, data);
+
     }
 
     // In production, integrate with analytics service
@@ -418,7 +418,7 @@ export const devSetTestGroup = (
   };
   
   service['testAssignments'].set(`${testName}_${userId}`, result);
-  console.log(`🧪 Dev Override: ${testName} → ${group} for user ${userId}`);
+
 };
 
 // Export service instance

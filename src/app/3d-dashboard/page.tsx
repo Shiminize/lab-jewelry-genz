@@ -107,7 +107,6 @@ export default function Dashboard3D() {
 
       // Join WebSocket room for real-time updates
       joinJobRoom(jobId)
-      console.log(`🚀 Started generation job: ${jobId}`)
 
     } catch (error) {
       console.error('Failed to start generation:', error)
@@ -140,8 +139,6 @@ export default function Dashboard3D() {
         totalFrames: null,
         activeJobId: null
       }))
-
-      console.log(`⏹️ Stopped generation job: ${jobId}`)
 
     } catch (error) {
       console.error('Failed to stop generation:', error)

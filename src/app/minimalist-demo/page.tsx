@@ -12,17 +12,17 @@ export default function MinimalistDemoPage() {
   const router = useRouter()
 
   const handleExploreCollection = () => {
-    console.log('Navigate to Moissanite collection')
+
     router.push('/collections/moissanite')
   }
 
   const handleStartCustomizer = () => {
-    console.log('Navigate to 3D customizer')
+
     router.push('/customizer')
   }
 
   const handleWatchDemo = () => {
-    console.log('Show 3D demo video')
+
   }
 
   return (

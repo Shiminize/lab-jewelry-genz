@@ -596,7 +596,7 @@ export default function EmailTriggers({
     if (onEditTrigger) {
       onEditTrigger(id)
     } else {
-      console.log('Edit trigger:', id)
+
     }
   }
 
@@ -634,7 +634,7 @@ export default function EmailTriggers({
     if (onViewTrigger) {
       onViewTrigger(id)
     } else {
-      console.log('View trigger:', id)
+
     }
   }
 

@@ -368,7 +368,7 @@ describe('Performance Integration Tests', () => {
     if (benchmark) {
       const report = benchmark.getReport()
       if (report.count > 0) {
-        console.log(`Performance Report: ${JSON.stringify(report, null, 2)}`)
+
       }
     }
   })

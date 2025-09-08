@@ -184,7 +184,7 @@ export default function InteractiveDemoPage() {
 
   const handleCheckout = () => {
     alert('Checkout functionality would be implemented here!')
-    console.log('Checkout with items:', cartItems)
+
   }
 
   // Wishlist functions
@@ -212,7 +212,7 @@ export default function InteractiveDemoPage() {
   }
 
   const handleARWaitlistSignup = async (email: string) => {
-    console.log('AR waitlist signup:', email)
+
     return new Promise(resolve => setTimeout(resolve, 1000))
   }
 

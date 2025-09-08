@@ -62,11 +62,10 @@ export class ProductRepository {
     // Check cache first
     const cached = productSearchCache.get(cacheKey)
     if (cached && (now - cached.timestamp) < cached.ttl) {
-      console.log(`🚀 [PRODUCT CACHE] Cache hit for search - served in <1ms`)
+
       return cached.result
     }
-    
-    console.log(`🔍 [PRODUCT SEARCH] Cache miss, querying database...`)
+
     const searchStart = performance.now()
     
     const collection = await this.getProductsCollection()
@@ -254,9 +253,7 @@ export class ProductRepository {
     }
     
     const searchTime = performance.now() - searchStart
-    console.log(`📊 [PRODUCT SEARCH] Database query completed in ${searchTime.toFixed(1)}ms`)
-    console.log(`   Found: ${total} products, returning ${productDTOs.length} results`)
-    
+
     return result
   }
 

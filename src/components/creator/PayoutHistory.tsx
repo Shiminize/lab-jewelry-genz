@@ -288,7 +288,7 @@ export default function PayoutHistory() {
                         variant="ghost"
                         onClick={() => {
                           // TODO: Open payout details modal or navigate to details page
-                          console.log('View details for payout:', payout._id)
+
                         }}
                         className="flex-1 lg:flex-none"
                       >

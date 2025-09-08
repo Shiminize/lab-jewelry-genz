@@ -334,7 +334,7 @@ async function processGeneration(jobId: string, request: GenerationRequest) {
   // This function is now handled by the GenerationService
   // The actual processing is done in the service class
   // This function can be removed or kept for backward compatibility
-  console.log(`Processing generation job ${jobId} is now handled by GenerationService`)
+
 }
 
 async function getGenerationStatus(jobId: string) {

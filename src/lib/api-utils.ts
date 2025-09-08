@@ -137,7 +137,7 @@ export async function checkAPIRateLimit(
   // Development bypass - skip rate limiting in development
   if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV !== 'production') {
     const config = RateLimitConfigs[configName]
-    console.log(`[DEV] Rate limit bypass for ${configName}`)
+
     return {
       limit: config.limit,
       remaining: config.limit,

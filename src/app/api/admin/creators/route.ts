@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
 
     // Admin authentication check (development bypass)
     if (process.env.NODE_ENV === 'development') {
-      console.log('[DEV] Bypassing authentication for admin creators API')
+
     } else {
       const session = await auth()
       if (!session?.user || session.user.role !== 'admin') {
@@ -239,7 +239,7 @@ export async function PUT(request: NextRequest) {
 
     // Admin authentication check (development bypass)
     if (process.env.NODE_ENV === 'development') {
-      console.log('[DEV] Bypassing authentication for admin creators API')
+
     } else {
       const session = await auth()
       if (!session?.user || session.user.role !== 'admin') {

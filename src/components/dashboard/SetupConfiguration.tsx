@@ -38,7 +38,7 @@ export function SetupConfiguration({ isGenerating = false }: SetupConfigurationP
   const handleConfigChange = (config: GenerationConfig) => {
     setGenerationConfig(config)
     // TODO: Save to localStorage or API
-    console.log('Generation config updated:', config)
+
   }
 
   return (

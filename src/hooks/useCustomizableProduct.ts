@@ -223,7 +223,7 @@ export function useCustomizableProduct({
         setCurrentMaterialId(materialId)
         
         const switchTime = performance.now() - switchStartTime
-        console.log(`[HOOK MATERIAL SWITCH CACHED] ${materialId}: ${switchTime.toFixed(2)}ms`)
+
         return
       }
       
@@ -237,7 +237,7 @@ export function useCustomizableProduct({
       }
       
       const switchTime = performance.now() - switchStartTime
-      console.log(`[HOOK MATERIAL SWITCH FETCHED] ${materialId}: ${switchTime.toFixed(2)}ms`)
+
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Failed to change material')
       console.error('Failed to change material:', error)

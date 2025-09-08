@@ -308,7 +308,7 @@ export async function middleware(request: NextRequest) {
   const hasSuspiciousHeaders = request.headers.get('x-forwarded-for')?.split(',').length > 3
   
   if (isBot || hasSuspiciousHeaders) {
-    console.log(`Suspicious request: ${request.method} ${pathname} from ${clientIP}`)
+
   }
 
   return response

@@ -75,8 +75,7 @@ export class JobPersistenceManager {
 
       const filePath = this.getJobFilePath(job.id)
       await fs.writeFile(filePath, JSON.stringify(persistedState, null, 2))
-      
-      console.log(`📝 Persisted job state: ${job.id}`)
+
     } catch (error) {
       console.error('Failed to persist job state:', error)
     }
@@ -132,7 +131,6 @@ export class JobPersistenceManager {
         await this.persistJobState(jobState.job)
       }
 
-      console.log(`🔄 Created checkpoint for job ${jobId}: ${progress}% complete`)
     } catch (error) {
       console.error('Failed to create checkpoint:', error)
     }
@@ -256,7 +254,6 @@ export class JobPersistenceManager {
         fs.unlink(checkpointFilePath).catch(() => {})
       ])
 
-      console.log(`🗑️ Cleaned up job data: ${jobId}`)
     } catch (error) {
       console.error('Failed to cleanup job data:', error)
     }
@@ -287,7 +284,7 @@ export class JobPersistenceManager {
       }
 
       if (cleanedCount > 0) {
-        console.log(`🧹 Cleaned up ${cleanedCount} old job persistence files`)
+
       }
 
       return cleanedCount

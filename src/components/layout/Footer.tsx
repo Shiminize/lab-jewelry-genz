@@ -242,7 +242,7 @@ export function Footer({ className }: FooterProps) {
   
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Newsletter signup submitted')
+
   }
   
   return (

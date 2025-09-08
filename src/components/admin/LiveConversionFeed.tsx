@@ -74,14 +74,14 @@ export default function LiveConversionFeed() {
     setSocket(socketInstance)
 
     socketInstance.on('connect', () => {
-      console.log('Connected to WebSocket server')
+
       setIsConnected(true)
       socketInstance.emit('join-admin-analytics')
       socketInstance.emit('join-conversion-tracking')
     })
 
     socketInstance.on('disconnect', () => {
-      console.log('Disconnected from WebSocket server')
+
       setIsConnected(false)
     })
 

@@ -101,9 +101,9 @@ export class DatabaseSeeder {
         })
         
         await adminUser.save()
-        console.log('✅ Admin user created successfully')
+
       } else {
-        console.log('ℹ️ Admin user already exists')
+
       }
     } catch (error) {
       console.error('❌ Failed to seed admin user:', error)
@@ -408,9 +408,8 @@ export class DatabaseSeeder {
           await product.save()
         }
 
-        console.log(`✅ Seeded ${sampleProducts.length} sample products`)
       } else {
-        console.log('ℹ️ Products already exist in database')
+
       }
     } catch (error) {
       console.error('❌ Failed to seed sample products:', error)
@@ -474,9 +473,9 @@ export class DatabaseSeeder {
         })
         
         await creatorUser.save()
-        console.log('✅ Creator user created successfully')
+
       } else {
-        console.log('ℹ️ Creator user already exists')
+
       }
     } catch (error) {
       console.error('❌ Failed to seed creator user:', error)
@@ -488,14 +487,12 @@ export class DatabaseSeeder {
    * Run all seeders
    */
   async seedAll(): Promise<void> {
-    console.log('🌱 Starting database seeding...')
-    
+
     try {
       await this.seedAdminUser()
       await this.seedCreatorUser()
       await this.seedSampleProducts()
-      
-      console.log('✅ Database seeding completed successfully')
+
     } catch (error) {
       console.error('❌ Database seeding failed:', error)
       throw error
@@ -510,8 +507,6 @@ export class DatabaseSeeder {
       throw new Error('Cannot clear database in production environment')
     }
 
-    console.log('🧹 Clearing all database data...')
-    
     try {
       await Promise.all([
         UserModel.deleteMany({}),
@@ -526,8 +521,7 @@ export class DatabaseSeeder {
         CommissionModel.deleteMany({}),
         AuditLogModel.deleteMany({})
       ])
-      
-      console.log('✅ Database cleared successfully')
+
     } catch (error) {
       console.error('❌ Failed to clear database:', error)
       throw error
@@ -598,11 +592,10 @@ export class MigrationManager {
     const { version, description } = migration
     
     if (await this.isMigrationExecuted(version)) {
-      console.log(`⏭️ Migration ${version} already executed, skipping`)
+
       return
     }
 
-    console.log(`🔄 Executing migration ${version}: ${description}`)
     const startTime = Date.now()
 
     try {
@@ -610,7 +603,7 @@ export class MigrationManager {
       const executionTime = Date.now() - startTime
       
       await this.recordMigration(version, description, 'completed', executionTime)
-      console.log(`✅ Migration ${version} completed in ${executionTime}ms`)
+
     } catch (error) {
       const executionTime = Date.now() - startTime
       const errorMessage = error instanceof Error ? error.message : 'Unknown error'
@@ -625,13 +618,11 @@ export class MigrationManager {
    * Execute multiple migrations
    */
   async executeMigrations(migrations: Migration[]): Promise<void> {
-    console.log(`🔄 Executing ${migrations.length} migrations...`)
-    
+
     for (const migration of migrations) {
       await this.executeMigration(migration)
     }
-    
-    console.log('✅ All migrations completed successfully')
+
   }
 
   /**
@@ -639,8 +630,7 @@ export class MigrationManager {
    */
   async rollbackMigration(migration: Migration): Promise<void> {
     const { version, description } = migration
-    
-    console.log(`↩️ Rolling back migration ${version}: ${description}`)
+
     const startTime = Date.now()
 
     try {
@@ -648,7 +638,7 @@ export class MigrationManager {
       const executionTime = Date.now() - startTime
       
       await this.recordMigration(version, description, 'rolled_back', executionTime)
-      console.log(`✅ Migration ${version} rolled back in ${executionTime}ms`)
+
     } catch (error) {
       const executionTime = Date.now() - startTime
       const errorMessage = error instanceof Error ? error.message : 'Unknown error'
@@ -696,8 +686,7 @@ export const migrations: Migration[] = [
 // Main initialization function
 export async function initializeDatabase(): Promise<void> {
   try {
-    console.log('🚀 Initializing database...')
-    
+
     // Connect to database
     await connectToDatabase()
     
@@ -707,8 +696,7 @@ export async function initializeDatabase(): Promise<void> {
     // Run migrations
     const migrationManager = MigrationManager.getInstance()
     await migrationManager.executeMigrations(migrations)
-    
-    console.log('✅ Database initialization completed successfully')
+
   } catch (error) {
     console.error('❌ Database initialization failed:', error)
     throw error

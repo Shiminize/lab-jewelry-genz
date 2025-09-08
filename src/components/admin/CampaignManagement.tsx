@@ -772,12 +772,12 @@ export default function CampaignManagement({
     if (onEditCampaign) {
       onEditCampaign(id)
     } else {
-      console.log('Edit campaign:', id)
+
     }
   }
 
   const handleDuplicate = async (id: string) => {
-    console.log('Duplicate campaign:', id)
+
     // TODO: Implement duplication
   }
 
@@ -804,7 +804,7 @@ export default function CampaignManagement({
     if (onSendCampaign) {
       onSendCampaign(id)
     } else {
-      console.log('Send campaign:', id)
+
     }
   }
 
@@ -831,7 +831,7 @@ export default function CampaignManagement({
     if (onViewCampaign) {
       onViewCampaign(id)
     } else {
-      console.log('View campaign:', id)
+
     }
   }
 

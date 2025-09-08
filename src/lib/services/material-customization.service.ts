@@ -106,7 +106,7 @@ export class MaterialCustomizationService {
       if (performanceMs > this.performanceTarget) {
         console.warn(`⚠️ Material change exceeded performance target: ${performanceMs.toFixed(1)}ms > ${this.performanceTarget}ms`)
       } else {
-        console.log(`✅ Material change performance: ${performanceMs.toFixed(1)}ms`)
+
       }
 
       return {

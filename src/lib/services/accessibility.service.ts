@@ -107,8 +107,7 @@ class AccessibilityService {
     this.setupColorSchemeDetection()
     this.setupMotionPreferenceDetection()
     this.setupFocusManagement()
-    
-    console.log('♿ Accessibility service initialized - WCAG 2.1 AA compliant')
+
     this.announceToScreenReader('3D jewelry customizer loaded. Press F1 for help or Tab to navigate.')
   }
 
@@ -126,7 +125,6 @@ class AccessibilityService {
     // Detect screen reader activity
     this.state.isScreenReaderActive = this.detectScreenReader()
 
-    console.log(`🔊 Screen reader support: ${this.state.isScreenReaderActive ? 'Active' : 'Available'}`)
   }
 
   /**
@@ -155,7 +153,6 @@ class AccessibilityService {
     // Add global keyboard event listener
     document.addEventListener('keydown', this.handleKeyboardNavigation.bind(this))
 
-    console.log('⌨️ Keyboard navigation enabled with', this.keyboardShortcuts.length, 'shortcuts')
   }
 
   /**
@@ -179,7 +176,6 @@ class AccessibilityService {
           console.warn('Voice recognition error:', event.error)
         }
 
-        console.log('🎤 Voice control enabled')
       }
     } catch (error) {
       console.warn('Voice control not available:', error)
@@ -213,7 +209,6 @@ class AccessibilityService {
     darkModeQuery.addListener(updateColorScheme)
     updateColorScheme()
 
-    console.log('🎨 Color scheme detection enabled:', this.state.colorScheme)
   }
 
   /**
@@ -235,7 +230,6 @@ class AccessibilityService {
     this.motionObserver.addListener(updateMotionPreference)
     updateMotionPreference()
 
-    console.log('🎬 Motion preference detected:', this.state.motionPreference)
   }
 
   /**
@@ -260,7 +254,6 @@ class AccessibilityService {
       attributeFilter: ['aria-hidden', 'tabindex', 'disabled']
     })
 
-    console.log('🎯 Focus management enabled')
   }
 
   /**
@@ -716,7 +709,6 @@ The customizer shows a 360-degree view of jewelry products. Navigate with keyboa
     document.removeEventListener('focusin', this.handleFocusChange)
     document.removeEventListener('focusout', this.handleFocusLost)
 
-    console.log('♿ Accessibility service destroyed')
   }
 }
 

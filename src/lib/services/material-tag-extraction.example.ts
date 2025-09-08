@@ -34,15 +34,14 @@ export function exampleSingleProductTagExtraction() {
   const result = extractMaterialTags(product)
   
   if (result.success && result.data) {
-    console.log('Extracted tags:', result.data)
+
     // Output:
     // [
     //   { id: 'metal-14k-gold', category: 'metal', displayName: '14K Gold', filterValue: '14k-gold', sortOrder: 1 },
     //   { id: 'stone-moissanite', category: 'stone', displayName: 'Moissanite', filterValue: 'moissanite', sortOrder: 1 },
     //   { id: 'carat-1-5', category: 'carat', displayName: '1.5CT', filterValue: '1.5', sortOrder: 2 }
     // ]
-    
-    console.log('Performance metrics:', result.metrics)
+
     // Performance should be <50ms as per CLAUDE_RULES.md
   }
 }
@@ -95,30 +94,18 @@ export function exampleCatalogTagExtraction() {
   const batchResult = extractMaterialTagsBatch(productCatalog)
   
   if (batchResult.successCount > 0) {
-    console.log(`Successfully processed ${batchResult.successCount} products`)
-    console.log(`Generated ${batchResult.allTags.length} unique tags`)
-    
+
     // Group tags by category for filtering UI
     const stoneTags = getUniqueTagsByCategory(batchResult.allTags, 'stone')
     const metalTags = getUniqueTagsByCategory(batchResult.allTags, 'metal')
     const caratTags = getUniqueTagsByCategory(batchResult.allTags, 'carat')
-    
-    console.log('Available filters:')
-    console.log('- Stone types:', stoneTags.map(t => t.displayName))
-    console.log('- Metal types:', metalTags.map(t => t.displayName))
-    console.log('- Carat weights:', caratTags.map(t => t.displayName))
-    
+
     // Sort all tags for consistent display
     const sortedTags = sortTagsByCategory(batchResult.allTags)
-    console.log('Sorted tags for UI:', sortedTags)
-    
+
     // Generate analytics data
     const tagAnalytics = aggregateTags(batchResult.allTags, productCatalog.length)
-    console.log('Tag popularity:', tagAnalytics.map(a => ({
-      tag: a.tag.displayName,
-      count: a.count,
-      percentage: a.percentage.toFixed(1) + '%'
-    })))
+
   }
 }
 
@@ -133,8 +120,7 @@ export function exampleFilterCreation() {
   
   // Convert to API filter format
   const apiFilters = createTagFilters(selectedTags)
-  
-  console.log('API Filters for backend query:', apiFilters)
+
   // Output:
   // {
   //   stoneTypes: ['lab-diamond'],
@@ -154,8 +140,7 @@ export function exampleFilterCreation() {
       }
     }
   }
-  
-  console.log('MongoDB query example:', apiQuery)
+
 }
 
 // Example 4: Performance monitoring
@@ -181,23 +166,14 @@ export function examplePerformanceMonitoring() {
     )
   }))
 
-  console.log(`Testing performance with ${largeDataset.length} products...`)
-  
   const start = performance.now()
   const result = extractMaterialTagsBatch(largeDataset)
   const elapsed = performance.now() - start
-  
-  console.log('Performance Results:')
-  console.log(`- Total time: ${elapsed.toFixed(2)}ms`)
-  console.log(`- Per product: ${(elapsed / largeDataset.length).toFixed(3)}ms`)
-  console.log(`- Success rate: ${(result.successCount / largeDataset.length * 100).toFixed(1)}%`)
-  console.log(`- Unique tags generated: ${result.allTags.length}`)
-  console.log(`- Within CLAUDE_RULES threshold (<50ms): ${result.metrics.isWithinThreshold ? 'YES' : 'NO'}`)
-  
+
   if (result.errorCount > 0) {
-    console.log(`- Errors encountered: ${result.errorCount}`)
+
     result.errors.forEach(error => {
-      console.log(`  * ${error.productId}: ${error.message}`)
+
     })
   }
 }
@@ -240,7 +216,7 @@ export function exampleCustomConfiguration() {
   const result = extractMaterialTags(product, customOptions, customConfig)
   
   if (result.success && result.data) {
-    console.log('Custom extracted tags:', result.data)
+
     // Will show 1.75CT instead of 2CT due to custom rounding
     // Will show "Premium Lab Diamond" instead of "Lab Diamond"
   }

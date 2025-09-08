@@ -70,10 +70,7 @@ async function deleteDataHandler(request: NextRequest) {
     // For now, we'll assume the password verification is handled elsewhere
     
     // Log the deletion request for compliance
-    console.log(`GDPR data deletion requested by user: ${user.email} (${user.id}) at ${new Date().toISOString()}`)
-    console.log(`Deletion reason: ${reason}`)
-    console.log(`Retain order history: ${retainOrderHistory}`)
-    
+
     // Perform the deletion
     const deletionSuccess = await deleteUser(user.id, retainOrderHistory)
     
@@ -87,8 +84,7 @@ async function deleteDataHandler(request: NextRequest) {
     }
     
     // Log the successful deletion
-    console.log(`GDPR data deletion completed for user: ${user.email} (${user.id}) at ${new Date().toISOString()}`)
-    
+
     return createSuccessResponse({
       message: 'Your account deletion request has been processed successfully.',
       deletionDetails: {
@@ -122,8 +118,7 @@ async function deleteDataHandler(request: NextRequest) {
     console.error('Data deletion error:', error)
     
     // Log the failed deletion attempt
-    console.log(`GDPR data deletion failed for user: ${user.email} (${user.id}) at ${new Date().toISOString()}`)
-    
+
     // Handle specific deletion errors
     if (error instanceof Error) {
       switch (error.message) {

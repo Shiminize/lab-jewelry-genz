@@ -69,7 +69,7 @@ export function PerformanceMonitor() {
       if (pageLoadTime > 1000) { // 1 second for overall page (less strict than 300ms API)
         console.warn(`⚠️ Page load time ${pageLoadTime.toFixed(0)}ms exceeds 1000ms target`)
       } else {
-        console.log(`✅ Page load time ${pageLoadTime.toFixed(0)}ms meets performance targets`)
+
       }
       
       if (fcpEntry && fcpEntry.startTime > 1800) { // FCP should be under 1.8s

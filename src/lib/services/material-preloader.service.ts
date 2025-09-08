@@ -140,7 +140,7 @@ class MaterialPreloaderService {
     setTimeout(() => {
       this.preloadMaterial(materialId, basePath, imageCount, format)
         .then(() => {
-          console.log(`✅ Background preload complete: ${materialId}`)
+
         })
         .catch(error => {
           console.warn(`⚠️ Background preload failed: ${materialId}`, error)
@@ -210,7 +210,7 @@ class MaterialPreloaderService {
       const loadTime = performance.now() - startTime
       
       if (materialSet.isComplete) {
-        console.log(`✅ CLAUDE_RULES Performance: Material ${materialId} preloaded in ${loadTime.toFixed(0)}ms (${completedCount}/${imageCount} images)`)
+
       } else {
         console.warn(`⚠️ Material ${materialId} partial load: ${completedCount}/${imageCount} images in ${loadTime.toFixed(0)}ms`)
       }
@@ -280,7 +280,7 @@ class MaterialPreloaderService {
     }
     
     if (oldestKey) {
-      console.log(`🧹 Evicting cached material: ${oldestKey}`)
+
       this.cache.delete(oldestKey)
     }
   }
@@ -293,8 +293,7 @@ class MaterialPreloaderService {
     imageCount: number = 36,
     format: string = 'webp'
   ): Promise<void> {
-    console.log('🚀 Preloading priority materials for instant switching...')
-    
+
     const startTime = performance.now()
     const preloadPromises = this.config.priorityMaterials.map(materialId => {
       const materialPath = `${productBasePath}/${materialId}`
@@ -304,7 +303,7 @@ class MaterialPreloaderService {
     await Promise.allSettled(preloadPromises)
     
     const totalTime = performance.now() - startTime
-    console.log(`✅ Priority materials preloaded in ${totalTime.toFixed(0)}ms`)
+
   }
 
   /**
@@ -313,7 +312,7 @@ class MaterialPreloaderService {
   public clearCache(): void {
     this.cache.clear()
     this.loadingQueue.clear()
-    console.log('🧹 Material preloader cache cleared')
+
   }
 
   /**

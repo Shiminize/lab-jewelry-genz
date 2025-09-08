@@ -454,11 +454,6 @@ async function processPayment(payout: any): Promise<{
   error?: string
 }> {
   try {
-    console.log('Processing payment:', {
-      payoutId: payout._id,
-      amount: payout.amount,
-      method: payout.paymentMethod
-    })
 
     // Parse payment details
     let paymentDetails: any = {}
@@ -506,11 +501,7 @@ async function processStripeConnect(payout: any, paymentDetails: any): Promise<{
   try {
     // In development, simulate the Stripe Connect process
     if (process.env.NODE_ENV === 'development') {
-      console.log('🏦 STRIPE CONNECT PAYOUT (Development Mode)')
-      console.log(`Amount: $${payout.amount}`)
-      console.log(`Card: ${paymentDetails.cardNumber}`)
-      console.log(`Name: ${paymentDetails.cardName}`)
-      
+
       // Simulate processing delay
       await new Promise(resolve => setTimeout(resolve, 2000))
       
@@ -565,10 +556,7 @@ async function processPayPalPayout(payout: any, paymentDetails: any): Promise<{
   try {
     // In development, simulate PayPal payout
     if (process.env.NODE_ENV === 'development') {
-      console.log('💳 PAYPAL PAYOUT (Development Mode)')
-      console.log(`Amount: $${payout.amount}`)
-      console.log(`Email: ${paymentDetails.email}`)
-      
+
       // Simulate processing delay
       await new Promise(resolve => setTimeout(resolve, 1500))
       
@@ -633,12 +621,7 @@ async function processBankTransfer(payout: any, paymentDetails: any): Promise<{
   try {
     // In development, simulate bank transfer
     if (process.env.NODE_ENV === 'development') {
-      console.log('🏛️ BANK TRANSFER (Development Mode)')
-      console.log(`Amount: $${payout.amount}`)
-      console.log(`Account: ${paymentDetails.accountNumber}`)
-      console.log(`Routing: ${paymentDetails.routingNumber}`)
-      console.log(`Name: ${paymentDetails.accountName}`)
-      
+
       // Simulate processing delay (bank transfers take longer)
       await new Promise(resolve => setTimeout(resolve, 3000))
       
@@ -738,12 +721,6 @@ async function sendCommissionApprovalEmail(transaction: any): Promise<void> {
     const creator = await Creator.findById(transaction.creatorId)
     if (!creator || !creator.settings.emailNotifications) return
 
-    console.log('📧 COMMISSION APPROVAL EMAIL (Development Mode)')
-    console.log(`To: ${creator.email}`)
-    console.log(`Subject: Commission Approved - $${transaction.commissionAmount}`)
-    console.log(`Commission for order ${transaction.orderId} has been approved`)
-    console.log('---')
-
     // In production, implement actual email sending
     // await sendEmail({
     //   to: creator.email,
@@ -764,13 +741,6 @@ async function sendPayoutConfirmationEmail(payout: any): Promise<void> {
   try {
     const creator = await Creator.findById(payout.creatorId)
     if (!creator || !creator.settings.emailNotifications) return
-
-    console.log('📧 PAYOUT CONFIRMATION EMAIL (Development Mode)')
-    console.log(`To: ${creator.email}`)
-    console.log(`Subject: Payout Completed - $${payout.amount}`)
-    console.log(`Payout ${payout._id} has been processed`)
-    console.log(`Reference: ${payout.paymentReference}`)
-    console.log('---')
 
     // In production, implement actual email sending
     // await sendEmail({

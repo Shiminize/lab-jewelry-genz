@@ -79,7 +79,7 @@ export default function ProductDetailPage() {
   const [isWishlisted, setIsWishlisted] = useState(false)
 
   const handleARWaitlistSignup = async (email: string) => {
-    console.log('AR waitlist signup:', email)
+
     return new Promise(resolve => setTimeout(resolve, 1000))
   }
 

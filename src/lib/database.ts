@@ -39,7 +39,7 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
       return { client: cached.client, db: cached.db }
     } catch (error) {
       // Connection lost, reset cache
-      console.log('MongoDB connection lost, reconnecting...')
+
       cached.client = null
       cached.db = null
     }
@@ -76,11 +76,11 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
 
     // Set up connection monitoring for CLAUDE_RULES compliance
     client.on('connectionPoolCreated', (event) => {
-      console.log('Connection pool created:', event.address)
+
     })
 
     client.on('connectionPoolClosed', (event) => {
-      console.log('Connection pool closed:', event.address)
+
     })
 
     // Remove verbose connection logging to reduce console noise
@@ -114,8 +114,6 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
       console.error(`Command failed: ${event.commandName}`, event.failure)
     })
 
-    console.log('Successfully connected to MongoDB with optimized pooling')
-    
     // Handle process termination to close connections gracefully
     if (process.env.NODE_ENV !== 'production') {
       process.once('SIGINT', async () => {
@@ -201,7 +199,6 @@ export class ProductRepository {
       // Creator program index
       await collection.createIndex({ 'creator.creatorId': 1 })
 
-      console.log('Product indexes created successfully')
     } catch (error) {
       console.error('Failed to create product indexes:', error)
     }
@@ -710,7 +707,6 @@ export class UserRepository {
       await collection.createIndex({ 'analytics.totalSpent': 1 }, { sparse: true })
       await collection.createIndex({ 'analytics.lastPurchaseDate': 1 }, { sparse: true })
 
-      console.log('User indexes created successfully')
     } catch (error) {
       console.error('Failed to create user indexes:', error)
     }
@@ -964,7 +960,7 @@ export async function initializeDatabase(): Promise<void> {
       productRepository.createIndexes(),
       userRepository.createIndexes()
     ])
-    console.log('Database initialized successfully')
+
   } catch (error) {
     console.error('Failed to initialize database:', error)
     throw error

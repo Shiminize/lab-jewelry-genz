@@ -29,8 +29,7 @@ export async function GET(request: NextRequest) {
     const isPlaywrightTesting = userAgent.includes('Playwright') || request.url.includes('test')
     
     if (isDevelopment && isPlaywrightTesting) {
-      console.log('🔥 E2E TEST MODE: Bypassing MongoDB for CLAUDE_RULES <300ms compliance')
-      
+
       // Return mock products for E2E testing
       const mockProducts = [
         {
@@ -54,8 +53,7 @@ export async function GET(request: NextRequest) {
       ]
       
       const responseTime = Date.now() - startTime
-      console.log(`⚡ E2E Mock response served in ${responseTime}ms`)
-      
+
       return NextResponse.json({
         success: true,
         data: mockProducts,

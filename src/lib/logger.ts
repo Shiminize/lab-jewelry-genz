@@ -146,7 +146,7 @@ class StructuredLogger {
     switch (level) {
       case LogLevel.DEBUG:
       case LogLevel.INFO:
-        console.log(formatted)
+
         break
       case LogLevel.WARN:
         console.warn(formatted)

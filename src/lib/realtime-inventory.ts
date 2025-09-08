@@ -138,8 +138,7 @@ class RealTimeInventoryManager extends EventEmitter {
         this.simulateInventoryChanges()
         return { status: 'inventory-updated' }
       }, Math.max(10000, 60000)) // Minimum 60 seconds via global monitor (was 10s for demo)
-      
-      console.log('📦 RealtimeInventory: Registered with GlobalHealthMonitor')
+
     } catch (error) {
       console.warn('[RealtimeInventory] Failed to register with GlobalHealthMonitor:', error)
       // Fallback to original method if GlobalHealthMonitor fails
@@ -364,8 +363,7 @@ class RealTimeInventoryManager extends EventEmitter {
         
         return { status: 'reservations-cleaned', expired: expiredReservations.length }
       }, 60000) // 60 seconds via global monitor
-      
-      console.log('🧹 RealtimeInventory: Cleanup registered with GlobalHealthMonitor')
+
     } catch (error) {
       console.warn('[RealtimeInventory] Failed to register cleanup with GlobalHealthMonitor:', error)
       // Fallback to original method if GlobalHealthMonitor fails

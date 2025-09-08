@@ -31,8 +31,7 @@ async function logoutHandler(request: NextRequest) {
     // This endpoint can be used for additional logout cleanup if needed
     
     // Log the logout event
-    console.log(`User logged out: ${session.user?.email}`)
-    
+
     // Return success response
     return createSuccessResponse(
       {

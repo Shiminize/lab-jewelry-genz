@@ -185,7 +185,7 @@ export async function GET(request: NextRequest, { params }: MegaMenuParams) {
   
   try {
     if (process.env.NODE_ENV === 'development') {
-      console.log('📋 [MEGA MENU API] Fetching mega menu for:', categoryId)
+
     }
 
     // Get category data from category service
@@ -230,7 +230,7 @@ export async function GET(request: NextRequest, { params }: MegaMenuParams) {
     }
 
     if (process.env.NODE_ENV === 'development') {
-      console.log('✅ [MEGA MENU API] Returned mega menu for', categoryId, 'in', responseTime + 'ms')
+
     }
 
     return NextResponse.json(megaMenuData, { headers })

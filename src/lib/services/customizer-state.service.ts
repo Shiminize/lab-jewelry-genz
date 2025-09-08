@@ -101,7 +101,7 @@ export class CustomizerStateService {
   ): void {
     try {
       this.materialService = new MaterialCustomizationService(initialMaterial, availableMaterials)
-      console.log(`✅ Material service initialized with ${availableMaterials.length} materials`)
+
     } catch (error) {
       this.handleError(new Error(`Failed to initialize material service: ${error}`))
     }
@@ -117,8 +117,7 @@ export class CustomizerStateService {
     // Track load completion time
     if (wasLoading && !loading && !this.state.performance.loadTime) {
       this.state.performance.loadTime = performance.now() - this.state.performance.initStartTime
-      console.log(`✅ Customizer loaded in ${this.state.performance.loadTime.toFixed(1)}ms`)
-      
+
       // Check performance compliance
       const target = this.config.performanceTarget || 2000 // <2s initialization per CLAUDE_RULES
       if (this.state.performance.loadTime > target) {
@@ -162,7 +161,7 @@ export class CustomizerStateService {
     this.updateLastAction()
 
     const switchTime = performance.now() - startTime
-    console.log(`🔄 Viewer mode changed from ${previousMode} to ${mode} in ${switchTime.toFixed(1)}ms`)
+
   }
 
   /**
@@ -233,7 +232,7 @@ export class CustomizerStateService {
     if (durationMs > target) {
       console.warn(`⚠️ Performance: ${action} took ${durationMs.toFixed(1)}ms (target: ${target}ms)`)
     } else {
-      console.log(`✅ Performance: ${action} completed in ${durationMs.toFixed(1)}ms`)
+
     }
 
     this.updateLastAction()
@@ -250,7 +249,6 @@ export class CustomizerStateService {
       this.materialService.reset()
     }
 
-    console.log('🔄 Customizer state reset')
   }
 
   /**

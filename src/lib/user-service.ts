@@ -48,8 +48,7 @@ async function createUserIndexes() {
     await usersCollection.createIndex({ lastActiveAt: 1 })
     await usersCollection.createIndex({ emailVerificationToken: 1 }, { sparse: true })
     await usersCollection.createIndex({ passwordResetToken: 1 }, { sparse: true })
-    
-    console.log('User indexes created successfully')
+
   } catch (error) {
     console.error('Error creating user indexes:', error)
   }

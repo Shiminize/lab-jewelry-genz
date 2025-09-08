@@ -43,17 +43,17 @@ export default function CartDemoPage() {
   ] : []
 
   const handleUpdateQuantity = (itemId: string, quantity: number) => {
-    console.log('Update quantity:', itemId, quantity)
+
     // In real app, this would update cart state
   }
 
   const handleRemoveItem = (itemId: string) => {
-    console.log('Remove item:', itemId)
+
     // In real app, this would remove item from cart
   }
 
   const handleCheckout = () => {
-    console.log('Proceed to checkout')
+
     // In real app, this would navigate to checkout
     alert('Proceeding to checkout...')
   }

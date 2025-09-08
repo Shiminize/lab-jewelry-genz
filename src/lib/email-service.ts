@@ -253,8 +253,7 @@ Best regards,
 The GlowGlitch Team
       `.trim()
     })
-    
-    console.log(`Verification email sent to ${email}`)
+
     return true
   } catch (error) {
     console.error('Error sending verification email:', error)
@@ -324,8 +323,7 @@ Best regards,
 The GlowGlitch Team
       `.trim()
     })
-    
-    console.log(`Password reset email sent to ${email}`)
+
     return true
   } catch (error) {
     console.error('Error sending password reset email:', error)
@@ -402,8 +400,7 @@ Best regards,
 The GlowGlitch Team
       `.trim()
     })
-    
-    console.log(`Welcome email sent to ${email}`)
+
     return true
   } catch (error) {
     console.error('Error sending welcome email:', error)
@@ -419,13 +416,7 @@ export async function sendOrderConfirmation(
   if (!transporter || !emailConfig) {
     console.warn('Email service not configured. Order confirmation email not sent.')
     // For development, log the email content
-    console.log('\n📧 ORDER CONFIRMATION EMAIL (Development Mode)')
-    console.log('='.repeat(50))
-    console.log(`To: ${order.email}`)
-    console.log(`Order: ${order.orderNumber}`)
-    console.log(`Total: $${order.total.toFixed(2)}`)
-    console.log(`Items: ${order.items.length}`)
-    console.log('='.repeat(50))
+
     return true
   }
   
@@ -512,8 +503,7 @@ Best regards,
 The GlowGlitch Team
       `.trim()
     })
-    
-    console.log(`Order confirmation email sent to ${order.email}`)
+
     return true
   } catch (error) {
     console.error('Error sending order confirmation email:', error)
@@ -530,13 +520,7 @@ export async function sendOrderStatusUpdate(
   if (!transporter || !emailConfig) {
     console.warn('Email service not configured. Order status update email not sent.')
     // For development, log the email content
-    console.log('\n📧 ORDER STATUS UPDATE EMAIL (Development Mode)')
-    console.log('='.repeat(50))
-    console.log(`To: ${order.email}`)
-    console.log(`Order: ${order.orderNumber}`)
-    console.log(`Status: ${order.status}`)
-    console.log(`Message: ${statusMessage}`)
-    console.log('='.repeat(50))
+
     return true
   }
   
@@ -598,8 +582,7 @@ Best regards,
 The GlowGlitch Team
       `.trim()
     })
-    
-    console.log(`Order status update email sent to ${order.email}`)
+
     return true
   } catch (error) {
     console.error('Error sending order status update email:', error)
@@ -615,12 +598,7 @@ export async function sendGuestAccountInvitation(
   if (!transporter || !emailConfig) {
     console.warn('Email service not configured. Guest invitation email not sent.')
     // For development, log the email content
-    console.log('\n📧 GUEST INVITATION EMAIL (Development Mode)')
-    console.log('='.repeat(50))
-    console.log(`To: ${order.email}`)
-    console.log(`Order: ${order.orderNumber}`)
-    console.log(`Invite Token: ${inviteToken}`)
-    console.log('='.repeat(50))
+
     return true
   }
   
@@ -688,8 +666,7 @@ Best regards,
 The GlowGlitch Team
       `.trim()
     })
-    
-    console.log(`Guest invitation email sent to ${order.email}`)
+
     return true
   } catch (error) {
     console.error('Error sending guest invitation email:', error)
@@ -760,13 +737,7 @@ export async function sendAccountConversionEmail(
   if (!transporter || !emailConfig) {
     console.warn('Email service not configured. Account conversion email not sent.')
     // For development, log the email content
-    console.log('\n📧 ACCOUNT CONVERSION EMAIL (Development Mode)')
-    console.log('='.repeat(50))
-    console.log(`To: ${email}`)
-    console.log(`Name: ${user.firstName} ${user.lastName}`)
-    console.log(`Orders Converted: ${user.orderCount}`)
-    console.log(`Order Numbers: ${user.orderNumbers.join(', ')}`)
-    console.log('='.repeat(50))
+
     return true
   }
   
@@ -835,8 +806,7 @@ Best regards,
 The GlowGlitch Team
       `.trim()
     })
-    
-    console.log(`Account conversion email sent to ${email}`)
+
     return true
   } catch (error) {
     console.error('Error sending account conversion email:', error)
@@ -852,7 +822,7 @@ export async function testEmailConfiguration(): Promise<boolean> {
   
   try {
     await transporter.verify()
-    console.log('Email service is ready')
+
     return true
   } catch (error) {
     console.error('Email service configuration error:', error)

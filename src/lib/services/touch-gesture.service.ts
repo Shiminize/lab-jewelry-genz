@@ -133,7 +133,6 @@ class TouchGestureService {
     // Prevent context menu on long press
     element.addEventListener('contextmenu', this.preventDefault.bind(this))
 
-    console.log('🤏 Touch gesture service initialized')
   }
 
   /**
@@ -461,7 +460,7 @@ class TouchGestureService {
    */
   public updateConfig(config: Partial<TouchGestureConfig>): void {
     this.config = { ...this.config, ...config }
-    console.log('⚙️ Touch gesture config updated:', this.config)
+
   }
 
   /**
@@ -477,7 +476,7 @@ class TouchGestureService {
     }
 
     this.stopMomentum()
-    console.log('🧹 Touch gesture service cleaned up')
+
   }
 
   /**

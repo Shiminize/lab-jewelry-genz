@@ -12,8 +12,7 @@ import { extractMaterialTags, extractMaterialTagsBatch, createTagFilters } from 
  * This would typically be used in /src/app/catalog/page.tsx
  */
 export async function demoProductCatalogIntegration(products: ProductListDTO[]) {
-  console.log(`🏷️  Material Tag Extraction Demo - Processing ${products.length} products`)
-  
+
   // Extract tags from all products for filter generation
   const batchResult = extractMaterialTagsBatch(products, {
     includeCaratTags: true,
@@ -22,11 +21,7 @@ export async function demoProductCatalogIntegration(products: ProductListDTO[]) 
   })
   
   if (batchResult.successCount > 0) {
-    console.log(`✅ Successfully processed ${batchResult.successCount}/${products.length} products`)
-    console.log(`⚡ Processing time: ${batchResult.metrics.extractionTime.toFixed(2)}ms`)
-    console.log(`🎯 Performance compliant: ${batchResult.metrics.isWithinThreshold ? 'YES' : 'NO'}`)
-    console.log(`🏷️  Generated ${batchResult.allTags.length} unique tags`)
-    
+
     // Group tags for UI filters
     const stoneTypes = new Set<string>()
     const metalTypes = new Set<string>()
@@ -45,12 +40,7 @@ export async function demoProductCatalogIntegration(products: ProductListDTO[]) 
           break
       }
     })
-    
-    console.log('\n📊 Available Filter Options:')
-    console.log(`   Metals: ${Array.from(metalTypes).join(', ')}`)
-    console.log(`   Stones: ${Array.from(stoneTypes).join(', ')}`)
-    console.log(`   Carats: ${Array.from(caratWeights).join(', ')}`)
-    
+
     return {
       success: true,
       filterOptions: {
@@ -64,7 +54,7 @@ export async function demoProductCatalogIntegration(products: ProductListDTO[]) 
       }
     }
   } else {
-    console.log(`❌ Failed to process products: ${batchResult.errorCount} errors`)
+
     return { success: false, errors: batchResult.errors }
   }
 }
@@ -74,8 +64,7 @@ export async function demoProductCatalogIntegration(products: ProductListDTO[]) 
  * This would typically be used in /src/app/api/products/search/route.ts
  */
 export function demoSearchAPIIntegration(userSelectedTags: string[]) {
-  console.log(`🔍 Search API Integration Demo - User selected: ${userSelectedTags.join(', ')}`)
-  
+
   // Convert user selections to MaterialTag objects (normally from UI state)
   const selectedMaterialTags = userSelectedTags.map((tagId, index) => ({
     id: tagId,
@@ -88,12 +77,7 @@ export function demoSearchAPIIntegration(userSelectedTags: string[]) {
   
   // Create API filters for MongoDB query
   const apiFilters = createTagFilters(selectedMaterialTags)
-  
-  console.log('🔧 Generated MongoDB Query Filters:')
-  console.log('   Stone types:', apiFilters.stoneTypes)
-  console.log('   Metal types:', apiFilters.metalTypes)
-  console.log('   Carat weights:', apiFilters.caratWeights)
-  
+
   // Example MongoDB query structure
   const mongoQuery = {
     $and: [
@@ -102,10 +86,7 @@ export function demoSearchAPIIntegration(userSelectedTags: string[]) {
       apiFilters.caratWeights ? { 'materialSpecs.primaryStone.carat': { $in: apiFilters.caratWeights } } : {}
     ].filter(filter => Object.keys(filter).length > 0)
   }
-  
-  console.log('📝 Example MongoDB Query:')
-  console.log(JSON.stringify(mongoQuery, null, 2))
-  
+
   return {
     apiFilters,
     mongoQuery,
@@ -117,8 +98,7 @@ export function demoSearchAPIIntegration(userSelectedTags: string[]) {
  * Performance benchmark for CLAUDE_RULES compliance
  */
 export async function demoPerfomanceBenchmark() {
-  console.log('🚀 Performance Benchmark - CLAUDE_RULES.md <50ms requirement')
-  
+
   // Create test dataset
   const testProducts: ProductListDTO[] = Array.from({ length: 500 }, (_, i) => ({
     _id: `benchmark-${i}`,
@@ -150,19 +130,11 @@ export async function demoPerfomanceBenchmark() {
   const result = extractMaterialTagsBatch(testProducts)
   const endTime = performance.now()
   const totalTime = endTime - startTime
-  
-  console.log('\n📊 Benchmark Results:')
-  console.log(`   Products processed: ${testProducts.length}`)
-  console.log(`   Success rate: ${(result.successCount / testProducts.length * 100).toFixed(1)}%`)
-  console.log(`   Total time: ${totalTime.toFixed(2)}ms`)
-  console.log(`   Per product: ${(totalTime / testProducts.length).toFixed(3)}ms`)
-  console.log(`   Unique tags: ${result.allTags.length}`)
-  console.log(`   CLAUDE_RULES compliant: ${result.metrics.isWithinThreshold ? '✅ YES' : '❌ NO'}`)
-  
+
   if (totalTime > 50) {
-    console.log(`⚠️  WARNING: Benchmark exceeded 50ms threshold (${totalTime.toFixed(2)}ms)`)
+
   } else {
-    console.log(`🎯 EXCELLENT: Well within performance requirements`)
+
   }
   
   return {
@@ -176,13 +148,10 @@ export async function demoPerfomanceBenchmark() {
 
 // Auto-run demos for immediate verification
 if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
-  console.log('🧪 Material Tag Service Integration Demos')
-  console.log('=========================================\n')
-  
+
   // Run performance benchmark
   demoPerfomanceBenchmark().then(result => {
-    console.log('\n✅ Integration demos completed successfully!')
-    console.log(`🎯 Performance: ${result.isCompliant ? 'COMPLIANT' : 'NEEDS_OPTIMIZATION'}`)
+
   }).catch(error => {
     console.error('❌ Demo failed:', error)
   })

@@ -387,9 +387,7 @@ export const debugClassNames = (
   const migrated = componentName ? migrateClassName(legacy, componentName) : legacy;
   
   console.group(`🎨 Aurora Migration Debug: ${componentName || 'Unknown'}`);
-  console.log('Legacy:', legacy);
-  console.log('Migrated:', migrated);
-  console.log('Design Version:', componentName ? getDesignVersion(componentName) : 'legacy');
+
   console.groupEnd();
 };
 

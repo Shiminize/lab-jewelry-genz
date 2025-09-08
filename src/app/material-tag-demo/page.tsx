@@ -50,12 +50,12 @@ const testProducts: ProductListDTO[] = [
 
 export default function MaterialTagDemoPage() {
   const handleMaterialTagClick = (tag: MaterialTag) => {
-    console.log('Material tag clicked:', tag)
+
     alert(`Material tag clicked: ${tag.displayName} (${tag.category})`)
   }
 
   const handleTagClick = (tag: string) => {
-    console.log('Generic tag clicked:', tag)
+
   }
 
   return (

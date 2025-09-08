@@ -56,7 +56,7 @@ class CustomizerPerformanceMonitor {
         
         for (const entry of entries) {
           if (entry.name.includes('three') || entry.name.includes('customizer')) {
-            console.log(`📊 Resource: ${entry.name} loaded in ${entry.duration.toFixed(2)}ms`)
+
           }
         }
       })
@@ -74,7 +74,7 @@ class CustomizerPerformanceMonitor {
         for (const entry of entries) {
           if (entry.name.startsWith('customizer-')) {
             const componentName = entry.name.replace('customizer-', '')
-            console.log(`📊 Component: ${componentName} rendered in ${entry.duration.toFixed(2)}ms`)
+
           }
         }
       })
@@ -134,7 +134,7 @@ class CustomizerPerformanceMonitor {
   trackFirstInteraction() {
     if (!this.metrics.firstInteraction) {
       this.metrics.firstInteraction = performance.now() - this.startTime
-      console.log('🎯 First interaction:', this.metrics.firstInteraction.toFixed(2), 'ms')
+
     }
   }
 
@@ -210,7 +210,6 @@ class CustomizerPerformanceMonitor {
       status: metrics.componentLoad < this.config.targetLoadTime ? 'good' : 'needs-improvement'
     }
 
-    console.log('📊 Performance Report:', report)
     return report
   }
 

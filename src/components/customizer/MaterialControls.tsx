@@ -27,7 +27,7 @@ export const MaterialControls: React.FC<MaterialControlsProps> = ({
     
     // CLAUDE_RULES: <100ms material switch requirement
     const switchTime = performance.now() - startTime
-    console.log(`[MATERIAL SWITCH] ${materialId}: ${switchTime.toFixed(2)}ms`)
+
   }
 
   // Get material variant for MinimalHoverCard

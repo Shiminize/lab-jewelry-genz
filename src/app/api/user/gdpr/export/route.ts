@@ -60,8 +60,7 @@ async function exportDataHandler(request: NextRequest) {
     }
     
     // Log the data export request for compliance
-    console.log(`GDPR data export requested by user: ${user.email} (${user.id}) at ${new Date().toISOString()}`)
-    
+
     return createSuccessResponse({
       message: 'Your data has been exported successfully.',
       exportData,
@@ -94,8 +93,7 @@ async function exportDataHandler(request: NextRequest) {
     console.error('Data export error:', error)
     
     // Log the failed export attempt
-    console.log(`GDPR data export failed for user: ${user.email} (${user.id}) at ${new Date().toISOString()}`)
-    
+
     throw error // Will be handled by withErrorHandling wrapper
   }
 }

@@ -322,17 +322,17 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
 
   // Campaign actions
   const handleEdit = (id: string) => {
-    console.log('Edit campaign:', id)
+
     // TODO: Navigate to edit page
   }
 
   const handleDuplicate = async (id: string) => {
-    console.log('Duplicate campaign:', id)
+
     // TODO: Implement duplication
   }
 
   const handleSend = (id: string) => {
-    console.log('Send campaign:', id)
+
     // TODO: Open send interface
   }
 
@@ -353,7 +353,7 @@ export default function CampaignManagement({ onCreateCampaign }: { onCreateCampa
   }
 
   const handleView = (id: string) => {
-    console.log('View campaign:', id)
+
     // TODO: Navigate to details page
   }
 

@@ -665,7 +665,7 @@ export default function CampaignWizard({
   const handleSendTest = async (email: string) => {
     try {
       // TODO: Implement test email sending
-      console.log('Sending test email to:', email)
+
     } catch (error) {
       console.error('Failed to send test email:', error)
     }

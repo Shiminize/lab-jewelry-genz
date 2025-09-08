@@ -86,15 +86,14 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
 
   // Reset cached connection if it's in a bad state
   if (cached.conn && cached.conn.connection.readyState !== 1) {
-    console.log('Resetting stale MongoDB connection')
+
     cached.conn = null
     cached.promise = null
   }
 
   // Create new connection promise if none exists
   if (!cached.promise) {
-    console.log('Creating new MongoDB connection...')
-    
+
     // Set a hard timeout for the entire connection process - CLAUDE_RULES compliant
     const connectionTimeout = new Promise((_, reject) => {
       setTimeout(() => reject(new Error('Connection timeout after 300ms')), 300)
@@ -102,7 +101,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
     
     const connectionPromise = mongoose.connect(MONGODB_URI, mongooseOptions)
       .then(async (mongoose) => {
-        console.log('MongoDB connected successfully')
+
         return mongoose
       })
       .catch((error) => {
@@ -121,8 +120,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
     cached.conn = await cached.promise
     
     const connectionTime = Date.now() - startTime
-    console.log(`✅ MongoDB connection established in ${connectionTime}ms`)
-    
+
     // Quick verification ping
     await cached.conn.connection.db.admin().ping()
     
@@ -151,8 +149,7 @@ async function warmupConnection(mongoose: typeof import('mongoose')): Promise<vo
     ])
     
     const warmupTime = Date.now() - startTime
-    console.log(`✅ Fast connection verification completed in ${warmupTime}ms`)
-    
+
     // Track warmup performance
     DatabaseMonitor.trackQuery(warmupTime, 'connection_warmup')
   } catch (error) {
@@ -282,7 +279,7 @@ export class DatabaseMonitor {
    */
   static trackConnectionRetry(): void {
     this.metrics.connectionRetries++
-    console.log(`Database connection retry count: ${this.metrics.connectionRetries}`)
+
   }
 
   /**
@@ -389,7 +386,7 @@ export async function disconnectFromDatabase(): Promise<void> {
     await cached.conn.disconnect()
     cached.conn = null
     cached.promise = null
-    console.log('MongoDB disconnected')
+
   }
 }
 
@@ -427,12 +424,12 @@ let listenersSetup = false
 
 if (!listenersSetup) {
   mongoose.connection.once('connected', () => {
-    console.log('Mongoose connected to MongoDB')
+
     // Add performance monitoring middleware only once
     if (!mongoose.plugins.some(plugin => plugin.fn === createPerformanceMiddleware)) {
       mongoose.plugin(createPerformanceMiddleware())
     }
-    console.log('Database performance monitoring enabled for CLAUDE_RULES compliance')
+
   })
 
   mongoose.connection.on('error', (err) => {
@@ -441,15 +438,15 @@ if (!listenersSetup) {
   })
 
   mongoose.connection.on('disconnected', () => {
-    console.log('Mongoose disconnected from MongoDB')
+
   })
 
   mongoose.connection.on('reconnected', () => {
-    console.log('Mongoose reconnected to MongoDB')
+
   })
 
   mongoose.connection.on('fullsetup', () => {
-    console.log('MongoDB replica set fully connected')
+
   })
 
   listenersSetup = true

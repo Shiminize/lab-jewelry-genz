@@ -45,7 +45,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
     
     // Skip if this asset path has failed before
     if (failedAssetPaths.has(assetPath)) {
-      console.log(`🚫 [SKIP] Asset path ${assetPath} previously failed, not retrying`)
+
       return []
     }
     
@@ -63,7 +63,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
     // Clamp frame to available range instead of wrapping
     if (currentFrame >= maxFrames) {
       validatedFrame = maxFrames - 1
-      console.log(`🔄 [FRAME VALIDATION] Frame ${currentFrame} not available for ${assetPath}, clamping to frame ${validatedFrame} (max: ${maxFrames})`)
+
     }
     
     // Priority order: webp (smallest) -> avif (modern) -> png (fallback)
@@ -98,7 +98,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
           // If successful, use this image
           setCurrentImageSrc(imagePath)
           setImageLoadAttempt(0)
-          console.log(`✅ [IMAGE FALLBACK] Successfully loaded: ${imagePath}`)
+
           return
         } catch (error) {
           console.warn(`⚠️ [IMAGE FALLBACK] Failed format ${i + 1}/${imagePaths.length}: ${imagePath}`)
@@ -129,7 +129,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
     // Log successful format for debugging
     if (currentImageSrc) {
       const format = currentImageSrc.split('.').pop()
-      console.log(`📸 [IMAGE SUCCESS] Frame ${frame} loaded with ${format} format`)
+
     }
   }
 
@@ -162,7 +162,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
           
           // Skip preloading if frame was already validated to something else
           if (validatedFrame !== frameIndex) {
-            console.log(`🔄 [PRELOAD] Skipping frame ${frameIndex}, validated to ${validatedFrame}`)
+
             continue
           }
           
@@ -201,7 +201,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
               ...prev,
               [frameIndex]: 'failed'
             }))
-            console.log(`🚫 [PRELOAD] Frame ${frameIndex} permanently failed, stopping retries`)
+
           }
         }
       }

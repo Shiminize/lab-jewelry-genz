@@ -145,8 +145,7 @@ class FrameCacheService {
         
         // Update average load time
         this.updateAvgLoadTime(loadTime)
-        
-        console.log(`⚡ Frame ${frameIndex} loaded in ${loadTime.toFixed(0)}ms (${currentFormat})`)
+
         return image
       } catch (error) {
         lastError = error as Error
@@ -255,7 +254,7 @@ class FrameCacheService {
     // Remove evicted frames
     for (const key of toEvict) {
       this.cache.delete(key)
-      console.log(`🧹 Evicted cached frame: ${key}`)
+
     }
 
     this.updateCacheStats()
@@ -416,7 +415,7 @@ class FrameCacheService {
     format: string = 'webp',
     priority: 'high' | 'normal' | 'low' = 'normal'
   ): Promise<void> {
-    console.log(`🚀 Preloading ${imageCount} frames for ${imagePath}`)
+
     const startTime = performance.now()
 
     const loadPromises = Array.from({ length: imageCount }, (_, i) => {
@@ -435,9 +434,7 @@ class FrameCacheService {
     
     const totalTime = performance.now() - startTime
     const stats = this.getStats()
-    
-    console.log(`✅ Sequence preload complete in ${totalTime.toFixed(0)}ms`)
-    console.log(`📊 Cache stats: ${stats.cachedFrames} frames, ${Math.round(stats.memoryUsage / 1024)}KB, ${stats.hitRate.toFixed(1)}% hit rate`)
+
   }
 
   /**
@@ -448,7 +445,7 @@ class FrameCacheService {
     this.loadingPromises.clear()
     this.userInteractionHistory = []
     this.updateCacheStats()
-    console.log('🧹 Frame cache cleared')
+
   }
 
   /**
@@ -456,7 +453,7 @@ class FrameCacheService {
    */
   public configurePredictive(config: Partial<PredictiveLoadingConfig>): void {
     this.predictiveConfig = { ...this.predictiveConfig, ...config }
-    console.log('⚙️ Predictive loading configured:', this.predictiveConfig)
+
   }
 }
 

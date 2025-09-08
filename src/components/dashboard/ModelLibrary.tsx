@@ -157,7 +157,7 @@ export function ModelLibrary({
     // TODO: Implement file upload functionality
     Array.from(files).forEach(file => {
       if (file.name.endsWith('.glb')) {
-        console.log('Uploading GLB file:', file.name)
+
         // Add file upload logic here
       }
     })
@@ -204,7 +204,7 @@ export function ModelLibrary({
   const handleFilesUploaded = (fileNames: string[]) => {
     // Refresh the model list after upload
     // TODO: Implement proper refresh from API
-    console.log('Files uploaded:', fileNames)
+
   }
 
   return (

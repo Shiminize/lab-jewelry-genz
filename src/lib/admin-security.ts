@@ -177,10 +177,7 @@ export class AdminSecurityManager {
     details?: any
   }) {
     // In production, this would log to a security monitoring system
-    console.log(`[SECURITY] ${event.type}:`, {
-      timestamp: new Date().toISOString(),
-      ...event
-    })
+
   }
 
   // Validate IP address
@@ -267,10 +264,7 @@ export class AdminSecurityManager {
     userAgent: string
   }) {
     // In production, this would store in an audit log database
-    console.log(`[AUDIT] Admin action:`, {
-      timestamp: new Date().toISOString(),
-      ...action
-    })
+
   }
 }
 

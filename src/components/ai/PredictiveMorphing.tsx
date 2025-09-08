@@ -297,8 +297,7 @@ export function PredictiveMorphingProvider({ children }: { children: React.React
   }
   
   const morphInterface = (trigger: string, data?: any) => {
-    console.log(`🌌 Aurora Morphing Triggered: ${trigger}`, data)
-    
+
     // Update mood based on triggers
     if (trigger === 'voice_search') {
       updateUserProfile({ 

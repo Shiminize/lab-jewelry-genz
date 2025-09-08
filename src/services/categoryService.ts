@@ -561,8 +561,7 @@ class CategoryService {
   async getNavigationCategories(): Promise<NavigationCategory[]> {
     // Simulate API call with minimal delay for realism
     await new Promise(resolve => setTimeout(resolve, 10))
-    
-    console.log('📊 [CATEGORY SERVICE] Loaded', JEWELRY_CATEGORIES.length, 'categories')
+
     return JEWELRY_CATEGORIES
   }
 
@@ -573,7 +572,7 @@ class CategoryService {
     await new Promise(resolve => setTimeout(resolve, 5))
     
     const category = JEWELRY_CATEGORIES.find(cat => cat.id === id)
-    console.log('📊 [CATEGORY SERVICE] Category lookup:', id, category ? 'found' : 'not found')
+
     return category || null
   }
 
@@ -585,7 +584,7 @@ class CategoryService {
     
     const category = await this.getCategoryById(categoryId)
     if (category && category.hasDropdown) {
-      console.log('📋 [CATEGORY SERVICE] Mega menu data for:', categoryId)
+
       return category
     }
     
@@ -616,8 +615,7 @@ class CategoryService {
         })
       })
     })
-    
-    console.log('🔍 [CATEGORY SERVICE] Search results for "' + query + '":', results.length)
+
     return results.slice(0, 10) // Limit results
   }
 
@@ -636,8 +634,7 @@ class CategoryService {
         }
       })
     })
-    
-    console.log('🔥 [CATEGORY SERVICE] Trending categories:', trending.length)
+
     return trending
   }
 }

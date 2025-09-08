@@ -52,7 +52,6 @@ interface CustomizerPreviewSectionProps extends VariantProps<typeof previewSecti
   onChatWithDesigner?: () => void
 }
 
-
 export function CustomizerPreviewSection({
   layout = 'mobile-first',
   padding = 'standard',
@@ -92,7 +91,6 @@ export function CustomizerPreviewSection({
     setCurrentPrice(Math.round(price))
   }, [selectedOptions])
 
-
   const handleOptionSelect = async (type: 'material' | 'stone' | 'setting', option: Material | StoneQuality | SettingOption) => {
     if (type === 'material') {
       setSelectedOptions(prev => ({ ...prev, material: option as Material }))
@@ -116,8 +114,6 @@ export function CustomizerPreviewSection({
   const handleChatWithDesigner = () => {
     onChatWithDesigner ? onChatWithDesigner() : console.log('Open chat with designer')
   }
-
-
 
   return (
     <section className={cn('bg-background', className)} data-section="customizer-preview">

@@ -388,14 +388,7 @@ export const useAuroraABTest = (options: UseAuroraABTestOptions): UseAuroraABTes
   const trackEvent = useCallback((event: string, metadata: any = {}) => {
     // Could integrate with analytics service here
     if (process.env.NODE_ENV === 'development') {
-      console.log('🔬 Aurora A/B Test Event:', {
-        event,
-        testGroup,
-        testName,
-        componentName,
-        designVersion,
-        metadata,
-      });
+
     }
   }, [testGroup, testName, componentName, designVersion]);
 
@@ -437,18 +430,15 @@ export const useAuroraDebug = (componentName?: ComponentName) => {
       
       logStatus: () => {
         console.group(`🎨 Aurora Debug: ${componentName || 'Global'}`);
-        console.log('Design Version:', versionData.designVersion);
-        console.log('Migration Status:', versionData.getMigrationStatus());
-        console.log('Development Tools:', versionData.devTools);
+
         console.groupEnd();
       },
       
       runMigrationTest: () => {
         if (!componentName) return;
-        
-        console.log('🧪 Running migration test...');
+
         const legacy = versionData.getClassName('p-4 rounded-lg shadow-md', 'aurora-p-token-md aurora-rounded-token-lg aurora-shadow-aurora-md');
-        console.log('Migration result:', legacy);
+
       },
     };
   }, [versionData, componentName]);
@@ -492,7 +482,7 @@ export function trackABTestEvent(
 
   // In development, also log to console
   if (process.env.NODE_ENV === 'development') {
-    console.log('🧪 A/B Test Event:', eventData);
+
   }
 
   // In production, this would send to analytics service

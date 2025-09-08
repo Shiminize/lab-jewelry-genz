@@ -136,14 +136,12 @@ class CustomizationCacheService {
 
   // Warm up cache with popular configurations
   async warmUpPopularConfigs(popularConfigs: any[]): Promise<void> {
-    console.log('🔥 Warming up cache with popular configurations...')
-    
+
     for (const config of popularConfigs) {
       await this.cacheVariants(config.productId, config.variants)
       await this.cacheMaterialOptions(config.jewelryType, config.materialOptions)
     }
-    
-    console.log(`✅ Cache warmed up with ${popularConfigs.length} popular configurations`)
+
   }
 
   // Performance monitoring

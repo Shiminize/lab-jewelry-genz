@@ -49,7 +49,7 @@ class GlobalHealthMonitor {
   private readonly MAX_DB_CONNECTIONS = 10 // CLAUDE_RULES limit
 
   private constructor() {
-    console.log('🏥 GlobalHealthMonitor: TRUE GLOBAL singleton instance created')
+
   }
 
   static getInstance(): GlobalHealthMonitor {
@@ -85,7 +85,6 @@ class GlobalHealthMonitor {
       lastRun: 0
     })
 
-    console.log(`🏥 Registered service: ${serviceName} (interval: ${actualInterval}ms)`)
   }
 
   /**
@@ -94,11 +93,10 @@ class GlobalHealthMonitor {
    */
   start(): void {
     if (this.isRunning) {
-      console.log('🏥 GlobalHealthMonitor already running')
+
       return
     }
 
-    console.log('🏥 Starting GlobalHealthMonitor...')
     this.isRunning = true
 
     // Single coordinated health check interval
@@ -110,11 +108,10 @@ class GlobalHealthMonitor {
     this.gcInterval = setInterval(() => {
       if (global.gc) {
         global.gc()
-        console.log('🧹 Coordinated garbage collection completed')
+
       }
     }, this.GC_INTERVAL)
 
-    console.log('🏥 GlobalHealthMonitor started successfully')
   }
 
   /**
@@ -123,8 +120,6 @@ class GlobalHealthMonitor {
    */
   stop(): void {
     if (!this.isRunning) return
-
-    console.log('🏥 Stopping GlobalHealthMonitor...')
 
     if (this.healthCheckInterval) {
       clearInterval(this.healthCheckInterval)
@@ -139,7 +134,6 @@ class GlobalHealthMonitor {
     this.serviceCallbacks.clear()
     this.isRunning = false
 
-    console.log('🏥 GlobalHealthMonitor stopped')
   }
 
   /**
@@ -188,12 +182,6 @@ class GlobalHealthMonitor {
     }
 
     // Log consolidated health status (once per minute instead of 19x)
-    console.log(`🏥 System Health Check:`, {
-      overall: results.overall,
-      memory: `${results.memory.usage}MB/${results.memory.limit}MB`,
-      database: `${results.database.connections}/${this.MAX_DB_CONNECTIONS} connections`,
-      services: Object.keys(results.services).length
-    })
 
     this.lastHealthCheck = results
   }

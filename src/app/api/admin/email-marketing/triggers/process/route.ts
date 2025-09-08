@@ -46,9 +46,7 @@ async function processTriggers(request: NextRequest) {
     
     const body = await request.json()
     const { triggerType, maxProcessing = 100, dryRun = false } = body
-    
-    console.log(`🔄 Processing email triggers${dryRun ? ' (DRY RUN)' : ''}...`)
-    
+
     const processingResults = {
       processed: 0,
       sent: 0,
@@ -62,9 +60,7 @@ async function processTriggers(request: NextRequest) {
     if (triggerType) triggerFilter.type = triggerType
     
     const triggers = await db.collection('emailTriggers').find(triggerFilter).toArray()
-    
-    console.log(`Found ${triggers.length} active triggers to process`)
-    
+
     for (const trigger of triggers) {
       try {
         const triggerResults = await processTriggerType(db, trigger, maxProcessing, dryRun)
@@ -74,9 +70,7 @@ async function processTriggers(request: NextRequest) {
         processingResults.failed += triggerResults.failed
         processingResults.skipped += triggerResults.skipped
         processingResults.errors.push(...triggerResults.errors)
-        
-        console.log(`✅ Processed trigger "${trigger.name}": ${triggerResults.processed} events`)
-        
+
       } catch (error) {
         processingResults.errors.push(`Failed to process trigger "${trigger.name}": ${error.message}`)
         console.error(`❌ Error processing trigger "${trigger.name}":`, error)
@@ -137,9 +131,7 @@ async function processTriggerType(db: any, trigger: any, maxProcessing: number, 
       console.warn(`Unknown trigger event type: ${trigger.trigger.event}`)
       return results
   }
-  
-  console.log(`Found ${pendingEvents.length} pending events for trigger "${trigger.name}"`)
-  
+
   for (const event of pendingEvents) {
     try {
       results.processed++
@@ -187,7 +179,7 @@ async function processTriggerType(db: any, trigger: any, maxProcessing: number, 
       } else {
         // Dry run - just count what would be sent
         results.sent++
-        console.log(`[DRY RUN] Would send email to ${event.userEmail} for trigger "${trigger.name}"`)
+
       }
       
     } catch (error) {
@@ -476,11 +468,7 @@ async function exceedsFrequencyLimit(db: any, userId: string, trigger: any): Pro
 async function sendTriggerEmail(db: any, trigger: any, event: any): Promise<boolean> {
   try {
     // Simulate email sending
-    console.log(`📧 TRIGGER EMAIL SENT (Simulated)`)
-    console.log(`   Trigger: ${trigger.name}`)
-    console.log(`   To: ${event.userEmail}`)
-    console.log(`   Subject: ${trigger.campaign.subject}`)
-    
+
     // Log email event
     await db.collection('emailEvents').insertOne({
       triggerId: trigger._id,

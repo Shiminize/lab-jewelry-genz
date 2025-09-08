@@ -25,12 +25,12 @@ export default function CustomizerPreviewDemo() {
       {/* Main component demo */}
       <CustomizerPreviewSection
         onStartDesigning={() => {
-          console.log('Navigate to /customizer')
+
           // In production, this would navigate to the customizer
           alert('Would navigate to /customizer page')
         }}
         onChatWithDesigner={() => {
-          console.log('Open chat with designer')
+
           // In production, this would open chat widget
           alert('Would open chat with designer')
         }}

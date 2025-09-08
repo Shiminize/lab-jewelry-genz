@@ -143,7 +143,6 @@ class CustomizerPerformanceService {
       }
     }, 5000) // Every 5 seconds
 
-    console.log('📊 Customizer performance monitoring initialized')
   }
 
   /**
@@ -175,7 +174,6 @@ class CustomizerPerformanceService {
       })
     }
 
-    console.log(`⚡ Material switch: ${switchTime.toFixed(0)}ms ${switchTime <= this.thresholds.materialSwitchMs ? '✅' : '❌'}`)
   }
 
   /**
@@ -201,7 +199,6 @@ class CustomizerPerformanceService {
       })
     }
 
-    console.log(`🚀 Initial load: ${loadTime.toFixed(0)}ms ${loadTime <= this.thresholds.initialLoadMs ? '✅' : '❌'}`)
   }
 
   /**
@@ -520,7 +517,7 @@ ${report.recommendations.slice(0, 3).map((rec, i) => `   ${i + 1}. ${rec}`).join
     }
     
     this.alerts = []
-    console.log('🔄 Performance metrics reset')
+
   }
 
   /**
@@ -538,8 +535,7 @@ ${report.recommendations.slice(0, 3).map((rec, i) => `   ${i + 1}. ${rec}`).join
     if (this.perfObserver) {
       this.perfObserver.disconnect()
     }
-    
-    console.log('🧹 Performance monitoring destroyed')
+
   }
 }
 

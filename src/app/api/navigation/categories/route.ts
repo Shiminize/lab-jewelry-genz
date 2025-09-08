@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
   
   try {
     if (process.env.NODE_ENV === 'development') {
-      console.log('📊 [NAV CATEGORIES API] Fetching navigation categories...')
+
     }
 
     // Get navigation categories from category service
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (process.env.NODE_ENV === 'development') {
-      console.log('✅ [NAV CATEGORIES API] Returned', categories.length, 'categories in', responseTime + 'ms')
+
     }
 
     return NextResponse.json(

@@ -20,10 +20,10 @@ async function initializeModels() {
       CustomizableProduct = schemas.CustomizableProduct
       CustomizationConfiguration = schemas.CustomizationConfiguration
       mongooseAvailable = true
-      console.log('✅ MongoDB schemas initialized successfully')
+
     }
   } catch (error) {
-    console.log('⚠️ MongoDB schemas not available, running in fallback mode:', error.message)
+
     mongooseAvailable = false
   }
 }
@@ -94,7 +94,7 @@ class CustomizableProductService {
       // Check if recovery timeout has passed
       if (now - this.lastFailureTime > this.RECOVERY_TIMEOUT) {
         this.circuitBreakerState = 'HALF_OPEN'
-        console.log('🔄 Circuit breaker transitioning to HALF_OPEN')
+
         return true
       }
       return false
@@ -109,7 +109,7 @@ class CustomizableProductService {
   private handleDatabaseSuccess(): void {
     if (this.circuitBreakerState === 'HALF_OPEN') {
       this.circuitBreakerState = 'CLOSED'
-      console.log('✅ Circuit breaker CLOSED - database operations resumed')
+
     }
     this.failureCount = 0
   }
@@ -142,7 +142,7 @@ class CustomizableProductService {
     try {
       // Circuit breaker check - fast-fail if database is down
       if (!this.shouldAttemptDatabaseCall()) {
-        console.log('⚡ Circuit breaker OPEN - returning immediate fallback')
+
         return this.createFallbackResponse(pagination.page || 1, pagination.limit || this.DEFAULT_LIMIT, startTime)
       }
       // Validate and sanitize pagination
@@ -170,7 +170,7 @@ class CustomizableProductService {
 
       // Check if MongoDB models are available
       if (!mongooseAvailable || !CustomizableProduct) {
-        console.log('📦 CustomizableProductService: MongoDB models not available, returning graceful fallback')
+
         this.handleDatabaseFailure()
         return this.createFallbackResponse(page, limit, startTime)
       }
@@ -296,7 +296,7 @@ class CustomizableProductService {
         console.error(`CLAUDE_RULES VIOLATION: CustomizableProductService took ${responseTime}ms (target: <300ms)`)
         console.error(`Breakdown: Connection: ${connectionTime}ms, Query: ${dbQueryTime}ms, Processing: ${responseTime - connectionTime - dbQueryTime}ms`)
       } else {
-        console.log(`✅ CustomizableProductService performance: ${responseTime}ms (connection: ${connectionTime}ms, query: ${dbQueryTime}ms)`)
+
       }
 
       const response: CustomizableProductResponse = {
@@ -415,13 +415,13 @@ class CustomizableProductService {
     try {
       // CLAUDE_RULES: Fast-fail circuit breaker - bypass MongoDB in dev for <300ms response
       if (process.env.NODE_ENV === 'development') {
-        console.log('🔥 DEVELOPMENT MODE: Bypassing MongoDB entirely for CLAUDE_RULES <300ms compliance')
+
         return null // Force fallback to seed data
       }
       
       // Circuit breaker check - fast-fail if database is down
       if (!this.shouldAttemptDatabaseCall()) {
-        console.log('⚡ Circuit breaker OPEN - getCustomizableProductById returning null')
+
         return null
       }
       
@@ -432,7 +432,7 @@ class CustomizableProductService {
       
       // Check if MongoDB is available after initialization
       if (!mongooseAvailable || !CustomizableProduct) {
-        console.log('📦 CustomizableProductService.getCustomizableProductById: MongoDB not available after initialization')
+
         this.handleDatabaseFailure()
         return null
       }
@@ -445,18 +445,11 @@ class CustomizableProductService {
         ? { _id: identifier, category: 'B' }
         : { 'seo.slug': identifier, category: 'B', status: 'active' }
 
-      console.log(`🔍 CustomizableProduct query for '${identifier}':`, JSON.stringify(query))
-      console.log(`🔍 Model available:`, !!CustomizableProduct)
-      console.log(`🔍 Model collection name:`, CustomizableProduct?.collection?.name)
-      console.log(`🔍 Database name:`, CustomizableProduct?.collection?.db?.databaseName)
-      console.log(`🔍 Connection state:`, mongoose.connection.readyState)
-
       const dbStartTime = performance.now()
       
       // CRITICAL FIX: Remove slow countDocuments() that was causing 10s timeouts
       // Skip count check and go directly to the actual query
-      console.log(`🔍 Attempting to find product with query:`, JSON.stringify(query))
-      
+
       const product = includeFullDetails
         ? await CustomizableProduct.findOne(query).lean().maxTimeMS(2000).exec()
         : await CustomizableProduct
@@ -474,9 +467,7 @@ class CustomizableProductService {
             .lean()
             .maxTimeMS(2000)
             .exec()
-      
-      console.log(`🔍 Query result:`, product ? `Found product with _id: ${product._id}` : 'No product found')
-      
+
       const dbQueryTime = performance.now() - dbStartTime
       const responseTime = performance.now() - startTime
       
@@ -585,8 +576,7 @@ class CustomizableProductService {
     try {
       // Check if MongoDB is available
       if (!mongooseAvailable || !CustomizableProduct) {
-        console.log('📦 CustomizableProductService.getAvailableOptions: MongoDB not available, returning default options')
-        
+
         // Return default CLAUDE_RULES compliant options
         return {
           materials: this.getDefaultMaterialOptions(),
@@ -864,7 +854,7 @@ class CustomizableProductService {
     
     // Log successful performance for E2E validation
     if (metric.responseTime <= 300) {
-      console.log(`✅ Performance target met: ${metric.responseTime}ms total (connection: ${metric.connectionTime || 0}ms, query: ${metric.dbQueryTime}ms)`)
+
     }
   }
 

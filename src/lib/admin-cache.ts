@@ -42,8 +42,7 @@ export class AdminCacheManager {
         throw error
       }
     }, 60000) // Every minute
-    
-    console.log('💾 AdminCacheManager: Registered with GlobalHealthMonitor')
+
   }
 
   // Cache key generation
@@ -136,7 +135,7 @@ export class AdminCacheManager {
     expiredKeys.forEach(key => this.cache.delete(key))
 
     if (expiredKeys.length > 0) {
-      console.log(`[CACHE] Cleaned up ${expiredKeys.length} expired entries`)
+
     }
   }
 
@@ -232,7 +231,7 @@ export async function preloadAdminCache(): Promise<void> {
   const preloadPromises = criticalEndpoints.map(async endpoint => {
     try {
       await cachedAdminFetch(endpoint.url, {}, endpoint.namespace, endpoint.ttl)
-      console.log(`[CACHE] Preloaded: ${endpoint.namespace}`)
+
     } catch (error) {
       console.warn(`[CACHE] Failed to preload ${endpoint.namespace}:`, error)
     }
@@ -253,12 +252,7 @@ export function setupCacheMonitoring(): void {
       // Register cache monitoring with global monitor to prevent cascade
       healthMonitor.registerService('admin-cache-monitoring', async () => {
         const stats = adminCache.getStats()
-        console.log('[CACHE] Statistics:', {
-          entries: stats.size,
-          maxEntries: stats.maxSize,
-          memoryUsage: `${(stats.memoryUsage / 1024).toFixed(1)}KB`,
-          utilizationPercent: `${((stats.size / stats.maxSize) * 100).toFixed(1)}%`
-        })
+
         return { status: 'cache-stats-logged', entries: stats.size }
       }, 5 * 60 * 1000) // 5 minutes via global monitor
     } catch (error) {
@@ -285,7 +279,7 @@ export function setupCacheMonitoring(): void {
         // Partially clear cache when tab becomes hidden
         const stats = adminCache.getStats()
         if (stats.size > stats.maxSize * 0.7) {
-          console.log('[CACHE] Tab hidden, performing cache cleanup')
+
           // Keep only most recent entries
           adminCache.clear()
         }

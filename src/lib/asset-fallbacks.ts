@@ -128,7 +128,7 @@ export async function validateAndPreloadAssets(assets: Array<{
       if (result.fallbackUsed) {
         console.warn(`Asset ${asset.url} loaded using fallback: ${result.url}`)
       } else {
-        console.log(`Asset validated successfully: ${result.url}`)
+
       }
     } else {
       const errorMsg = result.error || 'Unknown validation error'

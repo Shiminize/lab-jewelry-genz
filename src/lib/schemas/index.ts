@@ -115,7 +115,7 @@ function createSecureModelWrapper(model: any, modelName: string) {
       if (typeof prop === 'string' && ['find', 'findOne', 'create', 'updateOne', 'deleteOne'].includes(prop)) {
         return function secureOperation(...args: any[]) {
           // Add security validation, audit logging, rate limiting
-          console.log(`AUDIT: ${modelName}.${prop} called with args:`, args.length)
+
           return target[prop].apply(target, args)
         }
       }
@@ -178,7 +178,7 @@ export const DatabaseModels = Object.freeze({
     }
     
     // Would implement proper RBAC here
-    console.log(`Access validation: ${modelName}.${operation} for user ${context?.userId}`)
+
     return true
   }
 })
