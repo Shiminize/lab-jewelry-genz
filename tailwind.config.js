@@ -76,7 +76,7 @@ module.exports = {
         background: '#F7F7F9', // Aurora Lunar Grey (official Aurora color)
         foreground: '#0A0E27', // Aurora Deep Space (official Aurora color) 
         muted: '#F1F2F6',      // Aurora: Starlight Gray
-        accent: '#6B46C1',     // Aurora: Nebula Purple (REPLACED champagne gold)
+        accent: '#C44569',     // Aurora: Crimson (PASSION - luxury emotional engagement)
         'accent-secondary': '#FF6B9D', // Aurora: Pink for highlights
         'accent-interactive': '#C44569', // Aurora: Crimson for interactions
         cta: '#6B46C1',       // Aurora: Nebula Purple
@@ -237,13 +237,13 @@ module.exports = {
         'token-none': '0px',       // --token-border-radius-none
         'token-sm': '4px',         // --token-border-radius-sm
         'token-md': '8px',         // --token-border-radius-md
-        'token-lg': '12px',        // --token-border-radius-lg
+        'token-lg': '13px',        // --token-border-radius-lg (Claude4.1 demo match)
         'token-full': '9999px',    // --token-border-radius-full
 
         // Legacy border radius (keep for compatibility)
         'none': '0px',
-        'micro': '3px',   // Aurora: Micro radius
-        'sm': '5px',      // Aurora: Small radius  
+        'micro': '4px',   // Aurora: Micro radius (Claude4.1 demo match)
+        'sm': '8px',      // Aurora: Small radius (Claude4.1 demo match)  
         'DEFAULT': '8px', // Aurora: Medium radius
         'md': '8px',      // Aurora: Medium radius
         'lg': '13px',     // Aurora: Large radius

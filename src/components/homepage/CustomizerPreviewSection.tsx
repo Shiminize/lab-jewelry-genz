@@ -189,7 +189,7 @@ export function CustomizerPreviewSection({
           </div>
 
           <div className="relative lg:sticky lg:top-6 lg:self-start" id="customizer-3d-container">
-            <div className="bg-background shadow-xl border border-accent/10 overflow-hidden">
+            <div className="bg-background shadow-xl rounded-xl overflow-hidden">
               <ProductCustomizer
                 key={selectedVariantId}
                 productId="ring-001"

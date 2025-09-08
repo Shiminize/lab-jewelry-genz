@@ -39,17 +39,17 @@ const enhancedValueVariants = cva(
 )
 
 const valueCardVariants = cva(
-  'enhanced-value-card group relative overflow-hidden transition-all duration-700 ease-out',
+  'enhanced-value-card group relative overflow-hidden rounded-lg transition-all duration-700 ease-out',
   {
     variants: {
       style: {
-        glassmorphism: 'bg-background border border-accent shadow-xl',
-        minimal: 'space-y-token-xl bg-background border border-accent',
-        bordered: 'border-2 border-accent shadow-xl bg-background hover:border-accent'
+        glassmorphism: 'bg-background shadow-xl',
+        minimal: 'space-y-token-xl bg-background',
+        bordered: 'shadow-xl bg-background'
       },
       state: {
         default: 'hover:shadow-xl hover:scale-[1.03] hover:-translate-y-token-sm',
-        active: 'shadow-xl scale-[1.03] -translate-y-token-sm border-accent bg-muted',
+        active: 'shadow-xl scale-[1.03] -translate-y-token-sm bg-muted',
         dimmed: 'opacity-60 scale-98 translate-y-token-xs'
       }
     },
@@ -70,8 +70,8 @@ const iconContainerVariants = cva(
         large: 'w-token-6xl h-token-6xl'
       },
       style: {
-        glassmorphism: 'bg-background rounded-full border border-accent shadow-xl',
-        gradient: 'bg-muted rounded-full border border-accent',
+        glassmorphism: 'bg-background rounded-full shadow-xl',
+        gradient: 'bg-muted rounded-full',
         minimal: 'bg-muted rounded-full'
       },
       state: {
@@ -92,12 +92,12 @@ const trustBadgeVariants = cva(
   {
     variants: {
       style: {
-        glassmorphism: 'bg-background border border-accent shadow-lg',
-        accent: 'bg-background border border-accent text-accent',
-        minimal: 'bg-muted border border-accent'
+        glassmorphism: 'bg-background shadow-lg',
+        accent: 'bg-background text-accent',
+        minimal: 'bg-muted'
       },
       state: {
-        default: 'hover:scale-110 hover:shadow-xl hover:border-accent hover:-translate-y-token-xs',
+        default: 'hover:scale-110 hover:shadow-xl hover:-translate-y-token-xs',
         interactive: 'cursor-pointer hover:bg-muted hover:scale-110 hover:shadow-xl active:scale-105'
       }
     },
@@ -334,7 +334,7 @@ export function EnhancedValueProposition({
                   style: 'glassmorphism',
                   state: isActive ? 'active' : isDimmed ? 'dimmed' : 'default'
                 }),
-                'space-y-6 cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2',
+                'space-y-6 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 rounded-lg',
                 // Mobile optimization
                 'min-h-[400px] sm:min-h-[420px] lg:min-h-[400px]',
                 'touch-manipulation', // Improves touch responsiveness
@@ -362,12 +362,12 @@ export function EnhancedValueProposition({
               <div className="relative flex justify-center">
                 <div className={cn(iconContainerVariants())}>
                   <IconComponent 
-                    className="enhanced-value-icon-svg text-accent transition-all duration-300 group-hover:scale-110" 
+                    className="enhanced-value-icon-svg text-gray-600 transition-all duration-300 group-hover:scale-110 group-hover:text-accent" 
                     size={40}
                   />
                   
                   {/* Pulsing ring effect */}
-                  <div className="absolute inset-0 rounded-full border-2 border-accent scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500" />
+                  <div className="absolute inset-0 rounded-full scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500 shadow-lg" />
                   
                   {/* Sparkle effect */}
                   <div className="absolute inset-0 rounded-full bg-muted scale-0 group-hover:scale-150 transition-transform duration-700 opacity-0 group-hover:opacity-30" />
@@ -376,7 +376,7 @@ export function EnhancedValueProposition({
 
               {/* Content */}
               <div className="relative space-y-token-md text-center">
-                <H3 className="text-foreground group-hover:text-accent transition-colors duration-300">
+                <H3 className="text-foreground group-hover:text-gray-800 transition-colors duration-300">
                   {prop.headline}
                 </H3>
                 <BodyText 
@@ -396,7 +396,7 @@ export function EnhancedValueProposition({
                         : 'max-h-0 opacity-0 mt-0'
                     )}
                   >
-                    <div className="pt-3 border-t border-accent">
+                    <div className="pt-3">
                       <BodyText 
                         size="sm" 
                         className="text-foreground font-medium"
@@ -409,7 +409,7 @@ export function EnhancedValueProposition({
               </div>
 
               {/* Trust Signals */}
-              <div className="relative mt-6 pt-4 border-t border-accent">
+              <div className="relative mt-6 pt-4">
                 <div className="flex flex-wrap gap-3 justify-center">
                   {prop.trustSignals.map((signal, signalIndex) => {
                     const SignalIcon = signal.icon
@@ -463,7 +463,7 @@ export function EnhancedValueProposition({
       {/* Global Trust Signals Section */}
       {showTrustSignals && (
         <div className="mt-16 lg:mt-20 text-center">
-          <div className="bg-muted border border-accent p-6 lg:p-8 max-w-5xl mx-auto shadow-xl">
+          <div className="bg-white rounded-xl p-6 lg:p-8 max-w-5xl mx-auto shadow-xl">
             <MutedText className="mb-6 block text-lg">
               Join thousands who choose conscious luxury
             </MutedText>
@@ -480,7 +480,7 @@ export function EnhancedValueProposition({
                 return (
                   <div 
                     key={index}
-                    className="group p-4 bg-background border border-accent hover:border-accent transition-all duration-300 hover:scale-105"
+                    className="group p-4 bg-gray-50 rounded-md shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
                   >
                     <div className="flex flex-col items-center space-y-token-sm">
                       <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">

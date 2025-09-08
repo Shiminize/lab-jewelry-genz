@@ -175,3 +175,31 @@
     animation-duration: 0.01ms;
   }
 }
+
+/* Iridescent text (Claude demo parity) */
+.aurora-iridescent-text {
+  background: linear-gradient(90deg,
+    var(--aurora-pink, #FF6B9D) 0%,
+    var(--aurora-crimson, #C44569) 25%,
+    var(--aurora-plum, #723C70) 50%,
+    var(--aurora-crimson, #C44569) 75%,
+    var(--aurora-pink, #FF6B9D) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: iridescent-shift 3s linear infinite;
+  will-change: background-position;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes iridescent-shift {
+  0%   { background-position:   0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-iridescent-text { animation: none; }
+}

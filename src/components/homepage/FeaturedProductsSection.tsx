@@ -120,11 +120,11 @@ export function FeaturedProductsSection({
         {/* Section Header */}
         <div className="text-center mb-token-xl lg:mb-token-2xl">
           <div className="flex items-center justify-center space-x-token-sm mb-4">
-            <Star className="w-5 h-5 text-accent fill-accent" />
-            <MutedText size="md" className="text-accent font-medium uppercase tracking-wider">
+            <Star className="w-5 h-5 text-gray-600 fill-gray-600" />
+            <MutedText size="md" className="text-gray-600 font-medium uppercase tracking-wider">
               Curated Collection
             </MutedText>
-            <Star className="w-5 h-5 text-accent fill-accent" />
+            <Star className="w-5 h-5 text-gray-600 fill-gray-600" />
           </div>
           
           <H2 className="mb-token-md lg:mb-token-lg">

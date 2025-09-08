@@ -356,8 +356,7 @@ export function HeroSection({
           {/* Aurora Enhanced Headline with A/B Testing */}
           <motion.h1 
             className={cn(
-              "font-headline text-white",
-              isAurora ? "aurora-gradient-text" : "",
+              "font-headline aurora-iridescent-text",
               "text-4xl md:text-6xl lg:text-7xl",
               "leading-tight tracking-tight",
               getClassName("mb-6", "aurora-mb-token-lg"),
@@ -410,7 +409,7 @@ export function HeroSection({
               size="lg"
               onClick={handlePrimaryCta}
               className={cn(
-                "text-white font-semibold",
+                "btn-cta-marketing text-white font-semibold",
                 getEmotionalClassName('luxury', '', 'hero')
               )}
             >
@@ -428,74 +427,6 @@ export function HeroSection({
             >
               {secondaryCtaText}
             </Button>
-          </motion.div>
-
-          {/* Sustainability Section */}
-          <motion.div 
-            className={cn(
-              "max-w-2xl mx-auto",
-              getClassName("mt-8", "aurora-mt-token-xl")
-            )}
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0, transition: { delay: 0.8, duration: 1.0, ease: "easeOut" } }
-            }}
-          >
-            <div 
-              className={cn(
-                "backdrop-blur-sm border text-center relative overflow-hidden",
-                getClassName("rounded-lg p-6", "aurora-rounded-token-lg aurora-p-token-lg"),
-                getClassName("bg-success-glow border-emerald-flash/30 shadow-xl", "bg-success-glow border-emerald-flash/30 shadow-xl"),
-                getEmotionalClassName('trust', '', 'hero')
-              )}
-            >
-              {/* Color Psychology: Emerald Pulse - Trust & Eco Benefits */}
-              <div 
-                className={cn(
-                  "absolute inset-0 pointer-events-none",
-                  getClassName("animate-pulse", "animate-eco-confidence")
-                )}
-                style={{
-                  background: 'radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 70%)'
-                }}
-              />
-              <div className="flex items-center justify-center space-x-token-sm mb-token-sm relative z-10">
-                <div 
-                  className={cn(
-                    "w-3 h-3 rounded-full",
-                    getClassName("bg-emerald-flash shadow-lg animate-pulse", "bg-emerald-flash shadow-lg animate-eco-confidence")
-                  )}
-                />
-                <span className="text-emerald-flash font-semibold text-sm uppercase tracking-wider">
-                  Lab-Grown Diamonds
-                </span>
-                <div 
-                  className={cn(
-                    "w-3 h-3 rounded-full",
-                    getClassName("bg-emerald-flash shadow-lg animate-pulse", "bg-emerald-flash shadow-lg animate-eco-confidence"),
-                    "animation-delay-500"
-                  )}
-                />
-              </div>
-              <p className="text-white/90 text-sm leading-relaxed mb-token-md">
-                <strong className="text-emerald-flash">87% less environmental impact</strong> than mined diamonds. 
-                Zero conflict, maximum conscience. Because true luxury shouldn't cost the Earth.
-              </p>
-              <div className="grid grid-cols-3 gap-token-md text-center">
-                <div className="text-xs">
-                  <div className="text-emerald-flash font-bold text-lg">0</div>
-                  <div className="text-white/70">Mining Impact</div>
-                </div>
-                <div className="text-xs">
-                  <div className="text-emerald-flash font-bold text-lg">100%</div>
-                  <div className="text-white/70">Conflict-Free</div>
-                </div>
-                <div className="text-xs">
-                  <div className="text-emerald-flash font-bold text-lg">87%</div>
-                  <div className="text-white/70">Less CO2</div>
-                </div>
-              </div>
-            </div>
           </motion.div>
 
           {/* Aurora Sparkle Effect */}

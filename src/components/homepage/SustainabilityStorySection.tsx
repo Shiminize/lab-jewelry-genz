@@ -34,7 +34,7 @@ const heroGradientVariants = cva(
   {
     variants: {
       style: {
-        default: 'bg-gradient-to-br from-accent/10 via-background to-accent/5',
+        default: 'bg-gradient-to-br from-accent/10 via-background to-gray-50',
         subtle: 'bg-muted/30',
         vibrant: 'bg-gradient-to-br from-accent/20 via-background to-accent/10'
       }
@@ -63,8 +63,8 @@ const metricCardVariants = cva(
     variants: {
       style: {
         default: 'bg-muted/30 hover:bg-muted/40',
-        accent: 'bg-accent/10 hover:bg-accent/15',
-        gradient: 'bg-gradient-to-br from-accent/10 to-muted/20 hover:from-accent/15 hover:to-muted/30'
+        accent: 'bg-accent/10 hover:bg-accent/20',
+        gradient: 'bg-gradient-to-br from-accent/10 to-gray-100 hover:from-accent/20 hover:to-gray-200'
       },
       emphasis: {
         none: '',
@@ -84,7 +84,7 @@ const processStepVariants = cva(
     variants: {
       connector: {
         none: '',
-        arrow: 'after:absolute after:top-12 after:-right-4 lg:after:-right-8 after:content-["→"] after:text-accent after:text-2xl after:hidden lg:after:block last:after:hidden'
+        arrow: 'after:absolute after:top-12 after:-right-4 lg:after:-right-8 after:content-["→"] after:text-gray-400 after:text-2xl after:hidden lg:after:block last:after:hidden'
       }
     },
     defaultVariants: {
@@ -566,7 +566,7 @@ export function SustainabilityStorySection({
 
       {/* Community Impact Section */}
       <div className="mt-16 lg:mt-20">
-        <div className="bg-gradient-to-r from-accent/5 to-accent/10 p-8 lg:p-12 text-center">
+        <div className="bg-gradient-to-r from-accent/10 to-accent/20 p-8 lg:p-12 text-center">
           <H3 className="mb-6 text-foreground">
             Join the Conscious Luxury Movement
           </H3>

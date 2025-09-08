@@ -8,39 +8,66 @@
  * ✅ Legacy CSS files removed - Aurora tokens only
  */
 @import '../styles/design-tokens.css'; /* MUST BE FIRST - provides CSS variables */
+@import '../styles/aurora-demo-variables.css'; /* Demo variables for A/B testing */
+@import '../styles/demo-overrides.css'; /* Demo visual enhancements */
 
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '../styles/typography.css';
+@import '../styles/typography-foundations.css'; /* Typography CSS variables and scales */
+@import '../styles/typography-aurora.css'; /* Aurora Design System typography */
+@import '../styles/typography-legacy.css'; /* Legacy compatibility and specialized typography */
 @import '../styles/animations.css';
 
 /* Global Base Styles - Minimal Core Only */
 
-/* CRITICAL FIX: Safe Mode Fallbacks - Immediate UI Restoration */
-/* These ensure aurora classes render while Tailwind rebuilds */
-.text-aurora-nebula-purple { color: #6B46C1 !important; }
-.bg-aurora-nebula-purple { background-color: #6B46C1 !important; }
-.border-aurora-nebula-purple { border-color: #6B46C1 !important; }
+/* Aurora color utility classes - using CSS variables from demo layers */
+.text-aurora-nebula-purple { color: var(--nebula-purple, #6B46C1); }
+.bg-aurora-nebula-purple { background-color: var(--nebula-purple, #6B46C1); }
+.border-aurora-nebula-purple { border-color: var(--nebula-purple, #6B46C1); }
 
-.text-aurora-emerald-flash { color: #10B981 !important; }
-.bg-aurora-emerald-flash { background-color: #10B981 !important; }
-.border-aurora-emerald-flash { border-color: #10B981 !important; }
+.text-aurora-emerald-flash { color: var(--emerald-flash, #10B981); }
+.bg-aurora-emerald-flash { background-color: var(--emerald-flash, #10B981); }
+.border-aurora-emerald-flash { border-color: var(--emerald-flash, #10B981); }
 
-.text-aurora-amber-glow { color: #F59E0B !important; }
-.bg-aurora-amber-glow { background-color: #F59E0B !important; }
-.border-aurora-amber-glow { border-color: #F59E0B !important; }
+.text-aurora-amber-glow { color: var(--amber-glow, #F59E0B); }
+.bg-aurora-amber-glow { background-color: var(--amber-glow, #F59E0B); }
+.border-aurora-amber-glow { border-color: var(--amber-glow, #F59E0B); }
 
-/* Opacity variants for bg/border classes */
-.bg-aurora-nebula-purple\/10 { background-color: rgba(107, 70, 193, 0.1) !important; }
-.bg-aurora-emerald-flash\/10 { background-color: rgba(16, 185, 129, 0.1) !important; }
-.bg-aurora-amber-glow\/10 { background-color: rgba(245, 158, 11, 0.1) !important; }
+/* Opacity variants using CSS variables */
+.bg-aurora-nebula-purple\/10 { background-color: color-mix(in srgb, var(--nebula-purple, #6B46C1) 10%, transparent); }
+.bg-aurora-emerald-flash\/10 { background-color: color-mix(in srgb, var(--emerald-flash, #10B981) 10%, transparent); }
+.bg-aurora-amber-glow\/10 { background-color: color-mix(in srgb, var(--amber-glow, #F59E0B) 10%, transparent); }
 
-.border-aurora-nebula-purple\/20 { border-color: rgba(107, 70, 193, 0.2) !important; }
-.border-aurora-emerald-flash\/20 { border-color: rgba(16, 185, 129, 0.2) !important; }
-.border-aurora-amber-glow\/20 { border-color: rgba(245, 158, 11, 0.2) !important; }
+.border-aurora-nebula-purple\/20 { border-color: color-mix(in srgb, var(--nebula-purple, #6B46C1) 20%, transparent); }
+.border-aurora-emerald-flash\/20 { border-color: color-mix(in srgb, var(--emerald-flash, #10B981) 20%, transparent); }
+.border-aurora-amber-glow\/20 { border-color: color-mix(in srgb, var(--amber-glow, #F59E0B) 20%, transparent); }
 
-.bg-aurora-emerald-flash\/30 { background-color: rgba(16, 185, 129, 0.3) !important; }
+.bg-aurora-emerald-flash\/30 { background-color: color-mix(in srgb, var(--emerald-flash, #10B981) 30%, transparent); }
 
 /* Core Utility Classes - Minimal Global Overrides */
+
+/* CTA Utilities - Token-driven, CLAUDE_RULES compliant */
+.btn-cta-marketing {
+  background: linear-gradient(135deg,
+    var(--aurora-pink, #FF6B9D),
+    var(--aurora-crimson, #C44569)
+  );
+  color: #FFFFFF;
+}
+
+.btn-cta-marketing:hover {
+  filter: brightness(1.05);
+}
+
+.btn-cta-product {
+  background-color: var(--nebula-purple, #6B46C1);
+  color: #FFFFFF;
+}
+
+.btn-cta-product:hover {
+  filter: brightness(1.05);
+}
+
+/* Accent usage guard: do not use --aurora-plum for primary CTA backgrounds */

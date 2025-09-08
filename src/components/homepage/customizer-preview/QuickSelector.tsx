@@ -8,12 +8,12 @@ import type { Material, StoneQuality } from '@/types/customizer'
 import type { SettingOption } from './previewData'
 
 const quickSelectorVariants = cva(
-  'group flex items-center justify-between border-2 transition-all duration-300 cursor-pointer touch-manipulation aurora-material-ripple hover:brightness-[1.15] hover:scale-[1.02] hover:-translate-y-0.5 relative overflow-hidden aurora-pink-sweep-effect',
+  'group flex items-center justify-between rounded-lg shadow-md transition-all duration-300 cursor-pointer touch-manipulation aurora-material-ripple hover:brightness-[1.15] hover:scale-[1.02] hover:-translate-y-0.5 relative overflow-hidden aurora-pink-sweep-effect',
   {
     variants: {
       state: {
-        default: 'border-border bg-background text-foreground hover:border-nebula-purple/50 hover:bg-nebula-purple/10 active:bg-nebula-purple/20 luxury-emotional-trigger',
-        selected: 'border-nebula-purple bg-gradient-to-br from-nebula-purple/10 to-aurora-pink/5 text-foreground ring-2 ring-nebula-purple/30 shadow-lg shadow-nebula-purple/20 romantic-emotional-trigger',
+        default: 'bg-background text-foreground shadow-sm hover:shadow-md hover:bg-gray-50 active:bg-gray-100 luxury-emotional-trigger',
+        selected: 'bg-gradient-to-br from-nebula-purple/10 to-aurora-pink/5 text-foreground shadow-lg shadow-nebula-purple/20 romantic-emotional-trigger',
         disabled: 'opacity-50 cursor-not-allowed pointer-events-none'
       },
       size: {
@@ -139,7 +139,7 @@ export function QuickSelector({
               <div className="flex items-center space-x-token-md flex-1">
                 {type === 'material' && (
                   <div 
-                    className="w-6 h-6 rounded-34 border-2 border-border shadow-sm flex-shrink-0"
+                    className="w-6 h-6 rounded-full border-2 border-border shadow-sm flex-shrink-0"
                     style={{ backgroundColor: (option as Material).color || '#E8D7D3' }}
                     aria-hidden="true"
                   />
@@ -170,7 +170,7 @@ export function QuickSelector({
               </div>
               {isSelected && (
                 <div className="flex-shrink-0 ml-3" aria-hidden="true">
-                  <div className="w-6 h-6 bg-nebula-purple rounded-34 flex items-center justify-center">
+                  <div className="w-6 h-6 bg-nebula-purple rounded-full flex items-center justify-center">
                     <svg className="w-4 h-4 text-background" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>

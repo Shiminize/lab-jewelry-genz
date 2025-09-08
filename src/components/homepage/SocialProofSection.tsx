@@ -28,7 +28,7 @@ const socialProofVariants = cva(
       background: {
         default: 'bg-background',
         muted: 'bg-muted/30',
-        accent: 'bg-accent/5'
+        accent: 'bg-gray-50'
       }
     },
     defaultVariants: {
@@ -132,7 +132,7 @@ const SocialProofSection: React.FC<SocialProofSectionProps> = ({
         </div>
 
         {/* Community CTA */}
-        <div className="text-center bg-accent/10 p-8 border border-accent/20 rounded-token-md">
+        <div className="text-center bg-gray-50 p-8 rounded-token-md">
           <H2 className="mb-4">Ready to Join Our Community?</H2>
           <BodyText className="mb-6 max-w-2xl mx-auto">
             Whether you're looking for the perfect piece to express yourself or want to 

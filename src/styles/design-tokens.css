@@ -107,7 +107,8 @@
   --token-border-radius-none: 0px;
   --token-border-radius-sm: 4px;
   --token-border-radius-md: 8px;
-  --token-border-radius-lg: 12px;
+  --token-border-radius-lg: 13px;    /* Claude4.1 demo interactive cards */
+  --token-border-radius-xl: 21px;     /* Claude4.1 demo large sections */
   --token-border-radius-full: 9999px;
 
   /* =================================================================

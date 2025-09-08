@@ -1,0 +1,58 @@
+/* Aurora Demo Variables - Essential color definitions for A/B testing
+ * CLAUDE_RULES compliant: <100 lines, minimal scope
+ * Purpose: Provide demo-specific CSS variables for A/B testing visual differences
+ */
+
+:root {
+  /* Core Aurora Brand Colors - Demo Mode */
+  --deep-space: #0A0E27;              /* Primary dark background */
+  --nebula-purple: #6B46C1;           /* Primary brand color */
+  --aurora-pink: #FF6B9D;             /* Secondary brand color */
+  --aurora-crimson: #C44569;          /* Tertiary brand color */
+  --emerald-flash: #10B981;           /* Success/accent color */
+  --amber-glow: #F59E0B;              /* Warning/highlight color */
+  --plum-shadow: #723C70;             /* Shadow variant color */
+  --cosmic-black: #0B0B0C;            /* Pure dark variant */
+  --lunar-grey: #F7F7F9;              /* Light neutral background */
+
+  /* Demo-Specific Material Psychology Colors */
+  --material-gold-demo: #FFD700;            /* Gold with enhanced saturation */
+  --material-platinum-demo: #B9F2FF;        /* Platinum with cool undertone */
+  --material-rose-gold-demo: #F7A8B8;       /* Rose gold with warmer hue */
+  --material-white-gold-demo: #F8F8FF;      /* White gold with subtle blue */
+
+  /* Demo Gradient Stops for Enhanced Visual Impact */
+  --gradient-primary-start: var(--deep-space);
+  --gradient-primary-end: var(--nebula-purple);
+  --gradient-secondary-start: var(--aurora-pink);
+  --gradient-secondary-end: var(--aurora-crimson);
+  --gradient-accent-start: var(--emerald-flash);
+  --gradient-accent-end: var(--amber-glow);
+
+  /* Shadow Color Mixing Variables for Prismatic Effects */
+  --shadow-gold-mix: color-mix(in srgb, var(--material-gold-demo) 20%, transparent);
+  --shadow-platinum-mix: color-mix(in srgb, var(--material-platinum-demo) 20%, transparent);
+  --shadow-rose-gold-mix: color-mix(in srgb, var(--material-rose-gold-demo) 20%, transparent);
+  --shadow-white-gold-mix: color-mix(in srgb, var(--material-white-gold-demo) 20%, transparent);
+
+  /* Interactive State Colors for Demo Mode */
+  --hover-gold: color-mix(in srgb, var(--material-gold-demo) 80%, white);
+  --hover-platinum: color-mix(in srgb, var(--material-platinum-demo) 90%, white);
+  --hover-rose-gold: color-mix(in srgb, var(--material-rose-gold-demo) 85%, white);
+  --hover-white-gold: color-mix(in srgb, var(--material-white-gold-demo) 90%, white);
+}
+
+/* Demo mode detection class - applied conditionally by A/B testing hook */
+.demo-mode {
+  /* Enhance contrast and vibrancy in demo mode */
+  --color-contrast-multiplier: 1.1;
+  --shadow-intensity-multiplier: 1.25;
+  --animation-speed-multiplier: 1.0;
+}
+
+/* Reduced motion support for demo variables */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animation-speed-multiplier: 0.01;
+  }
+}

@@ -1,0 +1,243 @@
+/* Aurora Demo Overrides - Visual enhancements for demo mode A/B testing
+ * CLAUDE_RULES compliant: <100 lines, focused on essential demo differences
+ * Purpose: Provide visually distinct styles for demo variant testing
+ */
+
+/* Hero Section Demo Gradient - Primary visual differentiator */
+.bg-aurora-hero {
+  background: linear-gradient(135deg,
+    var(--deep-space, #0A0E27) 0%,
+    var(--nebula-purple, #6B46C1) 100%);
+  background-size: 200% 200%;
+  animation: aurora-gradient-shift 6s ease-in-out infinite;
+}
+
+/* Enhanced Hero Gradient with Multi-Stop */
+.bg-aurora-hero-enhanced {
+  background: linear-gradient(135deg,
+    var(--deep-space, #0A0E27) 0%,
+    var(--nebula-purple, #6B46C1) 50%,
+    var(--aurora-pink, #FF6B9D) 100%);
+  background-size: 300% 300%;
+  animation: aurora-gradient-shift 8s ease-in-out infinite;
+}
+
+/* Shimmer Overlay Effect - Interactive enhancement */
+.aurora-shimmer-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.aurora-shimmer-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 60%
+  );
+  animation: shimmer 2s infinite;
+  pointer-events: none;
+}
+
+/* Material-Specific Prismatic Shadow Effects */
+.shadow-aurora-gold {
+  box-shadow: 0 8px 32px var(--shadow-gold-mix, color-mix(in srgb, #FFD700 20%, transparent));
+  transition: box-shadow 0.3s ease;
+}
+
+.shadow-aurora-platinum {
+  box-shadow: 0 8px 32px var(--shadow-platinum-mix, color-mix(in srgb, #B9F2FF 20%, transparent));
+  transition: box-shadow 0.3s ease;
+}
+
+.shadow-aurora-rose-gold {
+  box-shadow: 0 8px 32px var(--shadow-rose-gold-mix, color-mix(in srgb, #F7A8B8 20%, transparent));
+  transition: box-shadow 0.3s ease;
+}
+
+.shadow-aurora-white-gold {
+  box-shadow: 0 8px 32px var(--shadow-white-gold-mix, color-mix(in srgb, #F8F8FF 20%, transparent));
+  transition: box-shadow 0.3s ease;
+}
+
+/* Gradient Text Effect for Demo Headlines */
+.text-aurora-gradient {
+  background: linear-gradient(45deg, 
+    var(--aurora-pink, #FF6B9D), 
+    var(--aurora-crimson, #C44569), 
+    var(--plum-shadow, #723C70));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: aurora-gradient-shift 4s ease-in-out infinite;
+}
+
+/* Interactive Button Enhancement for Demo */
+.btn-aurora-demo {
+  background: linear-gradient(135deg,
+    var(--nebula-purple, #6B46C1),
+    var(--aurora-pink, #FF6B9D));
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-aurora-demo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--shadow-gold-mix, rgba(107, 70, 193, 0.25));
+}
+
+/* Essential Animations */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes aurora-gradient-shift {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
+
+/* Essential Material-Specific Shadow Utilities from Demo Config */
+.shadow-material-gold {
+  box-shadow: 
+    0 2px 8px color-mix(in srgb, var(--material-gold-demo, #FFD700) 20%, transparent),
+    0 4px 16px color-mix(in srgb, var(--material-gold-demo, #FFD700) 10%, transparent);
+}
+
+.shadow-material-platinum {
+  box-shadow: 
+    0 2px 8px color-mix(in srgb, var(--material-platinum-demo, #B9F2FF) 20%, transparent),
+    0 4px 16px color-mix(in srgb, var(--material-platinum-demo, #B9F2FF) 10%, transparent);
+}
+
+.shadow-material-rose-gold {
+  box-shadow: 
+    0 2px 8px color-mix(in srgb, var(--material-rose-gold-demo, #F7A8B8) 20%, transparent),
+    0 4px 16px color-mix(in srgb, var(--material-rose-gold-demo, #F7A8B8) 10%, transparent);
+}
+
+/* Enhanced hover shadows */
+.shadow-material-gold:hover,
+.hover\:shadow-material-gold-hover:hover {
+  box-shadow: 
+    0 4px 16px color-mix(in srgb, var(--material-gold-demo, #FFD700) 30%, transparent),
+    0 8px 24px color-mix(in srgb, var(--material-gold-demo, #FFD700) 15%, transparent);
+}
+
+.shadow-material-platinum:hover,
+.hover\:shadow-material-platinum-hover:hover {
+  box-shadow: 
+    0 4px 16px color-mix(in srgb, var(--material-platinum-demo, #B9F2FF) 30%, transparent),
+    0 8px 24px color-mix(in srgb, var(--material-platinum-demo, #B9F2FF) 15%, transparent);
+}
+
+.shadow-material-rose-gold:hover,
+.hover\:shadow-material-rose-gold-hover:hover {
+  box-shadow: 
+    0 4px 16px color-mix(in srgb, var(--material-rose-gold-demo, #F7A8B8) 30%, transparent),
+    0 8px 24px color-mix(in srgb, var(--material-rose-gold-demo, #F7A8B8) 15%, transparent);
+}
+
+/* Emotional Trigger Utilities - Key Demo Config Features */
+.luxury-emotional-trigger {
+  position: relative;
+}
+
+.luxury-emotional-trigger::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, var(--nebula-purple, #6B46C1), transparent);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.luxury-emotional-trigger:hover::before {
+  opacity: 0.2;
+}
+
+.romantic-emotional-trigger {
+  position: relative;
+}
+
+.romantic-emotional-trigger::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, color-mix(in srgb, var(--aurora-pink, #FF6B9D) 20%, transparent), transparent);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.romantic-emotional-trigger:hover::after {
+  opacity: 1;
+}
+
+/* Material Selection State */
+.material-selected {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+  transition: all 0.3s ease;
+}
+
+/* Additional Essential Animations */
+@keyframes aurora-drift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes luxury-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--nebula-purple, #6B46C1) 20%, transparent);
+  }
+  50% { 
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--nebula-purple, #6B46C1) 30%, transparent);
+  }
+}
+
+/* Animation Classes */
+.animate-aurora-drift {
+  animation: aurora-drift 30s ease-in-out infinite;
+}
+
+.animate-luxury-pulse {
+  animation: luxury-pulse 3s ease-in-out infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-shimmer-overlay::before,
+  .bg-aurora-hero,
+  .bg-aurora-hero-enhanced,
+  .text-aurora-gradient,
+  .animate-aurora-drift,
+  .animate-luxury-pulse {
+    animation: none;
+  }
+  
+  .btn-aurora-demo:hover,
+  .material-selected {
+    transform: none;
+  }
+}

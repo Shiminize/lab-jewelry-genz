@@ -1,0 +1,313 @@
+/**
+ * Legacy Typography & Specialized Classes
+ * CLAUDE_RULES compliant: Legacy compatibility and specialized typography
+ * 
+ * Purpose: Legacy compatibility classes and luxury jewelry-specific typography
+ * Dependencies: typography-foundations.css for CSS variables
+ */
+
+/* ===== LEGACY TYPOGRAPHY (MAINTAINED FOR COMPATIBILITY) ===== */
+
+.typography-display {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tighter);
+  color: var(--deep-space, #0A0E27);
+}
+
+.typography-display-gradient {
+  background: linear-gradient(135deg, var(--aurora-nebula-purple) 0%, var(--aurora-pink) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: aurora-gradient-shift 4s ease-in-out infinite;
+}
+
+/* ===== HEADLINE TYPOGRAPHY ===== */
+
+.typography-h1 {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-h2 {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h2);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-h3 {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-h4 {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h4);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+/* ===== BODY TYPOGRAPHY ===== */
+
+.typography-body-lg {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-body {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-body-sm {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-caption {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--aurora-nav-muted, #6B7280);
+  text-transform: uppercase;
+}
+
+/* ===== LUXURY JEWELRY SPECIFIC TYPOGRAPHY ===== */
+
+.typography-price-display {
+  font-family: var(--font-headline), 'Fraunces', serif;
+  font-size: var(--type-scale-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-nebula-purple, #6B46C1);
+}
+
+.typography-price-small {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-deep-space, #0A0E27);
+}
+
+.typography-carat-display {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--aurora-nav-muted, #6B7280);
+  text-transform: uppercase;
+}
+
+.typography-metal-type {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--aurora-deep-space, #0A0E27);
+  text-transform: uppercase;
+}
+
+.typography-cta {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--aurora-deep-space, #0A0E27);
+  text-transform: uppercase;
+}
+
+/* ===== TEXT COLOR VARIANTS ===== */
+
+.text-muted.text-muted {
+  color: var(--aurora-nav-muted, #6B7280);
+}
+
+.text-aurora-accent.text-aurora-accent {
+  color: var(--aurora-nebula-purple, #6B46C1);
+}
+
+.text-aurora-pink.text-aurora-pink {
+  color: var(--aurora-pink, #FF6B9D);
+}
+
+.text-aurora-crimson.text-aurora-crimson {
+  color: var(--aurora-crimson, #C44569);
+}
+
+.text-success.text-success {
+  color: var(--aurora-emerald-flash, #10B981);
+}
+
+.text-warning.text-warning {
+  color: var(--aurora-amber-glow, #F59E0B);
+}
+
+.text-high-contrast.text-high-contrast {
+  color: var(--white, #FFFFFF);
+}
+
+/* ===== INTERACTIVE TYPOGRAPHY ===== */
+
+.typography-link {
+  color: var(--aurora-nebula-purple, #6B46C1);
+  text-decoration: none;
+  transition: color 200ms ease;
+  cursor: pointer;
+}
+
+.typography-link:hover {
+  color: var(--aurora-crimson, #C44569);
+  text-decoration: underline;
+  text-decoration-color: var(--aurora-pink, #FF6B9D);
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 2px;
+}
+
+.typography-link:focus {
+  outline: 2px solid var(--aurora-pink, #FF6B9D);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ===== NAVIGATION TYPOGRAPHY ===== */
+
+.typography-nav-primary {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-nav-text, #0A0E27);
+}
+
+.typography-nav-secondary {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--aurora-nav-muted, #6B7280);
+}
+
+.typography-nav-category {
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: var(--type-scale-body-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--aurora-nav-text, #0A0E27);
+  text-transform: uppercase;
+}
+
+/* ===== RESPONSIVE ENHANCEMENTS ===== */
+
+@media (max-width: 768px) {
+  .typography-display {
+    line-height: var(--line-height-snug);
+    text-align: center;
+  }
+  
+  .typography-h1 {
+    line-height: var(--line-height-snug);
+  }
+  
+  .typography-price-display {
+    font-size: var(--type-scale-h3);
+  }
+}
+
+@media (max-width: 480px) {
+  .typography-display {
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .typography-h1 {
+    letter-spacing: var(--letter-spacing-normal);
+  }
+  
+  .typography-cta,
+  .typography-metal-type,
+  .typography-carat-display {
+    letter-spacing: var(--letter-spacing-wide);
+  }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .typography-display-gradient {
+    animation: none;
+    background: var(--aurora-nebula-purple, #6B46C1);
+    background-clip: initial;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    color: var(--aurora-nebula-purple, #6B46C1);
+  }
+  
+  .typography-link {
+    transition: none;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+  .typography-display,
+  .typography-h1,
+  .typography-h2,
+  .typography-h3,
+  .typography-h4,
+  .typography-body,
+  .typography-body-lg,
+  .typography-body-sm,
+  .typography-caption,
+  .typography-price-display,
+  .typography-price-small,
+  .typography-carat-display,
+  .typography-metal-type,
+  .typography-cta {
+    color: #000;
+  }
+  
+  .typography-link {
+    color: #000;
+    text-decoration: underline;
+  }
+}
