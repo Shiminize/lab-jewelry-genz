@@ -5,8 +5,7 @@ import { cn } from '@/lib/utils'
 // Re-export Aurora Typography components from separate file (CLAUDE_RULES compliant)
 export * from './AuroraTypography'
 
-// Re-export specialized typography components (CLAUDE_RULES compliant)
-export * from './SpecializedTypography'
+// Specialized typography components removed as they were unused
 
 // Export helpful aliases to migrate from legacy to Aurora typography
 export { 
