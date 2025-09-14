@@ -39,4 +39,3 @@ export {
 } from './AuroraGradient'
 export type { AuroraGradientProps, AuroraOverlayProps } from './AuroraGradient'
 
-export { AuroraPlayground } from './AuroraPlayground'
