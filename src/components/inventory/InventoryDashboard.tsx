@@ -19,9 +19,9 @@ import {
   Download,
   RefreshCw
 } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
-import { Button } from '@/components/ui/Button'
+import { cn } from '../../lib/utils'
+import { H2, H3, BodyText, MutedText } from '../foundation/Typography'
+import { Button } from '../ui/Button'
 import { InventoryAlerts } from './InventoryAlerts'
 import { InventoryStatus } from './InventoryStatus'
 import { 
@@ -221,10 +221,10 @@ interface StatsCardProps {
 
 function StatsCard({ title, value, icon: Icon, trend, color }: StatsCardProps) {
   const colorClasses = {
-    blue: 'bg-blue-50 text-blue-600 border-blue-200',
-    green: 'bg-green-50 text-green-600 border-green-200',
-    yellow: 'bg-yellow-50 text-yellow-600 border-yellow-200',
-    red: 'bg-red-50 text-red-600 border-red-200'
+    blue: 'bg-info/10 text-info border-info/30',
+    green: 'bg-success/10 text-success border-success/30',
+    yellow: 'bg-warning/10 text-warning border-warning/30',
+    red: 'bg-error/10 text-error border-error/30'
   }
 
   return (

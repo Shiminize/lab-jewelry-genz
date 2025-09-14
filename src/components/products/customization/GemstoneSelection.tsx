@@ -33,7 +33,7 @@ export function GemstoneSelection({
       id: 'lab-diamond-1ct',
       name: 'Lab-Grown Diamond',
       priceModifier: 0,
-      color: '#FFFFFF',
+      color: 'var(--stone-diamond, #FFFFFF)',
       size: '1 Carat',
       clarity: 'VVS1',
       description: 'Lab-Grown Diamond - Ethical & Sustainable'
@@ -42,7 +42,7 @@ export function GemstoneSelection({
       id: 'lab-diamond-0.75ct',
       name: 'Lab-Grown Diamond',
       priceModifier: -300,
-      color: '#FFFFFF',
+      color: 'var(--stone-diamond, #FFFFFF)',
       size: '0.75 Carat',
       clarity: 'VS1',
       description: 'Lab-Grown Diamond - Smaller Size'
@@ -51,7 +51,7 @@ export function GemstoneSelection({
       id: 'lab-sapphire',
       name: 'Lab-Grown Sapphire',
       priceModifier: -500,
-      color: '#0066CC',
+      color: 'var(--sapphire, #0066CC)',
       size: '1 Carat',
       clarity: 'VVS',
       description: 'Lab-Grown Sapphire - Ocean Blue'

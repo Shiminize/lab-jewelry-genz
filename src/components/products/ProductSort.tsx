@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react'
 import { ChevronDown, Grid, List, LayoutGrid } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { BodyText, MutedText } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
+import { Button } from '../ui/Button'
+import { BodyText, MutedText } from '../foundation/Typography'
+import { cn } from '../../lib/utils'
 
 export interface SortOption {
   key: string
@@ -106,7 +106,7 @@ export function ProductSort({
                 className="fixed inset-0 z-10" 
                 onClick={() => setIsSortDropdownOpen(false)}
               />
-              <div className="absolute right-0 top-full mt-1 w-64 bg-background border border-border rounded-token-md shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_15%,transparent)] py-2 z-20">
+              <div className="absolute right-0 top-full mt-1 w-64 bg-background border border-border rounded-token-md shadow-token-lg py-2 z-20">
                 {sortOptions.map((option) => (
                   <button
                     key={option.key}
@@ -196,7 +196,7 @@ export function ProductSortOnly({
             className="fixed inset-0 z-10" 
             onClick={() => setIsDropdownOpen(false)}
           />
-          <div className="absolute right-0 top-full mt-1 w-full min-w-[200px] bg-background border border-border rounded-token-md shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_15%,transparent)] py-2 z-20">
+          <div className="absolute right-0 top-full mt-1 w-full min-w-[200px] bg-background border border-border rounded-token-md shadow-token-lg py-2 z-20">
             {options.map((option) => (
               <button
                 key={option.key}

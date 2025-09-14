@@ -4,9 +4,9 @@ import React, { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Heart, Star } from 'lucide-react'
 import { ProductGrid } from '@/components/products/ProductGrid'
-import { Button } from '@/components/ui/Button'
+import { AuroraButton } from '@/components/aurora/AuroraButton'
 import { PageContainer, Section } from '@/components/layout'
-import { H2, BodyText, MutedText } from '@/components/foundation/Typography'
+import { H2, BodyText, MutedText, AuroraStatement, AuroraBodyL, AuroraBodyM, AuroraSmall } from '@/components/foundation/Typography'
 import { cn } from '@/lib/utils'
 import type { ProductDisplayDTO } from '@/types/product-dto'
 
@@ -120,21 +120,21 @@ export function FeaturedProductsSection({
         {/* Section Header */}
         <div className="text-center mb-token-xl lg:mb-token-2xl">
           <div className="flex items-center justify-center space-x-token-sm mb-4">
-            <Star className="w-5 h-5 text-gray-600 fill-gray-600" />
-            <MutedText size="md" className="text-gray-600 font-medium uppercase tracking-wider">
+            <Star className="w-5 h-5 text-aurora-pink fill-aurora-pink animate-aurora-sparkle" />
+            <MutedText size="md" className="text-deep-space font-medium uppercase tracking-wider">
               Curated Collection
             </MutedText>
-            <Star className="w-5 h-5 text-gray-600 fill-gray-600" />
+            <Star className="w-5 h-5 text-aurora-pink fill-aurora-pink animate-aurora-sparkle" />
           </div>
           
-          <H2 className="mb-token-md lg:mb-token-lg">
+          <AuroraStatement className="mb-token-md lg:mb-token-lg aurora-gradient-text animate-aurora-glow-pulse">
             Discover Your Perfect Piece
-          </H2>
+          </AuroraStatement>
           
           <div className="max-w-2xl mx-auto">
-            <BodyText size="lg" className="text-foreground">
+            <AuroraBodyL className="text-deep-space">
               Curated collections for every style and milestone. Each piece represents our commitment to exceptional craftsmanship and timeless design.
-            </BodyText>
+            </AuroraBodyL>
           </div>
         </div>
 
@@ -158,73 +158,75 @@ export function FeaturedProductsSection({
         {/* CTA Section */}
         <div className="text-center">
           <div className="max-w-md mx-auto mb-token-xl">
-            <BodyText size="md" className="text-foreground">
+            <AuroraBodyM className="text-foreground">
               Explore our complete collection of luxury jewelry pieces, each designed to tell your unique story.
-            </BodyText>
+            </AuroraBodyM>
           </div>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-token-md">
-            <Button
+            <AuroraButton
               variant="primary"
               size="lg"
+              luxury="premium"
               asChild
-              className="min-w-48"
+              className="min-w-48 shadow-aurora-md hover:shadow-aurora-lg animate-aurora-float"
             >
               <Link href="/catalog">
                 <span>Explore Collection</span>
               </Link>
-            </Button>
+            </AuroraButton>
             
-            <Button
-              variant="secondary"
+            <AuroraButton
+              variant="accent"
               size="lg"
+              luxury="premium"
               asChild
-              className="min-w-48"
+              className="min-w-48 shadow-aurora-md hover:shadow-aurora-lg"
             >
               <Link href="/customizer">
                 <span>Start Designing</span>
               </Link>
-            </Button>
+            </AuroraButton>
           </div>
         </div>
 
         {/* Quality Badges */}
-        <div className="mt-token-2xl pt-token-xl border-t border-border">
+        <div className="mt-token-2xl pt-token-xl border-t border-aurora-pink/20">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-token-xl text-center">
-            <div className="space-y-token-sm">
-              <div className="w-12 h-12 mx-auto bg-accent/10 rounded-34 flex items-center justify-center">
-                <Heart className="w-6 h-6 text-accent" />
+            <div className="space-y-token-sm animate-aurora-float">
+              <div className="w-12 h-12 mx-auto bg-nebula-purple/10 rounded-34 flex items-center justify-center shadow-aurora-md hover:shadow-aurora-lg transition-all duration-300">
+                <Heart className="w-6 h-6 text-aurora-pink animate-aurora-glow-pulse" />
               </div>
-              <BodyText size="md" weight="semibold">
+              <AuroraBodyM className="text-deep-space font-semibold">
                 Lab-Grown Diamonds
-              </BodyText>
-              <MutedText size="sm">
+              </AuroraBodyM>
+              <AuroraSmall className="text-deep-space/70 aurora-muted">
                 Ethically sourced and environmentally conscious luxury
-              </MutedText>
+              </AuroraSmall>
             </div>
             
-            <div className="space-y-token-sm">
-              <div className="w-12 h-12 mx-auto bg-accent/10 rounded-34 flex items-center justify-center">
-                <Star className="w-6 h-6 text-accent" />
+            <div className="space-y-token-sm animate-aurora-float" style={{ animationDelay: '0.2s' }}>
+              <div className="w-12 h-12 mx-auto bg-nebula-purple/10 rounded-34 flex items-center justify-center shadow-aurora-md hover:shadow-aurora-lg transition-all duration-300">
+                <Star className="w-6 h-6 text-aurora-pink animate-aurora-sparkle" />
               </div>
-              <BodyText size="md" weight="semibold">
+              <AuroraBodyM className="text-deep-space font-semibold">
                 Conflict-Free
-              </BodyText>
-              <MutedText size="sm">
+              </AuroraBodyM>
+              <AuroraSmall className="text-deep-space/70 aurora-muted">
                 Guaranteed responsible sourcing and fair trade practices
-              </MutedText>
+              </AuroraSmall>
             </div>
             
-            <div className="space-y-token-sm">
-              <div className="w-12 h-12 mx-auto bg-accent/10 rounded-34 flex items-center justify-center">
-                <span className="text-2xl">🛡️</span>
+            <div className="space-y-token-sm animate-aurora-float" style={{ animationDelay: '0.4s' }}>
+              <div className="w-12 h-12 mx-auto bg-nebula-purple/10 rounded-34 flex items-center justify-center shadow-aurora-md hover:shadow-aurora-lg transition-all duration-300">
+                <span className="text-2xl animate-aurora-glow-pulse">🛡️</span>
               </div>
-              <BodyText size="md" weight="semibold">
+              <AuroraBodyM className="text-deep-space font-semibold">
                 Lifetime Warranty
-              </BodyText>
-              <MutedText size="sm">
+              </AuroraBodyM>
+              <AuroraSmall className="text-deep-space/70 aurora-muted">
                 Comprehensive coverage for craftsmanship and materials
-              </MutedText>
+              </AuroraSmall>
             </div>
           </div>
         </div>

@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react'
 import { ChevronDown, Filter, X, SlidersHorizontal } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
-import { H4, BodyText, MutedText } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
+import { Button } from '../ui/Button'
+import { Input } from '../ui/Input'
+import { H4, BodyText, MutedText } from '../foundation/Typography'
+import { cn } from '../../lib/utils'
 import { filterData } from './ProductFiltersData'
 
 export interface FilterOptions {
@@ -291,7 +291,7 @@ export function ProductFilters({
       {isMobileFiltersOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="fixed inset-0 bg-foreground/50" onClick={() => setIsMobileFiltersOpen(false)} />
-          <div className="fixed inset-x-0 bottom-0 max-h-[80vh] bg-background rounded-t-lg p-6 overflow-y-auto shadow-[0_24px_64px_color-mix(in_srgb,var(--nebula-purple)_10%,transparent)]">
+          <div className="fixed inset-x-0 bottom-0 max-h-[80vh] bg-background rounded-t-lg p-6 overflow-y-auto shadow-token-modal">
             <div className="flex items-center justify-between mb-6">
               <H4 level="h4">Filters</H4>
               <Button

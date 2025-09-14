@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { Sparkles } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 import type { ProductCardData } from './ProductCardHelpers'
 
 interface ProductCardImageProps {
@@ -38,7 +38,7 @@ export function ProductCardImage({
     )}>
       {/* Aurora Shimmer Effect */}
       {isAurora && (
-        <div className="absolute inset-0 aurora-shimmer-overlay opacity-0 group-hover:opacity-30 transition-opacity duration-500 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-aurora-shimmer opacity-0 group-hover:opacity-30 transition-opacity duration-500 z-10 pointer-events-none animate-aurora-shimmer-slow" />
       )}
       
       {/* Aurora Floating Sparkles */}
@@ -47,7 +47,7 @@ export function ProductCardImage({
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
-              className="absolute w-1 h-1 bg-aurora-pink rounded-token-sm opacity-0 group-hover:opacity-60 aurora-floating transition-opacity duration-700"
+              className="absolute w-1 h-1 bg-aurora-pink rounded-token-sm opacity-0 group-hover:opacity-60 animate-aurora-float transition-opacity duration-700"
               style={{
                 left: `${20 + i * 25}%`,
                 top: `${15 + i * 20}%`,
@@ -78,7 +78,7 @@ export function ProductCardImage({
         )}>
           <Sparkles className={getClassName(
             'w-token-lg h-token-lg text-text-muted',
-            'w-token-lg h-token-lg text-foreground aurora-pulse'
+            'w-token-lg h-token-lg text-foreground animate-aurora-glow-pulse'
           )} />
         </div>
       )}
@@ -86,8 +86,8 @@ export function ProductCardImage({
       {/* Discount Badge */}
       {hasDiscount && variant !== 'compact' && (
         <div className={getClassName(
-          'absolute top-token-sm left-token-sm bg-red-500 text-text-inverse px-token-sm py-token-xs rounded-token-lg text-xs font-semibold shadow-md',
-          'absolute top-token-md left-token-md bg-gradient-to-r from-cta to-accent text-background px-token-md py-1 rounded-token-lg text-xs font-semibold aurora-pulse shadow-near'
+          'absolute top-token-sm left-token-sm bg-error text-text-inverse px-token-sm py-token-xs rounded-token-lg text-xs font-semibold shadow-md',
+          'absolute top-token-md left-token-md bg-gradient-to-r from-cta to-accent text-background px-token-md py-1 rounded-token-lg text-xs font-semibold animate-aurora-glow-pulse shadow-near'
         )}>
           -{discountPercentage}%
         </div>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
+import { AuroraTitleXL, AuroraBodyL, AuroraBodyM } from '@/components/foundation/Typography'
 import { QUIZ_QUESTIONS } from './style-quiz/quizData'
 import { calculatePersonalityType, shareQuizResult, QuizStorageService } from './style-quiz/QuizLogic'
 import type { QuizProgress, QuizResult } from './style-quiz/quizData'
@@ -148,13 +149,13 @@ export function StyleQuizSection({
       <div className="max-w-4xl mx-auto px-token-md sm:px-token-lg lg:px-token-xl">
         {quizState === 'intro' && (
           <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">Discover Your Jewelry Personality</h2>
-            <p className="text-lg text-foreground mb-8">
+            <AuroraTitleXL className="mb-4 aurora-gradient-text animate-aurora-glow-pulse">Discover Your Jewelry Personality</AuroraTitleXL>
+            <AuroraBodyL className="text-deep-space mb-8">
               Take our style quiz to find pieces that perfectly match your unique aesthetic
-            </p>
+            </AuroraBodyL>
             <button
               onClick={startQuiz}
-              className="bg-foreground text-background px-token-xl py-token-sm rounded-token-md font-semibold hover:opacity-90 transition-opacity"
+              className="bg-nebula-purple text-white px-token-xl py-token-sm rounded-token-md font-semibold hover:opacity-90 transition-opacity shadow-aurora-md hover:shadow-aurora-lg animate-aurora-float"
             >
               Start Style Quiz
             </button>
@@ -164,28 +165,28 @@ export function StyleQuizSection({
         {quizState === 'taking' && (
           <div>
             {/* Progress bar */}
-            <div className="w-full bg-muted/30 rounded-token-full h-token-sm mb-token-xl">
+            <div className="w-full bg-muted/30 rounded-token-full h-token-sm mb-token-xl shadow-aurora-md">
               <div 
-                className="bg-accent h-token-sm rounded-token-full transition-all duration-300"
+                className="bg-aurora-pink h-token-sm rounded-token-full transition-all duration-300 animate-aurora-shimmer-slow"
                 style={{ width: `${((progress.currentStep + 1) / progress.totalSteps) * 100}%` }}
               />
             </div>
             
             {/* Current question would be rendered by QuestionCard component */}
-            <div className="bg-background border border-border p-token-xl rounded-token-md">
-              <p className="text-center text-lg">
+            <div className="bg-background border border-aurora-pink/20 p-token-xl rounded-token-md shadow-aurora-lg">
+              <AuroraBodyL className="text-center text-deep-space">
                 Quiz interface would be implemented with extracted components
-              </p>
+              </AuroraBodyL>
               <div className="flex justify-between mt-token-xl">
                 <button
                   onClick={resetQuiz}
-                  className="border border-border px-token-lg py-token-sm rounded-token-md hover:bg-muted transition-colors"
+                  className="border border-aurora-pink/20 px-token-lg py-token-sm rounded-token-md hover:bg-muted transition-colors shadow-aurora-md hover:shadow-aurora-lg"
                 >
                   Reset
                 </button>
                 <button
                   onClick={goToNextQuestion}
-                  className="bg-foreground text-background px-token-lg py-token-sm rounded-token-md hover:opacity-90 transition-opacity"
+                  className="bg-nebula-purple text-white px-token-lg py-token-sm rounded-token-md hover:opacity-90 transition-opacity shadow-aurora-md hover:shadow-aurora-lg animate-aurora-float"
                 >
                   Next
                 </button>
@@ -196,20 +197,20 @@ export function StyleQuizSection({
 
         {quizState === 'results' && result && (
           <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">You're a {result.personalityType.name}!</h2>
-            <p className="text-lg text-foreground mb-8">{result.personalityType.description}</p>
+            <h2 className="text-3xl font-bold mb-4 aurora-iridescent-text animate-aurora-glow-pulse">You're a {result.personalityType.name}!</h2>
+            <p className="text-lg text-deep-space mb-8">{result.personalityType.description}</p>
             
             <div className="flex justify-center gap-token-md">
               <button
                 onClick={resetQuiz}
-                className="border border-border px-token-lg py-token-sm rounded-token-md font-semibold hover:bg-muted transition-colors"
+                className="border border-aurora-pink/20 px-token-lg py-token-sm rounded-token-md font-semibold hover:bg-muted transition-colors shadow-aurora-md hover:shadow-aurora-lg"
               >
                 Retake Quiz
               </button>
               {showSocialShare && (
                 <button
                   onClick={handleShare}
-                  className="bg-foreground text-background px-6 py-3 rounded-token-md font-semibold hover:opacity-90 transition-opacity"
+                  className="bg-nebula-purple text-white px-6 py-3 rounded-token-md font-semibold hover:opacity-90 transition-opacity shadow-aurora-md hover:shadow-aurora-lg animate-aurora-float"
                 >
                   Share Result
                 </button>
@@ -220,10 +221,10 @@ export function StyleQuizSection({
 
         {isLoading && (
           <div className="text-center">
-            <div className="w-16 h-16 bg-accent/10 rounded-34 flex items-center justify-center mx-auto mb-4">
-              <div className="w-8 h-8 border-2 border-accent/30 border-t-accent rounded-34 animate-spin" />
+            <div className="w-16 h-16 bg-nebula-purple/10 rounded-34 flex items-center justify-center mx-auto mb-4 shadow-aurora-md">
+              <div className="w-8 h-8 border-2 border-aurora-pink/30 border-t-aurora-pink rounded-34 animate-spin" />
             </div>
-            <p className="text-lg">Analyzing your style...</p>
+            <p className="text-lg text-deep-space">Analyzing your style...</p>
           </div>
         )}
       </div>

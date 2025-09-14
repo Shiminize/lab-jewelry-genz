@@ -6,10 +6,10 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
-import { Input } from '@/components/ui/Input'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card'
+import { Button } from '../ui/Button'
+import { Badge } from '../ui/Badge'
+import { Input } from '../ui/Input'
 import { 
   Play, 
   Pause, 
@@ -171,9 +171,9 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'complete': return 'bg-green-100 text-green-800'
-      case 'partial': return 'bg-yellow-100 text-yellow-800'
-      case 'missing': return 'bg-red-100 text-red-800'
+      case 'complete': return 'bg-success/10 text-success'
+      case 'partial': return 'bg-warning/10 text-warning'
+      case 'missing': return 'bg-error/10 text-error'
       default: return 'bg-muted text-foreground'
     }
   }
@@ -352,7 +352,7 @@ export function SequencePreview({ selectedModels }: SequencePreviewProps) {
                   key={sequence.id}
                   className={`p-3 rounded-token-lg border cursor-pointer transition-all hover:shadow-sm ${
                     selectedSequence === sequence.id 
-                      ? 'border-blue-500 bg-blue-50' 
+                      ? 'border-accent bg-accent/5' 
                       : 'border-border bg-background'
                   }`}
                   onClick={() => setSelectedSequence(sequence.id)}

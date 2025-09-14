@@ -8,11 +8,11 @@ import type { Material, StoneQuality } from '@/types/customizer'
 import type { SettingOption } from './previewData'
 
 const quickSelectorVariants = cva(
-  'group flex items-center justify-between rounded-lg shadow-md transition-all duration-300 cursor-pointer touch-manipulation aurora-material-ripple hover:brightness-[1.15] hover:scale-[1.02] hover:-translate-y-0.5 relative overflow-hidden aurora-pink-sweep-effect',
+  'group flex items-center justify-between rounded-lg shadow-token-sm hover:shadow-token-md transition-shadow duration-token-normal cursor-pointer touch-manipulation hover:brightness-115 hover:scale-101 hover:-translate-y-0.5 relative overflow-hidden aurora-pink-sweep-effect',
   {
     variants: {
       state: {
-        default: 'bg-background text-foreground shadow-sm hover:shadow-md hover:bg-gray-50 active:bg-gray-100 luxury-emotional-trigger',
+        default: 'bg-background text-foreground shadow-sm hover:shadow-md hover:bg-surface-hover active:bg-surface-active luxury-emotional-trigger',
         selected: 'bg-gradient-to-br from-nebula-purple/10 to-aurora-pink/5 text-foreground shadow-lg shadow-nebula-purple/20 romantic-emotional-trigger',
         disabled: 'opacity-50 cursor-not-allowed pointer-events-none'
       },
@@ -140,7 +140,7 @@ export function QuickSelector({
                 {type === 'material' && (
                   <div 
                     className="w-6 h-6 rounded-full border-2 border-border shadow-sm flex-shrink-0"
-                    style={{ backgroundColor: (option as Material).color || '#E8D7D3' }}
+                    style={{ backgroundColor: (option as Material).color || 'var(--material-rose-gold, #FF6B9D)' }}
                     aria-hidden="true"
                   />
                 )}

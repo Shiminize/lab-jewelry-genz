@@ -25,9 +25,9 @@ const maxWidthClasses = {
 
 const paddingClasses = {
   none: '',
-  sm: 'px-4 py-6',
-  md: 'px-4 py-8 md:px-6',
-  lg: 'px-4 py-12 md:px-6 lg:px-8',
+  sm: 'px-token-md py-token-lg',                                    // 1rem 1.5rem (was px-4 py-6)
+  md: 'px-token-md py-token-xl md:px-token-lg',                    // responsive token-based (was px-4 py-8 md:px-6)
+  lg: 'px-token-md py-token-3xl md:px-token-lg lg:px-token-xl',    // responsive token-based (was px-4 py-12 md:px-6 lg:px-8)
 }
 
 export function PageContainer({ 
@@ -76,7 +76,7 @@ export function Section({ children, className, background = 'default' }: Section
 interface GridProps {
   children: React.ReactNode
   className?: string
-  cols?: 1 | 2 | 3 | 4 | 5 | 6
+  cols?: 1 | 2 | 3 | 4 | 5 | 6 | 'auto'
   gap?: 'sm' | 'md' | 'lg' | 'xl'
   responsive?: boolean
 }
@@ -88,6 +88,7 @@ const colsClasses = {
   4: 'grid-cols-4',
   5: 'grid-cols-5',
   6: 'grid-cols-6',
+  auto: 'grid-cols-token-auto-fit', // Claude4.1 auto-fit system
 }
 
 const responsiveColsClasses = {
@@ -97,13 +98,14 @@ const responsiveColsClasses = {
   4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
   5: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5',
   6: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6',
+  auto: 'grid-cols-token-auto-fit', // Claude4.1 auto-fit is responsive by default
 }
 
 const gapClasses = {
-  sm: 'gap-4',
-  md: 'gap-6',
-  lg: 'gap-8',
-  xl: 'gap-12',
+  sm: 'gap-token-md',     // 1rem (was gap-4)
+  md: 'gap-token-lg',     // 1.5rem (was gap-6) 
+  lg: 'gap-token-xl',     // 2rem (was gap-8) - Claude4.1 standard
+  xl: 'gap-token-3xl',    // 4rem (was gap-12)
 }
 
 export function Grid({ 
@@ -159,10 +161,10 @@ const justifyClasses = {
 }
 
 const flexGapClasses = {
-  sm: 'gap-2',
-  md: 'gap-4',
-  lg: 'gap-6',
-  xl: 'gap-8',
+  sm: 'gap-token-sm',     // 0.5rem (was gap-2)
+  md: 'gap-token-md',     // 1rem (was gap-4)
+  lg: 'gap-token-lg',     // 1.5rem (was gap-6)
+  xl: 'gap-token-xl',     // 2rem (was gap-8)
 }
 
 export function Flex({ 

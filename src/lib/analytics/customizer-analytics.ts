@@ -117,7 +117,9 @@ export class CustomizerAnalytics {
 
     // Console logging for development (remove in production)
     if (process.env.NODE_ENV === 'development') {
-
+      // Keep output minimal to avoid noise during tests
+      // eslint-disable-next-line no-console
+      console.debug('[CustomizerAnalytics] event', eventName)
     }
 
     // Auto-flush every 10 events to prevent data loss
@@ -267,7 +269,12 @@ export class CustomizerAnalytics {
         })
       } else {
         // Development: Log to console with summary
-
+        const summary = this.getSessionSummary()
+        // eslint-disable-next-line no-console
+        console.debug('[CustomizerAnalytics] flush', {
+          sessionId: this.sessionId,
+          events: this.events.length,
+          interactions: summary.interactions,
         })
       }
 

@@ -2,9 +2,9 @@
 
 import React from 'react'
 import { Edit3, Save, MessageSquare, AlertTriangle, RefreshCw } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
-import { H3, BodyText } from '@/components/foundation/Typography'
+import { Button } from '../ui/Button'
+import { Input } from '../ui/Input'
+import { H3, BodyText } from '../foundation/Typography'
 
 interface AdminNote {
   id: string
@@ -56,9 +56,9 @@ interface OrderDetailsActionsProps {
 // Risk level badge
 const RiskBadge = ({ level }: { level: string }) => {
   const riskConfig = {
-    'low': 'bg-green-100 text-green-800',
-    'medium': 'bg-yellow-100 text-yellow-800',
-    'high': 'bg-red-100 text-red-800'
+    'low': 'bg-success/10 text-success',
+    'medium': 'bg-warning/10 text-warning',
+    'high': 'bg-error/10 text-error'
   }
 
   return (
@@ -74,10 +74,10 @@ const RiskBadge = ({ level }: { level: string }) => {
 // Priority badge
 const PriorityBadge = ({ priority }: { priority: string }) => {
   const priorityConfig = {
-    'low': 'bg-gray-100 text-gray-800',
-    'medium': 'bg-blue-100 text-blue-800',
-    'high': 'bg-orange-100 text-orange-800',
-    'urgent': 'bg-red-100 text-red-800'
+    'low': 'bg-muted text-foreground',
+    'medium': 'bg-accent/10 text-accent',
+    'high': 'bg-warning/10 text-warning',
+    'urgent': 'bg-error/10 text-error'
   }
 
   return (
@@ -137,7 +137,7 @@ export function OrderDetailsActions({
           </div>
           <div>
             <BodyText className="text-muted-foreground">Requires Action:</BodyText>
-            <BodyText className={adminMetadata.requiresAction ? 'text-red-600' : 'text-green-600'}>
+            <BodyText className={adminMetadata.requiresAction ? 'text-error' : 'text-success'}>
               {adminMetadata.requiresAction ? 'Yes' : 'No'}
             </BodyText>
           </div>
@@ -148,17 +148,17 @@ export function OrderDetailsActions({
           <BodyText className="font-medium text-foreground mb-2">Available Actions</BodyText>
           <div className="flex flex-wrap gap-2">
             {adminMetadata.canBeCancelled && (
-              <BodyText size="sm" className="px-2 py-1 bg-red-100 text-red-800 rounded">
+              <BodyText size="sm" className="px-2 py-1 bg-error/10 text-error rounded">
                 Can Cancel
               </BodyText>
             )}
             {adminMetadata.canBeRefunded && (
-              <BodyText size="sm" className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded">
+              <BodyText size="sm" className="px-2 py-1 bg-warning/10 text-warning rounded">
                 Can Refund
               </BodyText>
             )}
             {adminMetadata.canBeShipped && (
-              <BodyText size="sm" className="px-2 py-1 bg-green-100 text-green-800 rounded">
+              <BodyText size="sm" className="px-2 py-1 bg-success/10 text-success rounded">
                 Can Ship
               </BodyText>
             )}
@@ -187,7 +187,7 @@ export function OrderDetailsActions({
               <select
                 value={statusForm.status}
                 onChange={(e) => setStatusForm({ ...statusForm, status: e.target.value })}
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full p-2 border border-border rounded-token-md focus:ring-2 focus:ring-accent focus:border-transparent"
               >
                 {statusOptions.map((option) => (
                   <option key={option} value={option}>
@@ -279,7 +279,7 @@ export function OrderDetailsActions({
         <div className="space-y-3">
           {adminNotes.length > 0 ? (
             adminNotes.map((note) => (
-              <div key={note.id} className="border-l-4 border-blue-200 pl-4 py-2">
+              <div key={note.id} className="border-l-4 border-info/30 pl-4 py-2">
                 <div className="flex items-center justify-between mb-1">
                   <BodyText size="sm" className="font-medium text-foreground">
                     {note.createdBy.name} ({note.createdBy.role})
@@ -290,7 +290,7 @@ export function OrderDetailsActions({
                 </div>
                 <BodyText className="text-foreground">{note.message}</BodyText>
                 {note.isInternal && (
-                  <BodyText size="sm" className="text-orange-600 mt-1">
+                  <BodyText size="sm" className="text-warning mt-1">
                     Internal Note
                   </BodyText>
                 )}

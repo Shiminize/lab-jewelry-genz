@@ -23,7 +23,7 @@ import {
   MoreHorizontal
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { H1, H2, H3, BodyText } from '@/components/foundation/Typography'
+import { H1, H2, H3, BodyText, AuroraHero, AuroraStatement, AuroraTitleM, AuroraBodyM, AuroraSmall, AuroraMicro } from '@/components/foundation/Typography'
 import { cn } from '@/lib/utils'
 
 // Order management interfaces
@@ -221,28 +221,28 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
     const getStatusColor = (status: string, type: string) => {
       if (type === 'order') {
         switch (status) {
-          case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-          case 'confirmed': return 'bg-blue-100 text-blue-800 border-blue-200'
-          case 'processing': return 'bg-purple-100 text-purple-800 border-purple-200'
-          case 'shipped': return 'bg-indigo-100 text-indigo-800 border-indigo-200'
-          case 'delivered': return 'bg-green-100 text-green-800 border-green-200'
+          case 'pending': return 'bg-warning/10 text-warning border-warning/30'
+          case 'confirmed': return 'bg-accent/10 text-accent border-accent/20'
+          case 'processing': return 'bg-accent/10 text-accent border-accent/20'
+          case 'shipped': return 'bg-accent/10 text-accent border-accent/20'
+          case 'delivered': return 'bg-success/10 text-success border-success/30'
           case 'cancelled': return 'bg-muted text-foreground border-border'
-          case 'refunded': return 'bg-red-100 text-red-800 border-red-200'
+          case 'refunded': return 'bg-error/10 text-error border-error/30'
           default: return 'bg-muted text-foreground border-border'
         }
       } else if (type === 'payment') {
         switch (status) {
-          case 'completed': return 'bg-green-100 text-green-800 border-green-200'
-          case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-          case 'failed': return 'bg-red-100 text-red-800 border-red-200'
-          case 'refunded': return 'bg-orange-100 text-orange-800 border-orange-200'
+          case 'completed': return 'bg-success/10 text-success border-success/30'
+          case 'pending': return 'bg-warning/10 text-warning border-warning/30'
+          case 'failed': return 'bg-error/10 text-error border-error/30'
+          case 'refunded': return 'bg-warning/10 text-warning border-warning/30'
           default: return 'bg-muted text-foreground border-border'
         }
       } else {
         switch (status) {
-          case 'delivered': return 'bg-green-100 text-green-800 border-green-200'
-          case 'shipped': return 'bg-blue-100 text-blue-800 border-blue-200'
-          case 'preparing': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
+          case 'delivered': return 'bg-success/10 text-success border-success/30'
+          case 'shipped': return 'bg-accent/10 text-accent border-accent/20'
+          case 'preparing': return 'bg-warning/10 text-warning border-warning/30'
           default: return 'bg-muted text-foreground border-border'
         }
       }
@@ -257,6 +257,445 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
       </span>
     )
   }
+
+  // Metrics overview component
+  const MetricsOverview = () => {
+    if (!metrics) return null
+
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <AuroraSmall className="text-aurora-nav-muted bg-background">Total Orders</AuroraSmall>
+              <AuroraTitleM className="text-xl text-foreground">{metrics.totalOrders.toLocaleString()}</AuroraTitleM>
+            </div>
+            <Package className="w-8 h-8 text-accent" />
+          </div>
+        </div>
+
+        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <AuroraSmall className="text-aurora-nav-muted bg-background">Avg Order Value</AuroraSmall>
+              <AuroraTitleM className="text-xl text-foreground">${metrics.averageOrderValue.toFixed(0)}</AuroraTitleM>
+            </div>
+            <DollarSign className="w-8 h-8 text-accent" />
+          </div>
+        </div>
+
+        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <AuroraSmall className="text-aurora-nav-muted bg-background">Guest Orders</AuroraSmall>
+              <AuroraTitleM className="text-xl text-foreground">{metrics.guestOrderPercentage.toFixed(1)}%</AuroraTitleM>
+            </div>
+            <User className="w-8 h-8 text-accent" />
+          </div>
+        </div>
+
+        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <AuroraSmall className="text-aurora-nav-muted bg-background">Processing</AuroraSmall>
+              <AuroraTitleM className="text-xl text-foreground">
+                {metrics.statusDistribution.processing?.count || 0}
+              </AuroraTitleM>
+            </div>
+            <Clock className="w-8 h-8 text-accent" />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Filters component
+  const FiltersPanel = () => (
+    <div className={cn(
+      "text-foreground bg-background rounded-token-lg border shadow-sm transition-all duration-200",
+      showFilters ? "p-4 mb-4" : "hidden"
+    )}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1">Status</label>
+          <select
+            value={filters.status || ''}
+            onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value || undefined }))}
+            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
+          >
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="processing">Processing</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="refunded">Refunded</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1">Payment Status</label>
+          <select
+            value={filters.paymentStatus || ''}
+            onChange={(e) => setFilters(prev => ({ ...prev, paymentStatus: e.target.value || undefined }))}
+            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
+          >
+            <option value="">All Payment Status</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+            <option value="failed">Failed</option>
+            <option value="refunded">Refunded</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1">Customer Type</label>
+          <select
+            value={filters.isGuest === undefined ? '' : filters.isGuest ? 'guest' : 'registered'}
+            onChange={(e) => {
+              const value = e.target.value
+              setFilters(prev => ({ 
+                ...prev, 
+                isGuest: value === '' ? undefined : value === 'guest' 
+              }))
+            }}
+            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
+          >
+            <option value="">All Customers</option>
+            <option value="registered">Registered</option>
+            <option value="guest">Guest</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1">Search</label>
+          <input
+            type="text"
+            placeholder="Order number, email..."
+            value={filters.search || ''}
+            onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value || undefined }))}
+            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+        </div>
+      </div>
+
+      <div className="flex gap-2 mt-4">
+        <Button variant="primary" size="sm" onClick={fetchOrders}>
+          Apply Filters
+        </Button>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={() => {
+            setFilters({})
+            setCurrentPage(1)
+          }}
+        >
+          Clear Filters
+        </Button>
+      </div>
+    </div>
+  )
+
+  // Bulk actions bar
+  const BulkActionsBar = () => {
+    if (selectedOrders.length === 0) return null
+
+    return (
+      <div className="text-foreground bg-accent/10 border border-accent/20 rounded-token-lg p-4 mb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <AuroraBodyM className="text-foreground">
+            {selectedOrders.length} order{selectedOrders.length !== 1 ? 's' : ''} selected
+          </AuroraBodyM>
+          
+          <div className="flex flex-wrap gap-2">
+            <select
+              onChange={(e) => {
+                const status = e.target.value
+                if (status) {
+                  handleBulkAction('bulk-status-update', { status, message: `Status updated to ${status} by admin` })
+                }
+                e.target.value = ''
+              }}
+              className="px-3 py-1 text-sm border border-border rounded-token-md"
+              disabled={bulkActionLoading}
+            >
+              <option value="">Update Status...</option>
+              <option value="confirmed">Mark as Confirmed</option>
+              <option value="processing">Mark as Processing</option>
+              <option value="shipped">Mark as Shipped</option>
+              <option value="delivered">Mark as Delivered</option>
+              <option value="cancelled">Mark as Cancelled</option>
+            </select>
+
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleExport}
+              disabled={bulkActionLoading}
+            >
+              <Download className="w-4 h-4 mr-1" />
+              Export CSV
+            </Button>
+
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setSelectedOrders([])}
+            >
+              Clear Selection
+            </Button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Orders table component
+  const OrdersTable = () => (
+    <div className="text-foreground bg-background rounded-token-lg border shadow-sm overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead className="bg-muted border-b">
+            <tr>
+              <th className="w-12 px-4 py-3 text-left">
+                <input
+                  type="checkbox"
+                  checked={selectedOrders.length === orders.length && orders.length > 0}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedOrders(orders.map(order => order._id))
+                    } else {
+                      setSelectedOrders([])
+                    }
+                  }}
+                  className="rounded border-border focus:ring-accent"
+                />
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Order</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Customer</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Status</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Payment</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Total</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Date</th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {orders.map((order) => (
+              <tr key={order._id} className="hover:bg-muted">
+                <td className="px-4 py-3">
+                  <input
+                    type="checkbox"
+                    checked={selectedOrders.includes(order._id)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedOrders(prev => [...prev, order._id])
+                      } else {
+                        setSelectedOrders(prev => prev.filter(id => id !== order._id))
+                      }
+                    }}
+                    className="rounded border-border focus:ring-accent"
+                  />
+                </td>
+                
+                <td className="px-4 py-3">
+                  <div>
+                    <AuroraSmall className="font-medium text-foreground">
+                      {order.orderNumber}
+                    </AuroraSmall>
+                    <AuroraMicro className="text-aurora-nav-muted bg-background">
+                      {order.items.length} item{order.items.length !== 1 ? 's' : ''}
+                    </AuroraMicro>
+                  </div>
+                </td>
+
+                <td className="px-4 py-3">
+                  <div>
+                    <AuroraSmall className="text-foreground">
+                      {order.userId?.name || `${order.guestDetails?.firstName} ${order.guestDetails?.lastName}`}
+                    </AuroraSmall>
+                    <AuroraMicro className="text-aurora-nav-muted bg-background">
+                      {order.email}
+                    </AuroraMicro>
+                    {order.isGuest && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs bg-muted text-foreground mt-1">
+                        Guest
+                      </span>
+                    )}
+                  </div>
+                </td>
+
+                <td className="px-4 py-3">
+                  <div className="space-y-1">
+                    <StatusBadge status={order.status} type="order" />
+                    {order.shipping?.trackingNumber && (
+                      <AuroraMicro className="text-aurora-nav-muted bg-background">
+                        {order.shipping.carrier} {order.shipping.trackingNumber}
+                      </AuroraMicro>
+                    )}
+                  </div>
+                </td>
+
+                <td className="px-4 py-3">
+                  <StatusBadge status={order.paymentStatus} type="payment" />
+                </td>
+
+                <td className="px-4 py-3">
+                  <AuroraSmall className="font-medium text-foreground">
+                    ${order.total.toFixed(2)}
+                  </AuroraSmall>
+                  <AuroraMicro className="text-aurora-nav-muted bg-background">
+                    {order.currency}
+                  </AuroraMicro>
+                </td>
+
+                <td className="px-4 py-3">
+                  <AuroraSmall className="text-foreground">
+                    {new Date(order.createdAt).toLocaleDateString()}
+                  </AuroraSmall>
+                  <AuroraMicro className="text-aurora-nav-muted bg-background">
+                    {new Date(order.createdAt).toLocaleTimeString()}
+                  </AuroraMicro>
+                </td>
+
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <Button variant="ghost" size="sm" onClick={() => openOrderDetail(order._id)}>
+                      <Eye className="w-4 h-4" />
+                    </Button>
+                    <Button variant="ghost" size="sm" onClick={() => openOrderEdit(order._id)}>
+                      <Edit3 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex items-center justify-between px-4 py-3 border-t bg-muted">
+        <AuroraSmall className="text-aurora-nav-muted bg-muted">
+          Page {currentPage} of {totalPages}
+        </AuroraSmall>
+        
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+          >
+            <ChevronRight className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+
+  // Handle order selection for detail modal
+  const openOrderDetail = (orderId: string) => {
+    if (onOrderSelect) {
+      onOrderSelect(orderId)
+    }
+  }
+
+  const openOrderEdit = (orderId: string) => {
+    if (onOrderSelect) {
+      onOrderSelect(orderId)
+    }
+  }
+
+  // Loading state
+  if (loading && orders.length === 0) {
+    return (
+      <div className="space-y-6">
+        <div className="animate-pulse">
+          <div className="h-8 bg-muted rounded w-1/3 mb-4"></div>
+          <div className="grid grid-cols-4 gap-4 mb-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="h-24 bg-muted rounded-token-lg"></div>
+            ))}
+          </div>
+          <div className="h-96 bg-muted rounded-token-lg"></div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <AuroraHero className="text-2xl text-foreground">Order Management</AuroraHero>
+          <AuroraBodyM className="text-aurora-nav-muted bg-background">
+            Manage customer orders, track fulfillment, and process status updates
+          </AuroraBodyM>
+        </div>
+        
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <Filter className="w-4 h-4 mr-2" />
+            Filters
+            <ChevronDown className={cn("w-4 h-4 ml-1 transition-transform", showFilters && "rotate-180")} />
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={fetchOrders}
+            disabled={loading}
+          >
+            <RefreshCw className={cn("w-4 h-4 mr-2", loading && "animate-spin")} />
+            Refresh
+          </Button>
+        </div>
+      </div>
+
+      {/* Error state */}
+      {error && (
+        <div className="bg-error/10 border border-error/30 rounded-token-lg p-4">
+          <div className="flex items-center gap-3">
+            <AlertCircle className="w-5 h-5 text-error" />
+            <AuroraBodyM className="text-error">{error}</AuroraBodyM>
+            <Button variant="outline" size="sm" onClick={() => setError(null)}>
+              Dismiss
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Metrics Overview */}
+      <MetricsOverview />
+
+      {/* Filters Panel */}
+      <FiltersPanel />
+
+      {/* Bulk Actions */}
+      <BulkActionsBar />
+
+      {/* Orders Table */}
+      <OrdersTable />
+    </div>
+  )
+}
 
   // Metrics overview component
   const MetricsOverview = () => {
@@ -671,10 +1110,10 @@ export default function OrderManagementDashboard({ onOrderSelect }: OrderManagem
 
       {/* Error state */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-token-lg p-4">
+        <div className="bg-error/10 border border-error/30 rounded-token-lg p-4">
           <div className="flex items-center gap-3">
-            <AlertCircle className="w-5 h-5 text-red-600" />
-            <BodyText className="text-red-800">{error}</BodyText>
+            <AlertCircle className="w-5 h-5 text-error" />
+            <BodyText className="text-error">{error}</BodyText>
             <Button variant="outline" size="sm" onClick={() => setError(null)}>
               Dismiss
             </Button>

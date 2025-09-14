@@ -29,9 +29,9 @@ import {
   Gift,
   Award
 } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { H1, H2, H3, BodyText } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
+import { Button } from '../../ui/Button'
+import { H1, H2, H3, BodyText } from '../../foundation/Typography'
+import { cn } from '../../../lib/utils'
 
 // Interfaces for email triggers
 interface EmailTrigger {
@@ -87,56 +87,56 @@ const triggerTypes = [
     label: 'Welcome Series', 
     icon: User,
     description: 'Onboard new subscribers with welcome emails',
-    color: 'bg-blue-100 text-blue-800 border-blue-200'
+    color: 'bg-info/10 text-info border-info/30'
   },
   { 
     id: 'abandoned-cart', 
     label: 'Abandoned Cart', 
     icon: ShoppingCart,
     description: 'Recover abandoned shopping carts',
-    color: 'bg-orange-100 text-orange-800 border-orange-200'
+    color: 'bg-warning/10 text-warning border-warning/30'
   },
   { 
     id: 'post-purchase', 
     label: 'Post-Purchase', 
     icon: Gift,
     description: 'Follow up after successful purchases',
-    color: 'bg-green-100 text-green-800 border-green-200'
+    color: 'bg-success/10 text-success border-success/30'
   },
   { 
     id: 'birthday', 
     label: 'Birthday', 
     icon: Calendar,
     description: 'Send birthday greetings and offers',
-    color: 'bg-pink-100 text-pink-800 border-pink-200'
+    color: 'bg-accent/10 text-accent border-accent/30'
   },
   { 
     id: 're-engagement', 
     label: 'Re-engagement', 
     icon: Target,
     description: 'Re-engage inactive subscribers',
-    color: 'bg-purple-100 text-purple-800 border-purple-200'
+    color: 'bg-primary/10 text-primary border-primary/30'
   },
   { 
     id: 'win-back', 
     label: 'Win-back', 
     icon: Heart,
     description: 'Win back churned customers',
-    color: 'bg-red-100 text-red-800 border-red-200'
+    color: 'bg-error/10 text-error border-error/30'
   },
   { 
     id: 'product-reminder', 
     label: 'Product Reminder', 
     icon: Bell,
     description: 'Remind about viewed or wishlisted products',
-    color: 'bg-indigo-100 text-indigo-800 border-indigo-200'
+    color: 'bg-accent/10 text-accent border-accent/30'
   },
   { 
     id: 'review-request', 
     label: 'Review Request', 
     icon: Award,
     description: 'Request reviews after purchase',
-    color: 'bg-yellow-100 text-yellow-800 border-yellow-200'
+    color: 'bg-warning/10 text-warning border-warning/30'
   }
 ]
 
@@ -147,7 +147,7 @@ const StatusBadge = ({ status }: { status: EmailTrigger['status'] }) => {
       case 'active':
         return { 
           text: 'Active', 
-          className: 'bg-green-100 text-green-800 border-green-200',
+          className: 'bg-success/10 text-success border-success/30',
           icon: Play
         }
       case 'inactive':
@@ -159,7 +159,7 @@ const StatusBadge = ({ status }: { status: EmailTrigger['status'] }) => {
       case 'draft':
         return { 
           text: 'Draft', 
-          className: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+          className: 'bg-warning/10 text-warning border-warning/30',
           icon: Edit
         }
       default:
@@ -239,8 +239,8 @@ const MetricCard = ({
         {trend && (
           <div className={cn(
             "text-xs font-medium",
-            trend === 'up' && "text-green-600",
-            trend === 'down' && "text-red-600",
+            trend === 'up' && "text-success",
+            trend === 'down' && "text-error",
             trend === 'neutral' && "text-aurora-nav-muted"
           )}>
             {trend === 'up' ? '↗' : trend === 'down' ? '↘' : '→'}
@@ -405,7 +405,7 @@ const TriggerActions = ({
             <div className="border-t border-border my-1" />
             <button
               onClick={() => { onDelete(trigger._id); setIsOpen(false) }}
-              className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+              className="w-full px-4 py-2 text-left text-sm text-error hover:bg-error/10 flex items-center gap-2"
             >
               <Trash2 className="w-4 h-4" />
               Delete

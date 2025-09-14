@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Instagram, Youtube, Mail, Phone, MapPin, ChevronDown, ChevronUp } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
-import { H4, BodyText, MutedText } from '@/components/foundation/Typography'
+import { H4, BodyText, MutedText, AuroraTitleM, AuroraBodyM, AuroraSmall } from '@/components/foundation/Typography'
 import { cn } from '@/lib/utils'
 
 interface FooterProps {
@@ -115,7 +115,7 @@ interface AccordionSectionProps {
   sectionKey: string
 }
 
-function AccordionSection({ section, isOpen, onToggle, sectionKey }: AccordionSectionProps) {
+const AccordionSection: React.FC<AccordionSectionProps> = ({ section, isOpen, onToggle, sectionKey }) => {
   const [openFAQs, setOpenFAQs] = useState<Record<number, boolean>>({})
   
   const toggleFAQ = useCallback((index: number) => {
@@ -132,9 +132,9 @@ function AccordionSection({ section, isOpen, onToggle, sectionKey }: AccordionSe
         aria-expanded={isOpen}
         aria-controls={contentId}
       >
-        <H4 level="h4" className="text-high-contrast group-hover:text-accent transition-colors duration-300">
+        <AuroraTitleM className="text-high-contrast group-hover:text-accent transition-colors duration-300">
           {section.title}
-        </H4>
+        </AuroraTitleM>
         <div className="text-high-contrast group-hover:text-accent transition-transform duration-300">
           {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
         </div>
@@ -159,7 +159,7 @@ function AccordionSection({ section, isOpen, onToggle, sectionKey }: AccordionSe
                   className="flex items-center space-x-token-sm text-high-contrast hover:text-accent transition-colors duration-300 py-1"
                 >
                   <div className="w-1.5 h-1.5 bg-accent rounded-full flex-shrink-0" />
-                  <BodyText size="sm" className="text-current">{link.name}</BodyText>
+                  <AuroraSmall className="text-current">{link.name}</AuroraSmall>
                 </Link>
               ))}
             </div>
@@ -171,9 +171,9 @@ function AccordionSection({ section, isOpen, onToggle, sectionKey }: AccordionSe
               {section.items.map((item, index) => (
                 <li key={index} className="flex items-start space-x-3">
                   <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
-                  <BodyText size="sm" className="text-high-contrast">
+                  <AuroraSmall className="text-high-contrast">
                     {item}
-                  </BodyText>
+                  </AuroraSmall>
                 </li>
               ))}
             </ul>
@@ -182,9 +182,9 @@ function AccordionSection({ section, isOpen, onToggle, sectionKey }: AccordionSe
           {/* Render FAQ section */}
           {section.faqs && (
             <div className="mt-4 space-y-3">
-              <BodyText size="sm" weight="medium" className="text-high-contrast mb-3">
+              <AuroraSmall className="text-high-contrast mb-3 font-semibold">
                 Frequently Asked Questions
-              </BodyText>
+              </AuroraSmall>
               {section.faqs.map((faq, index) => {
                 const isOpenFAQ = openFAQs[index] || false
                 const faqId = `${sectionKey}-faq-${index}`
@@ -198,9 +198,9 @@ function AccordionSection({ section, isOpen, onToggle, sectionKey }: AccordionSe
                       aria-controls={faqId}
                     >
                       <div className="flex justify-between items-start py-2">
-                        <BodyText size="sm" className="text-high-contrast group-hover:text-accent transition-colors pr-2">
+                        <AuroraSmall className="text-high-contrast group-hover:text-accent transition-colors pr-2">
                           {faq.question}
-                        </BodyText>
+                        </AuroraSmall>
                         <div className="text-high-contrast group-hover:text-accent transition-transform duration-300 flex-shrink-0">
                           {isOpenFAQ ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                         </div>
@@ -214,9 +214,9 @@ function AccordionSection({ section, isOpen, onToggle, sectionKey }: AccordionSe
                       )}
                       aria-hidden={!isOpenFAQ}
                     >
-                      <BodyText size="sm" className="text-high-contrast opacity-90">
+                      <AuroraSmall className="text-high-contrast opacity-90">
                         {faq.answer}
-                      </BodyText>
+                      </AuroraSmall>
                     </div>
                   </div>
                 )
@@ -274,7 +274,7 @@ export function Footer({ className }: FooterProps) {
         <div className="hidden lg:grid grid-cols-3 gap-8 py-12">
           {Object.entries(footerSections).map(([key, section]) => (
             <div key={key}>
-              <H4 level="h4" className="text-high-contrast mb-4">{section.title}</H4>
+              <AuroraTitleM className="text-high-contrast mb-4">{section.title}</AuroraTitleM>
               
               {/* Desktop navigation links */}
               {section.links && (
@@ -286,7 +286,7 @@ export function Footer({ className }: FooterProps) {
                       className="flex items-center space-x-token-sm text-high-contrast hover:text-accent transition-colors duration-300"
                     >
                       <div className="w-1.5 h-1.5 bg-accent rounded-full" />
-                      <BodyText size="sm" className="text-current">{link.name}</BodyText>
+                      <AuroraSmall className="text-current">{link.name}</AuroraSmall>
                     </Link>
                   ))}
                 </div>
@@ -298,9 +298,9 @@ export function Footer({ className }: FooterProps) {
                   {section.items.map((item, index) => (
                     <li key={index} className="flex items-start space-x-token-sm">
                       <div className="w-1.5 h-1.5 bg-accent rounded-full mt-1.5" />
-                      <BodyText size="sm" className="text-high-contrast">
+                      <AuroraSmall className="text-high-contrast">
                         {item}
-                      </BodyText>
+                      </AuroraSmall>
                     </li>
                   ))}
                 </ul>
@@ -309,19 +309,19 @@ export function Footer({ className }: FooterProps) {
               {/* Desktop FAQ */}
               {section.faqs && (
                 <div className="mt-4 space-y-token-sm">
-                  <BodyText size="sm" weight="medium" className="text-high-contrast mb-3">
+                  <AuroraSmall className="text-high-contrast mb-3 font-semibold">
                     FAQ
-                  </BodyText>
+                  </AuroraSmall>
                   {section.faqs.map((faq, index) => (
                     <details key={index} className="group cursor-pointer">
                       <summary className="flex items-start space-x-token-sm text-high-contrast hover:text-accent transition-colors list-none">
                         <div className="w-1.5 h-1.5 bg-accent rounded-full mt-1.5" />
-                        <BodyText size="sm">{faq.question}</BodyText>
+                        <AuroraSmall>{faq.question}</AuroraSmall>
                       </summary>
                       <div className="mt-2 ml-4 pl-3 border-l-2 border-accent/30">
-                        <BodyText size="sm" className="text-high-contrast opacity-90">
+                        <AuroraSmall className="text-high-contrast opacity-90">
                           {faq.answer}
-                        </BodyText>
+                        </AuroraSmall>
                       </div>
                     </details>
                   ))}
@@ -337,14 +337,14 @@ export function Footer({ className }: FooterProps) {
             {/* Logo & Newsletter */}
             <div className="lg:col-span-2">
               <img src="/glitchglow_logo_empty_gold.png" alt="GlowGlitch" className="h-24 mb-4" />
-              <BodyText size="sm" className="text-high-contrast mb-6 max-w-md">
+              <AuroraSmall className="text-high-contrast mb-6 max-w-md">
                 Sustainable luxury jewelry crafted with lab-grown diamonds. 
                 Design your perfect piece with our 3D technology.
-              </BodyText>
+              </AuroraSmall>
               
               {/* Newsletter */}
               <div className="max-w-md">
-                <H4 level="h4" className="text-high-contrast mb-2">Stay Connected</H4>
+                <AuroraTitleM className="text-high-contrast mb-2">Stay Connected</AuroraTitleM>
                 <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
                   <Input
                     type="email"
@@ -365,20 +365,20 @@ export function Footer({ className }: FooterProps) {
                 <div className="flex items-center space-x-token-sm">
                   <Mail size={16} className="text-high-contrast" />
                   <a href="mailto:hello@glowglitch.com" className="text-high-contrast hover:text-accent transition-colors">
-                    <BodyText size="sm">hello@glowglitch.com</BodyText>
+                    <AuroraSmall>hello@glowglitch.com</AuroraSmall>
                   </a>
                 </div>
                 <div className="flex items-center space-x-token-sm">
                   <Phone size={16} className="text-high-contrast" />
                   <a href="tel:+1-555-GLOW-GEM" className="text-high-contrast hover:text-accent transition-colors">
-                    <BodyText size="sm">+1 (555) GLOW-GEM</BodyText>
+                    <AuroraSmall>+1 (555) GLOW-GEM</AuroraSmall>
                   </a>
                 </div>
                 <div className="flex items-center space-x-token-sm">
                   <MapPin size={16} className="text-high-contrast" />
-                  <BodyText size="sm" className="text-high-contrast">
+                  <AuroraSmall className="text-high-contrast">
                     Available 24/7 Virtual consultations
-                  </BodyText>
+                  </AuroraSmall>
                 </div>
               </div>
               
@@ -416,13 +416,13 @@ export function Footer({ className }: FooterProps) {
                   href={link.href}
                   className="text-high-contrast hover:text-accent transition-colors"
                 >
-                  <MutedText size="sm">{link.name}</MutedText>
+                  <AuroraSmall className="opacity-70">{link.name}</AuroraSmall>
                 </Link>
               ))}
             </div>
-            <MutedText size="sm" className="text-high-contrast">
+            <AuroraSmall className="text-high-contrast opacity-70">
               © 2025 GlowGlitch (Lumina Lab). All rights reserved.
-            </MutedText>
+            </AuroraSmall>
           </div>
         </div>
       </div>

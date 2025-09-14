@@ -204,7 +204,7 @@ export default function GeographicHeatMap() {
   // Color scale for heat map
   const colorScale = scaleLinear<string>()
     .domain([0, 1])
-    .range(['#F1F2F6', '#6B46C1']) // Aurora: Starlight Gray to Nebula Purple
+    .range(['var(--starlight-gray, #F1F2F6)', 'var(--nebula-purple, #6B46C1)'])
 
   const formatNumber = (num: number) => {
     if (num >= 1000000) {
@@ -368,7 +368,7 @@ export default function GeographicHeatMap() {
                 style={{ 
                   width: '100%', 
                   height: '400px',
-                  backgroundColor: '#FEFCF9' // Aurora: Background
+                  backgroundColor: 'var(--lunar-grey, #FEFCF9)'
                 }}
               >
                 <ZoomableGroup zoom={zoomLevel} center={center as [number, number]}>
@@ -379,19 +379,19 @@ export default function GeographicHeatMap() {
                         const countryInfo = countryData.get(countryCode)
                         const fillColor = countryInfo 
                           ? colorScale(countryInfo.heatValue)
-                          : '#F1F2F6' // Aurora: Starlight Gray
+                          : 'var(--starlight-gray, #F1F2F6)'
                         
                         return (
                           <Geography
                             key={geo.rsmKey}
                             geography={geo}
                             fill={fillColor}
-                            stroke="#E2E8F0" // Aurora: Quantum borders
+                            stroke="var(--border, #E2E8F0)"
                             strokeWidth={0.5}
                             style={{
                               default: { outline: 'none' },
                               hover: { 
-                                fill: countryInfo ? '#6B46C1' : '#F1F2F6', // Aurora: Nebula Purple or Starlight Gray
+                                fill: countryInfo ? 'var(--nebula-purple, #6B46C1)' : 'var(--starlight-gray, #F1F2F6)'
                                 outline: 'none',
                                 cursor: countryInfo ? 'pointer' : 'default'
                               },
@@ -413,8 +413,8 @@ export default function GeographicHeatMap() {
                     >
                       <circle
                         r={Math.max(2, Math.min(8, location.conversions / 10))}
-                        fill="#FF6B9D" // Aurora: Iridescent Pink
-                        stroke="#FFFFFF"
+                        fill="var(--aurora-pink, #FF6B9D)"
+                        stroke="var(--stone-diamond, #FFFFFF)"
                         strokeWidth={1}
                         style={{ cursor: 'pointer' }}
                       />
@@ -431,7 +431,7 @@ export default function GeographicHeatMap() {
                 <div className="flex items-center space-x-token-sm">
                   <div className="w-4 h-4 bg-muted rounded"></div>
                   <span className="text-xs text-aurora-nav-muted">Low</span>
-                  <div className="w-8 h-4 bg-gradient-to-r from-gray-200 to-red-600 rounded"></div>
+                  <div className="w-8 h-4 bg-gradient-to-r from-starlight-gray to-nebula-purple rounded"></div>
                   <span className="text-xs text-aurora-nav-muted">High</span>
                 </div>
               </div>

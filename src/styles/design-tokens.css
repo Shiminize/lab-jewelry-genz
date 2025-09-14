@@ -45,10 +45,22 @@
   --token-space-xl: 2rem;       /* 32px */
   --token-space-2xl: 3rem;      /* 48px */
   --token-space-3xl: 4rem;      /* 64px */
+  --token-space-4xl: 5rem;      /* 80px - NEW (Claude4.1 Demo section padding) */
+  --token-space-5xl: 6rem;      /* 96px - NEW */
+  --token-space-6xl: 8rem;      /* 128px - NEW */
 
   /* Component Spacing */
   --token-space-component-gap: var(--token-space-lg);
   --token-space-section-gap: var(--token-space-3xl);
+
+  /* Layout-Specific Tokens (Claude4.1 Demo Compliance) */
+  --token-container-max: 1400px;                           /* Claude4.1 container max-width */
+  --token-container-padding: var(--token-space-xl);        /* 2rem - Claude4.1 lateral padding */
+  --token-section-padding-y: var(--token-space-4xl);       /* 5rem - Claude4.1 section vertical */
+  --token-section-padding-x: var(--token-space-xl);        /* 2rem - Claude4.1 section horizontal */
+  --token-grid-gap: var(--token-space-xl);                 /* 2rem - Claude4.1 grid gap */
+  --token-grid-min-width: 350px;                           /* Claude4.1 grid minmax minimum */
+  --token-card-padding: var(--token-space-lg);             /* 1.5rem - Claude4.1 card internal */
 
   /* =================================================================
    * TYPOGRAPHY TOKENS

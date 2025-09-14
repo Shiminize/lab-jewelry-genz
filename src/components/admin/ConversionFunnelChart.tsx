@@ -149,7 +149,7 @@ export default function ConversionFunnelChart() {
             Conversion: <span className="font-medium">{data.percentage.toFixed(1)}%</span>
           </p>
           {data.dropOff > 0 && (
-            <p className="text-sm text-red-600">
+            <p className="text-sm text-error">
               Drop-off: <span className="font-medium">{data.dropOff}%</span>
             </p>
           )}
@@ -175,10 +175,10 @@ export default function ConversionFunnelChart() {
       
       {!isLast && stage.dropOff > 0 && (
         <div className="absolute -right-8 top-1/2 transform -translate-y-1/2 z-10">
-          <div className="bg-red-100 border border-red-300 rounded-full p-2">
-            <TrendingDown className="h-4 w-4 text-red-600" />
+          <div className="bg-error/10 border border-error/30 rounded-full p-2">
+            <TrendingDown className="h-4 w-4 text-error" />
           </div>
-          <div className="text-xs text-red-600 font-medium mt-1 text-center">
+          <div className="text-xs text-error font-medium mt-1 text-center">
             -{stage.dropOff}%
           </div>
         </div>
@@ -315,7 +315,7 @@ export default function ConversionFunnelChart() {
                       <span className="text-sm font-medium text-foreground">
                         {prevStage.name} → {stage.name}
                       </span>
-                      <Badge variant="outline" className="text-red-700 border-red-300">
+                      <Badge variant="outline" className="text-error border-error/30">
                         -{stage.dropOff}%
                       </Badge>
                     </div>
@@ -324,7 +324,7 @@ export default function ConversionFunnelChart() {
                     </div>
                     <div className="w-full bg-muted rounded-full h-2 mt-2">
                       <div 
-                        className="bg-red-400 h-2 rounded-full transition-all duration-500"
+                        className="bg-error h-2 rounded-full transition-all duration-500"
                         style={{ width: `${stage.dropOff}%` }}
                       />
                     </div>

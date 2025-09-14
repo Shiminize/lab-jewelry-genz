@@ -25,9 +25,9 @@ import {
   FileText,
   Star
 } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { H1, H2, H3, BodyText } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
+import { Button } from '../../ui/Button'
+import { H1, H2, H3, BodyText } from '../../foundation/Typography'
+import { cn } from '../../../lib/utils'
 
 // Interfaces for analytics data
 interface AnalyticsMetrics {
@@ -145,8 +145,8 @@ const MetricCard = ({
 
   const getTrendColor = (trend?: 'up' | 'down' | 'neutral') => {
     switch (trend) {
-      case 'up': return 'text-green-600'
-      case 'down': return 'text-red-600'
+      case 'up': return 'text-success'
+      case 'down': return 'text-error'
       default: return 'text-aurora-nav-muted'
     }
   }
@@ -306,7 +306,7 @@ const EngagementFunnel = ({ data }: { data: AnalyticsMetrics['engagementFlow'] }
                     {step.users.toLocaleString()} users
                   </BodyText>
                   {index < data.length - 1 && (
-                    <BodyText size="sm" className="text-red-600">
+                    <BodyText size="sm" className="text-error">
                       {dropoffRate.toFixed(1)}% dropoff
                     </BodyText>
                   )}
@@ -335,10 +335,10 @@ const EngagementFunnel = ({ data }: { data: AnalyticsMetrics['engagementFlow'] }
 const DeviceBreakdown = ({ data }: { data: AnalyticsMetrics['deviceStats'] }) => {
   const total = Object.values(data).reduce((sum, value) => sum + value, 0)
   const devices = [
-    { name: 'Desktop', value: data.desktop, color: 'bg-blue-500' },
-    { name: 'Mobile', value: data.mobile, color: 'bg-green-500' },
-    { name: 'Tablet', value: data.tablet, color: 'bg-orange-500' },
-    { name: 'Unknown', value: data.unknown, color: 'bg-muted0' }
+    { name: 'Desktop', value: data.desktop, color: 'bg-info' },
+    { name: 'Mobile', value: data.mobile, color: 'bg-success' },
+    { name: 'Tablet', value: data.tablet, color: 'bg-warning' },
+    { name: 'Unknown', value: data.unknown, color: 'bg-muted' }
   ]
 
   return (
@@ -479,7 +479,7 @@ export default function AnalyticsReporting() {
   if (error) {
     return (
       <div className="text-foreground bg-background p-6 rounded-token-lg border text-center">
-        <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+        <AlertCircle className="w-12 h-12 text-error mx-auto mb-4" />
         <H2 className="mb-2 text-foreground">Failed to Load Analytics</H2>
         <BodyText className="text-aurora-nav-muted bg-background mb-4">
           {error}

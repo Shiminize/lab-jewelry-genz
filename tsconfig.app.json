@@ -1,0 +1,45 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "src/components/aurora/**/*.ts",
+    "src/components/aurora/**/*.tsx",
+    "src/components/homepage/**/*.ts",
+    "src/components/homepage/**/*.tsx",
+    "src/components/layout/**/*.ts",
+    "src/components/layout/**/*.tsx",
+    "src/components/foundation/**/*.ts",
+    "src/components/foundation/**/*.tsx",
+    "src/components/ui/**/*.ts",
+    "src/components/ui/**/*.tsx",
+    "src/hooks/**/*.ts",
+    "src/hooks/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "tests/**",
+    "src/components/ui/__tests__/**",
+    "src/components/ui/CollapsibleSection.tsx",
+    "src/app/**",
+    "src/app/api/**",
+    "src/data/**",
+    "src/lib/**",
+    "src/services/**",
+    "src/types/**",
+    "src/components/admin/**",
+    "src/components/catalog/**",
+    "src/components/customizer/**",
+    "src/components/inventory/**",
+    "src/components/products/**",
+    "src/components/navigation/**",
+    "src/components/dashboard/**",
+    "src/components/creator/**",
+    "src/components/cart/**"
+  ]
+}
+
+

@@ -24,7 +24,8 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, Search, ShoppingBag, Heart, User, ChevronDown } from 'lucide-react'
-import { navItems } from '@/data/navigation/navItems'
+import { AuroraSection, AuroraContainer, AuroraFlex } from '../aurora'
+import { navItems } from '../../data/navigation/navItems'
 
 export function NavBar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
@@ -60,10 +61,12 @@ export function NavBar() {
 
   return (
     <>
-      {/* Main Navigation Bar */}
-      <nav className="sticky top-0 w-full bg-surface z-50 shadow-near">
-        <div className="max-w-screen-xl mx-auto px-token-lg">
-          <div className="flex items-center justify-between h-token-4xl md:h-token-5xl">
+      {/* Main Navigation Bar (Aurora structure) */}
+      <header>
+        <nav className="sticky top-0 z-50">
+          <AuroraSection background="transparent" spacing="none" className="shadow-near">
+            <AuroraContainer size="xl" padding="default" spacing="none" className="bg-surface w-full">
+              <AuroraFlex justify="between" align="center" className="h-token-nav">
             
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-token-sm">
@@ -118,24 +121,24 @@ export function NavBar() {
                 {isMobileOpen ? <X className="w-token-lg h-token-lg" /> : <Menu className="w-token-lg h-token-lg" />}
               </button>
             </div>
-          </div>
-        </div>
+              </AuroraFlex>
+            </AuroraContainer>
 
         {/* Desktop Mega Menu - Full Width */}
-        {navItems.map((navItem) => (
+          {navItems.map((navItem) => (
           navItem.hasDropdown && (
             <div key={navItem.id} className={`
               absolute top-full left-0 w-screen overflow-hidden
-              transition-all duration-[350ms] ease-[cubic-bezier(0.32,0.72,0,1)]
+              transition-all duration-token-normal ease-token-in-out
               aurora-mega-menu
               ${activeDropdown === navItem.id ? 
-                'opacity-100 translate-y-0 scale-100 pointer-events-auto shadow-xl' : 
-                'opacity-0 -translate-y-3 scale-[0.98] pointer-events-none'}
+                'opacity-100 translate-y-0 scale-100 pointer-events-auto shadow-token-xl' : 
+                'opacity-0 -translate-y-3 scale-100 pointer-events-none'}
             `}
             onMouseEnter={() => handleMouseEnter(navItem.id)}
             onMouseLeave={handleMouseLeave}>
-              {navItem.categories && (
-                <div className="max-w-[1440px] mx-auto px-token-xl py-token-xl">
+                {navItem.categories && (
+                  <div className="max-w-[1440px] mx-auto px-token-xl py-token-xl">
                   <div className="grid grid-cols-5 gap-token-xl">
                     {/* Primary Category Columns */}
                     {navItem.categories.map((category, idx) => (
@@ -195,17 +198,19 @@ export function NavBar() {
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
-          )
-        ))}
-      </nav>
+                  </div>
+                )}
+              </div>
+            )
+          ))}
+          </AuroraSection>
+        </nav>
+      </header>
 
       {/* Mobile Menu Overlay */}
       <div className={`
-        fixed inset-0 z-[100] md:hidden
-        transition-all duration-[380ms] ease-[cubic-bezier(0.32,0.72,0,1)]
+        fixed inset-0 z-token-modal md:hidden
+        transition-all duration-token-normal ease-token-in-out
         ${isMobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
       `}>
         {/* Backdrop */}
@@ -214,10 +219,10 @@ export function NavBar() {
         
         {/* Mobile Panel */}
         <div className={`
-          absolute right-0 top-0 h-full w-[90%] max-w-aurora-lg
+          absolute right-0 top-0 h-full w-[90%] max-w-lg
           bg-gradient-luxury-midnight
-          rounded-l-token-lg overflow-y-auto shadow-far
-          transition-transform duration-300 ease-in-out
+          rounded-l-token-lg overflow-y-auto shadow-token-lg
+          transition-transform duration-token-normal ease-token-in-out
           ${isMobileOpen ? 'translate-x-0' : 'translate-x-full'}
         `}>
           
@@ -259,7 +264,7 @@ export function NavBar() {
                 </div>
                 {/* Collapsible Submenu */}
                 {item.hasDropdown && item.categories && (
-                  <div className={`overflow-hidden transition-all duration-[380ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${mobileExpanded === item.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div className={`overflow-hidden transition-all duration-token-normal ease-token-in-out ${mobileExpanded === item.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                     <div className="pl-token-md py-token-sm space-y-token-sm bg-text-primary/20 rounded-token-sm mt-token-sm">
                       {item.categories.map(cat => (
                         <Link key={cat.title} href={cat.href} onClick={() => setIsMobileOpen(false)}

@@ -14,6 +14,8 @@ const PUBLIC_ROUTES = [
   '/forgot-password',
   '/reset-password',
   '/',
+  '/aurora-demo',
+  '/catalog',
   '/api/auth/login',
   '/api/auth/register',
   '/api/auth/refresh',
@@ -35,19 +37,39 @@ interface CustomJWTPayload extends JWTPayload {
 }
 
 export async function middleware(request: NextRequest) {
+  const startTime = Date.now()
   const { pathname } = request.nextUrl
 
-  // Skip middleware for static resources
-  if (STATIC_RESOURCES.some(path => pathname.startsWith(path))) {
-    return NextResponse.next()
-  }
-
-  // Allow public routes without authentication
-  if (PUBLIC_ROUTES.includes(pathname)) {
-    return NextResponse.next()
-  }
+  // Request timeout handling (CLAUDE_RULES compliant)
+  const timeoutPromise = new Promise<NextResponse>((_, reject) => {
+    setTimeout(() => {
+      reject(new Error(`Request timeout after 10 seconds for ${pathname}`))
+    }, 10000) // 10 second timeout
+  })
 
   try {
+    // Skip middleware for static resources
+    if (STATIC_RESOURCES.some(path => pathname.startsWith(path))) {
+      return NextResponse.next()
+    }
+
+    // Skip timeout for health check endpoint
+    if (pathname === '/api/health') {
+      return NextResponse.next()
+    }
+
+    // Allow public routes without authentication
+    if (PUBLIC_ROUTES.includes(pathname)) {
+      const response = NextResponse.next()
+      
+      // Add monitoring headers for public routes
+      const responseTime = Date.now() - startTime
+      response.headers.set('X-Response-Time', `${responseTime}ms`)
+      response.headers.set('X-Request-ID', crypto.randomUUID())
+      
+      return response
+    }
+
     // Apply rate limiting for auth endpoints
     const clientIP = getClientIP(request)
     const rateLimitResult = checkRateLimit(
@@ -131,13 +153,31 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/unauthorized', request.url))
     }
 
+    // Add monitoring headers to authenticated responses
+    const responseTime = Date.now() - startTime
+    response.headers.set('X-Response-Time', `${responseTime}ms`)
+    response.headers.set('X-Request-ID', crypto.randomUUID())
+    
     return response
 
   } catch (error) {
+    // Check if this is a timeout error
+    if (error instanceof Error && error.message.includes('timeout')) {
+      console.error('⏰ Middleware timeout:', {
+        error: error.message,
+        pathname: request.nextUrl.pathname,
+        responseTime: Date.now() - startTime,
+        timestamp: new Date().toISOString()
+      })
+      
+      return new NextResponse('Request timeout', { status: 408 })
+    }
+    
     console.error('JWT verification failed:', {
       error: error instanceof Error ? error.message : 'Unknown error',
       pathname: request.nextUrl.pathname,
       userAgent: request.headers.get('user-agent'),
+      responseTime: Date.now() - startTime,
       timestamp: new Date().toISOString()
     })
     return redirectToLogin(request, 'Invalid session')

@@ -2,27 +2,26 @@
 
 import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
-import { sanitizeMaterialName } from '@/lib/security'
-import type { MaterialTag } from '@/types/material-tags'
+import { cn } from '../../lib/utils'
+import { sanitizeMaterialName } from '../../lib/security'
+import type { MaterialTag } from '../../types/material-tags'
+import { AuroraButton } from '../aurora'
 
 const materialTagChipVariants = cva(
-  // Color Psychology: Enhanced micro-interactions with emotional triggers
-  // Aurora ripple creates dopamine response, luminosity boost signals luxury quality
-  'inline-flex items-center justify-center font-body font-medium transition-all duration-300 border focus:outline-none cursor-pointer whitespace-nowrap aurora-material-ripple hover:brightness-[1.15] hover:scale-[1.02] hover:-translate-y-0.5 relative overflow-hidden aurora-shimmer-effect',
+  'inline-flex items-center justify-center font-body font-medium transition-all duration-token-normal border focus:outline-none cursor-pointer whitespace-nowrap shadow-token-sm hover:shadow-token-md transition-shadow hover:brightness-115 hover:scale-101 hover:-translate-y-0.5 relative overflow-hidden rounded-token-md',
   {
     variants: {
       category: {
-        // Stone Tags: Use emerald-flash for consistency with CLAUDE_RULES  
-        stone: 'text-emerald-flash bg-background border-emerald-flash/20 hover:bg-muted hover:text-foreground',
-        // Metal Tags: Use `text-foreground bg-muted` (graphite on muted background)  
-        metal: 'text-foreground bg-muted border-border hover:bg-background hover:text-foreground',
-        // Carat Tags: Use `text-foreground bg-background` (graphite on background)
-        carat: 'text-foreground bg-background border-border hover:bg-muted hover:text-foreground'
+        // Stone: Emerald cues
+        stone: 'text-aurora-emerald-flash bg-surface border-aurora-emerald-flash/20 hover:bg-surface-hover',
+        // Metal: Neutral surface with nav border
+        metal: 'text-aurora-text bg-surface-muted border-aurora-nav-border hover:bg-surface-active',
+        // Carat: Neutral surface, subtle
+        carat: 'text-aurora-text bg-surface border-aurora-nav-border hover:bg-surface-muted'
       },
       selected: {
-        // Selected State: Use `text-foreground` for prismatic shadows (no bg override)
-        true: 'text-foreground',
+        // Selected state: high contrast on brand
+        true: 'text-high-contrast bg-cta border-cta shadow-token-lg',
         false: ''
       },
       size: {
@@ -69,46 +68,7 @@ export interface MaterialTagChipProps
   className?: string
 }
 
-// Color Psychology: Material-specific prismatic effects trigger emotional purchase responses
-// Gold = Warmth & Luxury | Platinum = Sophistication | Rose Gold = Romance 
-function getPrismaticShadowClass(materialName: string, isSelected: boolean): string {
-  const name = materialName.toLowerCase()
-  let baseClass = ''
-  
-  if (name.includes('gold') && !name.includes('rose') && !name.includes('white')) {
-    // Gold: Warm psychological trigger - wealth, success, luxury
-    baseClass = 'luxury-emotional-trigger'
-    if (isSelected) {
-      return `prismatic-shadow-gold prismatic-shadow-gold ${baseClass}`
-    }
-    return baseClass
-  }
-  if (name.includes('rose') && name.includes('gold')) {
-    // Rose Gold: Romance psychological trigger - love, femininity, elegance
-    baseClass = 'romantic-emotional-trigger'
-    if (isSelected) {
-      return `prismatic-shadow-rose-gold prismatic-shadow-rose-gold ${baseClass}`
-    }
-    return baseClass
-  }
-  if (name.includes('white') && name.includes('gold')) {
-    // White Gold: Modern luxury trigger - sophistication, purity
-    baseClass = 'luxury-emotional-trigger'
-    if (isSelected) {
-      return `prismatic-shadow-white-gold prismatic-shadow-white-gold ${baseClass}`
-    }
-    return baseClass
-  }
-  if (name.includes('platinum')) {
-    // Platinum: Premium exclusivity trigger - rarity, status
-    baseClass = 'luxury-emotional-trigger'
-    if (isSelected) {
-      return `prismatic-shadow-platinum prismatic-shadow-platinum ${baseClass}`
-    }
-    return baseClass
-  }
-  return '' // No prismatic effect for other materials
-}
+// Deprecated: custom prismatic/emotional classes removed in favor of token shadows
 
 // Helper function to get Aurora focus class based on material (Fixes CSS specificity conflict)
 function getAuroraFocusClass(materialName: string, category: string): string {
@@ -173,14 +133,14 @@ const MaterialTagChipComponent = React.memo(function MaterialTagChip({
   }
 
   // Get prismatic shadow class and emotional triggers for all materials
-  const prismaticClass = getPrismaticShadowClass(tag.displayName, selected)
-  
   // Get Aurora focus class to fix CSS specificity conflict with prismatic shadows
   const auroraFocusClass = getAuroraFocusClass(tag.displayName, tag.category)
 
   return (
-    <button
-      type="button"
+    <AuroraButton
+      asChild
+      variant={selected ? 'primary' : 'ghost'}
+      size={size === 'sm' ? 'sm' : 'default'}
       className={cn(
         materialTagChipVariants({ 
           category: tag.category, 
@@ -188,19 +148,22 @@ const MaterialTagChipComponent = React.memo(function MaterialTagChip({
           size, 
           disabled 
         }),
-        prismaticClass,
         auroraFocusClass,
         className
       )}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      disabled={disabled}
       aria-pressed={selected}
       aria-label={`${selected ? 'Remove' : 'Add'} ${tag.displayName} filter`}
-      role="button"
-      tabIndex={disabled ? -1 : 0}
       {...props}
     >
+      <button
+        type="button"
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        disabled={disabled}
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        className="contents"
+      >
       <div className="flex items-center gap-1.5">
         {icon && (
           <span className="flex-shrink-0 w-4 h-4 flex items-center justify-center">
@@ -211,7 +174,8 @@ const MaterialTagChipComponent = React.memo(function MaterialTagChip({
           {sanitizeMaterialName(tag.displayName)}
         </span>
       </div>
-    </button>
+      </button>
+    </AuroraButton>
   )
 })
 

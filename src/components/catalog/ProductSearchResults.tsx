@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { Star, Heart } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { H2, BodyText, MutedText } from '@/components/foundation/Typography'
+import { cn } from '../../lib/utils'
+import { H2, BodyText, MutedText } from '../foundation/Typography'
 import { ProductCard } from '../products/ProductCard'
-import type { ProductSearchResult } from '@/types/product'
+import type { ProductSearchResult } from '../../types/product'
 
 interface ProductSearchResultsProps {
   results: ProductSearchResult | null
@@ -135,7 +135,7 @@ export function ProductSearchResults({
       {results.hasMore && (
         <div className="flex justify-center pt-8">
           <button
-            className="px-4 py-2 bg-cta text-background rounded-token-md hover:bg-cta-hover transition-colors shadow-[0_2px_8px_color-mix(in_srgb,var(--nebula-purple)_20%,transparent)]"
+            className="px-4 py-2 bg-cta text-background rounded-token-md hover:bg-cta-hover transition-colors shadow-token-md"
           >
             Load More Products
           </button>

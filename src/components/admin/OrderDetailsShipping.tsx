@@ -2,9 +2,9 @@
 
 import React from 'react'
 import { Edit3, Save, Truck, ExternalLink } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
-import { H3, BodyText } from '@/components/foundation/Typography'
+import { Button } from '../ui/Button'
+import { Input } from '../ui/Input'
+import { H3, BodyText } from '../foundation/Typography'
 
 interface Address {
   firstName: string
@@ -74,11 +74,11 @@ const AddressCard = ({ title, address }: { title: string; address: Address }) =>
 // Status badge component
 const StatusBadge = ({ status }: { status: string }) => {
   const statusConfig = {
-    'pending': 'bg-yellow-100 text-yellow-800',
-    'processing': 'bg-blue-100 text-blue-800',
-    'shipped': 'bg-green-100 text-green-800',
-    'delivered': 'bg-green-100 text-green-800',
-    'cancelled': 'bg-red-100 text-red-800'
+    'pending': 'bg-warning/10 text-warning',
+    'processing': 'bg-info/10 text-info',
+    'shipped': 'bg-success/10 text-success',
+    'delivered': 'bg-success/10 text-success',
+    'cancelled': 'bg-error/10 text-error'
   }
 
   return (
@@ -185,7 +185,7 @@ export function OrderDetailsShipping({
                     variant="ghost"
                     size="sm"
                     onClick={() => window.open(shipping.trackingUrl, '_blank')}
-                    className="p-0 h-auto text-blue-600 hover:text-blue-800"
+                    className="p-0 h-auto text-info hover:text-info"
                   >
                     <ExternalLink className="w-4 h-4 mr-1" />
                     Track Package

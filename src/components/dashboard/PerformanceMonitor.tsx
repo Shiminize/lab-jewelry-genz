@@ -6,11 +6,11 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Badge } from '@/components/ui/Badge'
-import { Button } from '@/components/ui/Button'
-import { Progress } from '@/components/ui/Progress'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card'
+import { Badge } from '../ui/Badge'
+import { Button } from '../ui/Button'
+import { Progress } from '../ui/Progress'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/Tabs'
 import { 
   Activity, 
   HardDrive, 
@@ -128,10 +128,10 @@ export function PerformanceMonitor() {
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'bg-red-500'
-      case 'high': return 'bg-orange-500'
-      case 'medium': return 'bg-yellow-500'
-      case 'low': return 'bg-blue-500'
+      case 'critical': return 'bg-error'
+      case 'high': return 'bg-warning'
+      case 'medium': return 'bg-warning'
+      case 'low': return 'bg-info'
       default: return 'bg-muted'
     }
   }
@@ -189,7 +189,7 @@ export function PerformanceMonitor() {
             variant="outline"
             size="sm"
             onClick={() => setAutoRefresh(!autoRefresh)}
-            className={autoRefresh ? 'bg-green-50 border-green-200' : ''}
+            className={autoRefresh ? 'bg-success/10 border-success/30' : ''}
           >
             <Activity className={`w-4 h-4 mr-2 ${autoRefresh ? 'animate-pulse' : ''}`} />
             {autoRefresh ? 'Live' : 'Paused'}
@@ -378,15 +378,15 @@ export function PerformanceMonitor() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm">Completed</span>
-                    <span className="font-semibold text-green-600">{generationMetrics?.completedJobs || 0}</span>
+                    <span className="font-semibold text-success">{generationMetrics?.completedJobs || 0}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm">Failed</span>
-                    <span className="font-semibold text-red-600">{generationMetrics?.failedJobs || 0}</span>
+                    <span className="font-semibold text-error">{generationMetrics?.failedJobs || 0}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm">Retries</span>
-                    <span className="font-semibold text-yellow-600">{generationMetrics?.retryCount || 0}</span>
+                    <span className="font-semibold text-warning">{generationMetrics?.retryCount || 0}</span>
                   </div>
                 </div>
               </CardContent>
@@ -412,7 +412,7 @@ export function PerformanceMonitor() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm">Success Rate</span>
-                    <span className="font-semibold text-green-600">
+                    <span className="font-semibold text-success">
                       {generationMetrics?.totalJobs ? 
                         Math.round(((generationMetrics.completedJobs || 0) / generationMetrics.totalJobs) * 100) 
                         : 0}%
@@ -464,7 +464,7 @@ export function PerformanceMonitor() {
               </Card>
             ) : (
               recommendations.map((rec, index) => (
-                <Card key={index} className={`border-l-4 border-l-${getSeverityColor(rec.severity).split('-')[1]}-500`}>
+                <Card key={index} className="border-l-4" style={{ borderLeftColor: 'transparent' }}>
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">

@@ -15,6 +15,11 @@ export function PerformanceMonitor() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    let lcpObserver: PerformanceObserver | null = null
+    let clsObserver: PerformanceObserver | null = null
+    let loadEventListener: (() => void) | null = null
+    let metricsTimeout: NodeJS.Timeout | null = null
+
     const collectMetrics = () => {
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
       
@@ -32,7 +37,7 @@ export function PerformanceMonitor() {
       // Observe Largest Contentful Paint
       if ('PerformanceObserver' in window) {
         try {
-          const lcpObserver = new PerformanceObserver((list) => {
+          lcpObserver = new PerformanceObserver((list) => {
             const entries = list.getEntries()
             const lastEntry = entries[entries.length - 1] as any
             lcpValue = lastEntry.startTime
@@ -40,7 +45,7 @@ export function PerformanceMonitor() {
           lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] })
           
           // Observe Cumulative Layout Shift
-          const clsObserver = new PerformanceObserver((list) => {
+          clsObserver = new PerformanceObserver((list) => {
             let clsSum = 0
             list.getEntries().forEach((entry: any) => {
               if (!entry.hadRecentInput) {
@@ -79,23 +84,48 @@ export function PerformanceMonitor() {
     
     // Collect metrics after page load
     if (document.readyState === 'complete') {
-      setTimeout(collectMetrics, 1000)
+      metricsTimeout = setTimeout(collectMetrics, 1000)
     } else {
-      window.addEventListener('load', () => {
-        setTimeout(collectMetrics, 1000)
-      })
+      loadEventListener = () => {
+        metricsTimeout = setTimeout(collectMetrics, 1000)
+      }
+      window.addEventListener('load', loadEventListener)
     }
     
     // Show metrics in development
+    let toggleVisibility: ((e: KeyboardEvent) => void) | null = null
     if (process.env.NODE_ENV === 'development') {
-      const toggleVisibility = (e: KeyboardEvent) => {
+      toggleVisibility = (e: KeyboardEvent) => {
         if (e.key === 'P' && e.ctrlKey && e.shiftKey) {
           setIsVisible(prev => !prev)
         }
       }
       
       window.addEventListener('keydown', toggleVisibility)
-      return () => window.removeEventListener('keydown', toggleVisibility)
+    }
+
+    // Cleanup function to prevent memory leaks
+    return () => {
+      // Clear timeouts
+      if (metricsTimeout) {
+        clearTimeout(metricsTimeout)
+      }
+      
+      // Remove event listeners
+      if (loadEventListener) {
+        window.removeEventListener('load', loadEventListener)
+      }
+      if (toggleVisibility) {
+        window.removeEventListener('keydown', toggleVisibility)
+      }
+      
+      // Disconnect performance observers
+      if (lcpObserver) {
+        lcpObserver.disconnect()
+      }
+      if (clsObserver) {
+        clsObserver.disconnect()
+      }
     }
   }, [])
 
@@ -119,14 +149,14 @@ export function PerformanceMonitor() {
       <div className="space-y-1 text-xs">
         <div className="flex justify-between">
           <span>Page Load:</span>
-          <span className={metrics.pageLoadTime > 1000 ? 'text-red-500' : 'text-green-500'}>
+          <span className={metrics.pageLoadTime > 1000 ? 'text-error' : 'text-success'}>
             {metrics.pageLoadTime.toFixed(0)}ms
           </span>
         </div>
         
         <div className="flex justify-between">
           <span>DOM Ready:</span>
-          <span className={metrics.domContentLoadedTime > 800 ? 'text-red-500' : 'text-green-500'}>
+          <span className={metrics.domContentLoadedTime > 800 ? 'text-error' : 'text-success'}>
             {metrics.domContentLoadedTime.toFixed(0)}ms
           </span>
         </div>
@@ -134,7 +164,7 @@ export function PerformanceMonitor() {
         {metrics.firstContentfulPaint && (
           <div className="flex justify-between">
             <span>FCP:</span>
-            <span className={metrics.firstContentfulPaint > 1800 ? 'text-red-500' : 'text-green-500'}>
+            <span className={metrics.firstContentfulPaint > 1800 ? 'text-error' : 'text-success'}>
               {metrics.firstContentfulPaint.toFixed(0)}ms
             </span>
           </div>
@@ -143,7 +173,7 @@ export function PerformanceMonitor() {
         {metrics.largestContentfulPaint && (
           <div className="flex justify-between">
             <span>LCP:</span>
-            <span className={metrics.largestContentfulPaint > 2500 ? 'text-red-500' : 'text-green-500'}>
+            <span className={metrics.largestContentfulPaint > 2500 ? 'text-error' : 'text-success'}>
               {metrics.largestContentfulPaint.toFixed(0)}ms
             </span>
           </div>
@@ -152,7 +182,7 @@ export function PerformanceMonitor() {
         {metrics.cumulativeLayoutShift !== null && (
           <div className="flex justify-between">
             <span>CLS:</span>
-            <span className={metrics.cumulativeLayoutShift > 0.1 ? 'text-red-500' : 'text-green-500'}>
+            <span className={metrics.cumulativeLayoutShift > 0.1 ? 'text-error' : 'text-success'}>
               {metrics.cumulativeLayoutShift.toFixed(3)}
             </span>
           </div>

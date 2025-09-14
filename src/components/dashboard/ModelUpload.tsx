@@ -6,9 +6,9 @@
 'use client'
 
 import React, { useState, useRef, useCallback } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card'
+import { Button } from '../ui/Button'
+import { Badge } from '../ui/Badge'
 import { 
   Upload, 
   X, 
@@ -197,7 +197,7 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
           <div
             className={`
               relative border-2 border-dashed rounded-token-lg p-8 text-center transition-all cursor-pointer
-              ${isDragOver ? 'border-blue-400 bg-blue-50' : 'border-border hover:border-border'}
+              ${isDragOver ? 'border-info/30 bg-info/10' : 'border-border hover:border-border'}
               ${isGenerating ? 'opacity-50 pointer-events-none' : ''}
             `}
             onDragOver={handleDragOver}
@@ -218,7 +218,7 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
             <div className="space-y-token-md">
               <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center">
                 {isDragOver ? (
-                  <Plus className="w-8 h-8 text-blue-500" />
+                  <Plus className="w-8 h-8 text-info" />
                 ) : (
                   <Folder className="w-8 h-8 text-muted-foreground" />
                 )}
@@ -268,13 +268,13 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
                   <div className="flex items-center gap-3 flex-1">
                     <div className="flex-shrink-0">
                       {uploadedFile.status === 'uploading' && (
-                        <Loader2 className="w-5 h-5 text-blue-500 animate-spin" />
+                        <Loader2 className="w-5 h-5 text-info animate-spin" />
                       )}
                       {uploadedFile.status === 'success' && (
-                        <FileCheck className="w-5 h-5 text-green-500" />
+                        <FileCheck className="w-5 h-5 text-success" />
                       )}
                       {uploadedFile.status === 'error' && (
-                        <AlertCircle className="w-5 h-5 text-red-500" />
+                        <AlertCircle className="w-5 h-5 text-error" />
                       )}
                     </div>
                     
@@ -287,7 +287,7 @@ export function ModelUpload({ onFilesUploaded, isGenerating = false }: ModelUplo
                       </p>
                       
                       {uploadedFile.status === 'error' && uploadedFile.errorMessage && (
-                        <p className="text-xs text-red-600 mt-1">
+                        <p className="text-xs text-error mt-1">
                           {uploadedFile.errorMessage}
                         </p>
                       )}

@@ -2,13 +2,13 @@
 
 import React from 'react'
 import { cva } from 'class-variance-authority'
-import { BodyText, MutedText } from '@/components/foundation/Typography'
+import { BodyText, MutedText, AuroraBodyM, AuroraSmall } from '../../foundation/Typography'
 import { Star, Shield } from 'lucide-react'
 import type { Testimonial } from '../social-proof/socialProofData'
 
 // Aurora-compliant testimonial card variants
 const testimonialCardVariants = cva(
-  'border transition-all duration-300 hover:shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_8%,transparent)]',
+  'border transition-all duration-token-normal hover:shadow-token-lg',
   {
     variants: {
       size: {
@@ -18,7 +18,7 @@ const testimonialCardVariants = cva(
       },
       style: {
         default: 'bg-background border-border',
-        elevated: 'bg-background border-border shadow-[0_4px_12px_color-mix(in_srgb,var(--nebula-purple)_4%,transparent)]',
+        elevated: 'bg-background border-border shadow-near',
         minimal: 'bg-muted/20 border-transparent'
       }
     },
@@ -61,28 +61,28 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <BodyText className="font-semibold">{testimonial.name}</BodyText>
+            <AuroraBodyM className="font-semibold">{testimonial.name}</AuroraBodyM>
             {testimonial.verified && (
               <Shield className="w-4 h-4 text-accent" />
             )}
           </div>
-          <MutedText className="text-sm">
+          <AuroraSmall className="opacity-70">
             {testimonial.age} • {testimonial.location}
-          </MutedText>
+          </AuroraSmall>
         </div>
       </div>
       <StarRating rating={testimonial.rating} />
     </div>
     
-    <BodyText className="mb-4 leading-relaxed">{testimonial.content}</BodyText>
+    <AuroraBodyM className="mb-4">{testimonial.content}</AuroraBodyM>
     
     <div className="flex items-center justify-between">
       <div>
-        <MutedText className="text-sm font-medium">{testimonial.productType}</MutedText>
-        <MutedText className="text-xs">{testimonial.occasion}</MutedText>
+        <AuroraSmall className="font-medium">{testimonial.productType}</AuroraSmall>
+        <AuroraSmall className="text-xs opacity-70">{testimonial.occasion}</AuroraSmall>
       </div>
       {testimonial.social && (
-        <MutedText className="text-sm text-accent">{testimonial.social}</MutedText>
+        <AuroraSmall className="text-accent">{testimonial.social}</AuroraSmall>
       )}
     </div>
   </div>

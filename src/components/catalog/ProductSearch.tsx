@@ -203,7 +203,7 @@ export function ProductSearch({ initialResults, className }: ProductSearchProps)
               className={cn(
                 'w-full pl-10 pr-token-md py-token-md border border-border rounded-token-md',
                 'focus:ring-2 focus:ring-cta focus:border-cta',
-                'placeholder:text-muted aurora-living-component aurora-interactive-shadow'
+                'placeholder:text-muted shadow-token-sm focus:shadow-token-md transition-shadow duration-300'
               )}
             />
             {searchQuery && (

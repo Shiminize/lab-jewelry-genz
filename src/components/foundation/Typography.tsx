@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
@@ -7,13 +5,30 @@ import { cn } from '@/lib/utils'
 // Re-export Aurora Typography components from separate file (CLAUDE_RULES compliant)
 export * from './AuroraTypography'
 
+// Re-export specialized typography components (CLAUDE_RULES compliant)
+export * from './SpecializedTypography'
+
+// Export helpful aliases to migrate from legacy to Aurora typography
+export { 
+  AuroraHero as Hero,
+  AuroraStatement as Statement, 
+  AuroraTitleXL as TitleXL,
+  AuroraTitleL as TitleL,
+  AuroraTitleM as TitleM,
+  AuroraBodyXL as BodyXL,
+  AuroraBodyL as BodyL,
+  AuroraBodyM as BodyM,
+  AuroraSmall as Small,
+  AuroraMicro as Micro
+} from './AuroraTypography'
+
 // Legacy display variants (maintained for backward compatibility)
 const displayVariants = cva(
-  'typography-display',
+  'aurora-hero', // Map to Aurora Hero for display text
   {
     variants: {
       gradient: {
-        true: 'typography-display-gradient',
+        true: 'bg-gradient-to-r from-accent via-foreground to-accent bg-clip-text text-transparent',
         false: ''
       }
     },
@@ -24,14 +39,14 @@ const displayVariants = cva(
 )
 
 const headlineVariants = cva(
-  'font-headline text-foreground',
+  '', // Base handled by Aurora classes
   {
     variants: {
       level: {
-        h1: 'typography-h1',
-        h2: 'typography-h2', 
-        h3: 'typography-h3',
-        h4: 'typography-h4',
+        h1: 'aurora-title-xl', // Map to Aurora Title XL (clamp 2rem-3rem)
+        h2: 'aurora-title-l',  // Map to Aurora Title L (clamp 1.5rem-2.25rem)
+        h3: 'aurora-title-m',  // Map to Aurora Title M (clamp 1.25rem-1.75rem)
+        h4: 'aurora-body-xl',  // Map to Aurora Body XL (clamp 1.125rem-1.5rem)
       }
     },
     defaultVariants: {
@@ -41,18 +56,18 @@ const headlineVariants = cva(
 )
 
 const bodyVariants = cva(
-  'font-body text-foreground',
+  '', // Base handled by Aurora classes
   {
     variants: {
       size: {
-        sm: 'typography-body-sm',
-        md: 'typography-body',
-        lg: 'typography-body-lg',
+        sm: 'aurora-small',   // Map to Aurora Small (0.875rem)
+        md: 'aurora-body-m',  // Map to Aurora Body M (1rem)
+        lg: 'aurora-body-l',  // Map to Aurora Body L (1.125rem)
       },
       weight: {
-        regular: 'font-normal',
-        medium: 'font-medium',
-        semibold: 'font-semibold',
+        regular: '', // Weight handled by Aurora classes
+        medium: '',  // Weight handled by Aurora classes  
+        semibold: '', // Weight handled by Aurora classes
       }
     },
     defaultVariants: {
@@ -62,36 +77,7 @@ const bodyVariants = cva(
   }
 )
 
-const priceVariants = cva(
-  'font-headline',
-  {
-    variants: {
-      size: {
-        display: 'typography-price-display',
-        small: 'typography-price-small'
-      }
-    },
-    defaultVariants: {
-      size: 'display'
-    }
-  }
-)
-
-const jewelrySpecVariants = cva(
-  'font-body',
-  {
-    variants: {
-      type: {
-        carat: 'typography-carat-display',
-        metal: 'typography-metal-type',
-        caption: 'typography-caption'
-      }
-    },
-    defaultVariants: {
-      type: 'caption'
-    }
-  }
-)
+// Specialized variants moved to SpecializedTypography.tsx for Claude Rules compliance
 
 // ===== LEGACY COMPONENTS (MAINTAINED FOR COMPATIBILITY) =====
 
@@ -174,137 +160,31 @@ export function BodyText({
   )
 }
 
-// Specialized text components
-// Price Display Components
-interface PriceDisplayProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof priceVariants> {
-  children: React.ReactNode
-  currency?: string
-  as?: 'span' | 'div' | 'p'
-}
-
-export function PriceDisplay({ 
-  className, 
-  size = 'display', 
-  currency = '$',
-  as = 'span', 
-  children, 
-  ...props 
-}: PriceDisplayProps) {
-  const Component = as
-  return (
-    <Component className={cn(priceVariants({ size }), className)} {...props}>
-      {currency}{children}
-    </Component>
-  )
-}
-
-// Jewelry Specification Components
-interface JewelrySpecProps extends React.HTMLAttributes<HTMLSpanElement>, VariantProps<typeof jewelrySpecVariants> {
-  children: React.ReactNode
-  as?: 'span' | 'div' | 'p'
-}
-
-export function CaratDisplay({ className, type = 'carat', as = 'span', children, ...props }: JewelrySpecProps) {
-  const Component = as
-  return (
-    <Component className={cn(jewelrySpecVariants({ type }), className)} {...props}>
-      {children}
-    </Component>
-  )
-}
-
-export function MetalTypeDisplay({ className, type = 'metal', as = 'span', children, ...props }: JewelrySpecProps) {
-  const Component = as
-  return (
-    <Component className={cn(jewelrySpecVariants({ type }), className)} {...props}>
-      {children}
-    </Component>
-  )
-}
+// Specialized text components moved to SpecializedTypography.tsx for Claude Rules compliance
 
 interface MutedTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   children: React.ReactNode
-  size?: 'sm' | 'md'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   variant?: 'default' | 'light'
 }
 
 export function MutedText({ className, size = 'md', variant = 'default', children, ...props }: MutedTextProps) {
-  const sizeClass = size === 'sm' ? 'typography-body-sm' : 'typography-body'
+  // Map size props to Aurora components for backward compatibility
+  const sizeClass = {
+    xs: 'aurora-micro',
+    sm: 'aurora-small', 
+    md: 'aurora-body-m',
+    lg: 'aurora-body-l',
+    xl: 'aurora-body-xl'
+  }[size] || 'aurora-body-m'
+  
   const colorClass = 'text-muted' // CLAUDE_RULES compliant: Aurora muted text color
   return (
-    <span className={cn('font-body', colorClass, sizeClass, className)} {...props}>
+    <span className={cn(sizeClass, colorClass, className)} {...props}>
       {children}
     </span>
   )
 }
 
 // Caption Text Component
-interface CaptionTextProps extends React.HTMLAttributes<HTMLSpanElement> {
-  children: React.ReactNode
-  as?: 'span' | 'div' | 'p'
-}
-
-export function CaptionText({ className, as = 'span', children, ...props }: CaptionTextProps) {
-  const Component = as
-  return (
-    <Component className={cn('typography-caption', className)} {...props}>
-      {children}
-    </Component>
-  )
-}
-
-interface CTATextProps extends React.HTMLAttributes<HTMLSpanElement> {
-  children: React.ReactNode
-  as?: 'span' | 'div' | 'button'
-}
-
-export function CTAText({ className, as = 'span', children, ...props }: CTATextProps) {
-  const Component = as
-  return (
-    <Component className={cn('typography-cta', className)} {...props}>
-      {children}
-    </Component>
-  )
-}
-
-// Navigation Typography Components
-interface NavTextProps extends React.HTMLAttributes<HTMLSpanElement> {
-  children: React.ReactNode
-  variant?: 'primary' | 'secondary' | 'category'
-  as?: 'span' | 'div' | 'p'
-}
-
-export function NavText({ 
-  className, 
-  variant = 'primary', 
-  as = 'span', 
-  children, 
-  ...props 
-}: NavTextProps) {
-  const Component = as
-  const variantClass = {
-    primary: 'typography-nav-primary',
-    secondary: 'typography-nav-secondary', 
-    category: 'typography-nav-category'
-  }[variant]
-  
-  return (
-    <Component className={cn(variantClass, className)} {...props}>
-      {children}
-    </Component>
-  )
-}
-
-// Link Typography Component
-interface LinkTextProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  children: React.ReactNode
-  href: string
-}
-
-export function LinkText({ className, children, ...props }: LinkTextProps) {
-  return (
-    <a className={cn('typography-link', className)} {...props}>
-      {children}
-    </a>
-  )
-}
+// Caption, CTA, Nav, and Link components moved to SpecializedTypography.tsx for Claude Rules compliance

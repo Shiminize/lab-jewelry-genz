@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -8,7 +8,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "border bg-background text-foreground rounded-token-md aurora-card aurora-interactive-shadow aurora-living-component shadow-[0_2px_8px_color-mix(in_srgb,var(--nebula-purple)_20%,transparent)]",
+      "border bg-background text-foreground rounded-token-md shadow-token-md hover:shadow-token-lg transition-shadow duration-token-normal hover:-translate-y-0.5 transition-transform",
       className
     )}
     {...props}
@@ -49,7 +49,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-aurora-nav-muted aurora-shimmer-overlay", className)}
+    className={cn("text-sm text-aurora-nav-muted bg-aurora-shimmer animate-aurora-shimmer-slow", className)}
     {...props}
   />
 ))

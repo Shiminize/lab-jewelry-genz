@@ -2,9 +2,9 @@
 
 import React from 'react'
 import { Filter, X, ChevronDown } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { H3, BodyText, MutedText } from '@/components/foundation/Typography'
-import type { ProductCategory, ProductSubcategory } from '@/types/product'
+import { cn } from '../../lib/utils'
+import { H3, BodyText, MutedText } from '../foundation/Typography'
+import type { ProductCategory, ProductSubcategory } from '../../types/product'
 
 interface ProductSearchFiltersProps {
   showFilters: boolean
@@ -67,7 +67,7 @@ export function ProductSearchFilters({
           onClick={onToggleFilters}
           className={cn(
             'flex items-center gap-2 px-4 py-3 border border-border rounded-token-md',
-            'hover:bg-muted transition-colors aurora-interactive-shadow',
+            'hover:bg-muted transition-colors shadow-token-sm hover:shadow-token-md transition-shadow duration-token-normal',
             showFilters && 'bg-muted'
           )}
         >
@@ -99,7 +99,7 @@ export function ProductSearchFilters({
 
       {/* Expandable Filter Panel */}
       {showFilters && (
-        <div className="bg-muted border border-border rounded-token-md p-6 mb-6 shadow-[0_2px_8px_color-mix(in_srgb,var(--nebula-purple)_20%,transparent)]">
+        <div className="bg-muted border border-border rounded-token-md p-6 mb-6 shadow-token-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* Categories */}

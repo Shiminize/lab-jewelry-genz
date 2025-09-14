@@ -375,3 +375,16 @@ export const UnlimitedCustomizationIcon: React.FC<ValuesIconProps> = ({
           stroke="currentColor" strokeWidth="1" fill="none" />
   </svg>
 )
+
+// Aggregated export for convenient import as ValuesIcons
+export const ValuesIcons = {
+  EthicalSourcingIcon,
+  CustomVisionIcon,
+  PlanetPositiveIcon,
+  ConflictFreeIcon,
+  LabGrownIcon,
+  RecycledMetalIcon,
+  CarbonNeutralIcon,
+  PremiumQualityIcon,
+  UnlimitedCustomizationIcon
+}

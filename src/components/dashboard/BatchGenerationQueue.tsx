@@ -202,11 +202,11 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
 
   const getStatusIcon = (status: QueuedJob['status']) => {
     switch (status) {
-      case 'queued': return <Clock className="w-4 h-4 text-blue-500" />
-      case 'processing': return <Loader2 className="w-4 h-4 text-green-500 animate-spin" />
-      case 'completed': return <CheckCircle className="w-4 h-4 text-green-600" />
-      case 'error': return <AlertCircle className="w-4 h-4 text-red-500" />
-      case 'paused': return <Pause className="w-4 h-4 text-yellow-500" />
+      case 'queued': return <Clock className="w-4 h-4 text-info" />
+      case 'processing': return <Loader2 className="w-4 h-4 text-success animate-spin" />
+      case 'completed': return <CheckCircle className="w-4 h-4 text-success" />
+      case 'error': return <AlertCircle className="w-4 h-4 text-error" />
+      case 'paused': return <Pause className="w-4 h-4 text-warning" />
       default: return null
     }
   }
@@ -266,19 +266,19 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
             </div>
             <div>
               <p className="text-aurora-nav-muted">Processing</p>
-              <p className="font-semibold text-lg text-green-600">
+              <p className="font-semibold text-lg text-success">
                 {jobs.filter(j => j.status === 'processing').length}
               </p>
             </div>
             <div>
               <p className="text-aurora-nav-muted">Completed</p>
-              <p className="font-semibold text-lg text-blue-600">
+              <p className="font-semibold text-lg text-info">
                 {jobs.filter(j => j.status === 'completed').length}
               </p>
             </div>
             <div>
               <p className="text-aurora-nav-muted">Failed</p>
-              <p className="font-semibold text-lg text-red-600">
+              <p className="font-semibold text-lg text-error">
                 {jobs.filter(j => j.status === 'error').length}
               </p>
             </div>
@@ -289,13 +289,15 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
       {/* Jobs List */}
       <div className="space-y-3">
         {jobs.map((job) => (
-          <Card key={job.id} className="border-l-4" style={{
-            borderLeftColor: 
-              job.status === 'processing' ? '#10b981' :
-              job.status === 'completed' ? '#3b82f6' :
-              job.status === 'error' ? '#ef4444' :
-              job.status === 'paused' ? '#f59e0b' : '#6b7280'
-          }}>
+          <Card 
+            key={job.id}
+            className={`border-l-4 ${
+              job.status === 'processing' ? 'border-success' :
+              job.status === 'completed' ? 'border-info' :
+              job.status === 'error' ? 'border-error' :
+              job.status === 'paused' ? 'border-warning' : 'border-text-muted'
+            }`}
+          >
             <CardContent className="p-4">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -351,7 +353,7 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
                         <div 
-                          className="bg-green-500 h-2 rounded-full transition-all duration-300"
+                          className="bg-success h-2 rounded-full transition-all duration-300"
                           style={{ width: `${job.progress}%` }}
                         />
                       </div>
@@ -360,7 +362,7 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
 
                   {/* Error Message */}
                   {job.status === 'error' && job.error && (
-                    <div className="mt-2 text-sm text-red-600 bg-red-50 p-2 rounded">
+                    <div className="mt-2 text-sm text-error bg-error/10 p-2 rounded">
                       {job.error}
                     </div>
                   )}
@@ -425,7 +427,7 @@ export function BatchGenerationQueue({ className = '' }: BatchGenerationQueuePro
                       size="sm"
                       variant="outline"
                       onClick={() => cancelJob(job.id)}
-                      className="h-8 w-8 p-0 text-red-600 hover:text-red-700"
+                      className="h-8 w-8 p-0 text-error hover:text-error/80"
                     >
                       <Trash2 className="w-3 h-3" />
                     </Button>

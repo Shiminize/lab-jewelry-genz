@@ -308,8 +308,8 @@ export function OrderDetailModal({
         )}
 
         {error && (
-          <div className="p-4 bg-red-50 border-l-4 border-red-400">
-            <p className="text-red-700">{error}</p>
+          <div className="p-4 bg-error/10 border-l-4 border-error/40">
+            <p className="text-error">{error}</p>
           </div>
         )}
 

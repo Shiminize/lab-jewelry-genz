@@ -25,13 +25,13 @@ const progressVariants = cva(
 )
 
 const progressBarVariants = cva(
-  'h-full transition-all duration-300 ease-in-out aurora-shimmer-overlay',
+  'h-full transition-all duration-300 ease-in-out bg-aurora-shimmer animate-aurora-shimmer-slow',
   {
     variants: {
       variant: {
-        default: 'bg-gradient-to-r from-accent to-cta aurora-pulse',
+        default: 'bg-gradient-to-r from-accent to-cta animate-aurora-glow-pulse',
         aurora: 'bg-gradient-to-r from-foreground via-accent to-cta aurora-gradient-shift',
-        accent: 'bg-foreground aurora-interactive-shadow',
+        accent: 'bg-foreground shadow-token-interactive',
         success: 'bg-accent',
         warning: 'bg-accent/80',
         error: 'bg-cta'

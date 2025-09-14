@@ -2,10 +2,10 @@
 'use client'
 
 import React, { useState, useCallback, useEffect } from 'react'
-import { cn } from '@/lib/utils'
-import { H3, MutedText } from '@/components/foundation/Typography'
-import { Button } from '@/components/ui/Button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
+import { cn } from '../../lib/utils'
+import { H3, MutedText } from '../foundation/Typography'
+import { Button } from '../ui/Button'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card'
 
 interface MaterialProperties {
   metalness: number
@@ -39,7 +39,7 @@ export function AdvancedMaterialEditor({
     'polished-gold': {
       metalness: 1.0,
       roughness: 0.1,
-      color: '#FFD700',
+      color: 'var(--material-gold, #FFD700)',
       reflectivity: 0.9,
       clearcoat: 1.0,
       clearcoatRoughness: 0.0,
@@ -48,7 +48,7 @@ export function AdvancedMaterialEditor({
     'brushed-silver': {
       metalness: 1.0,
       roughness: 0.3,
-      color: '#C0C0C0',
+      color: 'var(--material-silver, #C0C0C0)',
       reflectivity: 0.7,
       clearcoat: 0.0,
       clearcoatRoughness: 0.5,
@@ -57,7 +57,7 @@ export function AdvancedMaterialEditor({
     'matte-platinum': {
       metalness: 1.0,
       roughness: 0.7,
-      color: '#E5E4E2',
+      color: 'var(--material-platinum, #E5E4E2)',
       reflectivity: 0.4,
       clearcoat: 0.0,
       clearcoatRoughness: 1.0,
@@ -66,7 +66,7 @@ export function AdvancedMaterialEditor({
     'rose-gold': {
       metalness: 1.0,
       roughness: 0.15,
-      color: '#E8B4B8',
+      color: 'var(--material-rose-gold, #E8B4B8)',
       reflectivity: 0.85,
       clearcoat: 0.8,
       clearcoatRoughness: 0.1,

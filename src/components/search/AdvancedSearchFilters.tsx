@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { FunnelIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
-import { H3, BodyText, MutedText } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
+import { Button } from '../ui/Button'
+import { Input } from '../ui/Input'
+import { H3, BodyText, MutedText } from '../foundation/Typography'
+import { cn } from '../../lib/utils'
 
 interface SearchFilters {
   category: string[]
@@ -100,7 +100,7 @@ export function AdvancedSearchFilters({
 
       {/* Filter Panel */}
       {isVisible && (
-        <div className="bg-background border border-border rounded-token-md p-6 space-y-6 shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_15%,transparent)]">
+        <div className="bg-background border border-border rounded-token-md p-6 space-y-6 shadow-token-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             
             {/* Categories */}

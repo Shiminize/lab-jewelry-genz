@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 interface TooltipProps {
   children: React.ReactNode
@@ -97,9 +97,9 @@ export function Tooltip({
         <div
           ref={tooltipRef}
           className={cn(
-            'absolute z-50 px-3 py-2 text-sm text-white bg-deep-space rounded-token-md',
+            'absolute z-50 px-3 py-2 text-sm text-background bg-deep-space rounded-token-md',
             'animate-fade-in max-w-xs whitespace-normal',
-            'shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_15%,transparent)]', // Aurora shadow-float
+            'shadow-token-lg',
             positionClasses[actualPosition],
             className
           )}

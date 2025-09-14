@@ -12,28 +12,37 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local')
 }
 
-// Connection options optimized for CLAUDE_RULES <300ms response target
+// Circuit breaker state management
+let circuitBreakerState = {
+  isOpen: false,
+  failureCount: 0,
+  lastFailureTime: 0,
+  maxFailures: 5,
+  resetTimeout: 30000 // 30 seconds
+}
+
+// Connection options optimized for CLAUDE_RULES with resilience improvements
 const mongooseOptions: mongoose.ConnectOptions = {
   bufferCommands: false, // CRITICAL: Prevent buffering timeout issues
   
-  // CLAUDE_RULES: Ultra-aggressive connection pool for <300ms API responses
-  maxPoolSize: 1, // Single connection for development to prevent pool explosion
-  minPoolSize: 0, // No minimum to reduce overhead
-  maxIdleTimeMS: 5000, // Very short idle time
+  // CLAUDE_RULES: Balanced connection pool for <300ms API responses with stability
+  maxPoolSize: 3, // Increased for better connection handling
+  minPoolSize: 1, // Maintain minimum connection
+  maxIdleTimeMS: 10000, // Extended idle time for stability
   
-  // CLAUDE_RULES: Extremely fast timeouts for immediate failure
-  serverSelectionTimeoutMS: 500, // 500ms max for server selection
-  socketTimeoutMS: 1000, // 1s socket timeout
-  connectTimeoutMS: 500, // 500ms connection timeout
+  // CLAUDE_RULES: Realistic timeouts for stability (increased from 300ms)
+  serverSelectionTimeoutMS: 1000, // 1s max for server selection
+  socketTimeoutMS: 2000, // 2s socket timeout
+  connectTimeoutMS: 1000, // 1s connection timeout
   
   family: 4, // Use IPv4, skip trying IPv6
-  retryWrites: false, // Disable retries for faster failure
-  retryReads: false, // Disable retries for faster failure
+  retryWrites: true, // Enable retries for reliability
+  retryReads: true, // Enable retries for reliability
   
-  // CLAUDE_RULES: Minimal connection settings for speed
-  heartbeatFrequencyMS: 2000, // Faster heartbeat
-  localThresholdMS: 5, // Ultra-fast server selection
-  maxConnecting: 1, // Single connection attempt only
+  // CLAUDE_RULES: Connection settings optimized for reliability
+  heartbeatFrequencyMS: 10000, // Standard heartbeat
+  localThresholdMS: 15, // Reasonable server selection
+  maxConnecting: 2, // Allow multiple connection attempts
   
   // Disable compression to reduce CPU overhead
   compressors: [],
@@ -41,11 +50,11 @@ const mongooseOptions: mongoose.ConnectOptions = {
   // CLAUDE_RULES: Fastest read preference
   readPreference: 'primary', // Always read from primary for consistency and speed
   
-  // CLAUDE_RULES: Fastest write concern
+  // CLAUDE_RULES: Balanced write concern
   writeConcern: {
     w: 1, // Write to primary only
     j: false, // No journal for speed (dev environment)
-    wtimeout: 300 // 300ms write timeout to match CLAUDE_RULES
+    wtimeout: 1000 // 1s write timeout for better reliability
   },
   
   // Disable monitoring for production-level speed
@@ -65,11 +74,46 @@ if (!cached) {
 }
 
 /**
- * Establishes MongoDB connection with error handling and reconnection logic
+ * Circuit breaker helper function
+ */
+function checkCircuitBreaker(): boolean {
+  const now = Date.now()
+  
+  // Check if circuit should be reset
+  if (circuitBreakerState.isOpen && 
+      (now - circuitBreakerState.lastFailureTime) > circuitBreakerState.resetTimeout) {
+    circuitBreakerState.isOpen = false
+    circuitBreakerState.failureCount = 0
+    console.log('🔄 Circuit breaker reset - attempting reconnection')
+  }
+  
+  return !circuitBreakerState.isOpen
+}
+
+/**
+ * Records a failure in the circuit breaker
+ */
+function recordFailure(error: Error): void {
+  circuitBreakerState.failureCount++
+  circuitBreakerState.lastFailureTime = Date.now()
+  
+  if (circuitBreakerState.failureCount >= circuitBreakerState.maxFailures) {
+    circuitBreakerState.isOpen = true
+    console.error(`🚨 Circuit breaker opened after ${circuitBreakerState.maxFailures} failures:`, error.message)
+  }
+}
+
+/**
+ * Establishes MongoDB connection with circuit breaker and error handling
  * Uses connection caching to prevent multiple connections in serverless environments
  */
 export async function connectToDatabase(): Promise<typeof mongoose> {
   const startTime = Date.now()
+  
+  // Check circuit breaker before attempting connection
+  if (!checkCircuitBreaker()) {
+    throw new Error('Database connection circuit breaker is open - too many recent failures')
+  }
   
   // Return existing connection if available and healthy
   if (cached.conn && cached.conn.connection.readyState === 1) {
@@ -86,17 +130,15 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
 
   // Reset cached connection if it's in a bad state
   if (cached.conn && cached.conn.connection.readyState !== 1) {
-
     cached.conn = null
     cached.promise = null
   }
 
   // Create new connection promise if none exists
   if (!cached.promise) {
-
     // Set a hard timeout for the entire connection process - CLAUDE_RULES compliant
     const connectionTimeout = new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Connection timeout after 300ms')), 300)
+      setTimeout(() => reject(new Error('Connection timeout after 1000ms')), 1000)
     })
     
     const connectionPromise = mongoose.connect(MONGODB_URI, mongooseOptions)
@@ -106,7 +148,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
       })
       .catch((error) => {
         console.error('MongoDB connection error:', error)
-        DatabaseMonitor.trackConnectionError()
+        recordFailure(error) // Record failure in circuit breaker
         // Reset promise to allow retry
         cached.promise = null
         cached.conn = null
@@ -126,9 +168,9 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
     
   } catch (error) {
     console.error('Failed to establish MongoDB connection:', error)
+    recordFailure(error as Error) // Record failure in circuit breaker
     cached.promise = null
     cached.conn = null
-    DatabaseMonitor.trackConnectionError()
     throw error
   }
 

@@ -2,19 +2,19 @@
 
 import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 const alertVariants = cva(
-  'relative w-full border px-4 py-3 text-sm font-body aurora-living-component aurora-interactive-shadow rounded-token-md', // Aurora border radius: medium (8px)
+  'relative w-full border px-4 py-3 text-sm font-body rounded-token-md shadow-token-sm hover:shadow-token-md transition-shadow duration-300', // Aurora border radius: medium (8px)
   {
     variants: {
       variant: {
         default: 'bg-lunar-grey text-deep-space border-border',
-        warning: 'bg-amber-glow/10 text-deep-space border-amber-glow/30 aurora-shimmer-overlay', // Aurora warning color
+        warning: 'bg-amber-glow/10 text-deep-space border-amber-glow/30 bg-aurora-shimmer animate-aurora-shimmer-slow', // Aurora warning color
         error: 'bg-error/10 text-deep-space border-error/30', // Aurora error color
         success: 'bg-emerald-flash/10 text-deep-space border-emerald-flash/30', // Aurora success color
         info: 'bg-nebula-purple/10 text-deep-space border-nebula-purple/30', // Aurora info color
-        aurora: 'bg-gradient-to-r from-aurora-pink/10 to-aurora-plum/10 text-deep-space border-aurora-pink/30 aurora-pulse'
+        aurora: 'bg-gradient-to-r from-aurora-pink/10 to-aurora-plum/10 text-deep-space border-aurora-pink/30 animate-aurora-glow-pulse'
       }
     },
     defaultVariants: {

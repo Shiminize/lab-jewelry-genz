@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation A/B Test Visual Checker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .controls {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+        }
+        
+        .info-section {
+            padding: 30px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .info-card h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        
+        .info-card ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .info-card li {
+            margin: 8px 0;
+            color: #6c757d;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .instructions {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .instructions h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+        
+        .instructions ol {
+            color: #424242;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .iframe-container {
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .iframe-container iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Navigation A/B Test Visual Checker</h1>
+            <p>Test and compare the enhanced navigation A/B implementation</p>
+            <span class="status-indicator status-active">LIVE TEST ENVIRONMENT</span>
+        </div>
+        
+        <div class="controls">
+            <div class="button-group">
+                <a href="http://localhost:3000/" target="_blank" class="btn btn-primary">
+                    🏠 Open Main Site
+                </a>
+                <a href="http://localhost:3000/navigation-demo" target="_blank" class="btn btn-success">
+                    🎭 View Navigation Demo
+                </a>
+                <button onclick="forceControlGroup()" class="btn btn-secondary">
+                    ⚪ Force Control Group
+                </button>
+                <button onclick="forceTestGroup()" class="btn btn-warning">
+                    🟡 Force Test Group
+                </button>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <div class="instructions">
+                <h3>🎯 How to Test A/B Navigation Variants</h3>
+                <ol>
+                    <li><strong>Open Main Site</strong> - Click "Open Main Site" button to see current navigation</li>
+                    <li><strong>Check Assignment</strong> - Open Developer Tools (F12) → Console → Look for A/B test logs</li>
+                    <li><strong>Force Different Groups</strong> - Use the "Force Control/Test Group" buttons to see both variants</li>
+                    <li><strong>Visual Differences</strong> - Look for the <span class="highlight">champagne-colored trust bar</span> in test group</li>
+                    <li><strong>Test Interactions</strong> - Click on trust signals, navigation items, and mobile menu</li>
+                    <li><strong>Compare Designs</strong> - Notice differences in icons, shadows, and hover effects</li>
+                </ol>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🎛️ Control Group Features</h3>
+                    <ul>
+                        <li>Standard navigation layout</li>
+                        <li>No trust bar at the top</li>
+                        <li>Original Lucide icons</li>
+                        <li>Basic hover effects</li>
+                        <li>Standard color scheme</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card" style="border-left-color: #28a745;">
+                    <h3>✨ Enhanced Group Features</h3>
+                    <ul>
+                        <li><strong>Trust Bar</strong> - Champagne colored with 4 trust signals</li>
+                        <li><strong>Atlas Icons</strong> - Improved iconography</li>
+                        <li><strong>Luxury Shadows</strong> - Enhanced visual depth</li>
+                        <li><strong>Better UX</strong> - Improved hover and dropdown behavior</li>
+                        <li><strong>Enhanced Colors</strong> - Standardized brand colors</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card" style="border-left-color: #ffc107;">
+                    <h3>📊 Tracking Events</h3>
+                    <ul>
+                        <li>Trust bar views</li>
+                        <li>Navigation clicks</li>
+                        <li>Dropdown interactions</li>
+                        <li>Mobile menu usage</li>
+                        <li>Conversion events</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card" style="border-left-color: #dc3545;">
+                    <h3>🔍 What to Look For</h3>
+                    <ul>
+                        <li>Champagne trust bar (test group only)</li>
+                        <li>Trust signals: GIA Certified, Conflict-Free, etc.</li>
+                        <li>Improved icon designs</li>
+                        <li>Enhanced shadow effects</li>
+                        <li>Better responsive behavior</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🚀 GenZ Jewelry A/B Testing Suite | Navigation Enhancement Test</p>
+            <p>Test Period: September 9-23, 2025 | Traffic Split: 50/50</p>
+        </div>
+    </div>
+    
+    <script>
+        function forceControlGroup() {
+            // Open new window and set control group
+            const newWindow = window.open('http://localhost:3000/', '_blank');
+            newWindow.onload = function() {
+                newWindow.localStorage.setItem('aurora_user_id', 'control_user_' + Date.now());
+                newWindow.location.reload();
+            };
+            
+            alert('🔄 Opening new window with Control Group assignment!\n\nLook for: Standard navigation without trust bar');
+        }
+        
+        function forceTestGroup() {
+            // Open new window and set test group
+            const newWindow = window.open('http://localhost:3000/', '_blank');
+            newWindow.onload = function() {
+                newWindow.localStorage.setItem('aurora_user_id', 'demo_user_' + Date.now());
+                newWindow.location.reload();
+            };
+            
+            alert('🔄 Opening new window with Test Group assignment!\n\nLook for: Champagne-colored trust bar at the top');
+        }
+        
+        // Add visual feedback
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.onclick) return; // Skip if has custom onclick
+                
+                const originalText = this.textContent;
+                this.textContent = '🔄 Loading...';
+                this.style.opacity = '0.7';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.opacity = '1';
+                }, 1000);
+            });
+        });
+        
+        // Status check
+        fetch('http://localhost:3000/api/health').then(response => {
+            if (response.ok) {
+                console.log('✅ Server is running and healthy');
+            }
+        }).catch(() => {
+            console.log('⚠️ Server health check failed');
+        });
+    </script>
+</body>
+</html>

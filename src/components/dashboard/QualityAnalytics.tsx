@@ -6,9 +6,9 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card'
+import { Button } from '../ui/Button'
+import { Badge } from '../ui/Badge'
 import { 
   BarChart3, 
   TrendingUp, 
@@ -200,9 +200,9 @@ export function QualityAnalytics() {
 
   const getImpactColor = (impact: string) => {
     switch (impact) {
-      case 'high': return 'bg-red-100 text-red-800'
-      case 'medium': return 'bg-yellow-100 text-yellow-800'
-      case 'low': return 'bg-green-100 text-green-800'
+      case 'high': return 'bg-error/10 text-error'
+      case 'medium': return 'bg-warning/10 text-warning'
+      case 'low': return 'bg-success/10 text-success'
       default: return 'bg-muted text-foreground'
     }
   }
@@ -220,7 +220,7 @@ export function QualityAnalytics() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-info"></div>
       </div>
     )
   }
@@ -271,7 +271,7 @@ export function QualityAnalytics() {
               onClick={() => setSelectedTab(tab.id as any)}
               className={`flex items-center py-2 px-1 border-b-2 font-medium text-sm ${
                 selectedTab === tab.id
-                  ? 'border-blue-500 text-blue-600'
+                  ? 'border-accent text-accent'
                   : 'border-transparent text-aurora-nav-muted hover:text-foreground hover:border-border'
               }`}
             >
@@ -288,7 +288,7 @@ export function QualityAnalytics() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center">
-                <FileImage className="h-8 w-8 text-blue-600" />
+                <FileImage className="h-8 w-8 text-info" />
                 <div className="ml-4">
                   <p className="text-sm font-medium text-aurora-nav-muted">Total Images</p>
                   <p className="text-2xl font-bold text-foreground">{metrics.generationStats.totalImages}</p>
@@ -300,7 +300,7 @@ export function QualityAnalytics() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center">
-                <HardDrive className="h-8 w-8 text-green-600" />
+                <HardDrive className="h-8 w-8 text-success" />
                 <div className="ml-4">
                   <p className="text-sm font-medium text-aurora-nav-muted">Total Size</p>
                   <p className="text-2xl font-bold text-foreground">
@@ -314,7 +314,7 @@ export function QualityAnalytics() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center">
-                <Clock className="h-8 w-8 text-orange-600" />
+                <Clock className="h-8 w-8 text-warning" />
                 <div className="ml-4">
                   <p className="text-sm font-medium text-aurora-nav-muted">Avg Gen Time</p>
                   <p className="text-2xl font-bold text-foreground">
@@ -328,7 +328,7 @@ export function QualityAnalytics() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center">
-                <Award className="h-8 w-8 text-purple-600" />
+                <Award className="h-8 w-8 text-primary" />
                 <div className="ml-4">
                   <p className="text-sm font-medium text-aurora-nav-muted">Success Rate</p>
                   <p className="text-2xl font-bold text-foreground">
@@ -386,7 +386,7 @@ export function QualityAnalytics() {
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
                         <div 
-                          className="bg-blue-600 h-2 rounded-full"
+                          className="bg-info h-2 rounded-full"
                           style={{ width: `${format.compressionRatio}%` }}
                         />
                       </div>
@@ -466,7 +466,7 @@ export function QualityAnalytics() {
                     </div>
                     <p className="text-sm text-aurora-nav-muted mb-3">{rec.description}</p>
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-blue-600">{rec.action}</p>
+                      <p className="text-sm font-medium text-accent">{rec.action}</p>
                       <Button size="sm" variant="outline">
                         Apply
                       </Button>

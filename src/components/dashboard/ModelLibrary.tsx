@@ -6,11 +6,11 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
-import { Input } from '@/components/ui/Input'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card'
+import { Button } from '../ui/Button'
+import { Badge } from '../ui/Badge'
+import { Input } from '../ui/Input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/Tabs'
 import ModelUpload from './ModelUpload'
 import { 
   Upload, 
@@ -189,14 +189,14 @@ export function ModelLibrary({
 
   const getSequenceStatus = (model: GLBModel) => {
     if (!model.hasSequences) return { color: 'bg-muted text-aurora-nav-muted', text: 'No sequences' }
-    if (model.sequenceCount < 144) return { color: 'bg-yellow-100 text-yellow-600', text: 'Partial' }
-    return { color: 'bg-green-100 text-green-600', text: 'Complete' }
+    if (model.sequenceCount < 144) return { color: 'bg-warning/10 text-warning', text: 'Partial' }
+    return { color: 'bg-success/10 text-success', text: 'Complete' }
   }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent"></div>
       </div>
     )
   }
@@ -282,7 +282,7 @@ export function ModelLibrary({
             <Card 
               key={model.id}
               className={`cursor-pointer transition-all hover:shadow-md ${
-                isSelected ? 'ring-2 ring-blue-500 bg-blue-50' : ''
+                isSelected ? 'ring-2 ring-accent bg-accent/5' : ''
               } ${isGenerating ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={() => handleModelToggle(model.id)}
             >
@@ -297,7 +297,7 @@ export function ModelLibrary({
                     </p>
                   </div>
                   {isSelected && (
-                    <CheckSquare className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                    <CheckSquare className="w-5 h-5 text-accent flex-shrink-0" />
                   )}
                 </div>
               </CardHeader>

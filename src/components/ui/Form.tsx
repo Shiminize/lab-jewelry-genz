@@ -47,14 +47,14 @@ export function Form({
       )}
 
       {errors && errors.length > 0 && (
-        <div className="bg-red-50 border border-red-200 rounded-token-lg p-token-md">
+        <div className="bg-error/10 border border-error/30 rounded-token-lg p-token-md">
           <div className="flex items-center gap-2 mb-2">
-            <AlertCircle className="w-4 h-4 text-red-600" />
-            <span className="text-sm font-medium text-red-800">
+            <AlertCircle className="w-4 h-4 text-error" />
+            <span className="text-sm font-medium text-error">
               Please fix the following errors:
             </span>
           </div>
-          <ul className="list-disc list-inside text-sm text-red-700 space-y-1">
+          <ul className="list-disc list-inside text-sm text-error space-y-1">
             {errors.map((error, index) => (
               <li key={index}>{error}</li>
             ))}
@@ -82,7 +82,7 @@ export function FormField({
       {label && (
         <label className="block text-sm font-medium text-foreground">
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="text-error ml-1">*</span>}
         </label>
       )}
       {children}
@@ -90,7 +90,7 @@ export function FormField({
         <p className="text-xs text-muted-foreground">{description}</p>
       )}
       {error && (
-        <p className="text-xs text-red-600 flex items-center gap-1">
+        <p className="text-xs text-error flex items-center gap-1">
           <AlertCircle className="w-3 h-3" />
           {error}
         </p>

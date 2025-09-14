@@ -22,9 +22,9 @@ import {
   Download,
   Settings
 } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { H1, H2, H3, BodyText } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
+import { Button } from '../../ui/Button'
+import { H1, H2, H3, BodyText } from '../../foundation/Typography'
+import { cn } from '../../../lib/utils'
 
 // Interfaces
 interface Campaign {
@@ -80,7 +80,7 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       case 'active':
         return { 
           text: 'Active', 
-          className: 'bg-green-100 text-green-800 border-green-200',
+          className: 'bg-success/10 text-success border-success/30',
           icon: Play
         }
       case 'draft':
@@ -92,25 +92,25 @@ const StatusBadge = ({ status }: { status: Campaign['status'] }) => {
       case 'scheduled':
         return { 
           text: 'Scheduled', 
-          className: 'bg-blue-100 text-blue-800 border-blue-200',
+          className: 'bg-info/10 text-info border-info/30',
           icon: Clock
         }
       case 'paused':
         return { 
           text: 'Paused', 
-          className: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+          className: 'bg-warning/10 text-warning border-warning/30',
           icon: Pause
         }
       case 'completed':
         return { 
           text: 'Completed', 
-          className: 'bg-green-100 text-green-800 border-green-200',
+          className: 'bg-success/10 text-success border-success/30',
           icon: CheckCircle
         }
       case 'cancelled':
         return { 
           text: 'Cancelled', 
-          className: 'bg-red-100 text-red-800 border-red-200',
+          className: 'bg-error/10 text-error border-error/30',
           icon: AlertCircle
         }
       default:
@@ -158,8 +158,8 @@ const MetricCard = ({
       {trend && (
         <div className={cn(
           "text-xs font-medium",
-          trend === 'up' && "text-green-600",
-          trend === 'down' && "text-red-600",
+          trend === 'up' && "text-success",
+          trend === 'down' && "text-error",
           trend === 'neutral' && "text-aurora-nav-muted"
         )}>
           {trend === 'up' ? '↗' : trend === 'down' ? '↘' : '→'}
@@ -315,7 +315,7 @@ export default function CampaignDetails({
   if (error || !data) {
     return (
       <div className="text-foreground bg-background p-6 rounded-token-lg border text-center">
-        <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+        <AlertCircle className="w-12 h-12 text-error mx-auto mb-4" />
         <H2 className="mb-2 text-foreground">Failed to Load Campaign</H2>
         <BodyText className="text-aurora-nav-muted bg-background mb-4">
           {error || 'Campaign not found'}

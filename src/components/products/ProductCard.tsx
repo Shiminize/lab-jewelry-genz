@@ -3,7 +3,7 @@
 import React, { useMemo, useCallback } from 'react'
 import Link from 'next/link'
 import { MaterialTagChip } from '@/components/ui/MaterialTagChip'
-import { BodyText } from '@/components/foundation/Typography'
+import { BodyText, AuroraBodyM } from '@/components/foundation/Typography'
 import { extractMaterialTags } from '@/lib/services/material-tag-extraction.service'
 import { cn } from '@/lib/utils'
 import { useDesignVersion, useMaterialDesign, useABTest } from '@/hooks/useDesignVersion'
@@ -140,13 +140,16 @@ export function ProductCard({
   return (
     <div 
       className={cn(
-        // Base container styles with Aurora migration
+        // Base container styles with Aurora prismatic shadows
         getClassName(
           'group cursor-pointer transform hover:scale-105 transition-all duration-700 shadow-lg rounded-token-lg p-token-md bg-surface',
-          'group cursor-pointer aurora-living-component aurora-card transform-gpu perspective-1000 hover:scale-105 transition-all duration-700'
+          'group cursor-pointer aurora-living-component transform-gpu perspective-1000 hover:scale-105 transition-all duration-700 shadow-aurora-md hover:shadow-aurora-lg rounded-token-lg p-token-md bg-surface'
         ),
-        // Material-specific Aurora enhancements
+        // Aurora prismatic shadow system based on material
         isAurora && [
+          materialType.includes('platinum') && 'hover:shadow-platinum',
+          materialType.includes('rose') && 'hover:shadow-rose-gold', 
+          !materialType.includes('platinum') && !materialType.includes('rose') && 'hover:shadow-gold',
           materialClasses.shadow,
           materialClasses.hoverShadow,
           materialClasses.prismatic,
@@ -155,11 +158,11 @@ export function ProductCard({
         // Variant-specific styling
         variant === 'featured' && getClassName(
           'border-2 border-surface-active bg-gradient-to-br from-surface-muted to-surface',
-          'border-2 border-foreground/30 rounded-token-lg p-token-xl bg-gradient-to-br from-background via-background to-background hover:border-accent/50 aurora-pulse'
+          'border-2 border-foreground/30 rounded-token-lg p-token-xl bg-gradient-to-br from-background via-background to-background hover:border-accent/50 animate-aurora-glow-pulse'
         ),
         variant === 'compact' && getClassName(
           'flex space-x-token-md rounded-token-lg p-token-md hover:bg-surface-hover',
-          'flex space-x-token-md aurora-interactive-shadow rounded-token-md p-token-sm hover:bg-background/50'
+          'flex space-x-token-md shadow-token-interactive rounded-token-md p-token-sm hover:bg-background/50 transition-shadow duration-300'
         ),
         className
       )} 
@@ -182,16 +185,17 @@ export function ProductCard({
         {/* Product Content */}
         <div className={getClassName('space-y-4', 'space-y-token-md')}>
           {/* Product Name */}
-          <BodyText 
-            size={variant === 'featured' ? 'lg' : 'md'} 
-            weight="semibold" 
-            className={getClassName(
-              'text-text-primary group-hover:text-accent transition-colors duration-300',
-              'text-foreground group-hover:aurora-gradient-text transition-all duration-500'
+          <AuroraBodyM 
+            className={cn(
+              'font-semibold',
+              getClassName(
+                'text-text-primary group-hover:text-accent transition-colors duration-300',
+                'text-foreground group-hover:aurora-gradient-text transition-all duration-500'
+              )
             )}
           >
             {product.name}
-          </BodyText>
+          </AuroraBodyM>
           
           {/* Material Tags */}
           {materialTags.length > 0 && variant !== 'compact' && (

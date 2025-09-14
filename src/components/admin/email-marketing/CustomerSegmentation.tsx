@@ -26,9 +26,9 @@ import {
   MapPin,
   Clock
 } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { H1, H2, H3, BodyText } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
+import { Button } from '../../ui/Button'
+import { H1, H2, H3, BodyText } from '../../foundation/Typography'
+import { cn } from '../../../lib/utils'
 
 // Interfaces for customer segments
 interface CustomerSegment {
@@ -76,42 +76,42 @@ const segmentTypes = [
     label: 'Demographic', 
     icon: Users,
     description: 'Age, gender, location, income level',
-    color: 'bg-blue-100 text-blue-800 border-blue-200'
+    color: 'bg-info/10 text-info border-info/30'
   },
   { 
     id: 'behavioral', 
     label: 'Behavioral', 
     icon: Target,
     description: 'Purchase history, website activity, engagement',
-    color: 'bg-green-100 text-green-800 border-green-200'
+    color: 'bg-success/10 text-success border-success/30'
   },
   { 
     id: 'geographic', 
     label: 'Geographic', 
     icon: MapPin,
     description: 'Location, timezone, shipping preferences',
-    color: 'bg-purple-100 text-purple-800 border-purple-200'
+    color: 'bg-primary/10 text-primary border-primary/30'
   },
   { 
     id: 'psychographic', 
     label: 'Psychographic', 
     icon: TrendingUp,
     description: 'Interests, values, lifestyle preferences',
-    color: 'bg-orange-100 text-orange-800 border-orange-200'
+    color: 'bg-warning/10 text-warning border-warning/30'
   },
   { 
     id: 'purchase-based', 
     label: 'Purchase-Based', 
     icon: ShoppingCart,
     description: 'Order frequency, amount spent, product preferences',
-    color: 'bg-indigo-100 text-indigo-800 border-indigo-200'
+    color: 'bg-accent/10 text-accent border-accent/30'
   },
   { 
     id: 'engagement', 
     label: 'Engagement', 
     icon: Mail,
     description: 'Email opens, clicks, subscription preferences',
-    color: 'bg-pink-100 text-pink-800 border-pink-200'
+    color: 'bg-accent/10 text-accent border-accent/30'
   }
 ]
 
@@ -122,7 +122,7 @@ const StatusBadge = ({ status }: { status: CustomerSegment['status'] }) => {
       case 'active':
         return { 
           text: 'Active', 
-          className: 'bg-green-100 text-green-800 border-green-200',
+          className: 'bg-success/10 text-success border-success/30',
           icon: CheckCircle
         }
       case 'inactive':
@@ -134,7 +134,7 @@ const StatusBadge = ({ status }: { status: CustomerSegment['status'] }) => {
       case 'draft':
         return { 
           text: 'Draft', 
-          className: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+          className: 'bg-warning/10 text-warning border-warning/30',
           icon: Edit
         }
       default:
@@ -214,8 +214,8 @@ const MetricCard = ({
         {trend && (
           <div className={cn(
             "text-xs font-medium",
-            trend === 'up' && "text-green-600",
-            trend === 'down' && "text-red-600",
+            trend === 'up' && "text-success",
+            trend === 'down' && "text-error",
             trend === 'neutral' && "text-aurora-nav-muted"
           )}>
             {trend === 'up' ? '↗' : trend === 'down' ? '↘' : '→'}
@@ -371,7 +371,7 @@ const SegmentActions = ({
             <div className="border-t border-border my-1" />
             <button
               onClick={() => { onDelete(segment._id); setIsOpen(false) }}
-              className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+              className="w-full px-4 py-2 text-left text-sm text-error hover:bg-error/10 flex items-center gap-2"
             >
               <Trash2 className="w-4 h-4" />
               Delete

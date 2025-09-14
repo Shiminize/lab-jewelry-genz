@@ -179,6 +179,9 @@ module.exports = {
         'token-xl': '2rem',       // --token-space-xl (32px)
         'token-2xl': '3rem',      // --token-space-2xl (48px)
         'token-3xl': '4rem',      // --token-space-3xl (64px)
+        'token-4xl': '5rem',      // --token-space-4xl (80px) - NEW
+        'token-5xl': '6rem',      // --token-space-5xl (96px) - NEW
+        'token-6xl': '8rem',      // --token-space-6xl (128px) - NEW
         
         // Component Spacing
         'component-gap': '1.5rem',   // --token-space-component-gap
@@ -189,31 +192,22 @@ module.exports = {
         '88': '22rem',
       },
 
-      // Font Size Tokens (from design-tokens.css)
+      // Font sizes handled by typography-system.css - keeping minimal Tailwind utilities only
       fontSize: {
-        // Token Font Sizes
-        'token-xs': '0.75rem',     // --token-font-size-xs (12px)
-        'token-sm': '0.875rem',    // --token-font-size-sm (14px)
-        'token-base': '1rem',      // --token-font-size-base (16px)
-        'token-lg': '1.125rem',    // --token-font-size-lg (18px)
-        'token-xl': '1.25rem',     // --token-font-size-xl (20px)
-        'token-2xl': '1.5rem',     // --token-font-size-2xl (24px)
-        'token-3xl': '1.875rem',   // --token-font-size-3xl (30px)
-        'token-4xl': '2.25rem',    // --token-font-size-4xl (36px)
-
-        // Legacy font sizes
+        // Only keep essential Tailwind utilities for edge cases
         '2xs': ['0.625rem', { lineHeight: '0.75rem' }],
       },
 
-      // Font Family Tokens (from design-tokens.css)
+      // Font Family Tokens - matches typography-system.css variables
       fontFamily: {
-        // Token Font Families
-        'token-primary': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        'token-display': ['Fraunces', 'Georgia', 'serif'],
+        // Primary font families - consistent with CSS variables
+        'token-primary': ['Celestial Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        'token-display': ['Celestial Sans', 'Fraunces', 'Georgia', 'serif'],
+        'token-mono': ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace'],
 
-        // Legacy font families
-        headline: ['Fraunces', 'serif'],
-        body: ['Inter', 'sans-serif'],
+        // Legacy font families (backward compatibility)
+        headline: ['Celestial Sans', 'Fraunces', 'serif'],
+        body: ['Celestial Sans', 'Inter', 'sans-serif'],
       },
 
       // Font Weight Tokens (from design-tokens.css)  
@@ -231,25 +225,27 @@ module.exports = {
         'token-relaxed': '1.75',   // --token-line-height-relaxed
       },
 
-      // Border Radius Tokens (from design-tokens.css)
+      // Border Radius Tokens - Fibonacci Sequence (from design-tokens.css + Aurora PRD)
       borderRadius: {
-        // Token Border Radius
-        'token-none': '0px',       // --token-border-radius-none
-        'token-sm': '4px',         // --token-border-radius-sm
-        'token-md': '8px',         // --token-border-radius-md
-        'token-lg': '13px',        // --token-border-radius-lg (Claude4.1 demo match)
-        'token-full': '9999px',    // --token-border-radius-full
+        // Aurora Fibonacci Radius System - Mathematical Harmony
+        'token-micro': '3px',      // F2 - fine details
+        'token-sm': '5px',         // F3 - small interactive elements
+        'token-md': '8px',         // F4 - standard components (DEFAULT)
+        'token-lg': '13px',        // F5 - cards and major elements
+        'token-xl': '21px',        // F6 - section containers
+        'token-xxl': '34px',       // F7 - hero sections and modals
+        'token-full': '9999px',    // perfect circles
 
         // Legacy border radius (keep for compatibility)
         'none': '0px',
-        'micro': '4px',   // Aurora: Micro radius (Claude4.1 demo match)
-        'sm': '8px',      // Aurora: Small radius (Claude4.1 demo match)  
-        'DEFAULT': '8px', // Aurora: Medium radius
-        'md': '8px',      // Aurora: Medium radius
-        'lg': '13px',     // Aurora: Large radius
-        'xl': '21px',     // Aurora: XL radius
-        '2xl': '34px',    // Aurora: XXL radius
-        '3xl': '34px',    // Aurora: XXL radius
+        'micro': '3px',   // Aurora: Fibonacci F2
+        'sm': '5px',      // Aurora: Fibonacci F3
+        'DEFAULT': '8px', // Aurora: Fibonacci F4 (DEFAULT)
+        'md': '8px',      // Aurora: Fibonacci F4
+        'lg': '13px',     // Aurora: Fibonacci F5
+        'xl': '21px',     // Aurora: Fibonacci F6
+        '2xl': '34px',    // Aurora: Fibonacci F7
+        '3xl': '34px',    // Aurora: Fibonacci F7
         'full': '9999px', // Standard full radius for circles
       },
 
@@ -263,6 +259,7 @@ module.exports = {
       // Size Tokens (from design-tokens.css)
       width: {
         'token-card-min': '280px', // --token-size-card-min-width
+        'token-container': '1400px', // --token-container-max (Claude4.1 Demo)
       },
       height: {
         'token-button': '2.75rem', // --token-size-button-height (44px)
@@ -300,6 +297,15 @@ module.exports = {
         'token-modal': '1100',       // --token-z-index-modal
         'token-tooltip': '1200',     // --token-z-index-tooltip
         'token-toast': '1300',       // --token-z-index-toast
+      },
+
+      // Layout System Tokens (Claude4.1 Demo Compliance)
+      maxWidth: {
+        'token-container': '1400px',  // --token-container-max
+      },
+
+      gridTemplateColumns: {
+        'token-auto-fit': 'repeat(auto-fit, minmax(350px, 1fr))',  // Claude4.1 grid system
       },
 
       // Shadow Tokens (from design-tokens.css)
@@ -368,7 +374,7 @@ module.exports = {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-in': 'slideIn 0.3s ease-out',
         'scale-in': 'scaleIn 0.2s ease-out',
-        // Aurora Animation System
+        // Aurora Animation System - Complete PRD Implementation
         'aurora-gradient-shift': 'gradientShift 4s ease-in-out infinite',
         'aurora-iridescent': 'iridescentShift 3s linear infinite',
         'aurora-rotate': 'rotate 30s linear infinite',
@@ -376,6 +382,12 @@ module.exports = {
         'aurora-ticker': 'tickerScroll 20s linear infinite',
         'aurora-success-flash': 'successFlash 0.5s ease',
         'aurora-warning-pulse': 'warningPulse 1s ease infinite',
+        // Enhanced Aurora Physics-Based Animations
+        'aurora-drift': 'auroraDrift 8s ease-in-out infinite',
+        'aurora-shimmer-slow': 'auroraShimmerSlow 3s linear infinite',
+        'aurora-float': 'auroraFloat 6s ease-in-out infinite',
+        'aurora-glow-pulse': 'auroraGlowPulse 4s ease-in-out infinite',
+        'aurora-sparkle': 'auroraSparkle 2s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -390,7 +402,7 @@ module.exports = {
           '0%': { transform: 'scale(0.95)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
-        // Aurora Keyframes System
+        // Aurora Keyframes System - Complete PRD Implementation
         gradientShift: {
           '0%, 100%': { 'background-position': '0% 50%' },
           '50%': { 'background-position': '100% 50%' },
@@ -417,6 +429,31 @@ module.exports = {
         warningPulse: {
           '0%, 100%': { 'box-shadow': '0 0 0 0 rgba(245, 158, 11, 0.4)' },
           '50%': { 'box-shadow': '0 0 0 20px rgba(245, 158, 11, 0)' },
+        },
+        // Enhanced Aurora Physics-Based Keyframes
+        auroraDrift: {
+          '0%, 100%': { transform: 'translateX(0) translateY(0) scale(1)', opacity: '0.6' },
+          '25%': { transform: 'translateX(-2px) translateY(-1px) scale(1.01)', opacity: '0.7' },
+          '50%': { transform: 'translateX(1px) translateY(2px) scale(0.99)', opacity: '0.8' },
+          '75%': { transform: 'translateX(2px) translateY(-1px) scale(1.02)', opacity: '0.7' },
+        },
+        auroraShimmerSlow: {
+          '0%': { 'background-position': '-200% center', opacity: '0.5' },
+          '50%': { opacity: '0.8' },
+          '100%': { 'background-position': '200% center', opacity: '0.5' },
+        },
+        auroraFloat: {
+          '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+          '33%': { transform: 'translateY(-10px) rotate(1deg)' },
+          '66%': { transform: 'translateY(5px) rotate(-1deg)' },
+        },
+        auroraGlowPulse: {
+          '0%, 100%': { 'box-shadow': '0 0 20px rgba(255, 107, 157, 0.4), 0 0 40px rgba(107, 70, 193, 0.2)' },
+          '50%': { 'box-shadow': '0 0 30px rgba(255, 107, 157, 0.6), 0 0 60px rgba(107, 70, 193, 0.3)' },
+        },
+        auroraSparkle: {
+          '0%, 100%': { opacity: '0.2', transform: 'scale(0.8)' },
+          '50%': { opacity: '1', transform: 'scale(1.2)' },
         },
       },
       // Background Gradient Utilities (Token-Based)

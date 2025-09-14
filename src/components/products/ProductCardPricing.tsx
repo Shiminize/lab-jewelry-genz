@@ -48,14 +48,14 @@ export function ProductCardPricing({
           </MutedText>
         )}
         {hasDiscount && isAurora && (
-          <div className="aurora-pulse w-1 h-1 bg-accent-secondary rounded-token-sm" />
+          <div className="animate-aurora-glow-pulse w-1 h-1 bg-accent-secondary rounded-token-sm" />
         )}
       </div>
       
       {/* Real-time inventory status */}
       <div className={getClassName(
         'flex items-center justify-between rounded-token-lg p-token-sm bg-surface-muted transition-colors duration-300',
-        'flex items-center justify-between aurora-interactive-shadow rounded-token-md p-token-sm bg-gradient-to-r from-background/50 to-transparent group-hover:from-background/30 transition-all duration-300'
+        'flex items-center justify-between shadow-token-interactive rounded-token-md p-token-sm bg-gradient-to-r from-background/50 to-transparent group-hover:from-background/30 transition-all duration-300'
       )}>
         <StockIndicator productId={product._id} />
         {variant !== 'compact' && (

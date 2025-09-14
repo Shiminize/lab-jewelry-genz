@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
-import { H2, H3, BodyText, MutedText } from '@/components/foundation/Typography'
+import { cn } from '../../lib/utils'
+import { H2, BodyText, MutedText, AuroraStatement, AuroraBodyL, AuroraSmall } from '../foundation/Typography'
+import { Container } from '../layout/Container'
 import { 
   EthicalSourcingIcon, 
   CustomVisionIcon, 
@@ -14,8 +15,14 @@ import {
   CarbonNeutralIcon,
   PremiumQualityIcon,
   UnlimitedCustomizationIcon
-} from '@/components/ui/ValuesIcons'
+} from '../ui/ValuesIcons'
 
+// Extracted components for Claude Rules compliance
+import { ValueCard } from './enhanced-value-proposition/ValueCard'
+import { MobileFlowIndicator } from './enhanced-value-proposition/MobileFlowIndicator'
+import type { EnhancedValueProp } from '../../types/enhanced-value'
+
+// Aurora-compliant section variants
 const enhancedValueVariants = cva(
   'bg-background',
   {
@@ -28,7 +35,7 @@ const enhancedValueVariants = cva(
       layout: {
         default: 'px-token-md sm:px-token-lg lg:px-token-xl',
         wide: 'px-token-lg sm:px-token-xl lg:px-token-3xl',
-        contained: 'px-token-md sm:px-token-lg lg:px-token-xl max-w-7xl mx-auto'
+        contained: 'px-token-md sm:px-token-lg lg:px-token-xl'
       }
     },
     defaultVariants: {
@@ -37,89 +44,6 @@ const enhancedValueVariants = cva(
     }
   }
 )
-
-const valueCardVariants = cva(
-  'enhanced-value-card group relative overflow-hidden rounded-lg transition-all duration-700 ease-out',
-  {
-    variants: {
-      style: {
-        glassmorphism: 'bg-background shadow-xl',
-        minimal: 'space-y-token-xl bg-background',
-        bordered: 'shadow-xl bg-background'
-      },
-      state: {
-        default: 'hover:shadow-xl hover:scale-[1.03] hover:-translate-y-token-sm',
-        active: 'shadow-xl scale-[1.03] -translate-y-token-sm bg-muted',
-        dimmed: 'opacity-60 scale-98 translate-y-token-xs'
-      }
-    },
-    defaultVariants: {
-      style: 'glassmorphism',
-      state: 'default'
-    }
-  }
-)
-
-const iconContainerVariants = cva(
-  'enhanced-value-icon relative flex items-center justify-center transition-all duration-300 ease-out',
-  {
-    variants: {
-      size: {
-        small: 'w-token-4xl h-token-4xl',
-        medium: 'w-token-5xl h-token-5xl',
-        large: 'w-token-6xl h-token-6xl'
-      },
-      style: {
-        glassmorphism: 'bg-background rounded-full shadow-xl',
-        gradient: 'bg-muted rounded-full',
-        minimal: 'bg-muted rounded-full'
-      },
-      state: {
-        default: 'group-hover:scale-110 group-hover:shadow-xl',
-        floating: 'hover:shadow-xl hover:scale-115'
-      }
-    },
-    defaultVariants: {
-      size: 'large',
-      style: 'glassmorphism',
-      state: 'default'
-    }
-  }
-)
-
-const trustBadgeVariants = cva(
-  'enhanced-trust-badge inline-flex items-center gap-token-sm px-token-md py-token-sm rounded-token-full text-token-sm font-semibold transition-all duration-300 shadow-md',
-  {
-    variants: {
-      style: {
-        glassmorphism: 'bg-background shadow-lg',
-        accent: 'bg-background text-accent',
-        minimal: 'bg-muted'
-      },
-      state: {
-        default: 'hover:scale-110 hover:shadow-xl hover:-translate-y-token-xs',
-        interactive: 'cursor-pointer hover:bg-muted hover:scale-110 hover:shadow-xl active:scale-105'
-      }
-    },
-    defaultVariants: {
-      style: 'accent',
-      state: 'default'
-    }
-  }
-)
-
-interface EnhancedValueProp {
-  id: string
-  icon: React.ComponentType<{ className?: string; size?: number }>
-  headline: string
-  description: string
-  trustSignals: Array<{
-    icon: React.ComponentType<{ className?: string; size?: number }>
-    text: string
-    description?: string
-  }>
-  details?: string
-}
 
 interface EnhancedValuePropositionProps extends React.HTMLAttributes<HTMLElement> {
   /** Main section headline */
@@ -266,34 +190,34 @@ export function EnhancedValueProposition({
   return (
     <section
       id="enhanced-values-section"
-      className={cn(enhancedValueVariants({ spacing: 'comfortable', layout: 'contained' }), className)}
+      className={cn(enhancedValueVariants({ spacing: 'comfortable', layout: 'default' }), className)}
       {...props}
     >
+      <Container maxWidth="default">
       {/* Section Header */}
       <div className="text-center max-w-5xl mx-auto mb-16 lg:mb-20">
-        {/* Decorative accent line */}
-        <div className="w-24 h-1 bg-accent mx-auto mb-6 rounded-full" />
+        {/* Aurora decorative accent line */}
+        <div className="w-24 h-1 bg-aurora-pink mx-auto mb-6 rounded-full shadow-aurora-md animate-aurora-shimmer-slow" />
         
-        <H2 
+        <AuroraStatement 
           id="enhanced-values-heading"
-          className="mb-6 lg:mb-8 font-headline text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-foreground"
+          className="mb-6 lg:mb-8 aurora-gradient-text animate-aurora-glow-pulse"
         >
           {headline}
-        </H2>
+        </AuroraStatement>
         
-        <BodyText 
-          size="lg" 
-          className="text-aurora-nav-muted max-w-4xl mx-auto leading-relaxed text-lg sm:text-xl lg:text-2xl font-light"
+        <AuroraBodyL 
+          className="text-deep-space/80 max-w-4xl mx-auto"
         >
           {description}
-        </BodyText>
+        </AuroraBodyL>
         
-        {/* Subtle separator */}
+        {/* Aurora subtle separator */}
         <div className="mt-8 lg:mt-12 flex justify-center">
           <div className="flex space-x-1">
-            <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-            <div className="w-2 h-2 bg-accent rounded-full animate-pulse delay-75"></div>
-            <div className="w-2 h-2 bg-accent rounded-full animate-pulse delay-150"></div>
+            <div className="w-2 h-2 bg-aurora-pink rounded-full animate-aurora-sparkle shadow-aurora-md"></div>
+            <div className="w-2 h-2 bg-aurora-pink rounded-full animate-aurora-sparkle shadow-aurora-md" style={{ animationDelay: '0.2s' }}></div>
+            <div className="w-2 h-2 bg-aurora-pink rounded-full animate-aurora-sparkle shadow-aurora-md" style={{ animationDelay: '0.4s' }}></div>
           </div>
         </div>
       </div>
@@ -314,159 +238,42 @@ export function EnhancedValueProposition({
         role="tablist"
       >
         {valueProps.map((prop, index) => {
-          const IconComponent = prop.icon
           const isAnimated = animatedCards.has(prop.id)
           const isActive = activeCard === prop.id
           const isDimmed = activeCard !== null && activeCard !== prop.id
-          
-          // Simple responsive classes - no complex spanning to avoid gaps
-          const getResponsiveClasses = (index: number) => {
-            // On tablet, third card spans full width for better balance
-            if (index === 2) return 'md:col-span-2'
-            return ''
-          }
 
           return (
-            <article
+            <ValueCard
               key={prop.id}
-              className={cn(
-                valueCardVariants({
-                  style: 'glassmorphism',
-                  state: isActive ? 'active' : isDimmed ? 'dimmed' : 'default'
-                }),
-                'space-y-6 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2 rounded-lg',
-                // Mobile optimization
-                'min-h-[400px] sm:min-h-[420px] lg:min-h-[400px]',
-                'touch-manipulation', // Improves touch responsiveness
-                // Better mobile spacing
-                'p-6 sm:p-8 lg:p-10',
-                getResponsiveClasses(index),
-                `${mobileBreakpoint}:col-span-1`, // Reset on desktop
-                isAnimated ? 'animate-in slide-in-from-bottom-6 duration-600' : 'opacity-0',
-                {
-                  [`delay-${index * animationDelay}`]: enableAnimation
-                }
-              )}
-              role="tab"
-              tabIndex={enableInteraction ? 0 : -1}
-              onMouseEnter={() => handleCardInteraction(prop.id, 'enter')}
-              onMouseLeave={() => handleCardInteraction(prop.id, 'leave')}
-              onFocus={() => handleCardInteraction(prop.id, 'enter')}
-              onBlur={() => handleCardInteraction(prop.id, 'leave')}
-              onKeyDown={(e) => handleKeyboardNavigation(e, prop.id)}
-            >
-              {/* Floating background */}
-              <div className="absolute inset-0 bg-muted opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              {/* Icon Container */}
-              <div className="relative flex justify-center">
-                <div className={cn(iconContainerVariants())}>
-                  <IconComponent 
-                    className="enhanced-value-icon-svg text-gray-600 transition-all duration-300 group-hover:scale-110 group-hover:text-accent" 
-                    size={40}
-                  />
-                  
-                  {/* Pulsing ring effect */}
-                  <div className="absolute inset-0 rounded-full scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500 shadow-lg" />
-                  
-                  {/* Sparkle effect */}
-                  <div className="absolute inset-0 rounded-full bg-muted scale-0 group-hover:scale-150 transition-transform duration-700 opacity-0 group-hover:opacity-30" />
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="relative space-y-token-md text-center">
-                <H3 className="text-foreground group-hover:text-gray-800 transition-colors duration-300">
-                  {prop.headline}
-                </H3>
-                <BodyText 
-                  className="text-foreground leading-relaxed"
-                  size="sm"
-                >
-                  {prop.description}
-                </BodyText>
-
-                {/* Additional Details (shown on interaction) */}
-                {prop.details && (
-                  <div 
-                    className={cn(
-                      'transition-all duration-300 overflow-hidden',
-                      isActive 
-                        ? 'max-h-20 opacity-100 mt-4' 
-                        : 'max-h-0 opacity-0 mt-0'
-                    )}
-                  >
-                    <div className="pt-3">
-                      <BodyText 
-                        size="sm" 
-                        className="text-foreground font-medium"
-                      >
-                        {prop.details}
-                      </BodyText>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Trust Signals */}
-              <div className="relative mt-6 pt-4">
-                <div className="flex flex-wrap gap-3 justify-center">
-                  {prop.trustSignals.map((signal, signalIndex) => {
-                    const SignalIcon = signal.icon
-                    
-                    return (
-                      <div 
-                        key={signalIndex}
-                        className={cn(
-                          trustBadgeVariants({ style: 'accent', state: 'interactive' }),
-                          'group relative overflow-hidden'
-                        )}
-                        title={signal.description}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        {/* Background glow effect */}
-                        <div className="absolute inset-0 bg-muted opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
-                        
-                        <SignalIcon 
-                          className="text-accent transition-colors duration-300 relative z-10" 
-                          size={16} 
-                        />
-                        <span className="font-semibold text-accent transition-colors duration-300 relative z-10">
-                          {signal.text}
-                        </span>
-                        
-                        {/* Shimmer effect */}
-                        <div className="absolute inset-0 -skew-x-12 bg-background opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-all duration-500 rounded-full" />
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            </article>
+              prop={prop}
+              index={index}
+              isAnimated={isAnimated}
+              isActive={isActive}
+              isDimmed={isDimmed}
+              animationDelay={animationDelay}
+              enableAnimation={enableAnimation}
+              enableInteraction={enableInteraction}
+              mobileBreakpoint={mobileBreakpoint}
+              onInteraction={handleCardInteraction}
+              onKeyboardNavigation={handleKeyboardNavigation}
+            />
           )
         })}
       </div>
 
       {/* Mobile Flow Indicators */}
-      <div className={`${mobileBreakpoint}:hidden flex justify-center mt-8 space-x-token-sm`}>
-        {valueProps.map((_, index) => (
-          <div key={index} className="flex items-center">
-            <div className="w-8 h-1 bg-accent rounded-full" />
-            {index < valueProps.length - 1 && (
-              <div className="w-4 h-1 bg-accent mx-1" />
-            )}
-          </div>
-        ))}
-      </div>
+      <MobileFlowIndicator 
+        valueProps={valueProps} 
+        mobileBreakpoint={mobileBreakpoint} 
+      />
 
       {/* Global Trust Signals Section */}
       {showTrustSignals && (
         <div className="mt-16 lg:mt-20 text-center">
-          <div className="bg-white rounded-xl p-6 lg:p-8 max-w-5xl mx-auto shadow-xl">
-            <MutedText className="mb-6 block text-lg">
+          <div className="bg-nebula-purple/5 rounded-xl p-6 lg:p-8 max-w-5xl mx-auto shadow-aurora-lg">
+            <AuroraBodyL className="mb-6 block text-deep-space opacity-80">
               Join thousands who choose conscious luxury
-            </MutedText>
+            </AuroraBodyL>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
               {[
@@ -480,19 +287,20 @@ export function EnhancedValueProposition({
                 return (
                   <div 
                     key={index}
-                    className="group p-4 bg-gray-50 rounded-md shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
+                    className="group p-4 bg-background rounded-md shadow-aurora-md hover:shadow-aurora-lg transition-all duration-300 hover:scale-105 animate-aurora-float"
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="flex flex-col items-center space-y-token-sm">
-                      <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <ItemIcon className="text-accent" size={20} />
+                      <div className="w-12 h-12 bg-nebula-purple/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-aurora-md">
+                        <ItemIcon className="text-aurora-pink animate-aurora-glow-pulse" size={20} />
                       </div>
                       <div className="text-center">
-                        <div className="font-semibold text-foreground text-sm">
+                        <div className="font-semibold text-deep-space text-sm">
                           {item.text}
                         </div>
-                        <MutedText size="xs" className="text-aurora-nav-muted">
+                        <AuroraSmall className="text-deep-space/70">
                           {item.subtitle}
-                        </MutedText>
+                        </AuroraSmall>
                       </div>
                     </div>
                   </div>
@@ -514,6 +322,7 @@ export function EnhancedValueProposition({
           certified by international gemological institutes.
         </p>
       </div>
+      </Container>
     </section>
   )
 }

@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * Aurora Design System Version Management Hook with A/B Testing
  * 
@@ -14,7 +16,7 @@ import {
   type DesignVersion, 
   type ComponentName, 
   type ABTestGroup 
-} from '@/config/featureFlags';
+} from '../config/featureFlags';
 
 // A/B Testing Configuration
 const AB_TEST_CONFIG = {

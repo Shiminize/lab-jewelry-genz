@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { cn } from '@/lib/utils'
-import { BodyText, MutedText } from '@/components/foundation/Typography'
+import { cn } from '../../lib/utils'
+import { BodyText, MutedText } from '../foundation/Typography'
 
 interface AutocompleteSuggestion {
   text: string
@@ -52,7 +52,7 @@ export function SearchSuggestions({
   return (
     <div className={cn(
       'absolute top-full left-0 right-0 z-50 mt-1',
-      'bg-background border border-border rounded-token-md shadow-[0_8px_24px_color-mix(in_srgb,var(--nebula-purple)_15%,transparent)]',
+      'bg-background border border-border rounded-token-md shadow-token-lg',
       'max-h-96 overflow-y-auto',
       className
     )}>

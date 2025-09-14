@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { CreditCard, DollarSign, RefreshCw } from 'lucide-react'
-import { H3, BodyText } from '@/components/foundation/Typography'
+import { H3, BodyText } from '../foundation/Typography'
 
 interface Address {
   firstName: string
@@ -75,11 +75,11 @@ const AddressCard = ({ title, address }: { title: string; address: Address }) =>
 // Payment status badge
 const PaymentStatusBadge = ({ status }: { status: string }) => {
   const statusConfig = {
-    'pending': 'bg-yellow-100 text-yellow-800',
-    'paid': 'bg-green-100 text-green-800',
-    'failed': 'bg-red-100 text-red-800',
-    'refunded': 'bg-gray-100 text-gray-800',
-    'partially_refunded': 'bg-orange-100 text-orange-800'
+    'pending': 'bg-warning/10 text-warning',
+    'paid': 'bg-success/10 text-success',
+    'failed': 'bg-error/10 text-error',
+    'refunded': 'bg-muted text-foreground',
+    'partially_refunded': 'bg-warning/10 text-warning'
   }
 
   return (
@@ -194,7 +194,7 @@ export function OrderDetailsPayment({
           {discount > 0 && (
             <div className="flex justify-between">
               <BodyText className="text-muted-foreground">Discount:</BodyText>
-              <BodyText className="text-green-600">-{currency} {discount.toFixed(2)}</BodyText>
+              <BodyText className="text-success">-{currency} {discount.toFixed(2)}</BodyText>
             </div>
           )}
           <div className="border-t pt-2 mt-2">

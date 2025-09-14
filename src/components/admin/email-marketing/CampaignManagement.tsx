@@ -20,9 +20,9 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { H2, H3, BodyText } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
+import { Button } from '../../ui/Button'
+import { H2, H3, BodyText } from '../../foundation/Typography'
+import { cn } from '../../../lib/utils'
 
 // Campaign interface following API structure
 interface Campaign {
@@ -201,7 +201,7 @@ const CampaignActions = ({
             <hr className="my-1 border-border" />
             <button
               onClick={() => { onDelete(campaign._id); setIsOpen(false) }}
-              className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+              className="flex items-center w-full px-4 py-2 text-sm text-error hover:bg-error/10"
             >
               <Trash2 className="w-4 h-4 mr-2" />
               Delete

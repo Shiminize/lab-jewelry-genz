@@ -228,7 +228,7 @@ export default function AdvancedSearch() {
               onFocus={() => query && setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
               placeholder="Search for jewelry, categories, materials, gemstones..."
-              className="pl-10 pr-12 h-12 text-base aurora-living-component aurora-interactive-shadow"
+              className="pl-10 pr-12 h-12 text-base shadow-token-sm focus:shadow-token-md transition-shadow duration-300"
             />
             {query && (
               <button

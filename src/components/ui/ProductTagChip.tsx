@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 const tagChipVariants = cva(
   // Base styles
@@ -12,9 +12,9 @@ const tagChipVariants = cva(
       variant: {
         default: 'bg-muted/60 text-foreground hover:bg-muted/80 border border-muted-foreground/20',
         business: 'bg-cta/10 text-cta border border-cta/30 hover:bg-cta/20',
-        sustainability: 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800',
-        category: 'bg-accent/20 text-accent-foreground border border-accent/40 hover:bg-accent/30',
-        trending: 'bg-gradient-to-r from-purple-50 to-pink-50 text-purple-700 border border-purple-200 hover:from-purple-100 hover:to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 dark:text-purple-400 dark:border-purple-800'
+        sustainability: 'bg-success/10 text-success border border-success/30 hover:bg-success/15 dark:text-success',
+        category: 'bg-accent/20 text-accent border border-accent/40 hover:bg-accent/30',
+        trending: 'bg-gradient-to-r from-primary/10 to-accent/10 text-primary border border-primary/30 hover:from-primary/15 hover:to-accent/15'
       },
       size: {
         sm: 'text-xs px-1.5 py-0.5',

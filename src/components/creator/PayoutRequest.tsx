@@ -333,10 +333,10 @@ export default function PayoutRequest() {
           </CardHeader>
           <CardContent className="space-y-6">
             {error && (
-              <div className="bg-muted border border-border rounded-token-lg p-4">
+              <div className="bg-error/10 border border-error/30 rounded-token-lg p-4">
                 <div className="flex items-start space-x-token-sm">
-                  <AlertTriangle className="w-5 h-5 text-red-600 mt-0.5" />
-                  <div className="text-sm text-red-800">{error}</div>
+                  <AlertTriangle className="w-5 h-5 text-error mt-0.5" />
+                  <div className="text-sm text-error">{error}</div>
                 </div>
               </div>
             )}

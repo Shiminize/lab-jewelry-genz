@@ -15,9 +15,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '../styles/typography-foundations.css'; /* Typography CSS variables and scales */
-@import '../styles/typography-aurora.css'; /* Aurora Design System typography */
-@import '../styles/typography-legacy.css'; /* Legacy compatibility and specialized typography */
+@import '../styles/aurora-utilities.css'; /* Aurora Design System utilities - Complete PRD implementation */
+@import '../styles/typography-system.css'; /* Single source of truth for all typography */
 @import '../styles/animations.css';
 
 /* Global Base Styles - Minimal Core Only */

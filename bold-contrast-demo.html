@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage Demo - Bold Contrast</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #0A0E27;
+            --surface: #1A1E3A;
+            --base-content: #FFFFFF;
+            --muted-content: #D1D5DB; /* A light gray for muted text */
+            --primary: #8A63D9;
+            --primary-focus: #6B46C1;
+            --secondary: #F1F2F6;
+            --accent: #FF6B9D;
+            --neutral: #2a2e4a; /* Darker placeholder background */
+            --font-heading: 'Fraunces', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--base-content);
+            font-family: var(--font-body);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--surface);
+        }
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--base-content);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: 5rem 0;
+            gap: 4rem;
+        }
+        .hero-text {
+            flex: 1;
+        }
+        .hero-text h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--muted-content);
+        }
+        .hero-image-placeholder {
+            flex: 1;
+            height: 400px;
+            background-color: var(--neutral);
+            border-radius: 21px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: var(--font-body);
+            font-weight: 600;
+            padding: 0.85rem 2rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-focus);
+        }
+
+        /* Featured Products */
+        .featured-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .featured-section h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background-color: var(--surface);
+            border-radius: 13px;
+            text-align: left;
+            overflow: hidden;
+        }
+        .product-image-placeholder {
+            height: 250px;
+            background-color: var(--neutral);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+        }
+        .product-info {
+            padding: 1.5rem;
+        }
+        .product-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+        }
+        .product-info .price {
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0.5rem 0 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--surface);
+            padding: 4rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--neutral);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .footer-column h4 {
+            font-family: var(--font-heading);
+            margin-bottom: 1rem;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column ul li a {
+            text-decoration: none;
+            color: var(--muted-content);
+            line-height: 2;
+            transition: color 0.2s;
+        }
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header class="container">
+        <nav class="navbar">
+            <div class="nav-logo">Lumina Lab</div>
+            <div class="nav-links">
+                <a href="#">Rings</a>
+                <a href="#">Necklaces</a>
+                <a href="#">Customizer</a>
+                <a href="#">Sustainability</a>
+            </div>
+            <div class="nav-icons">
+                <!-- Placeholder for icons -->
+                <span>Search</span>
+                <span>Wishlist</span>
+                <span>Cart</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero container">
+            <div class="hero-text">
+                <h1>Design Your Own Legacy.</h1>
+                <p>Experience the future of luxury with our sustainable, lab-grown diamond and moissanite jewelry, fully customizable to your unique style.</p>
+                <a href="#" class="btn btn-primary">Explore the Customizer</a>
+            </div>
+            <div class="hero-image-placeholder">
+                <span>Hero Image</span>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured-section">
+            <div class="container">
+                <h2>Shop Best Sellers</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image-placeholder"><span>Product Image</span></div>
+                        <div class="product-info">
+                            <h3>The Solitaire Ring</h3>
+                            <p class="price">$1,800</p>
+                            <a href="#" class="btn btn-primary" style="width: 100%;">View Details</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image-placeholder"><span>Product Image</span></div>
+                        <div class="product-info">
+                            <h3>Aurora Diamond Necklace</h3>
+                            <p class="price">$2,450</p>
+                            <a href="#" class="btn btn-primary" style="width: 100%;">View Details</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image-placeholder"><span>Product Image</span></div>
+                        <div class="product-info">
+                            <h3>Galaxy Earrings</h3>
+                            <p class="price">$1,200</p>
+                            <a href="#" class="btn btn-primary" style="width: 100%;">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#">All Jewelry</a></li>
+                        <li><a href="#">Rings</a></li>
+                        <li><a href="#">Necklaces</a></li>
+                        <li><a href="#">Bracelets</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Creators</a></li>
+                        <li><a href="#">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Care Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">TikTok</a></li>
+                        <li><a href="#">Pinterest</a></li>
+                        <li><a href="#">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -7,8 +7,8 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { customizationService } from '@/services/CustomizationService'
-import type { Material } from '@/services/CustomizationService'
+import { customizationService } from '../../../services/CustomizationService'
+import type { Material } from '../../../services/CustomizationService'
 
 interface MaterialSelectionProps {
   materials?: Array<{
@@ -38,7 +38,7 @@ export function MaterialSelection({
         id: m.id,
         name: m.name,
         priceModifier: m.priceModifier,
-        color: m.color || '#E8D7D3',
+        color: m.color || 'var(--material-rose-gold, #FF6B9D)',
         metallic: m.pbrProperties.metalness,
         roughness: m.pbrProperties.roughness,
         description: m.displayName

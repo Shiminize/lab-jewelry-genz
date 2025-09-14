@@ -8,10 +8,11 @@
 
 import React, { useState, useEffect } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
-import { H2, H3, BodyText } from '@/components/foundation/Typography'
-import { Button } from '@/components/ui/Button'
-import type { Material, StoneQuality, CustomizationOptions } from '@/types/customizer'
+import { cn } from '../../lib/utils'
+import { H2, H3, BodyText, AuroraStatement, AuroraTitleL, AuroraBodyL } from '../foundation/Typography'
+import { AuroraButton } from '../aurora/AuroraButton'
+import { Container } from '../layout/Container'
+import type { Material, StoneQuality, CustomizationOptions } from '../../types/customizer'
 
 // Extracted components for CLAUDE_RULES compliance
 import { QuickSelector } from './customizer-preview/QuickSelector'
@@ -20,9 +21,9 @@ import { TrustIndicators } from './customizer-preview/TrustIndicators'
 import { PREVIEW_MATERIALS, PREVIEW_STONES, PREVIEW_SETTINGS, SAMPLE_PRODUCT, type SettingOption } from './customizer-preview/previewData'
 
 // 3D Customizer components
-import { ProductCustomizer } from '@/components/customizer/ProductCustomizer'
-import { StickyBoundary, type MaterialSelection } from '@/components/customizer/StickyBoundary'
-import { useCustomizationState } from '@/hooks/useCustomizationState'
+import { ProductCustomizer } from '../customizer/ProductCustomizer'
+import { StickyBoundary, type MaterialSelection } from '../customizer/StickyBoundary'
+import { useCustomizationState } from '../../hooks/useCustomizationState'
 
 // Aurora-compliant CVA variants
 const previewSectionVariants = cva(
@@ -30,9 +31,9 @@ const previewSectionVariants = cva(
   {
     variants: {
       layout: {
-        split: 'flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-8',
+        split: 'flex flex-col lg:grid lg:grid-cols-2 gap-token-md lg:gap-token-2xl',
         stacked: 'flex flex-col space-y-token-md',
-        'mobile-first': 'flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4 lg:gap-8'
+        'mobile-first': 'flex flex-col-reverse lg:grid lg:grid-cols-2 gap-token-md lg:gap-token-2xl'
       },
       padding: {
         standard: 'p-4 sm:p-6 lg:p-8',
@@ -117,23 +118,24 @@ export function CustomizerPreviewSection({
 
   return (
     <section className={cn('bg-background', className)} data-section="customizer-preview">
-      <div className={cn(previewSectionVariants({ layout, padding }), 'max-w-7xl mx-auto lg:items-start')}>
+      <Container maxWidth="default">
+        <div className={cn(previewSectionVariants({ layout, padding }), 'lg:items-start')}>
           {/* Left Panel (Controls) */}
-          <div className="flex flex-col justify-center space-y-6 lg:space-y-8">
-            <div className="space-y-token-md lg:space-y-6">
-              <H2 className="text-foreground leading-tight text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">
+          <div className="flex flex-col justify-center space-y-token-lg lg:space-y-token-2xl">
+            <div className="space-y-token-md lg:space-y-token-lg">
+              <AuroraStatement className="aurora-gradient-text animate-aurora-glow-pulse">
                 Create Your Legacy
-              </H2>
-              <H3 className="text-foreground/60 text-lg sm:text-xl lg:text-2xl font-normal">
+              </AuroraStatement>
+              <AuroraTitleL className="text-deep-space/80">
                 Design a Piece as Unique as You Are
-              </H3>
-              <BodyText className="text-foreground/60 max-w-lg text-base sm:text-lg">
+              </AuroraTitleL>
+              <AuroraBodyL className="text-deep-space/70 max-w-lg">
                 From metal choices to lab gems, build a piece that tells your story. 
                 Real-time 3D preview with ethical materials and expert craftsmanship.
-              </BodyText>
+              </AuroraBodyL>
             </div>
 
-            <div className="space-y-6 lg:space-y-8" role="main" aria-label="Customization options">
+            <div className="space-y-token-lg lg:space-y-token-2xl" role="main" aria-label="Customization options">
               <QuickSelector
                 label="Metal"
                 options={PREVIEW_MATERIALS}
@@ -164,23 +166,25 @@ export function CustomizerPreviewSection({
               currentPrice={currentPrice}
             />
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
+            <div className="flex flex-col sm:flex-row gap-token-md">
+              <AuroraButton 
                 variant="primary" 
                 size="lg"
+                luxury="premium"
                 onClick={handleStartDesigning}
-                className="flex-1 sm:flex-none text-base px-8 py-4"
+                className="flex-1 sm:flex-none text-base px-token-2xl py-token-md shadow-aurora-md hover:shadow-aurora-lg animate-aurora-float"
               >
                 Start Designing
-              </Button>
-              <Button 
-                variant="secondary" 
+              </AuroraButton>
+              <AuroraButton 
+                variant="accent" 
                 size="lg"
+                luxury="premium"
                 onClick={handleChatWithDesigner}
-                className="flex-1 sm:flex-none text-base px-6"
+                className="flex-1 sm:flex-none text-base px-token-lg shadow-aurora-md hover:shadow-aurora-lg"
               >
                 Chat with Designer
-              </Button>
+              </AuroraButton>
             </div>
           </div>
 
@@ -215,8 +219,8 @@ export function CustomizerPreviewSection({
 
             <StickyBoundary
               materialSelection={{
-                metal: selectedOptions.material?.displayName || '',
-                stone: selectedOptions.stoneQuality?.displayName || '', 
+                metal: selectedOptions.material?.name || '',
+                stone: selectedOptions.stoneQuality?.name || '', 
                 style: selectedSetting.name
               }}
               isVisible={true}
@@ -227,6 +231,7 @@ export function CustomizerPreviewSection({
         </div>
 
         <TrustIndicators />
+      </Container>
     </section>
   )
 }

@@ -121,18 +121,18 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
 
   const getStockStatusIcon = (status: string) => {
     switch (status) {
-      case 'in-stock': return <CheckCircle className="w-5 h-5 text-green-500" />
-      case 'low-stock': return <AlertTriangle className="w-5 h-5 text-yellow-500" />
-      case 'out-of-stock': return <XCircle className="w-5 h-5 text-red-500" />
+      case 'in-stock': return <CheckCircle className="w-5 h-5 text-success" />
+      case 'low-stock': return <AlertTriangle className="w-5 h-5 text-warning" />
+      case 'out-of-stock': return <XCircle className="w-5 h-5 text-error" />
       default: return <Clock className="w-5 h-5 text-aurora-nav-muted" />
     }
   }
 
   const getAlertSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'text-red-600 bg-red-50 border-red-200'
-      case 'high': return 'text-orange-600 bg-orange-50 border-orange-200'
-      case 'medium': return 'text-yellow-600 bg-yellow-50 border-yellow-200'
+      case 'critical': return 'text-error bg-error/10 border-error/30'
+      case 'high': return 'text-warning bg-warning/10 border-warning/30'
+      case 'medium': return 'text-warning bg-warning/10 border-warning/30'
       case 'low': return 'text-accent bg-accent/10 border-accent/20'
       default: return 'text-aurora-nav-muted bg-muted border-border'
     }
@@ -253,7 +253,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
                 <Icon className="w-4 h-4" />
                 {tab.label}
                 {tab.id === 'alerts' && alerts.length > 0 && (
-                  <span className="bg-red-100 text-red-600 px-2 py-0.5 rounded-full text-xs ml-2">
+                  <span className="bg-error/10 text-error px-2 py-0.5 rounded-full text-xs ml-2">
                     {alerts.length}
                   </span>
                 )}
@@ -313,14 +313,14 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
                     placeholder="Search products..."
                     value={filters.search}
                     onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-                    className="pl-10 pr-4 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+                    className="pl-10 pr-4 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent w-full"
                   />
                 </div>
               </div>
               <select
                 value={filters.status}
                 onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-                className="px-3 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-3 py-2 border border-border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent"
               >
                 <option value="all">All Status</option>
                 <option value="in-stock">In Stock</option>
@@ -392,7 +392,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
                             setSelectedProducts([product._id])
                             setShowRestockModal(true)
                           }}
-                          className="text-blue-600 hover:text-blue-900"
+                          className="text-accent hover:brightness-110"
                         >
                           Restock
                         </button>
@@ -415,7 +415,7 @@ export default function InventoryDashboard({ className = '' }: InventoryDashboar
             <div className="p-6">
               {alerts.length === 0 ? (
                 <div className="text-center py-12">
-                  <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
+                  <CheckCircle className="w-12 h-12 text-success mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-foreground mb-2">All Clear!</h3>
                   <p className="text-aurora-nav-muted">No inventory alerts at this time.</p>
                 </div>

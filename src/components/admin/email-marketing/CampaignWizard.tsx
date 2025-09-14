@@ -139,11 +139,11 @@ const CampaignDetailsStep = ({
           placeholder="Enter campaign name"
           className={cn(
             'w-full px-4 py-3 text-foreground bg-background border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent',
-            errors.name ? 'border-red-500' : 'border-border'
+            errors.name ? 'border-error/30' : 'border-border'
           )}
         />
         {errors.name && (
-          <BodyText size="sm" className="text-red-600 mt-1">
+          <BodyText size="sm" className="text-error mt-1">
             {errors.name}
           </BodyText>
         )}
@@ -158,7 +158,7 @@ const CampaignDetailsStep = ({
           onChange={(e) => onChange({ type: e.target.value as CampaignData['type'] })}
           className={cn(
             'w-full px-4 py-3 text-foreground bg-background border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent',
-            errors.type ? 'border-red-500' : 'border-border'
+            errors.type ? 'border-error/30' : 'border-border'
           )}
         >
           <option value="">Select campaign type</option>
@@ -170,7 +170,7 @@ const CampaignDetailsStep = ({
           <option value="seasonal">Seasonal</option>
         </select>
         {errors.type && (
-          <BodyText size="sm" className="text-red-600 mt-1">
+          <BodyText size="sm" className="text-error mt-1">
             {errors.type}
           </BodyText>
         )}
@@ -188,11 +188,11 @@ const CampaignDetailsStep = ({
         placeholder="Enter email subject line"
         className={cn(
           'w-full px-4 py-3 text-foreground bg-background border rounded-token-lg focus:ring-2 focus:ring-accent focus:border-transparent',
-          errors.subject ? 'border-red-500' : 'border-border'
+          errors.subject ? 'border-error/30' : 'border-border'
         )}
       />
       {errors.subject && (
-        <BodyText size="sm" className="text-red-600 mt-1">
+        <BodyText size="sm" className="text-error mt-1">
           {errors.subject}
         </BodyText>
       )}
@@ -279,7 +279,7 @@ const ContentTemplateStep = ({
       )}
       
       {errors.template && (
-        <BodyText size="sm" className="text-red-600 mt-2">
+        <BodyText size="sm" className="text-error mt-2">
           {errors.template}
         </BodyText>
       )}
@@ -411,7 +411,7 @@ const AudienceTargetingStep = ({
       )}
 
       {errors.segments && (
-        <BodyText size="sm" className="text-red-600">
+        <BodyText size="sm" className="text-error">
           {errors.segments}
         </BodyText>
       )}
