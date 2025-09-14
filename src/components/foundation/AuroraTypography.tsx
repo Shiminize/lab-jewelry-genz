@@ -73,9 +73,6 @@ export function AuroraTitleM({ className, gradient = false, as = 'h4', children,
   return <AuroraText size="title-m" gradient={gradient} as={as} className={className} {...props}>{children}</AuroraText>
 }
 
-export function AuroraBodyXL({ className, gradient = false, as = 'p', children, ...props }: Omit<AuroraTextProps, 'size'>) {
-  return <AuroraText size="body-xl" gradient={gradient} as={as} className={className} {...props}>{children}</AuroraText>
-}
 
 export function AuroraBodyL({ className, gradient = false, as = 'p', children, ...props }: Omit<AuroraTextProps, 'size'>) {
   return <AuroraText size="body-l" gradient={gradient} as={as} className={className} {...props}>{children}</AuroraText>

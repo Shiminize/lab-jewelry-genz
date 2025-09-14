@@ -14,7 +14,6 @@ export {
   AuroraTitleXL as TitleXL,
   AuroraTitleL as TitleL,
   AuroraTitleM as TitleM,
-  AuroraBodyXL as BodyXL,
   AuroraBodyL as BodyL,
   AuroraBodyM as BodyM,
   AuroraSmall as Small,
