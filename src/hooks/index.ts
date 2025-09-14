@@ -5,9 +5,6 @@
 
 // Export all architectural hooks
 export { useSearch } from './useSearch';
-export { useProducts, useProduct, useFeaturedProducts, useProductCategories } from './useProductData';
-export { useCartManagement } from './useCartManagement';
-export { useUserSession } from './useUserSession';
 
 // UI behavior hooks
 export { useScrollBehavior } from './useScrollBehavior';
@@ -25,7 +22,6 @@ export {
   useProductInventory,
   useStockReservation 
 } from './useRealTimeInventory';
-export { useCustomizableProduct } from './useCustomizableProduct';
 // Type safety hooks
 export {
   useDataValidation,
@@ -41,20 +37,6 @@ export type {
   UseSearchReturn
 } from './useSearch';
 
-export type {
-  UseProductsReturn,
-  UseProductReturn,
-  UseFeaturedProductsReturn,
-  UseCategoriesReturn
-} from './useProductData';
-
-export type {
-  UseCartReturn
-} from './useCartManagement';
-
-export type {
-  UseUserSessionReturn
-} from './useUserSession';
 
 export type {
   UseScrollBehaviorOptions,
