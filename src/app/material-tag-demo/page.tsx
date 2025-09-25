@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 
 import React from 'react'
 import { ProductCard } from '@/components/products/ProductCard'
@@ -52,11 +53,11 @@ export default function MaterialTagDemoPage() {
   const handleMaterialTagClick = (tag: MaterialTag) => {
 
     alert(`Material tag clicked: ${tag.displayName} (${tag.category})`)
-  }
+  };
 
   const handleTagClick = (tag: string) => {
-
-  }
+    alert(`Tag clicked: ${tag}`)
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
