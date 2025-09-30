@@ -1,9 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Typography } from '@/components/ui/typography'
 
 interface OrderRecord {
   id: string
@@ -105,31 +102,30 @@ export default function OrderManagementDashboard() {
     <div className='space-y-6 text-void-50'>
       <header className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
         <div>
-          <Typography variant='hero' className='text-3xl text-void-50'>Order Management</Typography>
-          <Typography variant='body' tone='muted' className='text-void-300'>
-            Snapshot of recent orders and fulfillment momentum.
-          </Typography>
+          <h1 className='text-3xl font-semibold text-void-50'>Order Management</h1>
+          <p className='text-sm text-void-300'>Snapshot of recent orders and fulfillment momentum.</p>
         </div>
         <div className='flex gap-3'>
-          <Button variant='glass' glow='digital' onClick={exportOrders}>
+          <button
+            type='button'
+            onClick={exportOrders}
+            className='rounded-pill bg-gradient-tertiary px-4 py-2 font-medium text-void-950 shadow-neon-digital transition hover:brightness-110'
+          >
             Export CSV
-          </Button>
-          <Button variant='outline' glow='none'>View Full Report</Button>
+          </button>
+          <button
+            type='button'
+            className='rounded-pill border border-void-500/40 px-4 py-2 font-medium text-void-100 transition hover:bg-void-800/60'
+          >
+            View Full Report
+          </button>
         </div>
       </header>
 
       <section className='grid gap-4 md:grid-cols-2 xl:grid-cols-4'>
         <StatCard title='Total Orders' value={metrics.totalOrders.toLocaleString()} caption='Last 7 days'/>
-        <StatCard
-          title='Revenue'
-          value={`$${metrics.totalRevenue.toFixed(2)}`}
-          caption='Gross sales'
-        />
-        <StatCard
-          title='Average Order Value'
-          value={`$${metrics.averageValue.toFixed(2)}`}
-          caption='Per checkout'
-        />
+        <StatCard title='Revenue' value={`$${metrics.totalRevenue.toFixed(2)}`} caption='Gross sales'/>
+        <StatCard title='Average Order Value' value={`$${metrics.averageValue.toFixed(2)}`} caption='Per checkout'/>
         <StatCard
           title='Delivered Rate'
           value={`${Math.round((metrics.statusCounts.delivered / Math.max(metrics.totalOrders, 1)) * 100)}%`}
@@ -137,12 +133,12 @@ export default function OrderManagementDashboard() {
         />
       </section>
 
-      <Card className='border-void-700/40 bg-void-900/60'>
-        <CardHeader className='flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
-          <CardTitle className='text-xl text-void-50'>Status Distribution</CardTitle>
-          <Typography variant='micro' tone='muted'>Updated hourly</Typography>
-        </CardHeader>
-        <CardContent className='space-y-3'>
+      <section className='rounded-ultra border border-void-700/40 bg-void-900/60'>
+        <div className='flex flex-col gap-2 border-b border-void-800/60 px-6 py-4 sm:flex-row sm:items-center sm:justify-between'>
+          <h2 className='text-xl font-semibold text-void-50'>Status Distribution</h2>
+          <span className='text-xs uppercase tracking-[0.25em] text-void-400'>Updated hourly</span>
+        </div>
+        <div className='space-y-3 px-6 py-4'>
           {Object.entries(metrics.statusCounts).map(([status, count]) => {
             const ratio = metrics.totalOrders === 0 ? 0 : (count / metrics.totalOrders)
             return (
@@ -160,15 +156,15 @@ export default function OrderManagementDashboard() {
               </div>
             )
           })}
-        </CardContent>
-      </Card>
+        </div>
+      </section>
 
-      <Card className='border-void-700/40 bg-void-900/60'>
-        <CardHeader>
-          <CardTitle className='text-xl text-void-50'>Recent Orders</CardTitle>
-        </CardHeader>
-        <CardContent className='overflow-x-auto'>
-          <table className='min-w-full divide-y divide-void-700/40 text-left text-sm'>
+      <section className='rounded-ultra border border-void-700/40 bg-void-900/60'>
+        <div className='border-b border-void-800/60 px-6 py-4'>
+          <h2 className='text-xl font-semibold text-void-50'>Recent Orders</h2>
+        </div>
+        <div className='overflow-x-auto px-6 py-4'>
+          <table className='min-w-full divide-y divide-void-800/60 text-left text-sm'>
             <thead className='uppercase tracking-[0.25em] text-void-400'>
               <tr>
                 <th className='py-3 pr-6 font-normal'>Order</th>
@@ -178,7 +174,7 @@ export default function OrderManagementDashboard() {
                 <th className='py-3 font-normal'>Placed</th>
               </tr>
             </thead>
-            <tbody className='divide-y divide-void-800/60'>
+            <tbody className='divide-y divide-void-900'>
               {SAMPLE_ORDERS.map((order) => (
                 <tr key={order.id} className='text-void-200'>
                   <td className='py-3 pr-6 text-void-50'>{order.id}</td>
@@ -197,8 +193,8 @@ export default function OrderManagementDashboard() {
               ))}
             </tbody>
           </table>
-        </CardContent>
-      </Card>
+        </div>
+      </section>
     </div>
   )
 }
@@ -211,19 +207,11 @@ interface StatCardProps {
 
 function StatCard({ title, value, caption }: StatCardProps) {
   return (
-    <Card className='border-void-700/40 bg-void-900/60'>
-      <CardHeader className='space-y-1'>
-        <Typography variant='micro' tone='muted' className='uppercase tracking-[0.25em]'>
-          {title}
-        </Typography>
-        <Typography variant='headline' className='text-void-50'>
-          {value}
-        </Typography>
-        <Typography variant='body' tone='muted'>
-          {caption}
-        </Typography>
-      </CardHeader>
-    </Card>
+    <div className='rounded-ultra border border-void-700/40 bg-void-900/60 px-6 py-5'>
+      <span className='text-xs uppercase tracking-[0.25em] text-void-400'>{title}</span>
+      <div className='mt-2 text-2xl font-semibold text-void-50'>{value}</div>
+      <p className='text-sm text-void-400'>{caption}</p>
+    </div>
   )
 }
 

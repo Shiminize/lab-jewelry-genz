@@ -1,8 +1,6 @@
 'use client'
 
 import { useMemo } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Typography } from '@/components/ui/typography'
 
 interface CountryInsight {
   country: string
@@ -51,18 +49,18 @@ export default function GeographicHeatMap() {
 
   return (
     <div className='space-y-6 text-void-50'>
-      <Card className='border-void-700/40 bg-void-900/60'>
-        <CardHeader>
-          <CardTitle className='text-xl text-void-50'>Geographic Performance</CardTitle>
-          <Typography variant='body' tone='muted'>Top regions by revenue and engagement</Typography>
-        </CardHeader>
-        <CardContent className='space-y-5'>
+      <section className='rounded-ultra border border-void-700/40 bg-void-900/60'>
+        <div className='border-b border-void-800/60 px-6 py-4'>
+          <h2 className='text-xl font-semibold text-void-50'>Geographic Performance</h2>
+          <p className='mt-1 text-sm text-void-300'>Top regions by revenue and engagement</p>
+        </div>
+        <div className='space-y-6 px-6 py-5'>
           <div className='grid gap-6 lg:grid-cols-3'>
-            <div className='lg:col-span-2 space-y-4'>
+            <div className='space-y-4 lg:col-span-2'>
               {COUNTRY_DATA.map((country) => {
                 const progress = Math.round((country.revenue / maxRevenue) * 100)
                 return (
-                  <div key={country.isoCode} className='space-y-2'>
+                  <div key={country.isoCode} className='space-y-2 rounded-token-lg border border-void-800/60 bg-void-950/70 p-4'>
                     <div className='flex items-center justify-between text-sm'>
                       <span className='font-medium text-void-50'>{country.country}</span>
                       <span className='text-void-300'>${country.revenue.toLocaleString()}</span>
@@ -83,8 +81,8 @@ export default function GeographicHeatMap() {
               })}
             </div>
 
-            <div className='rounded-ultra border border-void-700/40 bg-void-950/80 p-4'>
-              <Typography variant='micro' tone='muted' className='uppercase tracking-[0.25em]'>Totals</Typography>
+            <div className='rounded-token-lg border border-void-800/60 bg-void-950/80 p-4'>
+              <span className='text-xs uppercase tracking-[0.25em] text-void-400'>Totals</span>
               <div className='mt-3 space-y-2 text-sm'>
                 <StatLine label='Revenue' value={`$${totals.revenue.toLocaleString()}`} />
                 <StatLine label='Conversions' value={totals.conversions.toLocaleString()} />
@@ -98,21 +96,21 @@ export default function GeographicHeatMap() {
           </div>
 
           <div>
-            <Typography variant='micro' tone='muted' className='uppercase tracking-[0.25em]'>Top cities</Typography>
+            <span className='text-xs uppercase tracking-[0.25em] text-void-400'>Top cities</span>
             <div className='mt-3 grid gap-3 sm:grid-cols-2'>
               {CITY_DATA.map((city) => (
-                <div key={`${city.city}-${city.country}`} className='rounded-ultra border border-void-800/60 bg-void-950/70 p-4'>
+                <div key={`${city.city}-${city.country}`} className='rounded-token-lg border border-void-800/60 bg-void-950/70 p-4'>
                   <div className='flex items-center justify-between text-sm font-medium text-void-50'>
                     <span>{city.city}, {city.country}</span>
                     <span>{city.conversionRate.toFixed(1)}%</span>
                   </div>
-                  <Typography variant='micro' tone='muted' className='mt-2'>Top creator · {city.topCreator}</Typography>
+                  <p className='mt-2 text-xs text-void-400'>Top creator · {city.topCreator}</p>
                 </div>
               ))}
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </section>
     </div>
   )
 }

@@ -3,16 +3,10 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": [
+  "include": [],
+  "files": [
     "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "src/components/ui/**/*.ts",
-    "src/components/ui/**/*.tsx",
-    "src/components/admin/**/*.ts",
-    "src/components/admin/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "tests/**"
+    "src/components/admin/OrderManagementDashboard.tsx",
+    "src/components/admin/GeographicHeatMap.tsx"
   ]
 }

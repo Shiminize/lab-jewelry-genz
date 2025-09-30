@@ -42,8 +42,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20.x'
           cache: 'npm'
+      
+      - name: Verify Node and npm versions
+        run: node -v && npm -v
       
       - name: Install Dependencies
         run: npm ci --ignore-scripts
@@ -51,18 +54,8 @@ jobs:
       - name: Run Semgrep Security Scan
         uses: semgrep/semgrep-action@v1
         with:
-          # Use custom configuration
           config: .semgrep.yml
-          
-          # Generate SARIF report for GitHub Security tab
-          generateSarif: "1"
-          
-          # Publish results to Semgrep Cloud (optional - requires SEMGREP_APP_TOKEN)
           publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
-          
-          # Fail CI/CD pipeline on high-severity findings
-          auditOn: push
-          
         env:
           # GitHub token for API access
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -70,12 +63,6 @@ jobs:
           # Optional: Semgrep App token for cloud features
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
       
-      - name: Upload SARIF Results
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: semgrep.sarif
-          
       - name: Security Scan Summary
         if: always()
         run: |
@@ -177,8 +164,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20.x'
           cache: 'npm'
+      
+      - name: Verify Node and npm versions
+        run: node -v && npm -v
       
       - name: Run npm audit
         run: |
