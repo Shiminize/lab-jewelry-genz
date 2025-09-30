@@ -1,1164 +1,268 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
-import { 
-  Search,
-  Filter,
-  Download,
-  RefreshCw,
-  Eye,
-  Edit3,
-  Package,
-  Truck,
-  CheckCircle,
-  XCircle,
-  Clock,
-  AlertCircle,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  User,
-  Calendar,
-  DollarSign,
-  MoreHorizontal
-} from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { H1, H2, H3, BodyText, AuroraHero, AuroraStatement, AuroraTitleM, AuroraBodyM, AuroraSmall, AuroraMicro } from '@/components/foundation/Typography'
-import { cn } from '@/lib/utils'
+import { useMemo } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Typography } from '@/components/ui/typography'
 
-// Order management interfaces
-interface Order {
-  _id: string
-  orderNumber: string
+interface OrderRecord {
+  id: string
+  customer: string
   email: string
-  status: OrderStatus
-  paymentStatus: PaymentStatus
-  shippingStatus: ShippingStatus
+  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
   total: number
-  currency: string
-  createdAt: string
-  isGuest: boolean
-  items: OrderItem[]
-  shipping?: ShippingDetails
-  userId?: {
-    _id: string
-    name: string
-    email: string
+  items: number
+  placedAt: string
+}
+
+const SAMPLE_ORDERS: OrderRecord[] = [
+  {
+    id: 'GG-1043',
+    customer: 'Mina Chen',
+    email: 'mina.chen@example.com',
+    status: 'delivered',
+    total: 486.2,
+    items: 3,
+    placedAt: '2025-09-12T18:42:00Z'
+  },
+  {
+    id: 'GG-1042',
+    customer: 'Aiden Rivera',
+    email: 'aiden.rivera@example.com',
+    status: 'shipped',
+    total: 312.5,
+    items: 2,
+    placedAt: '2025-09-12T11:16:00Z'
+  },
+  {
+    id: 'GG-1041',
+    customer: 'Jada Roman',
+    email: 'jada.roman@example.com',
+    status: 'processing',
+    total: 219.0,
+    items: 1,
+    placedAt: '2025-09-11T22:05:00Z'
+  },
+  {
+    id: 'GG-1040',
+    customer: 'Leo Summers',
+    email: 'leo.summers@example.com',
+    status: 'pending',
+    total: 158.75,
+    items: 2,
+    placedAt: '2025-09-11T17:48:00Z'
+  },
+  {
+    id: 'GG-1039',
+    customer: 'Alina Patel',
+    email: 'alina.patel@example.com',
+    status: 'delivered',
+    total: 742.4,
+    items: 4,
+    placedAt: '2025-09-10T20:32:00Z'
   }
-  guestDetails?: {
-    firstName: string
-    lastName: string
-  }
-  timeline: TimelineEvent[]
+]
+
+const STATUS_LABEL: Record<OrderRecord['status'], string> = {
+  cancelled: 'Cancelled',
+  delivered: 'Delivered',
+  pending: 'Pending',
+  processing: 'Processing',
+  shipped: 'Shipped'
 }
 
-interface OrderItem {
-  productName: string
-  quantity: number
-  unitPrice: number
-  totalPrice: number
-  customizations?: any
-  creator?: {
-    creatorId: string
-    commissionRate: number
-    commissionAmount: number
-  }
-}
+export default function OrderManagementDashboard() {
+  const metrics = useMemo(() => {
+    const totalOrders = SAMPLE_ORDERS.length
+    const totalRevenue = SAMPLE_ORDERS.reduce((sum, order) => sum + order.total, 0)
+    const averageValue = totalOrders === 0 ? 0 : totalRevenue / totalOrders
 
-interface ShippingDetails {
-  method: string
-  carrier: string
-  trackingNumber?: string
-  trackingUrl?: string
-  estimatedDelivery?: string
-  shippedAt?: string
-  deliveredAt?: string
-}
+    const statusCounts = SAMPLE_ORDERS.reduce<Record<OrderRecord['status'], number>>((acc, order) => {
+      acc[order.status] += 1
+      return acc
+    }, {
+      cancelled: 0,
+      delivered: 0,
+      pending: 0,
+      processing: 0,
+      shipped: 0
+    })
 
-interface TimelineEvent {
-  status: string
-  message: string
-  createdAt: string
-  updatedBy?: string
-}
-
-type OrderStatus = 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled' | 'refunded'
-type PaymentStatus = 'pending' | 'processing' | 'completed' | 'failed' | 'refunded' | 'partially-refunded'
-type ShippingStatus = 'pending' | 'preparing' | 'shipped' | 'in-transit' | 'delivered' | 'failed'
-
-interface OrderFilters {
-  status?: string
-  paymentStatus?: string
-  shippingStatus?: string
-  isGuest?: boolean
-  dateFrom?: string
-  dateTo?: string
-  search?: string
-}
-
-interface OrderMetrics {
-  totalOrders: number
-  statusDistribution: Record<string, { count: number; totalValue: number }>
-  averageOrderValue: number
-  guestOrderPercentage: number
-}
-
-interface OrderManagementDashboardProps {
-  onOrderSelect?: (orderId: string) => void
-}
-
-export default function OrderManagementDashboard({ onOrderSelect }: OrderManagementDashboardProps) {
-  const [orders, setOrders] = useState<Order[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [selectedOrders, setSelectedOrders] = useState<string[]>([])
-  const [filters, setFilters] = useState<OrderFilters>({})
-  const [metrics, setMetrics] = useState<OrderMetrics | null>(null)
-  const [showFilters, setShowFilters] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  const [sortBy, setSortBy] = useState('createdAt')
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
-  const [bulkActionLoading, setBulkActionLoading] = useState(false)
-
-  // Fetch orders with current filters and pagination
-  const fetchOrders = useCallback(async () => {
-    setLoading(true)
-    setError(null)
-    
-    try {
-      const params = new URLSearchParams({
-        page: currentPage.toString(),
-        limit: '20',
-        sortBy,
-        sortOrder,
-        ...Object.fromEntries(
-          Object.entries(filters).filter(([_, value]) => value !== undefined && value !== '')
-        )
-      })
-
-      const response = await fetch(`/api/admin/orders?${params}`)
-      const result = await response.json()
-
-      if (result.success) {
-        setOrders(result.data.orders)
-        setMetrics(result.data.metrics)
-        setTotalPages(result.data.pagination.totalPages)
-      } else {
-        setError(result.error.message || 'Failed to fetch orders')
-      }
-    } catch (err) {
-      setError('Network error occurred')
-      console.error('Failed to fetch orders:', err)
-    } finally {
-      setLoading(false)
+    return {
+      totalOrders,
+      totalRevenue,
+      averageValue,
+      statusCounts
     }
-  }, [currentPage, filters, sortBy, sortOrder])
+  }, [])
 
-  useEffect(() => {
-    fetchOrders()
-  }, [fetchOrders])
-
-  // Handle bulk actions
-  const handleBulkAction = async (action: string, updates: any = {}) => {
-    if (selectedOrders.length === 0) return
-
-    setBulkActionLoading(true)
-    try {
-      const response = await fetch('/api/admin/orders', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action,
-          orderIds: selectedOrders,
-          updates
-        })
-      })
-
-      const result = await response.json()
-      if (result.success) {
-        setSelectedOrders([])
-        fetchOrders()
-        // Show success notification
-      } else {
-        setError(result.error.message || 'Bulk action failed')
-      }
-    } catch (err) {
-      setError('Network error occurred')
-      console.error('Bulk action failed:', err)
-    } finally {
-      setBulkActionLoading(false)
-    }
-  }
-
-  // Handle CSV export
-  const handleExport = async () => {
-    if (selectedOrders.length === 0) return
-
-    try {
-      const response = await fetch('/api/admin/orders', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'bulk-export',
-          orderIds: selectedOrders
-        })
-      })
-
-      const result = await response.json()
-      if (result.success) {
-        // Download CSV file
-        const csvContent = convertToCSV(result.data.exportData)
-        downloadCSV(csvContent, result.data.filename)
-      }
-    } catch (err) {
-      console.error('Export failed:', err)
-    }
-  }
-
-  // Status badge component
-  const StatusBadge = ({ status, type = 'order' }: { status: string; type?: 'order' | 'payment' | 'shipping' }) => {
-    const getStatusColor = (status: string, type: string) => {
-      if (type === 'order') {
-        switch (status) {
-          case 'pending': return 'bg-warning/10 text-warning border-warning/30'
-          case 'confirmed': return 'bg-accent/10 text-accent border-accent/20'
-          case 'processing': return 'bg-accent/10 text-accent border-accent/20'
-          case 'shipped': return 'bg-accent/10 text-accent border-accent/20'
-          case 'delivered': return 'bg-success/10 text-success border-success/30'
-          case 'cancelled': return 'bg-muted text-foreground border-border'
-          case 'refunded': return 'bg-error/10 text-error border-error/30'
-          default: return 'bg-muted text-foreground border-border'
-        }
-      } else if (type === 'payment') {
-        switch (status) {
-          case 'completed': return 'bg-success/10 text-success border-success/30'
-          case 'pending': return 'bg-warning/10 text-warning border-warning/30'
-          case 'failed': return 'bg-error/10 text-error border-error/30'
-          case 'refunded': return 'bg-warning/10 text-warning border-warning/30'
-          default: return 'bg-muted text-foreground border-border'
-        }
-      } else {
-        switch (status) {
-          case 'delivered': return 'bg-success/10 text-success border-success/30'
-          case 'shipped': return 'bg-accent/10 text-accent border-accent/20'
-          case 'preparing': return 'bg-warning/10 text-warning border-warning/30'
-          default: return 'bg-muted text-foreground border-border'
-        }
-      }
-    }
-
-    return (
-      <span className={cn(
-        "inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border",
-        getStatusColor(status, type)
-      )}>
-        {status.replace('-', ' ')}
-      </span>
-    )
-  }
-
-  // Metrics overview component
-  const MetricsOverview = () => {
-    if (!metrics) return null
-
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <AuroraSmall className="text-aurora-nav-muted bg-background">Total Orders</AuroraSmall>
-              <AuroraTitleM className="text-xl text-foreground">{metrics.totalOrders.toLocaleString()}</AuroraTitleM>
-            </div>
-            <Package className="w-8 h-8 text-accent" />
-          </div>
-        </div>
-
-        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <AuroraSmall className="text-aurora-nav-muted bg-background">Avg Order Value</AuroraSmall>
-              <AuroraTitleM className="text-xl text-foreground">${metrics.averageOrderValue.toFixed(0)}</AuroraTitleM>
-            </div>
-            <DollarSign className="w-8 h-8 text-accent" />
-          </div>
-        </div>
-
-        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <AuroraSmall className="text-aurora-nav-muted bg-background">Guest Orders</AuroraSmall>
-              <AuroraTitleM className="text-xl text-foreground">{metrics.guestOrderPercentage.toFixed(1)}%</AuroraTitleM>
-            </div>
-            <User className="w-8 h-8 text-accent" />
-          </div>
-        </div>
-
-        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <AuroraSmall className="text-aurora-nav-muted bg-background">Processing</AuroraSmall>
-              <AuroraTitleM className="text-xl text-foreground">
-                {metrics.statusDistribution.processing?.count || 0}
-              </AuroraTitleM>
-            </div>
-            <Clock className="w-8 h-8 text-accent" />
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Filters component
-  const FiltersPanel = () => (
-    <div className={cn(
-      "text-foreground bg-background rounded-token-lg border shadow-sm transition-all duration-200",
-      showFilters ? "p-4 mb-4" : "hidden"
-    )}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-1">Status</label>
-          <select
-            value={filters.status || ''}
-            onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            <option value="">All Statuses</option>
-            <option value="pending">Pending</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="processing">Processing</option>
-            <option value="shipped">Shipped</option>
-            <option value="delivered">Delivered</option>
-            <option value="cancelled">Cancelled</option>
-            <option value="refunded">Refunded</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-1">Payment Status</label>
-          <select
-            value={filters.paymentStatus || ''}
-            onChange={(e) => setFilters(prev => ({ ...prev, paymentStatus: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            <option value="">All Payment Status</option>
-            <option value="pending">Pending</option>
-            <option value="completed">Completed</option>
-            <option value="failed">Failed</option>
-            <option value="refunded">Refunded</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-1">Customer Type</label>
-          <select
-            value={filters.isGuest === undefined ? '' : filters.isGuest ? 'guest' : 'registered'}
-            onChange={(e) => {
-              const value = e.target.value
-              setFilters(prev => ({ 
-                ...prev, 
-                isGuest: value === '' ? undefined : value === 'guest' 
-              }))
-            }}
-            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            <option value="">All Customers</option>
-            <option value="registered">Registered</option>
-            <option value="guest">Guest</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-1">Search</label>
-          <input
-            type="text"
-            placeholder="Order number, email..."
-            value={filters.search || ''}
-            onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
-          />
-        </div>
-      </div>
-
-      <div className="flex gap-2 mt-4">
-        <Button variant="primary" size="sm" onClick={fetchOrders}>
-          Apply Filters
-        </Button>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={() => {
-            setFilters({})
-            setCurrentPage(1)
-          }}
-        >
-          Clear Filters
-        </Button>
-      </div>
-    </div>
-  )
-
-  // Bulk actions bar
-  const BulkActionsBar = () => {
-    if (selectedOrders.length === 0) return null
-
-    return (
-      <div className="text-foreground bg-accent/10 border border-accent/20 rounded-token-lg p-4 mb-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <AuroraBodyM className="text-foreground">
-            {selectedOrders.length} order{selectedOrders.length !== 1 ? 's' : ''} selected
-          </AuroraBodyM>
-          
-          <div className="flex flex-wrap gap-2">
-            <select
-              onChange={(e) => {
-                const status = e.target.value
-                if (status) {
-                  handleBulkAction('bulk-status-update', { status, message: `Status updated to ${status} by admin` })
-                }
-                e.target.value = ''
-              }}
-              className="px-3 py-1 text-sm border border-border rounded-token-md"
-              disabled={bulkActionLoading}
-            >
-              <option value="">Update Status...</option>
-              <option value="confirmed">Mark as Confirmed</option>
-              <option value="processing">Mark as Processing</option>
-              <option value="shipped">Mark as Shipped</option>
-              <option value="delivered">Mark as Delivered</option>
-              <option value="cancelled">Mark as Cancelled</option>
-            </select>
-
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleExport}
-              disabled={bulkActionLoading}
-            >
-              <Download className="w-4 h-4 mr-1" />
-              Export CSV
-            </Button>
-
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={() => setSelectedOrders([])}
-            >
-              Clear Selection
-            </Button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Orders table component
-  const OrdersTable = () => (
-    <div className="text-foreground bg-background rounded-token-lg border shadow-sm overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead className="bg-muted border-b">
-            <tr>
-              <th className="w-12 px-4 py-3 text-left">
-                <input
-                  type="checkbox"
-                  checked={selectedOrders.length === orders.length && orders.length > 0}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setSelectedOrders(orders.map(order => order._id))
-                    } else {
-                      setSelectedOrders([])
-                    }
-                  }}
-                  className="rounded border-border focus:ring-accent"
-                />
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Order</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Customer</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Status</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Payment</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Total</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Date</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {orders.map((order) => (
-              <tr key={order._id} className="hover:bg-muted">
-                <td className="px-4 py-3">
-                  <input
-                    type="checkbox"
-                    checked={selectedOrders.includes(order._id)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedOrders(prev => [...prev, order._id])
-                      } else {
-                        setSelectedOrders(prev => prev.filter(id => id !== order._id))
-                      }
-                    }}
-                    className="rounded border-border focus:ring-accent"
-                  />
-                </td>
-                
-                <td className="px-4 py-3">
-                  <div>
-                    <AuroraSmall className="font-medium text-foreground">
-                      {order.orderNumber}
-                    </AuroraSmall>
-                    <AuroraMicro className="text-aurora-nav-muted bg-background">
-                      {order.items.length} item{order.items.length !== 1 ? 's' : ''}
-                    </AuroraMicro>
-                  </div>
-                </td>
-
-                <td className="px-4 py-3">
-                  <div>
-                    <AuroraSmall className="text-foreground">
-                      {order.userId?.name || `${order.guestDetails?.firstName} ${order.guestDetails?.lastName}`}
-                    </AuroraSmall>
-                    <AuroraMicro className="text-aurora-nav-muted bg-background">
-                      {order.email}
-                    </AuroraMicro>
-                    {order.isGuest && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs bg-muted text-foreground mt-1">
-                        Guest
-                      </span>
-                    )}
-                  </div>
-                </td>
-
-                <td className="px-4 py-3">
-                  <div className="space-y-1">
-                    <StatusBadge status={order.status} type="order" />
-                    {order.shipping?.trackingNumber && (
-                      <AuroraMicro className="text-aurora-nav-muted bg-background">
-                        {order.shipping.carrier} {order.shipping.trackingNumber}
-                      </AuroraMicro>
-                    )}
-                  </div>
-                </td>
-
-                <td className="px-4 py-3">
-                  <StatusBadge status={order.paymentStatus} type="payment" />
-                </td>
-
-                <td className="px-4 py-3">
-                  <AuroraSmall className="font-medium text-foreground">
-                    ${order.total.toFixed(2)}
-                  </AuroraSmall>
-                  <AuroraMicro className="text-aurora-nav-muted bg-background">
-                    {order.currency}
-                  </AuroraMicro>
-                </td>
-
-                <td className="px-4 py-3">
-                  <AuroraSmall className="text-foreground">
-                    {new Date(order.createdAt).toLocaleDateString()}
-                  </AuroraSmall>
-                  <AuroraMicro className="text-aurora-nav-muted bg-background">
-                    {new Date(order.createdAt).toLocaleTimeString()}
-                  </AuroraMicro>
-                </td>
-
-                <td className="px-4 py-3">
-                  <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="sm" onClick={() => openOrderDetail(order._id)}>
-                      <Eye className="w-4 h-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" onClick={() => openOrderEdit(order._id)}>
-                      <Edit3 className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Pagination */}
-      <div className="flex items-center justify-between px-4 py-3 border-t bg-muted">
-        <AuroraSmall className="text-aurora-nav-muted bg-muted">
-          Page {currentPage} of {totalPages}
-        </AuroraSmall>
-        
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            <ChevronRight className="w-4 h-4" />
-          </Button>
-        </div>
-      </div>
-    </div>
-  )
-
-  // Handle order selection for detail modal
-  const openOrderDetail = (orderId: string) => {
-    if (onOrderSelect) {
-      onOrderSelect(orderId)
-    }
-  }
-
-  const openOrderEdit = (orderId: string) => {
-    if (onOrderSelect) {
-      onOrderSelect(orderId)
-    }
-  }
-
-  // Loading state
-  if (loading && orders.length === 0) {
-    return (
-      <div className="space-y-6">
-        <div className="animate-pulse">
-          <div className="h-8 bg-muted rounded w-1/3 mb-4"></div>
-          <div className="grid grid-cols-4 gap-4 mb-6">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-muted rounded-token-lg"></div>
-            ))}
-          </div>
-          <div className="h-96 bg-muted rounded-token-lg"></div>
-        </div>
-      </div>
-    )
+  const exportOrders = () => {
+    const csv = convertToCSV(SAMPLE_ORDERS)
+    downloadCSV(csv, 'glowglitch-orders.csv')
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div className='space-y-6 text-void-50'>
+      <header className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
         <div>
-          <AuroraHero className="text-2xl text-foreground">Order Management</AuroraHero>
-          <AuroraBodyM className="text-aurora-nav-muted bg-background">
-            Manage customer orders, track fulfillment, and process status updates
-          </AuroraBodyM>
+          <Typography variant='hero' className='text-3xl text-void-50'>Order Management</Typography>
+          <Typography variant='body' tone='muted' className='text-void-300'>
+            Snapshot of recent orders and fulfillment momentum.
+          </Typography>
         </div>
-        
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <Filter className="w-4 h-4 mr-2" />
-            Filters
-            <ChevronDown className={cn("w-4 h-4 ml-1 transition-transform", showFilters && "rotate-180")} />
+        <div className='flex gap-3'>
+          <Button variant='glass' glow='digital' onClick={exportOrders}>
+            Export CSV
           </Button>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={fetchOrders}
-            disabled={loading}
-          >
-            <RefreshCw className={cn("w-4 h-4 mr-2", loading && "animate-spin")} />
-            Refresh
-          </Button>
+          <Button variant='outline' glow='none'>View Full Report</Button>
         </div>
-      </div>
+      </header>
 
-      {/* Error state */}
-      {error && (
-        <div className="bg-error/10 border border-error/30 rounded-token-lg p-4">
-          <div className="flex items-center gap-3">
-            <AlertCircle className="w-5 h-5 text-error" />
-            <AuroraBodyM className="text-error">{error}</AuroraBodyM>
-            <Button variant="outline" size="sm" onClick={() => setError(null)}>
-              Dismiss
-            </Button>
-          </div>
-        </div>
-      )}
+      <section className='grid gap-4 md:grid-cols-2 xl:grid-cols-4'>
+        <StatCard title='Total Orders' value={metrics.totalOrders.toLocaleString()} caption='Last 7 days'/>
+        <StatCard
+          title='Revenue'
+          value={`$${metrics.totalRevenue.toFixed(2)}`}
+          caption='Gross sales'
+        />
+        <StatCard
+          title='Average Order Value'
+          value={`$${metrics.averageValue.toFixed(2)}`}
+          caption='Per checkout'
+        />
+        <StatCard
+          title='Delivered Rate'
+          value={`${Math.round((metrics.statusCounts.delivered / Math.max(metrics.totalOrders, 1)) * 100)}%`}
+          caption='Completed shipments'
+        />
+      </section>
 
-      {/* Metrics Overview */}
-      <MetricsOverview />
-
-      {/* Filters Panel */}
-      <FiltersPanel />
-
-      {/* Bulk Actions */}
-      <BulkActionsBar />
-
-      {/* Orders Table */}
-      <OrdersTable />
-    </div>
-  )
-}
-
-  // Metrics overview component
-  const MetricsOverview = () => {
-    if (!metrics) return null
-
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <BodyText size="sm" className="text-aurora-nav-muted bg-background">Total Orders</BodyText>
-              <H3 className="text-xl text-foreground">{metrics.totalOrders.toLocaleString()}</H3>
-            </div>
-            <Package className="w-8 h-8 text-accent" />
-          </div>
-        </div>
-
-        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <BodyText size="sm" className="text-aurora-nav-muted bg-background">Avg Order Value</BodyText>
-              <H3 className="text-xl text-foreground">${metrics.averageOrderValue.toFixed(0)}</H3>
-            </div>
-            <DollarSign className="w-8 h-8 text-accent" />
-          </div>
-        </div>
-
-        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <BodyText size="sm" className="text-aurora-nav-muted bg-background">Guest Orders</BodyText>
-              <H3 className="text-xl text-foreground">{metrics.guestOrderPercentage.toFixed(1)}%</H3>
-            </div>
-            <User className="w-8 h-8 text-accent" />
-          </div>
-        </div>
-
-        <div className="text-foreground bg-background p-4 rounded-token-lg border shadow-sm">
-          <div className="flex items-center justify-between">
-            <div>
-              <BodyText size="sm" className="text-aurora-nav-muted bg-background">Processing</BodyText>
-              <H3 className="text-xl text-foreground">
-                {metrics.statusDistribution.processing?.count || 0}
-              </H3>
-            </div>
-            <Clock className="w-8 h-8 text-accent" />
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Filters component
-  const FiltersPanel = () => (
-    <div className={cn(
-      "text-foreground bg-background rounded-token-lg border shadow-sm transition-all duration-200",
-      showFilters ? "p-4 mb-4" : "hidden"
-    )}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-1">Status</label>
-          <select
-            value={filters.status || ''}
-            onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            <option value="">All Statuses</option>
-            <option value="pending">Pending</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="processing">Processing</option>
-            <option value="shipped">Shipped</option>
-            <option value="delivered">Delivered</option>
-            <option value="cancelled">Cancelled</option>
-            <option value="refunded">Refunded</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-1">Payment Status</label>
-          <select
-            value={filters.paymentStatus || ''}
-            onChange={(e) => setFilters(prev => ({ ...prev, paymentStatus: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            <option value="">All Payment Status</option>
-            <option value="pending">Pending</option>
-            <option value="completed">Completed</option>
-            <option value="failed">Failed</option>
-            <option value="refunded">Refunded</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-1">Customer Type</label>
-          <select
-            value={filters.isGuest === undefined ? '' : filters.isGuest ? 'guest' : 'registered'}
-            onChange={(e) => {
-              const value = e.target.value
-              setFilters(prev => ({ 
-                ...prev, 
-                isGuest: value === '' ? undefined : value === 'guest' 
-              }))
-            }}
-            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            <option value="">All Customers</option>
-            <option value="registered">Registered</option>
-            <option value="guest">Guest</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-1">Search</label>
-          <input
-            type="text"
-            placeholder="Order number, email..."
-            value={filters.search || ''}
-            onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value || undefined }))}
-            className="w-full px-3 py-2 border border-border rounded-token-md focus:outline-none focus:ring-2 focus:ring-accent"
-          />
-        </div>
-      </div>
-
-      <div className="flex gap-2 mt-4">
-        <Button variant="primary" size="sm" onClick={fetchOrders}>
-          Apply Filters
-        </Button>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={() => {
-            setFilters({})
-            setCurrentPage(1)
-          }}
-        >
-          Clear Filters
-        </Button>
-      </div>
-    </div>
-  )
-
-  // Bulk actions bar
-  const BulkActionsBar = () => {
-    if (selectedOrders.length === 0) return null
-
-    return (
-      <div className="text-foreground bg-accent/10 border border-accent/20 rounded-token-lg p-4 mb-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <BodyText className="text-foreground">
-            {selectedOrders.length} order{selectedOrders.length !== 1 ? 's' : ''} selected
-          </BodyText>
-          
-          <div className="flex flex-wrap gap-2">
-            <select
-              onChange={(e) => {
-                const status = e.target.value
-                if (status) {
-                  handleBulkAction('bulk-status-update', { status, message: `Status updated to ${status} by admin` })
-                }
-                e.target.value = ''
-              }}
-              className="px-3 py-1 text-sm border border-border rounded-token-md"
-              disabled={bulkActionLoading}
-            >
-              <option value="">Update Status...</option>
-              <option value="confirmed">Mark as Confirmed</option>
-              <option value="processing">Mark as Processing</option>
-              <option value="shipped">Mark as Shipped</option>
-              <option value="delivered">Mark as Delivered</option>
-              <option value="cancelled">Mark as Cancelled</option>
-            </select>
-
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleExport}
-              disabled={bulkActionLoading}
-            >
-              <Download className="w-4 h-4 mr-1" />
-              Export CSV
-            </Button>
-
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={() => setSelectedOrders([])}
-            >
-              Clear Selection
-            </Button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Orders table component
-  const OrdersTable = () => (
-    <div className="text-foreground bg-background rounded-token-lg border shadow-sm overflow-hidden">
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead className="bg-muted border-b">
-            <tr>
-              <th className="w-12 px-4 py-3 text-left">
-                <input
-                  type="checkbox"
-                  checked={selectedOrders.length === orders.length && orders.length > 0}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setSelectedOrders(orders.map(order => order._id))
-                    } else {
-                      setSelectedOrders([])
-                    }
-                  }}
-                  className="rounded border-border focus:ring-accent"
-                />
-              </th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Order</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Customer</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Status</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Payment</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Total</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Date</th>
-              <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {orders.map((order) => (
-              <tr key={order._id} className="hover:bg-muted">
-                <td className="px-4 py-3">
-                  <input
-                    type="checkbox"
-                    checked={selectedOrders.includes(order._id)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedOrders(prev => [...prev, order._id])
-                      } else {
-                        setSelectedOrders(prev => prev.filter(id => id !== order._id))
-                      }
-                    }}
-                    className="rounded border-border focus:ring-accent"
+      <Card className='border-void-700/40 bg-void-900/60'>
+        <CardHeader className='flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
+          <CardTitle className='text-xl text-void-50'>Status Distribution</CardTitle>
+          <Typography variant='micro' tone='muted'>Updated hourly</Typography>
+        </CardHeader>
+        <CardContent className='space-y-3'>
+          {Object.entries(metrics.statusCounts).map(([status, count]) => {
+            const ratio = metrics.totalOrders === 0 ? 0 : (count / metrics.totalOrders)
+            return (
+              <div key={status} className='space-y-1'>
+                <div className='flex items-center justify-between text-sm'>
+                  <span className='uppercase tracking-[0.25em] text-void-300'>{STATUS_LABEL[status as OrderRecord['status']]}</span>
+                  <span className='font-medium text-void-50'>{count}</span>
+                </div>
+                <div className='h-2 rounded-full bg-void-700/60'>
+                  <div
+                    className='h-full rounded-full bg-gradient-digital transition-all duration-300'
+                    style={{ width: `${Math.round(ratio * 100)}%` }}
                   />
-                </td>
-                
-                <td className="px-4 py-3">
-                  <div>
-                    <BodyText size="sm" className="font-medium text-foreground">
-                      {order.orderNumber}
-                    </BodyText>
-                    <BodyText size="xs" className="text-aurora-nav-muted bg-background">
-                      {order.items.length} item{order.items.length !== 1 ? 's' : ''}
-                    </BodyText>
-                  </div>
-                </td>
+                </div>
+              </div>
+            )
+          })}
+        </CardContent>
+      </Card>
 
-                <td className="px-4 py-3">
-                  <div>
-                    <BodyText size="sm" className="text-foreground">
-                      {order.userId?.name || `${order.guestDetails?.firstName} ${order.guestDetails?.lastName}`}
-                    </BodyText>
-                    <BodyText size="xs" className="text-aurora-nav-muted bg-background">
-                      {order.email}
-                    </BodyText>
-                    {order.isGuest && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs bg-muted text-foreground mt-1">
-                        Guest
-                      </span>
-                    )}
-                  </div>
-                </td>
-
-                <td className="px-4 py-3">
-                  <div className="space-y-1">
-                    <StatusBadge status={order.status} type="order" />
-                    {order.shipping?.trackingNumber && (
-                      <BodyText size="xs" className="text-aurora-nav-muted bg-background">
-                        {order.shipping.carrier} {order.shipping.trackingNumber}
-                      </BodyText>
-                    )}
-                  </div>
-                </td>
-
-                <td className="px-4 py-3">
-                  <StatusBadge status={order.paymentStatus} type="payment" />
-                </td>
-
-                <td className="px-4 py-3">
-                  <BodyText size="sm" className="font-medium text-foreground">
-                    ${order.total.toFixed(2)}
-                  </BodyText>
-                  <BodyText size="xs" className="text-aurora-nav-muted bg-background">
-                    {order.currency}
-                  </BodyText>
-                </td>
-
-                <td className="px-4 py-3">
-                  <BodyText size="sm" className="text-foreground">
-                    {new Date(order.createdAt).toLocaleDateString()}
-                  </BodyText>
-                  <BodyText size="xs" className="text-aurora-nav-muted bg-background">
-                    {new Date(order.createdAt).toLocaleTimeString()}
-                  </BodyText>
-                </td>
-
-                <td className="px-4 py-3">
-                  <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="sm" onClick={() => openOrderDetail(order._id)}>
-                      <Eye className="w-4 h-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" onClick={() => openOrderEdit(order._id)}>
-                      <Edit3 className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </td>
+      <Card className='border-void-700/40 bg-void-900/60'>
+        <CardHeader>
+          <CardTitle className='text-xl text-void-50'>Recent Orders</CardTitle>
+        </CardHeader>
+        <CardContent className='overflow-x-auto'>
+          <table className='min-w-full divide-y divide-void-700/40 text-left text-sm'>
+            <thead className='uppercase tracking-[0.25em] text-void-400'>
+              <tr>
+                <th className='py-3 pr-6 font-normal'>Order</th>
+                <th className='py-3 pr-6 font-normal'>Customer</th>
+                <th className='py-3 pr-6 font-normal'>Status</th>
+                <th className='py-3 pr-6 font-normal'>Total</th>
+                <th className='py-3 font-normal'>Placed</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Pagination */}
-      <div className="flex items-center justify-between px-4 py-3 border-t bg-muted">
-        <BodyText size="sm" className="text-aurora-nav-muted bg-muted">
-          Page {currentPage} of {totalPages}
-        </BodyText>
-        
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            <ChevronRight className="w-4 h-4" />
-          </Button>
-        </div>
-      </div>
-    </div>
-  )
-
-  // Handle order selection for detail modal
-  const openOrderDetail = (orderId: string) => {
-    if (onOrderSelect) {
-      onOrderSelect(orderId)
-    }
-  }
-
-  const openOrderEdit = (orderId: string) => {
-    if (onOrderSelect) {
-      onOrderSelect(orderId)
-    }
-  }
-
-  // Loading state
-  if (loading && orders.length === 0) {
-    return (
-      <div className="space-y-6">
-        <div className="animate-pulse">
-          <div className="h-8 bg-muted rounded w-1/3 mb-4"></div>
-          <div className="grid grid-cols-4 gap-4 mb-6">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-muted rounded-token-lg"></div>
-            ))}
-          </div>
-          <div className="h-96 bg-muted rounded-token-lg"></div>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <H1 className="text-2xl text-foreground">Order Management</H1>
-          <BodyText className="text-aurora-nav-muted bg-background">
-            Manage customer orders, track fulfillment, and process status updates
-          </BodyText>
-        </div>
-        
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <Filter className="w-4 h-4 mr-2" />
-            Filters
-            <ChevronDown className={cn("w-4 h-4 ml-1 transition-transform", showFilters && "rotate-180")} />
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={fetchOrders}
-            disabled={loading}
-          >
-            <RefreshCw className={cn("w-4 h-4 mr-2", loading && "animate-spin")} />
-            Refresh
-          </Button>
-        </div>
-      </div>
-
-      {/* Error state */}
-      {error && (
-        <div className="bg-error/10 border border-error/30 rounded-token-lg p-4">
-          <div className="flex items-center gap-3">
-            <AlertCircle className="w-5 h-5 text-error" />
-            <BodyText className="text-error">{error}</BodyText>
-            <Button variant="outline" size="sm" onClick={() => setError(null)}>
-              Dismiss
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {/* Metrics Overview */}
-      <MetricsOverview />
-
-      {/* Filters Panel */}
-      <FiltersPanel />
-
-      {/* Bulk Actions */}
-      <BulkActionsBar />
-
-      {/* Orders Table */}
-      <OrdersTable />
+            </thead>
+            <tbody className='divide-y divide-void-800/60'>
+              {SAMPLE_ORDERS.map((order) => (
+                <tr key={order.id} className='text-void-200'>
+                  <td className='py-3 pr-6 text-void-50'>{order.id}</td>
+                  <td className='py-3 pr-6'>
+                    <div className='font-medium text-void-50'>{order.customer}</div>
+                    <div className='text-xs text-void-400'>{order.email}</div>
+                  </td>
+                  <td className='py-3 pr-6'>
+                    <span className='rounded-full bg-void-800/70 px-3 py-1 text-xs uppercase tracking-[0.25em] text-void-200'>
+                      {STATUS_LABEL[order.status]}
+                    </span>
+                  </td>
+                  <td className='py-3 pr-6 font-medium text-void-50'>${order.total.toFixed(2)}</td>
+                  <td className='py-3 text-void-300'>{new Date(order.placedAt).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
     </div>
   )
 }
 
-// Utility functions
-function convertToCSV(data: any[]): string {
-  if (data.length === 0) return ''
-  
-  const headers = Object.keys(data[0]).join(',')
-  const rows = data.map(row => 
-    Object.values(row).map(value => 
-      typeof value === 'string' ? `"${value.replace(/"/g, '""')}"` : value
-    ).join(',')
+interface StatCardProps {
+  title: string
+  value: string
+  caption: string
+}
+
+function StatCard({ title, value, caption }: StatCardProps) {
+  return (
+    <Card className='border-void-700/40 bg-void-900/60'>
+      <CardHeader className='space-y-1'>
+        <Typography variant='micro' tone='muted' className='uppercase tracking-[0.25em]'>
+          {title}
+        </Typography>
+        <Typography variant='headline' className='text-void-50'>
+          {value}
+        </Typography>
+        <Typography variant='body' tone='muted'>
+          {caption}
+        </Typography>
+      </CardHeader>
+    </Card>
   )
-  
-  return [headers, ...rows].join('\n')
+}
+
+function convertToCSV(records: OrderRecord[]): string {
+  if (records.length === 0) {
+    return ''
+  }
+
+  const header = ['Order ID', 'Customer', 'Email', 'Status', 'Total', 'Items', 'Placed At']
+  const rows = records.map((record) => [
+    record.id,
+    record.customer,
+    record.email,
+    STATUS_LABEL[record.status],
+    record.total.toFixed(2),
+    record.items.toString(),
+    new Date(record.placedAt).toISOString()
+  ])
+
+  return [header, ...rows].map((line) => line.map(escapeCell).join(',')).join('\n')
+}
+
+function escapeCell(value: string): string {
+  if (value.includes(',') || value.includes('"')) {
+    return `"${value.replace(/"/g, '""')}"`
+  }
+
+  return value
 }
 
 function downloadCSV(content: string, filename: string) {
   const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' })
   const link = document.createElement('a')
   const url = URL.createObjectURL(blob)
-  
+
   link.setAttribute('href', url)
   link.setAttribute('download', filename)
-  link.style.visibility = 'hidden'
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
+  URL.revokeObjectURL(url)
 }

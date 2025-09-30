@@ -1,538 +1,132 @@
 'use client'
 
-/**
- * Geographic Analytics Heat Map
- * Shows conversion and click density by geographic location
- */
-
-import { useState, useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/Badge'
-import { 
-  ComposableMap, 
-  Geographies, 
-  Geography, 
-  Marker, 
-  ZoomableGroup 
-} from 'react-simple-maps'
-import { scaleLinear } from 'd3-scale'
-import { MapPin, Globe, TrendingUp, Users, DollarSign, Filter } from 'lucide-react'
+import { Typography } from '@/components/ui/typography'
 
-interface LocationData {
+interface CountryInsight {
   country: string
-  countryCode: string
-  state?: string
-  city?: string
-  latitude: number
-  longitude: number
-  clicks: number
-  conversions: number
+  isoCode: string
   revenue: number
+  conversions: number
+  visitors: number
+}
+
+interface CityInsight {
+  city: string
+  country: string
+  conversionRate: number
   topCreator: string
-  conversionRate: number
 }
 
-interface CountryData {
-  countryCode: string
-  countryName: string
-  clicks: number
-  conversions: number
-  revenue: number
-  conversionRate: number
-  heatValue: number
-}
-
-// Mock geographic data
-const mockLocationData: LocationData[] = [
-  {
-    country: 'United States',
-    countryCode: 'US',
-    state: 'California',
-    city: 'Los Angeles',
-    latitude: 34.0522,
-    longitude: -118.2437,
-    clicks: 4500,
-    conversions: 180,
-    revenue: 14400,
-    topCreator: 'SARAH2024',
-    conversionRate: 4.0
-  },
-  {
-    country: 'United States',
-    countryCode: 'US',
-    state: 'New York',
-    city: 'New York',
-    latitude: 40.7128,
-    longitude: -74.0060,
-    clicks: 3800,
-    conversions: 152,
-    revenue: 12160,
-    topCreator: 'MIKE2024',
-    conversionRate: 4.0
-  },
-  {
-    country: 'United States',
-    countryCode: 'US',
-    state: 'Texas',
-    city: 'Austin',
-    latitude: 30.2672,
-    longitude: -97.7431,
-    clicks: 2200,
-    conversions: 88,
-    revenue: 7040,
-    topCreator: 'SARAH2024',
-    conversionRate: 4.0
-  },
-  {
-    country: 'Canada',
-    countryCode: 'CA',
-    state: 'Ontario',
-    city: 'Toronto',
-    latitude: 43.6532,
-    longitude: -79.3832,
-    clicks: 1800,
-    conversions: 90,
-    revenue: 7200,
-    topCreator: 'MIKE2024',
-    conversionRate: 5.0
-  },
-  {
-    country: 'United Kingdom',
-    countryCode: 'GB',
-    city: 'London',
-    latitude: 51.5074,
-    longitude: -0.1278,
-    clicks: 2500,
-    conversions: 125,
-    revenue: 10000,
-    topCreator: 'SARAH2024',
-    conversionRate: 5.0
-  },
-  {
-    country: 'Australia',
-    countryCode: 'AU',
-    city: 'Sydney',
-    latitude: -33.8688,
-    longitude: 151.2093,
-    clicks: 1200,
-    conversions: 72,
-    revenue: 5760,
-    topCreator: 'MIKE2024',
-    conversionRate: 6.0
-  },
-  {
-    country: 'Germany',
-    countryCode: 'DE',
-    city: 'Berlin',
-    latitude: 52.5200,
-    longitude: 13.4050,
-    clicks: 1600,
-    conversions: 64,
-    revenue: 5120,
-    topCreator: 'SARAH2024',
-    conversionRate: 4.0
-  },
-  {
-    country: 'France',
-    countryCode: 'FR',
-    city: 'Paris',
-    latitude: 48.8566,
-    longitude: 2.3522,
-    clicks: 1400,
-    conversions: 84,
-    revenue: 6720,
-    topCreator: 'MIKE2024',
-    conversionRate: 6.0
-  }
+const COUNTRY_DATA: CountryInsight[] = [
+  { country: 'United States', isoCode: 'US', revenue: 18240, conversions: 410, visitors: 9200 },
+  { country: 'Canada', isoCode: 'CA', revenue: 6240, conversions: 155, visitors: 2700 },
+  { country: 'United Kingdom', isoCode: 'GB', revenue: 5810, conversions: 138, visitors: 2600 },
+  { country: 'Australia', isoCode: 'AU', revenue: 4725, conversions: 112, visitors: 2200 },
+  { country: 'Germany', isoCode: 'DE', revenue: 3980, conversions: 97, visitors: 2050 }
 ]
 
-// GeoJSON URL for world map
-const geoUrl = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
+const CITY_DATA: CityInsight[] = [
+  { city: 'Los Angeles', country: 'United States', conversionRate: 4.3, topCreator: 'SARAH2024' },
+  { city: 'Toronto', country: 'Canada', conversionRate: 3.8, topCreator: 'LUMEN' },
+  { city: 'London', country: 'United Kingdom', conversionRate: 3.6, topCreator: 'NOVA' },
+  { city: 'Berlin', country: 'Germany', conversionRate: 3.1, topCreator: 'VANTA' }
+]
 
 export default function GeographicHeatMap() {
-  const [selectedMetric, setSelectedMetric] = useState<'clicks' | 'conversions' | 'revenue'>('conversions')
-  const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(null)
-  const [zoomLevel, setZoomLevel] = useState(1)
-  const [center, setCenter] = useState([0, 20])
+  const maxRevenue = useMemo(() => Math.max(...COUNTRY_DATA.map((item) => item.revenue)), [])
 
-  // Aggregate data by country
-  const countryData = useMemo(() => {
-    const countries = new Map<string, CountryData>()
-    
-    mockLocationData.forEach(location => {
-      const key = location.countryCode
-      if (countries.has(key)) {
-        const existing = countries.get(key)!
-        existing.clicks += location.clicks
-        existing.conversions += location.conversions
-        existing.revenue += location.revenue
-        existing.conversionRate = (existing.conversions / existing.clicks) * 100
-      } else {
-        countries.set(key, {
-          countryCode: location.countryCode,
-          countryName: location.country,
-          clicks: location.clicks,
-          conversions: location.conversions,
-          revenue: location.revenue,
-          conversionRate: (location.conversions / location.clicks) * 100,
-          heatValue: 0
-        })
-      }
-    })
-
-    // Calculate heat values based on selected metric
-    const values = Array.from(countries.values())
-    const maxValue = Math.max(...values.map(c => {
-      switch (selectedMetric) {
-        case 'clicks': return c.clicks
-        case 'conversions': return c.conversions
-        case 'revenue': return c.revenue
-        default: return c.conversions
-      }
-    }))
-
-    values.forEach(country => {
-      const value = selectedMetric === 'clicks' ? country.clicks :
-                   selectedMetric === 'conversions' ? country.conversions :
-                   country.revenue
-      country.heatValue = value / maxValue
-    })
-
-    return countries
-  }, [selectedMetric])
-
-  // Color scale for heat map
-  const colorScale = scaleLinear<string>()
-    .domain([0, 1])
-    .range(['var(--starlight-gray, #F1F2F6)', 'var(--nebula-purple, #6B46C1)'])
-
-  const formatNumber = (num: number) => {
-    if (num >= 1000000) {
-      return `${(num / 1000000).toFixed(1)}M`
-    }
-    if (num >= 1000) {
-      return `${(num / 1000).toFixed(1)}K`
-    }
-    return num.toLocaleString()
-  }
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount)
-  }
-
-  const handleCountryClick = (geo: any) => {
-    const countryCode = geo.properties.ISO_A2
-    const countryInfo = countryData.get(countryCode)
-    
-    if (countryInfo) {
-      // Find a representative location for this country
-      const location = mockLocationData.find(l => l.countryCode === countryCode)
-      if (location) {
-        setSelectedLocation(location)
-      }
-    }
-  }
-
-  const handleMarkerClick = (location: LocationData) => {
-    setSelectedLocation(location)
-    setCenter([location.longitude, location.latitude])
-    setZoomLevel(4)
-  }
-
-  const topLocations = [...mockLocationData]
-    .sort((a, b) => {
-      switch (selectedMetric) {
-        case 'clicks': return b.clicks - a.clicks
-        case 'conversions': return b.conversions - a.conversions
-        case 'revenue': return b.revenue - a.revenue
-        default: return b.conversions - a.conversions
-      }
-    })
-    .slice(0, 5)
+  const totals = useMemo(() => {
+    return COUNTRY_DATA.reduce(
+      (acc, country) => {
+        acc.revenue += country.revenue
+        acc.conversions += country.conversions
+        acc.visitors += country.visitors
+        return acc
+      },
+      { revenue: 0, conversions: 0, visitors: 0 }
+    )
+  }, [])
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-foreground">Geographic Analytics</h2>
-        <div className="flex items-center space-x-token-md">
-          <div className="flex items-center space-x-token-sm">
-            <Filter className="h-4 w-4 text-aurora-nav-muted" />
-            <select 
-              value={selectedMetric}
-              onChange={(e) => setSelectedMetric(e.target.value as 'clicks' | 'conversions' | 'revenue')}
-              className="border border-border rounded-token-md px-3 py-1 text-sm"
-            >
-              <option value="clicks">Clicks</option>
-              <option value="conversions">Conversions</option>
-              <option value="revenue">Revenue</option>
-            </select>
-          </div>
-          <button
-            onClick={() => {
-              setZoomLevel(1)
-              setCenter([0, 20])
-              setSelectedLocation(null)
-            }}
-            className="px-3 py-1 text-sm border border-border rounded-token-md hover:bg-muted"
-          >
-            Reset View
-          </button>
-        </div>
-      </div>
-
-      {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-token-sm">
-              <Globe className="h-4 w-4 text-blue-600" />
-              <span className="text-sm font-medium text-aurora-nav-muted">Countries</span>
-            </div>
-            <div className="mt-2">
-              <div className="text-2xl font-bold text-foreground">
-                {countryData.size}
-              </div>
-              <div className="text-sm text-aurora-nav-muted">Active markets</div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-token-sm">
-              <Users className="h-4 w-4 text-green-600" />
-              <span className="text-sm font-medium text-aurora-nav-muted">Total Clicks</span>
-            </div>
-            <div className="mt-2">
-              <div className="text-2xl font-bold text-foreground">
-                {formatNumber(mockLocationData.reduce((sum, loc) => sum + loc.clicks, 0))}
-              </div>
-              <div className="text-sm text-aurora-nav-muted">Across all regions</div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-token-sm">
-              <TrendingUp className="h-4 w-4 text-purple-600" />
-              <span className="text-sm font-medium text-aurora-nav-muted">Conversions</span>
-            </div>
-            <div className="mt-2">
-              <div className="text-2xl font-bold text-foreground">
-                {formatNumber(mockLocationData.reduce((sum, loc) => sum + loc.conversions, 0))}
-              </div>
-              <div className="text-sm text-aurora-nav-muted">Global purchases</div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-token-sm">
-              <DollarSign className="h-4 w-4 text-orange-600" />
-              <span className="text-sm font-medium text-aurora-nav-muted">Revenue</span>
-            </div>
-            <div className="mt-2">
-              <div className="text-2xl font-bold text-foreground">
-                {formatCurrency(mockLocationData.reduce((sum, loc) => sum + loc.revenue, 0))}
-              </div>
-              <div className="text-sm text-aurora-nav-muted">Total generated</div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Interactive Map */}
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-token-sm">
-              <MapPin className="h-5 w-5" />
-              <span>Global {selectedMetric.charAt(0).toUpperCase() + selectedMetric.slice(1)} Heat Map</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="relative">
-              <ComposableMap
-                projection="geoMercator"
-                projectionConfig={{
-                  scale: 100,
-                  center: center as [number, number]
-                }}
-                style={{ 
-                  width: '100%', 
-                  height: '400px',
-                  backgroundColor: 'var(--lunar-grey, #FEFCF9)'
-                }}
-              >
-                <ZoomableGroup zoom={zoomLevel} center={center as [number, number]}>
-                  <Geographies geography={geoUrl}>
-                    {({ geographies }) =>
-                      geographies.map(geo => {
-                        const countryCode = geo.properties.ISO_A2
-                        const countryInfo = countryData.get(countryCode)
-                        const fillColor = countryInfo 
-                          ? colorScale(countryInfo.heatValue)
-                          : 'var(--starlight-gray, #F1F2F6)'
-                        
-                        return (
-                          <Geography
-                            key={geo.rsmKey}
-                            geography={geo}
-                            fill={fillColor}
-                            stroke="var(--border, #E2E8F0)"
-                            strokeWidth={0.5}
-                            style={{
-                              default: { outline: 'none' },
-                              hover: { 
-                                fill: countryInfo ? 'var(--nebula-purple, #6B46C1)' : 'var(--starlight-gray, #F1F2F6)'
-                                outline: 'none',
-                                cursor: countryInfo ? 'pointer' : 'default'
-                              },
-                              pressed: { outline: 'none' }
-                            }}
-                            onClick={() => handleCountryClick(geo)}
-                          />
-                        )
-                      })
-                    }
-                  </Geographies>
-                  
-                  {/* City markers */}
-                  {mockLocationData.map((location) => (
-                    <Marker
-                      key={`${location.country}-${location.city}`}
-                      coordinates={[location.longitude, location.latitude]}
-                      onClick={() => handleMarkerClick(location)}
-                    >
-                      <circle
-                        r={Math.max(2, Math.min(8, location.conversions / 10))}
-                        fill="var(--aurora-pink, #FF6B9D)"
-                        stroke="var(--stone-diamond, #FFFFFF)"
-                        strokeWidth={1}
-                        style={{ cursor: 'pointer' }}
+    <div className='space-y-6 text-void-50'>
+      <Card className='border-void-700/40 bg-void-900/60'>
+        <CardHeader>
+          <CardTitle className='text-xl text-void-50'>Geographic Performance</CardTitle>
+          <Typography variant='body' tone='muted'>Top regions by revenue and engagement</Typography>
+        </CardHeader>
+        <CardContent className='space-y-5'>
+          <div className='grid gap-6 lg:grid-cols-3'>
+            <div className='lg:col-span-2 space-y-4'>
+              {COUNTRY_DATA.map((country) => {
+                const progress = Math.round((country.revenue / maxRevenue) * 100)
+                return (
+                  <div key={country.isoCode} className='space-y-2'>
+                    <div className='flex items-center justify-between text-sm'>
+                      <span className='font-medium text-void-50'>{country.country}</span>
+                      <span className='text-void-300'>${country.revenue.toLocaleString()}</span>
+                    </div>
+                    <div className='h-2 rounded-full bg-void-800/70'>
+                      <div
+                        className='h-full rounded-full bg-gradient-cyber'
+                        style={{ width: `${progress}%` }}
                       />
-                    </Marker>
-                  ))}
-                </ZoomableGroup>
-              </ComposableMap>
-              
-              {/* Legend */}
-              <div className="absolute bottom-4 left-4 bg-background p-3 rounded-token-lg border shadow-sm">
-                <div className="text-xs font-medium text-foreground mb-2">
-                  {selectedMetric.charAt(0).toUpperCase() + selectedMetric.slice(1)} Intensity
-                </div>
-                <div className="flex items-center space-x-token-sm">
-                  <div className="w-4 h-4 bg-muted rounded"></div>
-                  <span className="text-xs text-aurora-nav-muted">Low</span>
-                  <div className="w-8 h-4 bg-gradient-to-r from-starlight-gray to-nebula-purple rounded"></div>
-                  <span className="text-xs text-aurora-nav-muted">High</span>
-                </div>
+                    </div>
+                    <div className='flex gap-4 text-xs text-void-400'>
+                      <span>{country.conversions} conversions</span>
+                      <span>{country.visitors.toLocaleString()} visitors</span>
+                      <span>{(country.conversions / Math.max(country.visitors, 1) * 100).toFixed(1)}% CVR</span>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            <div className='rounded-ultra border border-void-700/40 bg-void-950/80 p-4'>
+              <Typography variant='micro' tone='muted' className='uppercase tracking-[0.25em]'>Totals</Typography>
+              <div className='mt-3 space-y-2 text-sm'>
+                <StatLine label='Revenue' value={`$${totals.revenue.toLocaleString()}`} />
+                <StatLine label='Conversions' value={totals.conversions.toLocaleString()} />
+                <StatLine label='Visitors' value={totals.visitors.toLocaleString()} />
+                <StatLine
+                  label='Global CVR'
+                  value={`${(totals.conversions / Math.max(totals.visitors, 1) * 100).toFixed(2)}%`}
+                />
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
 
-        {/* Location Details & Top Performers */}
-        <div className="space-y-6">
-          {/* Selected Location Details */}
-          {selectedLocation && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Location Details</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div>
-                    <div className="font-medium text-foreground">
-                      {selectedLocation.city}, {selectedLocation.state || selectedLocation.country}
-                    </div>
-                    <div className="text-sm text-aurora-nav-muted">
-                      Top Creator: @{selectedLocation.topCreator}
-                    </div>
+          <div>
+            <Typography variant='micro' tone='muted' className='uppercase tracking-[0.25em]'>Top cities</Typography>
+            <div className='mt-3 grid gap-3 sm:grid-cols-2'>
+              {CITY_DATA.map((city) => (
+                <div key={`${city.city}-${city.country}`} className='rounded-ultra border border-void-800/60 bg-void-950/70 p-4'>
+                  <div className='flex items-center justify-between text-sm font-medium text-void-50'>
+                    <span>{city.city}, {city.country}</span>
+                    <span>{city.conversionRate.toFixed(1)}%</span>
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <div className="text-sm text-aurora-nav-muted">Clicks</div>
-                      <div className="font-medium">{formatNumber(selectedLocation.clicks)}</div>
-                    </div>
-                    <div>
-                      <div className="text-sm text-aurora-nav-muted">Conversions</div>
-                      <div className="font-medium">{formatNumber(selectedLocation.conversions)}</div>
-                    </div>
-                    <div>
-                      <div className="text-sm text-aurora-nav-muted">Revenue</div>
-                      <div className="font-medium">{formatCurrency(selectedLocation.revenue)}</div>
-                    </div>
-                    <div>
-                      <div className="text-sm text-aurora-nav-muted">Conv. Rate</div>
-                      <div className="font-medium">{selectedLocation.conversionRate.toFixed(1)}%</div>
-                    </div>
-                  </div>
+                  <Typography variant='micro' tone='muted' className='mt-2'>Top creator · {city.topCreator}</Typography>
                 </div>
-              </CardContent>
-            </Card>
-          )}
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
 
-          {/* Top Performing Locations */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">
-                Top Locations by {selectedMetric.charAt(0).toUpperCase() + selectedMetric.slice(1)}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {topLocations.map((location, index) => {
-                  const metricValue = selectedMetric === 'clicks' ? location.clicks :
-                                    selectedMetric === 'conversions' ? location.conversions :
-                                    location.revenue
-                  
-                  return (
-                    <div 
-                      key={`${location.country}-${location.city}`}
-                      className="flex items-center justify-between p-3 bg-muted rounded-token-lg hover:bg-muted cursor-pointer"
-                      onClick={() => handleMarkerClick(location)}
-                    >
-                      <div className="flex items-center space-x-3">
-                        <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">
-                          {index + 1}
-                        </Badge>
-                        <div>
-                          <div className="font-medium text-sm">
-                            {location.city}, {location.state || location.country}
-                          </div>
-                          <div className="text-xs text-aurora-nav-muted">
-                            @{location.topCreator}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-medium text-sm">
-                          {selectedMetric === 'revenue' 
-                            ? formatCurrency(metricValue) 
-                            : formatNumber(metricValue)
-                          }
-                        </div>
-                        <div className="text-xs text-aurora-nav-muted">
-                          {location.conversionRate.toFixed(1)}% conv.
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+interface StatLineProps {
+  label: string
+  value: string
+}
+
+function StatLine({ label, value }: StatLineProps) {
+  return (
+    <div className='flex items-center justify-between text-void-300'>
+      <span>{label}</span>
+      <span className='font-medium text-void-50'>{value}</span>
     </div>
   )
 }
