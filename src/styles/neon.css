@@ -1,0 +1,74 @@
+/* src/styles/neon.css — plain global CSS plus scoped utilities */
+
+@tailwind utilities;
+
+/* Tokens */
+:root {
+  /* Primary Neon (plus RGB triplets for Tailwind /opacity utilities) */
+  --volt-glow: #00ff88;        --volt-glow-rgb: 0 255 136;
+  --cyber-pink: #ff00ff;       --cyber-pink-rgb: 255 0 255;
+  --holo-purple: #9945ff;      --holo-purple-rgb: 153 69 255;
+  --digital-blue: #00d4ff;     --digital-blue-rgb: 0 212 255;
+  --acid-yellow: #ffff00;      --acid-yellow-rgb: 255 255 0;
+
+  /* Void scale for dark UI */
+  --void-50: #fafafa;          --void-50-rgb: 250 250 250;
+  --void-200: #e5e5e5;         --void-200-rgb: 229 229 229;
+  --void-300: #d4d4d4;         --void-300-rgb: 212 212 212;
+  --void-400: #a3a3a3;         --void-400-rgb: 163 163 163;
+  --void-500: #737373;         --void-500-rgb: 115 115 115;
+  --void-600: #525252;         --void-600-rgb: 82 82 82;
+  --void-700: #404040;         --void-700-rgb: 64 64 64;
+  --void-800: #262626;         --void-800-rgb: 38 38 38;
+  --void-900: #171717;         --void-900-rgb: 23 23 23;
+  --void-950: #0a0a0a;         --void-950-rgb: 10 10 10;
+
+  /* Radii */
+  --radius-sharp: .125rem;
+  --radius-soft: .5rem;
+  --radius-round: 1rem;
+  --radius-ultra: 2rem;
+  --radius-pill: 9999px;
+}
+
+/* Animations */
+@keyframes gradient-shift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes sparkle { 0%,100%{opacity:0;transform:scale(.8)} 50%{opacity:1;transform:scale(1.2)} }
+
+/* Optional: background helper used in HeroSection */
+.bg-hero-glow { background: radial-gradient(60% 60% at 50% 20%, rgba(0,212,255,.18), transparent 60%) }
+
+/* Radial energy fields used behind 3D previews */
+.radial-volt-orbit {
+  background: radial-gradient(65% 65% at 50% 40%, rgba(0,255,136,.22), rgba(0,212,255,.12) 45%, transparent 75%);
+}
+
+.radial-digital-floor {
+  background: radial-gradient(90% 90% at 50% 110%, rgba(0,212,255,.16), transparent 70%);
+}
+
+@layer utilities {
+  .neon-text-volt {
+    text-shadow: 0 0 10px rgba(0,255,136,.65), 0 0 26px rgba(0,255,136,.35);
+  }
+
+  .gradient-holo-text {
+    @apply bg-gradient-to-r from-holo-purple via-cyber-pink to-digital-blue bg-clip-text text-transparent;
+  }
+
+  .bg-hero-preview-overlay {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 212, 255, 0.15));
+  }
+
+  .bg-design-studio-shell {
+    background: linear-gradient(140deg, rgba(0, 212, 255, 0.08), rgba(255, 0, 244, 0.06) 45%, transparent);
+  }
+
+  .bg-design-studio-panel {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.12), rgba(0, 212, 255, 0.12));
+  }
+
+  .bg-faq-ribbon {
+    background: linear-gradient(140deg, rgba(0, 212, 255, 0.08), transparent 60%);
+  }
+}

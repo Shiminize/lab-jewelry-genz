@@ -1,482 +1,104 @@
+const plugin = require('tailwindcss/plugin')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['src/**/*.{ts,tsx,js,jsx}', 'public/**/*.html'],
+  safelist: [{ pattern: /^(gradient|glass|shadow-neon|rounded)-(.*)/ }],
   theme: {
+    container: {
+      center: true,
+      padding: '1.5rem',
+      screens: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1280px',
+      },
+    },
     extend: {
-      // Design Token Migration from design-tokens.css
       colors: {
-        // Brand Colors - Core Palette (from design-tokens.css)
-        brand: {
-          primary: '#6B46C1',    // --token-color-brand-primary (Nebula Purple)
-          secondary: '#FF6B9D',  // --token-color-brand-secondary (Aurora Pink)  
-          tertiary: '#C44569',   // --token-color-brand-tertiary (Aurora Crimson)
-          accent: '#10B981',     // --token-color-brand-accent (Emerald Flash)
+        'volt-glow': 'rgb(var(--volt-glow-rgb) / <alpha-value>)',
+        'cyber-pink': 'rgb(var(--cyber-pink-rgb) / <alpha-value>)',
+        'holo-purple': 'rgb(var(--holo-purple-rgb) / <alpha-value>)',
+        'digital-blue': 'rgb(var(--digital-blue-rgb) / <alpha-value>)',
+        'acid-yellow': 'rgb(var(--acid-yellow-rgb) / <alpha-value>)',
+        void: {
+          50: 'rgb(var(--void-50-rgb) / <alpha-value>)',
+          200: 'rgb(var(--void-200-rgb) / <alpha-value>)',
+          300: 'rgb(var(--void-300-rgb) / <alpha-value>)',
+          400: 'rgb(var(--void-400-rgb) / <alpha-value>)',
+          500: 'rgb(var(--void-500-rgb) / <alpha-value>)',
+          600: 'rgb(var(--void-600-rgb) / <alpha-value>)',
+          700: 'rgb(var(--void-700-rgb) / <alpha-value>)',
+          800: 'rgb(var(--void-800-rgb) / <alpha-value>)',
+          900: 'rgb(var(--void-900-rgb) / <alpha-value>)',
+          950: 'rgb(var(--void-950-rgb) / <alpha-value>)',
         },
-
-        // Neutral Colors - Greyscale System
-        neutral: {
-          0: '#FFFFFF',          // --token-color-neutral-0 (Pure White)
-          50: '#F7F7F9',         // --token-color-neutral-50 (Lunar Grey)
-          100: '#F0F0F2',        // --token-color-neutral-100 (Light Grey)
-          200: '#E5E7EB',        // --token-color-neutral-200 (Border Grey)
-          500: '#6B7280',        // --token-color-neutral-500 (Mid Grey)
-          900: '#0A0E27',        // --token-color-neutral-900 (Deep Space)
-        },
-
-        // Material Colors - Jewelry Specific
-        material: {
-          gold: '#FFD700',           // --token-color-material-gold
-          'rose-gold': '#F7A8B8',    // --token-color-material-rose-gold
-          'white-gold': '#F8F8FF',   // --token-color-material-white-gold
-          platinum: '#B9F2FF',       // --token-color-material-platinum
-        },
-
-        // Semantic Colors - Functional States
-        semantic: {
-          success: '#10B981',    // --token-color-success
-          warning: '#F59E0B',    // --token-color-warning
-          error: '#EF4444',      // --token-color-error
-          info: '#3B82F6',       // --token-color-info
-        },
-
-        // Component-Specific Colors
-        nav: {
-          background: '#F7F7F9',     // --token-nav-background
-          text: '#0A0E27',           // --token-nav-text
-          border: '#E5E7EB',         // --token-nav-border
-        },
-
-        card: {
-          background: '#FFFFFF',     // --token-card-background
-          border: '#E5E7EB',         // --token-card-border
-        },
-
-        button: {
-          'primary-bg': '#6B46C1',       // --token-button-primary-bg
-          'primary-text': '#FFFFFF',     // --token-button-primary-text
-          'secondary-bg': 'transparent', // --token-button-secondary-bg
-          'secondary-text': '#6B46C1',   // --token-button-secondary-text
-          'secondary-border': '#6B46C1', // --token-button-secondary-border
-        },
-
-        input: {
-          background: '#FFFFFF',     // --token-input-background
-          border: '#E5E7EB',         // --token-input-border
-          'border-focus': '#6B46C1', // --token-input-border-focus
-          text: '#0A0E27',           // --token-input-text
-          placeholder: '#6B7280',    // --token-input-placeholder
-        },
-
-        // Legacy Aurora colors (for backward compatibility)
-        background: '#F7F7F9', // Aurora Lunar Grey (official Aurora color)
-        foreground: '#0A0E27', // Aurora Deep Space (official Aurora color) 
-        muted: '#F1F2F6',      // Aurora: Starlight Gray
-        accent: '#C44569',     // Aurora: Crimson (PASSION - luxury emotional engagement)
-        'accent-secondary': '#FF6B9D', // Aurora: Pink for highlights
-        'accent-interactive': '#C44569', // Aurora: Crimson for interactions
-        cta: '#6B46C1',       // Aurora: Nebula Purple
-        'cta-hover': '#5B3BA8', // Aurora: Nebula Purple darker
-        
-        // Aurora Essential Colors
-        white: '#FFFFFF',           // Pure white
-        'high-contrast': '#FFFFFF', // High contrast text (CLAUDE_RULES)
-        'deep-space': '#0A0E27',    // Aurora: Deep Space base
-        'cosmic-slate': '#1E293B',  // Aurora: Cosmic Slate
-        'nebula-purple': '#6B46C1', // Aurora: Nebula Purple
-        'starlight-gray': '#F1F2F6', // Aurora: Starlight Gray
-        'gray-600': '#6B7280',      // Legacy muted gray
-        'gray-700': '#374151',      // WCAG compliant text
-        
-        // Aurora Border Colors
-        border: '#E2E8F0',          // Aurora: Quantum borders
-        'border-muted': '#F1F2F6',  // Subtle Aurora borders
-        
-        // Aurora System Colors (enhanced with iridescence)
-        error: '#DC2626',     // Error red
-        success: '#10B981',   // Aurora: Enhanced success green
-        warning: '#F59E0B',   // Aurora: Enhanced warning amber
-        info: '#3B82F6',      // Aurora: Information blue
-        
-        // Aurora Navigation Colors
-        'aurora-nav-surface': '#F7F7F9',      // Lunar grey for navigation backgrounds
-        'aurora-nav-hover': '#F1F2F6',        // Subtle hover state (starlight gray)
-        'aurora-nav-active': '#6B46C1',       // Nebula purple for active states
-        'aurora-nav-text': '#0A0E27',         // Deep space for navigation text
-        'aurora-nav-muted': '#6B7280',        // Aurora muted text (replacing text-gray-600)
-        'aurora-nav-border': '#E2E8F0',       // Aurora quantum borders
-        'aurora-nav-gradient-start': '#F7F7F9', // Lunar grey gradient start
-        'aurora-nav-gradient-end': '#FFFFFF',   // Pure white gradient end
-        
-        // Material Colors (for customizer previews) - Aurora Mapped
-        'material-gold': '#FFD700',      // Actual gold color (restored)
-        'material-platinum': '#F7F7F9',  // Aurora: Lunar Grey (was #E5E4E2)
-        'material-silver': '#E2E8F0',    // Aurora: Quantum border (was #C0C0C0)
-        'material-white-gold': '#F1F2F6', // Aurora: Starlight Gray (was #F8F8FF)
-        'material-rose-gold': '#FF6B9D',  // Aurora: Pink (was #E8B4B8)
-        'stone-diamond': '#FFFFFF',       // Keep pure white for diamonds
-        
-        // Aurora Complete Color Psychology System (from demo)
-        'aurora-pink': '#FF6B9D',        // Aurora: Primary pink accent
-        'aurora-crimson': '#C44569',     // Aurora: Crimson for interactions
-        'aurora-plum': '#723C70',        // Aurora: Deep plum accent
-        'aurora-nebula-purple': '#6B46C1',  // Aurora: Nebula Purple (MISSING - CRITICAL FIX)
-        'aurora-emerald-flash': '#10B981',   // Aurora: Success emerald (MISSING - CRITICAL FIX)
-        'aurora-amber-glow': '#F59E0B',      // Aurora: Warning amber (MISSING - CRITICAL FIX)
-        'lunar-grey': '#F7F7F9',         // Aurora: Lunar grey backgrounds
-        'emerald-flash': '#10B981',      // Aurora: Success emerald
-        'amber-glow': '#F59E0B',         // Aurora: Warning amber
-        
-        // Aurora Iridescent Accents
-        'iridescent-pink': '#FF6B9D',    // Aurora: Iridescent Pink
-        'iridescent-coral': '#C44569',   // Aurora: Iridescent Coral  
-        'iridescent-plum': '#723C70',    // Aurora: Iridescent Plum
-        
-        // Aurora Gradient Foundations
-        'gradient-start': '#0A0E27',     // Deep Space start
-        'gradient-mid': '#1E293B',       // Cosmic Slate mid
-        'gradient-end': '#6B46C1',       // Nebula Purple end
-        
-        // Aurora Dynamic Shadow Colors
-        'shadow-color': '#6B46C1',       // Nebula purple shadows
-        'shadow-gold': '#FFD700',        // Gold product shadows
-        'shadow-diamond': '#B9F2FF',     // Diamond prismatic shadows
-        'shadow-emerald': '#10B981',     // Emerald shadows
-        
-        // Semantic Surface Colors (Phase 3 - Token Migration)
-        surface: {
-          DEFAULT: '#FFFFFF',     // Pure white surface
-          muted: '#F7F7F9',      // Aurora Lunar Grey - muted backgrounds
-          hover: '#F1F2F6',      // Aurora Starlight Gray - hover states
-          active: '#E2E8F0',     // Aurora Quantum borders - active states
-        },
-
-        // Semantic Text Colors (Phase 3 - Token Migration)
-        text: {
-          primary: '#0A0E27',    // Aurora Deep Space - primary text
-          secondary: '#6B7280',  // Mid grey - secondary text
-          muted: '#9CA3AF',      // Muted grey - tertiary text
-          inverse: '#FFFFFF',    // White text for dark backgrounds
-        },
-
-        // Aurora CSS Variable Aliases (repaired - Phase 2)
-        'aurora-bg': '#F7F7F9',                      // Lunar Grey - direct token value
-        'aurora-text': '#0A0E27',                    // Deep Space - direct token value
-        'aurora-accent': '#6B46C1',                  // Nebula Purple - direct token value
       },
-
-      // Spacing Tokens (from design-tokens.css)
-      spacing: {
-        // Token Spacing System
-        'token-xs': '0.25rem',    // --token-space-xs (4px)
-        'token-sm': '0.5rem',     // --token-space-sm (8px) 
-        'token-md': '1rem',       // --token-space-md (16px)
-        'token-lg': '1.5rem',     // --token-space-lg (24px)
-        'token-xl': '2rem',       // --token-space-xl (32px)
-        'token-2xl': '3rem',      // --token-space-2xl (48px)
-        'token-3xl': '4rem',      // --token-space-3xl (64px)
-        'token-4xl': '5rem',      // --token-space-4xl (80px) - NEW
-        'token-5xl': '6rem',      // --token-space-5xl (96px) - NEW
-        'token-6xl': '8rem',      // --token-space-6xl (128px) - NEW
-        
-        // Component Spacing
-        'component-gap': '1.5rem',   // --token-space-component-gap
-        'section-gap': '4rem',       // --token-space-section-gap
-
-        // Legacy spacing (keep for compatibility)
-        '18': '4.5rem',
-        '88': '22rem',
-      },
-
-      // Font sizes handled by typography-system.css - keeping minimal Tailwind utilities only
-      fontSize: {
-        // Only keep essential Tailwind utilities for edge cases
-        '2xs': ['0.625rem', { lineHeight: '0.75rem' }],
-      },
-
-      // Font Family Tokens - matches typography-system.css variables
-      fontFamily: {
-        // Primary font families - consistent with CSS variables
-        'token-primary': ['Celestial Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        'token-display': ['Celestial Sans', 'Fraunces', 'Georgia', 'serif'],
-        'token-mono': ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace'],
-
-        // Legacy font families (backward compatibility)
-        headline: ['Celestial Sans', 'Fraunces', 'serif'],
-        body: ['Celestial Sans', 'Inter', 'sans-serif'],
-      },
-
-      // Font Weight Tokens (from design-tokens.css)  
-      fontWeight: {
-        'token-normal': '400',     // --token-font-weight-normal
-        'token-medium': '500',     // --token-font-weight-medium
-        'token-semibold': '600',   // --token-font-weight-semibold
-        'token-bold': '700',       // --token-font-weight-bold
-      },
-
-      // Line Height Tokens (from design-tokens.css)
-      lineHeight: {
-        'token-tight': '1.25',     // --token-line-height-tight
-        'token-normal': '1.5',     // --token-line-height-normal
-        'token-relaxed': '1.75',   // --token-line-height-relaxed
-      },
-
-      // Border Radius Tokens - Fibonacci Sequence (from design-tokens.css + Aurora PRD)
       borderRadius: {
-        // Aurora Fibonacci Radius System - Mathematical Harmony
-        'token-micro': '3px',      // F2 - fine details
-        'token-sm': '5px',         // F3 - small interactive elements
-        'token-md': '8px',         // F4 - standard components (DEFAULT)
-        'token-lg': '13px',        // F5 - cards and major elements
-        'token-xl': '21px',        // F6 - section containers
-        'token-xxl': '34px',       // F7 - hero sections and modals
-        'token-full': '9999px',    // perfect circles
-
-        // Legacy border radius (keep for compatibility)
-        'none': '0px',
-        'micro': '3px',   // Aurora: Fibonacci F2
-        'sm': '5px',      // Aurora: Fibonacci F3
-        'DEFAULT': '8px', // Aurora: Fibonacci F4 (DEFAULT)
-        'md': '8px',      // Aurora: Fibonacci F4
-        'lg': '13px',     // Aurora: Fibonacci F5
-        'xl': '21px',     // Aurora: Fibonacci F6
-        '2xl': '34px',    // Aurora: Fibonacci F7
-        '3xl': '34px',    // Aurora: Fibonacci F7
-        'full': '9999px', // Standard full radius for circles
+        sharp: 'var(--radius-sharp)',
+        soft: 'var(--radius-soft)',
+        round: 'var(--radius-round)',
+        ultra: 'var(--radius-ultra)',
+        pill: 'var(--radius-pill)',
       },
-
-      // Border Width Tokens (from design-tokens.css)
-      borderWidth: {
-        'token-thin': '1px',       // --token-border-width-thin
-        'token-medium': '2px',     // --token-border-width-medium
-        'token-thick': '4px',      // --token-border-width-thick
-      },
-
-      // Size Tokens (from design-tokens.css)
-      width: {
-        'token-card-min': '280px', // --token-size-card-min-width
-        'token-container': '1400px', // --token-container-max (Claude4.1 Demo)
-      },
-      height: {
-        'token-button': '2.75rem', // --token-size-button-height (44px)
-        'token-input': '2.75rem',  // --token-size-input-height (44px)
-        'token-nav': '4rem',       // --token-nav-height (64px)
-      },
-
-      // Icon Size Tokens (from design-tokens.css)
-      size: {
-        'token-icon-xs': '1rem',      // --token-size-icon-xs (16px)
-        'token-icon-sm': '1.25rem',   // --token-size-icon-sm (20px)
-        'token-icon-md': '1.5rem',    // --token-size-icon-md (24px)
-        'token-icon-lg': '2rem',      // --token-size-icon-lg (32px)
-      },
-
-      // Duration Tokens (from design-tokens.css)
-      transitionDuration: {
-        'token-instant': '0ms',      // --token-duration-instant
-        'token-fast': '150ms',       // --token-duration-fast
-        'token-normal': '300ms',     // --token-duration-normal
-        'token-slow': '500ms',       // --token-duration-slow
-      },
-
-      // Transition Timing Function Tokens (from design-tokens.css)
-      transitionTimingFunction: {
-        'token-linear': 'linear',                          // --token-ease-linear
-        'token-in': 'cubic-bezier(0.4, 0, 1, 1)',        // --token-ease-in
-        'token-out': 'cubic-bezier(0, 0, 0.2, 1)',       // --token-ease-out
-        'token-in-out': 'cubic-bezier(0.4, 0, 0.2, 1)',  // --token-ease-in-out
-      },
-
-      // Z-Index Tokens (from design-tokens.css)
-      zIndex: {
-        'token-dropdown': '1000',    // --token-z-index-dropdown
-        'token-modal': '1100',       // --token-z-index-modal
-        'token-tooltip': '1200',     // --token-z-index-tooltip
-        'token-toast': '1300',       // --token-z-index-toast
-      },
-
-      // Layout System Tokens (Claude4.1 Demo Compliance)
-      maxWidth: {
-        'token-container': '1400px',  // --token-container-max
-      },
-
-      gridTemplateColumns: {
-        'token-auto-fit': 'repeat(auto-fit, minmax(350px, 1fr))',  // Claude4.1 grid system
-      },
-
-      // Shadow Tokens (from design-tokens.css)
       boxShadow: {
-        // Token Shadow System
-        'token-sm': '0 1px 2px rgba(0, 0, 0, 0.05)',                // --token-shadow-sm
-        'token-md': '0 4px 8px rgba(0, 0, 0, 0.08)',                // --token-shadow-md
-        'token-lg': '0 8px 24px rgba(0, 0, 0, 0.12)',               // --token-shadow-lg
-        'token-xl': '0 16px 48px rgba(0, 0, 0, 0.15)',              // --token-shadow-xl
-
-        // Material-Specific Shadows (using color-mix from design-tokens.css)
-        'token-gold': '0 8px 32px color-mix(in srgb, #FFD700 20%, transparent)',           // --token-shadow-gold
-        'token-platinum': '0 8px 32px color-mix(in srgb, #B9F2FF 20%, transparent)',      // --token-shadow-platinum
-        'token-rose-gold': '0 8px 32px color-mix(in srgb, #F7A8B8 20%, transparent)',     // --token-shadow-rose-gold
-        'token-white-gold': '0 8px 32px color-mix(in srgb, #F8F8FF 20%, transparent)',    // --token-shadow-white-gold
-
-        // Legacy Aurora Prismatic Shadow System - Enhanced with Pink accents
-        'aurora-sm': '0 2px 4px rgba(107, 70, 193, 0.1), 0 1px 2px rgba(255, 107, 157, 0.08)',
-        'aurora-md': '0 4px 6px rgba(107, 70, 193, 0.15), 0 2px 4px rgba(255, 107, 157, 0.1)',
-        'aurora-lg': '0 10px 15px rgba(107, 70, 193, 0.2), 0 4px 6px rgba(255, 107, 157, 0.12)',
-        'aurora-xl': '0 20px 25px rgba(107, 70, 193, 0.25), 0 10px 10px rgba(255, 107, 157, 0.15)',
-        'aurora-2xl': '0 25px 50px rgba(107, 70, 193, 0.3), 0 20px 20px rgba(255, 107, 157, 0.18)',
-        'aurora-inner': 'inset 0 2px 4px rgba(107, 70, 193, 0.1)',
-        'aurora-glow': '0 0 20px rgba(255, 107, 157, 0.4), 0 0 40px rgba(107, 70, 193, 0.2)',
-        'aurora-interactive': '0 4px 12px rgba(196, 69, 105, 0.15)', // Crimson interactive
-        
-        // Aurora Context-Aware Product Shadows
-        'aurora-near': '0 2px 8px rgba(107, 70, 193, 0.2)',
-        'aurora-float': '0 8px 24px rgba(107, 70, 193, 0.15)',
-        'aurora-hover': '0 16px 48px rgba(107, 70, 193, 0.12)',
-        'aurora-modal': '0 24px 64px rgba(107, 70, 193, 0.1)',
-        
-        // Aurora Shadow System - Exact specification
-        'near': '0 2px 8px color-mix(in srgb, #6B46C1 20%, transparent)',
-        'float': '0 8px 24px color-mix(in srgb, #6B46C1 15%, transparent)',
-        'hover': '0 16px 48px color-mix(in srgb, #6B46C1 12%, transparent)',
-        'modal': '0 24px 64px color-mix(in srgb, #6B46C1 10%, transparent)',
-        
-        // Aurora Material-Specific Shadows
-        'aurora-gold': '0 8px 24px rgba(255, 215, 0, 0.15)',
-        'aurora-diamond': '0 8px 24px rgba(185, 242, 255, 0.15)',
-        'aurora-emerald': '0 8px 24px rgba(16, 185, 129, 0.15)',
-        
-        // Legacy shadows (keep for compatibility)
-        'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-        'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'neon-volt': '0 0 30px rgb(var(--volt-glow-rgb) / 0.5)',
+        'neon-cyber': '0 0 30px rgb(var(--cyber-pink-rgb) / 0.5)',
+        'neon-holo': '0 0 30px rgb(var(--holo-purple-rgb) / 0.5)',
+        'neon-digital': '0 0 30px rgb(var(--digital-blue-rgb) / 0.5)',
+        'neon-acid': '0 0 30px rgb(var(--acid-yellow-rgb) / 0.45)',
       },
-
-      // Custom Brightness Values for Hover Effects
-      brightness: {
-        115: '1.15',  // +15% brightness for MinimalHoverCard
-      },
-
-      // Custom Scale Values for Hover Effects  
-      scale: {
-        101: '1.01',  // Subtle scale for MinimalHoverCard
-      },
-
-      minHeight: {
-        '9': '2.25rem',
-        '11': '2.75rem',
-        '12': '3rem',
-      },
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-in': 'slideIn 0.3s ease-out',
-        'scale-in': 'scaleIn 0.2s ease-out',
-        // Aurora Animation System - Complete PRD Implementation
-        'aurora-gradient-shift': 'gradientShift 4s ease-in-out infinite',
-        'aurora-iridescent': 'iridescentShift 3s linear infinite',
-        'aurora-rotate': 'rotate 30s linear infinite',
-        'aurora-pulse': 'auroraPulse 2s ease-in-out infinite',
-        'aurora-ticker': 'tickerScroll 20s linear infinite',
-        'aurora-success-flash': 'successFlash 0.5s ease',
-        'aurora-warning-pulse': 'warningPulse 1s ease infinite',
-        // Enhanced Aurora Physics-Based Animations
-        'aurora-drift': 'auroraDrift 8s ease-in-out infinite',
-        'aurora-shimmer-slow': 'auroraShimmerSlow 3s linear infinite',
-        'aurora-float': 'auroraFloat 6s ease-in-out infinite',
-        'aurora-glow-pulse': 'auroraGlowPulse 4s ease-in-out infinite',
-        'aurora-sparkle': 'auroraSparkle 2s ease-in-out infinite',
+      backgroundImage: {
+        'gradient-volt': 'linear-gradient(135deg, var(--volt-glow) 0%, var(--digital-blue) 100%)',
+        'gradient-cyber': 'linear-gradient(135deg, var(--cyber-pink) 0%, var(--digital-blue) 100%)',
+        'gradient-holo':
+          'linear-gradient(135deg, var(--holo-purple) 0%, var(--cyber-pink) 50%, var(--digital-blue) 100%)',
+        'gradient-acid': 'linear-gradient(135deg, var(--acid-yellow) 0%, var(--volt-glow) 100%)',
+        'gradient-digital': 'linear-gradient(135deg, var(--digital-blue) 0%, var(--holo-purple) 100%)',
       },
       keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+        'gradient-shift': {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
         },
-        slideIn: {
-          '0%': { transform: 'translateY(10px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        scaleIn: {
-          '0%': { transform: 'scale(0.95)', opacity: '0' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
-        },
-        // Aurora Keyframes System - Complete PRD Implementation
-        gradientShift: {
-          '0%, 100%': { 'background-position': '0% 50%' },
-          '50%': { 'background-position': '100% 50%' },
-        },
-        iridescentShift: {
-          '0%': { 'background-position': '0% 50%' },
-          '100%': { 'background-position': '200% 50%' },
-        },
-        rotate: {
-          '100%': { transform: 'rotate(360deg)' },
-        },
-        auroraPulse: {
-          '0%, 100%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.1)' },
-        },
-        tickerScroll: {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(-100%)' },
-        },
-        successFlash: {
-          '0%, 100%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.05)' },
-        },
-        warningPulse: {
-          '0%, 100%': { 'box-shadow': '0 0 0 0 rgba(245, 158, 11, 0.4)' },
-          '50%': { 'box-shadow': '0 0 0 20px rgba(245, 158, 11, 0)' },
-        },
-        // Enhanced Aurora Physics-Based Keyframes
-        auroraDrift: {
-          '0%, 100%': { transform: 'translateX(0) translateY(0) scale(1)', opacity: '0.6' },
-          '25%': { transform: 'translateX(-2px) translateY(-1px) scale(1.01)', opacity: '0.7' },
-          '50%': { transform: 'translateX(1px) translateY(2px) scale(0.99)', opacity: '0.8' },
-          '75%': { transform: 'translateX(2px) translateY(-1px) scale(1.02)', opacity: '0.7' },
-        },
-        auroraShimmerSlow: {
-          '0%': { 'background-position': '-200% center', opacity: '0.5' },
-          '50%': { opacity: '0.8' },
-          '100%': { 'background-position': '200% center', opacity: '0.5' },
-        },
-        auroraFloat: {
-          '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-          '33%': { transform: 'translateY(-10px) rotate(1deg)' },
-          '66%': { transform: 'translateY(5px) rotate(-1deg)' },
-        },
-        auroraGlowPulse: {
-          '0%, 100%': { 'box-shadow': '0 0 20px rgba(255, 107, 157, 0.4), 0 0 40px rgba(107, 70, 193, 0.2)' },
-          '50%': { 'box-shadow': '0 0 30px rgba(255, 107, 157, 0.6), 0 0 60px rgba(107, 70, 193, 0.3)' },
-        },
-        auroraSparkle: {
-          '0%, 100%': { opacity: '0.2', transform: 'scale(0.8)' },
+        sparkle: {
+          '0%, 100%': { opacity: '0', transform: 'scale(0.8)' },
           '50%': { opacity: '1', transform: 'scale(1.2)' },
         },
       },
-      // Background Gradient Utilities (Token-Based)
-      backgroundImage: {
-        'gradient-luxury-midnight': 'linear-gradient(145deg, #0B0C10, #1B1C22)',
-        'gradient-primary': 'linear-gradient(135deg, var(--token-color-brand-primary, #6B46C1), var(--token-color-brand-secondary, #FF6B9D))',
-        'gradient-tertiary': 'linear-gradient(135deg, var(--token-color-brand-secondary, #FF6B9D), var(--token-color-brand-tertiary, #C44569))',
-        'gradient-surface': 'linear-gradient(135deg, var(--token-color-neutral-50, #F7F7F9), var(--token-color-neutral-0, #FFFFFF))',
-        'gradient-material-gold': 'linear-gradient(135deg, var(--token-color-material-gold, #FFD700), rgba(255, 215, 0, 0.8))',
-        'gradient-material-platinum': 'linear-gradient(135deg, var(--token-color-material-platinum, #B9F2FF), rgba(185, 242, 255, 0.8))',
-        
-        // Phase 3: Aurora Hero & Component Gradients (for inline style replacement)
-        'aurora-hero': 'linear-gradient(135deg, #0A0E27 0%, #6B46C1 40%, rgba(255, 107, 157, 0.15) 100%)',
-        'aurora-shimmer': 'linear-gradient(90deg, rgba(255, 107, 157, 0.1) 0%, rgba(196, 69, 105, 0.1) 25%, rgba(114, 60, 112, 0.1) 50%, rgba(196, 69, 105, 0.1) 75%, rgba(255, 107, 157, 0.1) 100%)',
-        'aurora-radial': 'radial-gradient(circle, rgba(255, 107, 157, 0.1) 0%, transparent 50%)',
-        'success-glow': 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%)',
-        'legacy-overlay': 'linear-gradient(135deg, rgba(42,43,54,0.6) 0%, rgba(74,74,90,0.4) 50%, rgba(212,175,55,0.3) 100%)',
-      },
-
-      screens: {
-        'xs': '475px',
+      animation: {
+        'gradient-shift': 'gradient-shift 3s ease infinite',
+        sparkle: 'sparkle 3s infinite',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities, theme }) {
+      addUtilities({
+        '.glass': {
+          background: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+        },
+        '.glass-dark': {
+          background: 'rgba(0, 0, 0, 0.2)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+        },
+        '.shadow-neon-volt': { boxShadow: theme('boxShadow.neon-volt') },
+        '.shadow-neon-cyber': { boxShadow: theme('boxShadow.neon-cyber') },
+        '.shadow-neon-holo': { boxShadow: theme('boxShadow.neon-holo') },
+        '.shadow-neon-digital': { boxShadow: theme('boxShadow.neon-digital') },
+        '.shadow-neon-acid': { boxShadow: theme('boxShadow.neon-acid') },
+    })
+    }),
+    plugin(function ({ addVariant }) {
+      addVariant('supports-backdrop', '@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none))')
+    }),
+  ],
 }

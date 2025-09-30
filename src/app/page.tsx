@@ -1,96 +1,156 @@
-import React from 'react'
-import { headers } from 'next/headers'
-import dynamic from 'next/dynamic'
-import { redirect } from 'next/navigation'
-import { HeroSection } from '../components/homepage/HeroSection'
-import { EnhancedValueProposition } from '../components/homepage/EnhancedValueProposition'
-import { FeaturedProductsSection } from '../components/homepage/FeaturedProductsSection'
-import SocialProofSection from '../components/homepage/SocialProofSection'
-import { SustainabilityStorySection } from '../components/homepage/SustainabilityStorySection'
-import type { ProductDisplayDTO } from '../types/product-dto'
+import { ClosingCtaSection } from '@/components/homepage/ClosingCtaSection'
+import { CreatorWorkflowSection } from '@/components/homepage/CreatorWorkflowSection'
+import { DesignStudioSection } from '@/components/homepage/DesignStudioSection'
+import { ExperienceModulesSection } from '@/components/homepage/ExperienceModulesSection'
+import { SupportSection } from '@/components/homepage/SupportSection'
+import { HeroSection } from '@/components/homepage/HeroSection'
+import { ShopCollectionSection } from '@/components/homepage/ShopCollectionSection'
+import { HOMEPAGE } from '@/content/homepage'
+import type { ShopCollectionProductCard } from '@/components/homepage/types'
+import { SHOP_COLLECTION_GLOW_SEQUENCE } from '@/components/homepage/shopCollectionTokens'
+import { getCategoryTone, normalizeCategoryInput } from '@/styles/category-tokens'
+import { listProducts } from '@/services/products-service'
 
-// Server-side data fetching function
-async function getFeaturedProducts(): Promise<ProductDisplayDTO[]> {
-  try {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 2000)
-    // Build absolute URL for Node fetch in server environment (prefer request headers)
-    const hdrs = headers()
-    const host = hdrs.get('x-forwarded-host') || hdrs.get('host')
-    const proto = hdrs.get('x-forwarded-proto') || 'http'
-    const inferredBase = host ? `${proto}://${host}` : ''
-    const port = process.env.PORT || '3000'
-    const envBase = process.env.NEXT_PUBLIC_APP_URL || `http://localhost:${port}`
-    const baseUrl = inferredBase || envBase
-    const response = await fetch(`${baseUrl}/api/products/featured?limit=6`, {
-      // Avoid blocking server rendering during tests/dev if the route is slow
-      cache: 'no-store',
-      signal: controller.signal,
-    })
-    clearTimeout(timeout)
-    
-    if (!response.ok) {
-      console.error('Failed to fetch featured products:', response.status)
-      return []
-    }
-    
-    const data = await response.json()
-    return data.success ? data.data : []
-  } catch (error) {
-    console.error('Error fetching featured products:', error)
-    return []
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+})
+
+const glowOrder = SHOP_COLLECTION_GLOW_SEQUENCE
+
+const shopCollectionFallback: ShopCollectionProductCard[] = [
+  {
+    id: 'fallback-neon-dream-ring',
+    name: 'Neon Dream Ring',
+    href: '/products/prism-flux-ring',
+    price: '$1,299',
+    imageSrc: '/images/placeholder-product.jpg',
+    imageAlt: 'Neon Dream Ring placeholder',
+    glow: 'volt',
+    meta: 'Lab Diamond • 14k Gold',
+    category: 'rings',
+  },
+  {
+    id: 'fallback-cyber-chain',
+    name: 'Cyber Chain',
+    href: '/products/cyber-chain',
+    price: '$499',
+    imageSrc: '/images/placeholder-product.jpg',
+    imageAlt: 'Cyber Chain placeholder',
+    glow: 'cyber',
+    meta: 'Moissanite • Silver',
+    category: 'necklaces',
+  },
+  {
+    id: 'fallback-digital-drops',
+    name: 'Digital Drops',
+    href: '/products/digital-drops',
+    price: '$2,499',
+    imageSrc: '/images/placeholder-product.jpg',
+    imageAlt: 'Digital Drops placeholder',
+    glow: 'digital',
+    meta: 'Lab Diamond • Platinum',
+    category: 'earrings',
+  },
+  {
+    id: 'fallback-acid-wave-band',
+    name: 'Acid Wave Band',
+    href: '/products/acid-wave-band',
+    price: '$899',
+    imageSrc: '/images/placeholder-product.jpg',
+    imageAlt: 'Acid Wave Band placeholder',
+    glow: 'acid',
+    meta: 'Moissanite • 14k Gold',
+    category: 'bracelets',
+  },
+]
+
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams?: { forceCompressed?: string; layout?: string }
+}) {
+  const products = await loadFeaturedProducts()
+
+  const isE2E = process.env.NEXT_PUBLIC_E2E === '1'
+  const forceCompressed =
+    (searchParams?.forceCompressed ?? '') === '1' || (searchParams?.forceCompressed ?? '') === 'true'
+  const layoutVariant =
+    searchParams?.layout === 'preview'
+      ? 'withPreview'
+      : HOMEPAGE.hero.layout ?? 'withPreview'
+
+  const viewerSource = HOMEPAGE.designStudio.viewer
+
+  const initialSrc = forceCompressed
+    ? viewerSource.modelSrc
+    : isE2E && viewerSource.uncompressedSrc
+    ? viewerSource.uncompressedSrc
+    : viewerSource.modelSrc
+
+  const initialReveal: 'auto' | 'interaction' = forceCompressed ? 'interaction' : isE2E ? 'auto' : 'interaction'
+  const initialLoading: 'auto' | 'eager' = isE2E ? 'eager' : 'auto'
+
+  const viewerConfig = {
+    ...viewerSource,
+    initialSrc,
+    initialReveal,
+    initialLoading,
+    isE2E,
   }
-}
 
-export default async function HomePage() {
-  // Fetch featured products on the server
-  const featuredProducts = await getFeaturedProducts()
-
-  // Load CustomizerPreviewSection and StyleQuizSection with client-only due to 3D/interactive content
-  const CustomizerPreviewSection = dynamic(
-    () => import('../components/homepage/CustomizerPreviewSection').then(m => m.CustomizerPreviewSection),
-    { 
-      ssr: false,
-      loading: () => <div className="min-h-[60vh] bg-muted/20 animate-pulse rounded-token-lg" />
-    }
-  )
-  const StyleQuizSection = dynamic(
-    () => import('../components/homepage/StyleQuizSection').then(m => m.StyleQuizSection),
-    { 
-      ssr: false,
-      loading: () => <div className="min-h-[50vh] bg-muted/20 animate-pulse rounded-token-lg" />
-    }
-  )
+  const heroProps =
+    layoutVariant === 'withPreview'
+      ? { ...HOMEPAGE.hero, layout: layoutVariant, preview: viewerConfig }
+      : { ...HOMEPAGE.hero, layout: layoutVariant }
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section with Video Background */}
-      <HeroSection 
-        overlay="gradient"
-        textPosition="center"
-        spacing="comfortable"
+    <>
+      <HeroSection {...heroProps} />
+      <ShopCollectionSection {...HOMEPAGE.shopCollection} products={products} />
+      <DesignStudioSection
+        {...HOMEPAGE.designStudio}
+        viewer={viewerConfig}
       />
-      
-      {/* Value Proposition - Sustainability Focus */}
-      <EnhancedValueProposition />
-      
-      {/* Featured Products Showcase with Real Data */}
-      <FeaturedProductsSection 
-        productCount={6}
-        products={featuredProducts}
-      />
-      
-      {/* 3D Customizer Preview */}
-      <CustomizerPreviewSection />
-      
-      {/* Interactive Style Quiz */}
-      <StyleQuizSection />
-      
-      {/* Social Proof & Testimonials */}
-      <SocialProofSection />
-      
-      {/* Sustainability Story */}
-      <SustainabilityStorySection />
-    </div>
+      <ExperienceModulesSection {...HOMEPAGE.experience} />
+      <CreatorWorkflowSection {...HOMEPAGE.workflow} />
+      <SupportSection {...HOMEPAGE.support} />
+      <ClosingCtaSection {...HOMEPAGE.closing} />
+    </>
   )
+}
+
+async function loadFeaturedProducts(): Promise<ShopCollectionProductCard[]> {
+  try {
+    const { items } = await listProducts({ limit: 4, page: 1, sortField: 'createdAt', sortDirection: 'desc' })
+    if (items.length === 0) {
+      return shopCollectionFallback
+    }
+
+    return items.map((product, index) => {
+      const glowFallback = glowOrder[index % glowOrder.length]
+      const { tone } = getCategoryTone(product.category)
+      const normalizedCategory = normalizeCategoryInput(product.category)?.toLowerCase()
+      const displayCategory = product.category ?? 'Neon Dream capsule'
+      const meta = product.tags?.length
+        ? product.tags.slice(0, 2).join(' • ')
+        : displayCategory
+
+      return {
+        id: product.id,
+        name: product.name,
+        href: `/products/${product.slug}`,
+        price: product.basePrice ? currencyFormatter.format(product.basePrice) : 'Custom quote',
+        imageSrc: product.images[0] ?? '/images/placeholder-product.jpg',
+        imageAlt: product.images[0] ? `${product.name} preview` : `${product.name} placeholder`,
+        glow: (tone ?? glowFallback) as (typeof glowOrder)[number],
+        meta,
+        category: normalizedCategory,
+      }
+    })
+  } catch (error) {
+    console.error('Failed to load featured products for homepage hero.', error)
+    return shopCollectionFallback
+  }
 }
