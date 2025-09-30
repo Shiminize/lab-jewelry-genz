@@ -1,165 +1,142 @@
-SECTION A
+name: Production Deployment
 
-  name: Production Deployment
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
 
-  on:
-    push:
-      branches: [main]
-      tags: ['v*']
-    pull_request:
-      branches: [main]
+defaults:
+  run:
+    shell: bash
 
-  defaults:
-    run:
-      shell: bash
+env:
+  NODE_VERSION: '20.x'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
-  env:
-    NODE_VERSION: '20.x'
-    REGISTRY: ghcr.io
-    IMAGE_NAME: ${{ github.repository }}
+jobs:
+  # Quality Assurance & Testing
+  qa-checks:
+    name: Quality Assurance
+    runs-on: ubuntu-latest
 
-  jobs:
-    # Quality Assurance & Testing
-    qa-checks:
-      name: Quality Assurance
-      runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          check-latest: true
+          cache: 'npm'
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: '20.x'
-            cache: 'npm'
+      - name: Verify Node and npm versions
+        run: node -v && npm -v
 
-        - name: Verify Node and npm versions
-          run: node -v && npm -v
+      - name: Install dependencies
+        run: npm ci
 
-        - name: Install dependencies
-          run: npm ci --no-optional --engine-strict=false
+      - name: TypeScript type checking
+        run: npx tsc --noEmit
 
-        - name: TypeScript type checking
-          run: npx tsc --noEmit
+      - name: ESLint code quality
+        run: npm run lint
 
-        - name: ESLint code quality
-          run: npm run lint
+      - name: Jest unit tests
+        run: npm run test
 
-        - name: Jest unit tests
-          run: npm run test
+      - name: Build application
+        env:
+          NODE_ENV: production
+        run: npm run build
 
-        - name: Build application
-          run: npm run build
-          env:
-            NODE_ENV: production
+  # CLAUDE_RULES Compliance Testing
+  compliance-testing:
+    name: CLAUDE_RULES Compliance
+    runs-on: ubuntu-latest
+    needs: qa-checks
 
-    # CLAUDE_RULES Compliance Testing
-    compliance-testing:
-      name: CLAUDE_RULES Compliance
-      runs-on: ubuntu-latest
-      needs: qa-checks
+    services:
+      mongodb:
+        image: mongo:7.0
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_DATABASE: glowglitch-test
 
-      services:
-        mongodb:
-          image: mongo:7.0
-          ports:
-            - 27017:27017
-          env:
-            MONGO_INITDB_DATABASE: glowglitch-test
+      redis:
+        image: redis:7.2-alpine
+        ports:
+          - 6379:6379
 
-        redis:
-          image: redis:7.2-alpine
-          ports:
-            - 6379:6379
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          check-latest: true
+          cache: 'npm'
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: '20.x'
-            cache: 'npm'
+      - name: Verify Node and npm versions
+        run: node -v && npm -v
 
-        - name: Verify Node and npm versions
-          run: node -v && npm -v
+      - name: Install dependencies
+        run: npm ci
 
-        - name: Install dependencies
-          run: npm ci --no-optional --engine-strict=false
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
 
-        - name: Install Playwright browsers
-          run: npx playwright install --with-deps chromium
+      - name: Setup test database
+        env:
+          MONGODB_URI: mongodb://localhost:27017/glowglitch-test
+          REDIS_URL: redis://localhost:6379
+          NODE_ENV: test
+        run: |
+          npm run db:init
+          npm run db:seed
 
-        - name: Setup test database
-          run: |
-            npm run db:init
-            npm run db:seed
-          env:
-            MONGODB_URI: mongodb://localhost:27017/glowglitch-test
-            REDIS_URL: redis://localhost:6379
-            NODE_ENV: test
+      - name: Start development server
+        env:
+          PORT: 3000
+          NODE_ENV: test
+          MONGODB_URI: mongodb://localhost:27017/glowglitch-test
+          REDIS_URL: redis://localhost:6379
+        run: npm run dev &
 
-        - name: Start development server
-          run: npm run dev &
-          env:
-            PORT: 3000
-            NODE_ENV: test
-            MONGODB_URI: mongodb://localhost:27017/glowglitch-test
-            REDIS_URL: redis://localhost:6379
+      # If /api/health doesn't exist in your app, change the URL below to http://localhost:3000
+      - name: Wait for server to be ready
+        run: npx --yes wait-on http://localhost:3000/api/health --timeout 60000
 
-        - name: Wait for server to be ready
-          run: npx --yes wait-on http://localhost:3000/api/health --timeout 60000
+      - name: Phase 1 - Navigation & Data Structure Tests
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+        run: npx playwright test tests/phase1-product-types.spec.ts
 
-        - name: Phase 1 - Navigation & Data Structure Tests
-          run: npx playwright test tests/phase1-product-types.spec.ts
-          env:
-            PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+      - name: Phase 2 - Design System Compliance Tests
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+        run: npx playwright test tests/phase2-design-system.spec.ts
 
-        - name: Phase 2 - Design System Compliance Tests
-          run: npx playwright test tests/phase2-design-system.spec.ts
-          env:
-            PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+      - name: Phase 3 - API Integration Tests
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+        run: npx playwright test tests/phase3-api-integration.spec.ts
 
-        - name: Phase 3 - API Integration Tests
-          run: npx playwright test tests/phase3-api-integration.spec.ts
-          env:
-            PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+      - name: Phase 4 - Complete User Journey Tests
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+        run: npx playwright test tests/phase4-complete-workflow.spec.ts
 
-        - name: Phase 4 - Complete User Journey Tests
-          run: npx playwright test tests/phase4-complete-workflow.spec.ts
-          env:
-            PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
-
-        - name: Upload test reports
-          uses: actions/upload-artifact@v4
-          if: always()
-          with:
-            name: playwright-report-${{ github.run_id }}
-            path: playwright-report/
-            retention-days: 7
-
-  SECTION B
-
-  git checkout feature/homepage-parity
-
-  # Remove the current lockfile so npm can re-resolve for Linux/Node20
-  rm -f package-lock.json
-
-  # Regenerate the lockfile targeting Linux x64 under Node 20
-  npm_config_platform=linux \
-  npm_config_arch=x64 \
-  npm_config_target_platform=linux \
-  npm_config_target_arch=x64 \
-  npm install --package-lock-only
-
-  # Verify the lockfile installs cleanly under the same platform hint
-  npm_config_platform=linux npm_config_arch=x64 npm ci
-
-  SECTION C
-
-  git status
-  git add .github/workflows/production-deploy.yml package-lock.json
-  git commit -m "fix: enforce node20 in ci and regenerate linux lockfile"
-  git push origin feature/homepage-parity
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ github.run_id }}
+          path: playwright-report/
+          retention-days: 7
