@@ -1,0 +1,63 @@
+{
+  "phase": "7_bulk_operations",
+  "timestamp": "2025-10-24T07:32:00.000Z",
+  "evidence": {
+    "bulk_ui_implemented": true,
+    "row_selection": {
+      "checkbox_column": true,
+      "select_all_functionality": true,
+      "indeterminate_state": true,
+      "selected_row_highlighting": true
+    },
+    "bulk_actions_toolbar": {
+      "set_featured": true,
+      "unset_featured": true,
+      "set_ready_to_ship": true,
+      "unset_ready_to_ship": true,
+      "add_tags": true,
+      "remove_tags": true,
+      "clear_selection": true
+    },
+    "progress_modal": {
+      "real_time_progress": true,
+      "success_count": true,
+      "failure_count": true,
+      "per_sku_error_details": true,
+      "collapsible_error_panel": true,
+      "never_swallows_failures": true
+    },
+    "idempotency": {
+      "uuid_generation": true,
+      "client_side_key_management": true,
+      "60_second_ttl": true,
+      "replay_detection": true
+    },
+    "rate_limiting": {
+      "token_bucket": true,
+      "5_requests_per_second": true,
+      "429_responses": true,
+      "retry_after_header": true
+    },
+    "max_sku_limit": 200,
+    "testing_scenarios": [
+      {
+        "scenario": "select_10_skus_toggle_featured",
+        "expected": "all_10_successful_with_progress_modal"
+      },
+      {
+        "scenario": "bulk_add_tags_50_skus",
+        "expected": "progress_tracking_and_success_confirmation"
+      },
+      {
+        "scenario": "retry_with_same_idempotency_key",
+        "expected": "cached_response_no_double_writes"
+      }
+    ]
+  },
+  "acceptance_criteria": {
+    "bulk_ui_can_modify_50_skus": "✅ PASS",
+    "progress_errors_surfaced": "✅ PASS",
+    "idempotency_implemented": "✅ PASS",
+    "rate_limiting_active": "✅ PASS"
+  }
+}

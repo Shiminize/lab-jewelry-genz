@@ -1,0 +1,46 @@
+[
+  {
+    "id": "GIFT-SPOT-001",
+    "title": "Minimalist Band Ring",
+    "price": 299,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "ready-to-ship",
+      "rings",
+      "gift",
+      "under-300",
+      "minimalist"
+    ],
+    "shippingPromise": "Ships in 24h",
+    "badges": [
+      "Ready to Ship",
+      "Gift Favorite"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "RING-HERO-001",
+    "title": "Solaris Halo Ring",
+    "price": 1299,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "ready-to-ship",
+      "rings",
+      "engagement",
+      "halo",
+      "bestseller"
+    ],
+    "shippingPromise": "Ships in 24h",
+    "badges": [
+      "Bestseller",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  }
+]

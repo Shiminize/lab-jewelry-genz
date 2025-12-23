@@ -1,0 +1,36 @@
+
+> glowglitch-frontend@0.1.0 dev
+> node --expose-gc server.js
+
+ ⚠ Disabling SWC Minifer will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+📁 Job persistence directory ready: /tmp/3d-generation/job-persistence
+⚠️ REDIS_URL not set. Proceeding without Redis; falling back to in-memory operations.
+🚀 Server ready on http://127.0.0.1:3000
+🔌 WebSocket server ready for real-time updates
+ ✓ Compiled /api/support/products in 117ms (75 modules)
+ POST /api/support/products 200 in 204ms
+ ✓ Compiled in 16ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1471ms (678 modules)
+ GET / 200 in 1596ms
+ ○ Compiling /api/neon/cart/[cartId] ...
+ ✓ Compiled /api/neon/cart/[cartId] in 1213ms (788 modules)
+ GET /images/catalog/nebula-solitaire.jpg 404 in 1306ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 1468ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 3ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ ✓ Compiled /api/dev-analytics/collect in 88ms (464 modules)
+ POST /api/dev-analytics/collect 200 in 78ms
+ POST /api/dev-analytics/collect 200 in 112ms
+ ✓ Compiled /api/support/products in 85ms (483 modules)
+ POST /api/dev-analytics/collect 200 in 149ms
+ POST /api/support/products 200 in 150ms
+ POST /api/dev-analytics/collect 200 in 7ms
+ POST /api/dev-analytics/collect 200 in 11ms
+ POST /api/dev-analytics/collect 200 in 14ms
+ POST /api/support/products 200 in 21ms
+ POST /api/dev-analytics/collect 200 in 11ms
+ POST /api/dev-analytics/collect 200 in 16ms

@@ -1,0 +1,50 @@
+{
+  "events": [
+    {
+      "event": "aurora_intent_detected",
+      "originalEvent": "intent_detected",
+      "intent": "return_exchange",
+      "source": "explicit",
+      "sessionId": "07411ce2-d10d-4f16-a6c9-80a3c2c6ba08",
+      "requestId": "return_exchange-30c28065-5575-4cae-b970-72ae80d8e571"
+    },
+    {
+      "event": "aurora_intent_complete",
+      "originalEvent": "intent_complete",
+      "intent": "return_exchange",
+      "sessionId": "07411ce2-d10d-4f16-a6c9-80a3c2c6ba08",
+      "requestId": "return_exchange-30c28065-5575-4cae-b970-72ae80d8e571"
+    },
+    {
+      "event": "aurora_return_initiated",
+      "originalEvent": "return_initiated",
+      "sessionId": "07411ce2-d10d-4f16-a6c9-80a3c2c6ba08",
+      "requestId": "return_exchange-30c28065-5575-4cae-b970-72ae80d8e571"
+    },
+    {
+      "event": "aurora_intent_detected",
+      "originalEvent": "intent_detected",
+      "intent": "return_exchange",
+      "sessionId": "07411ce2-d10d-4f16-a6c9-80a3c2c6ba08",
+      "requestId": "return_exchange-4e156da3-f228-425c-a7ce-2bad1c905a46"
+    },
+    {
+      "event": "aurora_intent_error",
+      "originalEvent": "intent_error",
+      "intent": "return_exchange",
+      "error": "request_failed",
+      "sessionId": "07411ce2-d10d-4f16-a6c9-80a3c2c6ba08",
+      "requestId": "return_exchange-4e156da3-f228-425c-a7ce-2bad1c905a46"
+    },
+    {
+      "event": "aurora_inspiration_upload",
+      "originalEvent": "inspiration_upload",
+      "success": true,
+      "url": "https://storage.glowglitch.com/mock-inspiration.jpg",
+      "requestId": "inspiration-c03ba5e9-57c8-4f53-bf90-d75e60181a20",
+      "sizeBytes": 496850,
+      "contentType": "image/jpeg",
+      "sessionId": "07411ce2-d10d-4f16-a6c9-80a3c2c6ba08"
+    }
+  ]
+}

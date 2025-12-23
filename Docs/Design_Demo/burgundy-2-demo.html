@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Burgundy + Neo-Mint — Luxury Jewelry UI Demo</title>
+<style>
+:root{
+  --color-bg:#F6FFFB;
+  --color-surface:#FFFFFF;
+  --color-text-primary:#0D1A15;
+  --color-text-secondary:#4F6B61;
+  --color-text-muted:#8BA79D;
+  --color-border-subtle:#D7EAE2;
+  --color-border-strong:#C6DDD3;
+  --color-accent:#8A1538;          /* Burgundy */
+  --color-accent-contrast:#FFFFFF;
+  --color-comp:#19C9A6;            /* Neo-Mint complementary */
+
+  --radius-xs:0px; --radius-sm:0px; --radius-md:0px; --radius-lg:0px; --radius-pill:0px;
+  --shadow-soft:0 10px 26px rgba(0,0,0,.06);
+  --shadow-lift:0 16px 40px rgba(0,0,0,.10);
+  --shadow-focus:0 0 0 3px color-mix(in oklab, var(--color-accent) 40%, white);
+
+  --container-max:1180px; --container-pad:24px; --section-y:40px; --grid-gap:22px;
+  --h1:clamp(38px, 5vw, 46px); --h2:clamp(24px, 3vw, 30px);
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{margin:0;background:var(--color-bg);color:var(--color-text-primary);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+a{text-decoration:none;color:inherit}
+.container{width:min(var(--container-max),100% - 2*var(--container-pad));margin-inline:auto}
+.section{padding-block:var(--section-y)}
+.h1,.h2{font-family:"Playfair Display",ui-serif,Georgia,"Times New Roman",serif;line-height:1.08;margin:0}
+.h1{font-size:var(--h1)} .h2{font-size:var(--h2)} .lead{margin:.75rem 0 0;color:var(--color-text-secondary);font-size:1.05rem}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--color-surface);
+  border:1px solid var(--color-border-subtle);box-shadow:var(--shadow-soft)}
+.brand{font-family:"Playfair Display",serif;font-size:24px}
+.nav-links{display:flex;gap:10px}
+.nav-links a{color:var(--color-text-secondary);padding:.55rem .8rem}
+.nav a:focus-visible{outline:none;box-shadow:var(--shadow-focus)}
+.nav-links a:hover{background:color-mix(in oklab,var(--color-comp) 16%,var(--color-surface))}
+
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:var(--grid-gap);align-items:center;margin-top:16px}
+.hero-card{background:var(--color-surface);border:1px solid var(--color-border-subtle);padding:28px;box-shadow:var(--shadow-lift)}
+
+.btn-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:44px;padding:0 18px;border:1px solid var(--color-border-strong);
+  font-weight:700;cursor:pointer;transition:transform 180ms,filter 180ms,background 180ms}
+.btn:focus-visible{outline:none;box-shadow:var(--shadow-focus)}
+.btn-primary{background:var(--color-accent);color:var(--color-accent-contrast);border-color:color-mix(in oklab,var(--color-accent) 55%,transparent)}
+.btn-primary:hover{transform:translateY(-1px);filter:saturate(1.03)}
+.btn-secondary{background:transparent;color:var(--color-text-primary)}
+.btn-secondary:hover{background:color-mix(in oklab,var(--color-comp) 14%,var(--color-surface))}
+
+.strip{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:12px;background:color-mix(in oklab,var(--color-comp) 12%,var(--color-surface));
+  border:1px solid var(--color-border-subtle);padding:8px}
+.chip{padding:.44rem .7rem;border:1px solid var(--color-border-strong);background:color-mix(in oklab,var(--color-comp) 10%,var(--color-surface));
+  font-size:.9rem;font-weight:700}
+
+.grid{display:grid;gap:var(--grid-gap)} .grid-4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--color-surface);border:1px solid var(--color-border-strong);overflow:clip;box-shadow:0 1px 0 rgba(0,0,0,.03) inset}
+.card .media{aspect-ratio:4/3;background:linear-gradient(135deg,color-mix(in oklab,var(--color-comp) 18%, #FFFFFF), #FFFFFF);
+  border-bottom:1px solid var(--color-border-subtle)}
+.card .inner{padding:14px} .title{font-weight:800;font-size:1rem} .price{font-family:"Playfair Display",serif;font-size:1.1rem}
+
+.editorial{display:grid;grid-template-columns:1.1fr 1fr;gap:var(--grid-gap);align-items:center;background:var(--color-surface);
+  border:1px solid var(--color-border-subtle);padding:26px;box-shadow:var(--shadow-soft)}
+.editorial .img{aspect-ratio:5/3;background:
+  radial-gradient(700px 380px at 80% 20%,color-mix(in oklab,var(--color-comp) 22%,var(--color-surface)),transparent 60%),
+  linear-gradient(135deg,color-mix(in oklab,var(--color-comp) 10%,var(--color-surface)),var(--color-surface));
+  border:1px solid var(--color-border-subtle)}
+
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--grid-gap)}
+.tile{background:var(--color-surface);border:1px solid var(--color-border-subtle);padding:16px}
+
+.footer{margin-block:3rem 1rem;color:var(--color-text-muted);font-size:.92rem;text-align:center}
+.notes{color:var(--color-text-muted);font-size:.95rem} .notes ul{margin:.5rem 0 0 1rem}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="nav section" role="navigation">
+    <div class="brand">Burgundy + Neo-Mint (Geometric)</div>
+    <nav class="nav-links"><a href="#">Rings</a><a href="#">Earrings</a><a href="#">Necklaces</a><a href="#">Bracelets</a></nav>
+  </header>
+
+  <main>
+    <section class="section hero">
+      <div class="hero-card">
+        <h1 class="h1">Future-Fresh Clarity with <span style="color:var(--color-accent)">Burgundy</span></h1>
+        <p class="lead">Airy mint grounds + Burgundy CTAs signal ethical, lab-grown confidence.</p>
+        <div class="btn-row"><a class="btn btn-primary" href="#">Shop Diamonds</a><a class="btn btn-secondary" href="#">Compare Cuts</a></div>
+        <div class="strip"><span class="chip">925 Silver</span><span class="chip">Moissanite</span><span class="chip">Stacking</span></div>
+      </div>
+      <div class="hero-card" aria-hidden="true"><div class="card media" style="height:100%"></div></div>
+    </section>
+
+    <section class="section">
+      <div class="grid grid-4">
+        <article class="card"><div class="media"></div><div class="inner"><div class="title">Mint Solitaire</div><div class="price">$980</div></div></article>
+        <article class="card"><div class="media"></div><div class="inner"><div class="title">Pearl Threaders</div><div class="price">$270</div></div></article>
+        <article class="card"><div class="media"></div><div class="inner"><div class="title">Silver Tennis</div><div class="price">$820</div></div></article>
+        <article class="card"><div class="media"></div><div class="inner"><div class="title">Moissanite Studs</div><div class="price">$430</div></div></article>
+      </div>
+    </section>
+
+    <section class="section editorial">
+      <div>
+        <h2 class="h2">From Stone to Story</h2>
+        <p class="lead">Mint-tinted UI elements reduce visual fatigue while Burgundy anchors action.</p>
+        <div class="btn-row"><a class="btn btn-primary" href="#">Discover</a><a class="btn btn-secondary" href="#">Learn More</a></div>
+      </div>
+      <div class="img" aria-hidden="true"></div>
+    </section>
+
+    <section class="section features">
+      <div class="tile"><strong>Hypoallergenic</strong><div class="lead" style="font-size:.95rem">Skin-friendly metals.</div></div>
+      <div class="tile"><strong>Fair Returns</strong><div class="lead" style="font-size:.95rem">30-day policy.</div></div>
+      <div class="tile"><strong>Local Support</strong><div class="lead" style="font-size:.95rem">Priority concierge.</div></div>
+    </section>
+  </main>
+
+  <footer class="footer">© 2025 Neon Dream — Burgundy + Neo-Mint</footer>
+  <aside class="section notes">
+    <strong>Design Notes</strong>
+    <ul>
+      <li>Neo-Mint comp used for chips/strips/hover to keep CTAs distinct and high-salience.</li>
+      <li>WCAG AA for primary text on white; :focus-visible ring uses Burgundy mix.</li>
+      <li>Geometric borders emphasize modern precision for lab SKUs.</li>
+    </ul>
+  </aside>
+</div>
+</body>
+</html>

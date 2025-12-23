@@ -1,0 +1,41 @@
+=== BULK UPDATE ENDPOINT TEST ===
+
+Test 1: Bulk update 2 SKUs (add tags, set featured)
+{
+  "error": "Forbidden"
+}
+
+---
+
+Test 2: Repeat request (should return cached response)
+HTTP/1.1 403 Forbidden
+
+---
+
+Test 3: Verify products were updated
+{
+  "sku": null,
+  "title": "Minimalist Band Ring",
+  "featuredInWidget": true,
+  "readyToShip": true,
+  "tags": [
+    "ready-to-ship",
+    "rings",
+    "gift",
+    "under-300",
+    "minimalist"
+  ]
+}
+{
+  "sku": null,
+  "title": "Minimalist Band Ring",
+  "featuredInWidget": true,
+  "readyToShip": true,
+  "tags": [
+    "ready-to-ship",
+    "rings",
+    "gift",
+    "under-300",
+    "minimalist"
+  ]
+}

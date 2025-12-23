@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coral Sky PDP Option C</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --shell: #f8f4ef;
+        --surface: #ffffff;
+        --ink: #101827;
+        --body: #1f2937;
+        --muted: #6b7280;
+        --accent-coral: #ff6f61;
+        --accent-sky: #0ea5e9;
+        --border: rgba(16, 24, 39, 0.08);
+        --radius: 22px;
+        --space-4: 1rem;
+        --space-5: 1.25rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+        --space-10: 2.5rem;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        color: var(--body);
+        background: var(--shell);
+        line-height: 1.6;
+      }
+      header {
+        padding: var(--space-5) max(5vw, 3rem);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      header h1 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.75rem;
+        margin: 0;
+        color: var(--ink);
+      }
+      header nav {
+        display: flex;
+        gap: var(--space-4);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--muted);
+      }
+      main {
+        padding: var(--space-6) max(5vw, 3rem) var(--space-10);
+        display: grid;
+        gap: var(--space-10);
+      }
+      .grid {
+        display: grid;
+        gap: var(--space-8);
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        align-items: start;
+      }
+      .media {
+        border-radius: 36px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        padding: var(--space-5);
+        display: grid;
+        gap: var(--space-4);
+      }
+      .media img {
+        width: 100%;
+        border-radius: 26px;
+      }
+      .thumbnails {
+        display: grid;
+        grid-auto-flow: column;
+        gap: var(--space-4);
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+      }
+      .thumb {
+        width: 80px;
+        height: 80px;
+        border-radius: 18px;
+        border: 1px solid transparent;
+        overflow: hidden;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .summary {
+        display: grid;
+        gap: var(--space-6);
+      }
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.32em;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .summary h2 {
+        margin: 0;
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(2.6rem, 5vw, 3.8rem);
+        color: var(--ink);
+      }
+      .summary p.desc {
+        max-width: 42ch;
+        color: var(--muted);
+      }
+      .price-block {
+        display: grid;
+        gap: var(--space-4);
+        padding: var(--space-6);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+      .price {
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(2.4rem, 5vw, 3.4rem);
+        margin: 0;
+        color: var(--ink);
+      }
+      .badge {
+        padding: 0.4rem 1.35rem;
+        border-radius: 999px;
+        background: rgba(14, 165, 233, 0.12);
+        color: var(--accent-sky);
+        align-self: flex-start;
+        text-transform: uppercase;
+        letter-spacing: 0.24em;
+        font-size: 0.68rem;
+        font-weight: 600;
+      }
+      .metrics {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      .metric {
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        background: var(--shell);
+        padding: var(--space-4);
+      }
+      .metric .label {
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        font-size: 0.68rem;
+        color: var(--muted);
+        margin-bottom: 0.4rem;
+      }
+      .metric .value {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .ctas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-4);
+      }
+      .ctas a {
+        flex: 1 1 220px;
+        padding: 1rem 1.4rem;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 600;
+        transition: transform 0.2s ease;
+      }
+      .ctas a.primary {
+        background: var(--accent-coral);
+        color: #fff;
+      }
+      .ctas a.secondary {
+        background: var(--surface);
+        color: var(--accent-sky);
+        border-color: rgba(14, 165, 233, 0.3);
+      }
+      .ctas a:hover {
+        transform: translateY(-1px);
+      }
+      .info-grid {
+        display: grid;
+        gap: var(--space-8);
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+      .info-card {
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: var(--surface);
+        padding: var(--space-6);
+        display: grid;
+        gap: var(--space-4);
+      }
+      .info-card h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: var(--ink);
+      }
+      .info-card ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 0.6rem;
+      }
+      .info-card li {
+        padding: 0.85rem 1rem;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: var(--shell);
+      }
+      .story-block {
+        border-radius: 32px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        padding: var(--space-6);
+        display: grid;
+        gap: var(--space-4);
+      }
+      .story-block h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: var(--ink);
+      }
+      .story-block ul {
+        margin: 0;
+        padding-left: 1.2rem;
+        color: var(--muted);
+      }
+      footer {
+        padding: var(--space-8) max(5vw, 3rem) var(--space-10);
+        display: flex;
+        justify-content: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: var(--space-4);
+        }
+        header nav {
+          flex-wrap: wrap;
+          font-size: 0.75rem;
+        }
+        main {
+          padding: var(--space-6) var(--space-4) var(--space-10);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>GlowGlitch · Coral Sky</h1>
+      <nav>
+        <span>Back to catalog</span>
+        <span>Creators</span>
+        <span>Concierge</span>
+      </nav>
+    </header>
+
+    <main>
+      <section class="grid">
+        <article class="media">
+          <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=900&q=80" alt="Diamond ring" />
+          <div class="thumbnails">
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=200&q=80" alt="view" />
+            </div>
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="view" />
+            </div>
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1600182614300-481f87c94aba?auto=format&fit=crop&w=200&q=80" alt="view" />
+            </div>
+            <div class="thumb">
+              <img src="https://images.unsplash.com/photo-1502164980785-f8aa41d53611?auto=format&fit=crop&w=200&q=80" alt="view" />
+            </div>
+          </div>
+        </article>
+        <article class="summary">
+          <span class="eyebrow">Featured capsule</span>
+          <h2>Halo Diamond Ring</h2>
+          <p class="desc">
+            A floating halo engineered to glow through every shoot, finished in mirror-polished platinum with lab-grown diamonds.
+          </p>
+          <div class="price-block">
+            <p class="price">$3,200</p>
+            <span class="badge">Creator ready</span>
+            <div class="metrics">
+              <div class="metric">
+                <span class="label">Lead time</span>
+                <span class="value">Hand-finished in ~2 weeks</span>
+              </div>
+              <div class="metric">
+                <span class="label">Certification</span>
+                <span class="value">IGI / GCAL documentation</span>
+              </div>
+              <div class="metric">
+                <span class="label">Studio support</span>
+                <span class="value">Concierge styling consult</span>
+              </div>
+              <div class="metric">
+                <span class="label">Deposits</span>
+                <span class="value">50% to begin crafting</span>
+              </div>
+            </div>
+            <div class="ctas">
+              <a href="#" class="primary">Explore in customizer</a>
+              <a href="#" class="secondary">Email concierge</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="info-grid">
+        <div class="info-card">
+          <h3>Materials</h3>
+          <p>Selected for brilliance under Coral & Sky lighting.</p>
+          <ul>
+            <li>Platinum 950 base</li>
+            <li>Micro pavé halo</li>
+            <li>Comfort-fit interior</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>Gemstones</h3>
+          <p>Lab-grown stones with calibrated color and clarity.</p>
+          <ul>
+            <li>Radiant-cut center stone</li>
+            <li>DEF color, VVS clarity</li>
+            <li>Invisible-set accents</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>Shipping & care</h3>
+          <p>Delivered with Coral Sky concierge support from studio to doorstep.</p>
+          <ul>
+            <li>Fully insured worldwide delivery</li>
+            <li>Carbon-neutral logistics</li>
+            <li>Complimentary resize within 90 days</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="story-block">
+        <h3>Design story</h3>
+        <p>
+          Inspired by Neon Dream’s tri-tone lighting, this capsule floats the center stone above an airy bridge. The refined profile keeps the silhouette lightweight while amplifying brilliance.
+        </p>
+        <ul>
+          <li>Airy gallery for maximum sparkle</li>
+          <li>Knife-edge shank with mirror polish</li>
+          <li>Invisible basket for clean capture angles</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>© Coral Sky · Concierge-crafted lab-grown jewelry</footer>
+  </body>
+</html>

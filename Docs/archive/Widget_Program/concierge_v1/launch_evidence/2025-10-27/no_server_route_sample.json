@@ -1,0 +1,56 @@
+[no-server] bootstrap active; FAKE_PROVIDER=1
+{"type":"metrics-redis","message":"REDIS_URL not set. Metrics will not persist across restarts.","fallback":"in-memory-only"}
+🔄 App-level cache initialized (10s TTL, max 100 entries) for /api/concierge/products
+[providers] Using FAKE provider from /Users/decepticonmanager/Projects/GenZJewelry_AUG_12/tests/fakes/fakeProvider.ts
+{"type":"metric","timestamp":"2025-10-27T15:39:31.210Z","endpoint":"/api/concierge/products","method":"GET","status":200,"latencyMs":7,"cache":"MISS","params":{"sortBy":"featured","category":"","readyToShip":"true","cacheKey":"featured=true&limit=10&readyToShip=true"}}
+{"type":"metric","timestamp":"2025-10-27T15:39:31.218Z","endpoint":"/api/concierge/products","method":"GET","status":200,"latencyMs":0,"cache":"MISS","params":{"sortBy":"featured","category":"ring","readyToShip":"true","cacheKey":"category=ring&priceLt=300&readyToShip=true"}}
+{
+  "aCount": 2,
+  "bCount": 1,
+  "a": [
+    {
+      "id": "A-001",
+      "title": "Gold Ring Mini",
+      "price": 199,
+      "currency": "USD",
+      "category": "ring",
+      "readyToShip": true,
+      "tags": [
+        "gift",
+        "gold"
+      ],
+      "badges": [],
+      "featuredInWidget": true
+    },
+    {
+      "id": "A-002",
+      "title": "Silver Necklace",
+      "price": 129,
+      "currency": "USD",
+      "category": "necklace",
+      "readyToShip": true,
+      "tags": [
+        "gift",
+        "silver"
+      ],
+      "badges": [],
+      "featuredInWidget": true
+    }
+  ],
+  "b": [
+    {
+      "id": "A-001",
+      "title": "Gold Ring Mini",
+      "price": 199,
+      "currency": "USD",
+      "category": "ring",
+      "readyToShip": true,
+      "tags": [
+        "gift",
+        "gold"
+      ],
+      "badges": [],
+      "featuredInWidget": true
+    }
+  ]
+}

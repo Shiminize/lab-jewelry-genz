@@ -1,0 +1,44 @@
+🧪 Testing CDN Header Detection
+
+1. Testing normal request (no CDN)...
+   ✅ Status: 200
+   📊 X-App-Cache: HIT
+   🌐 X-CDN-Cache: not set
+
+2. Testing simulated Cloudflare request...
+   ✅ Status: 200
+   📊 X-App-Cache: HIT
+   🌐 X-CDN-Cache: CLOUDFLARE:HIT
+   ☁️  Expected: CLOUDFLARE:HIT
+
+3. Testing simulated Fastly request...
+   ✅ Status: 200
+   📊 X-App-Cache: HIT
+   🌐 X-CDN-Cache: FASTLY:MISS
+   ⚡ Expected: FASTLY:MISS
+
+4. Testing simulated Akamai request...
+   ✅ Status: 200
+   📊 X-App-Cache: HIT
+   🌐 X-CDN-Cache: AKAMAI
+   🔶 Expected: AKAMAI:UNKNOWN (no cache status header)
+
+5. Testing multiple CDN headers...
+   ✅ Status: 200
+   📊 X-App-Cache: HIT
+   🌐 X-CDN-Cache: CLOUDFLARE:MISS
+   🔀 Expected: CLOUDFLARE:HIT (first detected wins)
+
+✅ CDN Header Detection Test Complete
+
+📋 Expected Behavior:
+• Normal requests: X-CDN-Cache not set
+• Cloudflare: X-CDN-Cache: CLOUDFLARE:HIT
+• Fastly: X-CDN-Cache: FASTLY:MISS
+• Akamai: X-CDN-Cache: AKAMAI:UNKNOWN
+• Multiple: First detected CDN wins
+
+📊 Metrics Logging:
+• Check server logs for CDN info in metrics
+• Look for cdnProvider, cdnCacheStatus, cdnNormalized fields
+• Example: {"type":"metric","cdnProvider":"cloudflare","cdnCacheStatus":"HIT"}

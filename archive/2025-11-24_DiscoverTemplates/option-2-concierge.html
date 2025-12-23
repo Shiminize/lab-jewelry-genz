@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GlowGlitch — Discover Option 2</title>
+    <style>
+      :root {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --app-bg: #02020b;
+        --surface: rgba(9, 9, 21, 0.9);
+        --border: rgba(255, 255, 255, 0.1);
+        --text: #f6f6fb;
+        --muted: rgba(246, 246, 251, 0.65);
+        --accent: #ffb264;
+        --accent-soft: rgba(255, 178, 100, 0.15);
+      }
+      body {
+        background: linear-gradient(135deg, #050515, #010104);
+        color: var(--text);
+        margin: 0;
+      }
+      section {
+        padding: 4rem 0;
+      }
+      .SectionContainer {
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        max-width: 1240px;
+      }
+      h1 {
+        font-size: clamp(2rem, 3vw, 3.2rem);
+        margin: 0;
+      }
+      h2,
+      h3 {
+        margin: 0 0 0.5rem;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .Button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 999px;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: 0.2s ease;
+      }
+      .Button--accent {
+        background: var(--accent);
+        color: #050505;
+      }
+      .Button--ghost {
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: var(--text);
+      }
+      .Button--glass {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .surface-panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        padding: 1.6rem;
+      }
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .grid.cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .grid.cols-4 {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+      .Chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      details {
+        border-top: 1px solid var(--border);
+        padding: 0.9rem 0;
+      }
+      summary {
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .surface-chip {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 0.8rem 1rem;
+        color: var(--text);
+        text-decoration: none;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <section>
+        <div class="SectionContainer" style="display: grid; gap: 2rem; align-items: flex-start; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))">
+          <div style="display: flex; flex-direction: column; gap: 1rem">
+            <p class="Chip" style="border-color: rgba(255, 178, 100, 0.4)">GlowGlitch Studio</p>
+            <h1>Creators + Concierge, one orbit</h1>
+            <p>
+              This hub introduces the story, links to the custom workflow, and shows how ethics, tech, and support power every capsule.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem">
+              <a class="Button Button--accent" href="#ethics">Ethics</a>
+              <a class="Button Button--ghost" href="/custom">Custom Hub</a>
+              <a class="Button Button--ghost" href="/support">Support</a>
+            </div>
+          </div>
+          <div class="surface-panel" style="display: flex; flex-direction: column; gap: 0.9rem">
+            <p class="Chip" style="width: fit-content; background: var(--accent-soft); border-color: transparent">Concierge highlight</p>
+            <h3 style="margin: 0">Under 2 hour replies</h3>
+            <p>Reach the concierge for fittings, AR try-on, or custom drops.</p>
+            <a class="Button Button--glass" href="mailto:concierge@glowglitch.com">Message concierge →</a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="SectionContainer" style="display: flex; flex-direction: column; gap: 2rem">
+          <div class="grid cols-4">
+            <article class="surface-panel">
+              <p class="Chip" style="font-size: 0.7rem">Story</p>
+              <h3>Origins</h3>
+              <p>Founder notes and early studio snapshots.</p>
+            </article>
+            <article class="surface-panel">
+              <p class="Chip" style="font-size: 0.7rem">Story</p>
+              <h3>Team</h3>
+              <p>Meet the stylists, concierge, and ops leads.</p>
+            </article>
+            <article class="surface-panel">
+              <p class="Chip" style="font-size: 0.7rem">Story</p>
+              <h3>Press</h3>
+              <p>Coverage from fashion + tech outlets.</p>
+            </article>
+            <article class="surface-panel">
+              <p class="Chip" style="font-size: 0.7rem">Creator program</p>
+              <h3>Apply</h3>
+              <p>Commission tiers up to 40% with dedicated concierge.</p>
+            </article>
+          </div>
+
+          <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem">
+            <div class="surface-panel">
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem">
+                <span class="Chip">Ethics</span>
+                <span class="Chip">Impact</span>
+                <span class="Chip">Partners</span>
+              </div>
+              <h2>Planet-positive capsules</h2>
+              <p>Callouts for materials, footprint, and partner studios, mirroring the Sustainable Icons reference page.</p>
+              <ul>
+                <li>Recycled gold + lab-grown stones.</li>
+                <li>Solar + hydro powered growth labs.</li>
+                <li>Creator partnerships documented in the Journal.</li>
+              </ul>
+            </div>
+            <div class="surface-panel">
+              <h3>Creator wins</h3>
+              <p>“GlowGlitch concierge helps me launch drops in a week.” — Capsule Partner</p>
+              <a class="Button Button--accent" style="width: 100%; justify-content: center; margin-top: 1rem" href="#creator-program">Join the program</a>
+            </div>
+          </div>
+
+          <div class="grid cols-2">
+            <div class="surface-panel">
+              <h3>Studio FAQ</h3>
+              <details open>
+                <summary>Where do I find the customizer?<span>+</span></summary>
+                <p style="margin-top: 0.5rem">Head to /custom for the Aurora walkthrough or jump into /customizer.</p>
+              </details>
+              <details>
+                <summary>How do sustainability credentials work?<span>+</span></summary>
+                <p style="margin-top: 0.5rem">We publish impact notes on /discover and the Journal’s Tech & Materials section.</p>
+              </details>
+            </div>
+            <div class="surface-panel">
+              <h3>Quick contact</h3>
+              <p>Need concierge support? Choose the channel that fits.</p>
+              <div class="grid cols-2" style="margin-top: 1rem">
+                <a class="surface-chip" href="mailto:concierge@glowglitch.com">Email concierge</a>
+                <a class="surface-chip" href="https://cal.com/glowglitch/support">Book a call</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "qualityAssurance": {
+    "testing": {
+      "coverage": {
+        "minimum": 10
+      }
+    }
+  }
+}

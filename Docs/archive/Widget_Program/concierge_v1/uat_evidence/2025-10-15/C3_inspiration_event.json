@@ -1,0 +1,10 @@
+{
+  "event": "aurora_inspiration_upload",
+  "originalEvent": "inspiration_upload",
+  "success": true,
+  "url": "https://storage.glowglitch.com/mock-inspiration.jpg",
+  "requestId": "inspiration-c03ba5e9-57c8-4f53-bf90-d75e60181a20",
+  "sizeBytes": 496850,
+  "contentType": "image/jpeg",
+  "sessionId": "07411ce2-d10d-4f16-a6c9-80a3c2c6ba08"
+}

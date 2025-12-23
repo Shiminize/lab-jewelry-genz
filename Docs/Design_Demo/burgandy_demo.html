@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Burgundy-Primary Luxury Jewelry Palettes — Compact Demo (8 Themes)</title>
+<style>
+/* =========================================================
+   BASE TOKENS (defaults; overridden per theme)
+   ========================================================= */
+:root {
+  --color-bg:#FFFFFF;
+  --color-surface:#FFFFFF;
+  --color-text-primary:#111111;
+  --color-text-secondary:#565C63;
+  --color-text-muted:#8A9096;
+  --color-border-subtle:#E9ECEF;
+  --color-border-strong:#D3D8DE;
+
+  /* Primary brand accent is Burgundy across all palettes */
+  --color-accent:#8A1538;                 /* Burgundy */
+  --color-accent-contrast:#FFFFFF;        /* Light ink for Burgundy buttons */
+
+  /* Per-theme complementary accent (used in chips / subtle tints) */
+  --color-comp:#20C7A0;                   /* default fallback mint */
+
+  /* Geometry: keep geometric (no radius) unless changed downstream */
+  --radius-xs:0px;
+  --radius-sm:0px;
+  --radius-md:0px;
+  --radius-lg:0px;
+  --radius-pill:0px;
+
+  --shadow-soft:0 10px 26px rgba(0,0,0,.06);
+  --shadow-lift:0 16px 40px rgba(0,0,0,.10);
+  --shadow-focus:0 0 0 3px color-mix(in oklab, var(--color-accent) 40%, white);
+
+  --container-max:1160px;
+  --container-pad:20px;
+  --section-y:28px;
+  --grid-gap:18px;
+
+  --h1:clamp(26px, 3.2vw, 30px);
+  --h2:clamp(18px, 2.4vw, 22px);
+}
+
+/* =========================================================
+   LAYOUT & TYPOGRAPHY (compact)
+   ========================================================= */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background:#fafafa;
+  color:#111;
+}
+.page { width:min(1240px, 100% - 32px); margin-inline:auto; padding-block:28px; }
+.header { text-align:center; margin-bottom:22px; }
+.header h1 { font-family:"Playfair Display", ui-serif, Georgia, "Times New Roman", serif; font-size:clamp(28px,4vw,36px); margin:0 0 6px; }
+.header p { margin:0; color:#6B7380; }
+
+.grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+@media (max-width:860px){ .grid{ grid-template-columns:1fr; }}
+
+/* =========================================================
+   THEME CARD (each theme is a compact “container preview”)
+   ========================================================= */
+.theme {
+  background:var(--color-bg);
+  color:var(--color-text-primary);
+  border:1px solid var(--color-border-subtle);
+  box-shadow:var(--shadow-soft);
+  padding:18px;
+}
+
+.theme .title {
+  display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  font-family:"Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
+}
+.theme .title h2 { font-size:var(--h1); margin:0; }
+.theme .title small { color:var(--color-text-muted); font-size:.9rem; }
+
+.swatches {
+  display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-top:10px;
+}
+.swatch {
+  height:30px; border:1px solid var(--color-border-strong);
+  display:flex; align-items:center; justify-content:center; font-size:.72rem;
+  color:var(--color-text-primary);
+}
+
+/* inner container preview */
+.container-preview {
+  display:grid; grid-template-columns:1.2fr 1fr; gap:14px; margin-top:14px;
+}
+@media (max-width:680px){ .container-preview{ grid-template-columns:1fr; }}
+
+.surface {
+  background:var(--color-surface);
+  border:1px solid var(--color-border-subtle);
+  padding:14px;
+  box-shadow:var(--shadow-lift);
+}
+
+.lead { margin:6px 0 0; color:var(--color-text-secondary); font-size:.98rem; }
+
+/* buttons */
+.btn-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  height:38px; padding:0 14px; font-weight:700; letter-spacing:.1px;
+  border:1px solid var(--color-border-strong); cursor:pointer;
+  transition:transform 160ms ease, background 160ms ease, filter 160ms ease;
+}
+.btn:focus-visible { outline:none; box-shadow:var(--shadow-focus); }
+.btn-primary { background:var(--color-accent); color:var(--color-accent-contrast); border-color:color-mix(in oklab, var(--color-accent) 60%, transparent); }
+.btn-primary:hover { transform:translateY(-1px); filter:saturate(1.03); }
+/* Secondary uses text color on transparent with comp-tinted hover */
+.btn-secondary { background:transparent; color:var(--color-text-primary); }
+.btn-secondary:hover { background:color-mix(in oklab, var(--color-comp) 12%, var(--color-surface)); }
+
+/* chips use complementary accent to differentiate from Burgundy CTAs */
+.strip { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; background:color-mix(in oklab, var(--color-comp) 10%, var(--color-surface)); border:1px solid var(--color-border-subtle); padding:6px; }
+.chip { border:1px solid var(--color-border-strong); padding:.35rem .6rem; font-weight:700; font-size:.85rem; }
+
+/* product card mini */
+.card {
+  background:var(--color-surface);
+  border:1px solid var(--color-border-strong);
+  box-shadow:0 1px 0 rgba(0,0,0,.03) inset;
+  padding:10px;
+}
+.card .media {
+  aspect-ratio:4/3;
+  background:linear-gradient(135deg,
+    color-mix(in oklab, var(--color-accent) 18%, #FFFFFF),
+    color-mix(in oklab, var(--color-comp) 10%, #FFFFFF));
+  border:1px solid var(--color-border-subtle);
+}
+.card .name { margin:8px 0 0; font-weight:800; }
+.card .price { font-family:"Playfair Display", ui-serif, Georgia, "Times New Roman", serif; }
+
+/* labels in swatches */
+.theme[data-theme] .swatch.bg      { background:var(--color-bg); }
+.theme[data-theme] .swatch.surface { background:var(--color-surface); }
+.theme[data-theme] .swatch.text    { background:var(--color-text-primary); color:var(--color-surface); }
+.theme[data-theme] .swatch.sec     { background:var(--color-text-secondary); color:#fff; }
+.theme[data-theme] .swatch.b-sub   { background:var(--color-border-subtle); }
+.theme[data-theme] .swatch.accent  { background:linear-gradient(90deg, var(--color-accent) 60%, var(--color-comp) 40%); color:var(--color-accent-contrast); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <h1>Burgundy-Primary Luxury Palettes — Compact Buttons & Containers</h1>
+    <p>Primary Accent: Burgundy (#8A1538) • Complementary accents vary per theme • No JS</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- 1 FUTURE DUSK — Burgundy + Teal-emerald comp -->
+    <section class="theme" data-theme="future-dusk" aria-label="Future Dusk Luxe" style="
+      --color-bg:#0B0C13; --color-surface:#121424; --color-text-primary:#F6F7FA; --color-text-secondary:#C7CBDA;
+      --color-text-muted:#9AA3B8; --color-border-subtle:#1B2030; --color-border-strong:#2A3148;
+      --color-accent:#8A1538; --color-accent-contrast:#FFFFFF; --color-comp:#16C6A3;">
+      <div class="title">
+        <h2>Future Dusk Luxe</h2>
+        <small>Night editorial • Black pearl / celestial</small>
+      </div>
+      <div class="swatches">
+        <div class="swatch bg">BG</div>
+        <div class="swatch surface">Surface</div>
+        <div class="swatch text">Text</div>
+        <div class="swatch sec">Secondary</div>
+        <div class="swatch b-sub">Border</div>
+        <div class="swatch accent">Accent</div>
+      </div>
+      <div class="container-preview">
+        <div class="surface">
+          <strong style="font-family:'Playfair Display',serif;">Container Preview</strong>
+          <p class="lead">Burgundy CTAs on indigo surfaces; teal comp for tags and subtle tints.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#">Primary</a>
+            <a class="btn btn-secondary" href="#">Secondary</a>
+          </div>
+          <div class="strip"><span class="chip">Black Pearl</span><span class="chip">Halo</span><span class="chip">Celestial</span></div>
+        </div>
+        <div class="card">
+          <div class="media"></div>
+          <div class="name">Nightfall Pendant</div>
+          <div class="price">$520</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 MOCHA MOUSSE — Burgundy + Tropical aqua comp -->
+    <section class="theme" data-theme="mocha-mousse" aria-label="Mocha Mousse Atelier" style="
+      --color-bg:#F9F5F0; --color-surface:#FFFFFF; --color-text-primary:#1E1713; --color-text-secondary:#5C4C44;
+      --color-text-muted:#8A7B73; --color-border-subtle:#E9E0D7; --color-border-strong:#D8C9BE;
+      --color-accent:#8A1538; --color-accent-contrast:#FFFFFF; --color-comp:#2EC5B6;">
+      <div class="title">
+        <h2>Mocha Mousse Atelier</h2>
+        <small>Tactile comfort • Champagne gold</small>
+      </div>
+      <div class="swatches">
+        <div class="swatch bg">BG</div><div class="swatch surface">Surface</div>
+        <div class="swatch text">Text</div><div class="swatch sec">Secondary</div>
+        <div class="swatch b-sub">Border</div><div class="swatch accent">Accent</div>
+      </div>
+      <div class="container-preview">
+        <div class="surface">
+          <strong style="font-family:'Playfair Display',serif;">Container Preview</strong>
+          <p class="lead">Creamy browns with Burgundy CTAs; aqua comp keeps it fresh for Gen-Z.</p>
+          <div class="btn-row"><a class="btn btn-primary" href="#">Primary</a><a class="btn btn-secondary" href="#">Secondary</a></div>
+          <div class="strip"><span class="chip">Bridal</span><span class="chip">Pavé</span><span class="chip">Tennis</span></div>
+        </div>
+        <div class="card"><div class="media"></div><div class="name">Champagne Huggies</div><div class="price">$420</div></div>
+      </div>
+    </section>
+
+    <!-- 3 ICED PLATINUM — Burgundy + Cool aqua comp -->
+    <section class="theme" data-theme="iced-platinum" aria-label="Iced Platinum" style="
+      --color-bg:#F6F9FF; --color-surface:#FFFFFF; --color-text-primary:#0F172A; --color-text-secondary:#48566E;
+      --color-text-muted:#6B7A92; --color-border-subtle:#E6ECF5; --color-border-strong:#D0D9E7;
+      --color-accent:#8A1538; --color-accent-contrast:#FFFFFF; --color-comp:#3FD1C9;">
+      <div class="title">
+        <h2>Iced Platinum</h2>
+        <small>Lab-diamond clarity • Trust-forward</small>
+      </div>
+      <div class="swatches">
+        <div class="swatch bg">BG</div><div class="swatch surface">Surface</div>
+        <div class="swatch text">Text</div><div class="swatch sec">Secondary</div>
+        <div class="swatch b-sub">Border</div><div class="swatch accent">Accent</div>
+      </div>
+      <div class="container-preview">
+        <div class="surface">
+          <strong style="font-family:'Playfair Display',serif;">Container Preview</strong>
+          <p class="lead">Crisp whites; Burgundy drives action; aqua comp for filters/chips.</p>
+          <div class="btn-row"><a class="btn btn-primary" href="#">Primary</a><a class="btn btn-secondary" href="#">Secondary</a></div>
+          <div class="strip"><span class="chip">Solitaire</span><span class="chip">Round</span><span class="chip">Tennis</span></div>
+        </div>
+        <div class="card"><div class="media"></div><div class="name">Platinum Tennis</div><div class="price">$1,450</div></div>
+      </div>
+    </section>
+
+    <!-- 4 CHAMPAGNE OPAL — Burgundy + Mint comp -->
+    <section class="theme" data-theme="champagne-opal" aria-label="Champagne Opal" style="
+      --color-bg:#FFF8EF; --color-surface:#FFFFFF; --color-text-primary:#14120E; --color-text-secondary:#564C3F;
+      --color-text-muted:#857C6F; --color-border-subtle:#EFE6D8; --color-border-strong:#DCCFBA;
+      --color-accent:#8A1538; --color-accent-contrast:#FFFFFF; --color-comp:#1FD0B2;">
+      <div class="title">
+        <h2>Champagne Opal</h2>
+        <small>Bridal sand + gold • ME affinity</small>
+      </div>
+      <div class="swatches">
+        <div class="swatch bg">BG</div><div class="swatch surface">Surface</div>
+        <div class="swatch text">Text</div><div class="swatch sec">Secondary</div>
+        <div class="swatch b-sub">Border</div><div class="swatch accent">Accent</div>
+      </div>
+      <div class="container-preview">
+        <div class="surface">
+          <strong style="font-family:'Playfair Display',serif;">Container Preview</strong>
+          <p class="lead">Warm sands flatter gold; Burgundy CTAs; mint comp aligns with pearls.</p>
+          <div class="btn-row"><a class="btn btn-primary" href="#">Primary</a><a class="btn btn-secondary" href="#">Secondary</a></div>
+          <div class="strip"><span class="chip">Pearl</span><span class="chip">Halo</span><span class="chip">Opal</span></div>
+        </div>
+        <div class="card"><div class="media"></div><div class="name">Opal Pendant</div><div class="price">$349</div></div>
+      </div>
+    </section>
+
+    <!-- 5 CELESTIAL MINT — Burgundy + Bright mint comp -->
+    <section class="theme" data-theme="celestial-mint" aria-label="Celestial Mint" style="
+      --color-bg:#F2FFFB; --color-surface:#FFFFFF; --color-text-primary:#061813; --color-text-secondary:#2C6A59;
+      --color-text-muted:#5E8A7E; --color-border-subtle:#DDF1EA; --color-border-strong:#C6E5DA;
+      --color-accent:#8A1538; --color-accent-contrast:#FFFFFF; --color-comp:#20C7A0;">
+      <div class="title">
+        <h2>Celestial Mint</h2>
+        <small>Future-fresh wellness • Silver-forward</small>
+      </div>
+      <div class="swatches">
+        <div class="swatch bg">BG</div><div class="swatch surface">Surface</div>
+        <div class="swatch text">Text</div><div class="swatch sec">Secondary</div>
+        <div class="swatch b-sub">Border</div><div class="swatch accent">Accent</div>
+      </div>
+      <div class="container-preview">
+        <div class="surface">
+          <strong style="font-family:'Playfair Display',serif;">Container Preview</strong>
+          <p class="lead">Airy mint grounds; Burgundy CTAs pop; comp mint for tags & hover.</p>
+          <div class="btn-row"><a class="btn btn-primary" href="#">Primary</a><a class="btn btn-secondary" href="#">Secondary</a></div>
+          <div class="strip"><span class="chip">925 Silver</span><span class="chip">Stacking</span><span class="chip">Studs</span></div>
+        </div>
+        <div class="card"><div class="media"></div><div class="name">Silver Tennis</div><div class="price">$820</div></div>
+      </div>
+    </section>
+
+    <!-- 6 DESERT ROSE QUARTZ — Burgundy + Cool teal comp -->
+    <section class="theme" data-theme="desert-rose" aria-label="Desert Rose Quartz" style="
+      --color-bg:#FFF5F6; --color-surface:#FFFFFF; --color-text-primary:#23171A; --color-text-secondary:#6A4E55;
+      --color-text-muted:#8D6E76; --color-border-subtle:#F3E2E5; --color-border-strong:#E1CCD1;
+      --color-accent:#8A1538; --color-accent-contrast:#FFFFFF; --color-comp:#19B6A9;">
+      <div class="title">
+        <h2>Desert Rose Quartz</h2>
+        <small>Romance with geometry • Rose gold</small>
+      </div>
+      <div class="swatches">
+        <div class="swatch bg">BG</div><div class="swatch surface">Surface</div>
+        <div class="swatch text">Text</div><div class="swatch sec">Secondary</div>
+        <div class="swatch b-sub">Border</div><div class="swatch accent">Accent</div>
+      </div>
+      <div class="container-preview">
+        <div class="surface">
+          <strong style="font-family:'Playfair Display',serif;">Container Preview</strong>
+          <p class="lead">Soft rose grounds; Burgundy introduces drama; teal comp cools sweetness.</p>
+          <div class="btn-row"><a class="btn btn-primary" href="#">Primary</a><a class="btn btn-secondary" href="#">Secondary</a></div>
+          <div class="strip"><span class="chip">Rose Gold</span><span class="chip">Pearl</span><span class="chip">Minimal</span></div>
+        </div>
+        <div class="card"><div class="media"></div><div class="name">Rose Halo Ring</div><div class="price">$1,120</div></div>
+      </div>
+    </section>
+
+    <!-- 7 NOIR EMERALD — Burgundy + Emerald comp -->
+    <section class="theme" data-theme="noir-emerald" aria-label="Noir Emerald" style="
+      --color-bg:#0B0D0C; --color-surface:#121414; --color-text-primary:#F6F7F7; --color-text-secondary:#C7CFCD;
+      --color-text-muted:#9AA6A1; --color-border-subtle:#1B201E; --color-border-strong:#27312E;
+      --color-accent:#8A1538; --color-accent-contrast:#FFFFFF; --color-comp:#12B886;">
+      <div class="title">
+        <h2>Noir Emerald</h2>
+        <small>Bold luxury-tech • Moissanite / black pearls</small>
+      </div>
+      <div class="swatches">
+        <div class="swatch bg">BG</div><div class="swatch surface">Surface</div>
+        <div class="swatch text">Text</div><div class="swatch sec">Secondary</div>
+        <div class="swatch b-sub">Border</div><div class="swatch accent">Accent</div>
+      </div>
+      <div class="container-preview">
+        <div class="surface">
+          <strong style="font-family:'Playfair Display',serif;">Container Preview</strong>
+          <p class="lead">Dark luxury canvas; Burgundy CTAs; emerald comp reinforces brand equity.</p>
+          <div class="btn-row"><a class="btn btn-primary" href="#">Primary</a><a class="btn btn-secondary" href="#">Secondary</a></div>
+          <div class="strip"><span class="chip">Black Pearl</span><span class="chip">Moissanite</span><span class="chip">Halo</span></div>
+        </div>
+        <div class="card"><div class="media"></div><div class="name">Emerald Line</div><div class="price">$659</div></div>
+      </div>
+    </section>
+
+    <!-- 8 SUNSET CORAL SIGNET — Burgundy + Sea green comp -->
+    <section class="theme" data-theme="sunset-coral" aria-label="Sunset Coral Signet" style="
+      --color-bg:#FFF4EE; --color-surface:#FFFFFF; --color-text-primary:#201614; --color-text-secondary:#6C5048;
+      --color-text-muted:#967C73; --color-border-subtle:#F0E1D9; --color-border-strong:#E0CDC3;
+      --color-accent:#8A1538; --color-accent-contrast:#FFFFFF; --color-comp:#2BC8A9;">
+      <div class="title">
+        <h2>Sunset Coral Signet</h2>
+        <small>Uplifted warmth • Summer campaigns</small>
+      </div>
+      <div class="swatches">
+        <div class="swatch bg">BG</div><div class="swatch surface">Surface</div>
+        <div class="swatch text">Text</div><div class="swatch sec">Secondary</div>
+        <div class="swatch b-sub">Border</div><div class="swatch accent">Accent</div>
+      </div>
+      <div class="container-preview">
+        <div class="surface">
+          <strong style="font-family:'Playfair Display',serif;">Container Preview</strong>
+          <p class="lead">Warm coral grounds; Burgundy CTAs; sea-green comp for fresh contrast.</p>
+          <div class="btn-row"><a class="btn btn-primary" href="#">Primary</a><a class="btn btn-secondary" href="#">Secondary</a></div>
+          <div class="strip"><span class="chip">Signet</span><span class="chip">Statement</span><span class="chip">Stack</span></div>
+        </div>
+        <div class="card"><div class="media"></div><div class="name">Coral Signet</div><div class="price">$480</div></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+</body>
+</html>

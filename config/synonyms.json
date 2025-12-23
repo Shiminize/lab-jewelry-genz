@@ -1,0 +1,35 @@
+{
+  "categories": {
+    "ring": ["rings", "band", "bands", "engagement ring", "wedding band"],
+    "necklace": ["necklaces", "pendant", "pendants", "chain", "chains"],
+    "earring": ["earrings", "studs", "hoops", "drops"],
+    "bracelet": ["bracelets", "bangle", "bangles", "cuff", "cuffs"]
+  },
+  "metals": {
+    "gold": ["yellow gold", "14k gold", "18k gold", "golden"],
+    "rose gold": ["rose", "pink gold", "rose-gold"],
+    "white gold": ["white", "14k white", "18k white"],
+    "silver": ["sterling silver", "sterling", "925"],
+    "platinum": ["plat", "pt"]
+  },
+  "styles": {
+    "minimalist": ["simple", "minimal", "clean", "modern", "sleek"],
+    "vintage": ["antique", "classic", "retro", "vintage-inspired"],
+    "halo": ["halo ring", "halo setting", "surrounded"],
+    "solitaire": ["single stone", "one stone", "classic solitaire"],
+    "pave": ["pavé", "paved", "micro-pave"],
+    "stackable": ["stacking", "stack", "layering"]
+  },
+  "occasions": {
+    "engagement": ["proposal", "engagement ring", "bride", "bridal"],
+    "wedding": ["wedding band", "marriage", "ceremony"],
+    "gift": ["present", "gifting", "gift idea"],
+    "everyday": ["daily wear", "casual", "work"]
+  },
+  "features": {
+    "ready-to-ship": ["ready to ship", "in stock", "available now", "quick ship"],
+    "lab-grown": ["lab diamond", "lab-created", "synthetic diamond", "man-made"],
+    "recycled": ["eco-friendly", "sustainable", "recycled metal", "green"]
+  }
+}
+

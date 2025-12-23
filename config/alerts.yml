@@ -1,0 +1,118 @@
+# Aurora Concierge Widget - Alert Rules Configuration
+# Platform-agnostic alert definitions (adapt to Datadog/New Relic/Grafana)
+
+alerts:
+  # API Latency Alerts
+  - name: concierge_api_latency_p95_high
+    metric: concierge_api_latency_p95
+    condition: "> 1000"  # 1 second
+    duration: 5m
+    severity: warning
+    description: "API latency p95 exceeds 1s"
+    actions:
+      - notify_team
+      - create_ticket
+
+  - name: concierge_api_latency_p95_critical
+    metric: concierge_api_latency_p95
+    condition: "> 2000"  # 2 seconds
+    duration: 3m
+    severity: critical
+    description: "API latency p95 exceeds 2s - immediate attention required"
+    actions:
+      - page_on_call
+      - create_incident
+      - notify_team
+
+  # Error Rate Alerts
+  - name: concierge_api_error_rate_high
+    metric: concierge_api_error_rate
+    condition: "> 0.05"  # 5%
+    duration: 5m
+    severity: warning
+    description: "API error rate exceeds 5%"
+    actions:
+      - notify_team
+      - create_ticket
+
+  - name: concierge_api_error_rate_critical
+    metric: concierge_api_error_rate
+    condition: "> 0.10"  # 10%
+    duration: 3m
+    severity: critical
+    description: "API error rate exceeds 10% - immediate attention required"
+    actions:
+      - page_on_call
+      - create_incident
+      - notify_team
+
+  # Database Connection Alerts
+  - name: concierge_database_connection_failure
+    metric: concierge_db_connection_errors
+    condition: "> 0"
+    duration: 2m
+    severity: critical
+    description: "Database connection failures detected"
+    actions:
+      - page_on_call
+      - create_incident
+      - notify_team
+      - trigger_rollback_if_recent_deploy
+
+  # Rate Limit Alerts
+  - name: concierge_rate_limit_threshold
+    metric: concierge_rate_limit_hits
+    condition: "> 100"
+    duration: 10m
+    severity: warning
+    description: "High rate limit hits - potential abuse or capacity issue"
+    actions:
+      - notify_team
+      - create_ticket
+
+  # Widget Engagement Alerts
+  - name: concierge_widget_open_rate_low
+    metric: concierge_widget_open_rate
+    condition: "< 0.05"  # Below 5%
+    duration: 30m
+    severity: warning
+    description: "Widget open rate below 5% - potential visibility issue"
+    actions:
+      - notify_team
+      - create_ticket
+
+  # CSAT Score Alerts
+  - name: concierge_csat_score_low
+    metric: concierge_csat_average
+    condition: "< 3.5"  # Below 3.5/5.0
+    duration: 1h
+    severity: warning
+    description: "CSAT score below 3.5 - user experience degrading"
+    actions:
+      - notify_team
+      - notify_product
+      - create_ticket
+
+notification_channels:
+  team:
+    type: slack
+    channel: "#aurora-concierge-alerts"
+    
+  on_call:
+    type: pagerduty
+    escalation_policy: "on-call-engineering"
+    
+  product:
+    type: email
+    recipients:
+      - "product@glowglitch.com"
+
+thresholds:
+  # Canary deployment gates
+  canary_error_rate_max: 0.02  # 2%
+  canary_latency_p95_max: 800  # 800ms
+  
+  # Production health
+  production_error_rate_max: 0.05  # 5%
+  production_latency_p95_max: 1000  # 1s
+

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coral Sky PDP Option A</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --surface-base: #ffffff;
+        --surface-shell: #fdf9f5;
+        --ink: #0f172a;
+        --body: #1f2937;
+        --body-muted: #64748b;
+        --accent-primary: #ff6f61;
+        --accent-secondary: #0ea5e9;
+        --border-soft: rgba(15, 23, 42, 0.08);
+        --radius-lg: 24px;
+        --spacing-2: 0.5rem;
+        --spacing-4: 1rem;
+        --spacing-6: 1.5rem;
+        --spacing-8: 2rem;
+        --spacing-10: 2.5rem;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        color: var(--body);
+        background: var(--surface-shell);
+        line-height: 1.6;
+      }
+      .page {
+        padding: var(--spacing-10) var(--spacing-8);
+        display: grid;
+        gap: var(--spacing-10);
+      }
+      .hero {
+        display: grid;
+        gap: var(--spacing-8);
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        align-items: start;
+      }
+      .gallery {
+        border-radius: 28px;
+        border: 1px solid var(--border-soft);
+        background: var(--surface-base);
+        padding: var(--spacing-4);
+      }
+      .gallery img {
+        width: 100%;
+        border-radius: 20px;
+      }
+      .intro h1 {
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(2.5rem, 4vw, 3.2rem);
+        color: var(--ink);
+        margin: 0;
+      }
+      .intro .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.32em;
+        font-size: 0.75rem;
+        color: var(--body-muted);
+      }
+      .price-card {
+        display: grid;
+        gap: var(--spacing-4);
+        padding: var(--spacing-6);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-soft);
+        background: var(--surface-base);
+      }
+      .price-tag {
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        margin: 0;
+        color: var(--ink);
+      }
+      .metrics {
+        display: grid;
+        gap: var(--spacing-3);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      .metric {
+        border-radius: 18px;
+        border: 1px solid var(--border-soft);
+        background: var(--surface-shell);
+        padding: var(--spacing-4);
+      }
+      .metric span {
+        display: block;
+      }
+      .metric .label {
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.7rem;
+        color: var(--body-muted);
+        margin-bottom: 0.35rem;
+      }
+      .metric .value {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-3);
+      }
+      .button {
+        flex: 1 1 220px;
+        padding: 0.85rem 1.5rem;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        border-radius: 999px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        transition: transform 0.2s ease;
+      }
+      .button.primary {
+        background: var(--accent-primary);
+        color: #fff;
+      }
+      .button.secondary {
+        background: var(--surface-base);
+        color: var(--accent-secondary);
+        border-color: rgba(14, 165, 233, 0.3);
+      }
+      .button:hover {
+        transform: translateY(-1px);
+      }
+      .details-grid {
+        display: grid;
+        gap: var(--spacing-8);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .card {
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-soft);
+        background: var(--surface-base);
+        padding: var(--spacing-6);
+        display: grid;
+        gap: var(--spacing-4);
+      }
+      .card h2 {
+        margin: 0;
+        font-size: 1.45rem;
+        color: var(--ink);
+      }
+      .card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: var(--spacing-3);
+      }
+      .card li {
+        padding: 0.85rem 1rem;
+        border-radius: 14px;
+        border: 1px solid var(--border-soft);
+        background: var(--surface-shell);
+      }
+      .story {
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-soft);
+        padding: var(--spacing-6);
+        background: var(--surface-base);
+      }
+      .story h2 {
+        margin: 0 0 var(--spacing-3);
+        font-size: 1.45rem;
+        color: var(--ink);
+      }
+      .story ul {
+        margin: var(--spacing-4) 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: var(--spacing-3);
+      }
+      @media (max-width: 768px) {
+        .page {
+          padding: var(--spacing-8) var(--spacing-4);
+        }
+        .price-card {
+          padding: var(--spacing-4);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="hero">
+        <div class="gallery">
+          <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=800&q=80" alt="Product preview" />
+        </div>
+        <div class="intro">
+          <div class="eyebrow">Featured capsule</div>
+          <h1>Halo Diamond Ring</h1>
+          <p>
+            Built for high-shine campaign shoots, the floating halo throws light in every direction, ideal for the Neon lighting stack.
+          </p>
+          <div class="price-card">
+            <p class="price-tag">$3,200</p>
+            <p>Halo setting that amplifies the brilliance of your center stone.</p>
+            <div class="metrics">
+              <div class="metric">
+                <span class="label">Lead time</span>
+                <span class="value">Hand-finished in ~2 weeks</span>
+              </div>
+              <div class="metric">
+                <span class="label">Certification</span>
+                <span class="value">IGI / GCAL documentation</span>
+              </div>
+              <div class="metric">
+                <span class="label">Studio support</span>
+                <span class="value">Concierge styling consult</span>
+              </div>
+              <div class="metric">
+                <span class="label">Deposits</span>
+                <span class="value">50% to begin crafting</span>
+              </div>
+            </div>
+            <div class="cta-row">
+              <a class="button primary" href="#">Explore in customizer</a>
+              <a class="button secondary" href="#">Email concierge</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-grid">
+        <div class="card">
+          <h2>Materials</h2>
+          <p>Selected for brilliance under Coral & Sky lighting.</p>
+          <ul>
+            <li>14K rose gold</li>
+            <li>Lab-grown halo diamonds</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Gemstones</h2>
+          <p>Lab-grown stones with calibrated color and clarity.</p>
+          <ul>
+            <li>Radiant-cut center stone</li>
+            <li>Invisible-set accent stones</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Shipping & care</h2>
+          <p>Delivered with Coral Sky concierge support from studio to doorstep.</p>
+          <ul>
+            <li>Fully insured worldwide delivery</li>
+            <li>Carbon-neutral logistics across every market</li>
+            <li>Complimentary resize within 90 days</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="story">
+        <h2>Design story</h2>
+        <p>
+          Designed for campaign motion, every angle catches the neon glow with ease. The halo floats around the center stone, creating effortless luminosity in studio and daylight settings alike.
+        </p>
+        <ul>
+          <li>Knife-edge shank with mirror polish</li>
+          <li>Invisible basket for uninterrupted sparkle</li>
+          <li>Comfort-fit interior for all-day wear</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

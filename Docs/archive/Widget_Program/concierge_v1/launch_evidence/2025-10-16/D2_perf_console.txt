@@ -1,0 +1,1 @@
+[info] Console clean during widget interactions (Next.js prefetch to /login and /studio intercepted locally).

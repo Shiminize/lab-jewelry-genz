@@ -1,0 +1,16 @@
+Local Smoothness Config — 2025-10-16
+
+BASE=http://localhost:3002 (prod serve)
+NEXT_PUBLIC_ANALYTICS_DEV_MIRROR_ENABLED=true
+
+Resolved endpoints (src/lib/concierge/config.ts):
+- Products: /api/stub/concierge/products
+- Order Status: /api/stub/concierge/orders/status
+- Returns: /api/stub/concierge/orders/returns (guardrail proxies available at /api/guardrails/returns)
+- Capsule: /api/stub/concierge/capsule (guardrail proxies at /api/guardrails/capsule)
+- Stylist: /api/stub/concierge/stylist
+- CSAT: /api/stub/concierge/analytics/csat
+- Inspiration: /api/stub/concierge/inspiration
+- Order Updates: /api/stub/concierge/order-updates
+
+Dev analytics mirror active at /api/dev-analytics/collect (writes .analytics/dev.log; filtered responses captured for this run).

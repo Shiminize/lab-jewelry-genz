@@ -1,0 +1,64 @@
+
+> glowglitch-frontend@0.1.0 build
+> next build
+
+ ⚠ Disabling SWC Minifer will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+  ▲ Next.js 14.2.32
+  - Environments: .env.local, .env
+  - Experiments (use with caution):
+    · turbo
+    · optimizeCss
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/24) ...
+   Generating static pages (6/24) 
+   Generating static pages (12/24) 
+   Generating static pages (18/24) 
+Time 2.450917
+Time 2.30975
+ ✓ Generating static pages (24/24)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    5.62 kB         120 kB
+├ ○ /_not-found                          156 B          87.9 kB
+├ ƒ /api/creators/apply                  0 B                0 B
+├ ƒ /api/neon/cart                       0 B                0 B
+├ ƒ /api/neon/cart/[cartId]              0 B                0 B
+├ ○ /api/neon/catalog                    0 B                0 B
+├ ƒ /api/neon/catalog/[slug]             0 B                0 B
+├ ƒ /api/neon/checkout                   0 B                0 B
+├ ○ /api/neon/customizer/config          0 B                0 B
+├ ƒ /cart                                6.67 kB         121 kB
+├ ƒ /catalog                             5.33 kB         120 kB
+├ ○ /catalog/sustainable-icons           197 B           115 kB
+├ ƒ /checkout                            210 B           115 kB
+├ ƒ /creators                            208 B           115 kB
+├ ○ /customizer                          19.1 kB         133 kB
+├ ○ /dashboard                           215 B           115 kB
+├ ○ /dashboard/activity                  156 B          87.9 kB
+├ ƒ /dashboard/catalog                   215 B           115 kB
+├ ƒ /dashboard/catalog/[id]              215 B           115 kB
+├ ƒ /dashboard/creators                  215 B           115 kB
+├ ƒ /dashboard/homepage                  193 B           115 kB
+├ ○ /dashboard/login                     732 B          88.5 kB
+├ ○ /dashboard/orders                    215 B           115 kB
+├ ƒ /dashboard/orders/[id]               189 B          96.6 kB
+├ ƒ /dashboard/settings                  193 B           115 kB
+├ ƒ /products/[slug]                     1.21 kB         116 kB
+└ ○ /support/help                        2.42 kB         117 kB
++ First Load JS shared by all            87.7 kB
+  ├ chunks/117-0818f82d1aceeca1.js       31.7 kB
+  ├ chunks/fd9d1056-93154754b7f8bf90.js  54 kB
+  └ other shared chunks (total)          2.03 kB
+
+
+ƒ Middleware                             26.6 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog - GenZ Jewelry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --coral-gold: #FF7F50;
+            --champagne: #F7E7CE;
+            --warm-white: #FEFDFB;
+            --charcoal: #2C2C2C;
+            --light-gray: #F8F8F8;
+            --medium-gray: #E5E5E5;
+            --dark-gray: #666;
+            
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 16px;
+            
+            --shadow-subtle: 0 2px 8px rgba(212, 175, 55, 0.08);
+            --shadow-medium: 0 4px 20px rgba(212, 175, 55, 0.12);
+            --shadow-prominent: 0 8px 32px rgba(212, 175, 55, 0.16);
+            --shadow-floating: 0 16px 48px rgba(212, 175, 55, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: var(--warm-white);
+        }
+
+        /* Navigation with Mega Menu */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 253, 251, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-gold), var(--coral-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        /* Mega Menu */
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: -50px;
+            width: 600px;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-floating);
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mega-menu-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .mega-menu-section h4 {
+            color: var(--primary-gold);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .mega-menu-section ul {
+            list-style: none;
+        }
+
+        .mega-menu-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .mega-menu-section a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mega-menu-section a:hover {
+            color: var(--primary-gold);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius-md);
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark-gray);
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            background: var(--light-gray);
+        }
+
+        /* Catalog Header */
+        .catalog-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--warm-white) 0%, var(--champagne) 100%);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .catalog-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--charcoal), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .catalog-subtitle {
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .catalog-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            min-height: 80vh;
+        }
+
+        /* Filters Sidebar */
+        .filters-sidebar {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            height: fit-content;
+            box-shadow: var(--shadow-subtle);
+            sticky: top;
+            top: 100px;
+        }
+
+        .filters-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--charcoal);
+        }
+
+        .filter-group {
+            margin-bottom: 2rem;
+        }
+
+        .filter-group h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-gold);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-option input[type="checkbox"] {
+            accent-color: var(--primary-gold);
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+
+        .price-range {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .price-input {
+            padding: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius-sm);
+            width: 80px;
+        }
+
+        .material-swatches {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        .material-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .material-swatch:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-gold);
+        }
+
+        .material-swatch.gold { background: var(--primary-gold); }
+        .material-swatch.rose-gold { background: #E8B4A0; }
+        .material-swatch.platinum { background: #E5E4E2; }
+        .material-swatch.white-gold { background: #F8F8F8; }
+
+        .clear-filters {
+            background: none;
+            border: 1px solid var(--coral-gold);
+            color: var(--coral-gold);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .clear-filters:hover {
+            background: var(--coral-gold);
+            color: white;
+        }
+
+        /* Products Area */
+        .products-area {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .products-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .results-count {
+            color: var(--dark-gray);
+            font-weight: 500;
+        }
+
+        .sort-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            padding: 0.5rem;
+            border: 1px solid var(--medium-gray);
+            background: white;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: var(--primary-gold);
+            color: white;
+            border-color: var(--primary-gold);
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius-sm);
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-floating);
+            border-color: var(--primary-gold);
+        }
+
+        .product-image {
+            height: 280px;
+            background: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--coral-gold);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .product-actions {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            box-shadow: var(--shadow-medium);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-gold);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .product-description {
+            color: var(--dark-gray);
+            font-size: 0.925rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .product-materials {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .material-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--medium-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .material-dot:hover {
+            transform: scale(1.2);
+            border-color: var(--primary-gold);
+        }
+
+        .product-footer {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-quick-view {
+            flex: 1;
+            padding: 0.75rem;
+            background: none;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-quick-view:hover {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        .btn-customize {
+            flex: 2;
+            padding: 0.75rem;
+            background: linear-gradient(45deg, var(--primary-gold), var(--coral-gold));
+            border: none;
+            color: white;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-customize:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--medium-gray);
+            background: white;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: var(--primary-gold);
+            color: white;
+            border-color: var(--primary-gold);
+        }
+
+        /* Quick View Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+
+        .modal-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .modal-image {
+            height: 400px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius-md);
+            position: relative;
+        }
+
+        .modal-image::before {
+            content: '360° View Available';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .catalog-main {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-sidebar {
+                order: 2;
+            }
+            
+            .products-area {
+                order: 1;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .search-input {
+                width: 200px;
+            }
+            
+            .catalog-title {
+                font-size: 2rem;
+            }
+            
+            .products-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .sort-controls {
+                justify-content: space-between;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--light-gray);
+            border-radius: 50%;
+            border-top-color: var(--primary-gold);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Filter animations */
+        .filter-group {
+            transition: all 0.3s ease;
+        }
+
+        .filter-group.collapsed .filter-options {
+            height: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">GenZ Jewelry</div>
+            <ul class="nav-links">
+                <li class="nav-item">
+                    <a href="#rings">Rings</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-section">
+                                <h4>By Style</h4>
+                                <ul>
+                                    <li><a href="#">Solitaire</a></li>
+                                    <li><a href="#">Halo</a></li>
+                                    <li><a href="#">Three Stone</a></li>
+                                    <li><a href="#">Vintage</a></li>
+                                    <li><a href="#">Modern</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-menu-section">
+                                <h4>By Metal</h4>
+                                <ul>
+                                    <li><a href="#">18K Gold</a></li>
+                                    <li><a href="#">Rose Gold</a></li>
+                                    <li><a href="#">Platinum</a></li>
+                                    <li><a href="#">White Gold</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#necklaces">Necklaces</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-section">
+                                <h4>By Style</h4>
+                                <ul>
+                                    <li><a href="#">Chain</a></li>
+                                    <li><a href="#">Pendant</a></li>
+                                    <li><a href="#">Choker</a></li>
+                                    <li><a href="#">Lariat</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-menu-section">
+                                <h4>Featured</h4>
+                                <ul>
+                                    <li><a href="#">New Arrivals</a></li>
+                                    <li><a href="#">Best Sellers</a></li>
+                                    <li><a href="#">Custom Design</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#earrings">Earrings</a></li>
+                <li><a href="#customizer">Customize</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search jewelry...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <button class="btn-icon">♡</button>
+                <button class="btn-icon">👤</button>
+                <button class="btn-icon">🛒</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Catalog Header -->
+    <header class="catalog-header">
+        <div class="header-container">
+            <h1 class="catalog-title">Our Collection</h1>
+            <p class="catalog-subtitle">Discover handcrafted jewelry that tells your unique story. Each piece is designed with modern elegance and timeless beauty.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="catalog-main">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <h3 class="filters-title">Refine Results</h3>
+            
+            <div class="filter-group">
+                <h4>Category</h4>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="rings" checked>
+                        <label for="rings">Rings (24)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="necklaces">
+                        <label for="necklaces">Necklaces (18)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="earrings">
+                        <label for="earrings">Earrings (15)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="bracelets">
+                        <label for="bracelets">Bracelets (12)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <div class="price-range">
+                    <input type="number" class="price-input" placeholder="Min" value="500">
+                    <span>-</span>
+                    <input type="number" class="price-input" placeholder="Max" value="5000">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Material</h4>
+                <div class="material-swatches">
+                    <div class="material-swatch gold" title="18K Gold"></div>
+                    <div class="material-swatch rose-gold" title="Rose Gold"></div>
+                    <div class="material-swatch platinum" title="Platinum"></div>
+                    <div class="material-swatch white-gold" title="White Gold"></div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Stone Type</h4>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="diamond">
+                        <label for="diamond">Diamond</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="sapphire">
+                        <label for="sapphire">Sapphire</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="emerald">
+                        <label for="emerald">Emerald</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="ruby">
+                        <label for="ruby">Ruby</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Style</h4>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="modern">
+                        <label for="modern">Modern</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="vintage">
+                        <label for="vintage">Vintage</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="minimalist">
+                        <label for="minimalist">Minimalist</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="geometric">
+                        <label for="geometric">Geometric</label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="clear-filters">Clear All Filters</button>
+        </aside>
+
+        <!-- Products Area -->
+        <section class="products-area">
+            <div class="products-header">
+                <div class="results-count">Showing 24 of 127 results</div>
+                <div class="sort-controls">
+                    <div class="view-toggle">
+                        <button class="view-btn active">⊞</button>
+                        <button class="view-btn">☰</button>
+                    </div>
+                    <select class="sort-select">
+                        <option>Sort by: Featured</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest First</option>
+                        <option>Best Rating</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">New</div>
+                        <div class="product-actions">
+                            <button class="action-btn" title="Add to Wishlist">♡</button>
+                            <button class="action-btn" title="Quick View">👁</button>
+                            <button class="action-btn" title="Compare">⚖</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Geometric Solitaire Ring</h3>
+                        <p class="product-description">Modern minimalist design with lab-grown diamond</p>
+                        <div class="product-price">$2,450</div>
+                        <div class="product-materials">
+                            <div class="material-dot gold"></div>
+                            <div class="material-dot rose-gold"></div>
+                            <div class="material-dot platinum"></div>
+                        </div>
+                        <div class="product-footer">
+                            <button class="btn-quick-view">Quick View</button>
+                            <button class="btn-customize">Customize</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Trending</div>
+                        <div class="product-actions">
+                            <button class="action-btn" title="Add to Wishlist">♡</button>
+                            <button class="action-btn" title="Quick View">👁</button>
+                            <button class="action-btn" title="Compare">⚖</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Minimalist Chain Necklace</h3>
+                        <p class="product-description">Delicate chain perfect for layering</p>
+                        <div class="product-price">$890</div>
+                        <div class="product-materials">
+                            <div class="material-dot gold"></div>
+                            <div class="material-dot rose-gold"></div>
+                            <div class="material-dot white-gold"></div>
+                        </div>
+                        <div class="product-footer">
+                            <button class="btn-quick-view">Quick View</button>
+                            <button class="btn-customize">Customize</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" title="Add to Wishlist">♡</button>
+                            <button class="action-btn" title="Quick View">👁</button>
+                            <button class="action-btn" title="Compare">⚖</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Angular Hoop Earrings</h3>
+                        <p class="product-description">Contemporary geometric design</p>
+                        <div class="product-price">$1,200</div>
+                        <div class="product-materials">
+                            <div class="material-dot gold"></div>
+                            <div class="material-dot platinum"></div>
+                        </div>
+                        <div class="product-footer">
+                            <button class="btn-quick-view">Quick View</button>
+                            <button class="btn-customize">Customize</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Limited</div>
+                        <div class="product-actions">
+                            <button class="action-btn" title="Add to Wishlist">♡</button>
+                            <button class="action-btn" title="Quick View">👁</button>
+                            <button class="action-btn" title="Compare">⚖</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Art Deco Statement Ring</h3>
+                        <p class="product-description">Vintage-inspired with modern twist</p>
+                        <div class="product-price">$3,850</div>
+                        <div class="product-materials">
+                            <div class="material-dot gold"></div>
+                            <div class="material-dot white-gold"></div>
+                        </div>
+                        <div class="product-footer">
+                            <button class="btn-quick-view">Quick View</button>
+                            <button class="btn-customize">Customize</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" title="Add to Wishlist">♡</button>
+                            <button class="action-btn" title="Quick View">👁</button>
+                            <button class="action-btn" title="Compare">⚖</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Delicate Tennis Bracelet</h3>
+                        <p class="product-description">Classic elegance redefined</p>
+                        <div class="product-price">$2,100</div>
+                        <div class="product-materials">
+                            <div class="material-dot gold"></div>
+                            <div class="material-dot rose-gold"></div>
+                            <div class="material-dot platinum"></div>
+                        </div>
+                        <div class="product-footer">
+                            <button class="btn-quick-view">Quick View</button>
+                            <button class="btn-customize">Customize</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-actions">
+                            <button class="action-btn" title="Add to Wishlist">♡</button>
+                            <button class="action-btn" title="Quick View">👁</button>
+                            <button class="action-btn" title="Compare">⚖</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Layered Pendant Necklace</h3>
+                        <p class="product-description">Multi-chain design with charm details</p>
+                        <div class="product-price">$1,650</div>
+                        <div class="product-materials">
+                            <div class="material-dot gold"></div>
+                            <div class="material-dot rose-gold"></div>
+                        </div>
+                        <div class="product-footer">
+                            <button class="btn-quick-view">Quick View</button>
+                            <button class="btn-customize">Customize</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn">‹</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                <span>...</span>
+                <button class="page-btn">12</button>
+                <button class="page-btn">›</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Quick View Modal -->
+    <div class="modal-overlay" id="quickViewModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-content">
+                <div class="modal-image"></div>
+                <div class="modal-details">
+                    <h2>Geometric Solitaire Ring</h2>
+                    <div class="product-price">$2,450</div>
+                    <p>Modern minimalist design featuring a brilliant lab-grown diamond set in your choice of precious metal. Each piece is handcrafted to perfection.</p>
+                    
+                    <div class="modal-options">
+                        <h4>Material Options</h4>
+                        <div class="material-swatches">
+                            <div class="material-swatch gold"></div>
+                            <div class="material-swatch rose-gold"></div>
+                            <div class="material-swatch platinum"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <button class="btn-customize" style="width: 100%; margin-bottom: 1rem;">Customize This Ring</button>
+                        <button class="btn-quick-view" style="width: 100%;">View Full Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-option input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                updateResults();
+            });
+        });
+
+        // Material swatch selection
+        document.querySelectorAll('.material-swatch, .material-dot').forEach(swatch => {
+            swatch.addEventListener('click', function() {
+                // Remove active class from siblings
+                this.parentNode.querySelectorAll('.material-swatch, .material-dot').forEach(s => {
+                    s.classList.remove('active');
+                });
+                // Add active class to clicked swatch
+                this.classList.add('active');
+                updateResults();
+            });
+        });
+
+        // Quick view modal
+        document.querySelectorAll('.btn-quick-view, .action-btn[title="Quick View"]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                document.getElementById('quickViewModal').style.display = 'flex';
+            });
+        });
+
+        function closeModal() {
+            document.getElementById('quickViewModal').style.display = 'none';
+        }
+
+        // Sort functionality
+        document.querySelector('.sort-select').addEventListener('change', function() {
+            const sortBy = this.value;
+            // Add loading state
+            const grid = document.querySelector('.products-grid');
+            grid.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                // Simulate sorting
+                grid.style.opacity = '1';
+            }, 500);
+        });
+
+        // View toggle
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const grid = document.querySelector('.products-grid');
+                if (this.textContent === '☰') {
+                    grid.style.gridTemplateColumns = '1fr';
+                } else {
+                    grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+                }
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            if (searchTerm.length > 2) {
+                // Simulate search
+                updateResults();
+            }
+        });
+
+        // Clear filters
+        document.querySelector('.clear-filters').addEventListener('click', function() {
+            document.querySelectorAll('.filter-option input').forEach(cb => cb.checked = false);
+            document.querySelectorAll('.price-input').forEach(input => input.value = '');
+            document.querySelectorAll('.material-swatch.active').forEach(s => s.classList.remove('active'));
+            updateResults();
+        });
+
+        function updateResults() {
+            const resultsCount = document.querySelector('.results-count');
+            const currentCount = Math.floor(Math.random() * 50) + 10;
+            resultsCount.textContent = `Showing ${currentCount} of 127 results`;
+            
+            // Add loading animation
+            resultsCount.innerHTML += ' <span class="loading"></span>';
+            
+            setTimeout(() => {
+                resultsCount.textContent = `Showing ${currentCount} of 127 results`;
+            }, 1000);
+        }
+
+        // Wishlist functionality
+        document.querySelectorAll('.action-btn[title="Add to Wishlist"]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (this.textContent === '♡') {
+                    this.textContent = '♥';
+                    this.style.color = 'var(--coral-gold)';
+                } else {
+                    this.textContent = '♡';
+                    this.style.color = '';
+                }
+            });
+        });
+
+        // Price range inputs
+        document.querySelectorAll('.price-input').forEach(input => {
+            input.addEventListener('input', function() {
+                updateResults();
+            });
+        });
+
+        // Pagination
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!isNaN(this.textContent)) {
+                    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Smooth scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('quickViewModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

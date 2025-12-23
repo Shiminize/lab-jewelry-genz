@@ -1,0 +1,39 @@
+🔧 Title/Image Normalization Migration
+📦 Database: glowglitch
+
+✅ Connected to MongoDB Atlas
+
+📊 Phase 1: Analyzing data...
+   Products missing title (but have name): 24
+   Products missing imageUrl (but have image): 0
+
+📝 Phase 2: Normalizing title field...
+   ✅ Set title = name for 24 products
+
+🖼️  Phase 3: Normalizing imageUrl field...
+   ⏭️  No imageUrl normalization needed
+
+🔍 Phase 4: Verification...
+   ✅ All products normalized successfully!
+
+🔬 Phase 5: Sample check...
+   Sample product:
+     SKU: undefined
+     title: Chaos Ring
+     name: Chaos Ring
+     imageUrl: MISSING
+     image: MISSING
+
+📋 Summary:
+   Title fields normalized: 24
+   ImageUrl fields normalized: 0
+   Total modified: 24
+
+✅ Migration complete!
+
+📌 Next Steps:
+   1. Keep runtime fallbacks for 1-2 releases
+   2. Monitor for any issues
+   3. Remove fallbacks after data is stable
+
+🔌 Disconnected from MongoDB

@@ -1,0 +1,19 @@
+{
+  "projectName": "glowglitch-frontend",
+  "framework": "nextjs",
+  "packageManager": "npm",
+  "devCommand": "npm run dev",
+  "buildCommand": "npm run build",
+  "startCommand": "npm start",
+  "entryUrl": "http://localhost:3000",
+  "testCommands": [
+    "npm run test:visual",
+    "npm run lint:neon"
+  ],
+  "paths": {
+    "src": "src",
+    "tests": "tests"
+  }
+}
+
+

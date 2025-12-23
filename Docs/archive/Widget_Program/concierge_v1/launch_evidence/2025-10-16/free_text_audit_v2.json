@@ -1,0 +1,109 @@
+{
+  "analytics": [
+    {
+      "event": "aurora_widget_open",
+      "originalEvent": "widget_open",
+      "sessionId": "4b1b1320-3324-4955-bd0b-f33bac681380",
+      "requestId": "widget_open-0c48aadb-8b0c-47c5-9e0b-1e2cfbfac496",
+      "timestamp": 1760708954906
+    },
+    {
+      "event": "aurora_intent_detected",
+      "originalEvent": "intent_detected",
+      "intent": "return_exchange",
+      "source": "keyword",
+      "sessionId": "4b1b1320-3324-4955-bd0b-f33bac681380",
+      "requestId": "return_exchange-9356048a-4660-44ee-9eed-eaef540532b3",
+      "timestamp": 1760708956170
+    },
+    {
+      "event": "aurora_intent_complete",
+      "originalEvent": "intent_complete",
+      "intent": "return_exchange",
+      "sessionId": "4b1b1320-3324-4955-bd0b-f33bac681380",
+      "requestId": "return_exchange-9356048a-4660-44ee-9eed-eaef540532b3",
+      "timestamp": 1760708956171
+    },
+    {
+      "event": "aurora_return_initiated",
+      "originalEvent": "return_initiated",
+      "sessionId": "4b1b1320-3324-4955-bd0b-f33bac681380",
+      "requestId": "return_exchange-9356048a-4660-44ee-9eed-eaef540532b3",
+      "timestamp": 1760708956171
+    },
+    {
+      "event": "aurora_intent_detected",
+      "originalEvent": "intent_detected",
+      "intent": "stylist_contact",
+      "source": "keyword",
+      "sessionId": "4b1b1320-3324-4955-bd0b-f33bac681380",
+      "requestId": "stylist_contact-d85d97a5-5506-476a-900f-ebee4c49ff1d",
+      "timestamp": 1760708957390
+    },
+    {
+      "event": "aurora_intent_complete",
+      "originalEvent": "intent_complete",
+      "intent": "stylist_contact",
+      "sessionId": "4b1b1320-3324-4955-bd0b-f33bac681380",
+      "requestId": "stylist_contact-d85d97a5-5506-476a-900f-ebee4c49ff1d",
+      "timestamp": 1760708957392
+    }
+  ],
+  "results": [
+    {
+      "scenario": {
+        "message": "Can you show ready to ship rings?",
+        "description": "ready-to-ship rings"
+      },
+      "lastMessages": [
+        "Can you show ready to ship rings?",
+        "I’m here for capsules, orders, care, or financing. Tap a quick journey below if you’d like a guided start.",
+        "I’m here for capsules, orders, care, or financing. Tap a quick journey below if you’d like a guided start."
+      ]
+    },
+    {
+      "scenario": {
+        "message": "I need to start a return for order GG-11982",
+        "description": "returns"
+      },
+      "lastMessages": [
+        "Happy to help. Pick the option that fits best and I’ll take care of the paperwork instantly.",
+        "Choose an optionResize my ringComplimentary within 60 days.Start a returnWe’ll generate a prepaid label.Schedule a care refreshStudio clean & polish in five days.",
+        "Resize my ringComplimentary within 60 days.Start a returnWe’ll generate a prepaid label.Schedule a care refreshStudio clean & polish in five days."
+      ]
+    },
+    {
+      "scenario": {
+        "message": "Talk to a stylist please",
+        "description": "stylist handoff"
+      },
+      "lastMessages": [
+        "I’ll bring a human stylist into the loop. Share your best contact and any notes so we can tailor the session.",
+        "Introduce me to a stylistWe’ll reply within one studio hour with renders, pricing, and sizing confirmations.First nameEmailPreferred timeAnytimeMorningAfternoonEveningNotesSend my request",
+        "First nameEmailPreferred timeAnytimeMorningAfternoonEveningNotes"
+      ]
+    },
+    {
+      "scenario": {
+        "message": "Fast shipping necklaces under $300",
+        "description": "ready-to-ship necklaces under budget"
+      },
+      "lastMessages": [
+        "I’ll bring a human stylist into the loop. Share your best contact and any notes so we can tailor the session.",
+        "Introduce me to a stylistWe’ll reply within one studio hour with renders, pricing, and sizing confirmations.First nameEmailPreferred timeAnytimeMorningAfternoonEveningNotesSend my request",
+        "First nameEmailPreferred timeAnytimeMorningAfternoonEveningNotes"
+      ]
+    },
+    {
+      "scenario": {
+        "message": "Platinum rings that ship now",
+        "description": "platinum ready-to-ship rings"
+      },
+      "lastMessages": [
+        "I’ll bring a human stylist into the loop. Share your best contact and any notes so we can tailor the session.",
+        "Introduce me to a stylistWe’ll reply within one studio hour with renders, pricing, and sizing confirmations.First nameEmailPreferred timeAnytimeMorningAfternoonEveningNotesSend my request",
+        "First nameEmailPreferred timeAnytimeMorningAfternoonEveningNotes"
+      ]
+    }
+  ]
+}

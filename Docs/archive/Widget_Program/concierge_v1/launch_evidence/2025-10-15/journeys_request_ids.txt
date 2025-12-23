@@ -1,0 +1,13 @@
+find_product=find_product_001
+order_status=order_status_001
+order_updates=order_updates_001
+returns_once=returns_ok_001
+returns_repeat=returns_dup_001
+returns_missing=returns_missing_001
+capsule_once=capsule_ok_001
+capsule_missing=capsule_missing_001
+stylist=stylist_001
+csat=csat_001
+inspiration_success1=insp_ok_001
+inspiration_success2=insp_ok_002
+inspiration_error=insp_err_001

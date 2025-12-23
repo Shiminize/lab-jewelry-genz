@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometric Solitaire Ring - GenZ Jewelry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --coral-gold: #FF7F50;
+            --champagne: #F7E7CE;
+            --warm-white: #FEFDFB;
+            --charcoal: #2C2C2C;
+            --light-gray: #F8F8F8;
+            --medium-gray: #E5E5E5;
+            --dark-gray: #666;
+            
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 16px;
+            
+            --shadow-subtle: 0 2px 8px rgba(212, 175, 55, 0.08);
+            --shadow-medium: 0 4px 20px rgba(212, 175, 55, 0.12);
+            --shadow-prominent: 0 8px 32px rgba(212, 175, 55, 0.16);
+            --shadow-floating: 0 16px 48px rgba(212, 175, 55, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: var(--warm-white);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 253, 251, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-gold), var(--coral-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-gold);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            background: var(--light-gray);
+        }
+
+        /* Main Product Section */
+        .product-main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 0 2rem;
+        }
+
+        /* Product Gallery */
+        .product-gallery {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .main-image {
+            height: 500px;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .main-image::before {
+            content: '360° Interactive View\nClick and drag to rotate';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--primary-gold);
+            font-weight: 600;
+            white-space: pre-line;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: var(--shadow-medium);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .zoom-btn:hover {
+            background: var(--primary-gold);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .thumbnail-gallery {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border: 2px solid var(--medium-gray);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: var(--primary-gold);
+            transform: scale(1.05);
+        }
+
+        .thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        /* Product Info */
+        .product-info {
+            padding-top: 1rem;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--charcoal), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-subtitle {
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+            margin-bottom: 2rem;
+        }
+
+        .price-section {
+            margin-bottom: 2rem;
+        }
+
+        .current-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .original-price {
+            font-size: 1.5rem;
+            color: var(--dark-gray);
+            text-decoration: line-through;
+            margin-left: 1rem;
+        }
+
+        .financing-info {
+            margin-top: 0.5rem;
+            color: var(--dark-gray);
+        }
+
+        .financing-info a {
+            color: var(--primary-gold);
+            text-decoration: none;
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--light-gray);
+            border-radius: var(--border-radius-md);
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .trust-badge::before {
+            content: '✓';
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        /* Customization Options */
+        .customization-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .material-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .material-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .material-option:hover,
+        .material-option.selected {
+            border-color: var(--primary-gold);
+            background: var(--champagne);
+        }
+
+        .material-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+            border: 2px solid var(--medium-gray);
+        }
+
+        .material-swatch.gold { background: var(--primary-gold); }
+        .material-swatch.rose-gold { background: #E8B4A0; }
+        .material-swatch.platinum { background: #E5E4E2; }
+        .material-swatch.white-gold { background: #F8F8F8; }
+
+        .material-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .material-price {
+            font-size: 0.9rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        /* Ring Size Selection */
+        .size-section {
+            margin-bottom: 2rem;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .size-option {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .size-option:hover,
+        .size-option.selected {
+            border-color: var(--primary-gold);
+            background: var(--champagne);
+            color: var(--primary-gold);
+        }
+
+        .size-guide {
+            color: var(--primary-gold);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            flex: 2;
+            background: linear-gradient(45deg, var(--primary-gold), var(--coral-gold));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            flex: 1;
+            background: none;
+            color: var(--charcoal);
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary-gold);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-gold);
+            color: white;
+        }
+
+        .btn-wishlist {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--medium-gray);
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-wishlist:hover {
+            border-color: var(--coral-gold);
+            background: var(--coral-gold);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Product Details */
+        .product-details {
+            margin-bottom: 2rem;
+        }
+
+        .details-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--medium-gray);
+            margin-bottom: 2rem;
+        }
+
+        .tab-button {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--dark-gray);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active,
+        .tab-button:hover {
+            color: var(--primary-gold);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-gold);
+        }
+
+        .tab-content {
+            display: none;
+            line-height: 1.8;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .specifications-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specifications-table th,
+        .specifications-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .specifications-table th {
+            background: var(--light-gray);
+            font-weight: 600;
+            color: var(--primary-gold);
+        }
+
+        /* Social Proof */
+        .social-proof {
+            margin-bottom: 2rem;
+        }
+
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: var(--primary-gold);
+            font-size: 1.25rem;
+        }
+
+        .rating-text {
+            color: var(--dark-gray);
+        }
+
+        .reviews-preview {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: var(--border-radius-md);
+            margin-bottom: 1rem;
+        }
+
+        .review {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .review:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-author {
+            font-weight: 600;
+        }
+
+        .review-date {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            color: var(--dark-gray);
+        }
+
+        /* Recommendations */
+        .recommendations {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .recommendation-card {
+            background: white;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--primary-gold);
+        }
+
+        .recommendation-image {
+            height: 200px;
+            background: var(--light-gray);
+            position: relative;
+        }
+
+        .recommendation-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .recommendation-info {
+            padding: 1.5rem;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation-price {
+            color: var(--primary-gold);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .product-main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .product-gallery {
+                position: static;
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+            
+            .product-title {
+                font-size: 2rem;
+            }
+            
+            .current-price {
+                font-size: 2rem;
+            }
+            
+            .material-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .size-options {
+                justify-content: center;
+            }
+            
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-info > * {
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+
+        .product-info > *:nth-child(1) { animation-delay: 0.1s; }
+        .product-info > *:nth-child(2) { animation-delay: 0.2s; }
+        .product-info > *:nth-child(3) { animation-delay: 0.3s; }
+        .product-info > *:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">GenZ Jewelry</div>
+            <div class="breadcrumb">
+                <a href="#">Home</a>
+                <span>/</span>
+                <a href="#">Rings</a>
+                <span>/</span>
+                <span>Geometric Solitaire Ring</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-icon">🔍</button>
+                <button class="btn-icon">♡</button>
+                <button class="btn-icon">👤</button>
+                <button class="btn-icon">🛒</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Product Section -->
+    <main class="product-main">
+        <!-- Product Gallery -->
+        <div class="product-gallery">
+            <div class="main-image">
+                <div class="zoom-controls">
+                    <button class="zoom-btn" title="Zoom In">+</button>
+                    <button class="zoom-btn" title="Zoom Out">-</button>
+                    <button class="zoom-btn" title="Fullscreen">⛶</button>
+                </div>
+            </div>
+            <div class="thumbnail-gallery">
+                <div class="thumbnail active"></div>
+                <div class="thumbnail"></div>
+                <div class="thumbnail"></div>
+                <div class="thumbnail"></div>
+                <div class="thumbnail"></div>
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+            <h1 class="product-title">Geometric Solitaire Ring</h1>
+            <p class="product-subtitle">Modern minimalist design with lab-grown diamond</p>
+
+            <!-- Price Section -->
+            <div class="price-section">
+                <span class="current-price">$2,450</span>
+                <span class="original-price">$2,890</span>
+                <div class="financing-info">
+                    or 4 payments of $612.50 with <a href="#">Klarna</a>
+                </div>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <div class="trust-badge">GIA Certified</div>
+                <div class="trust-badge">Free Shipping</div>
+                <div class="trust-badge">30-Day Returns</div>
+                <div class="trust-badge">Lifetime Warranty</div>
+            </div>
+
+            <!-- Material Selection -->
+            <div class="customization-section">
+                <h3 class="section-title">Choose Your Metal</h3>
+                <div class="material-options">
+                    <div class="material-option selected">
+                        <div class="material-swatch gold"></div>
+                        <div class="material-name">18K Gold</div>
+                        <div class="material-price">$2,450</div>
+                    </div>
+                    <div class="material-option">
+                        <div class="material-swatch rose-gold"></div>
+                        <div class="material-name">Rose Gold</div>
+                        <div class="material-price">$2,450</div>
+                    </div>
+                    <div class="material-option">
+                        <div class="material-swatch platinum"></div>
+                        <div class="material-name">Platinum</div>
+                        <div class="material-price">$2,890</div>
+                    </div>
+                    <div class="material-option">
+                        <div class="material-swatch white-gold"></div>
+                        <div class="material-name">White Gold</div>
+                        <div class="material-price">$2,650</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ring Size -->
+            <div class="size-section">
+                <h3 class="section-title">Select Ring Size</h3>
+                <div class="size-options">
+                    <div class="size-option">4</div>
+                    <div class="size-option">5</div>
+                    <div class="size-option">6</div>
+                    <div class="size-option selected">7</div>
+                    <div class="size-option">8</div>
+                    <div class="size-option">9</div>
+                    <div class="size-option">10</div>
+                </div>
+                <a href="#" class="size-guide">📏 Ring Size Guide</a>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-primary">Add to Cart</button>
+                <button class="btn-secondary">Try Customizer</button>
+                <button class="btn-wishlist">♡</button>
+            </div>
+
+            <!-- Social Proof -->
+            <div class="social-proof">
+                <div class="rating-section">
+                    <div class="stars">★★★★★</div>
+                    <span class="rating-text">4.8 out of 5 (127 reviews)</span>
+                </div>
+                <div class="reviews-preview">
+                    <div class="review">
+                        <div class="review-header">
+                            <span class="review-author">Sarah M.</span>
+                            <span class="review-date">2 days ago</span>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"Absolutely stunning ring! The geometric design is so unique and modern. Quality is exceptional."</p>
+                    </div>
+                    <div class="review">
+                        <div class="review-header">
+                            <span class="review-author">Alex T.</span>
+                            <span class="review-date">1 week ago</span>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"Perfect for my proposal. The 3D customizer helped me visualize it perfectly before ordering."</p>
+                    </div>
+                </div>
+                <a href="#" style="color: var(--primary-gold); text-decoration: none; font-weight: 500;">View all reviews →</a>
+            </div>
+
+            <!-- Product Details Tabs -->
+            <div class="product-details">
+                <div class="details-tabs">
+                    <button class="tab-button active" data-tab="description">Description</button>
+                    <button class="tab-button" data-tab="specifications">Specifications</button>
+                    <button class="tab-button" data-tab="care">Care Guide</button>
+                    <button class="tab-button" data-tab="shipping">Shipping</button>
+                </div>
+
+                <div id="description" class="tab-content active">
+                    <p>This geometric solitaire ring represents the perfect fusion of modern design and timeless elegance. Crafted with precision, each ring features a carefully selected lab-grown diamond that matches the brilliance and quality of natural diamonds while supporting sustainable practices.</p>
+                    <p>The minimalist setting allows the diamond to be the star while the geometric angles add a contemporary edge that appeals to modern sensibilities. This piece is perfect for engagements, special occasions, or as a statement piece for everyday wear.</p>
+                    <ul style="margin-top: 1rem; padding-left: 2rem;">
+                        <li>Handcrafted by skilled artisans</li>
+                        <li>Lab-grown diamond with GIA certification</li>
+                        <li>Sustainable and ethically sourced materials</li>
+                        <li>Modern geometric design with clean lines</li>
+                        <li>Available in multiple metal options</li>
+                    </ul>
+                </div>
+
+                <div id="specifications" class="tab-content">
+                    <table class="specifications-table">
+                        <tr><th>Diamond</th><td>1.0 ct Lab-Grown Round Brilliant</td></tr>
+                        <tr><th>Cut Grade</th><td>Excellent</td></tr>
+                        <tr><th>Color Grade</th><td>D (Colorless)</td></tr>
+                        <tr><th>Clarity</th><td>VS1</td></tr>
+                        <tr><th>Certification</th><td>GIA Certified</td></tr>
+                        <tr><th>Band Width</th><td>2.0mm</td></tr>
+                        <tr><th>Setting Height</th><td>6.5mm</td></tr>
+                        <tr><th>Available Sizes</th><td>4 - 10 (including half sizes)</td></tr>
+                        <tr><th>Metal Options</th><td>18K Gold, Rose Gold, White Gold, Platinum</td></tr>
+                    </table>
+                </div>
+
+                <div id="care" class="tab-content">
+                    <h4>Caring for Your Ring</h4>
+                    <p>To maintain the beauty and brilliance of your ring, follow these care instructions:</p>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>Clean regularly with warm water and mild soap</li>
+                        <li>Use a soft-bristled brush for gentle scrubbing</li>
+                        <li>Avoid harsh chemicals and ultrasonic cleaners</li>
+                        <li>Store separately to prevent scratching</li>
+                        <li>Remove during exercise and manual activities</li>
+                    </ul>
+                    <p>We recommend professional cleaning and inspection annually to maintain optimal condition.</p>
+                </div>
+
+                <div id="shipping" class="tab-content">
+                    <h4>Shipping Information</h4>
+                    <p><strong>Free Standard Shipping:</strong> 5-7 business days</p>
+                    <p><strong>Express Shipping:</strong> 2-3 business days ($25)</p>
+                    <p><strong>Overnight Shipping:</strong> Next business day ($50)</p>
+                    
+                    <h4 style="margin-top: 2rem;">Returns & Exchanges</h4>
+                    <p>30-day hassle-free returns and exchanges. Items must be in original condition with all packaging and documentation.</p>
+                    <p>Free return shipping for exchanges within the US.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Recommendations -->
+    <section class="recommendations">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <h2 class="section-title">You Might Also Like</h2>
+            <div class="recommendations-grid">
+                <div class="recommendation-card">
+                    <div class="recommendation-image"></div>
+                    <div class="recommendation-info">
+                        <h3 class="recommendation-title">Minimalist Band Ring</h3>
+                        <div class="recommendation-price">$1,200</div>
+                    </div>
+                </div>
+                <div class="recommendation-card">
+                    <div class="recommendation-image"></div>
+                    <div class="recommendation-info">
+                        <h3 class="recommendation-title">Three Stone Ring</h3>
+                        <div class="recommendation-price">$3,850</div>
+                    </div>
+                </div>
+                <div class="recommendation-card">
+                    <div class="recommendation-image"></div>
+                    <div class="recommendation-info">
+                        <h3 class="recommendation-title">Halo Setting Ring</h3>
+                        <div class="recommendation-price">$2,890</div>
+                    </div>
+                </div>
+                <div class="recommendation-card">
+                    <div class="recommendation-image"></div>
+                    <div class="recommendation-info">
+                        <h3 class="recommendation-title">Vintage Inspired Ring</h3>
+                        <div class="recommendation-price">$2,650</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Material selection
+        document.querySelectorAll('.material-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active class from all options
+                document.querySelectorAll('.material-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                // Add active class to clicked option
+                this.classList.add('selected');
+                
+                // Update price
+                const price = this.querySelector('.material-price').textContent;
+                document.querySelector('.current-price').textContent = price;
+            });
+        });
+
+        // Ring size selection
+        document.querySelectorAll('.size-option').forEach(size => {
+            size.addEventListener('click', function() {
+                document.querySelectorAll('.size-option').forEach(s => {
+                    s.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+
+        // Thumbnail gallery
+        document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
+            thumb.addEventListener('click', function() {
+                document.querySelectorAll('.thumbnail').forEach(t => {
+                    t.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Update main image (in real implementation, this would change the image source)
+                const mainImage = document.querySelector('.main-image');
+                mainImage.style.background = `linear-gradient(45deg, var(--primary-gold), var(--coral-gold))`;
+                
+                setTimeout(() => {
+                    mainImage.style.background = 'white';
+                }, 500);
+            });
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+
+        // Wishlist functionality
+        document.querySelector('.btn-wishlist').addEventListener('click', function() {
+            if (this.textContent === '♡') {
+                this.textContent = '♥';
+                this.style.color = 'var(--coral-gold)';
+                this.style.borderColor = 'var(--coral-gold)';
+            } else {
+                this.textContent = '♡';
+                this.style.color = '';
+                this.style.borderColor = '';
+            }
+        });
+
+        // Zoom functionality
+        document.querySelectorAll('.zoom-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const mainImage = document.querySelector('.main-image');
+                
+                if (this.textContent === '+') {
+                    // Zoom in
+                    mainImage.style.transform = 'scale(1.5)';
+                } else if (this.textContent === '-') {
+                    // Zoom out
+                    mainImage.style.transform = 'scale(1)';
+                } else if (this.textContent === '⛶') {
+                    // Fullscreen (mock functionality)
+                    mainImage.style.position = 'fixed';
+                    mainImage.style.top = '0';
+                    mainImage.style.left = '0';
+                    mainImage.style.width = '100vw';
+                    mainImage.style.height = '100vh';
+                    mainImage.style.zIndex = '2000';
+                    
+                    // Add close button
+                    const closeBtn = document.createElement('button');
+                    closeBtn.textContent = '×';
+                    closeBtn.style.cssText = `
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        width: 50px;
+                        height: 50px;
+                        background: white;
+                        border: none;
+                        border-radius: 50%;
+                        font-size: 24px;
+                        cursor: pointer;
+                        z-index: 2001;
+                    `;
+                    mainImage.appendChild(closeBtn);
+                    
+                    closeBtn.addEventListener('click', function() {
+                        mainImage.style.position = '';
+                        mainImage.style.top = '';
+                        mainImage.style.left = '';
+                        mainImage.style.width = '';
+                        mainImage.style.height = '';
+                        mainImage.style.zIndex = '';
+                        this.remove();
+                    });
+                }
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            // Add loading state
+            const originalText = this.textContent;
+            this.textContent = 'Adding to Cart...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                this.textContent = 'Added to Cart ✓';
+                this.style.background = 'var(--primary-gold)';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.background = '';
+                    this.disabled = false;
+                }, 2000);
+            }, 1000);
+        });
+
+        // 360° view simulation
+        let isRotating = false;
+        let startX = 0;
+        let currentRotation = 0;
+
+        document.querySelector('.main-image').addEventListener('mousedown', function(e) {
+            isRotating = true;
+            startX = e.clientX;
+            this.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isRotating) {
+                const deltaX = e.clientX - startX;
+                currentRotation += deltaX * 0.5;
+                document.querySelector('.main-image').style.filter = `hue-rotate(${currentRotation}deg)`;
+                startX = e.clientX;
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (isRotating) {
+                isRotating = false;
+                document.querySelector('.main-image').style.cursor = 'pointer';
+            }
+        });
+
+        // Recommendation card clicks
+        document.querySelectorAll('.recommendation-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // In a real implementation, this would navigate to the product page
+                console.log('Navigate to recommended product');
+            });
+        });
+    </script>
+</body>
+</html>

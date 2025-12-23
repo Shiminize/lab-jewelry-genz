@@ -1,0 +1,48 @@
+=== API TIMING TESTS ===
+Date: Fri Oct 24 00:25:41 CST 2025
+
+Test 1: Ready-to-ship rings
+URL: http://localhost:3002/api/concierge/products?readyToShip=true&category=ring
+
+  Run 1:
+    Time: 0.083539s | Size: 2797 bytes | Cache-Control: }
+  Run 2:
+    Time: 0.005366s | Size: 2797 bytes | Cache-Control: }
+  Run 3:
+    Time: 0.004501s | Size: 2797 bytes | Cache-Control: }
+  Run 4:
+    Time: 0.003782s | Size: 2797 bytes | Cache-Control: }
+  Run 5:
+    Time: 0.004252s | Size: 2797 bytes | Cache-Control: }
+
+Average timing calculation:
+  Average over 10 runs: 0.0038783s
+
+---
+
+Test 2: Gifts under 00
+URL: http://localhost:3002/api/concierge/products?readyToShip=true&priceLt=300
+
+  Run 1:
+    Time: 0.003491s | Size: 718 bytes | Cache-Control: }
+  Run 2:
+    Time: 0.003487s | Size: 718 bytes | Cache-Control: }
+  Run 3:
+    Time: 0.002896s | Size: 718 bytes | Cache-Control: }
+  Run 4:
+    Time: 0.002725s | Size: 718 bytes | Cache-Control: }
+  Run 5:
+    Time: 0.003118s | Size: 718 bytes | Cache-Control: }
+
+Average timing calculation:
+  Average over 10 runs: 0.0028517s
+
+---
+
+Cache-Control Header Verification:
+
+Ready-to-ship rings:
+cache-control: public, s-maxage=30, stale-while-revalidate=120
+
+Gifts under $300:
+cache-control: public, s-maxage=30, stale-while-revalidate=120

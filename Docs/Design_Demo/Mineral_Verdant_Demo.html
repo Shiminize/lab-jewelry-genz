@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mineral Verdant · Palette Demo</title>
+    <style>
+      :root {
+        --color-bg: #fcfdf7;
+        --color-surface: #ffffff;
+        --color-ink: #111111;
+        --color-ink-2: #405346;
+        --color-muted: #95a99c;
+        --color-line-subtle: #e3f0e7;
+        --color-line-strong: #c9dbce;
+        --color-accent: #2f3d38;
+        --color-accent-contrast: #ffffff;
+        --accent-secondary: #6bbd4f;
+        --accent-muted: #c7f79a;
+        --focus-ring: color-mix(in oklab, var(--color-accent) 46%, white);
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-serif: 'Playfair Display', 'Times New Roman', serif;
+        --shadow-soft: 0 16px 40px rgba(47, 61, 56, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 48px 32px 64px;
+        font-family: var(--font-sans);
+        background: var(--color-bg);
+        color: var(--color-ink-2);
+      }
+
+      h1,
+      h2 {
+        color: var(--color-ink);
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(32px, 4vw, 48px);
+        margin-bottom: 32px;
+      }
+
+      h2 {
+        font-size: clamp(24px, 2.8vw, 32px);
+        margin-bottom: 16px;
+      }
+
+      p {
+        line-height: 1.6;
+        margin: 0 0 16px;
+      }
+
+      .page {
+        margin: 0 auto;
+        max-width: 1180px;
+      }
+
+      .intro {
+        display: grid;
+        gap: 16px;
+        margin-bottom: 56px;
+        padding: 28px;
+        border-radius: 16px;
+        background: linear-gradient(130deg, rgba(47, 61, 56, 0.9), rgba(107, 189, 79, 0.78));
+        color: var(--color-accent-contrast);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .intro p {
+        max-width: 720px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .card {
+        padding: 24px;
+        border-radius: 16px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-line-subtle);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .swatch {
+        display: grid;
+        gap: 16px;
+      }
+
+      .swatch-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        border-radius: 12px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-line-subtle);
+      }
+
+      .swatch-chip {
+        flex: 0 0 54px;
+        height: 54px;
+        border-radius: 10px;
+        border: 1px solid rgba(17, 17, 17, 0.08);
+      }
+
+      .swatch-meta {
+        display: grid;
+        gap: 4px;
+      }
+
+      .swatch-meta span:first-child {
+        font-weight: 600;
+        color: var(--color-ink);
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        transition: transform 160ms ease, box-shadow 160ms ease;
+        cursor: pointer;
+      }
+
+      .btn:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--focus-ring);
+      }
+
+      .btn-primary {
+        background: var(--color-accent);
+        color: var(--color-accent-contrast);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 28px rgba(47, 61, 56, 0.26);
+      }
+
+      .btn-secondary {
+        background: var(--accent-secondary);
+        color: #1f3612;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--color-ink-2);
+        border-color: var(--color-line-strong);
+      }
+
+      .demo-card {
+        display: grid;
+        gap: 16px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--color-line-strong);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .demo-card__header {
+        background: linear-gradient(140deg, rgba(47, 61, 56, 0.85), rgba(107, 189, 79, 0.75));
+        color: var(--color-accent-contrast);
+        padding: 32px;
+      }
+
+      .demo-card__body {
+        padding: 32px;
+        background: var(--color-surface);
+        color: var(--color-ink-2);
+      }
+
+      .token-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .token-table th,
+      .token-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--color-line-subtle);
+        text-align: left;
+      }
+
+      .token-table th {
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+      }
+
+      footer {
+        margin-top: 56px;
+        font-size: 14px;
+        color: var(--color-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="intro">
+        <h1>Mineral Verdant</h1>
+        <p>
+          Mineral Verdant mirrors Shihara Lab’s charcoal interiors with a seasonal jade accent. This demo
+          visualizes the token replacements so Tailwind-driven components inherit the refresh with minimal
+          override risk.
+        </p>
+      </div>
+
+      <section class="card">
+        <h2>Palette Anchors</h2>
+        <div class="swatch">
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-bg)"></div>
+            <div class="swatch-meta">
+              <span>--color-bg</span>
+              <span>#FCFDF7 · Page background</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-surface)"></div>
+            <div class="swatch-meta">
+              <span>--color-surface</span>
+              <span>#FFFFFF · Surface panels</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-ink)"></div>
+            <div class="swatch-meta">
+              <span>--color-ink</span>
+              <span>#111111 · Headline text</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-ink-2)"></div>
+            <div class="swatch-meta">
+              <span>--color-ink-2</span>
+              <span>#405346 · Body text</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--accent-secondary)"></div>
+            <div class="swatch-meta">
+              <span>--accent-secondary</span>
+              <span>#6BBD4F · Accent highlight</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--accent-muted)"></div>
+            <div class="swatch-meta">
+              <span>--accent-muted</span>
+              <span>#C7F79A · Soft badge/background</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" style="margin-top: 32px">
+        <div class="card">
+          <h2>Type &amp; Copy Sample</h2>
+          <p style="font-family: var(--font-serif); font-size: 28px; color: var(--color-ink)">
+            “Mineral depth, verdant lift.”
+          </p>
+          <p>
+            The primary button stays anchored in evergreen charcoal while secondary CTAs pick up seasonal jade
+            for energy. Muted green-grays keep typography relaxed yet accessible across light surfaces.
+          </p>
+          <div class="buttons">
+            <button class="btn btn-primary">Primary Action</button>
+            <button class="btn btn-secondary">Secondary Action</button>
+            <button class="btn btn-ghost">Ghost Action</button>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-card__header">
+            <p style="margin: 0; letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px">
+              Featured Piece
+            </p>
+            <h2 style="color: inherit">Verdant Column Necklace</h2>
+          </div>
+          <div class="demo-card__body">
+            <p>
+              Usage of <code>#6BBD4F</code> is limited to highlights and callouts, retaining the brand’s
+              minimalism while bringing freshness to seasonal drops.
+            </p>
+            <div class="buttons">
+              <button class="btn btn-primary" style="padding: 10px 22px">Add to Bag · ¥64,000</button>
+              <button class="btn btn-ghost" style="padding: 10px 22px">View Details</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top: 32px">
+        <h2>Token Mapping</h2>
+        <table class="token-table">
+          <thead>
+            <tr>
+              <th>Design Token</th>
+              <th>Value</th>
+              <th>Tailwind Utility Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>--color-bg</td>
+              <td>#FCFDF7</td>
+              <td><code>bg-surface-page</code>, app background</td>
+            </tr>
+            <tr>
+              <td>--color-ink</td>
+              <td>#111111</td>
+              <td><code>text-text-primary</code>, high contrast copy</td>
+            </tr>
+            <tr>
+              <td>--color-ink-2</td>
+              <td>#405346</td>
+              <td><code>text-body</code>, default body text</td>
+            </tr>
+            <tr>
+              <td>--color-muted</td>
+              <td>#95A99C</td>
+              <td><code>text-body-muted</code>, supporting text</td>
+            </tr>
+            <tr>
+              <td>--color-line-subtle</td>
+              <td>#E3F0E7</td>
+              <td><code>border-border-subtle</code>, soft dividers</td>
+            </tr>
+            <tr>
+              <td>--color-accent</td>
+              <td>#2F3D38</td>
+              <td><code>bg-accent-primary</code>, core CTAs, focus</td>
+            </tr>
+            <tr>
+              <td>--accent-secondary</td>
+              <td>#6BBD4F</td>
+              <td>Gradients, <code>--ja-accent-secondary</code></td>
+            </tr>
+            <tr>
+              <td>--accent-muted</td>
+              <td>#C7F79A</td>
+              <td>Muted highlights, promotional badges</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <footer>
+        Update gradient utilities to blend <code>#2F3D38 → #6BBD4F</code> and keep the focus halo derived from
+        <code>--color-accent</code> for consistency across components.
+      </footer>
+    </div>
+  </body>
+</html>

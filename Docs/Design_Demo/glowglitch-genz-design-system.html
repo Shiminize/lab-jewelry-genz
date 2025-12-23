@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowGlitch - Gen Z Design System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* CSS Variables for NEON DREAM Design System */
+        :root {
+            /* Primary Neon Colors */
+            --volt-glow: #00ff88;
+            --volt-500: #22c55e;
+            --cyber-pink: #ff00ff;
+            --cyber-500: #ec4899;
+            --holo-purple: #9945ff;
+            --holo-500: #8b5cf6;
+            --digital-blue: #00d4ff;
+            --digital-500: #0ea5e9;
+            --acid-yellow: #ffff00;
+            --acid-500: #eab308;
+            
+            /* Void Scale */
+            --void-50: #fafafa;
+            --void-100: #f5f5f5;
+            --void-200: #e5e5e5;
+            --void-300: #d4d4d4;
+            --void-400: #a3a3a3;
+            --void-500: #737373;
+            --void-600: #525252;
+            --void-700: #404040;
+            --void-800: #262626;
+            --void-900: #171717;
+            --void-950: #0a0a0a;
+            --void-black: #000000;
+            
+            /* Glass Effects */
+            --glass-white: rgba(255, 255, 255, 0.1);
+            --glass-light: rgba(255, 255, 255, 0.05);
+            --glass-dark: rgba(0, 0, 0, 0.2);
+            
+            /* Border Radius */
+            --radius-sharp: 0.125rem;
+            --radius-soft: 0.5rem;
+            --radius-round: 1rem;
+            --radius-ultra: 2rem;
+            --radius-pill: 9999px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--void-950);
+            color: white;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Typography System */
+        .text-mega {
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+        }
+        
+        .text-hero {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+        
+        .text-title-xl {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        .text-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        
+        .text-heading {
+            font-size: clamp(1.25rem, 3vw, 2rem);
+            line-height: 1.3;
+        }
+        
+        .text-body-xl {
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+        
+        .text-body {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .text-small {
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        .text-micro {
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+        
+        /* Custom animations */
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        
+        @keyframes neon-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        @keyframes holo-rotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        /* Gradient backgrounds */
+        .gradient-volt {
+            background: linear-gradient(135deg, var(--volt-glow) 0%, var(--digital-blue) 100%);
+        }
+        
+        .gradient-cyber {
+            background: linear-gradient(135deg, var(--cyber-pink) 0%, var(--digital-blue) 100%);
+        }
+        
+        .gradient-holo {
+            background: linear-gradient(135deg, var(--holo-purple) 0%, var(--cyber-pink) 50%, var(--digital-blue) 100%);
+            background-size: 200% 200%;
+            animation: gradient-shift 3s ease infinite;
+        }
+        
+        .gradient-acid {
+            background: linear-gradient(135deg, var(--acid-yellow) 0%, var(--volt-glow) 100%);
+        }
+        
+        .gradient-digital {
+            background: linear-gradient(135deg, var(--digital-blue) 0%, var(--holo-purple) 100%);
+        }
+        
+        /* Text gradients */
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+        
+        /* Glass morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Neon effects */
+        .neon-text {
+            text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+        }
+        
+        .shadow-neon-volt {
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+        
+        .shadow-neon-cyber {
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+        }
+        
+        .shadow-neon-holo {
+            box-shadow: 0 0 30px rgba(153, 69, 255, 0.5);
+        }
+        
+        .shadow-neon-digital {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+        
+        .shadow-neon-acid {
+            box-shadow: 0 0 30px rgba(255, 255, 0, 0.5);
+        }
+        
+        /* Utility classes */
+        .rounded-sharp { border-radius: var(--radius-sharp); }
+        .rounded-soft { border-radius: var(--radius-soft); }
+        .rounded-round { border-radius: var(--radius-round); }
+        .rounded-ultra { border-radius: var(--radius-ultra); }
+        .rounded-pill { border-radius: var(--radius-pill); }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-pulse {
+            animation: glow-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .animate-holo-rotate {
+            animation: holo-rotate 4s linear infinite;
+        }
+        
+        /* Layout utilities */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .grid {
+            display: grid;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            padding: 1rem 0;
+        }
+        
+        nav .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4rem;
+        }
+        
+        .nav-links {
+            display: none;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--volt-glow);
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--volt-glow) 0%, var(--digital-blue) 100%);
+            color: var(--void-950);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+            transform: scale(1.05);
+        }
+        
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Cards */
+        .card {
+            border-radius: var(--radius-ultra);
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+        }
+        
+        /* Product grid */
+        .product-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+        
+        .product-card {
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .product-image {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding-top: 5rem;
+            padding-bottom: 2rem;
+        }
+        
+        /* Form elements */
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-round);
+            color: white;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: var(--void-400);
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            border-color: var(--volt-glow);
+        }
+        
+        /* Responsive utilities */
+        @media (min-width: 640px) {
+            .sm-grid-2 { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (min-width: 768px) {
+            .md-grid-3 { grid-template-columns: repeat(3, 1fr); }
+            .md-grid-4 { grid-template-columns: repeat(4, 1fr); }
+        }
+        
+        @media (min-width: 1024px) {
+            .lg-grid-2 { grid-template-columns: repeat(2, 1fr); }
+            .lg-grid-3 { grid-template-columns: repeat(3, 1fr); }
+            .lg-grid-4 { grid-template-columns: repeat(4, 1fr); }
+        }
+        
+        /* Hide scrollbar but keep functionality */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="glass-dark">
+        <div class="container">
+            <div class="nav-container">
+                <div style="display: flex; align-items: center; gap: 2rem;">
+                    <a href="#home" class="text-heading gradient-holo gradient-text" style="font-weight: bold;">
+                        GLOWGLITCH
+                    </a>
+                    <div class="nav-links">
+                        <a href="#home">Home</a>
+                        <a href="#products">Shop</a>
+                        <a href="#customizer">3D Studio</a>
+                        <a href="#colors">Design System</a>
+                        <a href="#support">Support</a>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="btn btn-glass rounded-pill" style="padding: 0.5rem;">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </button>
+                    <button class="btn btn-glass rounded-pill" style="padding: 0.5rem;">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                        </svg>
+                    </button>
+                    <button class="btn btn-primary rounded-pill" style="font-weight: bold;">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <section id="home" style="position: relative; overflow: hidden; padding-top: 8rem;">
+        <!-- Background effects -->
+        <div style="position: absolute; inset: 0; opacity: 0.3; pointer-events: none;">
+            <div class="gradient-cyber animate-float" style="position: absolute; top: 5rem; left: 5rem; width: 24rem; height: 24rem; border-radius: 50%; filter: blur(100px);"></div>
+            <div class="gradient-volt animate-float" style="position: absolute; bottom: 5rem; right: 5rem; width: 24rem; height: 24rem; border-radius: 50%; filter: blur(100px); animation-delay: 3s;"></div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="container" style="position: relative; z-index: 10;">
+            <div style="text-align: center;">
+                <h1 class="text-mega" style="font-weight: bold; margin-bottom: 1.5rem;">
+                    <span class="gradient-holo gradient-text">
+                        DESIGN YOUR
+                    </span>
+                    <br>
+                    <span style="color: var(--volt-glow);" class="neon-text">
+                        FUTURE GEMS
+                    </span>
+                </h1>
+                <p class="text-body-xl" style="color: var(--void-300); margin-bottom: 2rem; max-width: 42rem; margin-left: auto; margin-right: auto;">
+                    Lab-grown diamonds & moissanite. Sustainable luxury. Unmatched customization. 
+                    This is jewelry for the digital generation.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 1rem; justify-content: center; align-items: center; margin-bottom: 5rem;">
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn btn-primary rounded-pill" style="padding: 1rem 2rem; font-size: 1.125rem;">
+                            Start Creating
+                        </button>
+                        <button class="btn btn-glass rounded-pill" style="padding: 1rem 2rem; font-size: 1.125rem;">
+                            Watch Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature Cards -->
+            <div class="grid md-grid-3" style="gap: 1.5rem;">
+                <div class="card glass">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">✨</div>
+                    <h3 class="text-body-xl" style="font-weight: bold; margin-bottom: 0.5rem;">3D Customization</h3>
+                    <p style="color: var(--void-400);">Design in real-time with our cutting-edge 3D studio</p>
+                </div>
+                <div class="card glass">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌱</div>
+                    <h3 class="text-body-xl" style="font-weight: bold; margin-bottom: 0.5rem;">100% Sustainable</h3>
+                    <p style="color: var(--void-400);">Lab-grown gems with zero environmental impact</p>
+                </div>
+                <div class="card glass">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">💎</div>
+                    <h3 class="text-body-xl" style="font-weight: bold; margin-bottom: 0.5rem;">Creator Rewards</h3>
+                    <p style="color: var(--void-400);">Earn 30% commission on every referral</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS PAGE -->
+    <section id="products">
+        <div class="container">
+            <div style="margin-bottom: 3rem;">
+                <h2 class="text-hero" style="font-weight: bold; margin-bottom: 1rem;">
+                    <span class="gradient-cyber gradient-text">Shop Collection</span>
+                </h2>
+                
+                <!-- Filter Pills -->
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem;">
+                    <button class="btn btn-primary rounded-pill">All</button>
+                    <button class="btn btn-glass rounded-pill">Rings</button>
+                    <button class="btn btn-glass rounded-pill">Necklaces</button>
+                    <button class="btn btn-glass rounded-pill">Earrings</button>
+                    <button class="btn btn-glass rounded-pill">Bracelets</button>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid">
+                <!-- Product Card 1 -->
+                <div class="product-card glass rounded-ultra">
+                    <div class="product-image">
+                        <div style="width: 100%; height: 100%; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <h3 style="font-weight: bold; font-size: 1.125rem; margin-bottom: 0.25rem;">Neon Dream Ring</h3>
+                        <p style="color: var(--void-400); font-size: 0.875rem; margin-bottom: 0.5rem;">Lab Diamond • 14k Gold</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--volt-glow); font-weight: bold; font-size: 1.25rem;">$1,299</span>
+                            <button class="btn gradient-volt rounded-pill" style="padding: 0.25rem 1rem; font-size: 0.875rem; color: var(--void-950);">
+                                Customize
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card glass rounded-ultra shadow-neon-cyber" style="opacity: 0.9;">
+                    <div class="product-image" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(14, 165, 233, 0.2));">
+                        <div style="width: 100%; height: 100%; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-soft);"></div>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <h3 style="font-weight: bold; font-size: 1.125rem; margin-bottom: 0.25rem;">Cyber Chain</h3>
+                        <p style="color: var(--void-400); font-size: 0.875rem; margin-bottom: 0.5rem;">Moissanite • Silver</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--cyber-pink); font-weight: bold; font-size: 1.25rem;">$499</span>
+                            <button class="btn gradient-cyber rounded-pill" style="padding: 0.25rem 1rem; font-size: 0.875rem; color: var(--void-950);">
+                                Customize
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card glass rounded-ultra">
+                    <div class="product-image" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(34, 197, 94, 0.2));">
+                        <div style="width: 6rem; height: 6rem; margin: auto; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <h3 style="font-weight: bold; font-size: 1.125rem; margin-bottom: 0.25rem;">Digital Drops</h3>
+                        <p style="color: var(--void-400); font-size: 0.875rem; margin-bottom: 0.5rem;">Lab Diamond • Platinum</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--digital-blue); font-weight: bold; font-size: 1.25rem;">$2,499</span>
+                            <button class="btn gradient-digital rounded-pill" style="padding: 0.25rem 1rem; font-size: 0.875rem; color: var(--void-950);">
+                                Customize
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card glass rounded-ultra">
+                    <div class="product-image" style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(34, 197, 94, 0.2));">
+                        <div style="width: 8rem; height: 4rem; margin: auto; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-soft);"></div>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <h3 style="font-weight: bold; font-size: 1.125rem; margin-bottom: 0.25rem;">Acid Wave Band</h3>
+                        <p style="color: var(--void-400); font-size: 0.875rem; margin-bottom: 0.5rem;">Moissanite • 14k Gold</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--acid-yellow); font-weight: bold; font-size: 1.25rem;">$899</span>
+                            <button class="btn gradient-acid rounded-pill" style="padding: 0.25rem 1rem; font-size: 0.875rem; color: var(--void-950);">
+                                Customize
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT DETAIL PAGE -->
+    <section id="product-detail">
+        <div class="container">
+            <div class="grid lg-grid-2" style="gap: 3rem;">
+                <!-- Product Images -->
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="glass rounded-ultra" style="padding: 2rem; aspect-ratio: 1;">
+                        <div class="gradient-holo animate-holo-rotate" style="width: 100%; height: 100%; border-radius: 50%; opacity: 0.3;"></div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                        <div class="glass rounded-round" style="padding: 1rem; aspect-ratio: 1; cursor: pointer;">
+                            <div style="width: 100%; height: 100%; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-soft);"></div>
+                        </div>
+                        <div class="glass rounded-round" style="padding: 1rem; aspect-ratio: 1; cursor: pointer;">
+                            <div style="width: 100%; height: 100%; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-soft);"></div>
+                        </div>
+                        <div class="glass rounded-round" style="padding: 1rem; aspect-ratio: 1; cursor: pointer;">
+                            <div style="width: 100%; height: 100%; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-soft);"></div>
+                        </div>
+                        <div class="glass rounded-round" style="padding: 1rem; aspect-ratio: 1; cursor: pointer;">
+                            <div style="width: 100%; height: 100%; background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-soft);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <span class="btn gradient-volt rounded-pill" style="padding: 0.25rem 0.75rem; font-size: 0.875rem; color: var(--void-950);">
+                            LIMITED DROP
+                        </span>
+                    </div>
+                    <h1 class="text-title-xl" style="font-weight: bold; margin-bottom: 1rem;">Holographic Dream Ring</h1>
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="color: var(--acid-yellow);">★★★★★</div>
+                        <span style="color: var(--void-400);">247 reviews</span>
+                    </div>
+                    
+                    <p style="color: var(--void-300); margin-bottom: 2rem;">
+                        The future of engagement rings. Features a stunning 2-carat lab-grown diamond 
+                        in our signature holographic setting. Each piece is custom-made to your exact 
+                        specifications using our revolutionary 3D design studio.
+                    </p>
+
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;">
+                        <!-- Material Selection -->
+                        <div>
+                            <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem;">Material</label>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
+                                <button class="glass rounded-round" style="padding: 0.75rem; text-align: center; cursor: pointer; border: none;">
+                                    <span style="display: block; font-weight: 600; color: white;">Silver</span>
+                                    <span style="font-size: 0.75rem; color: var(--void-400);">+$0</span>
+                                </button>
+                                <button class="gradient-volt rounded-round shadow-neon-volt" style="padding: 0.75rem; text-align: center; cursor: pointer; border: none;">
+                                    <span style="display: block; font-weight: 600; color: var(--void-950);">14k Gold</span>
+                                    <span style="font-size: 0.75rem; color: var(--void-950);">+$800</span>
+                                </button>
+                                <button class="glass rounded-round" style="padding: 0.75rem; text-align: center; cursor: pointer; border: none;">
+                                    <span style="display: block; font-weight: 600; color: white;">Platinum</span>
+                                    <span style="font-size: 0.75rem; color: var(--void-400);">+$1,200</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Stone Selection -->
+                        <div>
+                            <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem;">Stone</label>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+                                <button class="gradient-cyber rounded-round shadow-neon-cyber" style="padding: 0.75rem; text-align: center; cursor: pointer; border: none;">
+                                    <span style="display: block; font-weight: 600; color: var(--void-950);">Lab Diamond</span>
+                                    <span style="font-size: 0.75rem; color: var(--void-950);">2.0 Carat</span>
+                                </button>
+                                <button class="glass rounded-round" style="padding: 0.75rem; text-align: center; cursor: pointer; border: none;">
+                                    <span style="display: block; font-weight: 600; color: white;">Moissanite</span>
+                                    <span style="font-size: 0.75rem; color: var(--void-400);">2.0 Carat</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Size Selection -->
+                        <div>
+                            <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem;">Ring Size</label>
+                            <select class="glass rounded-round" style="width: 100%; padding: 0.75rem; background: transparent; color: white;">
+                                <option value="">Select Size</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+                        <div>
+                            <span style="font-size: 1.875rem; font-weight: bold; color: var(--volt-glow);">$2,999</span>
+                            <span style="color: var(--void-400); text-decoration: line-through; margin-left: 0.5rem;">$5,999</span>
+                        </div>
+                        <span style="color: var(--cyber-pink); font-weight: 600;">Save 50%</span>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn gradient-holo rounded-pill" style="flex: 1; padding: 1rem; font-weight: bold; color: white;">
+                            Add to Cart
+                        </button>
+                        <button class="btn btn-glass rounded-pill" style="padding: 1rem;">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D CUSTOMIZER PAGE -->
+    <section id="customizer">
+        <div class="container">
+            <h2 class="text-hero" style="font-weight: bold; margin-bottom: 2rem;">
+                <span class="gradient-volt gradient-text">3D Design Studio</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                <!-- 3D Viewer -->
+                <div>
+                    <div class="glass rounded-ultra" style="padding: 2rem; aspect-ratio: 1; position: relative;">
+                        <div style="position: absolute; top: 1rem; right: 1rem; display: flex; gap: 0.5rem;">
+                            <button class="glass rounded-soft" style="padding: 0.5rem; border: none; cursor: pointer; color: white;">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                </svg>
+                            </button>
+                            <button class="glass rounded-soft" style="padding: 0.5rem; border: none; cursor: pointer; color: white;">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                                </svg>
+                            </button>
+                            <button class="glass rounded-soft" style="padding: 0.5rem; border: none; cursor: pointer; color: white;">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            <div class="gradient-holo animate-holo-rotate" style="width: 16rem; height: 16rem; border-radius: 50%; opacity: 0.5;"></div>
+                        </div>
+                        
+                        <div style="position: absolute; bottom: 1rem; left: 1rem; right: 1rem;">
+                            <div class="glass rounded-pill" style="padding: 0.5rem 1rem; display: flex; justify-content: space-between;">
+                                <span style="font-size: 0.875rem;">360° View</span>
+                                <span style="font-size: 0.75rem; color: var(--void-400);">Click & Drag to Rotate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customization Panel -->
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <!-- Style Selection -->
+                    <div class="glass rounded-ultra" style="padding: 1.5rem;">
+                        <h3 style="font-weight: bold; margin-bottom: 1rem;">Choose Style</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+                            <button class="gradient-volt rounded-round" style="padding: 0.75rem; border: none; cursor: pointer;">
+                                <span style="font-size: 0.875rem; font-weight: 600; color: var(--void-950);">Solitaire</span>
+                            </button>
+                            <button class="glass rounded-round" style="padding: 0.75rem; border: none; cursor: pointer;">
+                                <span style="font-size: 0.875rem; color: white;">Halo</span>
+                            </button>
+                            <button class="glass rounded-round" style="padding: 0.75rem; border: none; cursor: pointer;">
+                                <span style="font-size: 0.875rem; color: white;">Three Stone</span>
+                            </button>
+                            <button class="glass rounded-round" style="padding: 0.75rem; border: none; cursor: pointer;">
+                                <span style="font-size: 0.875rem; color: white;">Vintage</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Metal Selection -->
+                    <div class="glass rounded-ultra" style="padding: 1.5rem;">
+                        <h3 style="font-weight: bold; margin-bottom: 1rem;">Select Metal</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <label class="glass rounded-round" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; cursor: pointer;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <div style="width: 1.5rem; height: 1.5rem; background: #c0c0c0; border-radius: 50%;"></div>
+                                    <span>Sterling Silver</span>
+                                </div>
+                                <span style="color: var(--volt-glow); font-weight: 600;">$399</span>
+                            </label>
+                            <label class="gradient-volt rounded-round" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; cursor: pointer;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <div style="width: 1.5rem; height: 1.5rem; background: #ffd700; border-radius: 50%;"></div>
+                                    <span style="font-weight: 600; color: var(--void-950);">14k Gold</span>
+                                </div>
+                                <span style="font-weight: bold; color: var(--void-950);">$1,199</span>
+                            </label>
+                            <label class="glass rounded-round" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; cursor: pointer;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <div style="width: 1.5rem; height: 1.5rem; background: #e5e4e2; border-radius: 50%;"></div>
+                                    <span>Platinum</span>
+                                </div>
+                                <span style="color: var(--void-400);">$1,599</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Stone Details -->
+                    <div class="glass rounded-ultra" style="padding: 1.5rem;">
+                        <h3 style="font-weight: bold; margin-bottom: 1rem;">Customize Stone</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div>
+                                <label style="font-size: 0.875rem; color: var(--void-400); margin-bottom: 0.5rem; display: block;">Carat Weight</label>
+                                <input type="range" min="0.5" max="3" step="0.1" value="1.5" style="width: 100%;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-top: 0.25rem;">
+                                    <span>0.5ct</span>
+                                    <span style="color: var(--volt-glow); font-weight: 600;">1.5ct</span>
+                                    <span>3.0ct</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label style="font-size: 0.875rem; color: var(--void-400); margin-bottom: 0.5rem; display: block;">Color Grade</label>
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
+                                    <button class="glass rounded-soft" style="padding: 0.5rem; font-size: 0.875rem; border: none; color: white; cursor: pointer;">D</button>
+                                    <button class="gradient-volt rounded-soft" style="padding: 0.5rem; font-size: 0.875rem; font-weight: 600; border: none; color: var(--void-950); cursor: pointer;">E</button>
+                                    <button class="glass rounded-soft" style="padding: 0.5rem; font-size: 0.875rem; border: none; color: white; cursor: pointer;">F</button>
+                                    <button class="glass rounded-soft" style="padding: 0.5rem; font-size: 0.875rem; border: none; color: white; cursor: pointer;">G</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <button class="btn gradient-holo rounded-pill" style="width: 100%; padding: 0.75rem; font-weight: bold; color: white;">
+                            Save Design
+                        </button>
+                        <button class="btn btn-glass rounded-pill" style="width: 100%; padding: 0.75rem; font-weight: 600;">
+                            Share Creation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SUPPORT PAGE -->
+    <section id="support">
+        <div class="container">
+            <h2 class="text-hero" style="font-weight: bold; margin-bottom: 1rem;">
+                <span class="gradient-digital gradient-text">How Can We Help?</span>
+            </h2>
+            <p class="text-body-xl" style="color: var(--void-300); margin-bottom: 3rem; max-width: 42rem;">
+                Get instant answers or connect with our jewelry experts
+            </p>
+
+            <!-- Quick Actions -->
+            <div class="grid md-grid-4" style="gap: 1.5rem; margin-bottom: 3rem;">
+                <button class="glass rounded-ultra card" style="padding: 1.5rem; text-align: left; border: none; cursor: pointer;">
+                    <div style="font-size: 1.875rem; margin-bottom: 0.75rem;">💬</div>
+                    <h3 style="font-weight: bold; margin-bottom: 0.25rem; color: white;">Live Chat</h3>
+                    <p style="font-size: 0.875rem; color: var(--void-400);">Chat with an expert now</p>
+                </button>
+                <button class="glass rounded-ultra card" style="padding: 1.5rem; text-align: left; border: none; cursor: pointer;">
+                    <div style="font-size: 1.875rem; margin-bottom: 0.75rem;">📧</div>
+                    <h3 style="font-weight: bold; margin-bottom: 0.25rem; color: white;">Email Support</h3>
+                    <p style="font-size: 0.875rem; color: var(--void-400);">Response within 2 hours</p>
+                </button>
+                <button class="glass rounded-ultra card" style="padding: 1.5rem; text-align: left; border: none; cursor: pointer;">
+                    <div style="font-size: 1.875rem; margin-bottom: 0.75rem;">📱</div>
+                    <h3 style="font-weight: bold; margin-bottom: 0.25rem; color: white;">Call Us</h3>
+                    <p style="font-size: 0.875rem; color: var(--void-400);">Mon-Fri 9AM-6PM EST</p>
+                </button>
+                <button class="glass rounded-ultra card" style="padding: 1.5rem; text-align: left; border: none; cursor: pointer;">
+                    <div style="font-size: 1.875rem; margin-bottom: 0.75rem;">📖</div>
+                    <h3 style="font-weight: bold; margin-bottom: 0.25rem; color: white;">Help Center</h3>
+                    <p style="font-size: 0.875rem; color: var(--void-400);">Browse FAQs & guides</p>
+                </button>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="grid lg-grid-2" style="gap: 2rem;">
+                <div>
+                    <h3 class="text-heading" style="font-weight: bold; margin-bottom: 1.5rem;">Frequently Asked</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <details class="glass rounded-round" style="padding: 1rem; cursor: pointer;">
+                            <summary style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+                                What's the difference between lab-grown and mined diamonds?
+                                <span style="color: var(--volt-glow);">+</span>
+                            </summary>
+                            <p style="margin-top: 0.75rem; color: var(--void-300);">
+                                Lab-grown diamonds are chemically, physically, and optically identical to mined diamonds. 
+                                The only difference is origin - ours are created sustainably in a lab with zero environmental impact.
+                            </p>
+                        </details>
+                        <details class="glass rounded-round" style="padding: 1rem; cursor: pointer;">
+                            <summary style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+                                How does the 3D customizer work?
+                                <span style="color: var(--volt-glow);">+</span>
+                            </summary>
+                            <p style="margin-top: 0.75rem; color: var(--void-300);">
+                                Our revolutionary 3D studio lets you design jewelry in real-time. Choose your style, metal, 
+                                and stone, then watch your creation come to life instantly. Every design can be saved and shared.
+                            </p>
+                        </details>
+                        <details class="glass rounded-round" style="padding: 1rem; cursor: pointer;">
+                            <summary style="font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+                                What's the creator program?
+                                <span style="color: var(--volt-glow);">+</span>
+                            </summary>
+                            <p style="margin-top: 0.75rem; color: var(--void-300);">
+                                Earn 30% commission on every sale you refer! Join our creator community, get exclusive access 
+                                to new drops, and build your jewelry business with zero upfront costs.
+                            </p>
+                        </details>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-heading" style="font-weight: bold; margin-bottom: 1.5rem;">Contact Us</h3>
+                    <form style="display: flex; flex-direction: column; gap: 1rem;">
+                        <input type="text" placeholder="Your Name" class="glass rounded-round">
+                        <input type="email" placeholder="Email Address" class="glass rounded-round">
+                        <select class="glass rounded-round" style="color: var(--void-400);">
+                            <option>Select Topic</option>
+                            <option>Order Status</option>
+                            <option>Customization Help</option>
+                            <option>Returns & Exchanges</option>
+                            <option>Creator Program</option>
+                        </select>
+                        <textarea placeholder="How can we help?" rows="4" class="glass rounded-round"></textarea>
+                        <button type="submit" class="btn gradient-volt rounded-pill" style="width: 100%; padding: 0.75rem; font-weight: bold; color: var(--void-950);">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLOR SYSTEM DOCUMENTATION -->
+    <section id="colors" style="padding-bottom: 5rem;">
+        <div class="container">
+            <h2 class="text-hero" style="font-weight: bold; margin-bottom: 1rem;">
+                <span class="gradient-acid gradient-text">NEON DREAM Design System</span>
+            </h2>
+            <p class="text-body-xl" style="color: var(--void-300); margin-bottom: 3rem; max-width: 48rem;">
+                A Gen Z-focused design language that breaks traditional luxury conventions. Bold, authentic, and unapologetically digital.
+            </p>
+
+            <!-- Core Philosophy -->
+            <div class="glass rounded-ultra" style="padding: 2rem; margin-bottom: 3rem;">
+                <h3 class="text-heading" style="font-weight: bold; margin-bottom: 1rem;">Design Philosophy</h3>
+                <div class="grid md-grid-3" style="gap: 1.5rem;">
+                    <div>
+                        <h4 style="font-weight: bold; color: var(--volt-glow); margin-bottom: 0.5rem;">Digital Native</h4>
+                        <p style="color: var(--void-300);">Designed for screens first. High contrast, bold colors, and effects that pop on mobile.</p>
+                    </div>
+                    <div>
+                        <h4 style="font-weight: bold; color: var(--cyber-pink); margin-bottom: 0.5rem;">Authentically Gen Z</h4>
+                        <p style="color: var(--void-300);">No corporate polish. Raw, real, and ready for TikTok. This is luxury without the stuffiness.</p>
+                    </div>
+                    <div>
+                        <h4 style="font-weight: bold; color: var(--digital-blue); margin-bottom: 0.5rem;">Sustainable Flex</h4>
+                        <p style="color: var(--void-300);">Eco-conscious isn't boring. Make sustainability the coolest choice in the room.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Palette -->
+            <div style="margin-bottom: 3rem;">
+                <h3 class="text-heading" style="font-weight: bold; margin-bottom: 1.5rem;">Color System</h3>
+                
+                <!-- Primary Colors -->
+                <div class="glass rounded-ultra" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <h4 style="font-weight: bold; margin-bottom: 1rem;">Primary Palette - Neon Energy</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                        <div>
+                            <div class="gradient-volt rounded-round" style="height: 6rem; margin-bottom: 0.5rem;"></div>
+                            <p style="font-weight: bold;">Volt Green</p>
+                            <p style="font-size: 0.875rem; color: var(--void-400);">#00ff88</p>
+                            <p style="font-size: 0.75rem; color: var(--void-500); margin-top: 0.25rem;">Primary CTA, Success</p>
+                        </div>
+                        <div>
+                            <div class="gradient-cyber rounded-round" style="height: 6rem; margin-bottom: 0.5rem;"></div>
+                            <p style="font-weight: bold;">Cyber Pink</p>
+                            <p style="font-size: 0.875rem; color: var(--void-400);">#ff00ff</p>
+                            <p style="font-size: 0.75rem; color: var(--void-500); margin-top: 0.25rem;">Accent, Highlight</p>
+                        </div>
+                        <div>
+                            <div class="gradient-holo rounded-round" style="height: 6rem; margin-bottom: 0.5rem;"></div>
+                            <p style="font-weight: bold;">Holo Purple</p>
+                            <p style="font-size: 0.875rem; color: var(--void-400);">#9945ff</p>
+                            <p style="font-size: 0.75rem; color: var(--void-500); margin-top: 0.25rem;">Premium, Special</p>
+                        </div>
+                        <div>
+                            <div class="gradient-digital rounded-round" style="height: 6rem; margin-bottom: 0.5rem;"></div>
+                            <p style="font-weight: bold;">Digital Blue</p>
+                            <p style="font-size: 0.875rem; color: var(--void-400);">#00d4ff</p>
+                            <p style="font-size: 0.75rem; color: var(--void-500); margin-top: 0.25rem;">Info, Links</p>
+                        </div>
+                        <div>
+                            <div class="gradient-acid rounded-round" style="height: 6rem; margin-bottom: 0.5rem;"></div>
+                            <p style="font-weight: bold;">Acid Yellow</p>
+                            <p style="font-size: 0.875rem; color: var(--void-400);">#ffff00</p>
+                            <p style="font-size: 0.75rem; color: var(--void-500); margin-top: 0.25rem;">Warning, New</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neutral Colors -->
+                <div class="glass rounded-ultra" style="padding: 1.5rem;">
+                    <h4 style="font-weight: bold; margin-bottom: 1rem;">Void Scale - Dark Mode First</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem;">
+                        <div>
+                            <div style="height: 4rem; background: var(--void-50); border-radius: var(--radius-round); margin-bottom: 0.5rem;"></div>
+                            <p style="font-size: 0.875rem; font-weight: 600;">Void 50</p>
+                            <p style="font-size: 0.75rem; color: var(--void-400);">#fafafa</p>
+                        </div>
+                        <div>
+                            <div style="height: 4rem; background: var(--void-200); border-radius: var(--radius-round); margin-bottom: 0.5rem;"></div>
+                            <p style="font-size: 0.875rem; font-weight: 600;">Void 200</p>
+                            <p style="font-size: 0.75rem; color: var(--void-400);">#e5e5e5</p>
+                        </div>
+                        <div>
+                            <div style="height: 4rem; background: var(--void-400); border-radius: var(--radius-round); margin-bottom: 0.5rem;"></div>
+                            <p style="font-size: 0.875rem; font-weight: 600;">Void 400</p>
+                            <p style="font-size: 0.75rem; color: var(--void-400);">#a3a3a3</p>
+                        </div>
+                        <div>
+                            <div style="height: 4rem; background: var(--void-600); border-radius: var(--radius-round); margin-bottom: 0.5rem;"></div>
+                            <p style="font-size: 0.875rem; font-weight: 600;">Void 600</p>
+                            <p style="font-size: 0.75rem; color: var(--void-400);">#525252</p>
+                        </div>
+                        <div>
+                            <div style="height: 4rem; background: var(--void-800); border-radius: var(--radius-round); margin-bottom: 0.5rem;"></div>
+                            <p style="font-size: 0.875rem; font-weight: 600;">Void 800</p>
+                            <p style="font-size: 0.75rem; color: var(--void-400);">#262626</p>
+                        </div>
+                        <div>
+                            <div style="height: 4rem; background: var(--void-950); border-radius: var(--radius-round); margin-bottom: 0.5rem;"></div>
+                            <p style="font-size: 0.875rem; font-weight: 600;">Void 950</p>
+                            <p style="font-size: 0.75rem; color: var(--void-400);">#0a0a0a</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typography System -->
+            <div style="margin-bottom: 3rem;">
+                <h3 class="text-heading" style="font-weight: bold; margin-bottom: 1.5rem;">Typography System</h3>
+                <div class="glass rounded-ultra" style="padding: 1.5rem;">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div>
+                            <p style="font-size: 0.75rem; color: var(--void-400); margin-bottom: 0.5rem;">text-mega</p>
+                            <p class="text-mega" style="font-weight: bold; line-height: 0.9;">MAKE IT LOUD</p>
+                            <p style="font-size: 0.875rem; color: var(--void-400); margin-top: 0.5rem;">clamp(3.5rem, 10vw, 7rem) - Hero statements</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.75rem; color: var(--void-400); margin-bottom: 0.5rem;">text-hero</p>
+                            <p class="text-hero" style="font-weight: bold;">Stand Out</p>
+                            <p style="font-size: 0.875rem; color: var(--void-400); margin-top: 0.5rem;">clamp(2.5rem, 7vw, 5rem) - Page headers</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.75rem; color: var(--void-400); margin-bottom: 0.5rem;">text-title-xl</p>
+                            <p class="text-title-xl" style="font-weight: bold;">Bold Statement</p>
+                            <p style="font-size: 0.875rem; color: var(--void-400); margin-top: 0.5rem;">clamp(2rem, 5vw, 3.5rem) - Section headers</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.75rem; color: var(--void-400); margin-bottom: 0.5rem;">text-body</p>
+                            <p class="text-body">This is the standard body text used for paragraphs and general content. It's optimized for readability on all devices.</p>
+                            <p style="font-size: 0.875rem; color: var(--void-400); margin-top: 0.5rem;">1rem - Body content</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implementation Guide -->
+            <div>
+                <h3 class="text-heading" style="font-weight: bold; margin-bottom: 1.5rem;">CSS Implementation Guide</h3>
+                <div class="glass rounded-ultra" style="padding: 1.5rem;">
+                    <pre style="font-size: 0.875rem; color: var(--void-300); overflow-x: auto; white-space: pre-wrap;"><code>/* CSS Variables for NEON DREAM Design System */
+:root {
+  /* Primary Neon Colors */
+  --volt-glow: #00ff88;
+  --cyber-pink: #ff00ff;
+  --holo-purple: #9945ff;
+  --digital-blue: #00d4ff;
+  --acid-yellow: #ffff00;
+  
+  /* Void Scale (Dark Mode First) */
+  --void-950: #0a0a0a;
+  --void-800: #262626;
+  --void-600: #525252;
+  --void-400: #a3a3a3;
+  --void-200: #e5e5e5;
+  --void-50: #fafafa;
+  
+  /* Border Radius */
+  --radius-sharp: 0.125rem;
+  --radius-soft: 0.5rem;
+  --radius-round: 1rem;
+  --radius-ultra: 2rem;
+  --radius-pill: 9999px;
+}
+
+/* Gradients */
+.gradient-volt {
+  background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+}
+
+.gradient-cyber {
+  background: linear-gradient(135deg, #ff00ff 0%, #00d4ff 100%);
+}
+
+.gradient-holo {
+  background: linear-gradient(135deg, #9945ff 0%, #ff00ff 50%, #00d4ff 100%);
+}
+
+/* Glass Morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Neon Shadows */
+.shadow-neon-volt {
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+}
+
+/* Typography */
+.text-mega {
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  line-height: 0.9;
+}
+
+.text-hero {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: 1;
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-dark" style="padding: 3rem 0; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <div class="container">
+            <div style="text-align: center;">
+                <p class="gradient-holo gradient-text text-heading" style="font-weight: bold; margin-bottom: 1rem;">GLOWGLITCH</p>
+                <p style="color: var(--void-400);">The future of jewelry is here.</p>
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem;">
+                    <a href="#" style="color: var(--void-400); text-decoration: none; transition: color 0.3s;">Instagram</a>
+                    <a href="#" style="color: var(--void-400); text-decoration: none; transition: color 0.3s;">TikTok</a>
+                    <a href="#" style="color: var(--void-400); text-decoration: none; transition: color 0.3s;">Discord</a>
+                    <a href="#" style="color: var(--void-400); text-decoration: none; transition: color 0.3s;">Twitter</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

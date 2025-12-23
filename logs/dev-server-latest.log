@@ -1,0 +1,17 @@
+
+> glowglitch-frontend@0.1.0 dev:test
+> PORT=3001 node --expose-gc server.js
+
+ ⚠ Disabling SWC Minifer will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+ ⚠ Found lockfile missing swc dependencies, patching...
+📁 Job persistence directory ready: /tmp/3d-generation/job-persistence
+⚠️ REDIS_URL not set. Proceeding without Redis; falling back to in-memory operations.
+🚀 Server ready on http://127.0.0.1:3001
+🔌 WebSocket server ready for real-time updates
+ ⚠ Lockfile was successfully patched, please run "npm install" to ensure @next/swc dependencies are downloaded
+ ○ Compiling / ...
+ ✓ Compiled / in 1418ms (646 modules)
+ GET / 200 in 2960ms
+ ✓ Compiled /_not-found in 396ms (649 modules)
+ ✓ Compiled /api/ai/deepseek/chat in 268ms (473 modules)
+ POST /api/ai/deepseek/chat 500 in 31754ms

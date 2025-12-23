@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "design-ideas",
+    "label": "Design ideas",
+    "filters": {
+      "featured": true,
+      "readyToShip": true,
+      "limit": 20
+    }
+  },
+  {
+    "slug": "gifts-under-300",
+    "label": "Gifts under $300",
+    "filters": {
+      "priceLt": 300,
+      "readyToShip": true,
+      "featured": true,
+      "limit": 20
+    }
+  },
+  {
+    "slug": "ready-to-ship",
+    "label": "Ready to ship",
+    "filters": {
+      "readyToShip": true,
+      "featured": true,
+      "limit": 20
+    }
+  }
+]

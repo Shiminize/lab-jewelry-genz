@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GlowGlitch — Discover Concierge Template</title>
+    <style>
+      :root {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --bg: #010109;
+        --panel: rgba(12, 11, 24, 0.92);
+        --border: rgba(255, 255, 255, 0.1);
+        --text: #f6f6fb;
+        --muted: rgba(246, 246, 251, 0.65);
+        --accent-coral: #ff8c73;
+        --accent-sky: #8dd1ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(20, 20, 60, 0.6), var(--bg) 70%);
+        color: var(--text);
+      }
+      .SectionContainer {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      section {
+        padding: 4rem 0;
+      }
+      .eyebrow {
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+      }
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+      }
+      p {
+        margin: 0;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      .Button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 0.8rem 1.6rem;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .Button--accent {
+        background: var(--accent-coral);
+        color: #050505;
+      }
+      .Button--ghost {
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: var(--text);
+      }
+      .surface {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        padding: 1.75rem;
+      }
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .grid.cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .grid.cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .grid.cols-4 {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+      .nav-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .nav-pill {
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        padding: 0.5rem 1.2rem;
+        font-size: 0.85rem;
+        text-decoration: none;
+        color: var(--text);
+      }
+      details {
+        border-top: 1px solid var(--border);
+        padding: 1rem 0;
+      }
+      summary {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="SectionContainer" style="display: grid; gap: 2rem; align-items: flex-start; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr))">
+        <div style="display: flex; flex-direction: column; gap: 1rem">
+          <p class="eyebrow" style="color: var(--accent-coral)">Discover GlowGlitch</p>
+          <h1 style="font-size: clamp(2.2rem, 4vw, 3.4rem)">Studio story + concierge system</h1>
+          <p>
+            We mirrored the Support Hub layout: hero intro, concierge contact, nav pills, and a modular panel stack. This keeps Discover and Support visually siblings.
+          </p>
+          <div class="nav-pills">
+            <a class="nav-pill" href="#story">Story</a>
+            <a class="nav-pill" href="#creator">Creator</a>
+            <a class="nav-pill" href="#ethics">Ethics</a>
+            <a class="nav-pill" href="#concierge">Concierge</a>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap">
+            <a class="Button Button--accent" href="#story">Explore atlas</a>
+            <a class="Button Button--ghost" href="/collections">Browse capsules</a>
+          </div>
+        </div>
+        <div class="surface" style="background: linear-gradient(140deg, rgba(255,140,115,0.18), rgba(141,209,255,0.18));">
+          <p class="eyebrow" style="color: var(--accent-sky)">Concierge highlight</p>
+          <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem">Under 2 hour replies</h3>
+          <p>GlowGlitch Concierge pairs each creator with a stylist for renders, fittings, and drop planning.</p>
+          <a class="Button Button--ghost" style="margin-top: 1rem" href="mailto:concierge@glowglitch.com">Email concierge →</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="SectionContainer surface">
+        <h2 id="story" style="margin-bottom: 1rem">Story timeline</h2>
+        <div class="grid cols-3">
+          <article>
+            <p class="eyebrow" style="color: var(--muted)">Phase 01</p>
+            <h3>Concept spark</h3>
+            <p>Founders prototype GlowGlitch with recycled metals and carbon-neutral stones.</p>
+          </article>
+          <article>
+            <p class="eyebrow" style="color: var(--muted)">Phase 02</p>
+            <h3>Creator era</h3>
+            <p>Dedicated concierge pods keep approvals, fittings, and render swaps under 48 hours.</p>
+          </article>
+          <article>
+            <p class="eyebrow" style="color: var(--muted)">Phase 03</p>
+            <h3>Aurora hub</h3>
+            <p>Preset bases, AR try-on, and Journal briefs merge inside the custom workflow.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="SectionContainer grid cols-2">
+        <article class="surface" id="ethics">
+          <p class="eyebrow" style="color: var(--accent-coral)">Ethics & Impact</p>
+          <h3>Planet-positive ops</h3>
+          <p>Recycled metals, traceable lab-grown stones, closed-loop water, and Solar/Hydro-powered labs.</p>
+          <ul>
+            <li>Traceable lab-grown stones + recycled gold.</li>
+            <li>Closed-loop water + renewable power.</li>
+            <li>Creator partnerships documented in the Journal.</li>
+          </ul>
+        </article>
+        <article class="surface" id="creator">
+          <p class="eyebrow" style="color: var(--accent-sky)">Creator community</p>
+          <h3>Commission tiers</h3>
+          <p>Program perks modeled after Support Hub cards—visitors understand they get concierge help instantly.</p>
+          <a class="Button Button--accent" href="/creators#apply" style="margin-top: 1.2rem">Join the program</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="concierge">
+      <div class="SectionContainer surface">
+        <h3>Studio FAQ</h3>
+        <details open>
+          <summary>Where do I explore the customizer?<span>+</span></summary>
+          <p>Head to /custom for the Aurora walkthrough or launch /customizer for live editing.</p>
+        </details>
+        <details>
+          <summary>How do sustainability credentials work?<span>+</span></summary>
+          <p>Impact stats live on /discover and the Journal’s Tech & Materials articles.</p>
+        </details>
+        <details>
+          <summary>Can I talk to the concierge before ordering?<span>+</span></summary>
+          <p>Yes—email concierge@glowglitch.com or book a call for fittings and timelines.</p>
+        </details>
+      </div>
+    </section>
+  </body>
+</html>

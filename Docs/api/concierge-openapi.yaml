@@ -1,0 +1,1068 @@
+openapi: 3.1.0
+info:
+  title: Aurora Concierge API
+  version: 1.0.0
+  description: |
+    Backend services powering the Aurora Concierge widget, analytics, and dashboards.
+    All endpoints require bearer authentication using `CONCIERGE_API_KEY`.
+servers:
+  - url: https://api.glowglitch.com
+    description: Production
+  - url: https://staging.api.glowglitch.com
+    description: Staging
+security:
+  - ConciergeApiKey: []
+tags:
+  - name: Concierge Products
+  - name: Concierge Orders
+  - name: Concierge Returns
+  # Capsule removed (recommendation-only)
+  - name: Concierge Stylist
+  - name: Analytics
+  - name: Concierge Shortlist
+  # Inspiration removed (recommendation-only)
+  - name: Concierge Notifications
+components:
+  securitySchemes:
+    ConciergeApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    XRequestId:
+      name: x-request-id
+      in: header
+      required: false
+      description: Optional caller-supplied request identifier. Echoed in responses.
+      schema:
+        type: string
+    XApiVersion:
+      name: x-api-version
+      in: header
+      required: false
+      description: Optional API version (e.g., `v1`). Defaults to current GA version.
+      schema:
+        type: string
+        pattern: '^v[0-9]+$'
+    XIdempotencyKey:
+      name: x-idempotency-key
+      in: header
+      required: false
+      description: Required for idempotent create/update calls (returns). Minimum 8 characters.
+      schema:
+        type: string
+        minLength: 8
+  responses:
+    UnauthorizedError:
+      description: Authentication required or invalid API key.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          examples:
+            missingKey:
+              summary: Missing header
+              value:
+                code: auth.missing
+                message: Authentication credentials were not provided.
+                requestId: req_unauth001
+    ForbiddenError:
+      description: API key lacks permission.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          examples:
+            forbidden:
+              summary: Invalid scope
+              value:
+                code: auth.forbidden
+                message: API key lacks required scope for this endpoint.
+                requestId: req_forbidden001
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        x-ratelimit-limit:
+          schema: { type: integer }
+        x-ratelimit-remaining:
+          schema: { type: integer }
+        x-ratelimit-reset:
+          schema: { type: integer }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          examples:
+            limitReached:
+              summary: Too many requests
+              value:
+                code: rate.limit
+                message: Too many requests. Try again later.
+                requestId: req_rl001
+    ServerError:
+      description: Unexpected server error.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          examples:
+            generic:
+              summary: Generic failure
+              value:
+                code: server.error
+                message: An unexpected error occurred.
+                requestId: req_err001
+  schemas:
+    PaginationCursor:
+      type: string
+      pattern: '^[A-Za-z0-9+/=_-]{10,}$'
+    ProductFilterRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        category:
+          type: string
+          description: Product category (TODO confirm final taxonomy).
+        priceMin:
+          type: number
+          format: float
+          minimum: 0
+        priceMax:
+          type: number
+          format: float
+          minimum: 0
+        readyToShip:
+          type: boolean
+        metal:
+          type: string
+          description: Metal/material preference (e.g., `14k_yellow`, `platinum`).
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 25
+          default: 6
+        cursor:
+          $ref: '#/components/schemas/PaginationCursor'
+      required:
+        - sessionId
+    ProductCard:
+      type: object
+      properties:
+        productId:
+          type: string
+        slug:
+          type: string
+        name:
+          type: string
+        specLine:
+          type: string
+          description: Short supporting line (materials/gemstones) for widget card.
+        price:
+          type: number
+          minimum: 0
+        currency:
+          type: string
+          default: USD
+        heroImage:
+          type: string
+          format: uri
+        tags:
+          type: array
+          items:
+            type: string
+        readyToShip:
+          type: boolean
+        metal:
+          type: string
+        shippingPromise:
+          type: string
+        badges:
+          type: array
+          items:
+            type: string
+      required:
+        - productId
+        - name
+        - price
+        - currency
+    ProductListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCard'
+        nextCursor:
+          $ref: '#/components/schemas/PaginationCursor'
+        requestId:
+          type: string
+      required:
+        - data
+        - requestId
+    OrderStatusRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        orderNumber:
+          type: string
+        email:
+          type: string
+          format: email
+        postalCode:
+          type: string
+          minLength: 3
+          maxLength: 16
+      required:
+        - sessionId
+      oneOf:
+        - required: [orderNumber]
+        - required: [email, postalCode]
+    OrderTimelineEvent:
+      type: object
+      properties:
+        label:
+          type: string
+        status:
+          type: string
+          enum: [created, processing, shipped, delivered, delayed, cancelled]
+        timestamp:
+          type: string
+          format: date-time
+        isCurrent:
+          type: boolean
+          default: false
+      required:
+        - label
+        - status
+    ShippingInfo:
+      type: object
+      properties:
+        carrier:
+          type: string
+        service:
+          type: string
+        trackingNumber:
+          type: string
+        trackingUrl:
+          type: string
+          format: uri
+        estimatedDelivery:
+          type: string
+          format: date-time
+        deliveredAt:
+          type: string
+          format: date-time
+    OrderStatusResponse:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+        timeline:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderTimelineEvent'
+        currentStatus:
+          type: string
+        shipping:
+          $ref: '#/components/schemas/ShippingInfo'
+        requestId:
+          type: string
+      required:
+        - orderNumber
+        - timeline
+        - currentStatus
+        - requestId
+    ReturnsRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        orderNumber:
+          type: string
+        option:
+          type: string
+          enum: [resize, return, care]
+        reason:
+          type: string
+        contact:
+          type: object
+          properties:
+            email: { type: string, format: email }
+            phone: { type: string, minLength: 7, maxLength: 32 }
+        shippingAddress:
+          type: object
+          description: Optional pickup override (TODO confirm required fields).
+        notes:
+          type: string
+          maxLength: 2000
+      required:
+        - sessionId
+        - orderNumber
+        - option
+    ReturnsResponse:
+      type: object
+      properties:
+        rmaId:
+          type: string
+        labelUrl:
+          type: string
+          format: uri
+        status:
+          type: string
+          enum: [initiated, scheduled, declined]
+        expiresAt:
+          type: string
+          format: date-time
+        requestId:
+          type: string
+      required:
+        - rmaId
+        - status
+        - requestId
+    # Capsule schemas removed
+    StylistRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        contact:
+          type: object
+          properties:
+            name: { type: string }
+            email: { type: string, format: email }
+            phone: { type: string }
+            timezone: { type: string }
+          required:
+            - email
+        summary:
+          type: string
+          maxLength: 2000
+        transcript:
+          type: array
+          items:
+            type: object
+            properties:
+              role: { type: string, enum: [guest, concierge] }
+              content: { type: string }
+              timestamp: { type: string, format: date-time }
+            required:
+              - role
+              - content
+        shortlist:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCard'
+        inspiration:
+          type: array
+          items:
+            type: object
+            properties:
+              assetUrl: { type: string, format: uri }
+              label: { type: string }
+        metadata:
+          type: object
+      required:
+        - sessionId
+        - contact
+        - summary
+    StylistResponse:
+      type: object
+      properties:
+        ticketId:
+          type: string
+        etaMinutes:
+          type: integer
+        status:
+          type: string
+          enum: [queued, acknowledged]
+        requestId:
+          type: string
+      required:
+        - ticketId
+        - status
+        - requestId
+    CsatRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        intent:
+          type: string
+          description: Concierge intent being rated.
+        rating:
+          type: string
+          enum: [great, needs_follow_up]
+        comment:
+          type: string
+          maxLength: 2000
+        metadata:
+          type: object
+      required:
+        - sessionId
+        - rating
+    CsatResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        requestId:
+          type: string
+      required:
+        - ok
+        - requestId
+    ShortlistRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductCard'
+      required:
+        - sessionId
+        - items
+    ShortlistResponse:
+      type: object
+      properties:
+        shortlistId:
+          type: string
+        totalItems:
+          type: integer
+        updatedAt:
+          type: string
+          format: date-time
+        requestId:
+          type: string
+      required:
+        - shortlistId
+        - totalItems
+        - updatedAt
+        - requestId
+    # Inspiration schemas removed
+    OrderUpdatesRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+        orderNumber:
+          type: string
+        contact:
+          type: object
+          properties:
+            channel: { type: string, enum: [sms, email] }
+            value: { type: string }
+          required:
+            - channel
+            - value
+        consent:
+          type: boolean
+      required:
+        - sessionId
+        - contact
+        - consent
+    OrderUpdatesResponse:
+      type: object
+      properties:
+        subscriptionId:
+          type: string
+        message:
+          type: string
+        requestId:
+          type: string
+      required:
+        - subscriptionId
+        - message
+        - requestId
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        requestId:
+          type: string
+      required:
+        - code
+        - message
+paths:
+  /api/concierge/products:
+    post:
+      tags: [Concierge Products]
+      summary: Search curated products for the widget.
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XApiVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProductFilterRequest' }
+            examples:
+              readyToShipRing:
+                summary: Ready-to-ship ring filter
+                value:
+                  sessionId: sess_123
+                  category: Rings
+                  readyToShip: true
+                  priceMax: 4000
+                  metal: 14k_yellow
+                  limit: 4
+              giftsUnder300:
+                summary: Gifts preset
+                value:
+                  sessionId: sess_789
+                  priceMax: 300
+                  limit: 6
+              invalidRange:
+                summary: Invalid price range
+                value:
+                  sessionId: sess_bad
+                  priceMin: 5000
+                  priceMax: 1000
+      responses:
+        '200':
+          description: Product recommendations.
+          headers:
+            x-request-id:
+              schema: { type: string }
+            x-ratelimit-limit:
+              schema: { type: integer }
+            x-ratelimit-remaining:
+              schema: { type: integer }
+            x-ratelimit-reset:
+              schema: { type: integer }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProductListResponse' }
+              examples:
+                standard:
+                  summary: Two product cards
+                  value:
+                    requestId: req_001
+                    data:
+                      - productId: prod_aurora_ring
+                        slug: solaris-aura-ring
+                        name: Solaris Aura Ring
+                        specLine: 14k yellow gold · lab diamond halo
+                        price: 3850
+                        currency: USD
+                        heroImage: https://cdn.glowglitch.com/solaris.jpg
+                        tags: [halo, lab_diamond]
+                        readyToShip: true
+                        metal: 14k_yellow
+                        shippingPromise: Ships this week
+                        badges: [Bestseller]
+                      - productId: prod_constellation
+                        slug: constellation-ear-stack
+                        name: Constellation Ear Stack
+                        specLine: Mixed metal · multi-pierce stack
+                        price: 1480
+                        currency: USD
+                        heroImage: https://cdn.glowglitch.com/constellation.jpg
+                        tags: [ear_stack]
+                        readyToShip: true
+                        metal: mixed
+                        shippingPromise: Arrives in 5 days
+                        badges: [Limited drop]
+                    nextCursor: a2V5X2Nt
+        '400':
+          description: Invalid filter parameters.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                invalidRange:
+                  summary: priceMax lower than priceMin
+                  value:
+                    code: validation.range
+                    message: priceMax must be greater than priceMin.
+                    requestId: req_bad001
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '403': { $ref: '#/components/responses/ForbiddenError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /api/concierge/orders/status:
+    post:
+      tags: [Concierge Orders]
+      summary: Retrieve order timeline/status.
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XApiVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/OrderStatusRequest' }
+            examples:
+              byOrderNumber:
+                summary: Lookup by order number
+                value:
+                  sessionId: sess_123
+                  orderNumber: GG-12001
+              byEmailZip:
+                summary: Lookup by email and ZIP
+                value:
+                  sessionId: sess_789
+                  email: olivia@example.com
+                  postalCode: '10012'
+      responses:
+        '200':
+          description: Timeline returned.
+          headers:
+            x-request-id:
+              schema: { type: string }
+            x-ratelimit-limit:
+              schema: { type: integer }
+            x-ratelimit-remaining:
+              schema: { type: integer }
+            x-ratelimit-reset:
+              schema: { type: integer }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderStatusResponse' }
+              examples:
+                processing:
+                  summary: Processing order
+                  value:
+                    requestId: req_status001
+                    orderNumber: GG-12001
+                    currentStatus: processing
+                    timeline:
+                      - label: Order confirmed
+                        status: created
+                        timestamp: '2025-05-02T14:00:00Z'
+                      - label: Workshop in progress
+                        status: processing
+                        timestamp: '2025-05-03T14:00:00Z'
+                        isCurrent: true
+                    shipping:
+                      carrier: UPS
+                      service: GlowExpress Overnight
+                      trackingNumber: null
+                      estimatedDelivery: '2025-05-06T20:00:00Z'
+        '400':
+          description: Invalid lookup parameters.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                missingLookup:
+                  summary: No valid lookup fields
+                  value:
+                    code: validation.lookup
+                    message: Provide orderNumber or email + postalCode.
+                    requestId: req_lookup_err
+        '404':
+          description: Order not found.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                notFound:
+                  summary: Unknown order
+                  value:
+                    code: order.not_found
+                    message: Order was not found.
+                    requestId: req_status404
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '403': { $ref: '#/components/responses/ForbiddenError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /api/concierge/orders/returns:
+    post:
+      tags: [Concierge Returns]
+      summary: Initiate a return/resize/care request.
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XApiVersion'
+        - $ref: '#/components/parameters/XIdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReturnsRequest' }
+            examples:
+              resize:
+                summary: Resize request
+                value:
+                  sessionId: sess_123
+                  orderNumber: GG-12001
+                  option: resize
+                  reason: Ring fits too loose.
+                  contact:
+                    email: olivia@gcustomers.com
+              returnFlow:
+                summary: Return for refund
+                value:
+                  sessionId: sess_555
+                  orderNumber: GG-11982
+                  option: return
+                  reason: Unexpected color
+                  contact:
+                    email: mason@example.com
+                    phone: '+1-303-555-8989'
+                  notes: Please include eco packaging.
+      responses:
+        '200':
+          description: Return initiated.
+          headers:
+            x-request-id:
+              schema: { type: string }
+            x-ratelimit-limit:
+              schema: { type: integer }
+            x-ratelimit-remaining:
+              schema: { type: integer }
+            x-ratelimit-reset:
+              schema: { type: integer }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReturnsResponse' }
+              examples:
+                created:
+                  summary: RMA created
+                  value:
+                    requestId: req_rma001
+                    rmaId: RMA-88342
+                    labelUrl: https://cdn.glowglitch.com/rma/RMA-88342.pdf
+                    status: initiated
+                    expiresAt: '2025-05-09T00:00:00Z'
+        '400':
+          description: Invalid request payload.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                badPayload:
+                  summary: Missing contact email
+                  value:
+                    code: validation.contact_email
+                    message: contact.email is required for this option.
+                    requestId: req_rma400
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '403': { $ref: '#/components/responses/ForbiddenError' }
+        '404':
+          description: Order not eligible or not found.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                notEligible:
+                  summary: Outside return window
+                  value:
+                    code: returns.ineligible
+                    message: Order exceeds 30-day return window.
+                    requestId: req_rma404
+        '409':
+          description: Duplicate request detected.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                duplicate:
+                  summary: Duplicate RMA
+                  value:
+                    code: returns.duplicate
+                    message: An active RMA already exists for this order.
+                    requestId: req_rma409
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  # Capsule route removed
+  /api/concierge/stylist:
+    post:
+      tags: [Concierge Stylist]
+      summary: Create a human stylist ticket.
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XApiVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/StylistRequest' }
+            examples:
+              escalation:
+                summary: Escalate capsule conversation
+                value:
+                  sessionId: sess_escalate01
+                  contact:
+                    name: Olivia Harper
+                    email: olivia@gcustomers.com
+                    phone: '+1-212-555-1111'
+                    timezone: America/New_York
+                  summary: Client wants Aurora capsule with coral sky lighting, prefers 14k yellow gold.
+                  transcript:
+                    - role: guest
+                      content: Can you help design a custom capsule by next month?
+                      timestamp: '2025-05-03T14:05:00Z'
+                    - role: concierge
+                      content: Absolutely—here are three looks we curated.
+                      timestamp: '2025-05-03T14:05:30Z'
+                  shortlist:
+                    - productId: prod_aurora_ring
+                      slug: solaris-aura-ring
+                      name: Solaris Aura Ring
+                      specLine: 14k yellow gold · lab diamond halo
+                      price: 3850
+                      currency: USD
+                  inspiration:
+                    - assetUrl: https://cdn.glowglitch.com/inspiration/abc123.jpg
+                      label: Client moodboard
+      responses:
+        '200':
+          description: Ticket created.
+          headers:
+            x-request-id:
+              schema: { type: string }
+            x-ratelimit-limit:
+              schema: { type: integer }
+            x-ratelimit-remaining:
+              schema: { type: integer }
+            x-ratelimit-reset:
+              schema: { type: integer }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/StylistResponse' }
+              examples:
+                queued:
+                  summary: Ticket queued
+                  value:
+                    requestId: req_stylist001
+                    ticketId: sty_9482
+                    status: queued
+                    etaMinutes: 60
+        '400':
+          description: Invalid payload.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                missingSummary:
+                  summary: Missing summary field
+                  value:
+                    code: validation.summary
+                    message: summary must be provided with at least 10 characters.
+                    requestId: req_stylist400
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '403': { $ref: '#/components/responses/ForbiddenError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /api/analytics/csat:
+    post:
+      tags: [Analytics]
+      summary: Record a CSAT rating for a concierge interaction.
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XApiVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CsatRequest' }
+            examples:
+              positive:
+                summary: Great rating
+                value:
+                  sessionId: sess_123
+                  intent: find_product
+                  rating: great
+                  comment: Loved the ready-to-ship suggestions!
+              negative:
+                summary: Needs follow-up
+                value:
+                  sessionId: sess_456
+                  intent: track_order
+                  rating: needs_follow_up
+                  comment: Timeline looks wrong.
+      responses:
+        '200':
+          description: Rating stored.
+          headers:
+            x-request-id:
+              schema: { type: string }
+            x-ratelimit-limit:
+              schema: { type: integer }
+            x-ratelimit-remaining:
+              schema: { type: integer }
+            x-ratelimit-reset:
+              schema: { type: integer }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CsatResponse' }
+              examples:
+                ack:
+                  summary: Acknowledgement
+                  value:
+                    requestId: req_csat001
+                    ok: true
+        '400':
+          description: Invalid rating payload.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                invalidRating:
+                  summary: Unsupported rating
+                  value:
+                    code: validation.rating
+                    message: rating must be one of great, needs_follow_up.
+                    requestId: req_csat400
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '403': { $ref: '#/components/responses/ForbiddenError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /api/concierge/shortlist:
+    post:
+      tags: [Concierge Shortlist]
+      summary: Persist shortlist items for a session.
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XApiVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ShortlistRequest' }
+            examples:
+              update:
+                summary: Update shortlist
+                value:
+                  sessionId: sess_321
+                  items:
+                    - productId: prod_aurora_ring
+                      slug: solaris-aura-ring
+                      name: Solaris Aura Ring
+                      specLine: 14k yellow gold · lab diamond halo
+                      price: 3850
+                      currency: USD
+                    - productId: prod_constellation
+                      slug: constellation-ear-stack
+                      name: Constellation Ear Stack
+                      specLine: Mixed metal · multi-pierce stack
+                      price: 1480
+                      currency: USD
+      responses:
+        '200':
+          description: Shortlist saved.
+          headers:
+            x-request-id:
+              schema: { type: string }
+            x-ratelimit-limit:
+              schema: { type: integer }
+            x-ratelimit-remaining:
+              schema: { type: integer }
+            x-ratelimit-reset:
+              schema: { type: integer }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ShortlistResponse' }
+              examples:
+                stored:
+                  summary: Shortlist persisted
+                  value:
+                    requestId: req_shortlist001
+                    shortlistId: sl_9981
+                    totalItems: 2
+                    updatedAt: '2025-05-03T14:10:00Z'
+        '400':
+          description: Invalid items payload.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                emptyItems:
+                  summary: No items provided
+                  value:
+                    code: validation.items
+                    message: items must include at least one product.
+                    requestId: req_shortlist400
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '403': { $ref: '#/components/responses/ForbiddenError' }
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  # Inspiration route removed
+  /api/concierge/order-updates:
+    post:
+      tags: [Concierge Notifications]
+      summary: Subscribe customer to order updates via SMS/email.
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - $ref: '#/components/parameters/XApiVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/OrderUpdatesRequest' }
+            examples:
+              sms:
+                summary: SMS opt-in
+                value:
+                  sessionId: sess_999
+                  orderNumber: GG-12001
+                  contact:
+                    channel: sms
+                    value: '+1-212-555-1111'
+                  consent: true
+              email:
+                summary: Email opt-in
+                value:
+                  sessionId: sess_email1
+                  contact:
+                    channel: email
+                    value: olivia@example.com
+                  consent: true
+      responses:
+        '200':
+          description: Subscription created.
+          headers:
+            x-request-id:
+              schema: { type: string }
+            x-ratelimit-limit:
+              schema: { type: integer }
+            x-ratelimit-remaining:
+              schema: { type: integer }
+            x-ratelimit-reset:
+              schema: { type: integer }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OrderUpdatesResponse' }
+              examples:
+                subscribed:
+                  summary: Subscription success
+                  value:
+                    requestId: req_updates001
+                    subscriptionId: sub_7741
+                    message: We’ll text you as soon as milestones change.
+        '400':
+          description: Invalid payload.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                missingConsent:
+                  summary: Consent not provided
+                  value:
+                    code: validation.consent
+                    message: consent=true must be provided to subscribe.
+                    requestId: req_updates400
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '403': { $ref: '#/components/responses/ForbiddenError' }
+        '404':
+          description: Order not found for subscription.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              examples:
+                notFound:
+                  summary: Order unknown
+                  value:
+                    code: subscription.order_not_found
+                    message: Order GG-00000 could not be located.
+                    requestId: req_updates404
+        '429': { $ref: '#/components/responses/TooManyRequests' }
+        '500': { $ref: '#/components/responses/ServerError' }
+---
+Breaking Change Policy:
+  - Any backward-incompatible change (field removals, stricter validation, semantic changes) requires a new major version (`x-api-version` / path prefix) and minimum 60-day notice.
+  - Deprecations must include `Deprecation: true` and `Sunset: <RFC1123-date>` headers with at least 90-day lead time.
+  - Additive changes (new optional fields/enums) require 2-week release notes + documentation updates.
+  - Emergency breaking changes must have approval from Product, Platform Engineering, and Integration Orchestrator, accompanied by a rollback plan.

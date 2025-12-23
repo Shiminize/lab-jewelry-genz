@@ -1,0 +1,549 @@
+[
+  {
+    "id": "GIFT-UNDER-300-001",
+    "title": "Minimalist Band - $59",
+    "price": 59,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-002",
+    "title": "Drop Earrings - $59",
+    "price": 59,
+    "currency": "USD",
+    "imageUrl": "/images/category/earrings/81620_Y_1_1600X1600.jpg",
+    "category": "earring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "earring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-004",
+    "title": "Cuff Bracelet - $79",
+    "price": 79,
+    "currency": "USD",
+    "imageUrl": "/images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "bracelet",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "bracelet",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-003",
+    "title": "Bar Necklace - $79",
+    "price": 79,
+    "currency": "USD",
+    "imageUrl": "/images/category/necklaces/95040_Y_1_1600X1600.jpg",
+    "category": "necklace",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "necklace",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-006",
+    "title": "Simple Studs - $99",
+    "price": 99,
+    "currency": "USD",
+    "imageUrl": "/images/category/earrings/81620_Y_1_1600X1600.jpg",
+    "category": "earring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "earring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-005",
+    "title": "Classic Ring - $99",
+    "price": 99,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-008",
+    "title": "Bangle Bracelet - $129",
+    "price": 129,
+    "currency": "USD",
+    "imageUrl": "/images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "bracelet",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "bracelet",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-007",
+    "title": "Chain Necklace - $129",
+    "price": 129,
+    "currency": "USD",
+    "imageUrl": "/images/category/necklaces/95040_Y_1_1600X1600.jpg",
+    "category": "necklace",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "necklace",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-009",
+    "title": "Dainty Solitaire - $149",
+    "price": 149,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-010",
+    "title": "Dangle Earrings - $149",
+    "price": 149,
+    "currency": "USD",
+    "imageUrl": "/images/category/earrings/81620_Y_1_1600X1600.jpg",
+    "category": "earring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "earring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-012",
+    "title": "Link Bracelet - $179",
+    "price": 179,
+    "currency": "USD",
+    "imageUrl": "/images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "bracelet",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "bracelet",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-011",
+    "title": "Delicate Pendant - $179",
+    "price": 179,
+    "currency": "USD",
+    "imageUrl": "/images/category/necklaces/95040_Y_1_1600X1600.jpg",
+    "category": "necklace",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "necklace",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-013",
+    "title": "Minimalist Band - $199",
+    "price": 199,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-014",
+    "title": "Drop Earrings - $199",
+    "price": 199,
+    "currency": "USD",
+    "imageUrl": "/images/category/earrings/81620_Y_1_1600X1600.jpg",
+    "category": "earring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "earring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-015",
+    "title": "Bar Necklace - $219",
+    "price": 219,
+    "currency": "USD",
+    "imageUrl": "/images/category/necklaces/95040_Y_1_1600X1600.jpg",
+    "category": "necklace",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "necklace",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-016",
+    "title": "Cuff Bracelet - $219",
+    "price": 219,
+    "currency": "USD",
+    "imageUrl": "/images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "bracelet",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "bracelet",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-018",
+    "title": "Simple Studs - $249",
+    "price": 249,
+    "currency": "USD",
+    "imageUrl": "/images/category/earrings/81620_Y_1_1600X1600.jpg",
+    "category": "earring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "earring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-017",
+    "title": "Classic Ring - $249",
+    "price": 249,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-019",
+    "title": "Chain Necklace - $269",
+    "price": 269,
+    "currency": "USD",
+    "imageUrl": "/images/category/necklaces/95040_Y_1_1600X1600.jpg",
+    "category": "necklace",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "necklace",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-020",
+    "title": "Bangle Bracelet - $269",
+    "price": 269,
+    "currency": "USD",
+    "imageUrl": "/images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "bracelet",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "bracelet",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-021",
+    "title": "Dainty Solitaire - $289",
+    "price": 289,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-022",
+    "title": "Dangle Earrings - $289",
+    "price": 289,
+    "currency": "USD",
+    "imageUrl": "/images/category/earrings/81620_Y_1_1600X1600.jpg",
+    "category": "earring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "earring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-024",
+    "title": "Link Bracelet - $299",
+    "price": 299,
+    "currency": "USD",
+    "imageUrl": "/images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "bracelet",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "bracelet",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-023",
+    "title": "Delicate Pendant - $299",
+    "price": 299,
+    "currency": "USD",
+    "imageUrl": "/images/category/necklaces/95040_Y_1_1600X1600.jpg",
+    "category": "necklace",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "necklace",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-SPOT-001",
+    "title": "Minimalist Band Ring",
+    "price": 299,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "ready-to-ship",
+      "rings",
+      "gift",
+      "under-300",
+      "minimalist"
+    ],
+    "shippingPromise": "Ships in 24h",
+    "badges": [
+      "Ready to Ship",
+      "Gift Favorite"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "BOUND-299_99",
+    "title": "Boundary Test Ring - $299.99",
+    "price": 299.99,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "boundary-test",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24h",
+    "badges": [
+      "Test Product"
+    ],
+    "featuredInWidget": false
+  }
+]

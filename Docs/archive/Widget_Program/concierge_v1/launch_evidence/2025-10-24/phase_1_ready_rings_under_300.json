@@ -1,0 +1,87 @@
+[
+  {
+    "id": "GIFT-UNDER-300-005",
+    "title": "Classic Ring - $99",
+    "price": 99,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-UNDER-300-017",
+    "title": "Classic Ring - $249",
+    "price": 249,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24-48h",
+    "badges": [
+      "Gift Favorite",
+      "Ready to Ship"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "GIFT-SPOT-001",
+    "title": "Minimalist Band Ring",
+    "price": 299,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "ready-to-ship",
+      "rings",
+      "gift",
+      "under-300",
+      "minimalist"
+    ],
+    "shippingPromise": "Ships in 24h",
+    "badges": [
+      "Ready to Ship",
+      "Gift Favorite"
+    ],
+    "featuredInWidget": true
+  },
+  {
+    "id": "BOUND-299_99",
+    "title": "Boundary Test Ring - $299.99",
+    "price": 299.99,
+    "currency": "USD",
+    "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+    "category": "ring",
+    "readyToShip": true,
+    "tags": [
+      "gift",
+      "ready-to-ship",
+      "ring",
+      "boundary-test",
+      "under-300"
+    ],
+    "shippingPromise": "Ships in 24h",
+    "badges": [
+      "Test Product"
+    ],
+    "featuredInWidget": false
+  }
+]

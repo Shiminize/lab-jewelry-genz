@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evergreen Brass · Palette Demo</title>
+    <style>
+      :root {
+        --color-bg: #f9f8f6;
+        --color-surface: #ffffff;
+        --color-ink: #111111;
+        --color-ink-2: #3f4a45;
+        --color-muted: #7b8a82;
+        --color-line-subtle: #e5ece8;
+        --color-line-strong: #cbd7d0;
+        --color-accent: #2f3d38;
+        --color-accent-contrast: #ffffff;
+        --accent-secondary: #fac151;
+        --accent-muted: #ede4ce;
+        --focus-ring: color-mix(in oklab, var(--color-accent) 48%, white);
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-serif: 'Playfair Display', 'Times New Roman', serif;
+        --shadow-soft: 0 16px 40px rgba(47, 61, 56, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 48px 32px 64px;
+        font-family: var(--font-sans);
+        background: var(--color-bg);
+        color: var(--color-ink-2);
+      }
+
+      h1,
+      h2 {
+        color: var(--color-ink);
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(32px, 4vw, 48px);
+        margin-bottom: 32px;
+      }
+
+      h2 {
+        font-size: clamp(24px, 2.8vw, 32px);
+        margin-bottom: 16px;
+      }
+
+      p {
+        line-height: 1.6;
+        margin: 0 0 16px;
+      }
+
+      .page {
+        margin: 0 auto;
+        max-width: 1180px;
+      }
+
+      .intro {
+        display: grid;
+        gap: 16px;
+        margin-bottom: 56px;
+        padding: 28px;
+        border-radius: 16px;
+        background: linear-gradient(124deg, rgba(47, 61, 56, 0.92), rgba(250, 193, 81, 0.78));
+        color: var(--color-accent-contrast);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .intro p {
+        max-width: 720px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .card {
+        padding: 24px;
+        border-radius: 16px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-line-subtle);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .swatch {
+        display: grid;
+        gap: 16px;
+      }
+
+      .swatch-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        border-radius: 12px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-line-subtle);
+      }
+
+      .swatch-chip {
+        flex: 0 0 54px;
+        height: 54px;
+        border-radius: 10px;
+        border: 1px solid rgba(17, 17, 17, 0.08);
+      }
+
+      .swatch-meta {
+        display: grid;
+        gap: 4px;
+      }
+
+      .swatch-meta span:first-child {
+        font-weight: 600;
+        color: var(--color-ink);
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        transition: transform 160ms ease, box-shadow 160ms ease;
+        cursor: pointer;
+      }
+
+      .btn:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--focus-ring);
+      }
+
+      .btn-primary {
+        background: var(--color-accent);
+        color: var(--color-accent-contrast);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 28px rgba(47, 61, 56, 0.28);
+      }
+
+      .btn-secondary {
+        background: var(--accent-secondary);
+        color: #2b1d08;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--color-ink-2);
+        border-color: var(--color-line-strong);
+      }
+
+      .demo-card {
+        display: grid;
+        gap: 16px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--color-line-strong);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .demo-card__header {
+        background: linear-gradient(140deg, rgba(47, 61, 56, 0.88), rgba(250, 193, 81, 0.7));
+        color: var(--color-accent-contrast);
+        padding: 32px;
+      }
+
+      .demo-card__body {
+        padding: 32px;
+        background: var(--color-surface);
+        color: var(--color-ink-2);
+      }
+
+      .token-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .token-table th,
+      .token-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--color-line-subtle);
+        text-align: left;
+      }
+
+      .token-table th {
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+      }
+
+      footer {
+        margin-top: 56px;
+        font-size: 14px;
+        color: var(--color-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="intro">
+        <h1>Evergreen Brass</h1>
+        <p>
+          Evergreen Brass translates the Shihara Lab evergreen charcoal and jewelry brass highlights into
+          the Gen Z Jewelry system. Tokens here map directly to <code>app/styles/tokens.css</code>, ensuring
+          Tailwind utilities powered by our <code>--ja-*</code> variables stay synchronized without touching
+          component markup.
+        </p>
+      </div>
+
+      <section class="card">
+        <h2>Palette Anchors</h2>
+        <div class="swatch">
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-bg)"></div>
+            <div class="swatch-meta">
+              <span>--color-bg</span>
+              <span>#F9F8F6 · Page background</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-surface)"></div>
+            <div class="swatch-meta">
+              <span>--color-surface</span>
+              <span>#FFFFFF · Content panels</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-ink)"></div>
+            <div class="swatch-meta">
+              <span>--color-ink</span>
+              <span>#111111 · Headline text</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-ink-2)"></div>
+            <div class="swatch-meta">
+              <span>--color-ink-2</span>
+              <span>#3F4A45 · Body text</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--accent-secondary)"></div>
+            <div class="swatch-meta">
+              <span>--accent-secondary</span>
+              <span>#FAC151 · CTA highlight</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--accent-muted)"></div>
+            <div class="swatch-meta">
+              <span>--accent-muted</span>
+              <span>#EDE4CE · Muted badge/accent BG</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" style="margin-top: 32px">
+        <div class="card">
+          <h2>Type &amp; Copy Sample</h2>
+          <p style="font-family: var(--font-serif); font-size: 28px; color: var(--color-ink)">
+            “Minimal evergreen grounding with a brass edge.”
+          </p>
+          <p>
+            Evergreen Brass leans into Shihara Lab’s refined charcoal base while warming moments like CTAs or
+            announcements with a polished brass sheen. Neutral text pairs maintain AA contrast on
+            <code>--color-surface</code> and <code>--color-bg</code>.
+          </p>
+          <div class="buttons">
+            <button class="btn btn-primary">Primary Action</button>
+            <button class="btn btn-secondary">Secondary Action</button>
+            <button class="btn btn-ghost">Ghost Action</button>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-card__header">
+            <p style="margin: 0; letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px">
+              Jewelry Drop
+            </p>
+            <h2 style="color: inherit">Verde Column Hoops</h2>
+          </div>
+          <div class="demo-card__body">
+            <p>
+              Sculpted in 18k gold, the Verde Column Hoops echo the palette’s brass highlight while the deep
+              evergreen grounds the frame.
+            </p>
+            <div class="buttons">
+              <button class="btn btn-primary" style="padding: 10px 22px">Add to Bag · ¥58,000</button>
+              <button class="btn btn-ghost" style="padding: 10px 22px">View Details</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top: 32px">
+        <h2>Token Mapping</h2>
+        <table class="token-table">
+          <thead>
+            <tr>
+              <th>Design Token</th>
+              <th>Value</th>
+              <th>Tailwind Utility Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>--color-bg</td>
+              <td>#F9F8F6</td>
+              <td><code>bg-surface-page</code>, global body background</td>
+            </tr>
+            <tr>
+              <td>--color-ink</td>
+              <td>#111111</td>
+              <td><code>text-text-primary</code>, headings, hero messaging</td>
+            </tr>
+            <tr>
+              <td>--color-ink-2</td>
+              <td>#3F4A45</td>
+              <td><code>text-body</code>, paragraphs, captions</td>
+            </tr>
+            <tr>
+              <td>--color-muted</td>
+              <td>#7B8A82</td>
+              <td><code>text-body-muted</code>, subdued details</td>
+            </tr>
+            <tr>
+              <td>--color-line-subtle</td>
+              <td>#E5ECE8</td>
+              <td><code>border-border-subtle</code>, card frames</td>
+            </tr>
+            <tr>
+              <td>--color-accent</td>
+              <td>#2F3D38</td>
+              <td><code>bg-accent-primary</code>, primary buttons, focus halo</td>
+            </tr>
+            <tr>
+              <td>--accent-secondary</td>
+              <td>#FAC151</td>
+              <td>Gradients, <code>--ja-accent-secondary</code>, highlights</td>
+            </tr>
+            <tr>
+              <td>--accent-muted</td>
+              <td>#EDE4CE</td>
+              <td><code>accent-muted</code> surfaces, badges, tags</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <footer>
+        Swap these variables into <code>app/styles/tokens.css</code> and update gradient entries in
+        <code>tailwind.config.js</code> to complete the Evergreen Brass integration.
+      </footer>
+    </div>
+  </body>
+</html>

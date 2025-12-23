@@ -1,0 +1,22 @@
+
+> glowglitch-frontend@0.1.0 start
+> NODE_ENV=production node server.js
+
+ ⚠ Disabling SWC Minifer will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+📁 Job persistence directory ready: /tmp/3d-generation/job-persistence
+⚠️ REDIS_URL not set. Proceeding without Redis; falling back to in-memory operations.
+🚀 Server ready on http://127.0.0.1:3000
+🔌 WebSocket server ready for real-time updates
+ ⨯ Error: Forbidden
+    at n (/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/.next/server/app/api/admin/products/route.js:1:7714)
+    at d (/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/.next/server/app/api/admin/products/route.js:1:983)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/decepticonmanager/Projects/GenZJewelry_AUG_12/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38411
+    at async e_.execute (/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:27880)
+    at async e_.handle (/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:39943)
+    at async doRender (/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/node_modules/next/dist/server/base-server.js:1588:28)
+    at async NextNodeServer.renderToResponseWithComponentsImpl (/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/node_modules/next/dist/server/base-server.js:1496:28)
+    at async NextNodeServer.renderPageComponent (/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/node_modules/next/dist/server/base-server.js:1924:24) {
+  status: 403
+}

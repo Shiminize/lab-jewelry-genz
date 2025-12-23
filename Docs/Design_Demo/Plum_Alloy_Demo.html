@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plum Alloy · Palette Demo</title>
+    <style>
+      :root {
+        --color-bg: #fcf8f8;
+        --color-surface: #ffffff;
+        --color-ink: #181218;
+        --color-ink-2: #4a404a;
+        --color-muted: #bca7b3;
+        --color-line-subtle: #eadfe8;
+        --color-line-strong: #d6c8d6;
+        --color-accent: #732359;
+        --color-accent-contrast: #ffffff;
+        --accent-secondary: #cd9b77;
+        --accent-muted: #f4e5ea;
+        --focus-ring: color-mix(in oklab, var(--color-accent) 52%, white);
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-serif: 'Playfair Display', 'Times New Roman', serif;
+        --shadow-soft: 0 18px 44px rgba(115, 35, 89, 0.16);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 48px 32px 64px;
+        font-family: var(--font-sans);
+        background: var(--color-bg);
+        color: var(--color-ink-2);
+      }
+
+      h1,
+      h2 {
+        color: var(--color-ink);
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(32px, 4vw, 48px);
+        margin-bottom: 32px;
+      }
+
+      h2 {
+        font-size: clamp(24px, 2.8vw, 32px);
+        margin-bottom: 16px;
+      }
+
+      p {
+        line-height: 1.6;
+        margin: 0 0 16px;
+      }
+
+      .page {
+        margin: 0 auto;
+        max-width: 1180px;
+      }
+
+      .intro {
+        display: grid;
+        gap: 16px;
+        margin-bottom: 56px;
+        padding: 28px;
+        border-radius: 16px;
+        background: linear-gradient(122deg, rgba(115, 35, 89, 0.88), rgba(205, 155, 119, 0.82));
+        color: var(--color-accent-contrast);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .intro p {
+        max-width: 720px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .card {
+        padding: 24px;
+        border-radius: 16px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-line-subtle);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .swatch {
+        display: grid;
+        gap: 16px;
+      }
+
+      .swatch-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        border-radius: 12px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-line-subtle);
+      }
+
+      .swatch-chip {
+        flex: 0 0 54px;
+        height: 54px;
+        border-radius: 10px;
+        border: 1px solid rgba(24, 18, 24, 0.08);
+      }
+
+      .swatch-meta {
+        display: grid;
+        gap: 4px;
+      }
+
+      .swatch-meta span:first-child {
+        font-weight: 600;
+        color: var(--color-ink);
+      }
+
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        transition: transform 160ms ease, box-shadow 160ms ease;
+        cursor: pointer;
+      }
+
+      .btn:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--focus-ring);
+      }
+
+      .btn-primary {
+        background: var(--color-accent);
+        color: var(--color-accent-contrast);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 28px rgba(115, 35, 89, 0.28);
+      }
+
+      .btn-secondary {
+        background: var(--accent-secondary);
+        color: #3f2b1f;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--color-ink-2);
+        border-color: var(--color-line-strong);
+      }
+
+      .demo-card {
+        display: grid;
+        gap: 16px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--color-line-strong);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .demo-card__header {
+        background: linear-gradient(140deg, rgba(115, 35, 89, 0.9), rgba(205, 155, 119, 0.75));
+        color: var(--color-accent-contrast);
+        padding: 32px;
+      }
+
+      .demo-card__body {
+        padding: 32px;
+        background: var(--color-surface);
+        color: var(--color-ink-2);
+      }
+
+      .token-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .token-table th,
+      .token-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--color-line-subtle);
+        text-align: left;
+      }
+
+      .token-table th {
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+      }
+
+      footer {
+        margin-top: 56px;
+        font-size: 14px;
+        color: var(--color-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="intro">
+        <h1>Plum Alloy</h1>
+        <p>
+          Plum Alloy celebrates the Shihara Lab plum display lighting against neutral gallery plaster. The
+          token set below maps 1:1 with <code>--ja-*</code> variables, making it a drop-in for
+          <code>app/styles/tokens.css</code> while protecting component contracts.
+        </p>
+      </div>
+
+      <section class="card">
+        <h2>Palette Anchors</h2>
+        <div class="swatch">
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-bg)"></div>
+            <div class="swatch-meta">
+              <span>--color-bg</span>
+              <span>#FCF8F8 · Page background</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-surface)"></div>
+            <div class="swatch-meta">
+              <span>--color-surface</span>
+              <span>#FFFFFF · Product panels</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-ink)"></div>
+            <div class="swatch-meta">
+              <span>--color-ink</span>
+              <span>#181218 · Headline text</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--color-ink-2)"></div>
+            <div class="swatch-meta">
+              <span>--color-ink-2</span>
+              <span>#4A404A · Body text</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--accent-secondary)"></div>
+            <div class="swatch-meta">
+              <span>--accent-secondary</span>
+              <span>#CD9B77 · Jewelry metal highlight</span>
+            </div>
+          </div>
+          <div class="swatch-item">
+            <div class="swatch-chip" style="background: var(--accent-muted)"></div>
+            <div class="swatch-meta">
+              <span>--accent-muted</span>
+              <span>#F4E5EA · Muted tone for badges &amp; cards</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" style="margin-top: 32px">
+        <div class="card">
+          <h2>Type &amp; Copy Sample</h2>
+          <p style="font-family: var(--font-serif); font-size: 28px; color: var(--color-ink)">
+            “Soft plum light with alloy warmth.”
+          </p>
+          <p>
+            Plum Alloy emphasizes brand storytelling moments with a rich plum accent, supported by alloy
+            metallics for calls to action and details. Contrast ratios remain AA on both surfaces, retaining
+            the minimal aesthetic.
+          </p>
+          <div class="buttons">
+            <button class="btn btn-primary">Primary Action</button>
+            <button class="btn btn-secondary">Secondary Action</button>
+            <button class="btn btn-ghost">Ghost Action</button>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-card__header">
+            <p style="margin: 0; letter-spacing: 0.2em; text-transform: uppercase; font-size: 12px">
+              Capsule Spotlight
+            </p>
+            <h2 style="color: inherit">Sakura Orbit Earrings</h2>
+          </div>
+          <div class="demo-card__body">
+            <p>
+              Plum alloy gradients carry through product tiles, while muted cards keep accessory information
+              legible at every breakpoint.
+            </p>
+            <div class="buttons">
+              <button class="btn btn-primary" style="padding: 10px 22px">Reserve · ¥48,000</button>
+              <button class="btn btn-ghost" style="padding: 10px 22px">View Details</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top: 32px">
+        <h2>Token Mapping</h2>
+        <table class="token-table">
+          <thead>
+            <tr>
+              <th>Design Token</th>
+              <th>Value</th>
+              <th>Tailwind Utility Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>--color-bg</td>
+              <td>#FCF8F8</td>
+              <td><code>bg-surface-page</code>, layout backgrounds</td>
+            </tr>
+            <tr>
+              <td>--color-ink</td>
+              <td>#181218</td>
+              <td><code>text-text-primary</code>, headline typography</td>
+            </tr>
+            <tr>
+              <td>--color-ink-2</td>
+              <td>#4A404A</td>
+              <td><code>text-body</code>, body &amp; caption text</td>
+            </tr>
+            <tr>
+              <td>--color-muted</td>
+              <td>#BCA7B3</td>
+              <td><code>text-body-muted</code>, secondary metadata</td>
+            </tr>
+            <tr>
+              <td>--color-line-subtle</td>
+              <td>#EADFE8</td>
+              <td><code>border-border-subtle</code>, dividers</td>
+            </tr>
+            <tr>
+              <td>--color-accent</td>
+              <td>#732359</td>
+              <td><code>bg-accent-primary</code>, primary buttons</td>
+            </tr>
+            <tr>
+              <td>--accent-secondary</td>
+              <td>#CD9B77</td>
+              <td><code>--ja-accent-secondary</code>, gradients, chips</td>
+            </tr>
+            <tr>
+              <td>--accent-muted</td>
+              <td>#F4E5EA</td>
+              <td>Badge backgrounds, subtle highlights</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <footer>
+        Update gradient tokens in <code>tailwind.config.js</code> to blend <code>#732359 → #CD9B77</code> and
+        recalc focus rings using the Plum Alloy accent to finalize the rollout.
+      </footer>
+    </div>
+  </body>
+</html>

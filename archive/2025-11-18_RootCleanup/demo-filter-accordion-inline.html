@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filter Drawer Concepts</title>
+  <style>
+    :root {
+      --bg: #f4f1ec;
+      --surface: #ffffff;
+      --ink: #3f4a45;
+      --ink-subtle: #8a978f;
+      --border: #e8e3dc;
+      --accent: #3f4a45;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 48px 32px 96px;
+      background: var(--bg);
+      font-family: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+      color: var(--ink);
+    }
+
+    h1 {
+      font-family: 'Petrona', 'Georgia', serif;
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    section {
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 28px 60px rgba(22, 26, 30, 0.08);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-subtle);
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: var(--ink-subtle);
+      line-height: 1.5;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      background: linear-gradient(180deg, #ffffff 0%, #fefcf8 100%);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-subtle);
+      cursor: pointer;
+      background: var(--surface);
+    }
+
+    .pill.active {
+      color: var(--ink);
+      border-color: rgba(63, 74, 69, 0.4);
+      box-shadow: 0 12px 24px rgba(26, 31, 29, 0.1);
+    }
+
+    .panel {
+      margin-top: 20px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .panel h3 {
+      margin-top: 0;
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-subtle);
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .option {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: var(--ink-subtle);
+      background: #fffdf9;
+    }
+
+    .footer {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .footer button {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 10px 18px;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .footer button.apply {
+      background: var(--accent);
+      color: #fffdf9;
+      border-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Inline Filter Concepts</h1>
+
+  <!-- Option 1: Accordion Rail -->
+  <section>
+    <h2>Option 1 · Accordion Rail</h2>
+    <p>The pill row becomes a single accordion—tap a pill to expand its content inline; tapping another automatically closes the previous one. The expanded area inherits the same width as the card so nothing overflows on mobile.</p>
+    <div class="card">
+      <div class="pill-row">
+        <button class="pill active">Category</button>
+        <button class="pill">Price</button>
+        <button class="pill">Metal</button>
+        <button class="pill">Availability</button>
+        <button class="pill">Tone</button>
+        <button class="pill">More Filters</button>
+      </div>
+      <div class="panel active">
+        <h3>Category</h3>
+        <div class="option-grid">
+          <div class="option">Rings</div>
+          <div class="option">Necklaces</div>
+          <div class="option">Earrings</div>
+          <div class="option">Bracelets</div>
+        </div>
+        <div class="footer">
+          <button>Reset</button>
+          <button class="apply">Apply</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Option 2: Pinned Content Slot -->
+  <section>
+    <h2>Option 2 · Pinned Slot</h2>
+    <p>The Refine Details card keeps a dedicated “details slot” under the pills. Whatever filter you choose fills the slot; switching pills swaps the content. This keeps the interaction clear and avoids stacked panels.</p>
+    <div class="card">
+      <div class="pill-row">
+        <button class="pill">Category</button>
+        <button class="pill active">Price</button>
+        <button class="pill">Metal</button>
+        <button class="pill">Availability</button>
+        <button class="pill">Tone</button>
+        <button class="pill">More Filters</button>
+      </div>
+      <div class="panel active">
+        <h3>Price Range</h3>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:140px;">
+            <label style="display:block; font-size:0.75rem; letter-spacing:0.2em; color:var(--ink-subtle);">Min</label>
+            <input type="number" placeholder="250" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:16px;">
+          </div>
+          <div style="flex:1; min-width:140px;">
+            <label style="display:block; font-size:0.75rem; letter-spacing:0.2em; color:var(--ink-subtle);">Max</label>
+            <input type="number" placeholder="4200" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:16px;">
+          </div>
+        </div>
+        <div class="footer">
+          <button>Reset</button>
+          <button class="apply">Apply</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Option 3: Inline Sheet -->
+  <section>
+    <h2>Option 3 · Inline Sheet</h2>
+    <p>The entire Refine Details block expands into a sheet when a pill is active. The sheet shows the selected filter form and pushes the grid down, and closing it collapses back to the compact view.</p>
+    <div class="card">
+      <div class="pill-row">
+        <button class="pill">Category</button>
+        <button class="pill">Price</button>
+        <button class="pill active">Metal</button>
+        <button class="pill">Availability</button>
+        <button class="pill">Tone</button>
+        <button class="pill">More Filters</button>
+      </div>
+      <div class="panel active" style="margin-top:24px;">
+        <h3>Select Metal</h3>
+        <div class="option-grid">
+          <div class="option">Yellow Gold</div>
+          <div class="option">White Gold</div>
+          <div class="option">Rose Gold</div>
+          <div class="option">Sterling Silver</div>
+        </div>
+        <div class="footer">
+          <button>Reset</button>
+          <button class="apply">Apply</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

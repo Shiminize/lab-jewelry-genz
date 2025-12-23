@@ -1,0 +1,1 @@
+[info] No console output captured. (Prefetch routes intercepted to avoid 404 noise.)

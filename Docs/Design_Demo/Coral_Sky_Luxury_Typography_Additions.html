@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coral Sky — Luxury Typography Expansion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@9..72,500;9..72,600&family=Cormorant+Garamond:wght@400;500;600&family=Commissioner:wght@400;500;600&family=Manrope:wght@400;500;600&family=Petrona:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600&family=Prata&family=Spectral:ital,wght@0,400;0,500;1,500&family=Urbanist:wght@500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --coral: #ff5a5f;
+      --sky: #2ec5ff;
+      --ink: #0f172a;
+      --sand: #fff9ef;
+      --shell: rgba(255, 255, 255, 0.9);
+      --mist: rgba(15, 23, 42, 0.06);
+      --shadow-soft: 0 24px 55px -32px rgba(15, 23, 42, 0.45);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 0% 0%, rgba(255, 90, 95, 0.08), transparent 32%),
+        radial-gradient(circle at 90% 10%, rgba(46, 197, 255, 0.1), transparent 45%),
+        var(--sand);
+      color: rgba(15, 23, 42, 0.72);
+      font-family: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 5rem;
+    }
+
+    header {
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 6vw, 6rem) 2rem;
+      text-align: center;
+      display: grid;
+      gap: 1rem;
+    }
+
+    header span {
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.5);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 6vw, 4.3rem);
+      font-family: 'Playfair Display', 'Georgia', serif;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    header p {
+      max-width: 60ch;
+      margin: 0 auto;
+      color: rgba(15, 23, 42, 0.64);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 6vw, 5rem);
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.25rem);
+    }
+
+    .option {
+      position: relative;
+      border-radius: 28px;
+      background: var(--shell);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: var(--shadow-soft);
+      padding: clamp(1.75rem, 5vw, 2.9rem);
+      display: grid;
+      gap: clamp(1.4rem, 5vw, 2.4rem);
+      overflow: hidden;
+    }
+
+    .option::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255, 90, 95, 0.06), rgba(46, 197, 255, 0.08));
+      opacity: 0.85;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .option-content {
+      position: relative;
+      display: grid;
+      gap: 1.6rem;
+    }
+
+    .option-header {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .option-header span {
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(15, 23, 42, 0.45);
+    }
+
+    .option-header h2 {
+      margin: 0;
+      font-size: clamp(1.85rem, 3.5vw, 2.4rem);
+      color: var(--ink);
+      letter-spacing: -0.012em;
+    }
+
+    .option-header p {
+      margin: 0;
+      max-width: 60ch;
+      color: rgba(15, 23, 42, 0.62);
+      font-size: 0.98rem;
+    }
+
+    .preview {
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 22px;
+      border: 1px solid var(--mist);
+      padding: clamp(1.35rem, 3vw, 2.3rem);
+      display: grid;
+      gap: 1rem;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: rgba(15, 23, 42, 0.52);
+    }
+
+    .display-line {
+      margin: 0;
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: var(--lux-display-spacing, -0.01em);
+      color: var(--ink);
+    }
+
+    .lead {
+      margin: 0;
+      font-size: clamp(1rem, 2.3vw, 1.1rem);
+      color: rgba(15, 23, 42, 0.68);
+      max-width: 58ch;
+    }
+
+    .price-line {
+      display: flex;
+      gap: 0.65rem;
+      align-items: baseline;
+      font-size: 0.95rem;
+      color: rgba(15, 23, 42, 0.55);
+    }
+
+    .price-line strong {
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
+      color: var(--ink);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .scale-grid {
+      display: grid;
+      gap: 1.15rem;
+    }
+
+    .scale-group {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .scale-label {
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 0.72rem;
+      color: rgba(15, 23, 42, 0.46);
+    }
+
+    .scale-sample {
+      margin: 0;
+      color: var(--ink);
+    }
+
+    .integration {
+      background: rgba(15, 23, 42, 0.07);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      font-family: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      color: rgba(15, 23, 42, 0.75);
+      line-height: 1.55;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
+    }
+
+    .option.lux-01 {
+      --lux-display-font: 'Cormorant Garamond', 'Georgia', serif;
+      --lux-body-font: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+      --lux-accent-font: 'Urbanist', 'Helvetica Neue', Arial, sans-serif;
+      --lux-display-spacing: -0.015em;
+    }
+
+    .option.lux-01 .display-line {
+      font-family: var(--lux-display-font);
+      font-weight: 500;
+    }
+
+    .option.lux-01 .lead,
+    .option.lux-01 .price-line {
+      font-family: var(--lux-body-font);
+    }
+
+    .option.lux-01 .eyebrow {
+      font-family: var(--lux-accent-font);
+      font-weight: 600;
+    }
+
+    .option.lux-01 .scale-group:nth-child(1) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 2.6rem;
+      letter-spacing: -0.018em;
+    }
+
+    .option.lux-01 .scale-group:nth-child(2) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .option.lux-01 .scale-group:nth-child(3) .scale-sample {
+      font-family: var(--lux-body-font);
+      font-size: 1.05rem;
+    }
+
+    .option.lux-02 {
+      --lux-display-font: 'Bodoni Moda', 'Georgia', serif;
+      --lux-body-font: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+      --lux-accent-font: 'Urbanist', 'Helvetica Neue', Arial, sans-serif;
+      --lux-display-spacing: -0.02em;
+    }
+
+    .option.lux-02 .display-line {
+      font-family: var(--lux-display-font);
+      font-weight: 600;
+    }
+
+    .option.lux-02 .lead,
+    .option.lux-02 .price-line {
+      font-family: var(--lux-body-font);
+    }
+
+    .option.lux-02 .eyebrow {
+      font-family: var(--lux-accent-font);
+      letter-spacing: 0.36em;
+    }
+
+    .option.lux-02 .scale-group:nth-child(1) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 2.5rem;
+      letter-spacing: -0.022em;
+    }
+
+    .option.lux-02 .scale-group:nth-child(2) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 1.92rem;
+      letter-spacing: -0.016em;
+    }
+
+    .option.lux-02 .scale-group:nth-child(3) .scale-sample {
+      font-family: var(--lux-body-font);
+      font-size: 1rem;
+    }
+
+    .option.lux-03 {
+      --lux-display-font: 'Prata', 'Georgia', serif;
+      --lux-body-font: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+      --lux-accent-font: 'Urbanist', 'Helvetica Neue', Arial, sans-serif;
+      --lux-display-spacing: -0.005em;
+    }
+
+    .option.lux-03 .display-line {
+      font-family: var(--lux-display-font);
+      font-weight: 400;
+    }
+
+    .option.lux-03 .lead,
+    .option.lux-03 .price-line {
+      font-family: var(--lux-body-font);
+    }
+
+    .option.lux-03 .eyebrow {
+      font-family: var(--lux-accent-font);
+    }
+
+    .option.lux-03 .scale-group:nth-child(1) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 2.45rem;
+      letter-spacing: -0.01em;
+    }
+
+    .option.lux-03 .scale-group:nth-child(2) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 1.85rem;
+      letter-spacing: -0.006em;
+    }
+
+    .option.lux-03 .scale-group:nth-child(3) .scale-sample {
+      font-family: var(--lux-body-font);
+      font-size: 1.02rem;
+    }
+
+    .option.lux-04 {
+      --lux-display-font: 'Petrona', 'Georgia', serif;
+      --lux-body-font: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+      --lux-accent-font: 'Urbanist', 'Helvetica Neue', Arial, sans-serif;
+      --lux-display-spacing: -0.014em;
+    }
+
+    .option.lux-04 .display-line {
+      font-family: var(--lux-display-font);
+      font-weight: 500;
+    }
+
+    .option.lux-04 .lead,
+    .option.lux-04 .price-line {
+      font-family: var(--lux-body-font);
+    }
+
+    .option.lux-04 .eyebrow {
+      font-family: var(--lux-accent-font);
+      font-weight: 600;
+    }
+
+    .option.lux-04 .scale-group:nth-child(1) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 2.55rem;
+      letter-spacing: -0.016em;
+    }
+
+    .option.lux-04 .scale-group:nth-child(2) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 1.9rem;
+      letter-spacing: -0.012em;
+    }
+
+    .option.lux-04 .scale-group:nth-child(3) .scale-sample {
+      font-family: var(--lux-body-font);
+      font-size: 1.03rem;
+    }
+
+    .option.lux-05 {
+      --lux-display-font: 'Spectral', 'Georgia', serif;
+      --lux-body-font: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+      --lux-accent-font: 'Urbanist', 'Helvetica Neue', Arial, sans-serif;
+      --lux-display-spacing: -0.01em;
+    }
+
+    .option.lux-05 .display-line {
+      font-family: var(--lux-display-font);
+      font-weight: 500;
+    }
+
+    .option.lux-05 .lead,
+    .option.lux-05 .price-line {
+      font-family: var(--lux-body-font);
+    }
+
+    .option.lux-05 .eyebrow {
+      font-family: var(--lux-accent-font);
+    }
+
+    .option.lux-05 .scale-group:nth-child(1) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 2.45rem;
+      letter-spacing: -0.012em;
+    }
+
+    .option.lux-05 .scale-group:nth-child(2) .scale-sample {
+      font-family: var(--lux-display-font);
+      font-size: 1.88rem;
+      letter-spacing: -0.008em;
+    }
+
+    .option.lux-05 .scale-group:nth-child(3) .scale-sample {
+      font-family: var(--lux-body-font);
+      font-size: 1.02rem;
+    }
+
+    .option .integration code {
+      display: block;
+      white-space: pre;
+    }
+
+    footer {
+      max-width: 1120px;
+      margin: 4rem auto 0;
+      padding: 0 clamp(1.5rem, 6vw, 5rem);
+      color: rgba(15, 23, 42, 0.48);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span>Coral Sky · Typography Futures</span>
+    <h1>Luxury serif pairings tuned for Coral Sky</h1>
+    <p>
+      Five candidate serifs deliver a high-carat tone without falling back to Times New Roman. Each option ships with
+      unique custom properties and utility hooks so you can plug them into <code>globals.css</code> without touching the existing tokens.
+    </p>
+  </header>
+  <main>
+    <section class="option lux-01">
+      <div class="option-content">
+        <div class="option-header">
+          <span>Option 01 · Iris Atelier</span>
+          <h2>Cormorant Garamond + Manrope</h2>
+          <p>Airy Old World curves with contemporary detailing. Works brilliantly for editorial hero copy and feature headings.</p>
+        </div>
+        <div class="preview">
+          <div class="eyebrow">Heritage Line</div>
+          <h3 class="display-line">Bright features, zero friction</h3>
+          <p class="lead">Hand-rendered lighting, gemstone refractions, and brushed metal textures stay precise from sketch to studio.</p>
+          <div class="price-line"><strong>$4,980</strong> Signature capsule · Ships in 4 weeks</div>
+        </div>
+        <div class="scale-grid">
+          <div class="scale-group">
+            <div class="scale-label">Display</div>
+            <p class="scale-sample">Coral Sky Filigree</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Heading</div>
+            <p class="scale-sample">GlowGlitch Heritage Suite</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Body</div>
+            <p class="scale-sample">Effortless customization with responsive material presets and gemstone libraries.</p>
+          </div>
+        </div>
+        <div class="integration">
+<code>:root {
+  --ja-font-serif-lux-01: 'Cormorant Garamond', 'Georgia', serif;
+  --ja-font-sans-lux-01: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.type-heading-lux-01 {
+  font-family: var(--ja-font-serif-lux-01);
+  letter-spacing: -0.015em;
+}
+
+.type-body-lux-01 {
+  font-family: var(--ja-font-sans-lux-01);
+}</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="option lux-02">
+      <div class="option-content">
+        <div class="option-header">
+          <span>Option 02 · Sera Boutique</span>
+          <h2>Bodoni Moda + Commissioner</h2>
+          <p>High-contrast fashion house energy with rational, modernist body support for product specs and CTAs.</p>
+        </div>
+        <div class="preview">
+          <div class="eyebrow">Limited Capsule</div>
+          <h3 class="display-line">Celestial alloy, crafted in light</h3>
+          <p class="lead">Elevated serif stems give this layout the weight of runway lookbooks while maintaining legibility.</p>
+          <div class="price-line"><strong>$6,250</strong> Atelier exclusive · Edition of 20</div>
+        </div>
+        <div class="scale-grid">
+          <div class="scale-group">
+            <div class="scale-label">Display</div>
+            <p class="scale-sample">Aurora Atelier Vault</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Heading</div>
+            <p class="scale-sample">Runway-Ready Renderings</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Body</div>
+            <p class="scale-sample">Supports data-dense SKU copy, configurator hints, and responsive content blocks.</p>
+          </div>
+        </div>
+        <div class="integration">
+<code>:root {
+  --ja-font-serif-lux-02: 'Bodoni Moda', 'Georgia', serif;
+  --ja-font-sans-lux-02: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.type-heading-lux-02 {
+  font-family: var(--ja-font-serif-lux-02);
+  letter-spacing: -0.02em;
+}
+
+.type-body-lux-02 {
+  font-family: var(--ja-font-sans-lux-02);
+}</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="option lux-03">
+      <div class="option-content">
+        <div class="option-header">
+          <span>Option 03 · Halo Ligne</span>
+          <h2>Prata + Manrope</h2>
+          <p>Graceful teardrop terminals and tight contrast add refinement without overpowering product imagery.</p>
+        </div>
+        <div class="preview">
+          <div class="eyebrow">Signature Set</div>
+          <h3 class="display-line">Sculpted to catch the morning glow</h3>
+          <p class="lead">Pairs delicate serifs with our current UI system, giving homepage copy a boutique atelier voice.</p>
+          <div class="price-line"><strong>$3,750</strong> Spark suite · Ships in 3 weeks</div>
+        </div>
+        <div class="scale-grid">
+          <div class="scale-group">
+            <div class="scale-label">Display</div>
+            <p class="scale-sample">Radiant Morning Light</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Heading</div>
+            <p class="scale-sample">Polished edges with warmth</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Body</div>
+            <p class="scale-sample">Ideal for lookbook captions, feature descriptions, and bespoke launch moments.</p>
+          </div>
+        </div>
+        <div class="integration">
+<code>:root {
+  --ja-font-serif-lux-03: 'Prata', 'Georgia', serif;
+  --ja-font-sans-lux-03: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.type-heading-lux-03 {
+  font-family: var(--ja-font-serif-lux-03);
+  letter-spacing: -0.01em;
+}
+
+.type-body-lux-03 {
+  font-family: var(--ja-font-sans-lux-03);
+}</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="option lux-04">
+      <div class="option-content">
+        <div class="option-header">
+          <span>Option 04 · Meridian Salon</span>
+          <h2>Petrona + Commissioner</h2>
+          <p>Angular wedge serifs and generous counters nod to luxury watch catalogs while staying modern in UI contexts.</p>
+        </div>
+        <div class="preview">
+          <div class="eyebrow">Debut Drop</div>
+          <h3 class="display-line">Midnight quartz, rendered in UHD</h3>
+          <p class="lead">A confident serif that handles uppercase headlines and mixed-case product names elegantly.</p>
+          <div class="price-line"><strong>$5,420</strong> Meridian capsule · 48-hour preview</div>
+        </div>
+        <div class="scale-grid">
+          <div class="scale-group">
+            <div class="scale-label">Display</div>
+            <p class="scale-sample">Luminescent Meridian Halo</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Heading</div>
+            <p class="scale-sample">Precision sculpted for Coral Sky</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Body</div>
+            <p class="scale-sample">Supports dashboard UI, onboarding sequences, and merchandising cards.</p>
+          </div>
+        </div>
+        <div class="integration">
+<code>:root {
+  --ja-font-serif-lux-04: 'Petrona', 'Georgia', serif;
+  --ja-font-sans-lux-04: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.type-heading-lux-04 {
+  font-family: var(--ja-font-serif-lux-04);
+  letter-spacing: -0.014em;
+}
+
+.type-body-lux-04 {
+  font-family: var(--ja-font-sans-lux-04);
+}</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="option lux-05">
+      <div class="option-content">
+        <div class="option-header">
+          <span>Option 05 · Lumen Atelier</span>
+          <h2>Spectral + Commissioner</h2>
+          <p>A literary serif tuned for digital experiences, offering softer transitions and excellent readability at scale.</p>
+        </div>
+        <div class="preview">
+          <div class="eyebrow">Flagship Series</div>
+          <h3 class="display-line">Every facet, traced in coral light</h3>
+          <p class="lead">Spectral’s humanist touch balances the tech-forward Coral Sky palette, elevating trust and craft.</p>
+          <div class="price-line"><strong>$4,150</strong> Lumen collection · Crafted to order</div>
+        </div>
+        <div class="scale-grid">
+          <div class="scale-group">
+            <div class="scale-label">Display</div>
+            <p class="scale-sample">Aurora Resonance Story</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Heading</div>
+            <p class="scale-sample">Haptic-ready configurator prose</p>
+          </div>
+          <div class="scale-group">
+            <div class="scale-label">Body</div>
+            <p class="scale-sample">Expansive x-height keeps long-form copy luminous and accessible across breakpoints.</p>
+          </div>
+        </div>
+        <div class="integration">
+<code>:root {
+  --ja-font-serif-lux-05: 'Spectral', 'Georgia', serif;
+  --ja-font-sans-lux-05: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.type-heading-lux-05 {
+  font-family: var(--ja-font-serif-lux-05);
+  letter-spacing: -0.012em;
+}
+
+.type-body-lux-05 {
+  font-family: var(--ja-font-sans-lux-05);
+}</code>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    Each option ships with unique CSS custom properties (<code>--ja-font-serif-lux-0X</code>) so they can live alongside
+    the current Coral Sky tokens. Swap a section by updating the relevant <code>.type-heading</code>/<code>.type-body</code>
+    layers or by introducing variant-specific utilities (see code blocks above).
+  </footer>
+</body>
+</html>

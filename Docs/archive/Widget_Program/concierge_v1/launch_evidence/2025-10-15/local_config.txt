@@ -1,0 +1,22 @@
+Local Widget Config — 2025-10-15
+
+BASE=http://localhost:3002 (prod serve)
+
+Endpoints resolved via src/lib/concierge/config.ts:
+- Products: /api/stub/concierge/products (no CONCIERGE_PRODUCTS_ENDPOINT set)
+- Order Status: /api/stub/concierge/orders/status
+- Returns (happy path): /api/stub/concierge/orders/returns
+- Capsule (happy path): /api/stub/concierge/capsule
+- Stylist: /api/stub/concierge/stylist
+- CSAT: /api/stub/concierge/analytics/csat
+- Inspiration: /api/stub/concierge/inspiration
+- Order Updates: /api/stub/concierge/order-updates
+- Shortlist: /api/stub/concierge/shortlist
+
+Guardrail shims (dev-only):
+- Returns guardrail route: /api/guardrails/returns
+- Capsule guardrail route: /api/guardrails/capsule
+
+Analytics mirror:
+- NEXT_PUBLIC_ANALYTICS_DEV_MIRROR_ENABLED=true
+- Collector endpoint: /api/dev-analytics/collect (writes to .analytics/dev.log)

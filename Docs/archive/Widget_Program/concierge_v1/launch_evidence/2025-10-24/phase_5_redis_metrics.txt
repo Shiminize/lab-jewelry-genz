@@ -1,0 +1,57 @@
+🧪 Testing Redis Metrics Adapter
+
+1. Generating metrics data...
+   ✅ Request 1: 200 (1 products)
+   ✅ Request 2: 200 (1 products)
+   ✅ Request 3: 200 (1 products)
+   ✅ Request 4: 200 (1 products)
+   ✅ Request 5: 200 (1 products)
+
+2. Testing metrics endpoint without auth...
+   ✅ Correctly rejected unauthorized request
+
+3. Checking Redis connection...
+   📡 REDIS_URL not set
+   ℹ️  Metrics will use in-memory fallback only
+
+4. Testing metrics persistence...
+   ℹ️  In production, restart the server and check if Redis metrics persist
+   ℹ️  In-memory metrics will reset, Redis metrics should remain
+
+5. Expected metrics endpoint response (with auth):
+
+   GET /api/metrics?days=1&source=both
+   
+   Response:
+   {
+     "timestamp": "2025-10-23T22:00:00.000Z",
+     "redis": {
+       "connected": false,
+       "metrics": null
+     },
+     "memory": {
+       "metrics": {
+         "totalRequests": 5,
+         "p95LatencyMs": 45,
+         "bufferSize": 5,
+         "timeRange": "current session (in-memory)"
+       }
+     },
+     "summary": {
+       "primarySource": "memory",
+       "p95LatencyMs": 45,
+       "totalRequests": 5,
+       "cacheHitRate": 0,
+       "errorRate": 0,
+       "timeRange": "current session (in-memory)"
+     }
+   }
+  
+
+✅ Redis Metrics Test Complete
+
+📋 Manual Testing Steps:
+1. Set REDIS_URL in .env to test Redis persistence
+2. Make authenticated request to /api/metrics
+3. Restart server and verify Redis metrics persist
+4. Check server logs for Redis connection status

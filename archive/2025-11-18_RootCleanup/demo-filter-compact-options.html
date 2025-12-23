@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filter Compact Layout Options</title>
+  <style>
+    :root {
+      --bg: #f4f1ec;
+      --surface: #ffffff;
+      --ink: #3f4a45;
+      --ink-subtle: #8a978f;
+      --border: #e8e3dc;
+      --accent: #3f4a45;
+      --muted: #b6c0ba;
+      --shadow: 0 18px 38px rgba(26, 31, 29, 0.08);
+    }
+
+    body {
+      font-family: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      margin: 0;
+      padding: 48px 32px 96px;
+    }
+
+    h1 {
+      font-family: 'Petrona', 'Georgia', serif;
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+
+    section.option {
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 32px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow);
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-subtle);
+    }
+
+    .demo {
+      margin-top: 24px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #faf7f2 100%);
+    }
+
+    .toolbar,
+    .pill-row,
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .toolbar {
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-subtle);
+      background: var(--surface);
+    }
+
+    .pill.active {
+      border-color: rgba(63, 74, 69, 0.4);
+      color: var(--ink);
+      background: #fefdfb;
+      box-shadow: 0 8px 18px rgba(26, 31, 29, 0.08);
+    }
+
+    .link-row {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      gap: 8px;
+      color: var(--muted);
+    }
+
+    .link-row button {
+      border: none;
+      background: none;
+      font: inherit;
+      color: var(--ink-subtle);
+      cursor: pointer;
+    }
+
+    .divider {
+      border-top: 1px dashed var(--border);
+      margin: 20px 0;
+    }
+
+    .inline-drawer {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .drawer-item {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 10px 14px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-subtle);
+      text-align: center;
+      background: #fffdf8;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Compact Filter Concepts</h1>
+
+  <section class="option">
+    <div class="label">Option 1 · Floating Toolbar</div>
+    <p>The filters sit on a slim strip that floats directly above the grid. We drop the heavy shell, keep only a single hairline border, and let the background breathe.</p>
+    <div class="demo">
+      <div class="toolbar">
+        <button class="pill active">All Capsules (60)</button>
+        <input style="flex:1; min-width:220px; padding:10px 16px; border:1px solid var(--border); border-radius:999px; font-size:14px;"
+          placeholder="Search rings, tones, styles…" />
+        <button class="pill" style="width:48px; text-align:center;">◻︎</button>
+        <select style="border:1px solid var(--border); border-radius:999px; padding:10px 32px 10px 16px; font-size:12px; letter-spacing:0.2em;">
+          <option>Featured Picks</option>
+        </select>
+      </div>
+      <div class="pill-row">
+        <button class="pill">Category</button>
+        <button class="pill">Price</button>
+        <button class="pill">Metal</button>
+        <button class="pill">Availability</button>
+        <button class="pill">Tone</button>
+        <button class="pill">Gemstone</button>
+        <button class="pill">Material</button>
+        <button class="pill">Tag</button>
+        <button class="pill active">More Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="option">
+    <div class="label">Option 2 · Stacked Essentials</div>
+    <p>Two thin rows replace the boxy card. Row one keeps key actions; row two introduces the Primary/Refine groups with a dotted divider so everything reads in one glance.</p>
+    <div class="demo">
+      <div class="toolbar" style="margin-bottom:0;">
+        <button class="pill active">All Capsules (60)</button>
+        <input style="flex:1; min-width:220px; padding:10px 16px; border:1px solid var(--border); border-radius:999px; font-size:14px;"
+          placeholder="Search rings, tones, styles…" />
+        <button class="pill" style="width:48px; text-align:center;">◻︎</button>
+        <select style="border:1px solid var(--border); border-radius:999px; padding:10px 32px 10px 16px; font-size:12px; letter-spacing:0.2em;">
+          <option>Featured Picks</option>
+        </select>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <div class="label" style="margin-bottom:8px;">Primary filters</div>
+        <div class="pill-row">
+          <button class="pill">Category</button>
+          <button class="pill">Price</button>
+          <button class="pill">Metal</button>
+          <button class="pill">Availability</button>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <div class="label" style="margin-bottom:8px;">Refine details</div>
+        <div class="pill-row">
+          <button class="pill">Tone</button>
+          <button class="pill">Gemstone</button>
+          <button class="pill">Material</button>
+          <button class="pill">Tag</button>
+          <button class="pill active">More Filters</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="option">
+    <div class="label">Option 3 · Chip Rail + Drawer</div>
+    <p>Only the most-used pills stay in view; everything else tucks into a light inline drawer. The rail hugs the grid, and advanced filters expand only when needed.</p>
+    <div class="demo">
+      <div class="pill-row" style="justify-content:space-between;">
+        <div class="pill-row" style="gap:8px;">
+          <button class="pill">Category</button>
+          <button class="pill">Price</button>
+          <button class="pill">Metal</button>
+          <button class="pill">Availability</button>
+        </div>
+        <button class="pill active">More Filters</button>
+      </div>
+      <div class="inline-drawer" style="margin-top:16px;">
+        <div class="drawer-item">Tone</div>
+        <div class="drawer-item">Gemstone</div>
+        <div class="drawer-item">Material</div>
+        <div class="drawer-item">Tag</div>
+        <div class="drawer-item">Limited drop</div>
+        <div class="drawer-item">Bestseller</div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

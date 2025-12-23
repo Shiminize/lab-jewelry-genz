@@ -1,0 +1,55 @@
+=== SORTING & EMPTY STATE TESTS ===
+Date: Fri Oct 24 00:44:09 CST 2025
+
+Test 1: Featured Sort (default)
+URL: /api/concierge/products?readyToShip=true&category=ring&sortBy=featured
+  Saved 8 products
+
+Test 2: Newest Sort
+URL: /api/concierge/products?readyToShip=true&category=ring&sortBy=newest
+  Saved 8 products
+
+Test 3: Price Ascending
+URL: /api/concierge/products?readyToShip=true&category=ring&sortBy=price-asc
+  Saved 8 products
+  First 3 prices:
+299
+299
+1299
+
+Test 4: Price Descending
+URL: /api/concierge/products?readyToShip=true&category=ring&sortBy=price-desc
+  Saved 8 products
+  First 3 prices:
+2499
+2499
+1499
+
+Test 5: Empty State - No Silent Relaxing
+URL: /api/concierge/products?readyToShip=true&category=ring&priceLt=10
+  Result count: 0
+  ✅ PASS: No silent relaxing - returned empty array as expected
+
+=== SORT ORDER VERIFICATION ===
+
+Featured (first 3):
+{
+  "title": "Lumen Pavé Ring",
+  "featuredInWidget": true,
+  "price": 1499
+}
+{
+  "title": "Minimalist Band Ring",
+  "featuredInWidget": true,
+  "price": 299
+}
+{
+  "title": "Aurora Solitaire Ring",
+  "featuredInWidget": true,
+  "price": 2499
+}
+
+Price Asc vs Price Desc comparison:
+  First price (asc): 299
+  First price (desc): 2499
+  ✅ PASS: Ascending sort shows lower price first

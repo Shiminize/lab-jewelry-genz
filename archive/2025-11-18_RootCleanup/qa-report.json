@@ -1,0 +1,85 @@
+{
+  "timestamp": "2025-10-04T11:44:15.779Z",
+  "overall": true,
+  "checks": {
+    "tests": {
+      "passed": true
+    },
+    "linting": {
+      "passed": true
+    },
+    "typeCheck": {
+      "passed": true
+    },
+    "security": {
+      "passed": true
+    },
+    "performance": {
+      "passed": true,
+      "details": {
+        "buildSuccess": true,
+        "bundleSizes": [
+          "1.58 kB",
+          "113 kB",
+          "87.9 kB",
+          "3.12 kB",
+          "115 kB",
+          "1.56 kB",
+          "113 kB",
+          "1.57 kB",
+          "113 kB",
+          "20 kB",
+          "132 kB",
+          "1.58 kB",
+          "113 kB",
+          "87.7 kB",
+          "31.7 kB",
+          "54 kB",
+          "2.03 kB"
+        ]
+      }
+    },
+    "coverage": {
+      "passed": true,
+      "details": {
+        "actual": 35.3,
+        "threshold": 10,
+        "summary": {
+          "lines": {
+            "total": 779,
+            "covered": 275,
+            "skipped": 0,
+            "pct": 35.3
+          },
+          "statements": {
+            "total": 824,
+            "covered": 294,
+            "skipped": 0,
+            "pct": 35.67
+          },
+          "functions": {
+            "total": 193,
+            "covered": 65,
+            "skipped": 0,
+            "pct": 33.67
+          },
+          "branches": {
+            "total": 357,
+            "covered": 126,
+            "skipped": 0,
+            "pct": 35.29
+          },
+          "branchesTrue": {
+            "total": 0,
+            "covered": 0,
+            "skipped": 0,
+            "pct": 100
+          }
+        }
+      }
+    },
+    "playwright": {
+      "passed": true
+    }
+  }
+}

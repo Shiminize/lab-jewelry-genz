@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GlowGlitch Aurora Concierge Widget Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg-surface: #f6f4f0;
+        --bg-elevated: rgba(255, 255, 255, 0.94);
+        --bg-soft: rgba(255, 255, 255, 0.86);
+        --accent-primary: #ff7f92;
+        --accent-secondary: #8aa2ff;
+        --text-primary: #1f1a1e;
+        --text-secondary: #4f4a4d;
+        --border-soft: rgba(31, 26, 30, 0.12);
+        --shadow-soft: 0 18px 38px rgba(31, 26, 30, 0.18);
+        --shadow-medium: 0 22px 42px rgba(31, 26, 30, 0.22);
+        --badge-bg: rgba(255, 255, 255, 0.16);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, rgba(255, 209, 216, 0.45), rgba(246, 244, 240, 0.95)),
+          var(--bg-surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        color: var(--text-primary);
+      }
+
+      main {
+        max-width: 960px;
+        width: 100%;
+        display: grid;
+        gap: 32px;
+      }
+
+      .page-intro {
+        background: rgba(255, 255, 255, 0.65);
+        border-radius: 30px;
+        padding: 32px;
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .page-intro h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2.2rem, 4vw, 2.8rem);
+      }
+
+      .page-intro p {
+        margin: 0 0 16px;
+        max-width: 540px;
+        line-height: 1.6;
+        color: var(--text-secondary);
+      }
+
+      .page-intro ul {
+        margin: 16px 0 0 20px;
+        padding: 0;
+        color: var(--text-secondary);
+      }
+
+      .widget-stage {
+        position: relative;
+        min-height: 540px;
+        background: rgba(255, 255, 255, 0.45);
+        border-radius: 36px;
+        padding: 36px;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), var(--shadow-soft);
+        overflow: hidden;
+      }
+
+      .concierge-launcher {
+        position: absolute;
+        bottom: 36px;
+        right: 36px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 24px;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(120deg, var(--accent-primary), var(--accent-secondary));
+        color: #fff;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        box-shadow: var(--shadow-medium);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+        max-width: min(320px, calc(100vw - 2.5rem));
+      }
+
+      .concierge-launcher:focus-visible {
+        outline: 3px solid rgba(255, 255, 255, 0.8);
+        outline-offset: 3px;
+      }
+
+      .concierge-launcher:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 30px 48px rgba(31, 26, 30, 0.28);
+      }
+
+      .concierge-launcher span.badge {
+        padding: 4px 10px;
+        background: var(--badge-bg);
+        border-radius: 999px;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .concierge-widget {
+        position: absolute;
+        bottom: 120px;
+        right: 36px;
+        width: 360px;
+        max-width: min(360px, calc(100vw - 2.5rem));
+        display: flex;
+        flex-direction: column;
+        border-radius: 28px;
+        backdrop-filter: blur(18px);
+        background: var(--bg-elevated);
+        box-shadow: var(--shadow-medium);
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(16px) scale(0.98);
+        transition: opacity 180ms ease, transform 220ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .concierge-widget.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .widget-header {
+        padding: 26px 26px 22px;
+        background: linear-gradient(135deg, rgba(255, 140, 164, 0.95), rgba(138, 162, 255, 0.92));
+        color: #fff;
+        border-radius: 28px 28px 0 0;
+        position: relative;
+      }
+
+      .widget-header h2 {
+        margin: 0;
+        font-size: 1.45rem;
+        letter-spacing: 0.01em;
+      }
+
+      .widget-header p {
+        margin: 8px 0 0;
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+
+      .consult-cta {
+        margin-top: 18px;
+        padding: 12px 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .consult-cta button {
+        border: none;
+        background: #fff;
+        color: var(--accent-primary);
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.82rem;
+      }
+
+      .consult-cta button:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.7);
+        outline-offset: 2px;
+      }
+
+      .widget-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .widget-close:focus-visible {
+        outline: 3px solid rgba(255, 255, 255, 0.7);
+        outline-offset: 2px;
+      }
+
+      .intent-chips {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding: 16px 22px 12px;
+        background: var(--bg-soft);
+        border-bottom: 1px solid rgba(31, 26, 30, 0.06);
+      }
+
+      .intent-chips button {
+        border: 1px solid rgba(31, 26, 30, 0.1);
+        background: #fff;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 140ms ease, color 140ms ease, border 140ms ease;
+      }
+
+      .intent-chips button:hover,
+      .intent-chips button:focus-visible {
+        background: rgba(255, 127, 146, 0.12);
+        color: var(--text-primary);
+        border-color: rgba(255, 127, 146, 0.4);
+        outline: none;
+      }
+
+      .widget-body {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 18px 22px 16px;
+        max-height: 420px;
+        overflow-y: auto;
+      }
+
+      .hero-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.72));
+        border-radius: 20px;
+        padding: 16px 18px;
+        border: 1px solid rgba(31, 26, 30, 0.08);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+      }
+
+      .hero-card h3 {
+        margin: 0 0 8px;
+        font-size: 1.1rem;
+      }
+
+      .hero-card p {
+        margin: 0 0 12px;
+        font-size: 0.88rem;
+        line-height: 1.5;
+        color: var(--text-secondary);
+      }
+
+      .hero-card .cta-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .hero-card .cta-row button {
+        border: none;
+        border-radius: 14px;
+        padding: 10px 16px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .hero-card .cta-row button.primary {
+        background: linear-gradient(120deg, var(--accent-primary), var(--accent-secondary));
+        color: #fff;
+      }
+
+      .hero-card .cta-row button.secondary {
+        background: rgba(255, 255, 255, 0.8);
+        color: var(--text-primary);
+        border: 1px solid rgba(31, 26, 30, 0.08);
+      }
+
+      .chat-log {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .message {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        max-width: 92%;
+      }
+
+      .message.user {
+        margin-left: auto;
+        align-items: flex-end;
+      }
+
+      .message .bubble {
+        padding: 12px 14px;
+        border-radius: 18px 18px 18px 6px;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(31, 26, 30, 0.05);
+        color: var(--text-secondary);
+        font-size: 0.88rem;
+        line-height: 1.45;
+      }
+
+      .message.user .bubble {
+        border-radius: 18px 18px 6px 18px;
+        background: linear-gradient(120deg, rgba(255, 127, 146, 0.85), rgba(138, 162, 255, 0.85));
+        color: #fff;
+        border: none;
+      }
+
+      .message .meta {
+        font-size: 0.7rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: rgba(31, 26, 30, 0.48);
+      }
+
+      .offer-card {
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(255, 156, 185, 0.16), rgba(138, 162, 255, 0.16));
+        border: 1px solid rgba(31, 26, 30, 0.08);
+        padding: 16px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .offer-card strong {
+        font-size: 0.95rem;
+      }
+
+      .offer-card button {
+        align-self: flex-start;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 12px;
+        background: #fff;
+        color: var(--accent-primary);
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: inset 0 0 0 1px rgba(255, 127, 146, 0.15);
+      }
+
+      .composer {
+        border-top: 1px solid rgba(31, 26, 30, 0.08);
+        padding: 14px 20px 18px;
+        display: grid;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 0 0 28px 28px;
+      }
+
+      .composer-top {
+        display: flex;
+        gap: 12px;
+      }
+
+      .composer input {
+        flex: 1;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(31, 26, 30, 0.08);
+        font-size: 0.9rem;
+      }
+
+      .composer button.send {
+        border: none;
+        padding: 12px 18px;
+        border-radius: 14px;
+        background: linear-gradient(120deg, var(--accent-primary), var(--accent-secondary));
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .composer-icons {
+        display: flex;
+        gap: 10px;
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+      }
+
+      .composer-icons button {
+        border: none;
+        background: rgba(31, 26, 30, 0.05);
+        color: var(--text-secondary);
+        padding: 8px 10px;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .csat {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+      }
+
+      .csat button {
+        border: none;
+        background: rgba(31, 26, 30, 0.05);
+        padding: 8px 10px;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .escalation {
+        border: 1px solid rgba(31, 26, 30, 0.1);
+        border-radius: 16px;
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.92);
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .escalation.open {
+        display: flex;
+      }
+
+      .escalation input {
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(31, 26, 30, 0.12);
+      }
+
+      .escalation button {
+        border: none;
+        padding: 10px 14px;
+        border-radius: 12px;
+        background: var(--accent-secondary);
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 20px;
+        }
+
+        .widget-stage {
+          padding: 28px;
+          border-radius: 28px;
+        }
+
+        .concierge-widget {
+          right: 20px;
+          bottom: 100px;
+        }
+
+        .concierge-launcher {
+          right: 20px;
+          bottom: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="page-intro">
+        <h1>Aurora Concierge Widget</h1>
+        <p>
+          This demo models the DeepSeek-powered AI assistant for GlowGlitch customers. Open the tray to preview the content
+          strategy, UI layout, and conversion hooks described in the redesign brief.
+        </p>
+        <ul>
+          <li>Launcher badge announces the new AI concierge.</li>
+          <li>Peek state introduces the concierge promise and consult CTA.</li>
+          <li>Quick replies, offer cards, and post-chat rating drive conversions.</li>
+        </ul>
+      </section>
+
+      <section class="widget-stage">
+        <button class="concierge-launcher" id="launcher" aria-expanded="false" aria-controls="aurora-widget">
+          <span class="badge">New</span>
+          Ask Aurora Concierge
+        </button>
+
+        <article class="concierge-widget" id="aurora-widget" role="dialog" aria-modal="false" aria-label="Aurora Concierge">
+          <header class="widget-header">
+            <button class="widget-close" type="button" aria-label="Close Aurora Concierge">&times;</button>
+            <p class="meta" aria-hidden="true">GlowGlitch Concierge</p>
+            <h2>Let’s craft your spark.</h2>
+            <p>Share your vision—our AI stylist sketches options, tracks orders, and unlocks concierge perks in minutes.</p>
+            <div class="consult-cta">
+              <div>
+                <strong>Styling consults</strong>
+                <div style="font-size: 0.74rem; margin-top: 4px;">Reserve a 1:1 session with a human stylist.</div>
+              </div>
+              <button type="button" id="consultBtn">Book</button>
+            </div>
+          </header>
+
+          <div class="intent-chips" role="tablist">
+            <button type="button" data-intent="order">Track my order</button>
+            <button type="button" data-intent="design">Design ideas</button>
+            <button type="button" data-intent="care">Clean &amp; care tips</button>
+            <button type="button" data-intent="finance">Financing options</button>
+          </div>
+
+          <div class="widget-body" id="chatScrollArea">
+            <div class="hero-card" id="heroCard">
+              <h3>Welcome to Aurora Concierge</h3>
+              <p>
+                I blend GlowGlitch’s atelier insights with real-time availability. Choose a quick start or ask anything, and I’ll
+                tailor recommendations instantly.
+              </p>
+              <div class="cta-row">
+                <button class="primary" type="button" data-intent="design">Start my capsule</button>
+                <button class="secondary" type="button" data-intent="order">See my timeline</button>
+              </div>
+            </div>
+
+            <div class="chat-log" id="chatLog" aria-live="polite" aria-atomic="false">
+              <div class="message assistant">
+                <div class="meta">Aurora Concierge</div>
+                <div class="bubble">
+                  Hi there! I’m Aurora, your GlowGlitch concierge. Looking to track an order, explore custom gemstones, or refresh a
+                  piece? I’m ready.
+                </div>
+              </div>
+            </div>
+
+            <div class="offer-card" id="offerCard" hidden>
+              <strong>Reserve your Aurora Capsule</strong>
+              <span>Select your gemstone palette and we’ll deliver 3D turnarounds in 48 hours.</span>
+              <button type="button" id="offerCta">Start my capsule</button>
+            </div>
+
+            <div class="escalation" id="escalationPanel">
+              <strong>Need a stylist’s touch?</strong>
+              <span>Enter your email and I’ll invite a human concierge within the hour.</span>
+              <input type="email" id="escalationEmail" placeholder="you@example.com" aria-label="Email for stylist follow-up" />
+              <button type="button" id="escalationSubmit">Send</button>
+            </div>
+          </div>
+
+          <footer class="composer">
+            <div class="composer-top">
+              <input type="text" id="composerInput" placeholder="Ask Aurora anything..." aria-label="Message Aurora" />
+              <button class="send" type="button" id="sendBtn">Send</button>
+            </div>
+            <div class="composer-icons">
+              <button type="button" id="attachBtn">Attach inspiration</button>
+              <button type="button" id="statusBtn">View order status</button>
+              <button type="button" id="escalateBtn">Talk to stylist</button>
+            </div>
+            <div class="csat" id="csatRow">
+              <span>How did Aurora do today?</span>
+              <button type="button" data-rating="up" aria-label="Thumbs up">👍</button>
+              <button type="button" data-rating="down" aria-label="Thumbs down">👎</button>
+            </div>
+          </footer>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const launcher = document.getElementById("launcher");
+      const widget = document.getElementById("aurora-widget");
+      const closeBtn = widget.querySelector(".widget-close");
+      const chatLog = document.getElementById("chatLog");
+      const composerInput = document.getElementById("composerInput");
+      const sendBtn = document.getElementById("sendBtn");
+      const chatScrollArea = document.getElementById("chatScrollArea");
+      const offerCard = document.getElementById("offerCard");
+      const escalationPanel = document.getElementById("escalationPanel");
+
+      function toggleWidget(forceOpen) {
+        const isOpen = widget.classList.contains("open");
+        const shouldOpen = typeof forceOpen === "boolean" ? forceOpen : !isOpen;
+        widget.classList.toggle("open", shouldOpen);
+        launcher.setAttribute("aria-expanded", String(shouldOpen));
+        if (shouldOpen) {
+          setTimeout(() => composerInput.focus(), 220);
+        } else {
+          launcher.focus();
+        }
+      }
+
+      function appendMessage(role, text) {
+        const message = document.createElement("div");
+        message.className = `message ${role}`;
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = role === "user" ? "You" : "Aurora Concierge";
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.textContent = text;
+        if (role === "user") {
+          message.appendChild(bubble);
+          message.appendChild(meta);
+        } else {
+          message.appendChild(meta);
+          message.appendChild(bubble);
+        }
+        chatLog.appendChild(message);
+        chatScrollArea.scrollTop = chatScrollArea.scrollHeight;
+      }
+
+      function simulateAurora(intent) {
+        let response;
+        switch (intent) {
+          case "order":
+            response =
+              "I can see your Aurora Capsule is cutting gemstones right now. Delivery is forecast for next Thursday—want me to text updates?";
+            break;
+          case "design":
+            response =
+              "Let’s design your capsule. Which metal are you leaning toward—14k rose, recycled white gold, or mixed metals?";
+            offerCard.hidden = false;
+            break;
+          case "care":
+            response =
+              "Polishing is complimentary for 12 months. Use the included microfiber cloth weekly and avoid ultrasonic cleaners for opals.";
+            break;
+          case "finance":
+            response =
+              "We partner with LuminousPay for 0% plans up to 12 months. I can pre-qualify you in minutes—shall we begin?";
+            break;
+          default:
+            response =
+              "I’ll tailor suggestions the moment you share a detail or two. Curious about stones, sizing, or gifting timelines?";
+        }
+        appendMessage("assistant", response);
+      }
+
+      function handleUserInput(text, intent) {
+        if (!text && !intent) return;
+        const payload = text || `Quick reply: ${intent}`;
+        appendMessage("user", payload);
+        composerInput.value = "";
+        const chosenIntent = intent || "custom";
+        setTimeout(() => simulateAurora(chosenIntent), 520);
+      }
+
+      launcher.addEventListener("click", () => toggleWidget());
+      closeBtn.addEventListener("click", () => toggleWidget(false));
+
+      sendBtn.addEventListener("click", () => {
+        handleUserInput(composerInput.value.trim());
+      });
+
+      composerInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          handleUserInput(composerInput.value.trim());
+        }
+      });
+
+      document.querySelectorAll(".intent-chips button, .hero-card button.primary, .hero-card button.secondary").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const intent = btn.getAttribute("data-intent");
+          const label = btn.textContent.trim();
+          handleUserInput(label, intent);
+        });
+      });
+
+      document.getElementById("consultBtn").addEventListener("click", () => {
+        appendMessage("assistant", "I’ve reserved a styling slot. Expect a confirmation email within a few minutes.");
+      });
+
+      document.getElementById("offerCta").addEventListener("click", () => {
+        appendMessage("assistant", "Stunning choice. I’ll queue a Coral & Sky render kit and send a preview within 48 hours.");
+      });
+
+      document.getElementById("escalateBtn").addEventListener("click", () => {
+        escalationPanel.classList.add("open");
+        document.getElementById("escalationEmail").focus();
+      });
+
+      document.getElementById("escalationSubmit").addEventListener("click", () => {
+        const emailField = document.getElementById("escalationEmail");
+        const value = emailField.value.trim();
+        if (!value) {
+          emailField.focus();
+          return;
+        }
+        escalationPanel.classList.remove("open");
+        appendMessage("assistant", `Perfect, I’ve invited a GlowGlitch stylist to ${value}. They’ll reach out within the hour.`);
+        emailField.value = "";
+      });
+
+      document.querySelectorAll(".csat button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const rating = btn.getAttribute("data-rating");
+          appendMessage("assistant", rating === "up" ? "Thank you! I appreciate the feedback." : "I’m sorry I missed the mark—I'll involve a stylist right away.");
+        });
+      });
+
+      document.getElementById("attachBtn").addEventListener("click", () => {
+        appendMessage("assistant", "You can drop any inspiration photo here or email concierge@glowglitch.com for more space.");
+      });
+
+      document.getElementById("statusBtn").addEventListener("click", () => {
+        simulateAurora("order");
+      });
+    </script>
+  </body>
+</html>

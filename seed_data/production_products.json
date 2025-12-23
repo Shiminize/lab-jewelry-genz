@@ -1,0 +1,817 @@
+{
+    "products": [
+        {
+            "name": "Array-8 Bar Studs",
+            "slug": "array-8-bar-studs",
+            "sku": "GGE01-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 520
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Recycled Diamond (x8)"
+                }
+            ],
+            "description": "Linear processing. An array of eight (or nine) micro-diamonds set in a straight bar. 17mm length.",
+            "story": "Linearity is clarity. These studs align eight recycled diamonds in a strict, light-catching row. Wear them vertically for a defiant drop or horizontally to trace the earlobe’s edge.",
+            "metadata": {
+                "tagline": "Linear processing.",
+                "collections": [
+                    "Flux Series"
+                ],
+                "accentTone": "volt",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Binary Star Studs",
+            "slug": "binary-star-studs",
+            "sku": "GGE02-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 580
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Blue Diamond"
+                },
+                {
+                    "name": "Green Diamond"
+                }
+            ],
+            "description": "Two gravity wells. Twin 3mm stones in rare hues—Electric Blue and Neon Green.",
+            "story": "Two distinct gravitational pulls. A rare pairing of Electric Blue and Neon Green diamonds that defies traditional symmetry. Designed for those who find balance in contrast.",
+            "metadata": {
+                "tagline": "Two gravity wells.",
+                "collections": [
+                    "Statement"
+                ],
+                "accentTone": "cyan",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Contrast Hoops",
+            "slug": "contrast-hoops",
+            "sku": "GGE03-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 290
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                },
+                {
+                    "name": "Sterling Silver"
+                }
+            ],
+            "gemstones": [],
+            "description": "Binary thinking. A split-tone hoop that presents gold from one angle and silver from another.",
+            "story": "A study in duality. These hoops present a polished gold face to the world while keeping a cool silver secret against the skin. Perspectives shift with every turn of your head.",
+            "metadata": {
+                "tagline": "Binary thinking.",
+                "collections": [
+                    "Essentials"
+                ],
+                "accentTone": "volt",
+                "primaryMetal": "Mixed"
+            }
+        },
+        {
+            "name": "Diamond Link Emitters",
+            "slug": "diamond-link-emitters",
+            "sku": "GGE04-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 680
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Lab-Grown Diamond"
+                }
+            ],
+            "description": "Industrial elegance. A chain-link drop earring terminating in a flash of diamond light. Movement generates sparkle.",
+            "story": "Kinetic energy, captured. Industrial chain links terminate in a precise diamond drop, engineered to catch light with every movement. A system of elegance and edge.",
+            "metadata": {
+                "tagline": "Industrial elegance.",
+                "collections": [
+                    "Flux Series"
+                ],
+                "accentTone": "cyan",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Micro-Halo Clicker",
+            "slug": "micro-halo-clicker",
+            "sku": "GGE05-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 420
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Moissanite"
+                }
+            ],
+            "description": "Compact and precise. 10.3mm hoop diameter with a 0.04ct recycled stone. Engineered for daily wear.",
+            "story": "Precision engineering for the everyday. A compact hoop that integrates a single recycled stone into your daily uniform. Small enough to sleep in, bright enough to be seen.",
+            "metadata": {
+                "tagline": "Compact and precise.",
+                "collections": [
+                    "Essentials"
+                ],
+                "accentTone": "cyan",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Moissanite Studs",
+            "slug": "moissanite-studs",
+            "sku": "GGE06-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 400
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Moissanite"
+                }
+            ],
+            "description": "Pure refractive power. Moissanite stones offer brilliance that rivals diamond at a fraction of the carbon footprint.",
+            "story": "Refractive defiance. These stones challenge the hierarchy of carbon with brilliance that outshines the traditional. Ethical power for the conscious wearer.",
+            "metadata": {
+                "tagline": "Pure refractive power.",
+                "collections": [
+                    "Essentials"
+                ],
+                "accentTone": "volt",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Pearl Logic Drops",
+            "slug": "pearl-logic-drops",
+            "sku": "GGE07-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 480
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Pearl"
+                }
+            ],
+            "description": "Organic data. Perfectly spherical pearls suspended from a rigorous gold lattice.",
+            "story": "Organic data structures. Perfectly spherical pearls suspended from a rigorous gold lattice, proving that logic and nature can coexist in beautiful tension.",
+            "metadata": {
+                "tagline": "Organic data.",
+                "collections": [
+                    "Ethereal"
+                ],
+                "accentTone": "lime",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Quad-Core Cluster",
+            "slug": "quad-core-cluster",
+            "sku": "GGE08-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 650
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Tourmaline"
+                },
+                {
+                    "name": "Sapphire"
+                },
+                {
+                    "name": "Diamond"
+                }
+            ],
+            "description": "Four independent cores. A mix of Tourmaline, Sapphire, and Diamond in a tight computational cluster. Multicolor output.",
+            "story": "Four distinct energy sources. A computational cluster of Tourmaline, Sapphire, and Diamond that outputs a complex, multicolor signal. Wear it when you need to amplify your bandwidth.",
+            "metadata": {
+                "tagline": "Four independent cores.",
+                "collections": [
+                    "Flux Series"
+                ],
+                "accentTone": "lime",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Sapphire Node Studs",
+            "slug": "sapphire-node-studs",
+            "sku": "GGE09-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 600
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Sapphire"
+                },
+                {
+                    "name": "Ruby"
+                },
+                {
+                    "name": "Diamond"
+                }
+            ],
+            "description": "Deep blue data points. A 0.31ct sapphire center with reinforced bezel beading. Also available in Ruby and Diamond protocols.",
+            "story": "A blip of deep blue data. This 0.31ct sapphire is secured by a reinforced bezel, acting as a constant anchor in a shifting world. A quiet signal of intent.",
+            "metadata": {
+                "tagline": "Deep blue data points.",
+                "collections": [
+                    "Core"
+                ],
+                "accentTone": "magenta",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Singularity Studs",
+            "slug": "singularity-studs",
+            "sku": "GGE10-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 2200
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Moissanite (1ct)"
+                }
+            ],
+            "description": "Event horizon. A massive 1-carat equivalent stone per ear. Maximal brilliance, minimal bezel.",
+            "story": "Maximum density. A massive 1-carat equivelant stone that bends light and attention towards you. The event horizon of your ear stack.",
+            "metadata": {
+                "tagline": "Event horizon.",
+                "collections": [
+                    "Statement"
+                ],
+                "accentTone": "volt",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Standard Issue Hoops",
+            "slug": "standard-issue-hoops",
+            "sku": "GGE11-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 350
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [],
+            "description": "Reliable. Classic. The baseline for your ear curation. Available in two circumferences to support both lobe and helix placement.",
+            "story": "The baseline protocol. Reliable, classic, and essential. These hoops are the control group against which all other accessories are measured.",
+            "metadata": {
+                "tagline": "Reliable. Classic.",
+                "collections": [
+                    "Essentials"
+                ],
+                "accentTone": "volt",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Tassel Signal Drops",
+            "slug": "tassel-signal-drops",
+            "sku": "GGE12-01",
+            "category": "Earrings",
+            "pricing": {
+                "basePrice": 550
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/earrings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Lab-Sapphire"
+                }
+            ],
+            "description": "Fluidity in motion. Gold fringe cascades from a sapphire control point. Perfect for motion-heavy environments.",
+            "story": "Fluid transmission. Gold fringe cascades from a sapphire control point, creating a visual wave form that moves as you do. Designed for high-frequency environments.",
+            "metadata": {
+                "tagline": "Fluidity in motion.",
+                "collections": [
+                    "Statement"
+                ],
+                "accentTone": "magenta",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Cascade Chain",
+            "slug": "cascade-chain",
+            "sku": "GGN01-01",
+            "category": "Necklaces",
+            "pricing": {
+                "basePrice": 1100
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/necklaces/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                },
+                {
+                    "name": "Sterling Silver"
+                }
+            ],
+            "gemstones": [],
+            "description": "A clash of metals. This multi-strand design simulates a tangled data stream, merging gold and silver tones in a deliberate, chaotic weave.",
+            "story": "Controlled entropy. A deliberate clash of gold and silver strands that mimics a tangled data stream. There is beauty in the breakdown.",
+            "metadata": {
+                "tagline": "A clash of metals.",
+                "collections": [
+                    "Statement",
+                    "Flux Series"
+                ],
+                "accentTone": "lime",
+                "primaryMetal": "Mixed"
+            }
+        },
+        {
+            "name": "Layering Link Stream",
+            "slug": "layering-link-stream",
+            "sku": "GGN02-01",
+            "category": "Necklaces",
+            "pricing": {
+                "basePrice": 450
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/necklaces/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Lab-Grown Diamond"
+                }
+            ],
+            "description": "The foundation of your stack. A fluid chain mechanism punctuated by a single, sharp diamond accent. Designed to interface seamlessly with heavier pieces.",
+            "story": "The backbone of your system. A fluid chain mechanism punctuated by a sharp diamond accent. It plays well with others but stands strong alone.",
+            "metadata": {
+                "tagline": "The foundation of your stack.",
+                "collections": [
+                    "Essentials"
+                ],
+                "accentTone": "volt",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Orbital Flux Necklace",
+            "slug": "orbital-flux-necklace-set",
+            "sku": "GGN03-01",
+            "category": "Necklaces",
+            "pricing": {
+                "basePrice": 1250
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/necklaces/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil (18k Gold on Sterling)"
+                },
+                {
+                    "name": "Sterling Silver"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Lab-Grown Diamond (0.2ct)"
+                },
+                {
+                    "name": "Lab-Grown Diamond (0.1ct)"
+                }
+            ],
+            "description": "A constellation of suspended brilliance. The Orbital Flux set features our signature 'bubble' setting, allowing light to strike the diamond from every angle. Available in two tiers of luminescence.",
+            "story": "Suspended in orbit. Our signature 'bubble' setting allows light to hit the diamond from every angle, creating a personal force field of brilliance.",
+            "metadata": {
+                "tagline": "Suspended brilliance.",
+                "collections": [
+                    "Flux Series",
+                    "Core"
+                ],
+                "accentTone": "cyan",
+                "primaryMetal": "Vermeil",
+                "customization": {
+                    "stone_options": [
+                        "Diamond"
+                    ],
+                    "materials": [
+                        "Gold",
+                        "Silver"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Orbital Flux V5",
+            "slug": "orbital-flux-v5",
+            "sku": "GGN04-01",
+            "category": "Necklaces",
+            "pricing": {
+                "basePrice": 1800
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/necklaces/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Lab-Grown Diamond (x5)"
+                }
+            ],
+            "description": "Maximum luminance. Five floating diamonds arranged in a chaotic yet harmonious sequence. The V5 edition amplifies the Orbital Flux design language for high-impact presence.",
+            "story": "Amplified signal. Five floating diamonds arranged in a chaotic yet harmonious sequence. A high-bandwidth statement that demands attention.",
+            "metadata": {
+                "tagline": "Maximum luminance.",
+                "collections": [
+                    "Flux Series",
+                    "Statement"
+                ],
+                "accentTone": "cyan",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Unity Handshake Collier",
+            "slug": "unity-handshake-collier",
+            "sku": "GGN05-01",
+            "category": "Necklaces",
+            "pricing": {
+                "basePrice": 880
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/necklaces/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Freshwater Pearl"
+                }
+            ],
+            "description": "Connection established. A surplus-inspired clasp mechanism shaped like clasped hands, securing a strand of baroque pearls.",
+            "story": "Human connection, encoded. A surplus-inspired clasp secures a strand of baroque pearls, reminding us that touch is the ultimate interface.",
+            "metadata": {
+                "tagline": "Connection established.",
+                "collections": [
+                    "Ethereal"
+                ],
+                "accentTone": "lime",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Chronos Birthstone Amulet",
+            "slug": "chronos-birthstone-pendant",
+            "sku": "GGP01-01",
+            "category": "Pendants",
+            "pricing": {
+                "basePrice": 850
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/necklaces/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Garnet"
+                },
+                {
+                    "name": "Amethyst"
+                },
+                {
+                    "name": "Aquamarine"
+                },
+                {
+                    "name": "Diamond"
+                },
+                {
+                    "name": "Emerald"
+                },
+                {
+                    "name": "Moonstone"
+                },
+                {
+                    "name": "Ruby"
+                },
+                {
+                    "name": "Peridot"
+                },
+                {
+                    "name": "Sapphire"
+                },
+                {
+                    "name": "Tourmaline"
+                },
+                {
+                    "name": "Topaz"
+                },
+                {
+                    "name": "Tanzanite"
+                }
+            ],
+            "description": "Your timeline, crystallized. The Chronos Amulet anchors your personal era with one of twelve precision-cut birthstones set in a high-polish bezel.",
+            "story": "Your personal epoch. This amulet anchors your timeline with a precision-cut birthstone. A physical marker of your moment in the stream.",
+            "metadata": {
+                "tagline": "Your timeline, crystallized.",
+                "collections": [
+                    "Core",
+                    "Ethereal"
+                ],
+                "accentTone": "magenta",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Lunar Phase Pendant",
+            "slug": "lunar-phase-pendant",
+            "sku": "GGP02-01",
+            "category": "Pendants",
+            "pricing": {
+                "basePrice": 750
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/necklaces/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Moonstone"
+                }
+            ],
+            "description": "Soft light in the darkness. A singular cabochon Moonstone that shifts with your movement. Can be customized with Aquamarine or Lab-Grown Ruby for a sharper spectrum.",
+            "story": "Reflected light. A singular Moonstone cabochon that shifts with your environment. A quiet reminder of the cycles that govern us all.",
+            "metadata": {
+                "tagline": "Soft light in the darkness.",
+                "collections": [
+                    "Ethereal"
+                ],
+                "accentTone": "lime",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Prism Core Pendant",
+            "slug": "prism-core-pendant",
+            "sku": "GGP03-01",
+            "category": "Pendants",
+            "pricing": {
+                "basePrice": 920
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/necklaces/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Lab-Ruby"
+                },
+                {
+                    "name": "Lab-Sapphire"
+                },
+                {
+                    "name": "Rose Quartz"
+                }
+            ],
+            "description": "Focus your energy. A geometric housing for vibrant lab-grown corundum or soft quartz. A talisman for the modern traveler.",
+            "story": "Focused energy. A geometric housing for vibrant corundum or soft quartz. Carry your intention close to your chest.",
+            "metadata": {
+                "tagline": "Focus your energy.",
+                "collections": [
+                    "Core"
+                ],
+                "accentTone": "magenta",
+                "primaryMetal": "Vermeil"
+            }
+        },
+        {
+            "name": "Chaos Ring",
+            "slug": "chaos-ring",
+            "sku": "GGR01-01",
+            "category": "Rings",
+            "pricing": {
+                "basePrice": 425
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/rings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Recycled Sterling Silver"
+                }
+            ],
+            "gemstones": [],
+            "description": "For the beautifully unorganized souls who thrive in controlled chaos. This asymmetrical design celebrates the perfectly imperfect moments that make life worth living.",
+            "story": "Beautifully unorganized. An asymmetrical design that celebrates the glitch, the error, and the happy accident. For those who thrive in the noise.",
+            "metadata": {
+                "tagline": "Perfectly imperfect.",
+                "collections": [
+                    "Statement"
+                ],
+                "accentTone": "magenta",
+                "primaryMetal": "Silver",
+                "customization": {
+                    "materials": [
+                        "Recycled Sterling Silver",
+                        "Recycled 14k Gold"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Coral Orbit Ring",
+            "slug": "coral-orbit",
+            "sku": "GGR02-01",
+            "category": "Rings",
+            "pricing": {
+                "basePrice": 140
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/rings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "18k Recycled Rose Gold"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Lab-Grown Gradient Sapphires"
+                }
+            ],
+            "description": "Captures the precise moment light shifts into dusk. Engineered with a seamless sapphire gradient, this ring is a study in color theory—fluid, constant, and alive.",
+            "story": "The golden hour, captured. Engineered with a seamless sapphire gradient that mimics the shift from day to dusk. A constant sunset on your hand.",
+            "metadata": {
+                "tagline": "Fluid, constant, and alive.",
+                "collections": [
+                    "Ethereal",
+                    "Statement"
+                ],
+                "accentTone": "magenta",
+                "primaryMetal": "Rose Gold",
+                "customization": {
+                    "materials": [
+                        "18k Rose Gold",
+                        "18k Yellow Gold",
+                        "Platinum"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Icon Era Ring",
+            "slug": "icon-era-ring",
+            "sku": "GGR03-01",
+            "category": "Rings",
+            "pricing": {
+                "basePrice": 3500
+            },
+            "images": {
+                "primary": "https://res.cloudinary.com/dgyf0osrx/image/upload/v1/glowglitch/categories/glowglitch/categories/rings/sample.jpg"
+            },
+            "materials": [
+                {
+                    "name": "Vermeil"
+                }
+            ],
+            "gemstones": [
+                {
+                    "name": "Lab-Diamond (3-5ct)"
+                }
+            ],
+            "description": "For the stadium tour. A show-stopping 3-5 carat center stone silhouette inspired by pop royalty.",
+            "story": "Main character energy. A show-stopping silhouette inspired by pop royalty and stadium lights. You don't just enter the room; you headline it.",
+            "metadata": {
+                "tagline": "For the stadium tour.",
+                "collections": [
+                    "Statement"
+                ],
+                "accentTone": "magenta",
+                "primaryMetal": "Vermeil"
+            }
+        }
+    ]
+}

@@ -1,0 +1,84 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "@stylelint/postcss-css-in-js/recommended"
+  ],
+  "plugins": [
+    "stylelint-no-unsupported-browser-features",
+    "@stylelint/postcss-css-in-js"
+  ],
+  "rules": {
+    "declaration-strict-value": [
+      ["/color/", "/background/", "/border-color/"],
+      {
+        "disableFix": true,
+        "ignoreKeywords": {
+          "/color/": ["currentColor", "transparent", "inherit", "initial", "unset"],
+          "/background/": ["transparent", "inherit", "initial", "unset"],  
+          "/border-color/": ["currentColor", "transparent", "inherit", "initial", "unset"]
+        },
+        "message": "Expected Aurora design token instead of hardcoded value for %s"
+      }
+    ],
+    "scale-unlimited/declaration-strict-value": [
+      ["/color$/", "fill", "stroke"],
+      {
+        "ignoreKeywords": {
+          "": ["currentColor", "transparent", "inherit", "initial", "unset"],
+          "fill": ["none"],
+          "stroke": ["none"]
+        }
+      }
+    ],
+    "selector-class-pattern": [
+      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|^(token-|aurora-)",
+      {
+        "message": "Class names should use kebab-case or Aurora token prefixes (token-, aurora-)"
+      }
+    ],
+    "custom-property-pattern": [
+      "^(--aurora-|--token-|--tw-)",
+      {
+        "message": "Custom properties should use Aurora token prefixes (--aurora-, --token-) or Tailwind prefixes (--tw-)"
+      }
+    ],
+    "value-no-vendor-prefix": true,
+    "property-no-vendor-prefix": true,
+    "at-rule-no-vendor-prefix": true,
+    "selector-no-vendor-prefix": true,
+    "color-no-hex": true,
+    "length-zero-no-unit": true,
+    "shorthand-property-no-redundant-values": true,
+    "declaration-block-no-duplicate-properties": true,
+    "no-duplicate-selectors": true,
+    "block-no-empty": true,
+    "comment-no-empty": true,
+    "no-empty-source": true,
+    "no-eol-whitespace": true,
+    "no-extra-semicolons": true,
+    "no-invalid-double-slash-comments": true,
+    "media-feature-name-no-vendor-prefix": true,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen",
+          "layer"
+        ]
+      }
+    ]
+  },
+  "ignoreFiles": [
+    "node_modules/**/*",
+    "dist/**/*",
+    ".next/**/*",
+    "build/**/*",
+    "app/styles/design-tokens.css",
+    "app/styles/typography.css",
+    "app/styles/animations.css"
+  ]
+}

@@ -1,0 +1,6 @@
+[
+  { "sku":"A-001","title":"Gold Ring Mini","price":199,"currency":"USD","category":"ring","readyToShip":true,"tags":["gift","gold"],"featuredInWidget":true },
+  { "sku":"A-002","title":"Silver Necklace","price":129,"currency":"USD","category":"necklace","readyToShip":true,"tags":["gift","silver"],"featuredInWidget":true },
+  { "sku":"B-300","title":"Boundary 300","price":300,"currency":"USD","category":"ring","readyToShip":true,"tags":["gift"],"featuredInWidget":false },
+  { "sku":"C-301","title":"Over 300","price":301,"currency":"USD","category":"ring","readyToShip":false,"tags":["gold"],"featuredInWidget":true }
+]

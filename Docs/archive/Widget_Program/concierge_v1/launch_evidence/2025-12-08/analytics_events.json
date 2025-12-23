@@ -1,0 +1,200 @@
+[
+  {
+    "timestamp": 1765212539271,
+    "event": "aurora_widget_open",
+    "originalEvent": "widget_open",
+    "requestId": "f74f9970-b3ba-4e28-8a41-da9b35527672"
+  },
+  {
+    "timestamp": 1765212539291,
+    "event": "aurora_concierge_quickstart_clicked",
+    "originalEvent": "concierge_quickstart_clicked",
+    "slug": "ready-to-ship",
+    "filtersApplied": {
+      "readyToShip": true
+    },
+    "requestId": "477ef8cb-df97-48ba-9f93-dd4aab828c2e"
+  },
+  {
+    "timestamp": 1765212539292,
+    "event": "aurora_intent_detected",
+    "originalEvent": "intent_detected",
+    "intent": "find_product",
+    "source": "explicit",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "find_product-64cb8d73-a5e0-471b-8c33-eaa456fddc67"
+  },
+  {
+    "timestamp": 1765212540100,
+    "event": "aurora_intent_complete",
+    "originalEvent": "intent_complete",
+    "intent": "find_product",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "find_product-64cb8d73-a5e0-471b-8c33-eaa456fddc67"
+  },
+  {
+    "timestamp": 1765212540101,
+    "event": "aurora_products_shown",
+    "originalEvent": "products_shown",
+    "intent": "find_product",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "find_product-64cb8d73-a5e0-471b-8c33-eaa456fddc67",
+    "productCount": 3
+  },
+  {
+    "timestamp": 1765212540530,
+    "event": "aurora_product_shortlisted",
+    "originalEvent": "product_shortlisted",
+    "productId": "aurora-ring-solaris",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "shortlist-7aed59c1-0e6d-43bc-bfae-25be6992b45b",
+    "shortlistCount": 1
+  },
+  {
+    "timestamp": 1765212540700,
+    "event": "aurora_product_shortlisted",
+    "originalEvent": "product_shortlisted",
+    "productId": "aurora-ring-solaris",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "shortlist-1b99a17d-a5dc-4bdf-9730-5a94bf5b5864",
+    "shortlistCount": 0,
+    "removed": true
+  },
+  {
+    "timestamp": 1765212540846,
+    "event": "aurora_concierge_quickstart_clicked",
+    "originalEvent": "concierge_quickstart_clicked",
+    "slug": "track_order",
+    "requestId": "b6f5d425-7a8e-4efe-acec-777c633f7a38"
+  },
+  {
+    "timestamp": 1765212540847,
+    "event": "aurora_intent_detected",
+    "originalEvent": "intent_detected",
+    "intent": "track_order",
+    "source": "explicit",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "track_order-f6061237-4a92-4689-9296-69e9cd9e6157"
+  },
+  {
+    "timestamp": 1765212540849,
+    "event": "aurora_intent_complete",
+    "originalEvent": "intent_complete",
+    "intent": "track_order",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "track_order-f6061237-4a92-4689-9296-69e9cd9e6157"
+  },
+  {
+    "timestamp": 1765212540880,
+    "event": "aurora_intent_detected",
+    "originalEvent": "intent_detected",
+    "intent": "track_order",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "track_order-c4b16531-a05a-419b-ac8d-f650ef56fe44"
+  },
+  {
+    "timestamp": 1765212541169,
+    "event": "aurora_intent_complete",
+    "originalEvent": "intent_complete",
+    "intent": "track_order",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "track_order-c4b16531-a05a-419b-ac8d-f650ef56fe44"
+  },
+  {
+    "timestamp": 1765212541561,
+    "event": "aurora_timeline_text_updates",
+    "originalEvent": "timeline_text_updates",
+    "success": true,
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "order-updates-9f25d56c-ac53-42c9-bc6f-4d4ef8abac7d",
+    "orderNumber": "GG-12345"
+  },
+  {
+    "timestamp": 1765212541663,
+    "event": "aurora_concierge_quickstart_clicked",
+    "originalEvent": "concierge_quickstart_clicked",
+    "slug": "return_exchange",
+    "requestId": "0b6dfb7e-d74f-410c-9129-04a224c00219"
+  },
+  {
+    "timestamp": 1765212541663,
+    "event": "aurora_intent_detected",
+    "originalEvent": "intent_detected",
+    "intent": "return_exchange",
+    "source": "explicit",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "return_exchange-22d6ab28-908f-40d5-91fb-3215098a24d9",
+    "orderNumber": "GG-12345"
+  },
+  {
+    "timestamp": 1765212541666,
+    "event": "aurora_intent_complete",
+    "originalEvent": "intent_complete",
+    "intent": "return_exchange",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "return_exchange-22d6ab28-908f-40d5-91fb-3215098a24d9",
+    "orderNumber": "GG-12345"
+  },
+  {
+    "timestamp": 1765212541666,
+    "event": "aurora_return_initiated",
+    "originalEvent": "return_initiated",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "return_exchange-22d6ab28-908f-40d5-91fb-3215098a24d9",
+    "orderNumber": "GG-12345"
+  },
+  {
+    "timestamp": 1765212541697,
+    "event": "aurora_intent_detected",
+    "originalEvent": "intent_detected",
+    "intent": "return_exchange",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "return_exchange-ad93173f-2aae-4a75-8d2c-31244a9375e2",
+    "orderNumber": "GG-12345"
+  },
+  {
+    "timestamp": 1765212541905,
+    "event": "aurora_intent_complete",
+    "originalEvent": "intent_complete",
+    "intent": "return_exchange",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "return_exchange-ad93173f-2aae-4a75-8d2c-31244a9375e2",
+    "orderNumber": "GG-12345"
+  },
+  {
+    "timestamp": 1765212541905,
+    "event": "aurora_return_initiated",
+    "originalEvent": "return_initiated",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "return_exchange-ad93173f-2aae-4a75-8d2c-31244a9375e2",
+    "option": "return",
+    "orderNumber": "GG-12345"
+  },
+  {
+    "timestamp": 1765212542047,
+    "event": "aurora_shortlist_escalate",
+    "originalEvent": "shortlist_escalate",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "shortlistCount": 0,
+    "requestId": "14c3cda3-e843-4d86-827f-71567af81a9f"
+  },
+  {
+    "timestamp": 1765212542047,
+    "event": "aurora_intent_detected",
+    "originalEvent": "intent_detected",
+    "intent": "stylist_contact",
+    "source": "shortlist",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "stylist_contact-fa812938-e42e-4b09-a819-8933eb957a22",
+    "orderNumber": "GG-12345"
+  },
+  {
+    "timestamp": 1765212542050,
+    "event": "aurora_intent_complete",
+    "originalEvent": "intent_complete",
+    "intent": "stylist_contact",
+    "sessionId": "bf6ab957-9937-4bb9-9b42-b433b152ea50",
+    "requestId": "stylist_contact-fa812938-e42e-4b09-a819-8933eb957a22",
+    "orderNumber": "GG-12345"
+  }
+]

@@ -1,0 +1,245 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("customer") // "admin", "customer"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders    Order[]
+
+  @@map("users")
+}
+
+model Product {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  sku         String  @unique
+  name        String
+  description String  @db.Text
+  story       String? @db.Text
+  category    String
+
+  // Pricing
+  basePrice Float  @default(0)
+  currency  String @default("USD")
+
+  // Images
+  heroImage String
+  gallery   String[] // Postgres array of strings
+
+  // Details (Normalized or Array)
+  materials  String[]
+  gemstones  String[]
+  dimensions String[]
+  care       String[]
+
+  // Metadata / Status
+  status      String   @default("draft") // "active", "draft", "archived"
+  featured    Boolean  @default(false)
+  bestseller  Boolean  @default(false)
+  collections String[]
+
+  // Inventory (simplified for now, can be separate table later)
+  inventory Int @default(0)
+
+  // Flexible metadata for anything else
+  metadata Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@index([category])
+  @@index([featured])
+  @@index([bestseller])
+  @@index([name]) // Basic text search support
+  @@map("products")
+}
+
+model HomepageSettings {
+  id                String   @id @default("homepage")
+  hero              Json?
+  collectionSection Json?
+  creatorCta        Json?
+  customizerConfig  Json?
+  updatedAt         DateTime @updatedAt
+
+  @@map("homepage_settings")
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  orderNumber   String   @unique
+  status        String   @default("pending") // pending, processing, shipped, delivered, cancelled
+  
+  customerEmail String
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id])
+
+  // Financials
+  total         Float    @default(0)
+  currency      String   @default("USD")
+
+  // Data (Stored as JSON for flexibility during migration)
+  items           Json[]   // [{ productId, name, quantity, unitPrice, subtotal, snapshot }]
+  shippingAddress Json?
+  billingAddress  Json?
+  payment         Json?    // { method, status, transactionId }
+  shipping        Json?    // { carrier, trackingNumber }
+  
+  // Widget Data
+  widgetData      Json?
+
+  // Extended Status
+  statusHistory   Json[]
+  returnInfo      Json?
+  metadata        Json?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("orders")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@map("password_reset_tokens")
+}
+
+model Cart {
+  id        String   @id @default(cuid())
+  items     Json[]   // CartItem[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("carts")
+}
+
+model AdminActivity {
+  id            String   @id @default(cuid())
+  action        String
+  entityType    String
+  entityId      String
+  summary       String
+  actor         String   @default("admin")
+  before        Json?
+  after         Json?
+  undoAvailable Boolean  @default(false)
+  undoneAt      DateTime?
+  createdAt     DateTime @default(now())
+
+  @@map("admin_activity")
+}
+
+model AdminSettings {
+  id               String   @id // usually 'global'
+  notifyEmail      String?
+  slackWebhook     String?
+  autoSendMediaKit Boolean  @default(true)
+  mediaKitSlaHours Int      @default(72)
+  updatedAt        DateTime @updatedAt
+
+  @@map("admin_settings")
+}
+
+model CreatorApplication {
+  id                String    @id @default(cuid())
+  name              String
+  email             String
+  platform          String    @default("")
+  audience          String    @default("")
+  wantsMediaKit     Boolean   @default(false)
+  status            String    @default("received")
+  mediaKitStatus    String    @default("not_requested")
+  notes             String?
+  mediaKitSentAt    DateTime?
+  mediaKitMessageId String?
+  mediaKitError     String?
+  source            String?
+  
+  contactEmail      String?   // Legacy field support
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@map("creator_applications")
+}
+
+model CsatFeedback {
+  id          String   @id @default(cuid())
+  orderNumber String
+  score       Int
+  notes       String?
+  timestamp   DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  @@map("csat_feedback")
+}
+
+model WidgetOrderSubscription {
+  id          String   @id @default(cuid())
+  orderNumber String
+  email       Boolean  @default(false)
+  sms         Boolean  @default(false)
+  phone       String?
+  notes       String?
+  sessionId   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("widget_order_subscriptions")
+}
+
+model WidgetAnalyticsEvent {
+  id        String   @id @default(cuid())
+  event     String
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@map("widget_analytics_events")
+}
+
+model WidgetShortlist {
+  id        String   @id @default(cuid())
+  sessionId String
+  items     Json[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("widget_shortlists")
+}
+
+model StylistTicket {
+  id             String   @id @default(cuid())
+  ticketId       String   @unique
+  customerName   String?
+  customerEmail  String?
+  customerPhone  String?
+  status         String   @default("open")
+  priority       String   @default("normal")
+  notes          String?
+  timePreference String?
+  sessionId      String?
+  shortlist      Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("stylist_tickets")
+}

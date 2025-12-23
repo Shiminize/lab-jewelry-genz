@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coral & Sky — Typography Options</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital,wght@0,400;1,400&family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600&family=Mulish:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&family=Red+Hat+Display:wght@500;600&family=Space+Grotesk:wght@500;600&family=Sora:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coral: #FF5A5F;
+      --sky: #2EC5FF;
+      --mint: #00D7A7;
+      --bg: #FFFDF7;
+      --ink: #0F172A;
+      --body-1: #475569;
+      --body-2: #64748B;
+      --price: #0F172A;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--body-1);
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      padding: 3rem 1.5rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      font-weight: 600;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    header p {
+      max-width: 700px;
+      margin: 1rem auto 0;
+      font-size: 1rem;
+      color: var(--body-2);
+    }
+
+    main {
+      display: grid;
+      gap: 2.5rem;
+      padding: 0 1.5rem 4rem;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .option {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      border: 1px solid rgba(15, 23, 42, 0.05);
+      padding: clamp(1.75rem, 2vw, 2.75rem);
+      box-shadow: 0 18px 42px -18px rgba(15, 23, 42, 0.25);
+      display: grid;
+      gap: clamp(1.5rem, 2vw, 2.5rem);
+    }
+
+    .option-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .option-header span {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--body-2);
+    }
+
+    .option-header h2 {
+      margin: 0;
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    .option-header p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--body-2);
+      max-width: 50ch;
+    }
+
+    .preview {
+      background: linear-gradient(120deg, rgba(255, 90, 95, 0.08), rgba(46, 197, 255, 0.12));
+      border: 1px solid rgba(46, 197, 255, 0.2);
+      border-radius: 24px;
+      padding: clamp(1.75rem, 4vw, 3.25rem);
+      display: grid;
+      gap: 1rem;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(15, 23, 42, 0.55);
+      font-weight: 600;
+    }
+
+    .display {
+      margin: 0;
+      font-size: clamp(2.75rem, 6vw, 4.75rem);
+      line-height: 0.95;
+    }
+
+    .lead {
+      margin: 0;
+      font-size: clamp(1rem, 2.2vw, 1.15rem);
+      color: var(--body-1);
+      max-width: 55ch;
+    }
+
+    .price-line {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      font-size: 1rem;
+      color: var(--body-2);
+    }
+
+    .price-line strong {
+      font-size: clamp(1.4rem, 3vw, 1.75rem);
+      color: var(--price);
+      font-weight: 600;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.75rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta.primary {
+      background-image: linear-gradient(90deg, var(--coral), var(--sky));
+      color: white;
+      box-shadow: 0 20px 45px -20px rgba(46, 197, 255, 0.65);
+    }
+
+    .cta.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 60px -22px rgba(46, 197, 255, 0.75);
+    }
+
+    .cta.secondary {
+      border: 1px solid rgba(15, 23, 42, 0.15);
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .scale-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .scale-grid h3 {
+      margin: 0 0 0.5rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(15, 23, 42, 0.6);
+    }
+
+    .scale-group {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .token-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(15, 23, 42, 0.5);
+      font-weight: 600;
+    }
+
+    .sample-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .sample-line:last-child {
+      border-bottom: none;
+    }
+
+    .sample-text {
+      margin: 0;
+      color: var(--ink);
+    }
+
+    .spec {
+      font-size: 0.75rem;
+      color: rgba(15, 23, 42, 0.45);
+      letter-spacing: 0.05em;
+    }
+
+    .notes {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--body-2);
+    }
+
+    /* Option-specific font assignments */
+    .option-1 {
+      --display-font: 'Space Grotesk', sans-serif;
+      --body-font: 'Inter', sans-serif;
+      --accent-font: 'Space Grotesk', sans-serif;
+      --weight-display: 600;
+      --weight-body: 400;
+      --weight-label: 600;
+    }
+
+    .option-2 {
+      --display-font: 'Fraunces', serif;
+      --body-font: 'Work Sans', sans-serif;
+      --accent-font: 'Work Sans', sans-serif;
+      --weight-display: 600;
+      --weight-body: 400;
+      --weight-label: 500;
+    }
+
+    .option-3 {
+      --display-font: 'Sora', sans-serif;
+      --body-font: 'Plus Jakarta Sans', sans-serif;
+      --accent-font: 'Plus Jakarta Sans', sans-serif;
+      --weight-display: 600;
+      --weight-body: 400;
+      --weight-label: 600;
+    }
+
+    .option-4 {
+      --display-font: 'DM Serif Display', serif;
+      --body-font: 'Manrope', sans-serif;
+      --accent-font: 'Manrope', sans-serif;
+      --weight-display: 400;
+      --weight-body: 400;
+      --weight-label: 600;
+    }
+
+    .option-5 {
+      --display-font: 'Red Hat Display', sans-serif;
+      --body-font: 'Mulish', sans-serif;
+      --accent-font: 'Mulish', sans-serif;
+      --weight-display: 600;
+      --weight-body: 400;
+      --weight-label: 600;
+    }
+
+    .option .display,
+    .option .sample-text.display,
+    .option .preview .display {
+      font-family: var(--display-font);
+      font-weight: var(--weight-display);
+      letter-spacing: -0.01em;
+    }
+
+    .option .lead,
+    .option .sample-text.body,
+    .option .preview p,
+    .option .notes {
+      font-family: var(--body-font);
+      font-weight: var(--weight-body);
+    }
+
+    .option .eyebrow,
+    .option .token-label,
+    .option .spec,
+    .option .cta {
+      font-family: var(--accent-font);
+      font-weight: var(--weight-label);
+    }
+
+    @media (max-width: 720px) {
+      .preview {
+        padding: 1.5rem;
+      }
+
+      .cta-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .cta {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Coral &amp; Sky Typography Explorations</h1>
+    <p>Five candidate systems that align with the Coral &amp; Sky palette. Each option pairs a display face with a versatile body font, shows hierarchy tokens, and keeps pricing in the core ink tone for commerce clarity.</p>
+  </header>
+  <main>
+    <section class="option option-1" id="option-1">
+      <div class="option-header">
+        <span>Option 1</span>
+        <h2>Core Balanced — Space Grotesk + Inter</h2>
+        <p>Closest to today’s implementation. Clean, geometric headlines with a proven ecommerce body choice for maximum readability.</p>
+      </div>
+      <div class="preview">
+        <div class="eyebrow">New collection</div>
+        <h3 class="display">MAKE IT YOURS.</h3>
+        <p class="lead">Light, bright, and crafted to last. Smooth reading experience across marketing and transactional surfaces.</p>
+        <div class="price-line">Starting at <strong>$485.00</strong> — coral &amp; sky finish</div>
+        <div class="cta-row">
+          <a class="cta primary" href="#">Start Designing</a>
+          <a class="cta secondary" href="#">View Collection</a>
+        </div>
+      </div>
+      <div class="scale-grid">
+        <div class="scale-group">
+          <h3>Type Tokens</h3>
+          <div class="sample-line">
+            <p class="sample-text display">Display / 72px / 0.9</p>
+            <span class="spec">Space Grotesk 600</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text display" style="font-size: 2.25rem;">Headline / 36px / 1.1</p>
+            <span class="spec">Space Grotesk 600</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 1.05rem;">Body / 16px / 1.6</p>
+            <span class="spec">Inter 400</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 0.85rem;">Caption / 13px / 1.4</p>
+            <span class="spec">Inter 500</span>
+          </div>
+        </div>
+        <p class="notes">Use for homepage hero, product highlights, and price emphasis. Inter keeps dense configurations legible, while Space Grotesk gives geometric character.</p>
+      </div>
+    </section>
+
+    <section class="option option-2" id="option-2">
+      <div class="option-header">
+        <span>Option 2</span>
+        <h2>High Contrast — Fraunces + Work Sans</h2>
+        <p>Brings a boutique feel with expressive serifs while Work Sans maintains clarity for UI labels and long-form content.</p>
+      </div>
+      <div class="preview">
+        <div class="eyebrow">Limited drop</div>
+        <h3 class="display">SCULPTED FOR YOU.</h3>
+        <p class="lead">Organic, editorial headlines with crisp sans body copy keep the light theme upscale without losing usability.</p>
+        <div class="price-line">Edition price <strong>$612.00</strong> — sky clasp upgrade</div>
+        <div class="cta-row">
+          <a class="cta primary" href="#">Reserve Yours</a>
+          <a class="cta secondary" href="#">Explore Details</a>
+        </div>
+      </div>
+      <div class="scale-grid">
+        <div class="scale-group">
+          <h3>Type Tokens</h3>
+          <div class="sample-line">
+            <p class="sample-text display">Display / 70px / 1.05</p>
+            <span class="spec">Fraunces 600</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text display" style="font-size: 2.2rem;">Headline / 34px / 1.15</p>
+            <span class="spec">Fraunces 600</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 1.05rem;">Body / 16px / 1.65</p>
+            <span class="spec">Work Sans 400</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 0.82rem;">Label / 13px / 1.4</p>
+            <span class="spec">Work Sans 600</span>
+          </div>
+        </div>
+        <p class="notes">Great for campaign storytelling, hero quotes, and tested call-to-action clarity. Works well when photography carries additional texture.</p>
+      </div>
+    </section>
+
+    <section class="option option-3" id="option-3">
+      <div class="option-header">
+        <span>Option 3</span>
+        <h2>Neo Tech — Sora + Plus Jakarta Sans</h2>
+        <p>Sharp, futuristic geometry tuned for the customizer experience. High x-height body keeps dense UI tables easy to scan.</p>
+      </div>
+      <div class="preview">
+        <div class="eyebrow">Realtime studio</div>
+        <h3 class="display">DESIGN IN MOTION.</h3>
+        <p class="lead">Purpose-built for app surfaces. Strong uppercase presence for stats with friendly, rounded shapes to soften the technology edge.</p>
+        <div class="price-line">Configurator base <strong>$540.00</strong> — includes AR preview</div>
+        <div class="cta-row">
+          <a class="cta primary" href="#">Launch Studio</a>
+          <a class="cta secondary" href="#">See Tutorials</a>
+        </div>
+      </div>
+      <div class="scale-grid">
+        <div class="scale-group">
+          <h3>Type Tokens</h3>
+          <div class="sample-line">
+            <p class="sample-text display">Display / 68px / 1.0</p>
+            <span class="spec">Sora 600</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text display" style="font-size: 2.1rem;">Headline / 32px / 1.1</p>
+            <span class="spec">Sora 600</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 1rem;">Body / 16px / 1.55</p>
+            <span class="spec">Plus Jakarta Sans 400</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 0.8rem; text-transform: uppercase;">Micro / 12px / 1.3</p>
+            <span class="spec">Plus Jakarta Sans 600</span>
+          </div>
+        </div>
+        <p class="notes">Ideal for product builders, configuration panels, and dashboards. Maintains brand energy while supporting data-heavy layouts.</p>
+      </div>
+    </section>
+
+    <section class="option option-4" id="option-4">
+      <div class="option-header">
+        <span>Option 4</span>
+        <h2>Editorial Glow — DM Serif Display + Manrope</h2>
+        <p>Premium magazine aesthetic with smooth sans support. Works when photography and storytelling drive engagement.</p>
+      </div>
+      <div class="preview">
+        <div class="eyebrow">Lookbook</div>
+        <h3 class="display">CURATED FOR EVERYDAY.</h3>
+        <p class="lead">Elegant curves meet approachable body copy. Pairs with Coral &amp; Sky gradients for cinematic hero treatments.</p>
+        <div class="price-line">Lookbook sets from <strong>$725.00</strong> — curated trio</div>
+        <div class="cta-row">
+          <a class="cta primary" href="#">View Lookbook</a>
+          <a class="cta secondary" href="#">Book Styling</a>
+        </div>
+      </div>
+      <div class="scale-grid">
+        <div class="scale-group">
+          <h3>Type Tokens</h3>
+          <div class="sample-line">
+            <p class="sample-text display">Display / 74px / 1.05</p>
+            <span class="spec">DM Serif Display 400</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text display" style="font-size: 2.4rem;">Headline / 38px / 1.2</p>
+            <span class="spec">DM Serif Display 400</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 1.05rem;">Body / 17px / 1.65</p>
+            <span class="spec">Manrope 400</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 0.84rem;">Caption / 13.5px / 1.45</p>
+            <span class="spec">Manrope 600</span>
+          </div>
+        </div>
+        <p class="notes">Use for campaign landing pages and story-driven product drops. Works best paired with generous white space and large imagery.</p>
+      </div>
+    </section>
+
+    <section class="option option-5" id="option-5">
+      <div class="option-header">
+        <span>Option 5</span>
+        <h2>Humanist Flow — Red Hat Display + Mulish</h2>
+        <p>Rounded, friendly typography that maintains clarity for commerce UX. Excellent for onboarding flows and help surfaces.</p>
+      </div>
+      <div class="preview">
+        <div class="eyebrow">Guided setup</div>
+        <h3 class="display">BUILD YOUR STACK.</h3>
+        <p class="lead">Welcoming letterforms reduce cognitive load for new users while keeping pricing and CTAs bold and confident.</p>
+        <div class="price-line">Starter kits <strong>$428.00</strong> — coral &amp; sky pairing</div>
+        <div class="cta-row">
+          <a class="cta primary" href="#">Begin Journey</a>
+          <a class="cta secondary" href="#">Preview Kits</a>
+        </div>
+      </div>
+      <div class="scale-grid">
+        <div class="scale-group">
+          <h3>Type Tokens</h3>
+          <div class="sample-line">
+            <p class="sample-text display">Display / 66px / 1.0</p>
+            <span class="spec">Red Hat Display 600</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text display" style="font-size: 2.05rem;">Headline / 33px / 1.18</p>
+            <span class="spec">Red Hat Display 600</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 1rem;">Body / 16px / 1.58</p>
+            <span class="spec">Mulish 400</span>
+          </div>
+          <div class="sample-line">
+            <p class="sample-text body" style="font-size: 0.83rem;">Support / 13px / 1.4</p>
+            <span class="spec">Mulish 600</span>
+          </div>
+        </div>
+        <p class="notes">Recommended for support, cart, and account areas where friendliness aids conversion without sacrificing readability.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

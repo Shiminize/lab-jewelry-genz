@@ -1,0 +1,85 @@
+const nextJest = require('next/jest')
+
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load next.config.js and .env files
+  dir: './',
+})
+
+// Add any custom config to be passed to Jest
+const customJestConfig = {
+  // Add more setup options before each test is run
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  
+  // Define test environment - use node for backend tests
+  testEnvironment: 'jsdom',
+  
+  // Test directories and patterns
+  testMatch: [
+    '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/src/**/*.{test,spec}.{js,jsx,ts,tsx}',
+    '<rootDir>/tests/unit/**/*.{test,spec}.{js,jsx,ts,tsx}',
+    '<rootDir>/tests/**/*.test.{js,jsx,ts,tsx}'
+  ],
+  testPathIgnorePatterns: [
+    '/node_modules/', 
+    '/.next/', 
+    '/tests/.*\.spec\.ts$',
+    '/tests/integration/',
+    '/tests/e2e/',
+    '/tests/visual/',
+    '/tests/performance/',
+    '/tests/archive/'
+  ],
+  
+  // Module name mapping for absolute imports and static assets
+  moduleNameMapper: {
+    '^@/app/(.*)$': '<rootDir>/app/$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^.+\\.(css|sass|scss)$': 'identity-obj-proxy',
+    '^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$': '<rootDir>/__mocks__/fileMock.js',
+  },
+  
+  // Coverage configuration
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/pages/_app.tsx',
+    '!src/pages/_document.tsx',
+    '!src/**/*.stories.{js,jsx,ts,tsx}',
+  ],
+  coverageReporters: ['json-summary', 'text', 'lcov'],
+  
+  coverageThreshold: {
+    global: {
+      // TODO(neon): restore 70% minimum once rebuild test suite lands
+      branches: 10,
+      functions: 10,
+      lines: 10,
+      statements: 10
+    }
+  },
+  
+  // Test timeout - increased for generation tests
+  testTimeout: 30000,
+  
+  // Limit workers to prevent resource exhaustion
+  maxWorkers: '50%',
+  
+  // Transform files
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+  },
+  
+  // Setup files
+  setupFiles: ['<rootDir>/jest.polyfills.js'],
+  
+  // Test environment options
+  testEnvironmentOptions: {
+    jsdom: {
+      url: 'http://localhost:3000'
+    }
+  }
+}
+
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+module.exports = createJestConfig(customJestConfig)

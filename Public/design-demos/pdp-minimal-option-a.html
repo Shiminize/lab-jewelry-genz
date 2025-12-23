@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDP Minimal Option A</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --font-sans: 'Inter', sans-serif;
+        --font-serif: 'DM Serif Display', serif;
+        --color-ink: #0f172a;
+        --color-body: #1f2937;
+        --color-muted: #6b7280;
+        --color-accent: #ff6f61;
+        --color-sky: #0ea5e9;
+        --border-soft: rgba(15, 23, 42, 0.1);
+        --bg-base: #ffffff;
+        --space-2: 0.5rem;
+        --space-3: 0.75rem;
+        --space-4: 1rem;
+        --space-5: 1.25rem;
+        --space-6: 1.5rem;
+        --space-7: 1.75rem;
+        --space-8: 2rem;
+        --max-width: min(1200px, 92vw);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg-base);
+        color: var(--color-body);
+        font-family: var(--font-sans);
+        line-height: 1.6;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      header {
+        padding: var(--space-5) calc((100vw - var(--max-width)) / 2);
+        border-bottom: 1px solid var(--border-soft);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-4);
+      }
+      header h1 {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: 1.8rem;
+        color: var(--color-ink);
+      }
+      header nav {
+        display: flex;
+        gap: var(--space-4);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--color-muted);
+      }
+      main {
+        margin: 0 auto;
+        padding: var(--space-8) calc((100vw - var(--max-width)) / 2) var(--space-10);
+        display: grid;
+        gap: var(--space-10);
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: var(--space-8);
+        align-items: start;
+      }
+      .gallery {
+        display: grid;
+        gap: var(--space-4);
+      }
+      .gallery img.hero-media {
+        width: 100%;
+        border-radius: 24px;
+        border: 1px solid var(--border-soft);
+      }
+      .thumbnails {
+        display: grid;
+        grid-auto-flow: column;
+        gap: var(--space-3);
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+      }
+      .thumb {
+        flex: 0 0 auto;
+        width: 78px;
+        height: 78px;
+        border-radius: 16px;
+        border: 1px solid transparent;
+        overflow: hidden;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .summary {
+        display: grid;
+        gap: var(--space-6);
+      }
+      .summary .back-link {
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        font-size: 0.7rem;
+        color: var(--color-muted);
+      }
+      .summary .back-link:hover {
+        color: var(--color-ink);
+      }
+      .summary h2 {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: clamp(2.4rem, 5vw, 3.6rem);
+        color: var(--color-ink);
+      }
+      .summary p.lead {
+        max-width: 48ch;
+        color: var(--color-muted);
+        margin: 0;
+      }
+      .price-section {
+        display: grid;
+        gap: var(--space-4);
+        padding-bottom: var(--space-6);
+        border-bottom: 1px solid var(--border-soft);
+      }
+      .price-section .price {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: clamp(2.5rem, 5vw, 3.4rem);
+        color: var(--color-ink);
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 1.2rem;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.24em;
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: var(--color-accent);
+        background: rgba(255, 111, 97, 0.12);
+      }
+      .metrics {
+        display: grid;
+        gap: var(--space-3);
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .metric {
+        padding: var(--space-4) 0;
+        border-bottom: 1px solid var(--border-soft);
+      }
+      .metric:last-child {
+        border-bottom: none;
+      }
+      .metric span {
+        display: block;
+      }
+      .metric .label {
+        text-transform: uppercase;
+        letter-spacing: 0.24em;
+        font-size: 0.68rem;
+        color: var(--color-muted);
+        margin-bottom: 0.35rem;
+      }
+      .metric .value {
+        font-weight: 600;
+        color: var(--color-ink);
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+      }
+      .actions a {
+        flex: 1 1 230px;
+        padding: 1rem 1.4rem;
+        border-radius: 999px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 600;
+        border: 1px solid transparent;
+        transition: transform 0.2s ease;
+      }
+      .actions a.primary {
+        background: var(--color-accent);
+        color: #fff;
+      }
+      .actions a.secondary {
+        background: var(--bg-base);
+        color: var(--color-sky);
+        border-color: rgba(14, 165, 233, 0.3);
+      }
+      .actions a:hover {
+        transform: translateY(-1px);
+      }
+      .details {
+        display: grid;
+        gap: var(--space-8);
+      }
+      .details section {
+        display: grid;
+        gap: var(--space-3);
+      }
+      .details h3 {
+        margin: 0;
+        font-size: 1.4rem;
+        color: var(--color-ink);
+      }
+      .details p {
+        margin: 0;
+        color: var(--color-muted);
+        max-width: 60ch;
+      }
+      .details ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: var(--space-2);
+      }
+      .details li {
+        padding: var(--space-3) 0;
+        border-bottom: 1px solid var(--border-soft);
+      }
+      .story {
+        border-top: 1px solid var(--border-soft);
+        padding-top: var(--space-6);
+        display: grid;
+        gap: var(--space-3);
+      }
+      .story ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: var(--space-2);
+      }
+      footer {
+        border-top: 1px solid var(--border-soft);
+        padding: var(--space-6) calc((100vw - var(--max-width)) / 2);
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--color-muted);
+      }
+      @media (max-width: 720px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        header nav {
+          flex-wrap: wrap;
+        }
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>GlowGlitch · Coral Sky</h1>
+      <nav>
+        <span>Shop</span>
+        <span>Customize</span>
+        <span>Concierge</span>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="gallery">
+          <img class="hero-media" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80" alt="Halo ring" />
+          <div class="thumbnails">
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="detail" /></div>
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=200&q=80" alt="detail" /></div>
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="detail" /></div>
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3885e?auto=format&fit=crop&w=200&q=80" alt="detail" /></div>
+          </div>
+        </div>
+
+        <article class="summary">
+          <a class="back-link" href="#">← Back to catalog</a>
+          <h2>Halo Diamond Ring</h2>
+          <p class="lead">
+            Built for high-shine campaign shoots, the floating halo throws light in every direction, ideal for the Neon lighting stack.
+          </p>
+          <div class="price-section">
+            <p class="price">$3,200</p>
+            <span class="pill">Creator ready</span>
+            <div class="metrics">
+              <div class="metric">
+                <span class="label">Lead time</span>
+                <span class="value">Hand-finished in ~2 weeks</span>
+              </div>
+              <div class="metric">
+                <span class="label">Certification</span>
+                <span class="value">IGI / GCAL documentation</span>
+              </div>
+              <div class="metric">
+                <span class="label">Studio support</span>
+                <span class="value">Concierge styling consult</span>
+              </div>
+              <div class="metric">
+                <span class="label">Deposits</span>
+                <span class="value">50% to begin crafting</span>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="primary" href="#">Explore in customizer</a>
+            <a class="secondary" href="#">Email concierge</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="details">
+        <section>
+          <h3>Materials</h3>
+          <p>Selected for brilliance under Coral & Sky lighting.</p>
+          <ul>
+            <li>14K rose gold base</li>
+            <li>Lab-grown halo diamonds</li>
+            <li>Comfort-fit interior</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Gemstones</h3>
+          <p>Lab-grown stones with calibrated color and clarity.</p>
+          <ul>
+            <li>Radiant-cut center stone</li>
+            <li>Invisible-set accent stones</li>
+            <li>DEF color, VVS clarity</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Shipping & care</h3>
+          <p>Delivered with Coral Sky concierge support from studio to doorstep.</p>
+          <ul>
+            <li>Fully insured worldwide delivery</li>
+            <li>Carbon-neutral logistics</li>
+            <li>Complimentary resize within 90 days</li>
+          </ul>
+        </section>
+      </section>
+
+      <section class="story">
+        <h3>Design story</h3>
+        <p>
+          Inspired by Neon Dream lighting, this halo suspends the center stone to maximize catchlight. Subtle negative space keeps the silhouette light while preserving structure for everyday wear.
+        </p>
+        <ul>
+          <li>Floating gallery to amplify sparkle in motion</li>
+          <li>Knife-edge shank finished with mirror polish</li>
+          <li>Invisible basket for uninterrupted angles</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>© Coral Sky · Concierge-crafted lab-grown jewelry</footer>
+  </body>
+</html>

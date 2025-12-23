@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Noir Emerald — Geometric Flat UI Demo</title>
+<style>
+:root {
+  --bg:#0B0D0C; --surface:#121414; --elev2:#151918;
+  --text:#F6F7F7; --text-2:#C7CFCD; --muted:#9AA6A1;
+  --hair:#1B201E; --border:#27312E; --border-strong:#34403C;
+  --emerald:#12B886; --ink:#06120E;
+
+  --container:1240px; --pad:24px; --gap:20px; --section:36px;
+  --btn-h:44px; --btn-x:18px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:linear-gradient(180deg,var(--bg),#0C0F0E);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+}
+a{text-decoration:none;color:inherit}
+
+.container{
+  width:min(var(--container),100% - 2*var(--pad));
+  margin:auto;
+}
+
+/* NAV */
+header.nav{
+  display:grid;grid-template-columns:1fr auto;align-items:center;
+  background:var(--surface);padding:12px 18px;
+  border:1px solid var(--border);margin-top:20px;
+}
+.nav-links{display:flex;gap:6px}
+.nav-links a{
+  padding:.5rem .7rem;
+  background:transparent;
+}
+.nav-links a:hover{
+  background:rgba(18,184,134,.08);
+}
+
+/* TYPOGRAPHY */
+h1,h2{font-family:"Playfair Display",serif;font-weight:600}
+h1{font-size:42px}
+.lead{color:var(--text-2);margin-top:12px;font-size:1rem}
+
+/* BUTTONS */
+.btn-row{display:flex;gap:6px;margin-top:14px}
+.btn{
+  display:flex;align-items:center;justify-content:center;
+  height:var(--btn-h);padding:0 var(--btn-x);
+  border:1px solid var(--border-strong);
+  font-weight:700;letter-spacing:.1px;
+  background:none;
+}
+.btn-primary{
+  background:var(--emerald);color:var(--ink);
+}
+.btn-secondary{
+  color:var(--text);
+}
+.btn-secondary:hover{background:rgba(18,184,134,.08)}
+
+/* HERO */
+.section{padding:var(--section) 0}
+.hero{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:10px;
+}
+.hero-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:26px;
+}
+
+/* TAG STRIP */
+.category-strip{
+  display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;
+  background:rgba(18,184,134,.06);
+  border:1px solid var(--border);
+  padding:8px;
+}
+.chip{
+  padding:.42rem .65rem;border:1px solid var(--border-strong);
+  font-weight:700;font-size:.85rem;
+}
+
+/* PRODUCT GRID */
+.grid{display:grid;gap:var(--gap)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.card{
+  background:var(--surface);
+  border:1px solid var(--border-strong);
+  overflow:hidden;
+}
+.card .media{
+  aspect-ratio:4/3;
+  background:linear-gradient(130deg,#0E1413,#141917);
+  border-bottom:1px solid var(--border);
+}
+.card .inner{padding:12px}
+.card .title{font-weight:800;font-size:1rem}
+.price{font-family:"Playfair Display",serif;font-size:1.05rem}
+
+/* EDITORIAL */
+.editorial{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:var(--gap);
+  background:var(--elev2);border:1px solid var(--border);padding:22px;
+}
+.editorial .img{
+  aspect-ratio:5/3;background:linear-gradient(140deg,#101514,#131917);
+  border:1px solid var(--border);
+}
+
+/* FEATURES */
+.features{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);
+}
+.tile{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:14px;font-size:.95rem;
+}
+
+/* FOOTER */
+footer{text-align:center;color:var(--muted);margin:28px 0}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="nav">
+  <div class="brand">Noir Emerald — Geometric Flat</div>
+  <nav class="nav-links">
+    <a href="#">Rings</a><a href="#">Earrings</a><a href="#">Necklaces</a><a href="#">Bracelets</a>
+  </nav>
+</header>
+
+<section class="section hero">
+<div class="hero-card">
+  <h1>Pure Geometry,<br><span style="color:#12B886">Emerald</span> Authority</h1>
+  <p class="lead">Lab diamonds. Moissanite. Black pearls. 925 Silver.</p>
+  <div class="btn-row">
+    <a class="btn btn-primary">Shop</a>
+    <a class="btn btn-secondary">Customize</a>
+  </div>
+  <div class="category-strip">
+    <span class="chip">Black Pearl</span><span class="chip">Lab Diamond</span>
+    <span class="chip">925 Silver</span><span class="chip">Gold Plated</span><span class="chip">Tennis</span>
+  </div>
+</div>
+<div class="hero-card"><div class="card media"></div></div>
+</section>
+
+<section class="section">
+<div class="grid grid-4">
+  <div class="card"><div class="media"></div><div class="inner"><div class="title">Halo Ring</div><div class="price">$659</div></div></div>
+  <div class="card"><div class="media"></div><div class="inner"><div class="title">Black Pearl</div><div class="price">$349</div></div></div>
+  <div class="card"><div class="media"></div><div class="inner"><div class="title">Tennis Bracelet</div><div class="price">$899</div></div></div>
+  <div class="card"><div class="media"></div><div class="inner"><div class="title">Diamond Studs</div><div class="price">$499</div></div></div>
+</div>
+</section>
+
+<section class="section editorial">
+<div>
+  <h2 style="font-size:var(--h2);margin:0;">From Stone to Story</h2>
+  <p class="lead">Precision. Purity. Provenance.</p>
+  <div class="btn-row">
+    <a class="btn btn-primary">Discover</a>
+    <a class="btn btn-secondary">Learn More</a>
+  </div>
+</div>
+<div class="img"></div>
+</section>
+
+<section class="section features">
+  <div class="tile"><strong>Care</strong> Lifetime cleaning</div>
+  <div class="tile"><strong>Ethical</strong> Conflict-free</div>
+  <div class="tile"><strong>Fast</strong> Insured express</div>
+</section>
+
+<footer>© 2025 Neon Dream — True Geometric UI</footer>
+
+</div>
+</body>
+</html>

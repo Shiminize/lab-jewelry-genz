@@ -1,0 +1,9 @@
+
+> glowglitch-frontend@0.1.0 start
+> NODE_ENV=production node server.js
+
+ ⚠ Disabling SWC Minifer will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+📁 Job persistence directory ready: /tmp/3d-generation/job-persistence
+⚠️ REDIS_URL not set. Proceeding without Redis; falling back to in-memory operations.
+🚀 Server ready on http://127.0.0.1:3002
+🔌 WebSocket server ready for real-time updates

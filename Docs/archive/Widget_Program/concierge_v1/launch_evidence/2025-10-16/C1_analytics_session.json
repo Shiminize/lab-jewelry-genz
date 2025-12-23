@@ -1,0 +1,85 @@
+{
+  "events": [
+    {
+      "event": "aurora_widget_open",
+      "originalEvent": "widget_open",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "widget_open-190c05e6-d6b0-41a6-bb3a-df064e8f85c2"
+    },
+    {
+      "event": "aurora_intent_detected",
+      "originalEvent": "intent_detected",
+      "intent": "find_product",
+      "source": "explicit",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "find_product-6f58d811-5139-48e5-ab2d-4a10f009f3d2"
+    },
+    {
+      "event": "aurora_intent_complete",
+      "originalEvent": "intent_complete",
+      "intent": "find_product",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "find_product-6f58d811-5139-48e5-ab2d-4a10f009f3d2"
+    },
+    {
+      "event": "aurora_products_shown",
+      "originalEvent": "products_shown",
+      "intent": "find_product",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "find_product-6f58d811-5139-48e5-ab2d-4a10f009f3d2",
+      "productCount": 1
+    },
+    {
+      "event": "aurora_intent_detected",
+      "originalEvent": "intent_detected",
+      "intent": "return_exchange",
+      "source": "explicit",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "return_exchange-e36b422a-ed06-4eb5-94ae-4be36dec86af"
+    },
+    {
+      "event": "aurora_intent_complete",
+      "originalEvent": "intent_complete",
+      "intent": "return_exchange",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "return_exchange-e36b422a-ed06-4eb5-94ae-4be36dec86af"
+    },
+    {
+      "event": "aurora_return_initiated",
+      "originalEvent": "return_initiated",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "return_exchange-e36b422a-ed06-4eb5-94ae-4be36dec86af"
+    },
+    {
+      "event": "aurora_intent_detected",
+      "originalEvent": "intent_detected",
+      "intent": "return_exchange",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "return_exchange-80e4856c-e2d4-4a7d-949e-2337919902e7"
+    },
+    {
+      "event": "aurora_intent_complete",
+      "originalEvent": "intent_complete",
+      "intent": "return_exchange",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "return_exchange-80e4856c-e2d4-4a7d-949e-2337919902e7"
+    },
+    {
+      "event": "aurora_return_initiated",
+      "originalEvent": "return_initiated",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27",
+      "requestId": "return_exchange-80e4856c-e2d4-4a7d-949e-2337919902e7",
+      "option": "return"
+    },
+    {
+      "event": "aurora_inspiration_upload",
+      "originalEvent": "inspiration_upload",
+      "success": true,
+      "url": "https://storage.glowglitch.com/mock-inspiration.jpg",
+      "requestId": "inspiration-6d0b62fe-9a3a-49e6-b736-dfcef1dedc80",
+      "sizeBytes": 67,
+      "contentType": "image/png",
+      "sessionId": "1bbc87ee-cbad-4bcb-a613-c27d50680e27"
+    }
+  ]
+}

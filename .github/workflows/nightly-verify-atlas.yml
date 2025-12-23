@@ -1,0 +1,106 @@
+name: Nightly Atlas Verification
+
+on:
+  schedule:
+    # Run nightly at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  verify-atlas:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Create .env.local from secrets
+        run: |
+          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > .env.local
+          echo "MONGODB_DB=${{ secrets.MONGODB_DB }}" >> .env.local
+          echo "CONCIERGE_DATA_MODE=localDb" >> .env.local
+      
+      - name: Run verify:atlas
+        id: verify
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          echo "date=$DATE" >> $GITHUB_OUTPUT
+          npm run verify:atlas 2>&1 | tee verify-atlas.log
+        continue-on-error: true
+      
+      - name: Check results
+        id: check
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          EVIDENCE_DIR="docs/concierge_v1/launch_evidence/$DATE"
+          
+          if [ -f "$EVIDENCE_DIR/PASS_FAIL.md" ]; then
+            echo "status=PASS" >> $GITHUB_OUTPUT
+            echo "✅ Verification PASSED"
+          else
+            echo "status=FAIL" >> $GITHUB_OUTPUT
+            echo "❌ Verification FAILED"
+            exit 1
+          fi
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-verification-${{ steps.verify.outputs.date }}
+          path: |
+            docs/concierge_v1/launch_evidence/${{ steps.verify.outputs.date }}/
+            verify-atlas.log
+          retention-days: 90
+      
+      - name: Commit and push evidence
+        if: steps.check.outputs.status == 'PASS'
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/concierge_v1/launch_evidence/$DATE/
+          git commit -m "chore: Add nightly Atlas verification evidence ($DATE)" || echo "No changes to commit"
+          git push
+      
+      - name: Create summary
+        if: always()
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          EVIDENCE_DIR="docs/concierge_v1/launch_evidence/$DATE"
+          STATUS="${{ steps.check.outputs.status }}"
+          
+          echo "## Nightly Atlas Verification: $STATUS" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Date**: $DATE" >> $GITHUB_STEP_SUMMARY
+          echo "**Status**: $STATUS" >> $GITHUB_STEP_SUMMARY
+          echo "**Artifacts**: \`$EVIDENCE_DIR/\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "$EVIDENCE_DIR/PASS_FAIL.md" ]; then
+            echo "### Results" >> $GITHUB_STEP_SUMMARY
+            cat "$EVIDENCE_DIR/PASS_FAIL.md" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ -f "$EVIDENCE_DIR/atlas_ready_to_ship_under_300.json" ]; then
+            PRODUCT_COUNT=$(jq 'length' "$EVIDENCE_DIR/atlas_ready_to_ship_under_300.json")
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Products Found**: $PRODUCT_COUNT" >> $GITHUB_STEP_SUMMARY
+          fi
+      
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Nightly verification failed!"
+          echo "Check logs and artifacts for details."
+          exit 1
+

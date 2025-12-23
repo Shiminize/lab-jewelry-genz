@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [],
+  "files": [
+    "next-env.d.ts",
+    "src/components/admin/OrderManagementDashboard.tsx",
+    "src/components/admin/GeographicHeatMap.tsx"
+  ]
+}

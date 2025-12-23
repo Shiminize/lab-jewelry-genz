@@ -1,0 +1,60 @@
+:root {
+  /* Colors */
+  --color-bg: #F4F1EC;
+  --color-surface: #FFFFFF;
+  --color-ink: #3F4A45;
+  --color-ink-2: #8A978F;
+  --color-muted: #B6C0BA;
+  --color-line-subtle: #E8E3DC;
+  --color-line-strong: #D2CABC;
+  --color-accent: #3F4A45;
+  --color-accent-contrast: #FAF6F1;
+  --color-surface-contrast: #FFFFFF;
+  --color-surface-veil: color-mix(in oklab, var(--color-accent-contrast) 65%, transparent);
+  --color-accent-glow: color-mix(in oklab, var(--color-accent) 60%, transparent);
+  /* Email palette */
+  --email-ink: #120E0A;
+  --email-button-bg: #f6e05e;
+  --email-body-bg: #f7f5f2;
+  --email-card-bg: #ffffff;
+  --email-divider: #f3eee5;
+  --email-muted: #6b645c;
+  --email-subtle: #8f8578;
+
+  /* Geometry & Effects */
+  --radius-0: 0px;
+  --shadow-soft: 0 18px 38px rgba(26, 31, 29, 0.08);
+  --shadow-lift: 0 24px 54px rgba(26, 31, 29, 0.12);
+  --shadow-canvas: 0 12px 28px color-mix(in oklab, var(--color-ink) 18%, transparent);
+  --shadow-focus: 0 0 0 3px color-mix(in oklab, var(--color-accent) 48%, white);
+
+  /* Layout */
+  --container: 1440px;
+  --gutter: 56px;
+  --grid-gap: 32px;
+  --catalog-grid-width: 1328px;
+  --catalog-gap-x: 20px;
+  --catalog-gap-y: 40px;
+  --section-space-tight: clamp(32px, 4vw, 48px);
+  --section-space-compact: clamp(48px, 6vw, 64px);
+  --section-space-relaxed: clamp(64px, 7.5vw, 96px);
+  --section-space-hero: clamp(88px, 10vw, 120px);
+  --section-space-inner: clamp(0px, 3vw, 24px);
+  --space-fluid-sm: clamp(16px, 2.5vw, 24px);
+  --space-fluid-md: clamp(20px, 3vw, 28px);
+  --space-fluid-lg: clamp(24px, 4vw, 32px);
+  --space-fluid-xl: clamp(32px, 5vw, 48px);
+  --space-fluid-2xl: clamp(40px, 6vw, 64px);
+  --space-gallery-gap: clamp(16px, 2vw, 20px);
+
+  /* Typography */
+  --font-heading: 'Petrona', 'Georgia', serif;
+  --font-body: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+  --font-accent: 'Urbanist', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Type scale */
+  --h1: clamp(32px, 4.2vw, 44px);
+  --h2: clamp(22px, 2.6vw, 28px);
+  --body: 16px;
+  --lh: 1.6;
+}

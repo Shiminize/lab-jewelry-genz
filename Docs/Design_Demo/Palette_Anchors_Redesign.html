@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Palette Anchors · Evergreen Primary</title>
+    <style>
+      :root {
+        --primary: #3f4a45;
+        --primary-ink: #1a1f1d;
+        --surface: #ffffff;
+        --surface-quiet: #f4f1ec;
+        --muted: #8a978f;
+        --accent-soft: #d6c6b2;
+        --accent-contrast: #faf6f1;
+        --shadow-soft: 0 18px 38px rgba(26, 31, 29, 0.08);
+        --radius: 20px;
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-serif: 'Playfair Display', 'Times New Roman', serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 48px 28px 64px;
+        font-family: var(--font-sans);
+        background: var(--surface-quiet);
+        color: var(--muted);
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        color: var(--primary-ink);
+      }
+
+      h1 {
+        font-size: clamp(32px, 4vw, 48px);
+        margin-bottom: 12px;
+      }
+
+      h2 {
+        font-size: clamp(22px, 3vw, 28px);
+        margin-bottom: 16px;
+      }
+
+      p {
+        margin: 0 0 14px;
+        line-height: 1.6;
+      }
+
+      .page {
+        margin: 0 auto;
+        max-width: 1100px;
+        display: grid;
+        gap: 32px;
+      }
+
+      .header-card {
+        display: grid;
+        gap: 12px;
+        padding: 32px;
+        border-radius: var(--radius);
+        background: var(--surface);
+        border: 1px solid rgba(26, 31, 29, 0.05);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .header-card__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .anchor-grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .anchor-card {
+        padding: 24px;
+        border-radius: var(--radius);
+        background: var(--surface);
+        border: 1px solid rgba(26, 31, 29, 0.05);
+        box-shadow: var(--shadow-soft);
+        display: grid;
+        gap: 18px;
+      }
+
+      .swatch {
+        width: 64px;
+        height: 64px;
+        border-radius: 14px;
+        border: 1px solid rgba(26, 31, 29, 0.08);
+      }
+
+      .anchor-card__header {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .anchor-card__title {
+        display: grid;
+        gap: 4px;
+      }
+
+      .anchor-card__title span:first-child {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--primary-ink);
+      }
+
+      .anchor-card__title span:last-child {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .focus-card {
+        padding: 28px 32px;
+        border-radius: var(--radius);
+        background: var(--primary);
+        color: var(--accent-contrast);
+        display: grid;
+        gap: 16px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .focus-card h2 {
+        color: inherit;
+      }
+
+      .focus-card p {
+        color: rgba(250, 246, 241, 0.78);
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .button {
+        padding: 12px 26px;
+        border-radius: 999px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: transform 140ms ease, box-shadow 140ms ease;
+      }
+
+      .button:focus-visible {
+        outline: 2px solid var(--accent-contrast);
+        outline-offset: 2px;
+      }
+
+      .button-primary {
+        background: var(--accent-contrast);
+        color: var(--primary-ink);
+      }
+
+      .button-secondary {
+        background: rgba(250, 246, 241, 0.12);
+        color: var(--accent-contrast);
+        border-color: rgba(250, 246, 241, 0.36);
+      }
+
+      .button-tertiary {
+        background: var(--surface);
+        color: var(--primary);
+        border-color: rgba(63, 74, 69, 0.16);
+      }
+
+      .tone-card {
+        padding: 24px;
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(26, 31, 29, 0.05);
+        display: grid;
+        gap: 12px;
+      }
+
+      .tone-card h3 {
+        font-size: 18px;
+      }
+
+      .tone-card ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      code {
+        font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SFMono-Regular', Menlo, Monaco, 'Courier New',
+          monospace;
+        font-size: 13px;
+        padding: 2px 6px;
+        border-radius: 6px;
+        background: rgba(63, 74, 69, 0.08);
+        color: var(--primary-ink);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <section class="header-card">
+        <div class="header-card__meta">
+          <span>Palette Anchors</span>
+          <span>Primary: #3F4A45</span>
+          <span>No gradients</span>
+        </div>
+        <h1>Quiet Evergreen Core</h1>
+        <p>
+          A matte evergreen primary (#3F4A45) sits against soft porcelain backgrounds and buff accents.
+          Buttons lean into a contrast sandwich: light call-to-action foregrounds, translucent secondary, and
+          tonal tertiary for utility states.
+        </p>
+      </section>
+
+      <section class="anchor-grid">
+        <article class="anchor-card">
+          <div class="anchor-card__header">
+            <div class="swatch" style="background:#f4f1ec"></div>
+            <div class="anchor-card__title">
+              <span>Canvas</span>
+              <span>#F4F1EC</span>
+            </div>
+          </div>
+          <p>
+            Warm off-white keeps product photography luminous. Reserve for page backgrounds and wide sections.
+            In Tailwind, map to <code>--color-bg</code>.
+          </p>
+        </article>
+
+        <article class="anchor-card">
+          <div class="anchor-card__header">
+            <div class="swatch" style="background:#ffffff"></div>
+            <div class="anchor-card__title">
+              <span>Surface</span>
+              <span>#FFFFFF</span>
+            </div>
+          </div>
+          <p>
+            Crisp panel surface for cards and modals. Pair with subtle shadows and 1px outlines using
+            <code>#E8E3DC</code>.
+          </p>
+        </article>
+
+        <article class="anchor-card">
+          <div class="anchor-card__header">
+            <div class="swatch" style="background:#3f4a45"></div>
+            <div class="anchor-card__title">
+              <span>Primary</span>
+              <span>#3F4A45</span>
+            </div>
+          </div>
+          <p>
+            Hero typographic color, primary buttons, and key dividers. Drives AA contrast on light surfaces.
+            Map to <code>--color-ink</code> and <code>--color-accent</code>.
+          </p>
+        </article>
+
+        <article class="anchor-card">
+          <div class="anchor-card__header">
+            <div class="swatch" style="background:#d6c6b2"></div>
+            <div class="anchor-card__title">
+              <span>Accent Soft</span>
+              <span>#D6C6B2</span>
+            </div>
+          </div>
+          <p>
+            Jewelry-inspired buff tone for badges, cards, and soft callouts. Use as <code>--accent-secondary</code>.
+          </p>
+        </article>
+
+        <article class="anchor-card">
+          <div class="anchor-card__header">
+            <div class="swatch" style="background:#8a978f"></div>
+            <div class="anchor-card__title">
+              <span>Muted Ink</span>
+              <span>#8A978F</span>
+            </div>
+          </div>
+          <p>
+            Secondary typography and icons. Keeps copy readable while respecting the muted palette.
+          </p>
+        </article>
+
+        <article class="anchor-card">
+          <div class="anchor-card__header">
+            <div class="swatch" style="background:#e8e3dc"></div>
+            <div class="anchor-card__title">
+              <span>Outline</span>
+              <span>#E8E3DC</span>
+            </div>
+          </div>
+          <p>
+            Soft border tone for cards and input outlines. Pair with 12px radius to maintain the calm aesthetic.
+          </p>
+        </article>
+      </section>
+
+      <section class="focus-card">
+        <h2>Primary Actions &amp; Messaging</h2>
+        <p style="font-family: var(--font-serif); font-size: 28px; margin-bottom: 4px">
+          “Evergreen poise with quiet luxury highlights.”
+        </p>
+        <p>
+          Amplify hero headers with the primary ink, mix muted copy for supporting text, and maintain breathing
+          room through off-white surfaces. Buttons follow a light/dark pairing for clarity across states.
+        </p>
+        <div class="button-row">
+          <button class="button button-primary">Primary Action</button>
+          <button class="button button-secondary">Secondary Action</button>
+          <button class="button button-tertiary">Tertiary</button>
+        </div>
+      </section>
+
+      <section class="tone-card">
+        <h3>Implementation Notes</h3>
+        <ul>
+          <li>Map <code>--color-bg</code> → #F4F1EC, <code>--color-surface</code> → #FFFFFF.</li>
+          <li>Set <code>--color-ink</code> and <code>--color-accent</code> to #3F4A45, keep <code>--color-ink-2</code> at #8A978F.</li>
+          <li>Use #D6C6B2 for <code>--ja-accent-secondary</code> and #E8E3DC for <code>--color-line-subtle</code>.</li>
+          <li>No gradients: rely on flat fills, layered shadows, and tonal contrast for depth.</li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>

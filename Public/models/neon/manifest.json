@@ -1,0 +1,78 @@
+{
+  "variants": [
+    {
+      "id": "astro-demo",
+      "name": "Astronaut Demo",
+      "src": "/models/neon/astro-demo.glb",
+      "poster": "/images/products/astronaut.webp",
+      "marketingImage": "/images/products/static/diamond-pendant/hero.webp",
+      "environmentImage": "/hdr/moon_1k.hdr",
+      "autoRotate": true,
+      "cameraControls": true,
+      "exposure": 1,
+      "tagline": "Zero-G showcase for experimental lighting presets.",
+      "description": "Use this demo variant to validate HDR workflows, orbit controls, and manifest-driven loading before shipping production jewelry assets.",
+      "highlights": [
+        "Meshopt + Draco compressed",
+        "HDR moon_1k lighting",
+        "Poster auto-generated via glb:capture-posters"
+      ],
+      "tone": "cyan",
+      "defaultMaterialId": "white-gold-plated",
+      "defaultSize": "M",
+      "posterCapture": {
+        "cameraOrbit": "0deg 80deg 2.4m",
+        "background": "#000000",
+        "format": "webp"
+      }
+    },
+    {
+      "id": "ring-classic-002",
+      "name": "Ring Classic 002",
+      "src": "/models/neon/ring-classic-002.glb",
+      "poster": "/images/products/ring-classic-002/poster.webp",
+      "marketingImage": "/images/products/static/classic-solitaire/hero.webp",
+      "environmentImage": "/hdr/studio_small_09_1k.hdr",
+      "autoRotate": true,
+      "cameraControls": true,
+      "exposure": 1,
+      "tagline": "Minimalist solitaire tuned for Neon showrooms.",
+      "description": "Classic solitaire shank rendered with prismatic platinum reflections and a 1.5ct lab-grown center stone.",
+      "highlights": [],
+      "tone": "volt",
+      "defaultMaterialId": "yellow-gold-plated",
+      "defaultSize": "6",
+      "posterCapture": {
+        "cameraOrbit": "35deg 70deg 1.9m",
+        "outputDir": "/images/products/ring-classic-002",
+        "format": "webp"
+      }
+    },
+    {
+      "id": "ring-luxury-001",
+      "name": "Ring Luxury 001",
+      "src": "/models/neon/ring-luxury-001.glb",
+      "poster": "/images/products/ring-luxury-001/poster.webp",
+      "marketingImage": "/images/products/static/halo-diamond-ring/hero.webp",
+      "environmentImage": "/hdr/studio_small_09_1k.hdr",
+      "autoRotate": true,
+      "cameraControls": true,
+      "exposure": 1,
+      "tagline": "Three-stone halo built for generative campaigns.",
+      "description": "Flagship Neon Dream capsule with floating bridge geometry and HDR-ready facets for high-impact hero shots.",
+      "highlights": [
+        "Meshopt + KTX2 textures",
+        "Auto-rotate hero loop",
+        "Magenta accent tone"
+      ],
+      "tone": "magenta",
+      "defaultMaterialId": "rose-gold-plated",
+      "defaultSize": "7",
+      "posterCapture": {
+        "cameraOrbit": "45deg 75deg 1.8m",
+        "outputDir": "/images/products/ring-luxury-001",
+        "format": "webp"
+      }
+    }
+  ]
+}

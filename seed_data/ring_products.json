@@ -1,0 +1,243 @@
+{
+  "brand": "GlowGlitch",
+  "products": [
+    {
+      "id": "ring-001",
+      "name": "Chaos Ring",
+      "description": "For the beautifully unorganized souls who thrive in controlled chaos. This asymmetrical design celebrates the perfectly imperfect moments that make life worth living.",
+      "category": "Statement",
+      "key_features": [
+        "Asymmetrical organic shape",
+        "Mixed texture finish (matte + polished)",
+        "Stackable design",
+        "Gender-neutral aesthetic"
+      ],
+      "base_price": 425,
+      "sustainability": {
+        "materials": "100% recycled sterling silver",
+        "packaging": "Biodegradable hemp fiber boxes",
+        "carbon_neutral": "Carbon-offset shipping included",
+        "certifications": ["Responsible Jewelry Council", "Fair Trade Certified"]
+      },
+      "customization": {
+        "materials": ["Recycled Sterling Silver", "Recycled 14k Gold", "Lab-grown Diamond Accent"],
+        "finishes": ["Brushed Matte", "High Polish", "Oxidized Black", "Rose Gold Plating"],
+        "sizes": "US 4-12 (including half sizes)",
+        "engraving": "Inner band personal message (up to 25 characters)",
+        "stone_options": ["None", "Lab-created diamonds", "Recycled gemstones", "Birthstones"]
+      },
+      "social_appeal": "Perfectly asymmetrical for those Instagram flat lay shots",
+      "target_emotion": "Authentic self-expression"
+    },
+    {
+      "id": "ring-002",
+      "name": "Digital Detox Ring",
+      "description": "A mindful reminder to touch grass and live in the moment. Clean lines meet organic curves in this meditation on modern life balance.",
+      "category": "Minimalist",
+      "key_features": [
+        "Ultra-smooth comfort fit",
+        "Subtle meditation groove for fidgeting",
+        "Lightweight daily wear design",
+        "Phone-safe materials (won't scratch screens)"
+      ],
+      "base_price": 285,
+      "sustainability": {
+        "materials": "Ethically sourced titanium",
+        "packaging": "Reusable bamboo jewelry box",
+        "carbon_neutral": "Tree planted with every purchase",
+        "certifications": ["Ocean Positive", "B-Corp Certified"]
+      },
+      "customization": {
+        "materials": ["Titanium", "Recycled Sterling Silver", "Eco-friendly Ceramic"],
+        "finishes": ["Natural Brushed", "Mirror Polish", "Matte Black", "Pearl White"],
+        "sizes": "US 3-13 (including quarter sizes)",
+        "engraving": "Minimalist symbols or initials",
+        "meditation_groove": ["Standard", "Deep", "None", "Custom texture"]
+      },
+      "social_appeal": "Aesthetic minimalism that photographs beautifully",
+      "target_emotion": "Mindful living and intentional choices"
+    },
+    {
+      "id": "ring-003",
+      "name": "Main Character Energy Ring",
+      "description": "Because you're the protagonist of your own story. Bold geometric lines that command attention while staying surprisingly wearable for everyday confidence.",
+      "category": "Statement",
+      "key_features": [
+        "Bold architectural design",
+        "Comfortable despite statement size",
+        "Catches light from every angle",
+        "Conversation starter guaranteed"
+      ],
+      "base_price": 650,
+      "sustainability": {
+        "materials": "Lab-grown diamonds + recycled metals",
+        "packaging": "Zero-waste refillable containers",
+        "carbon_neutral": "Renewable energy production",
+        "certifications": ["Conflict-free diamonds", "SCS Sustainability"]
+      },
+      "customization": {
+        "materials": ["14k Recycled Gold", "Sterling Silver", "Rose Gold", "White Gold"],
+        "stone_options": ["Lab diamonds", "Moissanite", "Colored lab sapphires", "No stones"],
+        "sizes": "US 4-11",
+        "engraving": "Hidden personal mantra on inner band",
+        "geometric_patterns": ["Hexagon", "Triangle", "Square", "Custom shape"]
+      },
+      "social_appeal": "Instagram-worthy statement piece for outfit posts",
+      "target_emotion": "Confidence and self-empowerment"
+    },
+    {
+      "id": "ring-004",
+      "name": "Soft Launch Ring",
+      "description": "For relationships that exist in that beautiful in-between space. Subtle enough for privacy, meaningful enough for those who know.",
+      "category": "Promise/Pre-Engagement",
+      "key_features": [
+        "Discreet yet meaningful design",
+        "Comfortable for 24/7 wear",
+        "Subtle sparkle that doesn't scream",
+        "Perfect for 'soft launching' relationships"
+      ],
+      "base_price": 485,
+      "sustainability": {
+        "materials": "Vintage-inspired recycled gold",
+        "packaging": "Compostable gift boxes",
+        "carbon_neutral": "Local artisan production",
+        "certifications": ["Vintage certified metals", "Local craft guild"]
+      },
+      "customization": {
+        "materials": ["14k Yellow Gold", "Rose Gold", "White Gold", "Platinum"],
+        "stone_options": ["Single lab diamond", "Cluster of tiny stones", "Colored gemstone", "Plain band"],
+        "sizes": "US 3-12",
+        "engraving": "Coordinates, dates, or initials",
+        "setting_styles": ["Bezel", "Prong", "Flush", "Tension"]
+      },
+      "social_appeal": "Perfect for mysterious relationship status posts",
+      "target_emotion": "Intimacy and meaningful connection"
+    },
+    {
+      "id": "ring-005",
+      "name": "Glow Up Ring",
+      "description": "Celebrating your personal evolution journey. This transformative design literally changes appearance in different lighting – just like your ever-evolving self.",
+      "category": "Color-Change/Mood",
+      "key_features": [
+        "Color-changing elements",
+        "Mood-responsive materials",
+        "Multiple personalities in one ring",
+        "Conversation starter at every gathering"
+      ],
+      "base_price": 375,
+      "sustainability": {
+        "materials": "Thermochromic eco-pigments + recycled silver",
+        "packaging": "Seed paper boxes that grow wildflowers",
+        "carbon_neutral": "Solar-powered manufacturing",
+        "certifications": ["Non-toxic materials", "Green Chemistry certified"]
+      },
+      "customization": {
+        "materials": ["Sterling Silver base", "Gold-filled option", "Titanium base"],
+        "color_combinations": ["Blue to Purple", "Green to Gold", "Pink to Orange", "Custom colors"],
+        "sizes": "US 4-11",
+        "engraving": "Motivational words that appear/disappear",
+        "activation_temp": ["Body heat", "Ambient temperature", "Touch activated"]
+      },
+      "social_appeal": "TikTok-worthy transformation videos",
+      "target_emotion": "Personal growth and self-discovery"
+    },
+    {
+      "id": "ring-006",
+      "name": "Plant Parent Ring",
+      "description": "For the ones keeping succulents alive and thriving. Organic botanical textures meet modern minimalism in this love letter to your green thumb.",
+      "category": "Nature-Inspired",
+      "key_features": [
+        "Botanical texture details",
+        "Organic, flowing lines",
+        "Hypoallergenic materials",
+        "Dirt and water resistant"
+      ],
+      "base_price": 320,
+      "sustainability": {
+        "materials": "Recycled silver + real pressed botanicals",
+        "packaging": "Plantable paper with herb seeds",
+        "carbon_neutral": "Partnership with reforestation nonprofits",
+        "certifications": ["Rainforest Alliance", "Sustainable materials only"]
+      },
+      "customization": {
+        "materials": ["Sterling Silver", "14k Gold", "Rose Gold", "Green gold alloy"],
+        "botanical_elements": ["Leaf patterns", "Vine textures", "Flower details", "Tree bark"],
+        "sizes": "US 3-12",
+        "engraving": "Plant names, growth dates, or coordinates",
+        "finish_options": ["Natural matte", "Polished", "Oxidized", "Patina green"]
+      },
+      "social_appeal": "Perfect for plant shelf aesthetic photos",
+      "target_emotion": "Connection to nature and nurturing energy"
+    },
+    {
+      "id": "ring-007",
+      "name": "Side Quest Ring",
+      "description": "Not all who wander are lost – some are just on interesting detours. This stackable design celebrates the unexpected adventures that shape who you become.",
+      "category": "Stackable",
+      "key_features": [
+        "Designed to stack with others",
+        "Comfortable thin profile",
+        "Mix-and-match friendly",
+        "Tells a story when combined"
+      ],
+      "base_price": 225,
+      "sustainability": {
+        "materials": "100% recycled precious metals",
+        "packaging": "Reusable fabric pouches",
+        "carbon_neutral": "Local production + bike delivery",
+        "certifications": ["Circular design principles", "Zero waste production"]
+      },
+      "customization": {
+        "materials": ["Silver", "14k Gold", "Rose Gold", "Mixed metals"],
+        "textures": ["Smooth", "Hammered", "Twisted", "Beaded"],
+        "sizes": "US 3-13",
+        "engraving": "Symbols representing life moments",
+        "stacking_sets": ["3-piece adventure", "5-piece journey", "Custom collection"]
+      },
+      "social_appeal": "Stack styling content for social media",
+      "target_emotion": "Life as an adventure and personal narrative"
+    },
+    {
+      "id": "ring-008",
+      "name": "No Filter Ring",
+      "description": "Raw, unfiltered, authentically you. This deliberately imperfect design celebrates natural beauty and rejects impossible standards – because real is always better.",
+      "category": "Raw/Natural",
+      "key_features": [
+        "Intentionally imperfect finish",
+        "Raw, unpolished aesthetics",
+        "Each piece uniquely different",
+        "Anti-perfectionism statement"
+      ],
+      "base_price": 395,
+      "sustainability": {
+        "materials": "Raw conflict-free stones + recycled metals",
+        "packaging": "Upcycled denim pouches",
+        "carbon_neutral": "Hand-forged by local artisans",
+        "certifications": ["Artisan Fair Trade", "Ethical stone sourcing"]
+      },
+      "customization": {
+        "materials": ["Raw Silver", "Unrefined Gold", "Natural Copper", "Mixed raw metals"],
+        "stone_options": ["Raw diamonds", "Uncut gemstones", "Beach glass", "No stones"],
+        "sizes": "US 4-12",
+        "engraving": "Hand-stamped imperfect lettering",
+        "texture_levels": ["Slightly rough", "Very textured", "Completely raw", "Smooth sections"]
+      },
+      "social_appeal": "Authentic no-makeup makeup ring aesthetic",
+      "target_emotion": "Self-acceptance and authentic beauty"
+    }
+  ],
+  "collection_notes": {
+    "target_age": "18-32 years old",
+    "price_range": "$225-$650 base prices",
+    "customization_upcharges": {
+      "material_upgrades": "$50-$200",
+      "stone_additions": "$75-$300",
+      "engraving": "$25-$50",
+      "special_finishes": "$35-$75"
+    },
+    "shipping_sustainability": "All orders ship carbon-neutral with biodegradable packaging",
+    "social_media_strategy": "Each ring designed with specific Instagram/TikTok content opportunities",
+    "authenticity_focus": "Genuine sustainability practices, not greenwashing",
+    "customization_tech": "3D visualization available for all customization options"
+  }
+}

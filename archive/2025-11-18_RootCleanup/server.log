@@ -1,0 +1,18 @@
+
+> glowglitch-frontend@0.1.0 start
+> NODE_ENV=production node server.js -p 3002
+
+ ⚠ Disabling SWC Minifer will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+📁 Job persistence directory ready: /tmp/3d-generation/job-persistence
+⚠️ REDIS_URL not set. Proceeding without Redis; falling back to in-memory operations.
+Error: listen EADDRINUSE: address already in use 127.0.0.1:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1912:16)
+    at listenInCluster (node:net:1969:12)
+    at node:net:2178:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '127.0.0.1',
+  port: 3000
+}

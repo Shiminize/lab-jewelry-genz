@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDP Minimal Option C</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --font-sans: 'Inter', sans-serif;
+        --font-serif: 'DM Serif Display', serif;
+        --ink: #111827;
+        --body: #1f2937;
+        --muted: #6b7280;
+        --accent: #ff6f61;
+        --sky: #0ea5e9;
+        --border: rgba(17, 24, 39, 0.1);
+        --bg: #ffffff;
+        --space-2: 0.5rem;
+        --space-3: 0.75rem;
+        --space-4: 1rem;
+        --space-5: 1.25rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+        --space-10: 2.5rem;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-sans);
+        background: var(--bg);
+        color: var(--body);
+      }
+      header {
+        padding: var(--space-5) var(--space-4);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 1.6rem;
+        font-family: var(--font-serif);
+        color: var(--ink);
+      }
+      header a {
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        font-size: 0.75rem;
+        color: var(--muted);
+        text-decoration: none;
+      }
+      main {
+        display: grid;
+        gap: var(--space-10);
+        padding: var(--space-6) var(--space-4) var(--space-10);
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+      .media-stack {
+        display: grid;
+        gap: var(--space-4);
+      }
+      .media-stack img.hero {
+        width: 100%;
+        border-radius: 24px;
+        border: 1px solid var(--border);
+      }
+      .media-stack .thumb-row {
+        display: grid;
+        grid-auto-flow: column;
+        gap: var(--space-3);
+        overflow-x: auto;
+        padding-bottom: 0.3rem;
+      }
+      .media-stack .thumb {
+        width: 72px;
+        height: 72px;
+        border-radius: 14px;
+        border: 1px solid transparent;
+        overflow: hidden;
+      }
+      .media-stack .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .summary {
+        display: grid;
+        gap: var(--space-5);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: var(--space-8);
+      }
+      .summary h2 {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: clamp(2.4rem, 6vw, 3.5rem);
+        color: var(--ink);
+      }
+      .summary .meta {
+        display: grid;
+        gap: var(--space-3);
+      }
+      .summary .meta span {
+        text-transform: uppercase;
+        letter-spacing: 0.24em;
+        font-size: 0.68rem;
+        color: var(--muted);
+      }
+      .summary .price {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: clamp(2.4rem, 5vw, 3.2rem);
+        color: var(--ink);
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 1rem;
+        border-radius: 999px;
+        background: rgba(255, 111, 97, 0.12);
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        font-size: 0.68rem;
+        font-weight: 600;
+      }
+      .summary p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .inline-grid {
+        display: grid;
+        gap: var(--space-3);
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+      .inline-grid div {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: var(--space-3);
+      }
+      .inline-grid span {
+        display: block;
+      }
+      .inline-grid .label {
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.66rem;
+        color: var(--muted);
+        margin-bottom: 0.25rem;
+      }
+      .inline-grid .value {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .cta-row {
+        display: grid;
+        gap: var(--space-3);
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .cta-row a {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 600;
+        border: 1px solid transparent;
+        text-decoration: none;
+      }
+      .cta-row a.primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .cta-row a.secondary {
+        background: var(--bg);
+        color: var(--sky);
+        border-color: rgba(14, 165, 233, 0.3);
+      }
+      .info-blocks {
+        display: grid;
+        gap: var(--space-8);
+      }
+      .info-blocks section {
+        display: grid;
+        gap: var(--space-3);
+      }
+      .info-blocks h3 {
+        margin: 0;
+        font-size: 1.3rem;
+        color: var(--ink);
+      }
+      .info-blocks p {
+        margin: 0;
+        color: var(--muted);
+        max-width: 60ch;
+      }
+      .info-blocks ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: var(--space-2);
+      }
+      .info-blocks li {
+        padding: var(--space-3) 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .story {
+        display: grid;
+        gap: var(--space-3);
+      }
+      .story h3 {
+        margin: 0;
+        font-size: 1.3rem;
+        color: var(--ink);
+      }
+      .story ul {
+        margin: 0;
+        padding-left: 1.2rem;
+        color: var(--muted);
+      }
+      footer {
+        border-top: 1px solid var(--border);
+        padding: var(--space-6) var(--space-4);
+        color: var(--muted);
+        font-size: 0.8rem;
+        text-align: center;
+      }
+      @media (min-width: 900px) {
+        main {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .overview {
+          display: grid;
+          grid-template-columns: 54% 1fr;
+          gap: var(--space-8);
+        }
+        .overview > *:first-child {
+          order: 1;
+        }
+        .overview > *:last-child {
+          order: 2;
+          align-self: start;
+          position: sticky;
+          top: var(--space-8);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>GlowGlitch · Coral Sky</h1>
+      <a href="#">Back to catalog</a>
+    </header>
+
+    <main>
+      <section class="overview">
+        <div class="media-stack">
+          <img class="hero" src="https://images.unsplash.com/photo-1600182614300-481f87c94aba?auto=format&fit=crop&w=1000&q=80" alt="Halo ring" />
+          <div class="thumb-row">
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1600182614300-481f87c94aba?auto=format&fit=crop&w=200&q=80" alt="Alt view" /></div>
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" alt="Alt view" /></div>
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=200&q=80" alt="Alt view" /></div>
+            <div class="thumb"><img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Alt view" /></div>
+          </div>
+        </div>
+
+        <article class="summary">
+          <div class="meta">
+            <span>Featured capsule</span>
+            <h2>Halo Diamond Ring</h2>
+            <p>A floating halo engineered to glow across every shoot with calibrated lab-grown stones.</p>
+          </div>
+          <div>
+            <p class="price">$3,200</p>
+            <span class="pill">Creator ready</span>
+          </div>
+          <div class="inline-grid">
+            <div>
+              <span class="label">Lead time</span>
+              <span class="value">Hand-finished in ~2 weeks</span>
+            </div>
+            <div>
+              <span class="label">Certification</span>
+              <span class="value">IGI / GCAL documentation</span>
+            </div>
+            <div>
+              <span class="label">Studio support</span>
+              <span class="value">Concierge styling consult</span>
+            </div>
+            <div>
+              <span class="label">Deposits</span>
+              <span class="value">50% to begin crafting</span>
+            </div>
+          </div>
+          <div class="cta-row">
+            <a class="primary" href="#">Add to cart</a>
+            <a class="secondary" href="#">Email concierge</a>
+            <a class="secondary" href="#">Explore in customizer</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="info-blocks">
+        <section>
+          <h3>Materials</h3>
+          <p>Selected for brilliance under Coral & Sky lighting.</p>
+          <ul>
+            <li>Platinum 950 base</li>
+            <li>Lab-grown halo diamonds</li>
+            <li>Comfort-fit interior</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Gemstones</h3>
+          <p>Lab-grown stones with calibrated color and clarity.</p>
+          <ul>
+            <li>Radiant-cut center stone</li>
+            <li>Invisible-set accents</li>
+            <li>DEF color · VVS clarity</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Shipping & care</h3>
+          <p>Delivered with Coral Sky concierge support from studio to doorstep.</p>
+          <ul>
+            <li>Fully insured worldwide delivery</li>
+            <li>Carbon-neutral logistics</li>
+            <li>Complimentary resize within 90 days</li>
+          </ul>
+        </section>
+      </section>
+
+      <section class="story">
+        <h3>Design story</h3>
+        <p>
+          Crafted for the Neon Dream experience, this halo keeps the center stone elevated above a delicate bridge so light passes through every facet. Negative space keeps the ring featherlight while preserving structure.
+        </p>
+        <ul>
+          <li>Floating gallery boosts sparkle in motion</li>
+          <li>Knife-edge shank with mirror polish</li>
+          <li>Invisible basket for uninterrupted angles</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>© Coral Sky · Concierge-crafted lab-grown jewelry</footer>
+  </body>
+</html>

@@ -1,0 +1,600 @@
+active	ai.aliengiraffe/spotdb	0.1.0	Ephemeral data sandbox for AI workflows with guardrails and security	oci:aliengiraffe/spotdb	
+active	ai.alpic.test/test-mcp-server	0.0.1	Alpic Test MCP Server - great server!		streamable-http:https://test.alpic.ai/
+active	ai.explorium/mcp-explorium	1.0.0	Access live company and contact data from Explorium's AgentSource B2B platform.		sse:https://mcp-github-registry.explorium.ai/sse
+active	ai.klavis/strata	1.0.0	MCP server for progressive tool usage at any scale (see https://klavis.ai)		streamable-http:https://strata.klavis.ai/mcp/
+active	ai.mcpanalytics/analytics	1.0.3	MCP Analytics, searchable tools and reports with interactive HTML visualization		streamable-http:https://api.mcpanalytics.ai/auth0
+active	ai.mcpcap/mcpcap	0.6.0	An MCP server for analyzing PCAP files.	pypi:mcpcap	
+active	ai.shawndurrani/mcp-merchant	0.1.3	Search-only commerce MCP server backed by Stripe (test)	npm:mcp-merchant	sse:https://mcp.shawndurrani.ai/sse
+active	ai.shawndurrani/mcp-registry	0.1.3	Search the public MCP Registry; discover servers and copy SSE URLs.		sse:https://mcp-registry.shawndurrani.ai/sse
+active	ai.smithery/222wcnm-bilistalkermcp	1.15.0	Track Bilibili creators and get the latest updates on videos, dynamics, and articles. Fetch user p…		streamable-http:https://server.smithery.ai/@222wcnm/bilistalkermcp/mcp
+active	ai.smithery/Aman-Amith-Shastry-scientific_computation_mcp	1.13.1	This MCP server enables users to perform scientific computations regarding linear algebra and vect…		streamable-http:https://server.smithery.ai/@Aman-Amith-Shastry/scientific_computation_mcp/mcp
+active	ai.smithery/Artin0123-gemini-image-mcp-server	1.4.3	Analyze images and videos with Gemini to get fast, reliable visual insights. Handle content from U…		streamable-http:https://server.smithery.ai/@Artin0123/gemini-image-mcp-server/mcp
+active	ai.smithery/BadRooBot-my_test_mcp	1.14.0	Get current weather for any city and create images from your prompts. Streamline planning, reports…		streamable-http:https://server.smithery.ai/@BadRooBot/my_test_mcp/mcp
+active	ai.smithery/BadRooBot-test_m	1.14.0	Send quick greetings, scrape website content, and generate text or images on demand. Perform web s…		streamable-http:https://server.smithery.ai/@BadRooBot/test_m/mcp
+active	ai.smithery/BigVik193-reddit-ads-mcp	1.0.0	Manage Reddit advertising across accounts, campaigns, ad groups, posts, and ads. List accounts, fu…		streamable-http:https://server.smithery.ai/@BigVik193/reddit-ads-mcp/mcp
+active	ai.smithery/BigVik193-reddit-ads-mcp-api	1.0.0	Manage Reddit advertising end to end across accounts, funding methods, campaigns, ad groups, and a…		streamable-http:https://server.smithery.ai/@BigVik193/reddit-ads-mcp-api/mcp
+active	ai.smithery/BigVik193-reddit-ads-mcp-test	1.0.0	Manage Reddit advertising end-to-end: browse ad accounts and payment methods, and organize campaig…		streamable-http:https://server.smithery.ai/@BigVik193/reddit-ads-mcp-test/mcp
+active	ai.smithery/BigVik193-reddit-user-mcp	1.0.0	Browse and manage Reddit posts, comments, and threads. Fetch user activity, explore hot/new/rising…		streamable-http:https://server.smithery.ai/@BigVik193/reddit-user-mcp/mcp
+active	ai.smithery/BowenXU0126-aistudio_hw3	1.16.0	Send personalized greetings with optional pirate flair. Compose friendly salutations for any name…		streamable-http:https://server.smithery.ai/@BowenXU0126/aistudio_hw3/mcp
+active	ai.smithery/ChiR24-unreal_mcp	0.4.6	Control Unreal Engine to browse assets, import content, and manage levels and sequences. Automate…		streamable-http:https://server.smithery.ai/@ChiR24/unreal_mcp/mcp
+active	ai.smithery/ChiR24-unreal_mcp_server	0.4.4	A comprehensive Model Context Protocol (MCP) server that enables AI assistants to control Unreal E…		streamable-http:https://server.smithery.ai/@ChiR24/unreal_mcp_server/mcp
+active	ai.smithery/CollectiveSpend-collectivespend-smithery-mcp	1.0.0	Connect CollectiveSpend with Xero to manage contacts. Retrieve, create, and update contact records…		streamable-http:https://server.smithery.ai/@CollectiveSpend/collectivespend-smithery-mcp/mcp
+active	ai.smithery/CryptoCultCurt-appfolio-mcp-server	1.0.1	Provide seamless access to Appfolio Property Manager Reporting API through a standardized MCP serv…		streamable-http:https://server.smithery.ai/@CryptoCultCurt/appfolio-mcp-server/mcp
+active	ai.smithery/Danushkumar-V-mcp-discord	1.2.0	An MCP server that integrates with Discord to provide AI-powered features.		streamable-http:https://server.smithery.ai/@Danushkumar-V/mcp-discord/mcp
+active	ai.smithery/DynamicEndpoints-autogen_mcp	0.3.0	Create and manage AI agents that collaborate and solve problems through natural language interacti…		streamable-http:https://server.smithery.ai/@DynamicEndpoints/autogen_mcp/mcp
+active	ai.smithery/DynamicEndpoints-m365-core-mcp	1.1.0	*Updated June 17th 2025** Manage your Microsoft 365 services effortlessly. Create and manage distr…		streamable-http:https://server.smithery.ai/@DynamicEndpoints/m365-core-mcp/mcp
+active	ai.smithery/DynamicEndpoints-powershell-exec-mcp-server	1.13.1	Execute PowerShell commands securely with controlled timeouts and input validation. Retrieve syste…		streamable-http:https://server.smithery.ai/@DynamicEndpoints/powershell-exec-mcp-server/mcp
+active	ai.smithery/FelixYifeiWang-felix-mcp-smithery	1.0.0	Streamline your workflow with Felix. Integrate it into your workspace and tailor its behavior to y…		streamable-http:https://server.smithery.ai/@FelixYifeiWang/felix-mcp-smithery/mcp
+active	ai.smithery/Funding-Machine-ghl-mcp-fundingmachine	1.0.0	Automate GoHighLevel across CRM, messaging, calendars, marketing, e-commerce, and billing. Manage…		streamable-http:https://server.smithery.ai/@Funding-Machine/ghl-mcp-fundingmachine/mcp
+active	ai.smithery/HARJAP-SINGH-3105-splitwise_mcp	1.14.0	Manage Splitwise balances, expenses, and groups from your workspace. Fetch friends and recent acti…		streamable-http:https://server.smithery.ai/@HARJAP-SINGH-3105/splitwise_mcp/mcp
+active	ai.smithery/Hint-Services-obsidian-github-mcp	0.4.0	Connect AI assistants to your GitHub-hosted Obsidian vault to seamlessly access, search, and analy…		streamable-http:https://server.smithery.ai/@Hint-Services/obsidian-github-mcp/mcp
+active	ai.smithery/IlyaGusev-academia_mcp	1.16.0	Search arXiv and ACL Anthology, retrieve citations and references, and browse web sources to accel…		streamable-http:https://server.smithery.ai/@IlyaGusev/academia_mcp/mcp
+active	ai.smithery/ImRonAI-mcp-server-browserbase	2.0.0	Automate cloud browsers to navigate websites, interact with elements, and extract structured data.…		streamable-http:https://server.smithery.ai/@ImRonAI/mcp-server-browserbase/mcp
+active	ai.smithery/IndianAppGuy-magicslide-mcp	1.0.0	Generate professional PowerPoint presentations from text, YouTube videos, or structured JSON data.…		streamable-http:https://server.smithery.ai/@IndianAppGuy/magicslide-mcp/mcp
+active	ai.smithery/IndianAppGuy-magicslide-mcp-actual-test	1.0.0	Generate polished PowerPoint presentations from text prompts, YouTube videos, or structured outlin…		streamable-http:https://server.smithery.ai/@IndianAppGuy/magicslide-mcp-actual-test/mcp
+active	ai.smithery/JMoak-chrono-mcp	0.2.0	Convert and compare dates and times across any timezone with flexible, locale-aware formatting. Ad…		streamable-http:https://server.smithery.ai/@JMoak/chrono-mcp/mcp
+active	ai.smithery/JunoJunHyun-festival-finder-mcp	1.16.0	Discover festivals worldwide by location, date, and genre. Compare options with key details like d…		streamable-http:https://server.smithery.ai/@JunoJunHyun/festival-finder-mcp/mcp
+active	ai.smithery/Kim-soung-won-mcp-smithery-exam	1.14.0	Craft quick, personalized greetings by name. Generate ready-to-use greeting prompts for a consiste…		streamable-http:https://server.smithery.ai/@Kim-soung-won/mcp-smithery-exam/mcp
+active	ai.smithery/Kryptoskatt-mcp-server	1.0.0	Enable AI assistants to interact seamlessly with the DefiLlama API by translating MCP tool calls i…		streamable-http:https://server.smithery.ai/@Kryptoskatt/mcp-server/mcp
+active	ai.smithery/Leghis-smart-thinking	0.0.0	Find relevant Smart‑Thinking memories fast. Fetch full entries by ID to get complete context. Spee…		streamable-http:https://server.smithery.ai/@Leghis/smart-thinking/mcp
+active	ai.smithery/MetehanGZL-pokemcp	1.0.0	Provide detailed Pokémon data and information through a standardized MCP interface. Enable LLMs an…		streamable-http:https://server.smithery.ai/@MetehanGZL/pokemcp/mcp
+active	ai.smithery/MisterSandFR-supabase-mcp-selfhosted	1.14.1	Manage Supabase projects end to end across database, auth, storage, realtime, and migrations. Moni…		streamable-http:https://server.smithery.ai/@MisterSandFR/supabase-mcp-selfhosted/mcp
+active	ai.smithery/Nekzus-npm-sentinel-mcp	1.11.8	Provide AI-powered real-time analysis and intelligence on NPM packages, including security, depend…		streamable-http:https://server.smithery.ai/@Nekzus/npm-sentinel-mcp/mcp
+active	ai.smithery/Open-Scout-mcp	0.1.0	Create and publish one-pagers and boards for your organization. Upload images from the web, update…		streamable-http:https://server.smithery.ai/@Open-Scout/mcp/mcp
+active	ai.smithery/PabloLec-keyprobe-mcp	1.13.1	Audit certificates and keystores to surface expiry risks, weak algorithms, and misconfigurations.…		streamable-http:https://server.smithery.ai/@PabloLec/keyprobe-mcp/mcp
+active	ai.smithery/Parc-Dev-task-breakdown-server	1.0.0	Break down complex problems into clear, actionable steps. Adapt on the fly by iterating, revising,…		streamable-http:https://server.smithery.ai/@Parc-Dev/task-breakdown-server/mcp
+active	ai.smithery/Phionx-mcp-hello-server	1.16.0	Send personalized greetings to anyone. Enable Pirate Mode for swashbuckling salutations. Explore t…		streamable-http:https://server.smithery.ai/@Phionx/mcp-hello-server/mcp
+active	ai.smithery/PixdataOrg-coderide	0.9.1	CodeRide eliminates the context reset cycle once and for all. Through MCP integration, it seamless…		streamable-http:https://server.smithery.ai/@PixdataOrg/coderide/mcp
+active	ai.smithery/Pratiksha-Kanoja-magicslide-mcp-test	1.0.0	Create polished slide decks from text or YouTube links in seconds. Fetch video transcripts to tran…		streamable-http:https://server.smithery.ai/@Pratiksha-Kanoja/magicslide-mcp-test/mcp
+active	ai.smithery/ProfessionalWiki-mediawiki-mcp-server	0.1.1	Enable Large Language Model clients to interact seamlessly with any MediaWiki wiki. Perform action…		streamable-http:https://server.smithery.ai/@ProfessionalWiki/mediawiki-mcp-server/mcp
+active	ai.smithery/RectiFlex-centerassist-mcp	1.0.0	Streamline field service and construction operations with CenterPoint Connect. Manage companies, o…		streamable-http:https://server.smithery.ai/@RectiFlex/centerassist-mcp/mcp
+active	ai.smithery/RectiFlex-centerassist-mcp-cp	1.0.0	Streamline property management, construction, and service workflows with CenterPoint Connect. Sear…		streamable-http:https://server.smithery.ai/@RectiFlex/centerassist-mcp-cp/mcp
+active	ai.smithery/RectiFlex-centerassist-mcp-cp1	1.0.0	Access and manage CenterPoint Connect data for property management, construction, and service oper…		streamable-http:https://server.smithery.ai/@RectiFlex/centerassist-mcp-cp1/mcp
+active	ai.smithery/RectiFlex-centerassist-mcp1	1.0.0	Manage CenterPoint Connect data across properties, companies, employees, invoices, materials, and…		streamable-http:https://server.smithery.ai/@RectiFlex/centerassist-mcp1/mcp
+active	ai.smithery/STUzhy-py_execute_mcp	1.0.0	Run Python code in a secure sandbox without local setup. Declare inline dependencies and execute s…		streamable-http:https://server.smithery.ai/@STUzhy/py_execute_mcp/mcp
+active	ai.smithery/TakoData-tako-mcp	1.16.0	Provide real-time data querying and visualization by integrating Tako with your agents. Generate o…		streamable-http:https://server.smithery.ai/@TakoData/tako-mcp/mcp
+active	ai.smithery/a-ariff-canvas-instant-mcp	2.0.0	Manage your Canvas coursework with quick access to courses, assignments, and grades. Track upcomin…		streamable-http:https://server.smithery.ai/@a-ariff/canvas-instant-mcp/mcp
+active	ai.smithery/aamangeldi-dad-jokes-mcp	1.15.0	Get a random dad joke or search by keyword to fit any moment. Retrieve specific jokes by ID for re…		streamable-http:https://server.smithery.ai/@aamangeldi/dad-jokes-mcp/mcp
+active	ai.smithery/adamamer20-paper-search-mcp-openai	1.14.0	Search and download academic papers from arXiv, PubMed, bioRxiv, medRxiv, Google Scholar, Semantic…		streamable-http:https://server.smithery.ai/@adamamer20/paper-search-mcp-openai/mcp
+active	ai.smithery/afgong-sqlite-mcp-server	1.16.0	Explore your Messages SQLite database to browse tables and inspect schemas with ease. Run flexible…		streamable-http:https://server.smithery.ai/@afgong/sqlite-mcp-server/mcp
+active	ai.smithery/aicastle-school-openai-api-agent-project	1.16.0	Fetch current stock prices and key data for symbols across global markets. Look up companies like…		streamable-http:https://server.smithery.ai/@aicastle-school/openai-api-agent-project/mcp
+active	ai.smithery/aicastle-school-openai-api-agent-project11	1.16.0	Fetch the latest available stock quotes by ticker symbol across international markets. Check price…		streamable-http:https://server.smithery.ai/@aicastle-school/openai-api-agent-project11/mcp
+active	ai.smithery/airmang-hwpx-mcp	1.14.0	자동화하여 HWPX 문서의 로딩, 탐색, 편집, 검증을 한 번에 처리합니다. 문단·표·주석 추가, 텍스트 일괄 치환, 머리말·꼬리말 설정 등 반복 작업을 신속히 수행합니다. 기…		streamable-http:https://server.smithery.ai/@airmang/hwpx-mcp/mcp
+active	ai.smithery/akilat-spec-leave-manager-mcp	1.16.0	Track and manage employee time off with quick balance lookups and streamlined applications. Find t…		streamable-http:https://server.smithery.ai/@akilat-spec/leave-manager-mcp/mcp
+active	ai.smithery/alex-llm-attack-mcp-server	2.1	Query and retrieve information about various adversarial tactics and techniques used in cyber atta…		streamable-http:https://server.smithery.ai/@alex-llm/attack-mcp-server/mcp
+active	ai.smithery/alphago2580-naramarketmcp	1.14.1	Access Korea’s G2B procurement and Nara Market data for bid notices, awards, contracts, statistics…		streamable-http:https://server.smithery.ai/@alphago2580/naramarketmcp/mcp
+active	ai.smithery/anirbanbasu-frankfurtermcp	1.15.0	A MCP server for the Frankfurter API for currency exchange rates.		streamable-http:https://server.smithery.ai/@anirbanbasu/frankfurtermcp/mcp
+active	ai.smithery/anirbanbasu-pymcp	0.1.7	Primarily to be used as a template repository for developing MCP servers with FastMCP in Python, P…		streamable-http:https://server.smithery.ai/@anirbanbasu/pymcp/mcp
+active	ai.smithery/arjunkmrm-ahoy	1.13.1	Send friendly, personalized greetings by name. Switch to a playful pirate voice for themed salutat…		streamable-http:https://server.smithery.ai/@arjunkmrm/ahoy/mcp
+active	ai.smithery/arjunkmrm-ahoy2	1.13.1	Create friendly greetings by name, with an optional pirate tone. Explore the origin of 'Hello, Wor…		streamable-http:https://server.smithery.ai/@arjunkmrm/ahoy2/mcp
+active	ai.smithery/arjunkmrm-boba-tea	1.0.0	Send friendly greetings to people by name. Discover the origin story behind 'Hello, World' for qui…		streamable-http:https://server.smithery.ai/@arjunkmrm/boba-tea/mcp
+active	ai.smithery/arjunkmrm-bobo	1.14.0	Send friendly, personalized greetings on command. Explore the origin of 'Hello, World' for quick c…		streamable-http:https://server.smithery.ai/@arjunkmrm/bobo/mcp
+active	ai.smithery/arjunkmrm-brave-search-mcp-server	2.0.25	Search the web, images, videos, news, and local businesses with robust filters, freshness controls…		streamable-http:https://server.smithery.ai/@arjunkmrm/brave-search-mcp-server/mcp
+active	ai.smithery/arjunkmrm-clock	1.14.1	Check the current time instantly and explore world timezones by region. Browse available continent…		streamable-http:https://server.smithery.ai/@arjunkmrm/clock/mcp
+active	ai.smithery/arjunkmrm-fetch	1.0.0	Fetch web pages and extract exactly the content you need. Select elements with CSS and retrieve co…		streamable-http:https://server.smithery.ai/@arjunkmrm/fetch/mcp
+active	ai.smithery/arjunkmrm-local-test2	1.0.0	Send friendly greetings instantly. Learn the origin of 'Hello, World' to add a fun fact to your me…		streamable-http:https://server.smithery.ai/@arjunkmrm/local-test2/mcp
+active	ai.smithery/arjunkmrm-local001	1.15.0	Get the current time in your preferred timezone or any region you specify. Browse concise informat…		streamable-http:https://server.smithery.ai/@arjunkmrm/local001/mcp
+active	ai.smithery/arjunkmrm-local01	1.0.0	Greet people warmly or roast them with playful banter. Explore the origin of 'Hello, World' for qu…		streamable-http:https://server.smithery.ai/@arjunkmrm/local01/mcp
+active	ai.smithery/arjunkmrm-local02	1.15.0	Get the current time in your chosen timezone and view common timezone information. Simplify schedu…		streamable-http:https://server.smithery.ai/@arjunkmrm/local02/mcp
+active	ai.smithery/arjunkmrm-lta-mcp	0.1.0	Provide real-time transportation data including bus arrivals, train service alerts, carpark availa…		streamable-http:https://server.smithery.ai/@arjunkmrm/lta-mcp/mcp
+active	ai.smithery/arjunkmrm-mango-sago	1.16.0	Create cheerful, personalized greetings in seconds. Switch to playful pirate-speak for extra flair…		streamable-http:https://server.smithery.ai/@arjunkmrm/mango-sago/mcp
+active	ai.smithery/arjunkmrm-perplexity-search	1.0.0	Enable AI assistants to perform web searches using Perplexity's Sonar Pro.		streamable-http:https://server.smithery.ai/@arjunkmrm/perplexity-search/mcp
+active	ai.smithery/arjunkmrm-py-test-0	1.16.0	Send personalized greetings by name, with an optional pirate tone. Generate greeting prompts and e…		streamable-http:https://server.smithery.ai/@arjunkmrm/py-test-0/mcp
+active	ai.smithery/arjunkmrm-py-test-2	1.16.0	Greet people by name with friendly, customizable messages. Toggle Pirate Mode to speak like a swas…		streamable-http:https://server.smithery.ai/@arjunkmrm/py-test-2/mcp
+active	ai.smithery/arjunkmrm-scrapermcp_el	1.15.0	Extract and parse web pages into clean HTML, links, or Markdown. Handle dynamic, complex, or block…		streamable-http:https://server.smithery.ai/@arjunkmrm/scrapermcp_el/mcp
+active	ai.smithery/arjunkmrm-sg-bus-test	1.0.0	Get real-time bus arrival times for any Singapore bus stop by code, with optional service filterin…		streamable-http:https://server.smithery.ai/@arjunkmrm/sg-bus-test/mcp
+active	ai.smithery/arjunkmrm-test0	1.15.0	Get the current time in any timezone and quickly look up common timezone info. Set a default timez…		streamable-http:https://server.smithery.ai/@arjunkmrm/test0/mcp
+active	ai.smithery/arjunkmrm-test01	1.15.0	Get the current time in any timezone. Explore concise timezone info to pick the right region. Simp…		streamable-http:https://server.smithery.ai/@arjunkmrm/test01/mcp
+active	ai.smithery/arjunkmrm-test2	1.0.0	Greet anyone by name with a friendly message. Explore the origin of 'Hello, World' to add context…		streamable-http:https://server.smithery.ai/@arjunkmrm/test2/mcp
+active	ai.smithery/arjunkmrm-time	1.15.0	Get the current time anywhere and access concise timezone information. Set your preferred timezone…		streamable-http:https://server.smithery.ai/@arjunkmrm/time/mcp
+active	ai.smithery/arjunkmrm-ts-test-2	1.0.0	Greet anyone with a friendly, personalized hello. Explore the origin story of 'Hello, World.' Jump…		streamable-http:https://server.smithery.ai/@arjunkmrm/ts-test-2/mcp
+active	ai.smithery/arjunkmrm-tutorials	1.15.0	Analyze stocks and SEC filings to surface key insights, from price and volume to insider activity…		streamable-http:https://server.smithery.ai/@arjunkmrm/tutorials/mcp
+active	ai.smithery/arjunkmrm-watch2	1.14.1	Get the current time in your chosen timezone. Browse available continents and regions to pick the…		streamable-http:https://server.smithery.ai/@arjunkmrm/watch2/mcp
+active	ai.smithery/aryankeluskar-poke-video-mcp	1.14.0	Search your Flashback video library with natural language to instantly find relevant moments. Get…		streamable-http:https://server.smithery.ai/@aryankeluskar/poke-video-mcp/mcp
+active	ai.smithery/bergeramit-bergeramit-hw3-tech	1.15.0	Create friendly greetings and add two numbers instantly. Speed up simple tasks and streamline ligh…		streamable-http:https://server.smithery.ai/@bergeramit/bergeramit-hw3-tech/mcp
+active	ai.smithery/bergeramit-bergeramit-hw3-tech-1	1.15.0	Add two numbers instantly and generate friendly greetings on demand. Speed up quick math and perso…		streamable-http:https://server.smithery.ai/@bergeramit/bergeramit-hw3-tech-1/mcp
+active	ai.smithery/bhushangitfull-file-mcp-smith	1.16.0	Manage files and folders directly from your workspace. Read and write files, list directories, cre…		streamable-http:https://server.smithery.ai/@bhushangitfull/file-mcp-smith/mcp
+active	ai.smithery/bielacki-igdb-mcp-server	1.14.0	Explore and discover video games from the Internet Game Database. Search titles, view detailed inf…		streamable-http:https://server.smithery.ai/@bielacki/igdb-mcp-server/mcp
+active	ai.smithery/blacklotusdev8-test_m	1.14.0	Greet anyone by name with a friendly hello. Scrape webpages to extract content for quick reference…		streamable-http:https://server.smithery.ai/@blacklotusdev8/test_m/mcp
+active	ai.smithery/blbl147-xhs-mcp	1.6.0	搜索笔记、浏览首页推荐、查看笔记内容与评论，并发表你的评论。直接在工作流中与小红书内容互动，高效跟进话题。		streamable-http:https://server.smithery.ai/@blbl147/xhs-mcp/mcp
+active	ai.smithery/blockscout-mcp-server	1.13.1	Provide AI agents and automation tools with contextual access to blockchain data including balance…		streamable-http:https://server.smithery.ai/@blockscout/mcp-server/mcp
+active	ai.smithery/brandonbosco-sigao-scf-mcp	1.0.1	Provides access to Civic Plus - See Click Fix, allowing you to interact with your data via an LLM.…		streamable-http:https://server.smithery.ai/@brandonbosco/sigao-scf-mcp/mcp
+active	ai.smithery/brave	2.0.52	Visit https://brave.com/search/api/ for a free API key. Search the web, local businesses, images,…		streamable-http:https://server.smithery.ai/brave/mcp
+active	ai.smithery/browserbasehq-mcp-browserbase	2.0.0	Provides cloud browser automation capabilities using Stagehand and Browserbase, enabling LLMs to i…		streamable-http:https://server.smithery.ai/@browserbasehq/mcp-browserbase/mcp
+active	ai.smithery/callmybot-cookbook-mcp-server	1.0.0	Count occurrences of any character in your text instantly. Specify the character and get precise c…		streamable-http:https://server.smithery.ai/@callmybot/cookbook-mcp-server/mcp
+active	ai.smithery/callmybot-domoticz	1.0.0	Greet anyone by name with a friendly hello. Explore the origin of 'Hello, World' for context in de…		streamable-http:https://server.smithery.ai/@callmybot/domoticz/mcp
+active	ai.smithery/callmybot-hello-mcp-server	1.0.0	Generate quick, friendly greetings by name. Personalize salutations for any context. Explore the o…		streamable-http:https://server.smithery.ai/@callmybot/hello-mcp-server/mcp
+active	ai.smithery/cc25a-openai-api-agent-project123123123	1.14.0	Look up the latest stock prices by ticker symbol across global markets. Get current price and esse…		streamable-http:https://server.smithery.ai/@cc25a/openai-api-agent-project123123123/mcp
+active	ai.smithery/cindyloo-dropbox-mcp-server	1.15.0	Search, browse, and read your Dropbox files. Find documents by name or content, list folders, and…		streamable-http:https://server.smithery.ai/@cindyloo/dropbox-mcp-server/mcp
+active	ai.smithery/clpi-clp-mcp	0.0.1	Manage simple context workflows with quick init and add actions. Access the 'Hello, World' origin…		streamable-http:https://server.smithery.ai/@clpi/clp-mcp/mcp
+active	ai.smithery/cpretzinger-ai-assistant-simple	1.0.0	UPDATED 9/1/2025! NEW TOOLS! Use the Redis Stream tools with n8n MCP Client Node for use anywhere!…		streamable-http:https://server.smithery.ai/@cpretzinger/ai-assistant-simple/mcp
+active	ai.smithery/cristianoaredes-mcp-dadosbr	1.0.0	# MCP DadosBR Servidor MCP focado em dados públicos do Brasil. Oferece duas ferramentas simples e…		streamable-http:https://server.smithery.ai/@cristianoaredes/mcp-dadosbr/mcp
+active	ai.smithery/ctaylor86-mcp-video-download-server	1.0.0	Connect your video workflows to cloud storage. Organize and access video assets across projects wi…		streamable-http:https://server.smithery.ai/@ctaylor86/mcp-video-download-server/mcp
+active	ai.smithery/cuongpo-coti-mcp	0.2.1	Connect to the COTI blockchain to manage accounts, transfer native tokens, and deploy and operate…		streamable-http:https://server.smithery.ai/@cuongpo/coti-mcp/mcp
+active	ai.smithery/cuongpo-coti-mcp-1	0.2.1	Manage COTI accounts, deploy private ERC20 and ERC721 contracts, and transfer tokens and NFTs with…		streamable-http:https://server.smithery.ai/@cuongpo/coti-mcp-1/mcp
+active	ai.smithery/data-mindset-sts-google-forms-mcp	1.0.0	Create and manage Google Forms to run surveys and collect data. Add text and multiple-choice quest…		streamable-http:https://server.smithery.ai/@data-mindset/sts-google-forms-mcp/mcp
+active	ai.smithery/demomagic-duckchain-mcp	1.13.1	Explore blockchain data across addresses, tokens, blocks, and transactions. Investigate any transa…		streamable-http:https://server.smithery.ai/@demomagic/duckchain-mcp/mcp
+active	ai.smithery/devbrother2024-typescript-mcp-server-boilerplate	1.0.0	Kickstart development with a customizable TypeScript template featuring sample tools for greeting,…		streamable-http:https://server.smithery.ai/@devbrother2024/typescript-mcp-server-boilerplate/mcp
+active	ai.smithery/docfork-mcp	0.7.0	@latest documentation and code examples to 9000+ libraries for LLMs and AI code editors in a singl…		streamable-http:https://server.smithery.ai/@docfork/mcp/mcp
+active	ai.smithery/dsharipova-mcp-hw	1.16.0	Create personalized greetings by name in the tone you choose. Get quick suggestions for friendly i…		streamable-http:https://server.smithery.ai/@dsharipova/mcp-hw/mcp
+active	ai.smithery/duvomike-mcp	1.0.0	Transform numbers by doubling them and adding 5. Get instant results with a clear breakdown of the…		streamable-http:https://server.smithery.ai/@duvomike/mcp/mcp
+active	ai.smithery/eliu243-oura-mcp-server	1.16.0	Connect your Oura Ring account and enable access to your wellness data in apps and automations. In…		streamable-http:https://server.smithery.ai/@eliu243/oura-mcp-server/mcp
+active	ai.smithery/eliu243-oura-mcp-server-2	1.16.0	Connect your Oura Ring account to enable secure, authenticated access in your workflows. Generate…		streamable-http:https://server.smithery.ai/@eliu243/oura-mcp-server-2/mcp
+active	ai.smithery/eliu243-oura-mcp-server-eliu	1.16.0	Connect your Oura Ring account securely in minutes. Enable authorized access to your sleep, activi…		streamable-http:https://server.smithery.ai/@eliu243/oura-mcp-server-eliu/mcp
+active	ai.smithery/exa-labs-exa-code-mcp	0.0.1	Find open-source libraries and fetch contextual code snippets by version to accelerate development…		streamable-http:https://server.smithery.ai/@exa-labs/exa-code-mcp/mcp
+active	ai.smithery/faithk7-gmail-mcp	1.7.4	Manage Gmail messages, threads, labels, drafts, and settings from your workflows. Send and organiz…		streamable-http:https://server.smithery.ai/@faithk7/gmail-mcp/mcp
+active	ai.smithery/feeefapp-mcp	1.0.0	Enable AI assistants to interact seamlessly with Feeef e-commerce stores, products, and orders usi…		streamable-http:https://server.smithery.ai/@feeefapp/mcp/mcp
+active	ai.smithery/fengyinxia-jimeng-mcp	1.0.0	Create images and videos from prompts, with options for image mixing, reference images, and start/…		streamable-http:https://server.smithery.ai/@fengyinxia/jimeng-mcp/mcp
+active	ai.smithery/fitaf-ai-fitaf-ai-mcp	1.0.0	Manage workouts, nutrition, goals, and progress across the FitAF platform. Connect wearables, sync…		streamable-http:https://server.smithery.ai/@fitaf-ai/fitaf-ai-mcp/mcp
+active	ai.smithery/fitaf-ai-fitaf-mcp	1.0.0	Track workouts, nutrition, body metrics, habits, and SMART goals with insights and trends. Connect…		streamable-http:https://server.smithery.ai/@fitaf-ai/fitaf-mcp/mcp
+active	ai.smithery/flight505-mcp_dincoder	0.1.15	Driven Intent Negotiation — Contract-Oriented Deterministic Executable Runtime DinCoder brings the…		streamable-http:https://server.smithery.ai/@flight505/mcp_dincoder/mcp
+active	ai.smithery/hithereiamaliff-mcp-datagovmy	1.0.0	This MCP server provides seamless access to Malaysia's government open data, including datasets, w…		streamable-http:https://server.smithery.ai/@hithereiamaliff/mcp-datagovmy/mcp
+active	ai.smithery/hithereiamaliff-mcp-nextcloud	1.0.0	A comprehensive Model Context Protocol (MCP) server that enables AI assistants to interact with yo…		streamable-http:https://server.smithery.ai/@hithereiamaliff/mcp-nextcloud/mcp
+active	ai.smithery/hjsh200219-pharminfo-mcp	1.14.0	Look up Korean drug ingredient and product data by HIRA component and product codes via Pilldoc. V…		streamable-http:https://server.smithery.ai/@hjsh200219/pharminfo-mcp/mcp
+active	ai.smithery/hollaugo-financial-research-mcp-server	1.15.0	Analyze stocks with summaries, price targets, and analyst recommendations. Track SEC filings, divi…		streamable-http:https://server.smithery.ai/@hollaugo/financial-research-mcp-server/mcp
+active	ai.smithery/hustcc-mcp-mermaid	0.1.3	Generate dynamic Mermaid diagrams and charts with AI assistance. Customize styles and export diagr…		streamable-http:https://server.smithery.ai/@hustcc/mcp-mermaid/mcp
+active	ai.smithery/huuthangntk-claude-vision-mcp-server	1.0.0	Analyze images from multiple angles to extract detailed insights or quick summaries. Describe visu…		streamable-http:https://server.smithery.ai/@huuthangntk/claude-vision-mcp-server/mcp
+active	ai.smithery/infranodus-mcp-server-infranodus	1.0.0	Map text into knowledge graphs to create a structured representation of conceptual relations and t…		streamable-http:https://server.smithery.ai/@infranodus/mcp-server-infranodus/mcp
+active	ai.smithery/isnow890-data4library-mcp	1.0.5	책 싫어하는 제가 책에 대해 아는척하고 싶어서 만들었습니다.. 내 주변 도서관 실시간 대출 확인 읽고 싶은 책을 검색하면 주변 도서관 대출 가능 여부를 즉시 확인 굳이 도서관…		streamable-http:https://server.smithery.ai/@isnow890/data4library-mcp/mcp
+active	ai.smithery/jekakos-mcp-user-data-enrichment	1.0.0	Enrich user data by adding social network links based on provided personal information. Integrate…		streamable-http:https://server.smithery.ai/@jekakos/mcp-user-data-enrichment/mcp
+active	ai.smithery/jenniferjiang0511-mit-ai-studio-hw3	1.15.0	Greet people by name and check local forecasts and weather alerts across the U.S. Switch to a play…		streamable-http:https://server.smithery.ai/@jenniferjiang0511/mit-ai-studio-hw3/mcp
+active	ai.smithery/jessicayanwang-test	1.13.1	Fetch latest and historical currency exchange rates from Frankfurter. Convert amounts between curr…		streamable-http:https://server.smithery.ai/@jessicayanwang/test/mcp
+active	ai.smithery/jirispilka-actors-mcp-server	1.0.0	Greet anyone by name with friendly, personalized messages. Explore the origin of Hello, World thro…		streamable-http:https://server.smithery.ai/@jirispilka/actors-mcp-server/mcp
+active	ai.smithery/jjlabsio-korea-stock-mcp	1.0.0	Search company disclosures and financial statements from the Korean market. Retrieve stock profile…		streamable-http:https://server.smithery.ai/@jjlabsio/korea-stock-mcp/mcp
+active	ai.smithery/jweingardt12-mlb_mcp	1.16.0	Provides easy access to MLB, Baseball Savant, Statcast, and Fangraphs baseball data. Query detaile…		streamable-http:https://server.smithery.ai/@jweingardt12/mlb_mcp/mcp
+active	ai.smithery/kaszek-kaszek-attio-mcp	0.2.0	Automate Attio CRM workflows with fast search and bulk operations across companies, people, deals,…		streamable-http:https://server.smithery.ai/@kaszek/kaszek-attio-mcp/mcp
+active	ai.smithery/keithah-hostex-mcp	0.2.0	Manage your Hostex vacation rentals—properties, reservations, availability, listings, and guest me…		streamable-http:https://server.smithery.ai/@keithah/hostex-mcp/mcp
+active	ai.smithery/keithah-tessie-mcp	1.1.1	Unofficial integration! ## ✨ Key Features ### 💰 Financial Intelligence - **Smart Charging Cost An…		streamable-http:https://server.smithery.ai/@keithah/tessie-mcp/mcp
+active	ai.smithery/keremurat-json	1.16.0	Compare two JSON files deeply without worrying about key or array order. Detect missing, extra, an…		streamable-http:https://server.smithery.ai/@keremurat/json/mcp
+active	ai.smithery/keremurat-jsonmcp	1.16.0	Compare two JSON files deeply, ignoring order, to surface every difference. Get a clear, structure…		streamable-http:https://server.smithery.ai/@keremurat/jsonmcp/mcp
+active	ai.smithery/keremurat-mcp	1.16.0	Compare two JSON files deeply, regardless of order. Get a detailed difference report highlighting…		streamable-http:https://server.smithery.ai/@keremurat/mcp/mcp
+active	ai.smithery/kesslerio-attio-mcp-server	1.1.1	Connect AI to your Attio CRM. Manage contacts, companies, deals, and sales pipelines. Create tasks…		streamable-http:https://server.smithery.ai/@kesslerio/attio-mcp-server/mcp
+active	ai.smithery/kesslerio-attio-mcp-server-beta	1.1.1	Streamline your Attio workflows using natural language to search, create, update, and organize com…		streamable-http:https://server.smithery.ai/@kesslerio/attio-mcp-server-beta/mcp
+active	ai.smithery/kirbah-mcp-youtube	0.2.6	Provide token-optimized, structured YouTube data to enhance your LLM applications. Access efficien…		streamable-http:https://server.smithery.ai/@kirbah/mcp-youtube/mcp
+active	ai.smithery/kkjdaniel-bgg-mcp	1.3.2	BGG MCP provides access to the BoardGameGeek API through the Model Context Protocol, enabling retr…		streamable-http:https://server.smithery.ai/@kkjdaniel/bgg-mcp/mcp
+active	ai.smithery/kodey-ai-mapwise-mcp	1.0.0	Send friendly, personalized greetings on demand. Generate quick salutations with a simple prompt.…		streamable-http:https://server.smithery.ai/@kodey-ai/mapwise-mcp/mcp
+active	ai.smithery/kodey-ai-salesforce-mcp	1.0.0	Run SOQL queries to explore and retrieve Salesforce data. Inspect records, fields, and relationshi…		streamable-http:https://server.smithery.ai/@kodey-ai/salesforce-mcp/mcp
+active	ai.smithery/kodey-ai-salesforce-mcp-kodey	1.0.0	Run SOQL queries against your Salesforce org to explore and retrieve data. Quickly iterate on filt…		streamable-http:https://server.smithery.ai/@kodey-ai/salesforce-mcp-kodey/mcp
+active	ai.smithery/kodey-ai-salesforce-mcp-minimal	1.0.0	Run SOQL queries to explore and retrieve Salesforce data. Access accounts, contacts, opportunities…		streamable-http:https://server.smithery.ai/@kodey-ai/salesforce-mcp-minimal/mcp
+active	ai.smithery/kodey-ai-salesforce-mcp-server	1.0.0	Run SOQL queries against your Salesforce org to retrieve records and insights. Explore objects, fi…		streamable-http:https://server.smithery.ai/@kodey-ai/salesforce-mcp-server/mcp
+active	ai.smithery/kwp-lab-rss-reader-mcp	1.0.0	Track and browse RSS feeds with ease. Fetch the latest entries from any feed URL and extract full…		streamable-http:https://server.smithery.ai/@kwp-lab/rss-reader-mcp/mcp
+active	ai.smithery/leandrogavidia-vechain-mcp-server	1.0.0	Search VeChain documentation, query on-chain data, and fetch fee suggestions with direct links to…		streamable-http:https://server.smithery.ai/@leandrogavidia/vechain-mcp-server/mcp
+active	ai.smithery/lineex-pubmed-mcp-smithery	1.14.0	Search PubMed with precision using keyword and journal filters and smart sorting. Uncover MeSH ter…		streamable-http:https://server.smithery.ai/@lineex/pubmed-mcp-smithery/mcp
+active	ai.smithery/lukaskostka99-marketing-miner-mcp	1.14.0	Discover high-impact keyword ideas across Central and Eastern European and English markets. Analyz…		streamable-http:https://server.smithery.ai/@lukaskostka99/marketing-miner-mcp/mcp
+active	ai.smithery/luminati-io-brightdata-mcp	1.0.0	One MCP for the Web. Easily search, crawl, navigate, and extract websites without getting blocked.…		streamable-http:https://server.smithery.ai/@luminati-io/brightdata-mcp/mcp
+active	ai.smithery/magenie33-quality-dimension-generator	1.0.0	Generate tailored quality criteria and scoring guides from your task descriptions. Refine objectiv…		streamable-http:https://server.smithery.ai/@magenie33/quality-dimension-generator/mcp
+active	ai.smithery/mayla-debug-mcp-google-calendar2	1.0.0	Schedule and manage Google Calendar events directly from your workspace. Check availability, view…		streamable-http:https://server.smithery.ai/@mayla-debug/mcp-google-calendar2/mcp
+active	ai.smithery/mfukushim-map-traveler-mcp	0.2.0	Create immersive travel experiences by instructing an avatar to navigate Google Maps. Report on th…		streamable-http:https://server.smithery.ai/@mfukushim/map-traveler-mcp/mcp
+active	ai.smithery/miguelgarzons-mcp-cun	1.15.0	Greet people by name with friendly, personalized messages. Add a warm touch to onboarding, demos,…		streamable-http:https://server.smithery.ai/@miguelgarzons/mcp-cun/mcp
+active	ai.smithery/minionszyw-bazi	1.14.0	Generate BaZi charts from birth details. Explore Four Pillars, solar terms, and Luck Pillars for d…		streamable-http:https://server.smithery.ai/@minionszyw/bazi/mcp
+active	ai.smithery/mjucius-cozi_mcp	1.14.0	Manage your family's calendars and lists in Cozi. View, create, and update appointments; organize…		streamable-http:https://server.smithery.ai/@mjucius/cozi_mcp/mcp
+active	ai.smithery/morosss-sdfsdf	1.14.0	Find academic papers across major sources like arXiv, PubMed, bioRxiv, and more. Download PDFs whe…		streamable-http:https://server.smithery.ai/@morosss/sdfsdf/mcp
+active	ai.smithery/motorboy1-my-mcp-server	1.0.0	Send friendly greetings by name. Discover the origin story of 'Hello, World' for quick context.		streamable-http:https://server.smithery.ai/@motorboy1/my-mcp-server/mcp
+active	ai.smithery/mrugankpednekar-bill_splitter_mcp	1.15.0	Track and split shared expenses across trips, events, and groups. Create groups, add expenses, and…		streamable-http:https://server.smithery.ai/@mrugankpednekar/bill_splitter_mcp/mcp
+active	ai.smithery/mrugankpednekar-mcp-optimizer	1.16.0	Optimize crew and workforce schedules, resource allocation, and routing with linear and mixed-inte…		streamable-http:https://server.smithery.ai/@mrugankpednekar/mcp-optimizer/mcp
+active	ai.smithery/neverinfamous-memory-journal-mcp	1.0.0	A MCP server built for developers enabling Git based project management with project and personal…		streamable-http:https://server.smithery.ai/@neverinfamous/memory-journal-mcp/mcp
+active	ai.smithery/nickthelegend-test-mcp	1.15.0	Create friendly, personalized greetings in seconds. Toggle Pirate Mode to speak like a pirate for…		streamable-http:https://server.smithery.ai/@nickthelegend/test-mcp/mcp
+active	ai.smithery/oxylabs-oxylabs-mcp	1.13.1	Fetch and process content from specified URLs using the Oxylabs Web Scraper API.		streamable-http:https://server.smithery.ai/@oxylabs/oxylabs-mcp/mcp
+active	ai.smithery/pinion05-supabase-mcp-lite	1.0.0	Same functionality, consuming only 1/20 of the context window tokens.		streamable-http:https://server.smithery.ai/@pinion05/supabase-mcp-lite/mcp
+active	ai.smithery/pinkpixel-dev-web-scout-mcp	1.5.5	Search the web and extract clean, readable text from webpages. Process multiple URLs at once to sp…		streamable-http:https://server.smithery.ai/@pinkpixel-dev/web-scout-mcp/mcp
+active	ai.smithery/plainyogurt21-clintrials-mcp	1.16.0	Provide structured access to ClinicalTrials.gov data for searching, retrieving, and analyzing clin…		streamable-http:https://server.smithery.ai/@plainyogurt21/clintrials-mcp/mcp
+active	ai.smithery/plainyogurt21-sec-edgar-mcp	1.14.0	Provide AI assistants with real-time access to official SEC EDGAR filings and financial data. Enab…		streamable-http:https://server.smithery.ai/@plainyogurt21/sec-edgar-mcp/mcp
+active	ai.smithery/proflulab-documentassistant	1.14.1	Convert files between formats without quality loss. Speed up your workflow with fast, reliable con…		streamable-http:https://server.smithery.ai/@proflulab/documentassistant/mcp
+active	ai.smithery/pythondev-pro-egw_writings_mcp_server	1.12.4	Search Ellen G. White’s writings by keyword to surface relevant quotations. Retrieve exact passage…		streamable-http:https://server.smithery.ai/@pythondev-pro/egw_writings_mcp_server/mcp
+active	ai.smithery/rainbowgore-stealthee-mcp-tools	1.14.0	Spot pre-launch products before they trend. Search the web and tech sites, extract and parse pages…		streamable-http:https://server.smithery.ai/@rainbowgore/stealthee-mcp-tools/mcp
+active	ai.smithery/ramadasmr-networkcalc-mcp	1.13.0	Look up DNS information for any domain to troubleshoot issues and gather insights. Get fast, relia…		streamable-http:https://server.smithery.ai/@ramadasmr/networkcalc-mcp/mcp
+active	ai.smithery/renCosta2025-context7fork	1.0.13	Get up-to-date, version-specific documentation and code examples from official sources directly in…		streamable-http:https://server.smithery.ai/@renCosta2025/context7fork/mcp
+active	ai.smithery/rfdez-pvpc-mcp-server	3.2.3	Retrieve daily PVPC electricity tariffs for 2.0 TD consumers, published by Red Eléctrica.		streamable-http:https://server.smithery.ai/@rfdez/pvpc-mcp-server/mcp
+active	ai.smithery/sachicali-discordmcp-suite	1.2.0	Control your Discord community: send/read messages, manage channels and forums, and handle webhook…		streamable-http:https://server.smithery.ai/@sachicali/discordmcp-suite/mcp
+active	ai.smithery/saidsef-mcp-github-pr-issue-analyser	1.15.0	A Model Context Protocol (MCP) application for automated GitHub PR analysis and issue management.…		streamable-http:https://server.smithery.ai/@saidsef/mcp-github-pr-issue-analyser/mcp
+active	ai.smithery/samihalawa-whatsapp-go-mcp	v7.5.0	Scan QR codes and go! No more troublesome autos or APIs! Send text messages, images, links, locati…		streamable-http:https://server.smithery.ai/@samihalawa/whatsapp-go-mcp/mcp
+active	ai.smithery/sasabasara-where_is_my_bus_mcp	2.0.0	Get real-time NYC bus arrivals, live vehicle locations, and service alerts. Plan trips between any…		streamable-http:https://server.smithery.ai/@sasabasara/where_is_my_bus_mcp/mcp
+active	ai.smithery/sebastianall1977-gmail-mcp	1.7.4	Manage Gmail end-to-end: search, read, send, draft, label, and organize threads. Automate workflow…		streamable-http:https://server.smithery.ai/@sebastianall1977/gmail-mcp/mcp
+active	ai.smithery/serkan-ozal-driflyte-mcp-server	0.1.15	Discover available topics and explore up-to-date, topic-tagged web content. Search to surface the…		streamable-http:https://server.smithery.ai/@serkan-ozal/driflyte-mcp-server/mcp
+active	ai.smithery/shoumikdc-arxiv-mcp	1.15.0	Discover the latest arXiv papers by category and keyword. Control how many results you get to spee…		streamable-http:https://server.smithery.ai/@shoumikdc/arxiv-mcp/mcp
+active	ai.smithery/skr-cloudify-clickup-mcp-server-new	0.8.5	Manage your ClickUp workspace by creating, updating, and organizing tasks, lists, folders, and tag…		streamable-http:https://server.smithery.ai/@skr-cloudify/clickup-mcp-server-new/mcp
+active	ai.smithery/slhad-aha-mcp	0.1.0	A TypeScript MCP server for Home Assistant, enabling programmatic management of entities, automati…		streamable-http:https://server.smithery.ai/@slhad/aha-mcp/mcp
+active	ai.smithery/smithery-ai-cookbook-python-quickstart	1.13.1	A simple MCP server built with FastMCP and python		streamable-http:https://server.smithery.ai/@smithery-ai/cookbook-python-quickstart/mcp
+active	ai.smithery/smithery-ai-cookbook-ts-smithery-cli	1.0.0	A simple Typescript MCP server built using the official MCP Typescript SDK and smithery/cli. This…		streamable-http:https://server.smithery.ai/@smithery-ai/cookbook-ts-smithery-cli/mcp
+active	ai.smithery/smithery-ai-github	1.0.0	Access the GitHub API, enabling file operations, repository management, search functionality, and…		streamable-http:https://server.smithery.ai/@smithery-ai/github/mcp
+active	ai.smithery/smithery-ai-national-weather-service	1.0.0	Provide real-time and forecast weather information for locations in the United States using natura…		streamable-http:https://server.smithery.ai/@smithery-ai/national-weather-service/mcp
+active	ai.smithery/smithery-ai-slack	1.0.0	Enable interaction with Slack workspaces. Supports subscribing to Slack events through Resources.		streamable-http:https://server.smithery.ai/@smithery-ai/slack/mcp
+active	ai.smithery/smithery-notion	1.0.0	A Notion workspace is a collaborative environment where teams can organize work, manage projects,…		streamable-http:https://server.smithery.ai/@smithery/notion/mcp
+active	ai.smithery/smithery-toolbox	1.0.0	Toolbox dynamically routes to all MCPs in the Smithery registry based on your agent's need. When a…		streamable-http:https://server.smithery.ai/@smithery/toolbox/mcp
+active	ai.smithery/sunub-obsidian-mcp-server	1.0.0	Search your Obsidian vault to quickly find notes by title or keyword, summarize related content, a…		streamable-http:https://server.smithery.ai/@sunub/obsidian-mcp-server/mcp
+active	ai.smithery/szge-lolwiki-mcp	1.16.0	Generate friendly greetings for any audience. Toggle Pirate Mode for a playful, swashbuckling styl…		streamable-http:https://server.smithery.ai/@szge/lolwiki-mcp/mcp
+active	ai.smithery/truss44-mcp-crypto-price	2.1.0	Provide real-time cryptocurrency price data and market analysis.		streamable-http:https://server.smithery.ai/@truss44/mcp-crypto-price/mcp
+active	ai.smithery/turnono-datacommons-mcp-server	1.16.0	Discover statistical indicators and topics in Data Commons. Retrieve observations for specific var…		streamable-http:https://server.smithery.ai/@turnono/datacommons-mcp-server/mcp
+active	ai.smithery/wgong-sqlite-mcp-server	1.16.0	Explore, query, and inspect SQLite databases with ease. List tables, preview results, and view det…		streamable-http:https://server.smithery.ai/@wgong/sqlite-mcp-server/mcp
+active	ai.smithery/xinkuang-china-stock-mcp	1.15.0	Access real-time and historical market data for China A-shares and Hong Kong stocks, along with ne…		streamable-http:https://server.smithery.ai/@xinkuang/china-stock-mcp/mcp
+active	ai.smithery/yuhuison-mediawiki-mcp-server-auth	1.0.1	Connect to your MediaWiki using simple credentials and manage content without OAuth. Search, read,…		streamable-http:https://server.smithery.ai/@yuhuison/mediawiki-mcp-server-auth/mcp
+active	ai.smithery/yuna0x0-anilist-mcp	1.3.7	Access and interact with anime and manga data seamlessly. Retrieve detailed information about your…		streamable-http:https://server.smithery.ai/@yuna0x0/anilist-mcp/mcp
+active	ai.smithery/yuna0x0-hackmd-mcp	1.5.3	Interact with your HackMD notes and teams seamlessly. Manage your notes, view reading history, and…		streamable-http:https://server.smithery.ai/@yuna0x0/hackmd-mcp/mcp
+active	ai.smithery/zeta-chain-cli	1.0.0	Create friendly, customizable greetings for any name or audience. Break the ice in demos, onboardi…		streamable-http:https://server.smithery.ai/@zeta-chain/cli/mcp
+active	ai.smithery/zhaoganghao-hellomcp	1.0.0	Greet people by name with friendly, concise messages. Explore the origin of 'Hello, World' for fun…		streamable-http:https://server.smithery.ai/@zhaoganghao/hellomcp/mcp
+active	ai.smithery/zwldarren-akshare-one-mcp	1.14.0	Provide access to Chinese stock market data including historical prices, real-time data, news, and…		streamable-http:https://server.smithery.ai/@zwldarren/akshare-one-mcp/mcp
+active	ai.tickettailor/mcp	1.0.0	Provides event organisers with tools to interact with a Ticket Tailor box office account.		streamable-http:https://mcp.tickettailor.ai/mcp | sse:https://mcp.tickettailor.ai/sse
+active	ai.toolprint/hypertool-mcp	0.0.42	Dynamically expose tools from proxied servers based on an Agent Persona	npm:@toolprint/hypertool-mcp	
+active	ai.waystation/airtable	0.3.1	Access and manage your Airtable bases, tables, and records seamlessly		streamable-http:https://waystation.ai/airtable/mcp | sse:https://waystation.ai/airtable/mcp/sse
+active	ai.waystation/gmail	0.3.1	Read emails, send messages, and manage labels in your Gmail account.		streamable-http:https://waystation.ai/gmail/mcp | sse:https://waystation.ai/gmail/mcp/sse
+active	ai.waystation/jira	0.3.1	Track issues, manage projects, and streamline workflows in Jira.		streamable-http:https://waystation.ai/jira/mcp | sse:https://waystation.ai/jira/mcp/sse
+active	ai.waystation/mcp	0.3.1	Ultimate toolbox to connect your LLM to popular productivity tools such as Monday, AirTable, Slack		streamable-http:https://waystation.ai/mcp | sse:https://waystation.ai/mcp/sse
+active	ai.waystation/miro	0.3.1	Collaborate on visual boards with your team using Miro integration.		streamable-http:https://waystation.ai/miro/mcp | sse:https://waystation.ai/miro/mcp/sse
+active	ai.waystation/monday	0.3.1	Access and manage your Monday.com boards, items, and updates seamlessly		streamable-http:https://waystation.ai/monday/mcp | sse:https://waystation.ai/monday/mcp/sse
+active	ai.waystation/office	0.3.1	Create, edit, and collaborate on Office documents and spreadsheets.		streamable-http:https://waystation.ai/office/mcp | sse:https://waystation.ai/office/mcp/sse
+active	ai.waystation/postgres	0.3.1	Connect to your PostgreSQL database to query data and schemas.		streamable-http:https://waystation.ai/postgres/mcp | sse:https://waystation.ai/postgres/mcp/sse
+active	ai.waystation/slack	0.3.1	Send messages, access channels, and manage files in your Slack workspace.		streamable-http:https://waystation.ai/slack/mcp | sse:https://waystation.ai/slack/mcp/sse
+active	ai.waystation/supabase	0.3.1	Connect to your Supabase database to query data and schemas.		streamable-http:https://waystation.ai/supabase/mcp | sse:https://waystation.ai/supabase/mcp/sse
+active	ai.waystation/teams	0.3.1	Collaborate, chat, and manage meetings in Microsoft Teams.		streamable-http:https://waystation.ai/teams/mcp | sse:https://waystation.ai/teams/mcp/sse
+active	ai.waystation/wrike	0.3.1	Manage projects, tasks, and workflows with Wrike project management.		streamable-http:https://waystation.ai/wrike/mcp | sse:https://waystation.ai/wrike/mcp/sse
+active	ai.wild-card/deepcontext	0.1.15	Advanced codebase indexing and semantic search MCP server	npm:@wildcard-ai/deepcontext	
+active	ai.zine/mcp	1.0.1	Your memory, everywhere AI goes. Build knowledge once, access it via MCP anywhere.		streamable-http:https://www.zine.ai/mcp
+active	app.getdialer/dialer	1.0.1	An MCP server that provides lets you make outbound phone calls using your own phone number		streamable-http:https://getdialer.app/mcp | sse:https://getdialer.app/sse
+active	app.linear/linear	1.0.0	MCP server for Linear project management and issue tracking		sse:https://mcp.linear.app/sse | streamable-http:https://mcp.linear.app/mcp
+active	app.thoughtspot/mcp-server	1.0.1	MCP Server for ThoughtSpot - provides OAuth authentication and tools for querying data		streamable-http:https://agent.thoughtspot.app/mcp | sse:https://agent.thoughtspot.app/sse | streamable-http:https://agent.thoughtspot.app/bearer/mcp | sse:https://agent.thoughtspot.app/bearer/sse
+active	app.zenable/zenable	2.0.0	Zenable cleans up sloppy AI code and prevents vulnerabilities with deterministic guardrails		streamable-http:https://mcp.zenable.app/
+active	ch.martinelli/jooq-mcp	1.0.0	An MCP server that provides access to the jOOQ documentation		sse:https://jooq-mcp.martinelli.ch/sse
+active	ci.git/mymlh-mcp-server	1.0.0	OAuth-enabled MyMLH MCP server for accessing MyMLH data.		streamable-http:https://mymlh-mcp.git.ci/mcp | sse:https://mymlh-mcp.git.ci/sse
+active	co.axiom/mcp	1.0.0	List datasets, schemas, run APL queries, and use prompts for exploration, anomalies, and monitoring.		sse:https://mcp.axiom.co/sse | streamable-http:https://mcp.axiom.co/mcp
+active	co.contraption/mcp	1.0.0	An MCP server that provides [describe what your server does]		sse:https://mcp.contraption.co/
+active	co.pipeboard/meta-ads-mcp	1.0.13	Facebook / Meta Ads automation with AI: analyze performance, test creatives, optimize spend.	pypi:meta-ads-mcp	streamable-http:https://mcp.pipeboard.co/meta-ads-mcp
+active	com.1stdibs/1stDibs	1.0.0	MCP server for browsing and searching items on 1stDibs marketplace.		streamable-http:https://www.1stdibs.com/soa/mcp/
+active	com.agilitycms/mcp-server	1.0.0	An MCP server that provides access to Agility CMS.  See https://mcp.agilitycms.com for more details.		streamable-http:https://mcp.agilitycms.com/api/mcp
+active	com.apify/apify-mcp-server	0.4.15	Apify MCP server provides access to a marketplace for web scraping and data extraction tools.		streamable-http:https://mcp.apify.com/
+active	com.apple-rag/mcp-server	2.9.0	Apple Developer Documentation with Semantic Search, RAG, and AI reranking for MCP clients		streamable-http:https://mcp.apple-rag.com
+active	com.biodnd/agent-fin	0.1.2	Agent Fin: finance MCP server with market data tools		sse:https://agent-fin.biodnd.com/sse
+active	com.biodnd/agent-ip	0.1.2	Agent IP: MCP server with patents search tools		sse:https://agent-ip.biodnd.com/sse
+active	com.biodnd/agent-press	0.1.2	Agent Press: news MCP server streaming company headlines		sse:https://agent-press.biodnd.com/sse
+active	com.blockscout/mcp-server	0.11.0	MCP server for Blockscout		streamable-http:https://mcp.blockscout.com/mcp
+active	com.brokerchooser/broker-safety	1.0.0	MCP server offering regulator-sourced legitimacy checks on investment entities by name or URL.		streamable-http:https://mcp.brokerchooser.com/servers/mcp
+active	com.close/close-mcp	1.0.1	Close CRM to manage your sales pipeline. Learn more at https://close.com or https://mcp.close.com		streamable-http:https://mcp.close.com/mcp
+active	com.cloudflare.mcp/mcp	1.0.0	Cloudflare MCP servers		streamable-http:https://docs.mcp.cloudflare.com/mcp | streamable-http:https://observability.mcp.cloudflare.com/mcp | streamable-http:https://bindings.mcp.cloudflare.com/mcp | streamable-http:https://builds.mcp.cloudflare.com/mcp | streamable-http:https://radar.mcp.cloudflare.com/mcp | streamable-http:https://containers.mcp.cloudflare.com/mcp | streamable-http:https://browser.mcp.cloudflare.com/mcp | streamable-http:https://logs.mcp.cloudflare.com/mcp | streamable-http:https://ai-gateway.mcp.cloudflare.com/mcp | streamable-http:https://autorag.mcp.cloudflare.com/mcp | streamable-http:https://auditlogs.mcp.cloudflare.com/mcp | streamable-http:https://dns-analytics.mcp.cloudflare.com/mcp | streamable-http:https://dex.mcp.cloudflare.com/mcp | streamable-http:https://casb.mcp.cloudflare.com/mcp | streamable-http:https://graphql.mcp.cloudflare.com/mcp | sse:https://docs.mcp.cloudflare.com/sse | sse:https://observability.mcp.cloudflare.com/sse | sse:https://bindings.mcp.cloudflare.com/sse | sse:https://builds.mcp.cloudflare.com/sse | sse:https://radar.mcp.cloudflare.com/sse | sse:https://containers.mcp.cloudflare.com/sse | sse:https://browser.mcp.cloudflare.com/sse | sse:https://logs.mcp.cloudflare.com/sse | sse:https://ai-gateway.mcp.cloudflare.com/sse | sse:https://autorag.mcp.cloudflare.com/sse | sse:https://auditlogs.mcp.cloudflare.com/sse | sse:https://dns-analytics.mcp.cloudflare.com/sse | sse:https://dex.mcp.cloudflare.com/sse | sse:https://casb.mcp.cloudflare.com/sse | sse:https://graphql.mcp.cloudflare.com/sse
+active	com.devcycle/mcp	6.1.2	DevCycle MCP server for feature flag management		streamable-http:https://mcp.devcycle.com/mcp | sse:https://mcp.devcycle.com/sse
+active	com.devopness.mcp/server	1.0.1	Devopness MCP server for DevOps happiness! Empower AI Agents to deploy apps and infra, to any cloud.		streamable-http:https://mcp.devopness.com/mcp/
+active	com.docfork/docfork-mcp	1.0.0	Up-to-date documentation to 9,000+ libraries for devs and AI agents.	npm:docfork	streamable-http:https://mcp.docfork.com/mcp
+active	com.driflyte/driflyte-mcp-server	0.1.15	Driflyte MCP server which lets AI assistants query topic-specific knowledge from web and GitHub.	npm:@driflyte/mcp-server	streamable-http:https://mcp.driflyte.com/mcp | streamable-http:https://mcp.driflyte.com/openai
+active	com.enigma/enigma-mcp-server	1.0.0	An MCP server that provides access to trusted data about business identity and activity		streamable-http:https://mcp.enigma.com/http | streamable-http:https://mcp.enigma.com/http-token | sse:https://mcp.enigma.com/sse
+active	com.epidemicsound/mcp-server	1.0.0	Cloud-hosted MCP server for Epidemic Sound		sse:https://www.epidemicsound.com/a/mcp-server/mcp | streamable-http:https://www.epidemicsound.com/a/mcp-server/mcp
+active	com.falkordb/QueryWeaver	0.0.11	An MCP server for Text2SQL: transforms natural language into SQL using graph schema understanding.	oci:falkordb/queryweaver	
+active	com.figma.mcp/mcp	1.0.2	The Figma MCP server brings Figma context directly into your AI workflow.		streamable-http:https://mcp.figma.com/mcp
+active	com.files/python-mcp	1.0.0	Securely give LLMs controlled access to real-world operations inside your Files.com environment	pypi:files-com-mcp	
+active	com.findyourfivepm/mcp-server	1.0.2	Discover cities where it's currently 5PM around the world with timezone and location data.		streamable-http:https://mcp.findyourfivepm.com
+active	com.getclockwise/clockwise-mcp	1.0.0	An MCP server for managing your calendar, via Clockwise		streamable-http:https://mcp.getclockwise.com/mcp
+active	com.getunblocked/unblocked-mcp	1.0.0	Unblocked MCP Server		streamable-http:https://getunblocked.com/api/mcpsse
+active	com.gibsonai/mcp	1.0.0	GibsonAI MCP server: manage your databases with natural language		streamable-http:https://mcp.gibsonai.com/
+active	com.gitlab/mcp	0.0.1	Official GitLab MCP Server		streamable-http:https://gitlab.com/api/v4/mcp
+active	com.iunera/druid-mcp-server	1.4.0	AI-powered MCP server for Apache Druid cluster management and analytic	oci:iunera/druid-mcp-server	
+active	com.jepto/mcp	1.0.0	Jepto MCP server that provides access to client knowledgebase & analytics for connected data sources		streamable-http:https://mcp.jepto.com
+active	com.joelverhagen.mcp/Knapcode.SampleMcpServer	0.7.0-beta	A sample MCP server using the MCP C# SDK. Generates random numbers and random weather.	nuget:Knapcode.SampleMcpServer	
+active	com.jotform/mcp	1.0.0	Jotform MCP		streamable-http:https://mcp.jotform.com/
+active	com.jumpcloud/jumpcloud-genai	0.0.38	An MCP server that provides an API to LLMs to manage their JumpCloud resources.		streamable-http:https://mcp.jumpcloud.com/v1
+active	com.letta/memory-mcp	2.0.2	MCP server for AI memory management using Letta - Standard MCP format	npm:@letta-ai/memory-mcp	
+active	com.make/mcp-server	1.0.0	MCP server for building, running, and managing Make automations.		sse:https://mcp.make.com/sse
+active	com.mermaidchart/mermaid-mcp	1.0.0	MCP server for Mermaid diagram validation and rendering		streamable-http:https://mcp.mermaidchart.com/mcp | sse:https://mcp.mermaidchart.com/sse
+active	com.mintmcp/gcal	1.0.4	A MCP server that works with Google Calendar to manage event listing, reading, and updates.		streamable-http:https://gcal.mintmcp.com/mcp
+active	com.mintmcp/gmail	1.0.5	A MCP server for Gmail that lets you search, read, and draft emails and replies.		streamable-http:https://gmail.mintmcp.com/mcp
+active	com.mintmcp/outlook-calendar	1.0.0	A MCP server that works with Outlook Calendar to manage event listing, reading, and updates.		streamable-http:https://outlook-calendar.mintmcp.com/mcp
+active	com.mintmcp/outlook-email	1.0.1	A MCP server for Outlook email that lets you search, read, and draft emails and replies.		streamable-http:https://outlook-email.mintmcp.com/mcp
+active	com.mux/mcp	12.8.0	The official MCP Server for the Mux API	npm:@mux/mcp	streamable-http:https://mcp.mux.com
+active	com.notion/mcp	1.0.1	Official Notion MCP server		streamable-http:https://mcp.notion.com/mcp | sse:https://mcp.notion.com/sse
+active	com.onkernel/kernel-mcp-server	1.0.0	Access Kernel's cloud-based browsers and app actions via MCP (remote HTTP + OAuth).		streamable-http:https://mcp.onkernel.com/mcp
+active	com.pearl.mcp/pearl-api-mcp-server	1.0.0	Hybrid human + AI expertise for faster, trusted answers and decisions via MCP Server.		sse:https://mcp.pearl.com/sse | streamable-http:https://mcp.pearl.com/mcp
+active	com.peek/mcp	0.1.0	Build travel itineraries with Peek's 300k+ experiences. Search, details, and availability.		streamable-http:https://mcp.peek.com
+active	com.pga/pga-golf	0.0.1	PGA's official MCP Server for all things golf-related. Find a coach, play golf, improve your game.		streamable-http:https://mcp.pga.com/mcp
+active	com.proxylink-mcp/mcp-server	2.0.0	ProxyLink MCP server for finding and booking home service professionals		streamable-http:https://proxylink-mcp.com
+active	com.pulsemcp.servers/pulse-fetch	0.2.14	MCP server that extracts clean, structured content from web pages with anti-bot bypass capabilities.	npm:@pulsemcp/pulse-fetch	
+active	com.redpanda/docs-mcp	1.0.0	Get authoritative answers to questions about Redpanda.		streamable-http:https://docs.redpanda.com/mcp
+active	com.remote-mcp/registry-mcp	1.0.0	An MCP server that serves informtaion from the official MCP registry		streamable-http:https://registry-mcp.remote-mcp.com | sse:https://registry-mcp.remote-mcp.com/sse
+active	com.ritzademo/acme-todo	1.0.0	An MCP server for a simple todo list		streamable-http:https://mcp.ritzademo.com/mcp/ritza-rzx-our91
+active	com.smartbear/smartbear-mcp	0.7.0	MCP server for AI access to SmartBear tools, including BugSnag, Reflect, API Hub, PactFlow.	npm:@smartbear/mcp	
+active	com.statsig/statsig-mcp-server	1.0.0	MCP server for Statsig API - interact with Statsig's feature flags, experiments, and analytics		streamable-http:https://api.statsig.com/v1/mcp
+active	com.supabase/mcp	0.5.6	MCP server for interacting with the Supabase platform	npm:@supabase/mcp-server-supabase	streamable-http:https://mcp.supabase.com/mcp
+active	com.tableall/mcp	1.0.0	Access Japan's finest Michelin-starred restaurants. Search, check availability, and browse menus.		sse:https://mcp.tableall.com/sse
+active	com.teamwork/mcp	1.6.3	The Teamwork.com official MCP server helps teams efficiently manage client projects with AI.	oci:teamwork/mcp	sse:https://mcp.ai.teamwork.com | streamable-http:https://mcp.ai.teamwork.com
+active	com.textarttools/textarttools-mcp	1.1.1	Unicode text styling and ASCII art generation with 23 styles and 322+ figlet fonts		sse:https://mcp.textarttools.com/
+active	com.timeslope/timeslope-mcp	0.1.0	Equip AI with tools for researching economic data from Federal Reserve Economic Data (FRED).		streamable-http:https://mcp.timeslope.com/mcp
+active	com.vercel/vercel-mcp	0.0.2	An MCP server for Vercel		streamable-http:https://mcp.vercel.com
+active	com.windowsforum/mcp-server	1.0.0	MCP server for WindowsForum.com with search, document retrieval, and real-time forum analytics.		sse:https://mcp.windowsforum.com
+active	com.wix/mcp	1.0.0	A Model Context Protocol server for Wix AI tools		sse:https://mcp.wix.com/sse | streamable-http:https://mcp.wix.com/mcp
+active	com.xcodebuildmcp/XcodeBuildMCP	1.14.1	XcodeBuildMCP provides tools for Xcode project management, simulator management, and app utilities.	npm:xcodebuildmcp	
+active	com.zomato/mcp	1.0.0	An MCP server that exposes functionalities to use Zomato's services.		streamable-http:https://mcp-server.zomato.com/mcp
+active	dev.anotherai/anotherai	0.1.0	MCP server for building and testing AI agents with multi-model experimentation and insights.		streamable-http:https://api.anotherai.dev/mcp
+active	dev.augments/mcp	2.0.2	Augments MCP Server - A comprehensive framework documentation provider for Claude Code	pypi:augments-mcp-server	streamable-http:https://mcp.augments.dev/mcp
+active	dev.composio.rube/rube	0.0.2	Connect your AI to 500+ apps like Gmail, Slack, GitHub, and Notion with streamable HTTP transport.		streamable-http:https://rube.composio.dev/mcp
+active	dev.lingo/main	1.0.0	Lingo.dev MCP Server - World-class i18n implementation with ICU MessageFormat.		streamable-http:https://mcp.lingo.dev/main
+active	dev.looptool/looptool	1.0.0	An MCP server that automatically collects feedback on your MCP server.		streamable-http:https://www.api.looptool.dev/mcp
+active	dev.promplate/hmr	1.0.2	Docs for hot-module-reload and reactive programming for Python (`hmr` on PyPI)		streamable-http:https://pyth-on-line.promplate.dev/hmr/mcp
+active	dev.rostro/rostro	1.0.0	Turn any LLM multimodal; generate images, voices, videos, 3D models, music, and more.		streamable-http:https://proto.rostro.dev/mcp
+active	dev.svelte/mcp	0.1.4	The official Svelte MCP server providing docs and autofixing tools for Svelte development	npm:@sveltejs/mcp	streamable-http:https://mcp.svelte.dev/mcp
+active	garden.stanislav.svelte-llm/svelte-llm-mcp	1.0.0	An MCP server that provides access to Svelte 5 and SvelteKit documentation		streamable-http:https://svelte-llm.stanislav.garden/mcp/mcp | sse:https://svelte-llm.stanislav.garden/mcp/sse
+active	host.justcall.mcp/justcall-mcp-server	0.0.4	JustCall MCP Server		streamable-http:https://mcp.justcall.host/mcp
+active	info.mosaique/mcp	1.0.0	Search and list latest international news (sources, comments, knowledge graph).		streamable-http:https://mcp.mosaique.info
+active	io.balldontlie/mcp	1.1.0	Provides access to live sports data and analytics from BALLDONTLIE: The Sports API		streamable-http:https://mcp.balldontlie.io/mcp
+active	io.catchmetrics.mcp/rum-analytics	1.0.0	RUM platform for web performance analytics, Core Web Vitals, and third-party script monitoring.		streamable-http:https://mcp.catchmetrics.io
+active	io.coupler/remote-mcp-server	0.0.1	Coupler.io remote MCP server		streamable-http:https://mcp.coupler.io/mcp
+active	io.cycloid.mcp/server	1.0.1	An MCP server that let you interact with Cycloid.io Internal Development Portal and Platform		streamable-http:https://mcp.cycloid.io/mcp
+active	io.foqal/Foqal	2.0.1	Foqal turns Slack/Teams into efficient support platforms with AI-powered ticketing.		sse:https://support.foqal.io/api/mcp/[YOUR_GENERATED_TOKEN]
+active	io.github.8beeeaaat/touchdesigner-mcp-server	1.0.0	MCP server for TouchDesigner - Control and operate TouchDesigner projects through AI agents	npm:touchdesigner-mcp-server	
+active	io.github.Antonytm/mcp-all	0.1.20	A Model Context Protocol server to run other MCP servers	npm:@antonytm/mcp-all | npm:@antonytm/mcp-all	
+active	io.github.Antonytm/mcp-sitecore-server	1.3.2	A Model Context Protocol server for Sitecore	npm:@antonytm/mcp-sitecore-server	
+active	io.github.AungMyoKyaw/betterprompt-mcp	0.2.1	MCP server for AI-enhanced prompt engineering and request conversion.	npm:betterprompt-mcp	
+active	io.github.BenAHammond/code-auditor-mcp	1.1.1	Code Quality Auditor: Analyze code for SOLID principles, DRY violations, and more	npm:code-auditor-mcp	
+active	io.github.ChengJiale150/jupyter-mcp-server	1.1.0	A powerful MCP server for AI-driven Jupyter Notebook management and execution	pypi:better-jupyter-mcp-server	
+active	io.github.ChiR24/unreal-engine-mcp	0.4.6	MCP server for Unreal Engine 5 with 13 tools for game development automation.	npm:unreal-engine-mcp-server	
+active	io.github.ChromeDevTools/chrome-devtools-mcp	0.6.1	MCP server for Chrome DevTools	npm:chrome-devtools-mcp	
+active	io.github.CodeAlive-AI/codealive-mcp	0.3.0	Semantic code search and analysis from CodeAlive for AI assistants and agents.	oci:codealive-ai/codealive-mcp	
+active	io.github.CodeCraftersLLC/local-voice-mcp	0.1.5	Give your MCP clients the ability to speak by running local voice models using Chatterbox TTS	npm:@codecraftersllc/local-voice-mcp	
+active	io.github.CodeLogicIncEngineering/codelogic-mcp-server	1.0.11	An MCP Server to utilize Codelogic's rich software dependency data in your AI programming assistant.	pypi:codelogic-mcp-server	
+active	io.github.CursorTouch/Windows-MCP	1.0.0	An MCP Server for computer-use in Windows OS	pypi:windows_mcp	
+active	io.github.DeanWard/HAL	1.0.14	HAL (HTTP API Layer) - An MCP server that provides HTTP API capabilities to Large Language Models	npm:hal-mcp	
+active	io.github.Decodo/mcp-web-scraper	1.0.3	Enable your AI agents to scrape and parse web content dynamically, including geo-restricted sites	npm:@decodo/mcp-server	
+active	io.github.Flightradar24/fr24api-mcp	1.0.1	MCP server providing access to the Flightradar24 API for real-time and historical flight data	npm:@flightradar24/fr24api-mcp	
+active	io.github.GLips/Figma-Context-MCP	0.6.0	Give your coding agent access to your Figma data. Implement designs in any framework in one-shot.	npm:figma-developer-mcp	
+active	io.github.GabrielaHdzMicrosoft/mcp-server	1.0.1	An MCP server that provides visual memory and context storage with knowledge graph capabilities	npm:visual-memory-context-server	
+active	io.github.GitHub30/note-mcp-server	0.1.0	MCP server for note.com: create, edit and retrieve posts.		
+active	io.github.GitHub30/qiita-mcp-server	0.1.0	Publish articles to Qiita via MCP tools. Minimal, fast, and focused on Qiita authoring.		
+active	io.github.GitHub30/zenn-mcp-server	0.1.0	MCP server that posts to Zenn.		
+active	io.github.GoneTone/mcp-server-taiwan-weather	0.1.4	用於取得臺灣中央氣象署 API 資料的 Model Context Protocol (MCP) Server	npm:@gonetone/mcp-server-taiwan-weather	
+active	io.github.GoogleCloudPlatform/gemini-cloud-assist-mcp	0.1.1	MCP Server for understanding, managing & troubleshooting your GCP environment.	npm:@google-cloud/gemini-cloud-assist-mcp	
+active	io.github.IPv6/mcp-transcribe	1.0.4	MCP-Transcribe server allows LLMs to interact with the text content of audio/video files	mcpb:https://github.com/transcribe-app/mcp-transcribe/releases/download/v1.0.4/transcribe-com-v1.0.4.mcpb	
+active	io.github.IvanMurzak/Unity-MCP	0.17.1	Make 3D games in Unity Engine with AI. MCP Server + Plugin for Unity Editor and Unity games.	oci:ivanmurzakdev/unity-mcp-server	
+active	io.github.JustasMonkev/mcp-accessibility-scanner	1.1.1	MCP server for automated web accessibility scanning with Playwright and Axe-core.	npm:mcp-accessibility-scanner	
+active	io.github.KylinMountain/web-fetch-mcp	0.1.1	MCP server for web content fetching, summarizing, comparing, and extracting information	npm:web-fetch-mcp	
+active	io.github.LinuxSuRen/atest-mcp-server	1.0.2	Auto-download & launch https://github.com/LinuxSuRen/atest-mcp-server	npm:atest-mcp-server-launcher	
+active	io.github.Lungshot/ninjaone	1.2.9	MCP server for NinjaONE RMM with device management, monitoring, and automation		
+active	io.github.Lyellr88/marm-mcp-server	2.2.5	Universal MCP Server with advanced AI memory capabilities and semantic search.	pypi:marm-mcp-server | oci:lyellr88/marm-mcp-server	
+active	io.github.MR901/mcp-plots	0.0.3	MCP server for data visualization with Mermaid charts.	pypi:mcp-plots	
+active	io.github.MR901/plots-mcp	0.0.1	MCP server for data visualization with Mermaid charts.	pypi:mcp-plots	
+active	io.github.MasonChow/source-map-parser-mcp	1.3.2	Parse JavaScript error stack traces back to original source code using source maps	npm:source-map-parser-mcp	
+active	io.github.MauroDruwel/smartschool-mcp	0.1.4	Access Smartschool courses, grades, assignments, and messages through the Model Context Protocol	pypi:smartschool-mcp	
+active	io.github.NeerajG03/vector-memory	0.3.0	Semantic document memory using Redis vector store. Save and recall files with natural language.	pypi:mcp-server-vector-memory	
+active	io.github.Nekzus/npm-sentinel-mcp	1.11.8	NPM Sentinel MCP - AI-powered NPM package analysis for security, dependencies, and performance.	npm:@nekzus/mcp-server	
+active	io.github.NitishGourishetty/contextual-mcp-server	0.1.0	RAG-enabled MCP server using Contextual AI. Supports single-agent and multi-agent modes.	pypi:contextual-mcp-server	
+active	io.github.OpenCageData/opencage-geocoding-mcp	1.0.3	MCP server for OpenCage geocoding API	npm:@opencage/mcp-opencage-server	
+active	io.github.OtherVibes/mcp-as-a-judge	0.3.20	MCP as a Judge: a behavioral MCP that strengthens AI coding assistants via explicit LLM evaluations	pypi:mcp-as-a-judge	
+active	io.github.PV-Bhat/vibe-check-mcp-server	1.0.0	Metacognitive AI agent oversight: adaptive CPI interrupts for alignment, reflection and safety	npm:@pv-bhat/vibe-check-mcp	
+active	io.github.PagerDuty/pagerduty-mcp	0.2.1	PagerDuty's official MCP server which provides tools to interact with your PagerDuty account.	pypi:pagerduty-mcp	
+active	io.github.Raistlin82/btp-sap-odata-to-mcp-server-optimized	1.0.1	Enterprise SAP OData to MCP Server with AI capabilities and Cloud Foundry integration	npm:btp-sap-odata-to-mcp-server	
+active	io.github.Saidiibrahim/search-papers	0.1.1	An MCP server to search papers from arXiv	npm:search-papers	
+active	io.github.SamYuan1990/i18n-agent-action	mcp	An i18n github action for language translate	oci:SamYuan1990/i18n-agent-action	
+active	io.github.Selenium39/mcp-server-tempmail	1.0.1	MCP server for temporary email management using ChatTempMail API	npm:mcp-server-tempmail	
+active	io.github.Skills03/scrimba-teaching	2.0.0	Interactive programming teacher using Scrimba's methodology for 10x retention	pypi:scrimba-teaching-mcp	
+active	io.github.SnowLeopard-AI/bigquery-mcp	0.1.0	A SnowLeopardAI-managed MCP server that provides access to Google BigQuery data.	pypi:sl-bigquery-mcp	
+active	io.github.Snowflake-Labs/mcp	1.3.3	MCP Server for Snowflake from Snowflake Labs	pypi:snowflake-labs-mcp	
+active	io.github.SonarSource/sonarqube-mcp-server	0.0.8	An MCP server that enables integration with SonarQube Server or Cloud for code quality and security.	oci:mcp/sonarqube	
+active	io.github.Synclub-tech/synclub-dxt	0.6.0	SynClub MCP Server for AI-powered comic creation with script generation and image tools		
+active	io.github.TonySimonovsky/claude-code-conversation-search-mcp	1.1.3	Search Claude Code conversation history with natural language queries across all projects	npm:claude-code-conversation-search-mcp	
+active	io.github.VictoriaMetrics-Community/mcp-victorialogs	1.3.0	MCP Server for VictoriaLogs. Provides integration with VictoriaLogs API and documentation	oci:victoriametrics-community/mcp-victorialogs	
+active	io.github.VictoriaMetrics-Community/mcp-victoriametrics	1.13.1	MCP Server for VictoriaMetrics. Provides integration with VictoriaMetrics API and documentation	oci:victoriametrics-community/mcp-victoriametrics	
+active	io.github.YinTokey/mcp_hackernews	1.1.0	MCP server exposing a simple Hacker News search tool (top stories).	pypi:mcp-hackernews	
+active	io.github.abelljs/abell	0.0.9	AI tools related to Abell. Currently includes MCP of Abell	npm:abell-ai	
+active	io.github.abhijitjavelin/javelin-guardrails-mcp-server	1.0.0	An MCP server that provides Javelin Standalone Guardrails		streamable-http:https://abhijitjavelin.github.io/javelin-guardrails-mcp-server/mcp
+active	io.github.abhishekbhakat/airflow-mcp-server	0.9.0	An MCP server for Apache Airflow 	pypi:airflow-mcp-server | pypi:airflow-mcp-server	
+active	io.github.agentailor/slimcontext-mcp-server	0.1.2	MCP Server for SlimContext - AI chat history compression tools	npm:slimcontext-mcp-server	
+active	io.github.aikts/yandex-tracker-mcp	0.4.6	MCP server for Yandex Tracker API.	pypi:yandex-tracker-mcp	
+active	io.github.alex-feel/mcp-context-server	0.4.0	An MCP server that provides persistent multimodal context storage for LLM agents.	pypi:mcp-context-server	
+active	io.github.alondmnt/joplin-mcp	0.4.1	FastMCP server exposing Joplin notes, notebooks, tags, and imports.	pypi:joplin-mcp	
+active	io.github.andrasfe/vulnicheck	0.1.0	HTTP MCP Server for comprehensive Python vulnerability scanning and security analysis.	oci:andrasfe/vulnicheck	
+active	io.github.antuelle78/weather-mcp	1.0.0	A simple MCP server for getting weather information.		
+active	io.github.antvis/mcp-server-chart	1.0.0	A Model Context Protocol server for generating charts using AntV.	npm:@antv/mcp-server-chart	
+active	io.github.anyproto/anytype-mcp	1.0.7	Official MCP server for Anytype API - your encrypted, local and collaborative wiki.	npm:@anyproto/anytype-mcp	
+active	io.github.appwrite/mcp-for-api	0.2.7	MCP (Model Context Protocol) server for Appwrite	pypi:mcp-server-appwrite	
+active	io.github.arielbk/anki-mcp	0.3.2	MCP server for integrating with Anki flashcards through conversational AI	npm:@arielbk/anki-mcp	
+active	io.github.augee99/mcp-weather	1.0.0	An MCP server that provides [describe what your server does]	pypi:mcp-weather-augee99	
+active	io.github.augmnt/augments-mcp-server	1.0.2	Augments MCP Server - A comprehensive framework documentation provider for Claude Code	pypi:augments-mcp-server	
+active	io.github.b1ff/atlassian-dc-mcp-bitbucket	0.9.9	MCP server for Atlassian Bitbucket Data Center - interact with repositories and code	npm:@atlassian-dc-mcp/bitbucket	
+active	io.github.b1ff/atlassian-dc-mcp-confluence	0.9.9	MCP server for Atlassian Confluence Data Center - access and manage content	npm:@atlassian-dc-mcp/confluence	
+active	io.github.b1ff/atlassian-dc-mcp-jira	0.9.9	MCP server for Atlassian Jira Data Center - search, view, and create issues	npm:@atlassian-dc-mcp/jira	
+active	io.github.bajoski34/mcp-flutterwave	1.2.0	MCP Server to interact with Flutterwave APIs.	npm:mcp-flutterwave	
+active	io.github.brave/brave-search-mcp-server	2.0.54	Brave Search MCP Server: web results, images, videos, rich results, AI summaries, and more.	npm:@brave/brave-search-mcp-server	
+active	io.github.browserbase/mcp-server-browserbase	2.1.1	MCP server for AI web browser automation using Browserbase and Stagehand	npm:@browserbasehq/mcp-server-browserbase	
+active	io.github.burningion/video-editing-mcp	1.0.1	MCP Server for Video Jungle - Analyze, Search, Generate, and Edit Videos	pypi:video-editor-mcp	
+active	io.github.bytedance/mcp-server-browser	1.0.0	MCP server for browser use access	npm:@agent-infra/mcp-server-browser | npm:@agent-infra/mcp-server-browser | npm:@agent-infra/mcp-server-browser	
+active	io.github.bytedance/mcp-server-commands	1.0.0	An MCP server to run arbitrary commands	npm:@agent-infra/mcp-server-commands | npm:@agent-infra/mcp-server-commands | npm:@agent-infra/mcp-server-commands	
+active	io.github.bytedance/mcp-server-filesystem	1.0.0	MCP server for filesystem access	npm:@agent-infra/mcp-server-filesystem | npm:@agent-infra/mcp-server-filesystem | npm:@agent-infra/mcp-server-filesystem	
+active	io.github.bytedance/mcp-server-search	1.0.0	MCP server for web search operations	npm:@agent-infra/mcp-server-search | npm:@agent-infra/mcp-server-search | npm:@agent-infra/mcp-server-search	
+active	io.github.cameroncooke/XcodeBuildMCP	1.12.8	XcodeBuildMCP provides tools for Xcode project management, simulator management, and app utilities.	npm:xcodebuildmcp	
+active	io.github.carlisia/mcp-factcheck	1.0.0	An MCP server that validates content against MCP specification using semantic search and AI	oci:carlisia/mcp-factcheck	
+active	io.github.chris-schra/mcp-funnel	0.0.7	MCP proxy that aggregates multiple servers with tool filtering and customization	npm:mcp-funnel	
+active	io.github.clappia-dev/clappia-mcp	1.0.1	An MCP server that provides Clappia workspace, forms, workflows, submissions, and analytics	oci:okaru413/clappia-mcp	
+active	io.github.cloudquery/mcp	1.6.9	CloudQuery MCP server for asset inventory data. Supports CLI, PostgreSQL, and Platform modes.	mcpb:https://github.com/cloudquery/mcp-releases/releases/download/v1.6.9/cq-platform-mcp_1.6.9_darwin_arm64.mcpb | mcpb:https://github.com/cloudquery/mcp-releases/releases/download/v1.6.9/cq-platform-mcp_1.6.9_darwin_amd64.mcpb | mcpb:https://github.com/cloudquery/mcp-releases/releases/download/v1.6.9/cq-platform-mcp_1.6.9_linux_arm64.mcpb | mcpb:https://github.com/cloudquery/mcp-releases/releases/download/v1.6.9/cq-platform-mcp_1.6.9_linux_amd64.mcpb | mcpb:https://github.com/cloudquery/mcp-releases/releases/download/v1.6.9/cq-platform-mcp_1.6.9_windows_amd64.mcpb	
+active	io.github.cmpxchg16/mcp-ethical-hacking	1.4.0	An MCP server that provides LinkedIn & Reddit data	mcpb:https://github.com/cmpxchg16/mcp-ethical-hacking/releases/download/v1.4.0/server.mcpb	
+active	io.github.compl-i-agent/csf	2.4.6	NIST CSF 2.0 - Professional cybersecurity framework with 35 tools and 12 prompts	npm:@compligent-mcp/csf	
+active	io.github.containers/kubernetes-mcp-server	1.0.0	An MCP server that provides [describe what your server does]		
+active	io.github.cr7258/elasticsearch-mcp-server	2.0.15	MCP server for interacting with Elasticsearch	pypi:elasticsearch-mcp-server	
+active	io.github.croit/mcp-croit-ceph	0.2.16	MCP server for Croit Ceph cluster management with dynamic OpenAPI tool generation	oci:croit/mcp-croit-ceph	
+active	io.github.cyanheads/clinicaltrialsgov-mcp-server	1.4.0	Provides rich tools to search, retrieve, and analyze data from ClinicalTrials.gov API v2.	npm:clinicaltrialsgov-mcp-server | npm:clinicaltrialsgov-mcp-server	
+active	io.github.cyanheads/git-mcp-server	2.3.5	Comprehensive Git MCP server enabling native git tools including clone, commit, worktree, & more.	npm:@cyanheads/git-mcp-server | npm:@cyanheads/git-mcp-server	
+active	io.github.cyanheads/mcp-ts-template	2.3.5	A production-grade TypeScript template for scalable MCP servers with built-in observability.	npm:mcp-ts-template | npm:mcp-ts-template	
+active	io.github.cyanheads/protein-mcp-server	1.0.3	MCP Server for 3D protein structural data retrieval & analysis from RCSB PDB, PDBe, and UniProt.	npm:protein-mcp-server | npm:protein-mcp-server	
+active	io.github.cyanheads/pubmed-mcp-server	1.4.5	Comprehensive PubMed MCP Server to search, retrieve, and analyze biomedical literature from NCBI.	npm:@cyanheads/pubmed-mcp-server | npm:@cyanheads/pubmed-mcp-server	
+active	io.github.cyanheads/survey-mcp-server	1.0.4	MCP server for conducting dynamic, conversational surveys with structured data collection.	npm:@cyanheads/survey-mcp-server | npm:@cyanheads/survey-mcp-server	
+active	io.github.dba-i/mssql-dba	1.0.0	An MCP server that provides [describe what your server does]	npm:mssql-dba	
+active	io.github.delorenj/mcp-server-trello	1.5.6	MCP server for Trello boards with rate limiting, type safety, and comprehensive API integration.	npm:@delorenj/mcp-server-trello	
+active	io.github.dockersamples/mcp-docker-release-information	0.3.0	MCP server providing Docker Desktop release notes and security information.	oci:dockersamples/mcp-docker-release-information	
+active	io.github.domdomegg/airtable-mcp-server	1.7.3	Read and write access to Airtable database schemas, tables, and records.	npm:airtable-mcp-server | oci:domdomegg/airtable-mcp-server | mcpb:https://github.com/domdomegg/airtable-mcp-server/releases/download/v1.7.3/airtable-mcp-server.mcpb	
+active	io.github.domdomegg/time-mcp-nuget	1.0.8	Get the current UTC time in RFC 3339 format.	nuget:TimeMcpServer	
+active	io.github.domdomegg/time-mcp-pypi	1.0.6	Get the current UTC time in RFC 3339 format.	pypi:time-mcp-pypi	
+active	io.github.dubuqingfeng/gitlab-mcp-server	1.0.1	GitLab MCP (Model Context Protocol) server for AI agents	npm:@dubuqingfeng/gitlab-mcp-server	
+active	io.github.dynatrace-oss/Dynatrace-mcp	0.9.1	Model Context Protocol server for Dynatrace - access logs, events, metrics from Dynatrace via MCP.	npm:@dynatrace-oss/dynatrace-mcp-server	
+active	io.github.edrich13/mcp-jira-server	1.0.1	MCP server for self-hosted Jira instance with Personal Access Token authentication	npm:mcp-jira-server	
+active	io.github.eghuzefa/engineer-your-data	0.1.3	MCP server for data engineering: validation, transformation, visualization, and APIs.	pypi:engineer-your-data	
+active	io.github.esrisaudiarabia/arcgis-mcp-server	1.0.3	Intelligent ArcGIS content search. Works with Online/Enterprise. Requires user credentials.	pypi:arcgis-mcp-server	
+active	io.github.estruyf/vscode-demo-time	0.0.55	Enables AI assistants to interact with Demo Time and helps build presentations and demos.	npm:@demotime/mcp	
+active	io.github.flarco/sling-cli	1.4.24	Sling CLI MCP server for data pipeline and replication management		
+active	io.github.fliptheweb/yazio-mcp	0.0.5	MCP server for accessing Yazio user & nutrition data (unofficial)	npm:yazio-mcp	
+active	io.github.florentine-ai/mcp	0.2.1	MCP server for Florentine.ai - Natural language to MongoDB aggregations	npm:@florentine-ai/mcp	
+active	io.github.formulahendry/code-runner	0.1.9	Code Runner MCP Server which can run code in various programming languages.	npm:mcp-server-code-runner | oci:formulahendry/mcp-server-code-runner	
+active	io.github.formulahendry/mcp-server-mcp-registry	0.1.0	MCP Server for MCP Registry to discover and search for available MCP servers in the registry	npm:mcp-server-mcp-registry	
+active	io.github.formulahendry/spec-driven-development	0.1.1	MCP Server that facilitates spec-driven development workflows, not just Vibe Coding.	npm:mcp-server-spec-driven-development	
+active	io.github.francisco-perez-sorrosal/cv	0.0.3	An MCP server that provides access to Francisco Perez-Sorrosal's CV	mcpb:https://github.com/francisco-perez-sorrosal/cv/releases/download/v0.0.3/fps-cv-mcp-0.0.3.mcpb	
+active	io.github.gauravfs-14/lit-mcp	1.0.0	MCP server for academic literature databases (arXiv, DBLP) to accelerate research using LLMs.	pypi:lit-mcp	
+active	io.github.ggozad/haiku-rag	0.11.4	Agentic Retrieval Augmented Generation (RAG) with LanceDB		
+active	io.github.github/github-mcp-server	0.17.1	Connect AI assistants to GitHub - manage repos, issues, PRs, and workflows through natural language.	oci:github/github-mcp-server	
+active	io.github.gjeltep/app-store-connect-mcp	0.1.1	Interact with Apple's App Store Connect API	pypi:app-store-connect-mcp	
+active	io.github.gradion-ai/ipybox	0.6.6	An MCP server for sandboxed Python code execution with IPython and Docker, and file transfer.	pypi:ipybox	
+active	io.github.grupo-avispa/dsr_mcp_server	1.0.1	An MCP server that provides tools for interacting with Deep State Representation (DSR) graphs.		
+active	io.github.guanqun-yang/mcp-server-r-counter	0.0.3	A MCP Server Counting Number of r's for a Given Query	pypi:mcp-server-r-counter	
+active	io.github.habedi/omni-lpr	0.3.2	An MCP server for automatic license plate recognition	pypi:omni-lpr	
+active	io.github.hellocoop/admin-mcp	1.5.7	Model Context Protocol (MCP) for Hellō Admin API.	npm:@hellocoop/admin-mcp	
+active	io.github.henilcalagiya/google-sheets-mcp	0.1.6	Powerful tools for automating Google Sheets using Model Context Protocol (MCP)	pypi:google-sheets-mcp	
+active	io.github.henilcalagiya/mcp-apple-notes	0.1.2	MCP server for Apple Notes integration using AppleScript with full CRUD operations	pypi:mcp-apple-notes	
+active	io.github.himorishige/hatago-mcp-hub	0.0.16	Unified MCP Hub for managing multiple Model Context Protocol servers	npm:@himorishige/hatago-mcp-hub	
+active	io.github.humanjesse/textarttools-mcp	1.0.0	Unicode text styling and ASCII art generation with 23 styles and 322+ figlet fonts		sse:https://humanjesse.github.io/textarttools-mcp/sse
+active	io.github.hummingbot/mcp	0.1.0	MCP server exposing Hummingbot API for automated multi-exchange trading	oci:hummingbot/hummingbot-mcp	
+active	io.github.huoshuiai42/huoshui-fetch	1.0.0	An MCP server that provides tools for fetching, converting, and extracting data from web pages.	pypi:huoshui-fetch	
+active	io.github.huoshuiai42/huoshui-file-converter	1.0.0	An MCP server that provides document format conversion	pypi:huoshui-file-converter	
+active	io.github.huoshuiai42/huoshui-file-search	1.0.0	An MCP server that provides fast Spotlight file search capabilities for macOS	pypi:huoshui-file-search	
+active	io.github.huoshuiai42/huoshui-pdf-converter	1.0.0	An MCP server that provides PDF file conversion	pypi:huoshui-pdf-converter	
+active	io.github.huoshuiai42/huoshui-pdf-translator	1.0.0	An MCP server that provides PDF translation service	pypi:huoshui-pdf-translator	
+active	io.github.iggredible/vim-mcp	0.1.2	Connect Claude Code to Vim/Neovim - query state, execute commands, search help, record macros	npm:vim-mcp	
+active	io.github.imbenrabi/financial-modeling-prep-mcp-server	2.5.1	MCP server for Financial Modeling Prep API with 250+ financial data tools	npm:financial-modeling-prep-mcp-server	
+active	io.github.indragiek/uniprof	0.3.4	Universal CPU profiler designed for humans and AI agents	npm:uniprof	
+active	io.github.isamu/mulmocast-vision	1.0.1	Easy and stylish presentation slide generator.	npm:mulmocast-vision	
+active	io.github.iworkist/btcmcp	0.1.2	An MCP server that provides Bitcoin price data from Binance API	pypi:btcmcp	
+active	io.github.jamesmontemagno/monkeymcp	2.0.3	MCP server providing monkey data, journeys, and location services for various monkey species.	oci:jamesmontemagno/monkeymcp	
+active	io.github.jcucci/dotnet-sherlock-mcp	2.3.0	.NET assembly introspection MCP server with advanced reflection and type analysis capabilities	nuget:Sherlock.MCP.Server	
+active	io.github.jgador/websharp	v0.99.0-rc2	Search the web and extract article text for LLMs.	oci:jessegador/websharp-mcp	
+active	io.github.jjlabsio/korea-stock-mcp	1.1.4	MCP server for korea stock	npm:korea-stock-mcp	
+active	io.github.jkakar/cookwith-mcp	1.0.2	AI-powered recipe generation and transformation tools by Cookwith		
+active	io.github.jkakar/recipe-mcp	1.0.4	Generate and remix recipes using cookwith.co	npm:@cookwith/recipe-mcp	
+active	io.github.jkawamoto/mcp-bear	0.4.0	A MCP server for interacting with Bear note-taking software.	mcpb:https://github.com/jkawamoto/mcp-bear/releases/download/v0.4.0/mcp-bear.mcpb	
+active	io.github.jkawamoto/mcp-florence2	0.3.3	An MCP server for processing images using Florence-2	mcpb:https://github.com/jkawamoto/mcp-florence2/releases/download/v0.3.3/mcp-florence2.mcpb	
+active	io.github.jkawamoto/mcp-youtube-transcript	0.5.4	An MCP server retrieving transcripts of YouTube videos	mcpb:https://github.com/jkawamoto/mcp-youtube-transcript/releases/download/v0.5.4/mcp-youtube-transcript.mcpb	
+active	io.github.joelverhagen/Knapcode.SampleMcpServer	0.7.0-beta	A sample MCP server using the MCP C# SDK. Generates random numbers and random weather.	nuget:Knapcode.SampleMcpServer	
+active	io.github.joshmsimpson/exiftool	0.1.6	Read, write, and remove metadata from 150+ file formats using ExifTool	pypi:exiftool-mcp	
+active	io.github.jztan/redmine-mcp-server	0.4.5	Production-ready MCP server for Redmine with security, pagination, and enterprise features	pypi:redmine-mcp-server	
+active	io.github.karanb192/reddit-buddy-mcp	1.0.6-test.7	Reddit MCP server - browse posts, search content, analyze users.	npm:@karanb192/reddit-buddy-mcp	
+active	io.github.karanb192/reddit-mcp-buddy	1.1.10	Reddit browser for AI assistants. Browse posts, search content, analyze users. No API keys needed.	npm:reddit-mcp-buddy	
+active	io.github.kayembahamid/cybersim-pro	1.0.1	Cybersecurity training, simulation, and incident response MCP server	oci:hamcodes/cybersim-pro-mcp	
+active	io.github.kemalersin/fonparam-mcp	1.0.4	MCP server for FonParam API - Turkish mutual funds data	npm:fonparam-mcp	
+active	io.github.kevincogan/demo-mcp-server	1.0.4	Demo server entry for local testing		streamable-http:https://kevincogan.github.io/mcp
+active	io.github.kevint-cerebras/cerebras-code-mcp	1.3.1	Model Context Protocol (MCP) server for Cerebras to make coding faster in AI-first IDEs	npm:cerebras-code-mcp	
+active	io.github.king-of-the-grackles/reddit-research-mcp	0.1.1	Turn Reddit's chaos into structured insights with full citations - MCP server for Reddit research	pypi:reddit-research-mcp	
+active	io.github.kirbah/mcp-youtube	0.2.6	YouTube MCP server for token-optimized, structured data using the YouTube Data API v3.	npm:@kirbah/mcp-youtube	
+active	io.github.kkjdaniel/bgg-mcp	1.4.0	BoardGameGeek MCP server providing access to BGG API data through standardized tools	oci:kdaniel/bgg-mcp	
+active	io.github.kmalakoff/mcp-pdf	1.0.3	MCP server for PDF generation using PDFKit	npm:@mcp-z/mcp-pdf	
+active	io.github.koki-develop/esa-mcp-server	0.3.2	A Model Context Protocol (MCP) server for esa.io	npm:@koki-develop/esa-mcp-server	
+active	io.github.lapfelix/xcodemcp	2.1.4	Control Xcode directly via JXA for build, test, debug operations with XCLogParser integration	npm:xcodemcp	
+active	io.github.leshchenko1979/fast-mcp-telegram	0.5.0	Telegram MCP server with search and messaging capabilities	pypi:fast-mcp-telegram	
+active	io.github.linxule/lotus-wisdom	0.1.2	An MCP server for problem-solving using the Lotus Sutra's wisdom framework.	npm:lotus-wisdom-mcp	
+active	io.github.localstack/localstack-mcp-server	0.1.5	A LocalStack MCP Server providing essential tools for local cloud development & testing	npm:@localstack/localstack-mcp-server	
+active	io.github.macuse-app/macuse	1.0.1	Bridges AI assistants with native macOS functionality through the Model Context Protocol (MCP).	mcpb:https://github.com/macuse-app/macuse/releases/download/v1.0.1/macuse-1.0.1.mcpb	
+active	io.github.mapbox/mcp-server	0.5.5	Geospatial intelligence with Mapbox APIs like geocoding, POI search, directions, isochrones, etc.	npm:@mapbox/mcp-server	
+active	io.github.marianfoo/mcp-sap-docs	0.3.9	Fast MCP server for unified SAP docs search (SAPUI5, CAP, OpenUI5, wdi5) with BM25 full-text search	npm:mcp-sap-docs	
+active	io.github.marlenezw/publish-mcp-server	0.1.3	An MCP server that helps developers publish their MCP servers to the registry	pypi:publish-mcp-server	
+active	io.github.martymarkenson/postgres-connector	1.0.2	MCP server for querying PostgreSQL databases	npm:postgres-connector	
+active	io.github.mcp-z/mcp-pdf	1.2.0	MCP server for creative PDF generation with full emoji, Unicode, and offline support	npm:@mcp-z/mcp-pdf	
+active	io.github.mfukushim/map-traveler-mcp	0.1.4	Virtual traveler library for MCP	npm:@mfukushim/map-traveler-mcp	
+active	io.github.mickymultani/crypto-bytes	0.1.1	Crypto Bytes MCP Server	pypi:crypto_bytes_mcp_server	
+active	io.github.mobile-next/mobile-mcp	0.0.31	MCP server for iOS and Android Mobile Development, Automation and Testing	npm:@mobilenext/mobile-mcp	
+active	io.github.moonolgerd/game-mcp	1.0.0	Discovers and manages installed games on Windows from Steam, Epic, GOG, Xbox, and other platforms.	nuget:GameMcpServer	
+active	io.github.morinokami/astro-mcp	0.4.2	MCP server to support Astro project development	npm:astro-mcp	
+active	io.github.motherduckdb/mcp-server-motherduck	0.7.0	Fast analytics and data processing with DuckDB and MotherDuck	pypi:mcp-server-motherduck	
+active	io.github.msenol/gorev	0.16.1	Task management system for AI assistants with MCP protocol, templates, and bilingual support (TR/EN)	npm:@mehmetsenol/gorev-mcp-server	
+active	io.github.nailuoGG/anki-mcp-server	0.1.8	MCP server enabling LLMs to interact with Anki flashcard software through AnkiConnect	npm:anki-mcp-server	
+active	io.github.nerfels/mind-map	1.12.13	Experimental code intelligence platform for Claude Code with AST parsing and context analysis	npm:mind-map-mcp	
+active	io.github.nesquikm/rubber-duck	1.1.1	An MCP server that bridges to multiple OpenAI-compatible LLMs - your AI rubber duck debugging panel	npm:mcp-rubber-duck	
+active	io.github.netdata/mcp-server	2.7.1	AI-powered infrastructure monitoring with real-time metrics, logs, alerts, and ML anomaly detection.		
+active	io.github.neverinfamous/memory-journal-mcp	1.0.0	Developer project journal with Git context, semantic search, and 7 specialized tools.		
+active	io.github.neverinfamous/sqlite-mcp-server	2.6.0	SQLite MCP server with 73 tools for JSONB, full-text search, geospatial, and analytics.		
+active	io.github.nickzren/opentargets	0.2.0	Open Targets MCP server for targets, diseases, drugs, variants, and evidence	pypi:opentargets-mcp	
+active	io.github.noahgift/depyler-mcp	3.4.0	MCP server for Depyler: Python-to-Rust transpiler with analysis and verification tools		
+active	io.github.noahgift/pmcp	1.6.1	High-quality Rust SDK for Model Context Protocol (MCP) with full TypeScript SDK compatibility		
+active	io.github.noahgift/ruchy-mcp	3.67.0	MCP server for Ruchy: code analysis, scoring, linting, formatting, and transpilation tools		
+active	io.github.nowledge-co/server.json	1.0.0	A server that provides MCPB package functionality for Nowledge Mem	pypi:nowledge-mem | mcpb:https://github.com/nowledge-co/claude-dxt/releases/download/v1.0.0/claude-dxt.mcpb	
+active	io.github.nrwl/nx-console	0.6.12	A Model Context Protocol server implementation for Nx	npm:nx-mcp	
+active	io.github.oguzc/playwright-wizard-mcp	0.1.5	MCP server providing Playwright test generation wizard with intelligent prompts and best practices	npm:playwright-wizard-mcp	
+active	io.github.ooples/mcp-console-automation	1.0.2	MCP server for AI-driven console application automation and monitoring	npm:mcp-console-automation	
+active	io.github.opencontext-team/mcp-server	1.0.2	An MCP server that provides visual memory and context storage with knowledge graph capabilities	npm:visual-memory-context-server	
+active	io.github.overstarry/qweather-mcp	1.0.12	a qweather mcp server	npm:qweather-mcp	
+active	io.github.p1va/symbols	1.0.0	MCP server to read, inspect and troubleshoot codebase symbols	npm:@p1va/symbols	
+active	io.github.pab1it0/prometheus-mcp-server	1.3.1	MCP server providing Prometheus metrics access and PromQL query execution for AI assistants	oci:pab1it0/prometheus-mcp-server	
+active	io.github.paiml/pforge	0.1.2	Zero-boilerplate MCP server framework with declarative YAML configuration		
+active	io.github.paiml/pmat-agent	2.121.0	Zero-config AI context generation and code quality toolkit with Claude Code Agent Mode support		
+active	io.github.paiml/pmcp	1.6.1	High-quality Rust SDK for Model Context Protocol (MCP) with full TypeScript SDK compatibility		
+active	io.github.paiml/rash	0.1.0	Transpile Rust code to POSIX-compliant shell scripts with formal correctness guarantees		
+active	io.github.pedro-rivas/android-puppeteer-mcp	1.0.1	MCP server for Android automation with UI interaction, screenshots, and device control	pypi:android-puppeteer-mcp	
+active	io.github.pkolawa/krs-poland-mcp-server	1.0.17	Polish National registry of businesses and other legal entities	npm:krs-poland-mcp-server	
+active	io.github.pkolawa/mcp-krs-poland	1.0.11	Polish National government's registry of all businesses, foundations, and other legal entities.	npm:krs-poland-mcp-server	
+active	io.github.portel-dev/ncp	1.4.3	N-to-1 MCP Orchestration. Unified gateway for multiple MCP servers with intelligent tool discovery.	npm:@portel/ncp	
+active	io.github.pree-dew/mcp-bookmark	0.1.5	MCP Server for adding bookmarks in openai RAG	pypi:mcp-bookmark-server	
+active	io.github.priyankark/lighthouse-mcp	0.1.9	MCP server for Google Lighthouse performance metrics	npm:lighthouse-mcp	
+active	io.github.promplate/hmr	1.0.0	Hot Module Reload (HMR) for Python with reactive programming and MCP tools		streamable-http:https://promplate.github.io/pyth-on-line/hmr/mcp
+active	io.github.pshivapr/selenium-mcp	0.4.1	Selenium Tools for MCP	npm:selenium-webdriver-mcp	
+active	io.github.ptyagiegnyte/egnyte-mcp-server	1.0.0	Official Egnyte MCP Server for AI integration with document search, analysis, and collaboration.		
+active	io.github.ptyagiegnyte/egnyte-remote	1.0.1	Secure integration between AI tools and Egnyte content with search, analysis, and workflow tools.		
+active	io.github.pubnub/mcp-server	1.0.106	PubNub MCP for Real-time messaging. API Access and SDK documentation.		
+active	io.github.pzep1/mcp-meet	0.3.1	One-click Google Meet scheduling and Apple Calendar mirroring with smart availability detection	npm:mcp-meet	
+active	io.github.r-huijts/strava-mcp	1.0.1	MCP server for accessing Strava API	npm:strava-mcp-server	
+active	io.github.railwayapp/mcp-server	0.1.5	Official Railway MCP server	npm:@railway/mcp-server	
+active	io.github.rbonestell/ap-mcp-server	1.2.6	Model Context Protocol (MCP) server for the Associated Press Media API	npm:ap-mcp-server	
+active	io.github.ref-tools/ref-tools-mcp	3.0.1	Token efficient search for coding agents over public and private documentation.	npm:ref-tools-mcp	
+active	io.github.rfdez/pvpc-mcp-server	3.2.3	Retrieve daily PVPC electricity tariffs for 2.0 TD consumers, published by Red Eléctrica.	npm:@rfdez/pvpc-mcp-server | npm:@rfdez/pvpc-mcp-server	
+active	io.github.robotmcp/ros-mcp-server	2.1.6	Connect AI models like Claude & ChatGPT with ROS robots using MCP	pypi:ros-mcp	
+active	io.github.rogiervdbrnk/mcp-real-estate-server	1.1.1	MCP server for Dutch real estate data. API_KEY_ID optional for testing.	oci:rogiervdbrnk/mcp-server	
+active	io.github.ruvnet/claude-flow	2.0.0-alpha.107	AI orchestration with hive-mind swarms, neural networks, and 87 MCP tools for enterprise dev.	npm:claude-flow	
+active	io.github.ruvnet/flow-nexus	0.1.121	Cloud-powered AI platform with multi-agent swarms, sandboxes, and workflow automation	npm:flow-nexus	
+active	io.github.ruvnet/ruv-swarm	1.0.19	Neural network swarm orchestration with WebAssembly acceleration and MCP integration	npm:ruv-swarm	
+active	io.github.ryaker/appstore-connect-mcp	1.0.0	MCP server for Apple Store Connect API integration with OAuth authentication support	npm:@ryaker/appstore-connect-mcp	
+active	io.github.ryanbaumann/platform-ai	0.2.0	Google Maps Platform Code Assist MCP	npm:@googlemaps/code-assist-mcp	
+active	io.github.saucelabs-sample-test-frameworks/sauce-api-mcp	1.0.0	An open-source MCP server that provides LLM access to the Sauce Labs API	pypi:sauce-api-mcp	
+active	io.github.savhascelik/meta-api-mcp-server	1.0.1	You can connect any API to LLMs. This enables AI to interact directly with APIs	npm:meta-api-mcp-server	
+active	io.github.schemacrawler/schemacrawler-ai	v16.29.1-1	Enables natural language schema queries — explore tables, keys, procedures, and get SQL help fast	oci:schemacrawler/schemacrawler-ai	
+active	io.github.sellisd/mcp-units	0.3.3	An MCP server that provides some common units conversions for cooking	pypi:mcp-units	
+active	io.github.shalevshalit/image-recognition-mcp	1.0.0	MCP server for AI-powered image recognition and description using OpenAI vision models.	npm:image-recognition-mcp	
+active	io.github.shalevshalit/image-recongnition-mcp	1.0.0	MCP server for AI-powered image recognition and description using OpenAI vision models.	npm:image-recongnition-mcp	
+active	io.github.shinpr/mcp-image	0.2.3	AI image generation MCP server using Nano Banana with intelligent prompt enhancement	npm:mcp-image	
+active	io.github.spences10/mcp-omnisearch	0.0.15	MCP server for integrating Omnisearch with LLMs	npm:mcp-omnisearch	
+active	io.github.spences10/mcp-sqlite-tools	0.0.11	MCP server for local SQLite database operations	npm:mcp-sqlite-tools	
+active	io.github.spences10/mcp-turso-cloud	0.0.9	MCP server for integrating Turso with LLMs	npm:mcp-turso-cloud	
+active	io.github.srikrishna235/scrimba-teaching-mcp	3.0.4	Unified MCP for Scrimba's interactive programming education with visual learning	pypi:scrimba-teaching-mcp	
+active	io.github.stefanoamorelli/fred-mcp-server	1.0.1	Federal Reserve Economic Data (FRED) MCP Server - Access all 800,000+ economic time series	npm:fred-mcp-server	
+active	io.github.stefanoamorelli/sec-edgar-mcp	1.0.5	SEC EDGAR MCP server that provides access to the US public filings through the US SEC EDGAR API	pypi:sec-edgar-mcp	
+active	io.github.surendranb/google-analytics-mcp	1.0.0	An MCP server that provides [describe what your server does]	pypi:google-analytics-mcp	
+active	io.github.taurgis/sfcc-dev-mcp	1.0.14	MCP server for Salesforce B2C Commerce Cloud development assistance	npm:sfcc-dev-mcp	
+active	io.github.tcehjaava/tmdb-mcp-server	0.1.1	MCP server for The Movie Database (TMDB) API	npm:tmdb-mcp-server	
+active	io.github.team-telnyx/telnyx	3.3.3	Official TypeScript library for the Telnyx API	npm:telnyx	
+active	io.github.tedfytw1209/mcp-server-EVEfleet	1.0.2	An MCP server that provides tools for EVE Online players to manage their fleets	pypi:mcp-server-evefleet	
+active	io.github.therealtimex/browser-use	0.7.10	AI browser automation - navigate, click, type, extract content, and run autonomous web tasks	pypi:realtimex-browser-use	
+active	io.github.therealtimex/charts-mcp	2.0.6	MCP server for generating charts using AntV. Supports various chart types through MCP tools.	npm:@realtimex/charts-mcp	
+active	io.github.therealtimex/un-datacommons-mcp	1.0.1	MCP server to query Data Commons indicators and observations (base or custom).	pypi:un-datacommons-mcp	
+active	io.github.timheuer/sampledotnetmcpserver	0.1.57-beta	Sample .NET MCP Server	nuget:TimHeuer.SampleDotnetMcpServer	
+active	io.github.tjhop/prometheus-mcp-server	0.8.0	An API-complete MCP server to manage Prometheus-compatible backends via comprehensive tools.	oci:tjhop/prometheus-mcp-server	
+active	io.github.toby/mirror-mcp	0.0.8	Mirror MCP: Introspection for LLMs	npm:mirror-mcp	
+active	io.github.tschoonj/repology-mcp-server	0.1.1	MCP server that provides access to Repology package repository data	pypi:repology-mcp-server | oci:tschoonj/repology-mcp-server	
+active	io.github.tuananh/hyper-mcp	1.0.0	📦️ A fast, secure MCP server that extends its capabilities through WebAssembly plugins	oci:tuananh/hyper-mcp	
+active	io.github.tuannvm/mcp-trino	2.2.1	MCP server for Trino distributed SQL query engine access	mcpb:https://github.com/tuannvm/mcp-trino/releases/download/v2.2.1/mcp-trino_2.2.1_darwin_arm64.tar.gz	
+active	io.github.ubaumann/mkdocs-mcp	0.1.2	An MCP server that provides serves MkDocs as resources.	pypi:mkdocs-mcp	
+active	io.github.variflight/variflight-mcp	1.0.2	VariFlight's official MCP server provides tools to query flight, weather, comfort, and fare data.	npm:@variflight-ai/variflight-mcp	
+active	io.github.vfarcic/dot-ai	0.110.0	AI-powered development platform for Kubernetes deployments and intelligent automation	npm:@vfarcic/dot-ai	
+active	io.github.vishalsachdev/canvas-mcp	1.0.1	Canvas LMS integration for students and educators with FERPA-compliant analytics and workflows	pypi:canvas-mcp	
+active	io.github.wonderwhy-er/desktop-commander	0.2.17	MCP server for terminal commands, file operations, and process management	npm:@wonderwhy-er/desktop-commander	
+active	io.github.xkelxmc/uranium-mcp	1.0.9	MCP for Uranium NFT tools to mint, list, and manage digital assets on the permaweb.	npm:uranium-tools-mcp	
+active	io.github.xorrkaz/cml-mcp	0.10.0	An MCP server that provides access to common Cisco Modeling Labs (CML) operations.	pypi:cml-mcp	
+active	io.github.ycjcl868/mcp-server-fear-greed	1.0.2	An MCP server for mcp-server-fear-greed	npm:mcp-server-fear-greed | npm:mcp-server-fear-greed | npm:mcp-server-fear-greed	
+active	io.github.yifancong/rsdoctor	0.1.0	An MCP server that provides build analysis and optimization recommendations for Rspack projects.	npm:@rsdoctor/mcp-server	
+active	io.github.yuna0x0/anilist-mcp	1.3.7	AniList MCP server for accessing AniList API data	npm:anilist-mcp | oci:yuna0x0/anilist-mcp | mcpb:https://github.com/yuna0x0/anilist-mcp/releases/download/v1.3.7/anilist-mcp-1.3.7.mcpb	
+active	io.github.yuna0x0/hackmd-mcp	1.5.3	A Model Context Protocol server for integrating HackMD's note-taking platform with AI assistants.	npm:hackmd-mcp | oci:yuna0x0/hackmd-mcp | mcpb:https://github.com/yuna0x0/hackmd-mcp/releases/download/v1.5.3/hackmd-mcp-1.5.3.mcpb	
+active	io.github.zeiq-co/thoth-mcp	1.0.2	MCP server for Thoth with multi-platform AI content generation	npm:@usethoth/mcp-server	
+active	io.github.zenml-io/mcp-zenml	1.0.4	MCP server for ZenML - browse stacks, pipelines, runs, artifacts & trigger pipeline runs via API	oci:zenmldocker/mcp-zenml	
+active	io.github.zhongweili/nanobanana-mcp-server	1.0.0	An MCP server that provides image generation and editing capabilities	pypi:nanobanana-mcp-server	
+active	io.globalping/mcp	1.0.0	Interact with a global network measurement platform.Run network commands from any point in the world		sse:https://mcp.globalping.io/sse | streamable-http:https://mcp.globalping.io/mcp
+active	io.ignission/mcp	1.0.0	TikTok video data analytics and content strategy tools		streamable-http:https://mcp.ignission.io/mcp
+active	io.minnas/mcp	1.1.0	Share prompts and context with your team and discover community collections.		sse:https://api.minnas.io/mcp
+active	io.prisma/mcp	1.0.0	MCP server for managing Prisma Postgres.		sse:https://mcp.prisma.io/sse | streamable-http:https://mcp.prisma.io/mcp
+active	io.scorecard/mcp	2.1.1	MCP server providing access to the Scorecard API to evaluate and optimize LLM systems.	npm:scorecard-ai-mcp	streamable-http:https://mcp.scorecard.io/mcp
+active	io.slingdata/sling-cli	1.4.25	Sling CLI MCP server for querying any database, running data pipelines and managing replications	pypi:sling	
+active	io.snapcall/mcp	1.0.0	MCP Server that generate video call url		streamable-http:https://mcp.snapcall.io
+active	io.snyk/mcp	1.1299.1	Easily find and fix security issues in your applications leveraging Snyk platform capabilities.	npm:snyk	
+active	io.wordlift/mcp-server	1.0.4	WordLift MCP Server: AI-powered content optimization and semantic analysis		sse:https://mcp.wordlift.io/sse
+active	md.install/try	0.1.1	Create guides as MCP servers to instruct coding agents to use your software (library, API, etc).		streamable-http:https://install.md/mcp/try
+active	net.gepuro.mcp-company-lens-v1/company-lens-mcp-registry	1.0.0	Search Japanese company database		streamable-http:https://mcp-company-lens-v1.gepuro.net/mcp
+active	net.nymbo/tools	1.0.0	Remote MCP server: fetch, search, Python, TTS, memory, image, video.		sse:https://mcp.nymbo.net/gradio_api/mcp/sse
+active	net.singular/mcp-server	1.0.0	Marketing intelligence MCP server providing campaign performance data and analytics tools.		sse:https://mcp.singular.net/mcp-server/mcp | streamable-http:https://mcp.singular.net/mcp-server/mcp
+active	net.todoist/mcp	1.0.0	Official Todoist MCP server for AI assistants to manage tasks, projects, and workflows.		streamable-http:https://ai.todoist.net/mcp
+active	so.jinko/jinko-mcp	0.0.27	Jinko is a travel MCP server that provides hotel search and booking capabilities.		streamable-http:https://mcp-remote.jinko.so/mcp
+active	technology.draup/api-server	1.0.0	Global labour & market data for skills, workforce, planning, stakeholders, jobs, news & profiles		streamable-http:https://mcp.draup.technology/mcp/
+active	trade.neglect/mcp-server	1.0.0	Full Solana DeFi coverage: launchpads, tokens, trades, and wallets, decoded at scale.		streamable-http:https://api.neglect.trade/mcp
+active	travel.kismet/mcp-server	0.0.0	Semantic hotel search with real-time availability and price comparison for Kismet Travel		streamable-http:https://mcp.kismet.travel/mcp | sse:https://mcp.kismet.travel/sse
+active	xyz.dreamtap/mcp	0.1.0	Dreamtap provides sources of inspiration to your AI to make it more creative.		streamable-http:https://dreamtap.xyz/mcp

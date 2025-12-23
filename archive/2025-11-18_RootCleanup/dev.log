@@ -1,0 +1,1654 @@
+
+> glowglitch-frontend@0.1.0 dev
+> node --expose-gc server.js
+
+ ⚠ Disabling SWC Minifer will not be an option in the next major version. Please report any issues you may be experiencing to https://github.com/vercel/next.js/issues
+📁 Job persistence directory ready: /tmp/3d-generation/job-persistence
+⚠️ REDIS_URL not set. Proceeding without Redis; falling back to in-memory operations.
+🚀 Server ready on http://127.0.0.1:3000
+🔌 WebSocket server ready for real-time updates
+ ○ Compiling / ...
+ ✓ Compiled / in 1812ms (898 modules)
+ GET / 200 in 2033ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 989ms (497 modules)
+ ✓ Compiled in 224ms (372 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 1348ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 1581ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 9ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ ✓ Compiled /collections in 291ms (851 modules)
+ GET /collections 200 in 444ms
+ ✓ Compiled /api/neon/cart/[cartId] in 46ms (512 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 106ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET /collections 200 in 166ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /collections 200 in 36ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET / 200 in 46ms
+ ✓ Compiled /api/neon/cart/[cartId] in 150ms (484 modules)
+ ✓ Compiled (514 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 427ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 434ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 355ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 447ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 447ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 449ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 14ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled in 286ms (907 modules)
+ GET / 200 in 226ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 36ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 20ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 5ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 5ms
+ ✓ Compiled in 190ms (907 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 200 in 50ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 59ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 13ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 19ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ ✓ Compiled /api/support/products in 125ms (520 modules)
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+{"type":"metrics-redis","message":"REDIS_URL not set. Metrics will not persist across restarts.","fallback":"in-memory-only"}
+🔄 App-level cache initialized (10s TTL, max 100 entries) for /api/concierge/products
+ POST /api/support/products 200 in 770ms
+ POST /api/dev-analytics/collect 200 in 771ms
+ POST /api/dev-analytics/collect 200 in 777ms
+ POST /api/dev-analytics/collect 200 in 9ms
+ POST /api/dev-analytics/collect 200 in 10ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 44ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ POST /api/dev-analytics/collect 200 in 40ms
+ GET /collections?search=Chain%20Necklace%20-%20%24129 200 in 80ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 10ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 5ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 5ms
+ POST /api/dev-analytics/collect 200 in 28ms
+ POST /api/dev-analytics/collect 200 in 30ms
+ POST /api/dev-analytics/collect 200 in 6ms
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ POST /api/dev-analytics/collect 200 in 27ms
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+{"level":"info","message":"processing","reqId":"track_order-61dcd00d-52ee-4a4b-8c06-6c8a62033f5a","route":"support/order-status","timestamp":"2025-11-07T03:28:13.515Z"}
+{"level":"info","message":"success","reqId":"track_order-61dcd00d-52ee-4a4b-8c06-6c8a62033f5a","route":"support/order-status","timestamp":"2025-11-07T03:28:13.527Z"}
+ POST /api/support/order-status 200 in 179ms
+ POST /api/dev-analytics/collect 200 in 8ms
+ ○ Compiling /api/support/order-status ...
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ POST /api/support/order-updates 200 in 168ms
+ POST /api/dev-analytics/collect 200 in 7ms
+{"type":"metrics-redis","message":"REDIS_URL not set. Metrics will not persist across restarts.","fallback":"in-memory-only"}
+🔄 App-level cache initialized (10s TTL, max 100 entries) for /api/concierge/products
+ POST /api/dev-analytics/collect 200 in 48ms
+ POST /api/dev-analytics/collect 200 in 53ms
+ POST /api/support/products 200 in 60ms
+ POST /api/dev-analytics/collect 200 in 9ms
+ POST /api/dev-analytics/collect 200 in 10ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 43ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ POST /api/dev-analytics/collect 200 in 36ms
+ GET /collections?search=Cuff%20Bracelet%20-%20%2479 200 in 74ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 10ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 5ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 5ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 4ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ POST /api/dev-analytics/collect 200 in 20ms
+ POST /api/support/products 200 in 28ms
+ POST /api/dev-analytics/collect 200 in 10ms
+ POST /api/dev-analytics/collect 200 in 11ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 20ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ POST /api/dev-analytics/collect 200 in 13ms
+ POST /api/dev-analytics/collect 200 in 7ms
+ POST /api/dev-analytics/collect 200 in 18ms
+ POST /api/support/products 200 in 26ms
+ POST /api/dev-analytics/collect 200 in 9ms
+ POST /api/dev-analytics/collect 200 in 15ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 17ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ POST /api/dev-analytics/collect 200 in 17ms
+ POST /api/support/products 200 in 24ms
+ POST /api/dev-analytics/collect 200 in 14ms
+ POST /api/dev-analytics/collect 200 in 20ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 14ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled /api/support/order-updates in 356ms (866 modules)
+ ✓ Compiled in 167ms (866 modules)
+ ✓ Compiled in 161ms (866 modules)
+ ✓ Compiled in 191ms (866 modules)
+ ✓ Compiled in 145ms (866 modules)
+ ✓ Compiled in 159ms (397 modules)
+ GET /collections 200 in 141ms
+ ✓ Compiled /api/neon/cart/[cartId] in 169ms (512 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 232ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 4ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET / 200 in 113ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ ✓ Compiled in 360ms (866 modules)
+ ✓ Compiled in 208ms (875 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 200 in 249ms
+ GET / 200 in 248ms
+ ✓ Compiled /api/neon/cart/[cartId] in 52ms (512 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 121ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 5ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ ✓ Compiled /_not-found in 95ms (514 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 163ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled in 208ms (907 modules)
+ GET / 200 in 227ms
+ GET / 200 in 256ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 33ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 5ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 45ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 51ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 5ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ ✓ Compiled in 161ms (907 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 200 in 89ms
+ GET / 200 in 91ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 27ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 43ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 66ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ GET / 200 in 48ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 19ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 17ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 19ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 21ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 13ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 10ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 10ms
+ ✓ Compiled in 189ms (898 modules)
+ ✓ Compiled in 153ms (907 modules)
+ ✓ Compiled in 102ms (384 modules)
+ ✓ Compiled in 162ms (898 modules)
+ ✓ Compiled in 179ms (898 modules)
+ ✓ Compiled in 172ms (866 modules)
+ ✓ Compiled in 151ms (875 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 200 in 126ms
+ GET / 200 in 127ms
+ ✓ Compiled /api/neon/cart/[cartId] in 62ms (512 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 180ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 21ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ ✓ Compiled /_not-found in 59ms (514 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 216ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 205ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 219ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 11ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 6ms
+ GET / 200 in 50ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET / 200 in 35ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 77ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 78ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 102ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 103ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 52ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 27ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 30ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 260ms (875 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 200 in 265ms
+ GET / 200 in 282ms
+ GET / 200 in 228ms
+ ✓ Compiled /api/neon/cart/[cartId] in 51ms (512 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 131ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ ✓ Compiled /_not-found in 65ms (514 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 144ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 60ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ ✓ Compiled in 197ms (898 modules)
+ GET / 200 in 143ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ ○ Compiling /cart ...
+ ✓ Compiled /cart in 502ms (884 modules)
+ GET / 200 in 120ms
+ ✓ Compiled /_not-found in 99ms (532 modules)
+ ✓ Compiled (534 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 265ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 277ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 7ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 15ms
+ ✓ Compiled /products/[slug] in 406ms (909 modules)
+ ✓ Compiled /src/middleware in 154ms (72 modules)
+ADMIN_DASHBOARD_TOKEN not configured; dashboard guard disabled.
+ ✓ Compiled /dashboard in 409ms (972 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /dashboard 200 in 559ms
+ ✓ Compiled /_not-found in 80ms (589 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 158ms
+ ✓ Compiled /api/neon/cart/[cartId] in 109ms (617 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 221ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 28ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 75ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 17ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 15ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 14ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 14ms
+ADMIN_DASHBOARD_TOKEN not configured; dashboard guard disabled.
+ ✓ Compiled /dashboard/homepage in 200ms (1018 modules)
+ADMIN_DASHBOARD_TOKEN not configured; dashboard guard disabled.
+ ✓ Compiled in 461ms (989 modules)
+ ✓ Compiled in 228ms (998 modules)
+ GET / 200 in 72ms
+ ✓ Compiled /api/neon/cart/[cartId] in 83ms (616 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 167ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ ✓ Compiled /api/support/products in 277ms (619 modules)
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+{"type":"metrics-redis","message":"REDIS_URL not set. Metrics will not persist across restarts.","fallback":"in-memory-only"}
+🔄 App-level cache initialized (10s TTL, max 100 entries) for /api/concierge/products
+ POST /api/support/products 200 in 639ms
+ POST /api/dev-analytics/collect 200 in 643ms
+ POST /api/dev-analytics/collect 200 in 14ms
+ POST /api/dev-analytics/collect 200 in 22ms
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 247ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ○ Compiling /_not-found ...
+{"type":"metrics-redis","message":"REDIS_URL not set. Metrics will not persist across restarts.","fallback":"in-memory-only"}
+🔄 App-level cache initialized (10s TTL, max 100 entries) for /api/concierge/products
+ POST /api/dev-analytics/collect 200 in 65ms
+ POST /api/support/products 200 in 65ms
+ POST /api/dev-analytics/collect 200 in 18ms
+ POST /api/dev-analytics/collect 200 in 23ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 15ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ POST /api/dev-analytics/collect 200 in 32ms
+ POST /api/dev-analytics/collect 200 in 37ms
+ POST /api/dev-analytics/collect 200 in 30ms
+ POST /api/dev-analytics/collect 200 in 30ms
+ POST /api/dev-analytics/collect 200 in 36ms
+ POST /api/support/products 200 in 43ms
+ POST /api/dev-analytics/collect 200 in 14ms
+ POST /api/dev-analytics/collect 200 in 18ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 14ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ POST /api/dev-analytics/collect 200 in 27ms
+ POST /api/dev-analytics/collect 200 in 30ms
+ POST /api/dev-analytics/collect 200 in 28ms
+ POST /api/dev-analytics/collect 200 in 32ms
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ POST /api/dev-analytics/collect 200 in 35ms
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ POST /api/support/returns 400 in 350ms
+ POST /api/dev-analytics/collect 200 in 16ms
+ POST /api/support/returns 400 in 22ms
+ POST /api/dev-analytics/collect 200 in 26ms
+ POST /api/dev-analytics/collect 200 in 11ms
+ ✓ Compiled /api/support/returns in 304ms (989 modules)
+ ✓ Compiled in 187ms (989 modules)
+ ✓ Compiled in 243ms (998 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 200 in 297ms
+ GET / 200 in 300ms
+ GET / 200 in 241ms
+ GET / 200 in 115ms
+ GET / 200 in 956ms
+ ✓ Compiled /_not-found in 238ms (616 modules)
+ ✓ Compiled (618 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 340ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 523ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 7ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 15ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 13ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 9ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 8ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 10ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 9ms
+ ✓ Compiled in 187ms (1019 modules)
+ GET / 200 in 101ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 50ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 51ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 52ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 53ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 42ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 14ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 15ms
+ ✓ Compiled /collections/sustainable-icons in 378ms (1015 modules)
+ ✓ Compiled in 289ms (907 modules)
+ ✓ Compiled in 218ms (916 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 200 in 322ms
+ GET / 200 in 328ms
+ GET / 200 in 246ms
+ GET / 200 in 107ms
+ GET / 200 in 70ms
+ ✓ Compiled /_not-found in 342ms (610 modules)
+ ✓ Compiled (612 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 520ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 367ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 602ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 17ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 15ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 8ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 9ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ ✓ Compiled in 307ms (1014 modules)
+ ✓ Compiled in 224ms (1014 modules)
+ ✓ Compiled in 295ms (1014 modules)
+ ✓ Compiled in 249ms (1014 modules)
+ ✓ Compiled in 311ms (907 modules)
+ ✓ Compiled in 385ms (907 modules)
+ ✓ Compiled in 120ms (402 modules)
+ GET / 200 in 97ms
+ ✓ Compiled /api/neon/cart/[cartId] in 186ms (610 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 643ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 424ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 427ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 654ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 432ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 660ms
+ ✓ Compiled /_not-found in 165ms (612 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 259ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 450ms (932 modules)
+ ✓ Compiled in 459ms (907 modules)
+ ✓ Compiled in 423ms (907 modules)
+ ✓ Compiled in 312ms (907 modules)
+ ✓ Compiled in 193ms (916 modules)
+ ✓ Compiled in 199ms (907 modules)
+ ✓ Compiled in 190ms (907 modules)
+ ✓ Compiled in 240ms (907 modules)
+ ✓ Compiled in 153ms (402 modules)
+ ✓ Compiled in 168ms (402 modules)
+ GET / 200 in 103ms
+ ✓ Compiled /api/neon/cart/[cartId] in 413ms (610 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 501ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET / 200 in 121ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ ✓ Compiled in 151ms (402 modules)
+ ✓ Compiled in 313ms (907 modules)
+ ✓ Compiled in 197ms (907 modules)
+ GET / 200 in 99ms
+ ✓ Compiled /api/neon/cart/[cartId] in 155ms (610 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 240ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 10ms
+ GET / 200 in 123ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 58ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 18ms
+ ✓ Compiled /_not-found in 299ms (612 modules)
+ ✓ Compiled in 1ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 709ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 699ms
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 500ms
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 459ms
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 0ms (612 modules)
+ ✓ Compiled in 1ms (612 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 486ms
+ GET / 200 in 116ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 68ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 72ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 94ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 95ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 91ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 20ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 21ms
+ GET / 200 in 64ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 32ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 34ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 37ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 65ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 71ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ ✓ Compiled in 452ms (907 modules)
+ ✓ Compiled /collections in 365ms (597 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 521ms (994 modules)
+ GET / 200 in 610ms
+ GET / 200 in 622ms
+ GET / 200 in 108ms
+ GET / 200 in 89ms
+ GET / 200 in 78ms
+ ✓ Compiled /_not-found in 241ms (620 modules)
+ ✓ Compiled (622 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 362ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 368ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 567ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 20ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 17ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 18ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 18ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 18ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 18ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 19ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 11ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET / 200 in 71ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 17ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 26ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 13ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 18ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 741ms (992 modules)
+ GET / 200 in 261ms
+ ✓ Compiled /api/neon/cart/[cartId] in 406ms (619 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 489ms
+ ✓ Compiled /_not-found in 111ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 275ms
+ ✓ Compiled in 1ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 558ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 0ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 585ms
+ ✓ Compiled in 0ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 495ms
+ ✓ Compiled in 0ms (621 modules)
+ ✓ Compiled in 1ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 464ms
+ ✓ Compiled in 0ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ ✓ Compiled in 0ms (621 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 464ms
+ GET / 200 in 120ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 27ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 26ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 29ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 21ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 24ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET / 200 in 68ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 34ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 37ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 41ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 44ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 45ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 47ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 24ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 551ms (992 modules)
+ ✓ Compiled in 306ms (992 modules)
+ GET / 200 in 101ms
+ ✓ Compiled /api/neon/cart/[cartId] in 103ms (619 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 190ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 17ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 32ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 42ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 30ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ ✓ Compiled in 153ms (401 modules)
+ ✓ Compiled in 512ms (992 modules)
+ ✓ Compiled in 112ms (401 modules)
+ ✓ Compiled in 604ms (995 modules)
+ ⨯ ./src/app/globals.css:270:1
+Syntax error: /Users/decepticonmanager/Projects/GenZJewelry_AUG_12/src/app/globals.css Unclosed block
+
+  268 | }
+  269 | 
+> 270 | @media (hover: hover) {
+      | ^
+  271 |   .gallery-rail-nav:hover {
+  272 |     transform: translateY(-50%) scale(1.03);
+ ○ Compiling /_error ...
+ ⨯ ./src/app/globals.css:270:1
+Syntax error: /Users/decepticonmanager/Projects/GenZJewelry_AUG_12/src/app/globals.css Unclosed block
+
+  268 | }
+  269 | 
+> 270 | @media (hover: hover) {
+      | ^
+  271 |   .gallery-rail-nav:hover {
+  272 |     transform: translateY(-50%) scale(1.03);
+Time 2.002666
+Time 0.366666
+Time 0.292917
+Time 0.309792
+Time 0.361166
+Time 0.251666
+Time 0.269625
+ GET / 500 in 16ms
+Time 0.516459
+ GET / 500 in 23ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename '/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/.next/cache/webpack/client-development-fallback/0.pack.gz_' -> '/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/.next/cache/webpack/client-development-fallback/0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!/Users/decepticonmanager/Projects/GenZJewelry_AUG_12/src/app/globals.css': No serializer registered for PostCSSSyntaxError
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> webpack/lib/ModuleBuildError -> PostCSSSyntaxError
+Time 1.197917
+ GET / 500 in 22ms
+ ✓ Compiled /_error in 622ms (1228 modules)
+ ✓ Compiled /_not-found in 234ms (635 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET / 200 in 221ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/2dd425fbc883b086.webpack.hot-update.json 404 in 525ms
+ GET /_next/static/webpack/2dd425fbc883b086.webpack.hot-update.json 404 in 517ms
+ GET / 200 in 741ms
+ GET / 200 in 216ms
+ ✓ Compiled /api/neon/cart/[cartId] in 247ms (663 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 346ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 84ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 23ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 15ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 25ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 26ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 95ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 92ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 93ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 20ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 20ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ GET / 200 in 74ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ ✓ Compiled in 430ms (1258 modules)
+ ✓ Compiled in 424ms (1258 modules)
+ GET / 200 in 97ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 37ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 12ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ ✓ Compiled in 590ms (1228 modules)
+ GET / 200 in 109ms
+ ✓ Compiled /api/neon/cart/[cartId] in 213ms (661 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 308ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ ✓ Compiled in 590ms (1228 modules)
+ GET / 200 in 109ms
+ ✓ Compiled /api/neon/cart/[cartId] in 106ms (661 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 190ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 17ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 13ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ ✓ Compiled in 507ms (1256 modules)
+ ✓ Compiled in 430ms (1256 modules)
+ GET / 200 in 105ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 37ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 19ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 17ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ ✓ Compiled in 600ms (1256 modules)
+ GET / 200 in 113ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 42ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 17ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 15ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ ✓ Compiled in 862ms (1262 modules)
+ GET / 200 in 108ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 45ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 17ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 18ms
+ GET / 200 in 60ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 171ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 171ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 106ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 107ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 182ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 123ms
+ ✓ Compiled /_not-found in 302ms (666 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 420ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 411ms (1234 modules)
+ ✓ Compiled in 439ms (1234 modules)
+ ✓ Compiled in 418ms (1234 modules)
+ ✓ Compiled in 521ms (1234 modules)
+ GET / 200 in 235ms
+ ✓ Compiled /api/neon/cart/[cartId] in 254ms (664 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 338ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 16ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 14ms
+ ✓ Compiled in 503ms (1262 modules)
+ GET /collections?search=Cuff%20Bracelet%20-%20%2479 200 in 125ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 29ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 17ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 17ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /collections?search=Chain%20Necklace%20-%20%24129 200 in 70ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 26ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 17ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 36ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 16ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 15ms
+ GET /collections?search=Cuff%20Bracelet%20-%20%2479 200 in 70ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 35ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 35ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 36ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 37ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 41ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 43ms
+ GET / 200 in 86ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 19ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 18ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 20ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 24ms
+ ✓ Compiled /_not-found in 270ms (666 modules)
+ ✓ Compiled in 1ms (666 modules)
+ ✓ Compiled in 0ms (666 modules)
+ ✓ Compiled in 0ms (666 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 735ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 733ms
+ GET / 200 in 187ms
+ ○ Compiling /api/neon/cart/[cartId] ...
+ ✓ Compiled /_not-found in 1436ms (1262 modules)
+ ✓ Compiled in 0ms (666 modules)
+ ✓ Compiled in 0ms (666 modules)
+ ✓ Compiled in 0ms (666 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 1199ms
+ ✓ Compiled in 1ms (666 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 828ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 467ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 20ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 20ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 23ms
+ ✓ Compiled in 594ms (1264 modules)
+ ✓ Compiled in 561ms (1262 modules)
+ GET / 200 in 245ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 44ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 21ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 21ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 20ms
+ GET / 200 in 88ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 520ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 523ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 301ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 307ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 533ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 314ms
+ ✓ Compiled /_not-found in 385ms (666 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 512ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 623ms (1234 modules)
+ ✓ Compiled in 454ms (1234 modules)
+ ✓ Compiled in 605ms (1234 modules)
+ GET / 200 in 173ms
+ ✓ Compiled /api/neon/cart/[cartId] in 311ms (664 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 418ms
+ ✓ Compiled /_not-found in 305ms (666 modules)
+ ✓ Compiled in 0ms (666 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 524ms
+ ✓ Compiled in 1ms (666 modules)
+ ✓ Compiled in 0ms (666 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 899ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 0ms (666 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 754ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 23ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 20ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 23ms
+ ✓ Compiled in 834ms (1233 modules)
+ GET / 200 in 239ms
+ ✓ Compiled /api/neon/cart/[cartId] in 143ms (664 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 239ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 20ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 19ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 20ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 18ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ ✓ Compiled in 484ms (1228 modules)
+ ✓ Compiled in 566ms (1228 modules)
+ ✓ Compiled in 436ms (1228 modules)
+ GET / 200 in 240ms
+ ✓ Compiled /api/neon/cart/[cartId] in 141ms (661 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 241ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 18ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 21ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 19ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET / 200 in 140ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 43ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 45ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 50ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 51ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 44ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 45ms
+ ✓ Compiled /_not-found in 305ms (663 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 416ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 625ms (1228 modules)
+ ✓ Compiled in 494ms (1228 modules)
+ ✓ Compiled in 489ms (1228 modules)
+ GET / 200 in 249ms
+ ✓ Compiled /api/neon/cart/[cartId] in 146ms (661 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 243ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 20ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 19ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 20ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 20ms
+ ✓ Compiled in 702ms (1228 modules)
+ GET / 200 in 255ms
+ ✓ Compiled /api/neon/cart/[cartId] in 151ms (661 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 251ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 21ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 29ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 79ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 41ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 26ms
+ ✓ Compiled in 909ms (1228 modules)
+ GET / 200 in 257ms
+ ✓ Compiled /api/neon/cart/[cartId] in 154ms (661 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 256ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 21ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 21ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 20ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 19ms
+ GET / 200 in 151ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 29ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 23ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 23ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 48ms
+ ✓ Compiled /_not-found in 492ms (663 modules)
+ ✓ Compiled in 0ms (663 modules)
+ ✓ Compiled in 0ms (663 modules)
+ ✓ Compiled in 0ms (663 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 1126ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 1083ms
+ GET /login 404 in 51ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 49ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 25ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 49ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 49ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 24ms
+ ✓ Compiled /cart in 451ms (678 modules)
+ GET /cart 200 in 108ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 31ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 23ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 25ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 21ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ ✓ Compiled in 968ms (1186 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /cart 200 in 205ms
+ GET /cart 200 in 73ms
+ ✓ Compiled /api/neon/cart/[cartId] in 151ms (618 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 407ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 405ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 403ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 416ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 421ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 425ms
+ GET /cart 200 in 127ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 31ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 26ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 23ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 24ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 59ms
+ ✓ Compiled /_not-found in 187ms (620 modules)
+ ✓ Compiled in 0ms (620 modules)
+ ✓ Compiled in 1ms (620 modules)
+ ✓ Compiled in 0ms (620 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 765ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 732ms
+ ✓ Compiled /api/neon/cart in 468ms (622 modules)
+ POST /api/neon/cart 200 in 546ms
+ POST /api/neon/cart/c690b85b-3845-418a-8cb6-2a5e2bd77aae 200 in 60ms
+ ✓ Compiled in 824ms (1186 modules)
+ ✓ Compiled in 328ms (1186 modules)
+ GET /cart 200 in 112ms
+ ✓ Compiled /api/neon/cart/[cartId] in 129ms (618 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 210ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 25ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 26ms
+ GET /cart 200 in 133ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 56ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 58ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 65ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 67ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 33ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 34ms
+ ✓ Compiled /_not-found in 165ms (620 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 260ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /cart 200 in 103ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 94ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 100ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 112ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 116ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 76ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 78ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 61ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /cart 200 in 54ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 46ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 52ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 53ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 55ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 64ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 66ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 51ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 787ms (1216 modules)
+ GET /cart 200 in 112ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 61ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 66ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 60ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 57ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 73ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 75ms
+ GET /cart 200 in 72ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 91ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 94ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 98ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 96ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 80ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 81ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 67ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /cart 200 in 141ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 45ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 46ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 50ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 50ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 53ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 43ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /cart 200 in 56ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 47ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 50ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 50ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 53ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 63ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 63ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 45ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /cart 200 in 68ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 43ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 45ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 49ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 47ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 59ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 61ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 49ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 31ms
+ GET /cart 200 in 55ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 40ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 32ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 27ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 27ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 23ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 40ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 52ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 31ms
+ ✓ Compiled in 595ms (1186 modules)
+ ✓ Compiled in 320ms (1186 modules)
+ GET /cart 200 in 110ms
+ ✓ Compiled /api/neon/cart/[cartId] in 133ms (618 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 211ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 23ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /cart 200 in 227ms
+ ✓ Compiled /_not-found in 396ms (592 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 546ms
+ ✓ Compiled /api/neon/cart/[cartId] in 164ms (620 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 268ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 60ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 104ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 27ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 25ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 22ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 23ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled in 841ms (1184 modules)
+ ⨯ src/app/cart/CartClient.tsx (598:6) @ CardDeck
+ ⨯ ReferenceError: CardDeck is not defined
+    at SampleCapsuleGrid (./src/app/cart/CartClient.tsx:905:88)
+digest: "2797221088"
+[0m [90m 596 |[39m[0m
+[0m [90m 597 |[39m   [36mreturn[39m ([0m
+[0m[31m[1m>[22m[39m[90m 598 |[39m     [33m<[39m[33mCardDeck[39m className[33m=[39m[32m"pt-2"[39m gapClassName[33m=[39m[32m"gap-6"[39m autoFit[33m>[39m[0m
+[0m [90m     |[39m      [31m[1m^[22m[39m[0m
+[0m [90m 599 |[39m       {products[33m.[39mmap((product) [33m=>[39m ([0m
+[0m [90m 600 |[39m         [33m<[39m[33mProductCard[39m[0m
+[0m [90m 601 |[39m           key[33m=[39m{product[33m.[39mslug}[0m
+ ⨯ src/app/cart/CartClient.tsx (598:6) @ CardDeck
+ ⨯ ReferenceError: CardDeck is not defined
+    at SampleCapsuleGrid (./src/app/cart/CartClient.tsx:905:88)
+digest: "2797221088"
+[0m [90m 596 |[39m[0m
+[0m [90m 597 |[39m   [36mreturn[39m ([0m
+[0m[31m[1m>[22m[39m[90m 598 |[39m     [33m<[39m[33mCardDeck[39m className[33m=[39m[32m"pt-2"[39m gapClassName[33m=[39m[32m"gap-6"[39m autoFit[33m>[39m[0m
+[0m [90m     |[39m      [31m[1m^[22m[39m[0m
+[0m [90m 599 |[39m       {products[33m.[39mmap((product) [33m=>[39m ([0m
+[0m [90m 600 |[39m         [33m<[39m[33mProductCard[39m[0m
+[0m [90m 601 |[39m           key[33m=[39m{product[33m.[39mslug}[0m
+ GET /cart 500 in 782ms
+ GET /cart 500 in 767ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled /_not-found in 658ms (1184 modules)
+ ✓ Compiled (1186 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/3d0564a24801b5d9.webpack.hot-update.json 404 in 692ms
+ ⨯ src/app/cart/CartClient.tsx (598:6) @ CardDeck
+ ⨯ ReferenceError: CardDeck is not defined
+    at SampleCapsuleGrid (./src/app/cart/CartClient.tsx:907:88)
+digest: "302081728"
+[0m [90m 596 |[39m[0m
+[0m [90m 597 |[39m   [36mreturn[39m ([0m
+[0m[31m[1m>[22m[39m[90m 598 |[39m     [33m<[39m[33mCardDeck[39m className[33m=[39m[32m"pt-2"[39m gapClassName[33m=[39m[32m"gap-6"[39m autoFit[33m>[39m[0m
+[0m [90m     |[39m      [31m[1m^[22m[39m[0m
+[0m [90m 599 |[39m       {products[33m.[39mmap((product) [33m=>[39m ([0m
+[0m [90m 600 |[39m         [33m<[39m[33mProductCard[39m[0m
+[0m [90m 601 |[39m           key[33m=[39m{product[33m.[39mslug}[0m
+ ⨯ src/app/cart/CartClient.tsx (598:6) @ CardDeck
+ ⨯ ReferenceError: CardDeck is not defined
+    at SampleCapsuleGrid (./src/app/cart/CartClient.tsx:907:88)
+digest: "302081728"
+[0m [90m 596 |[39m[0m
+[0m [90m 597 |[39m   [36mreturn[39m ([0m
+[0m[31m[1m>[22m[39m[90m 598 |[39m     [33m<[39m[33mCardDeck[39m className[33m=[39m[32m"pt-2"[39m gapClassName[33m=[39m[32m"gap-6"[39m autoFit[33m>[39m[0m
+[0m [90m     |[39m      [31m[1m^[22m[39m[0m
+[0m [90m 599 |[39m       {products[33m.[39mmap((product) [33m=>[39m ([0m
+[0m [90m 600 |[39m         [33m<[39m[33mProductCard[39m[0m
+[0m [90m 601 |[39m           key[33m=[39m{product[33m.[39mslug}[0m
+ ⨯ src/app/cart/CartClient.tsx (598:6) @ CardDeck
+ ⨯ ReferenceError: CardDeck is not defined
+    at SampleCapsuleGrid (./src/app/cart/CartClient.tsx:907:88)
+digest: "302081728"
+[0m [90m 596 |[39m[0m
+[0m [90m 597 |[39m   [36mreturn[39m ([0m
+[0m[31m[1m>[22m[39m[90m 598 |[39m     [33m<[39m[33mCardDeck[39m className[33m=[39m[32m"pt-2"[39m gapClassName[33m=[39m[32m"gap-6"[39m autoFit[33m>[39m[0m
+[0m [90m     |[39m      [31m[1m^[22m[39m[0m
+[0m [90m 599 |[39m       {products[33m.[39mmap((product) [33m=>[39m ([0m
+[0m [90m 600 |[39m         [33m<[39m[33mProductCard[39m[0m
+[0m [90m 601 |[39m           key[33m=[39m{product[33m.[39mslug}[0m
+ GET /cart 500 in 371ms
+ GET /cart 500 in 725ms
+ ✓ Compiled in 397ms (1186 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /_next/static/webpack/3d0564a24801b5d9.webpack.hot-update.json 404 in 184ms
+ GET /cart 200 in 399ms
+ GET /cart 200 in 288ms
+ ✓ Compiled /api/neon/cart/[cartId] in 382ms (619 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 252ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 474ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 49ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 53ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 111ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 110ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 114ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 38ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 44ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 41ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 42ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 39ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 43ms
+ GET /cart 200 in 86ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 64ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 67ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 58ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 58ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 76ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 77ms
+ ✓ Compiled in 620ms (1184 modules)
+ GET /cart 200 in 131ms
+ ✓ Compiled /api/neon/cart/[cartId] in 158ms (617 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 252ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 26ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 27ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 29ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 26ms
+ GET /cart 200 in 123ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 49ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 53ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 59ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 60ms
+ ✓ Compiled /_not-found in 196ms (619 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 527ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 518ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 540ms
+ GET /cart 200 in 85ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 27ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 23ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 61ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 54ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /cart 200 in 52ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 48ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 48ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 54ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 56ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 65ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 68ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 53ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 642ms (1184 modules)
+ GET /cart 200 in 128ms
+ ✓ Compiled /api/neon/cart/[cartId] in 155ms (617 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 254ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 26ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 31ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 30ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 25ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 25ms
+ GET /cart 200 in 120ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 57ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 56ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 62ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 66ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 39ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 42ms
+ ✓ Compiled /_not-found in 182ms (619 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 278ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /cart 200 in 143ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 77ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 78ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 82ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 86ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 96ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 99ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 47ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ○ Compiling /checkout ...
+ ✓ Compiled /checkout in 797ms (1173 modules)
+ ✓ Compiled in 644ms (1155 modules)
+ GET /cart 200 in 96ms
+ ✓ Compiled /api/neon/cart/[cartId] in 134ms (587 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 215ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 23ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 23ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 25ms
+ ○ Compiling /support/help ...
+ ✓ Compiled /support/help in 777ms (1155 modules)
+ ✓ Compiled /api/neon/cart in 318ms (591 modules)
+ POST /api/neon/cart 200 in 388ms
+ ✓ Compiled /api/neon/cart/[cartId] in 115ms (593 modules)
+ DELETE /api/neon/cart/8160dac1-cf15-4222-84c5-90b412320a41 200 in 189ms
+ ✓ Compiled in 758ms (1162 modules)
+ GET /cart 200 in 117ms
+ ✓ Compiled /api/neon/cart/[cartId] in 141ms (591 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 227ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 28ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 25ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ ✓ Compiled in 734ms (1171 modules)
+ GET / 200 in 251ms
+ ✓ Compiled /api/neon/cart/[cartId] in 153ms (591 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 250ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 25ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 22ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 24ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 27ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 23ms
+ GET / 200 in 178ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 47ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 32ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 100ms
+ ✓ Compiled /_not-found in 439ms (593 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 797ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 754ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 28ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 28ms
+ ✓ Compiled in 965ms (1162 modules)
+ ✓ Compiled in 465ms (1162 modules)
+ ✓ Compiled in 788ms (1162 modules)
+ GET / 200 in 139ms
+ ✓ Compiled /api/neon/cart/[cartId] in 152ms (591 modules)
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 259ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 27ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 28ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 31ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 29ms
+ GET /api/neon/cart/92be3ebb-6ab6-4d3c-9b49-ab833d401668 200 in 29ms
+ GET / 200 in 151ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 33ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 33ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 29ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 56ms
+ ✓ Compiled /_not-found in 373ms (593 modules)
+ ✓ Compiled in 0ms (593 modules)
+ ✓ Compiled in 0ms (593 modules)
+ ✓ Compiled in 0ms (593 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 1069ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 971ms
+ ✓ Compiled in 598ms (1187 modules)
+ ✓ Compiled in 622ms (1162 modules)
+ ✓ Compiled in 595ms (1162 modules)
+ ✓ Compiled in 352ms (1162 modules)
+ GET / 200 in 145ms
+ ✓ Compiled /api/neon/cart/[cartId] in 382ms (591 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 485ms
+ ✓ Compiled /_not-found in 155ms (593 modules)
+ ✓ Compiled in 0ms (593 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 402ms
+ ✓ Compiled in 0ms (593 modules)
+ ✓ Compiled in 0ms (593 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 805ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ✓ Compiled in 0ms (593 modules)
+ ✓ Compiled in 0ms (593 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 852ms
+ ✓ Compiled in 0ms (593 modules)
+ ✓ Compiled in 0ms (593 modules)
+ ✓ Compiled in 0ms (593 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 839ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 32ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 78ms
+ ✓ Compiled in 956ms (1162 modules)
+ ✓ Compiled in 748ms (1162 modules)
+ GET / 200 in 155ms
+ ✓ Compiled /api/neon/cart/[cartId] in 176ms (591 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 291ms
+ ✓ Compiled /_not-found in 202ms (593 modules)
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 533ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 543ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 42ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 31ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 36ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 28ms
+ GET /journal/materials 404 in 43ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 33ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 40ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 60ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 55ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 28ms
+ GET / 200 in 114ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 34ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 31ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 29ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 29ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 61ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 55ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 44ms
+ ○ Compiling /creators ...
+ ✓ Compiled /creators in 854ms (1181 modules)
+ GET /about 404 in 81ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 67ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 29ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 31ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 51ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 51ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 50ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 26ms
+ ✓ Compiled in 263ms (600 modules)
+ ✓ Compiled in 128ms (600 modules)
+ ✓ Compiled in 122ms (600 modules)
+ GET /login 404 in 37ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 33ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 31ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 36ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 42ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 59ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 63ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /apple-touch-icon-precomposed.png 404 in 101ms
+ GET /apple-touch-icon.png 404 in 98ms
+ GET / 200 in 136ms
+ ○ Compiling /customizer ...
+ ✓ Compiled /customizer in 2.3s (1488 modules)
+ GET /customizer 200 in 2454ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 977ms (759 modules)
+ ✓ Compiled (763 modules)
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 1323ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ GET /api/neon/customizer/config 200 in 1586ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 1435ms
+ GET /api/neon/customizer/config 200 in 1596ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 35ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 28ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 36ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ GET /api/neon/cart/e34ee21e-9b86-42b6-b3f6-0d207d1e0e1d 200 in 30ms
+ ○ Compiling /api/support/products ...
+ ✓ Compiled /api/support/products in 622ms (749 modules)
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+{"type":"metrics-redis","message":"REDIS_URL not set. Metrics will not persist across restarts.","fallback":"in-memory-only"}
+🔄 App-level cache initialized (10s TTL, max 100 entries) for /api/concierge/products
+ POST /api/support/products 200 in 1426ms
+ POST /api/dev-analytics/collect 200 in 1438ms
+ POST /api/dev-analytics/collect 200 in 47ms
+ POST /api/dev-analytics/collect 200 in 56ms
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 322ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ○ Compiling /_not-found ...
+{"type":"metrics-redis","message":"REDIS_URL not set. Metrics will not persist across restarts.","fallback":"in-memory-only"}
+🔄 App-level cache initialized (10s TTL, max 100 entries) for /api/concierge/products
+ POST /api/support/products 200 in 106ms
+ POST /api/dev-analytics/collect 200 in 125ms
+ POST /api/dev-analytics/collect 200 in 52ms
+ POST /api/dev-analytics/collect 200 in 57ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 38ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ POST /api/dev-analytics/collect 200 in 65ms
+ POST /api/support/products 200 in 80ms
+ POST /api/dev-analytics/collect 200 in 53ms
+ POST /api/dev-analytics/collect 200 in 53ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 30ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ POST /api/dev-analytics/collect 200 in 62ms
+ POST /api/dev-analytics/collect 200 in 70ms
+ POST /api/dev-analytics/collect 200 in 32ms
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+{"type":"metrics-redis","message":"REDIS_URL not set. Metrics will not persist across restarts.","fallback":"in-memory-only"}
+🔄 App-level cache initialized (10s TTL, max 100 entries) for /api/concierge/products
+ POST /api/support/products 200 in 128ms
+ POST /api/dev-analytics/collect 200 in 154ms
+ POST /api/dev-analytics/collect 200 in 142ms
+ POST /api/dev-analytics/collect 200 in 48ms
+ POST /api/dev-analytics/collect 200 in 50ms
+ GET /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg 404 in 88ms
+ ⨯ The requested resource isn't a valid image for /images/category/bracelets/16023_RND_0075CT_Y_1_1600X1600.jpg received null
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts
+ ⚠ ./src/lib/concierge/providers/index.ts
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./src/lib/concierge/providers/index.ts
+./src/app/api/concierge/products/route.ts
+./src/app/api/support/products/route.ts

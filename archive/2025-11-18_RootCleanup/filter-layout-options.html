@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filter Layout Options - GenZ Jewelry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom scrollbar hiding */
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    /* Smooth scroll behavior */
+    .snap-x {
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .snap-start {
+      scroll-snap-align: start;
+    }
+    
+    /* Gradient fade effect */
+    .fade-right::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      background: linear-gradient(to right, transparent, white);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  
+  <!-- Header -->
+  <div class="max-w-7xl mx-auto mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-2">Filter Layout Options</h1>
+    <p class="text-gray-600">Three production-ready approaches for the GenZ Jewelry catalog filter system</p>
+    <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+      <p class="text-sm text-blue-900"><strong>Current Issue:</strong> Pills stacking vertically due to flex container not constraining properly.</p>
+      <p class="text-sm text-blue-700 mt-1"><strong>Root Cause:</strong> Parent container needs explicit overflow handling and child width constraints.</p>
+    </div>
+  </div>
+
+  <!-- Option 1: Single Row with Horizontal Scroll (RECOMMENDED) -->
+  <div class="max-w-7xl mx-auto mb-16 p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+    <div class="mb-6">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full">RECOMMENDED</span>
+        <h2 class="text-2xl font-bold text-gray-900">Option 1: Single Row Scroll</h2>
+      </div>
+      <p class="text-gray-600 mb-4">Industry standard (James Allen, Blue Nile). Best for mobile. Clean, scannable.</p>
+      
+      <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+        <div class="p-3 bg-green-50 rounded-lg">
+          <strong class="text-green-900">✓ Pros:</strong>
+          <ul class="text-green-700 mt-1 space-y-1">
+            <li>• Most mobile-friendly</li>
+            <li>• Prevents layout shift</li>
+            <li>• Progressive disclosure</li>
+            <li>• Easy to implement</li>
+          </ul>
+        </div>
+        <div class="p-3 bg-red-50 rounded-lg">
+          <strong class="text-red-900">✗ Cons:</strong>
+          <ul class="text-red-700 mt-1 space-y-1">
+            <li>• Requires scroll on desktop</li>
+            <li>• Hidden filters less discoverable</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo -->
+    <div class="border-2 border-gray-300 rounded-xl p-6 bg-gray-50">
+      <div class="mb-4">
+        <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">Quick Picks:</p>
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <button class="text-xs text-purple-600 hover:underline whitespace-nowrap">🎁 Gifts Under $300</button>
+          <span class="text-gray-300">•</span>
+          <button class="text-xs text-purple-600 hover:underline whitespace-nowrap">⚡ Ready to Ship Gold</button>
+          <span class="text-gray-300">•</span>
+          <button class="text-xs text-purple-600 hover:underline whitespace-nowrap">✨ Limited Editions</button>
+        </div>
+      </div>
+      
+      <!-- KEY FIX: Container must have overflow-x-auto and flex-nowrap -->
+      <div class="relative">
+        <div class="overflow-x-auto scrollbar-hide pb-2 fade-right">
+          <div class="flex items-center gap-3 min-w-max">
+            <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition whitespace-nowrap">
+              Category <span class="ml-1">▼</span>
+            </button>
+            <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition whitespace-nowrap">
+              Price <span class="ml-1">▼</span>
+            </button>
+            <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-purple-400 bg-purple-50 text-xs font-bold uppercase tracking-wider hover:border-purple-500 transition whitespace-nowrap">
+              Metal <span class="bg-purple-200 px-2 py-0.5 rounded-full text-xs">2</span> <span class="ml-1">▼</span>
+            </button>
+            <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition whitespace-nowrap">
+              Availability <span class="ml-1">▼</span>
+            </button>
+            <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition whitespace-nowrap">
+              Tone <span class="ml-1">▼</span>
+            </button>
+            <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition whitespace-nowrap">
+              Gemstone <span class="ml-1">▼</span>
+            </button>
+            <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition whitespace-nowrap">
+              More Filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-gray-200">
+        <pre class="text-xs bg-gray-800 text-green-400 p-4 rounded overflow-x-auto"><code>&lt;!-- KEY: Parent must control overflow, children must not wrap --&gt;
+&lt;div className="overflow-x-auto scrollbar-hide"&gt;
+  &lt;div className="flex items-center gap-3 min-w-max"&gt;
+    &lt;div className="flex-shrink-0"&gt;...pill...&lt;/div&gt;
+    &lt;div className="flex-shrink-0"&gt;...pill...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option 2: Two-Row Layout with Primary/Secondary Filters -->
+  <div class="max-w-7xl mx-auto mb-16 p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+    <div class="mb-6">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full">ALTERNATIVE</span>
+        <h2 class="text-2xl font-bold text-gray-900">Option 2: Two-Row Split</h2>
+      </div>
+      <p class="text-gray-600 mb-4">Separates primary (common) filters from secondary (advanced). Better desktop discoverability.</p>
+      
+      <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+        <div class="p-3 bg-green-50 rounded-lg">
+          <strong class="text-green-900">✓ Pros:</strong>
+          <ul class="text-green-700 mt-1 space-y-1">
+            <li>• All filters visible on desktop</li>
+            <li>• Logical grouping</li>
+            <li>• No horizontal scroll needed</li>
+            <li>• Clear hierarchy</li>
+          </ul>
+        </div>
+        <div class="p-3 bg-red-50 rounded-lg">
+          <strong class="text-red-900">✗ Cons:</strong>
+          <ul class="text-red-700 mt-1 space-y-1">
+            <li>• Uses more vertical space</li>
+            <li>• Mobile needs collapse/expand</li>
+            <li>• More complex state management</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo -->
+    <div class="border-2 border-gray-300 rounded-xl p-6 bg-gray-50">
+      <!-- Primary Row -->
+      <div class="mb-3">
+        <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">Primary Filters:</p>
+        <div class="flex flex-wrap items-center gap-2">
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition">
+            Category <span class="ml-1">▼</span>
+          </button>
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition">
+            Price <span class="ml-1">▼</span>
+          </button>
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-purple-400 bg-purple-50 text-xs font-bold uppercase tracking-wider hover:border-purple-500 transition">
+            Metal <span class="bg-purple-200 px-2 py-0.5 rounded-full text-xs">2</span> <span class="ml-1">▼</span>
+          </button>
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition">
+            Availability <span class="ml-1">▼</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Secondary Row -->
+      <div class="pt-3 border-t border-gray-200">
+        <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">Refine By:</p>
+        <div class="flex flex-wrap items-center gap-2">
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white text-xs font-semibold hover:border-gray-400 transition">
+            Tone <span class="ml-1">▼</span>
+          </button>
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white text-xs font-semibold hover:border-gray-400 transition">
+            Gemstone <span class="ml-1">▼</span>
+          </button>
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white text-xs font-semibold hover:border-gray-400 transition">
+            ✨ Limited Edition
+          </button>
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 bg-white text-xs font-semibold hover:border-gray-400 transition">
+            🌟 Bestseller
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-gray-200">
+        <pre class="text-xs bg-gray-800 text-green-400 p-4 rounded overflow-x-auto"><code>&lt;!-- Two rows with flex-wrap allowed --&gt;
+&lt;div className="flex flex-wrap items-center gap-2"&gt;
+  &lt;!-- Primary filters here --&gt;
+&lt;/div&gt;
+&lt;div className="flex flex-wrap items-center gap-2 mt-3"&gt;
+  &lt;!-- Secondary filters here --&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option 3: Compact Inline with "More" Drawer -->
+  <div class="max-w-7xl mx-auto mb-16 p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+    <div class="mb-6">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full">HYBRID</span>
+        <h2 class="text-2xl font-bold text-gray-900">Option 3: Compact + Drawer</h2>
+      </div>
+      <p class="text-gray-600 mb-4">Shows 3-4 key filters inline, rest in "More Filters" drawer. Best for complex catalogs.</p>
+      
+      <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+        <div class="p-3 bg-green-50 rounded-lg">
+          <strong class="text-green-900">✓ Pros:</strong>
+          <ul class="text-green-700 mt-1 space-y-1">
+            <li>• Minimal visual clutter</li>
+            <li>• Scalable (10+ filters)</li>
+            <li>• Clear primary actions</li>
+            <li>• Works on all screen sizes</li>
+          </ul>
+        </div>
+        <div class="p-3 bg-red-50 rounded-lg">
+          <strong class="text-red-900">✗ Cons:</strong>
+          <ul class="text-red-700 mt-1 space-y-1">
+            <li>• Hidden filters need extra click</li>
+            <li>• Drawer adds complexity</li>
+            <li>• Requires good drawer UX</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo -->
+    <div class="border-2 border-gray-300 rounded-xl p-6 bg-gray-50">
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 flex-1">
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition">
+            Category <span class="ml-1">▼</span>
+          </button>
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-gray-300 bg-white text-xs font-bold uppercase tracking-wider hover:border-gray-400 transition">
+            Price <span class="ml-1">▼</span>
+          </button>
+          <button class="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-purple-400 bg-purple-50 text-xs font-bold uppercase tracking-wider hover:border-purple-500 transition">
+            Metal <span class="bg-purple-200 px-2 py-0.5 rounded-full text-xs">2</span> <span class="ml-1">▼</span>
+          </button>
+        </div>
+        <button class="flex-shrink-0 inline-flex items-center gap-2 px-6 py-2.5 rounded-full border-2 border-gray-400 bg-gray-100 text-xs font-bold uppercase tracking-wider hover:bg-gray-200 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+          </svg>
+          More Filters <span class="bg-gray-300 px-2 py-0.5 rounded-full text-xs ml-1">4</span>
+        </button>
+      </div>
+
+      <!-- Active Filters Display -->
+      <div class="mt-4 pt-4 border-t border-gray-200">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-xs text-gray-500">Active:</span>
+          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 text-purple-900 text-xs font-semibold">
+            Metal: Gold, Silver
+            <button class="hover:text-purple-700">×</button>
+          </span>
+          <button class="text-xs text-gray-500 hover:text-gray-700 underline">Clear all</button>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-gray-200">
+        <pre class="text-xs bg-gray-800 text-green-400 p-4 rounded overflow-x-auto"><code>&lt;!-- Show top 3-4 filters, rest in drawer --&gt;
+&lt;div className="flex items-center gap-3"&gt;
+  &lt;FilterPill label="Category" /&gt;
+  &lt;FilterPill label="Price" /&gt;
+  &lt;FilterPill label="Metal" active /&gt;
+  &lt;button onClick={openDrawer}&gt;More Filters (4)&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Implementation Guide -->
+  <div class="max-w-7xl mx-auto mb-16 p-8 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">🔧 Fix for Your Current Code</h2>
+    <p class="text-gray-700 mb-6">Your filter pills are stacking because the parent container allows wrapping. Here's the exact fix:</p>
+
+    <div class="bg-white rounded-lg p-6 border-2 border-purple-300 mb-4">
+      <h3 class="font-bold text-lg mb-3 text-red-600">❌ Current Problem Code:</h3>
+      <pre class="text-sm bg-gray-900 text-gray-300 p-4 rounded overflow-x-auto"><code>&lt;div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide flex-nowrap"&gt;
+  &lt;div className="relative flex-shrink-0"&gt;
+    &lt;FilterPill label="Category" /&gt;
+  &lt;/div&gt;
+  &lt;div className="relative flex-shrink-0"&gt;
+    &lt;FilterPill label="Price" /&gt;
+  &lt;/div&gt;
+  {/* ...more pills */}
+&lt;/div&gt;
+
+&lt;!-- ISSUE: The flex container might still wrap if parent doesn't constrain width --&gt;</code></pre>
+    </div>
+
+    <div class="bg-white rounded-lg p-6 border-2 border-green-500">
+      <h3 class="font-bold text-lg mb-3 text-green-600">✅ Fixed Code (Option 1 - Recommended):</h3>
+      <pre class="text-sm bg-gray-900 text-green-400 p-4 rounded overflow-x-auto"><code>&lt;!-- Outer wrapper controls overflow --&gt;
+&lt;div className="overflow-x-auto scrollbar-hide pb-2"&gt;
+  &lt;!-- Inner flex must not wrap, uses min-w-max --&gt;
+  &lt;div className="flex items-center gap-3 min-w-max"&gt;
+    &lt;div className="relative flex-shrink-0"&gt;
+      &lt;FilterPill label="Category" /&gt;
+      {isCategoryOpen && &lt;FilterDropdown /&gt;}
+    &lt;/div&gt;
+    &lt;div className="relative flex-shrink-0"&gt;
+      &lt;FilterPill label="Price" /&gt;
+      {isPriceOpen && &lt;FilterDropdown /&gt;}
+    &lt;/div&gt;
+    &lt;div className="relative flex-shrink-0"&gt;
+      &lt;FilterPill label="Metal" /&gt;
+      {isMetalOpen && &lt;FilterDropdown /&gt;}
+    &lt;/div&gt;
+    {/* ...more pills */}
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- KEY CHANGES:
+  1. Remove flex-nowrap from outer div (doesn't work with overflow-x-auto)
+  2. Add min-w-max to inner flex container (prevents wrapping)
+  3. Keep flex-shrink-0 on each pill wrapper
+--&gt;</code></pre>
+    </div>
+
+    <div class="mt-6 grid md:grid-cols-3 gap-4">
+      <div class="bg-white p-4 rounded-lg border-2 border-blue-300">
+        <h4 class="font-bold text-blue-900 mb-2">📏 CSS Key: min-w-max</h4>
+        <p class="text-sm text-gray-700">Forces the inner flex container to be as wide as its content, preventing wrapping even when parent has overflow.</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg border-2 border-blue-300">
+        <h4 class="font-bold text-blue-900 mb-2">🎯 Structure: Two Divs</h4>
+        <p class="text-sm text-gray-700">Outer div handles scrolling, inner div holds flex items. This separation is crucial for preventing wraps.</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg border-2 border-blue-300">
+        <h4 class="font-bold text-blue-900 mb-2">🔒 Each Pill: flex-shrink-0</h4>
+        <p class="text-sm text-gray-700">Prevents individual pills from shrinking below their content size, maintaining consistent sizing.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Decision Matrix -->
+  <div class="max-w-7xl mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">📊 Quick Decision Matrix</h2>
+    
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b-2 border-gray-300">
+          <th class="text-left p-3 font-bold">Scenario</th>
+          <th class="text-left p-3 font-bold">Recommended Option</th>
+          <th class="text-left p-3 font-bold">Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+          <td class="p-3">Mobile-first, 5-7 filters</td>
+          <td class="p-3 font-semibold text-green-600">Option 1: Single Row Scroll</td>
+          <td class="p-3 text-gray-600">Clean, proven, mobile-optimized</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+          <td class="p-3">Desktop-heavy traffic, 4-6 filters</td>
+          <td class="p-3 font-semibold text-blue-600">Option 2: Two-Row Split</td>
+          <td class="p-3 text-gray-600">All filters visible, no scroll</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+          <td class="p-3">10+ filter options, complex catalog</td>
+          <td class="p-3 font-semibold text-yellow-600">Option 3: Compact + Drawer</td>
+          <td class="p-3 text-gray-600">Scales well, progressive disclosure</td>
+        </tr>
+        <tr class="border-b border-gray-200 hover:bg-gray-50">
+          <td class="p-3">Current implementation (quick fix)</td>
+          <td class="p-3 font-semibold text-green-600">Option 1 with min-w-max</td>
+          <td class="p-3 text-gray-600">Minimal code changes required</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mt-6 p-4 bg-purple-50 border-l-4 border-purple-500 rounded">
+      <p class="font-bold text-purple-900 mb-2">🎯 My Recommendation for GenZ Jewelry:</p>
+      <p class="text-purple-800"><strong>Go with Option 1 (Single Row Scroll)</strong> for your current implementation. It's the fastest fix, most mobile-friendly, and matches your James Allen reference. You can always add Option 3's "More Filters" drawer later if you need to scale beyond 7-8 filters.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="max-w-7xl mx-auto text-center text-gray-500 text-sm mt-12">
+    <p>Designed by UI/UX Designer @ GenZ Jewelry • Aurora Design System</p>
+    <p class="mt-2">Open this file in your browser to interact with the demos</p>
+  </div>
+
+</body>
+</html>

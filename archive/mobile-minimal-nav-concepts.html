@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GlowGlitch · Minimal Mobile Navigation Concepts</title>
+    <style>
+      :root {
+        --color-bg: #f4f1ec;
+        --color-surface: #ffffff;
+        --color-ink: #3f4a45;
+        --color-ink-2: #8a978f;
+        --color-muted: #b6c0ba;
+        --color-line-subtle: #e8e3dc;
+        --color-line-strong: #d2cabc;
+        --color-accent: #3f4a45;
+        --color-accent-contrast: #faf6f1;
+        --ja-accent-primary: var(--color-accent);
+        --ja-accent-secondary: #d6c6b2;
+        --ja-accent-muted: #f0e8dd;
+        --ja-surface-page: var(--color-bg);
+        --ja-surface-base: var(--color-surface);
+        --ja-text-primary: var(--color-ink);
+        --ja-text-secondary: var(--color-ink-2);
+        --ja-text-muted: var(--color-muted);
+        --ja-border-subtle: var(--color-line-subtle);
+        --ja-border-strong: var(--color-line-strong);
+        --ja-shadow-soft: 0 18px 38px rgba(26, 31, 29, 0.08);
+        --ja-shadow-medium: 0 24px 54px rgba(26, 31, 29, 0.12);
+        --ja-shadow-focus: 0 0 0 3px color-mix(in oklab, var(--color-accent) 48%, white);
+        --ja-radius-xl: 32px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Commissioner', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+        line-height: 1.6;
+        background: var(--ja-surface-page);
+        color: var(--ja-text-secondary);
+        padding-bottom: 4rem;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2.5rem clamp(1.5rem, 5vw, 3.5rem);
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .page-header h1 {
+        margin: 0 0 0.75rem;
+        color: var(--ja-text-primary);
+        font-size: clamp(1.8rem, 5vw, 2.6rem);
+        letter-spacing: -0.02em;
+      }
+
+      .page-header p {
+        margin: 0;
+        max-width: 720px;
+      }
+
+      .card {
+        background: var(--ja-surface-base);
+        border: 1px solid var(--ja-border-subtle);
+        border-radius: 28px;
+        padding: clamp(1.5rem, 4vw, 2.25rem);
+        box-shadow: var(--ja-shadow-soft);
+      }
+
+      .audit-points {
+        display: grid;
+        gap: 0.75rem;
+        padding: 0;
+        margin: 1.5rem 0 0;
+        list-style: none;
+      }
+
+      .audit-points li {
+        display: flex;
+        gap: 0.65rem;
+      }
+
+      .audit-points li::before {
+        content: '•';
+        color: var(--ja-accent-primary);
+        font-weight: 600;
+      }
+
+      .prototype-grid {
+        display: grid;
+        gap: 2rem;
+      }
+
+      @media (min-width: 980px) {
+        .prototype-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .option-card {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .option-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .eyebrow {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ja-text-muted);
+        font-weight: 600;
+      }
+
+      .option-info h3 {
+        margin: 0;
+        font-size: 1.35rem;
+        color: var(--ja-text-primary);
+      }
+
+      .option-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .option-meta li {
+        padding: 0.2rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        color: var(--ja-text-primary);
+        background: var(--ja-accent-muted);
+      }
+
+      .mobile-shell {
+        position: relative;
+        width: min(330px, 100%);
+        height: 640px;
+        border-radius: var(--ja-radius-xl);
+        border: 1px solid var(--ja-border-subtle);
+        background: var(--ja-surface-base);
+        padding: 1rem;
+        box-shadow: var(--ja-shadow-soft);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        isolation: isolate;
+      }
+
+      .mobile-status {
+        height: 6px;
+        align-self: center;
+        width: 120px;
+        border-radius: 999px;
+        background: color-mix(in oklab, var(--color-ink-2) 30%, transparent);
+        opacity: 0.4;
+      }
+
+      .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 16px;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--ja-border-subtle);
+      }
+
+      .mobile-header strong {
+        color: var(--ja-text-primary);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+
+      .icon-button {
+        border: 1px solid var(--ja-border-strong);
+        background: var(--ja-surface-base);
+        color: var(--ja-text-primary);
+        border-radius: 999px;
+        padding: 0.45rem 0.9rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .icon-button:hover {
+        background: var(--ja-accent-muted);
+      }
+
+      .mobile-body {
+        flex: 1;
+        border-radius: 20px;
+        background: linear-gradient(135deg, var(--ja-accent-muted), var(--ja-accent-secondary));
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        padding: 1rem;
+        color: var(--ja-text-primary);
+      }
+
+      .mobile-body p {
+        font-size: 0.9rem;
+        margin: 0;
+      }
+
+      .nav-overlay {
+        position: absolute;
+        inset: 14px;
+        border-radius: 28px;
+        border: 1px solid var(--ja-border-subtle);
+        background: color-mix(in oklab, var(--ja-surface-base) 95%, transparent);
+        box-shadow: var(--ja-shadow-medium);
+        padding: 1.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(24px) scale(0.98);
+        transition: opacity 220ms ease, transform 220ms ease;
+        backdrop-filter: blur(24px);
+      }
+
+      .mobile-shell.nav-open .nav-overlay {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+      }
+
+      .nav-topline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .nav-topline h4 {
+        margin: 0;
+        font-size: 1rem;
+        color: var(--ja-text-primary);
+      }
+
+      .nav-topline button,
+      .close-button {
+        border: 1px solid var(--ja-border-subtle);
+        background: transparent;
+        padding: 0.35rem 0.75rem;
+        border-radius: 999px;
+        color: var(--ja-text-primary);
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+
+      .nav-search {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid var(--ja-border-subtle);
+        border-radius: 14px;
+        padding: 0.6rem 0.8rem;
+        background: var(--ja-surface-base);
+      }
+
+      .nav-search input {
+        border: none;
+        outline: none;
+        flex: 1;
+        font-size: 0.9rem;
+        color: var(--ja-text-primary);
+        background: transparent;
+      }
+
+      .cta-stack {
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      .cta-primary,
+      .cta-secondary {
+        border-radius: 14px;
+        border: 1px solid transparent;
+        padding: 0.65rem 0.9rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .cta-primary {
+        background: var(--ja-accent-primary);
+        color: var(--color-accent-contrast);
+      }
+
+      .cta-secondary {
+        border-color: var(--ja-border-subtle);
+        background: transparent;
+        color: var(--ja-text-primary);
+      }
+
+      .nav-list {
+        overflow-y: auto;
+        padding-right: 0.25rem;
+      }
+
+      .nav-section {
+        border-top: 1px solid var(--ja-border-subtle);
+        padding: 0.35rem 0;
+      }
+
+      .nav-section:first-child {
+        border-top: none;
+      }
+
+      .nav-section summary {
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.4rem 0;
+      }
+
+      .nav-section summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .summary-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+      }
+
+      .summary-text span {
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ja-text-muted);
+      }
+
+      .summary-text strong {
+        color: var(--ja-text-primary);
+        font-size: 0.95rem;
+      }
+
+      .summary-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        border: 1px solid var(--ja-border-subtle);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        color: var(--ja-text-primary);
+      }
+
+      .nav-section[open] .summary-icon {
+        background: var(--ja-accent-muted);
+      }
+
+      .nav-links-grid {
+        padding: 0.35rem 0 0.75rem;
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .nav-column-title {
+        margin: 0;
+        font-size: 0.8rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ja-text-muted);
+      }
+
+      .nav-column ul {
+        list-style: none;
+        margin: 0.35rem 0 0;
+        padding: 0;
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .nav-column a {
+        display: flex;
+        flex-direction: column;
+        gap: 0.05rem;
+        text-decoration: none;
+        color: var(--ja-text-primary);
+        font-weight: 500;
+        font-size: 0.92rem;
+      }
+
+      .nav-column a span {
+        font-size: 0.78rem;
+        color: var(--ja-text-secondary);
+        font-weight: 400;
+      }
+
+      .nav-column a:hover {
+        color: var(--ja-accent-primary);
+      }
+
+      .drawer-quick-actions {
+        display: flex;
+        gap: 0.35rem;
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+      }
+
+      .drawer-quick-actions button {
+        border: 1px solid var(--ja-border-subtle);
+        background: var(--ja-accent-muted);
+        border-radius: 18px;
+        padding: 0.4rem 0.85rem;
+        font-size: 0.82rem;
+        color: var(--ja-text-primary);
+        cursor: pointer;
+      }
+
+      .mobile-shell[data-demo='drawer'] .nav-overlay {
+        inset: auto 14px 14px;
+        height: 74%;
+        border-radius: 32px 32px 26px 26px;
+        background: rgba(255, 255, 255, 0.96);
+        transform: translateY(28px);
+      }
+
+      .mobile-shell[data-demo='drawer'] .nav-handle {
+        width: 48px;
+        height: 4px;
+        border-radius: 999px;
+        background: var(--ja-border-subtle);
+        margin: 0 auto;
+      }
+
+      .mobile-shell[data-demo='segment'] .nav-overlay {
+        inset: 120px 14px 14px;
+        padding-top: 1rem;
+        gap: 0.75rem;
+      }
+
+      .segmented-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .segmented-tabs button {
+        flex: 1 1 calc(33% - 0.4rem);
+        min-width: 70px;
+        border-radius: 12px;
+        border: 1px solid var(--ja-border-subtle);
+        padding: 0.4rem 0.65rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--ja-text-primary);
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .segmented-tabs button.is-active {
+        background: var(--ja-accent-primary);
+        color: var(--color-accent-contrast);
+        border-color: var(--ja-accent-primary);
+      }
+
+      .mobile-shell[data-demo='segment'] .nav-section {
+        border-top-color: rgba(63, 74, 69, 0.15);
+      }
+
+      .mobile-shell[data-demo='segment'] .nav-links-grid {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .mobile-shell[data-demo='segment'] .nav-column ul {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .mobile-shell[data-demo='drawer'] .nav-links-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .mobile-shell[data-demo='stack'] .nav-links-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .mobile-shell[data-demo='drawer'] .nav-search {
+        border-radius: 999px;
+      }
+
+      .note {
+        font-size: 0.8rem;
+        color: var(--ja-text-muted);
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="page-header">
+        <h1>Mobile Navigation Concepts · Aurora System</h1>
+        <p>
+          Reference: current desktop mega-nav uses hover/portal behaviors (`src/components/ui/MegaNav.tsx`) with four-column
+          panels + editorial banner. Below are minimalist mobile explorations with expandable sections that stay true to Aurora tokens.
+        </p>
+      </header>
+
+      <section class="card">
+        <h2 class="eyebrow">Desktop audit</h2>
+        <h3>Summary of current mega navigation</h3>
+        <ul class="audit-points">
+          <li>Mega-nav triggers (`button` per section) rely on hover/focus to open portal panel with calculated top offset and closing behavior.</li>
+          <li>Each panel surfaces up to four columns of links plus an optional banner CTA, emphasizing storytelling across Discover, Shop, Custom, Journal, Support.</li>
+          <li>Typography, paddings, and brand cues reference Aurora tokens (text-secondary defaults, accent dividers, subtle hover states).</li>
+          <li>Desktop-only layout (hidden until `md:flex`) means mobile relies on placeholder “Menu” CTA without structured IA today.</li>
+        </ul>
+      </section>
+
+      <section class="prototype-grid">
+        <article class="option-card">
+          <div class="option-info">
+            <p class="eyebrow">Option A</p>
+            <h3>Focus Stack Overlay</h3>
+            <p>Full-screen glass overlay with search-first affordance and accordion sections. Ideal for users deep in discovery flows.</p>
+            <ul class="option-meta">
+              <li>Search on top</li>
+              <li>Context copy</li>
+              <li>CTA block</li>
+            </ul>
+          </div>
+          <div class="mobile-shell" data-demo="stack">
+            <div class="mobile-status"></div>
+            <div class="mobile-header">
+              <strong>GlowGlitch</strong>
+              <button type="button" class="icon-button" data-toggle-nav>Menu</button>
+            </div>
+            <div class="mobile-body">
+              <p>Hero / product canvas placeholder</p>
+            </div>
+            <div class="nav-overlay" aria-hidden="true">
+              <div class="nav-topline">
+                <h4>Navigate GlowGlitch</h4>
+                <button type="button" class="close-button" data-close-nav>Close</button>
+              </div>
+              <div class="nav-search">
+                <span aria-hidden="true">🔍</span>
+                <input type="text" placeholder="Search capsules, journal, or rings" />
+              </div>
+              <div class="cta-stack">
+                <button class="cta-primary" type="button">Start customizing</button>
+                <button class="cta-secondary" type="button">Talk to concierge</button>
+              </div>
+              <div class="nav-list" data-nav data-variant="stack" data-nav-id="stack"></div>
+            </div>
+          </div>
+          <p class="note">Accordion defaults to Discover open; CTA block keeps hero actions visible once the overlay is triggered.</p>
+        </article>
+
+        <article class="option-card">
+          <div class="option-info">
+            <p class="eyebrow">Option B</p>
+            <h3>Capsule Drawer</h3>
+            <p>Bottom sheet peeks above the fold and highlights quick journeys. Sections stay collapsible for one-handed use.</p>
+            <ul class="option-meta">
+              <li>Bottom sheet</li>
+              <li>Quick chips</li>
+              <li>Reduced columns</li>
+            </ul>
+          </div>
+          <div class="mobile-shell" data-demo="drawer">
+            <div class="mobile-status"></div>
+            <div class="mobile-header">
+              <strong>GlowGlitch</strong>
+              <button type="button" class="icon-button" data-toggle-nav>Browse</button>
+            </div>
+            <div class="mobile-body">
+              <p>Product grid preview</p>
+            </div>
+            <div class="nav-overlay" aria-hidden="true">
+              <div class="nav-handle"></div>
+              <div class="nav-topline">
+                <h4>Pick a capsule</h4>
+                <button type="button" class="close-button" data-close-nav>Done</button>
+              </div>
+              <div class="nav-search">
+                <span aria-hidden="true">⌘K</span>
+                <input type="text" placeholder="Jump to product, support, or drop" />
+              </div>
+              <div class="drawer-quick-actions">
+                <button type="button">Shop all</button>
+                <button type="button">New drops</button>
+                <button type="button">AR try-on</button>
+                <button type="button">Support</button>
+              </div>
+              <div class="nav-list" data-nav data-variant="drawer" data-column-cap="2" data-nav-id="drawer"></div>
+            </div>
+          </div>
+          <p class="note">Drawer height keeps hero context visible; quick chips address common intents before expanding sections.</p>
+        </article>
+
+        <article class="option-card">
+          <div class="option-info">
+            <p class="eyebrow">Option C</p>
+            <h3>Segmented Map</h3>
+            <p>Chipped tabs map to top IA sections; expanding a tab reveals trimmed link groups for faster scanning.</p>
+            <ul class="option-meta">
+              <li>Segmented toggles</li>
+              <li>2-column cap</li>
+              <li>CTA persistent</li>
+            </ul>
+          </div>
+          <div class="mobile-shell" data-demo="segment">
+            <div class="mobile-status"></div>
+            <div class="mobile-header">
+              <strong>GlowGlitch</strong>
+              <button type="button" class="icon-button" data-toggle-nav>Explore</button>
+            </div>
+            <div class="mobile-body">
+              <p>Customizer preview</p>
+            </div>
+            <div class="nav-overlay" aria-hidden="true">
+              <div class="nav-topline">
+                <h4>Jump to a lane</h4>
+                <button type="button" class="close-button" data-close-nav>Close</button>
+              </div>
+              <div class="segmented-tabs" data-tablist="segment"></div>
+              <div class="cta-stack">
+                <button class="cta-primary" type="button">Launch studio</button>
+              </div>
+              <div class="nav-list" data-nav data-variant="segment" data-column-cap="2" data-nav-id="segment"></div>
+            </div>
+          </div>
+          <p class="note">Tabs drive between sections without scrolling; condensed columns keep the reveal lightweight for thumb reach.</p>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const navSections = [
+        {
+          id: 'discover',
+          label: 'Discover',
+          description: 'Brand overview & studio story.',
+          columns: [
+            {
+              title: 'About GlowGlitch',
+              links: [
+                { label: 'Story', href: '/discover#story', description: 'Origin and mission' },
+                { label: 'Team', href: '/discover#team', description: 'Meet the crew' },
+                { label: 'Press', href: '/discover#press', description: 'Highlights & mentions' }
+              ]
+            },
+            {
+              title: 'Ethics & Impact',
+              links: [
+                { label: 'Materials', href: '/discover#materials', description: 'Traceable lab-grown stones' },
+                { label: 'Footprint', href: '/discover#footprint', description: 'Low-impact runs' },
+                { label: 'Partners', href: '/discover#partners', description: 'Studios & sustainability allies' }
+              ]
+            },
+            {
+              title: 'Creator Community',
+              links: [
+                { label: 'Program', href: '/discover#creator-program', description: 'Commission tiers' },
+                { label: 'Apply', href: '/discover#apply', description: 'Join in minutes' }
+              ]
+            },
+            {
+              title: 'Inside the Studio',
+              links: [
+                { label: 'Customizer Tour', href: '/custom', description: 'Preview the Aurora hub' },
+                { label: 'Concierge Help', href: '/support', description: 'Talk to the care team' },
+                { label: 'Tech Notes', href: '/journal/tech-and-materials/lab-insights-spectrum-clarity', description: 'Latest lab insights' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'shop',
+          label: 'Shop',
+          description: 'Shop by capsule or category.',
+          columns: [
+            {
+              title: 'Shop All',
+              links: [
+                { label: 'Featured', href: '/collections?sort=featured' },
+                { label: 'New Arrivals', href: '/collections?sort=new' },
+                { label: 'Back in Stock', href: '/collections?tag=back-in-stock' }
+              ]
+            },
+            {
+              title: 'Rings',
+              links: [
+                { label: 'Engagement', href: '/collections?category=engagement-rings' },
+                { label: 'Stacking', href: '/collections?category=stacking-rings' },
+                { label: 'Statement', href: '/collections?category=statement-rings' }
+              ]
+            },
+            {
+              title: 'Necklaces',
+              links: [
+                { label: 'All Necklaces', href: '/collections?category=necklaces' },
+                { label: 'Pendants', href: '/collections?category=pendants' },
+                { label: 'Chains', href: '/collections?category=chains' }
+              ]
+            },
+            {
+              title: 'Earrings',
+              links: [
+                { label: 'All Earrings', href: '/collections?category=earrings' },
+                { label: 'Studs', href: '/collections?category=studs' },
+                { label: 'Hoops', href: '/collections?category=hoops' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'custom',
+          label: 'Custom',
+          description: 'Personalize in minutes.',
+          columns: [
+            {
+              title: 'Start Customizing',
+              links: [
+                { label: 'Launch Studio', href: '/customizer', description: 'Jump into the 3D viewer' },
+                { label: 'Preset Bases', href: '/custom#preset-bases', description: 'Use ready-to-edit canvases' }
+              ]
+            },
+            {
+              title: 'How It Works',
+              links: [
+                { label: '3-Step Flow', href: '/custom#workflow', description: 'See the process' },
+                { label: 'AR Try-On', href: '/custom#ar', description: 'Preview on any device' },
+                { label: 'Materials Guide', href: '/discover#materials', description: 'Understand finishes' }
+              ]
+            },
+            {
+              title: 'Need Help?',
+              links: [
+                { label: 'Support Hub', href: '/support', description: 'FAQs & concierge' },
+                { label: 'Email Concierge', href: 'mailto:concierge@glowglitch.com', description: 'Replies within 2 hours' },
+                { label: 'Book a Call', href: 'https://cal.com/glowglitch/support', description: 'Schedule a walkthrough' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'journal',
+          label: 'Journal',
+          description: 'Trends, styling, creators, and lab notes.',
+          columns: [
+            {
+              title: 'Trends',
+              links: [
+                { label: 'Style Notes', href: '/journal/trends/style-notes-linear-layers' },
+                { label: 'Trend Radar', href: '/journal/trends/trend-radar-neon-elevation' }
+              ]
+            },
+            {
+              title: 'Styling',
+              links: [
+                { label: 'Playbooks', href: '/journal/styling/playbooks-gifting-guide' },
+                { label: 'Gift Guides', href: '/journal/styling/gift-guides-lunar-celebrations' },
+                { label: 'Layering Tips', href: '/journal/styling/layering-field-guide' }
+              ]
+            },
+            {
+              title: 'Creators',
+              links: [
+                { label: 'Spotlights', href: '/journal/creators/spotlight-tonal-drop' },
+                { label: 'Capsule Drops', href: '/journal/creators/capsule-drop-prism-night' }
+              ]
+            },
+            {
+              title: 'Tech & Materials',
+              links: [
+                { label: 'Lab Insights', href: '/journal/tech-and-materials/lab-insights-spectrum-clarity' },
+                { label: 'Drop Calendar', href: '/journal/tech-and-materials/drop-calendar-halo-glow' }
+              ]
+            }
+          ]
+        },
+        {
+          id: 'support',
+          label: 'Support',
+          description: 'Quick access to help.',
+          columns: [
+            {
+              title: 'Get Support',
+              links: [
+                { label: 'Support Hub', href: '/support', description: 'FAQs and contact' },
+                { label: 'Care Guide', href: '/support/help', description: 'Sizing & upkeep' }
+              ]
+            },
+            {
+              title: 'Contact',
+              links: [
+                { label: 'Email Concierge', href: 'mailto:concierge@glowglitch.com' },
+                { label: 'Book a Call', href: 'https://cal.com/glowglitch/support' }
+              ]
+            },
+            {
+              title: 'Orders',
+              links: [
+                { label: 'Track Order', href: '/cart' },
+                { label: 'Account', href: '/account' }
+              ]
+            }
+          ]
+        }
+      ];
+
+      const createLinkColumn = (column) => {
+        const columnDiv = document.createElement('div');
+        columnDiv.className = 'nav-column';
+        const title = document.createElement('p');
+        title.className = 'nav-column-title';
+        title.textContent = column.title;
+        columnDiv.appendChild(title);
+
+        const list = document.createElement('ul');
+        column.links.forEach((link) => {
+          const item = document.createElement('li');
+          const anchor = document.createElement('a');
+          anchor.href = link.href;
+          anchor.target = '_blank';
+          anchor.rel = 'noreferrer';
+          anchor.textContent = link.label;
+          if (link.description) {
+            const meta = document.createElement('span');
+            meta.textContent = link.description;
+            anchor.appendChild(meta);
+          }
+          item.appendChild(anchor);
+          list.appendChild(item);
+        });
+        columnDiv.appendChild(list);
+        return columnDiv;
+      };
+
+      const getVariantOrderedSections = (variant) => {
+        if (variant !== 'stack') {
+          return navSections;
+        }
+        const priorityOrder = ['shop', 'custom'];
+        const prioritized = priorityOrder
+          .map((sectionId) => navSections.find((section) => section.id === sectionId))
+          .filter(Boolean);
+        const remaining = navSections.filter((section) => !priorityOrder.includes(section.id));
+        return [...prioritized, ...remaining];
+      };
+
+      const renderNav = (container) => {
+        if (!container) return;
+        const variant = container.dataset.variant || 'stack';
+        const columnCap = Number(container.dataset.columnCap || container.dataset.columncap || 0);
+        const sections = getVariantOrderedSections(variant);
+        sections.forEach((section, index) => {
+          const details = document.createElement('details');
+          details.className = 'nav-section';
+          details.dataset.sectionId = section.id;
+          if (variant === 'stack') {
+            details.open = index === 0;
+          } else if (variant === 'drawer') {
+            details.open = section.id === 'shop';
+          } else if (variant === 'segment') {
+            details.open = index === 0;
+          }
+
+          const summary = document.createElement('summary');
+          const textWrapper = document.createElement('div');
+          textWrapper.className = 'summary-text';
+          const eyebrow = document.createElement('span');
+          eyebrow.textContent = section.label;
+          const title = document.createElement('strong');
+          title.textContent = section.description || section.label;
+          textWrapper.appendChild(eyebrow);
+          textWrapper.appendChild(title);
+
+          const icon = document.createElement('span');
+          icon.className = 'summary-icon';
+          icon.textContent = '+';
+
+          summary.appendChild(textWrapper);
+          summary.appendChild(icon);
+          details.appendChild(summary);
+
+          const grid = document.createElement('div');
+          grid.className = 'nav-links-grid';
+          const columns = columnCap ? section.columns.slice(0, columnCap) : section.columns;
+          columns.forEach((column) => {
+            grid.appendChild(createLinkColumn(column));
+          });
+          details.appendChild(grid);
+
+          details.addEventListener('toggle', () => {
+            const isOpen = details.open;
+            icon.textContent = isOpen ? '–' : '+';
+            if (variant === 'stack' && isOpen) {
+              container.querySelectorAll('.nav-section').forEach((sectionNode) => {
+                if (sectionNode === details) return;
+                sectionNode.open = false;
+                const sectionIcon = sectionNode.querySelector('.summary-icon');
+                if (sectionIcon) {
+                  sectionIcon.textContent = '+';
+                }
+              });
+            }
+          });
+
+          container.appendChild(details);
+        });
+      };
+
+      document.querySelectorAll('[data-nav]').forEach((container) => {
+        renderNav(container);
+      });
+
+      const shells = document.querySelectorAll('.mobile-shell');
+      shells.forEach((shell) => {
+        const toggle = shell.querySelector('[data-toggle-nav]');
+        const close = shell.querySelector('[data-close-nav]');
+        toggle?.addEventListener('click', () => {
+          shell.classList.add('nav-open');
+          const overlay = shell.querySelector('.nav-overlay');
+          overlay?.setAttribute('aria-hidden', 'false');
+        });
+        close?.addEventListener('click', () => {
+          shell.classList.remove('nav-open');
+          const overlay = shell.querySelector('.nav-overlay');
+          overlay?.setAttribute('aria-hidden', 'true');
+        });
+      });
+
+      const tablists = document.querySelectorAll('[data-tablist]');
+      tablists.forEach((list) => {
+        const navId = list.dataset.tablist;
+        navSections.forEach((section, index) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = section.label;
+          button.dataset.section = section.id;
+          if (index === 0) {
+            button.classList.add('is-active');
+          }
+          list.appendChild(button);
+        });
+        list.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLButtonElement)) return;
+          const sectionId = target.dataset.section;
+          const nav = document.querySelector(`[data-nav-id="${navId}"]`);
+          if (!sectionId || !nav) return;
+          nav.querySelectorAll('.nav-section').forEach((section) => {
+            section.open = section.dataset.sectionId === sectionId;
+            const icon = section.querySelector('.summary-icon');
+            if (icon) {
+              icon.textContent = section.open ? '–' : '+';
+            }
+          });
+          list.querySelectorAll('button').forEach((btn) => btn.classList.remove('is-active'));
+          target.classList.add('is-active');
+        });
+      });
+    </script>
+  </body>
+</html>

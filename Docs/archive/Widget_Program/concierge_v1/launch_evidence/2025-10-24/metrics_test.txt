@@ -1,0 +1,36 @@
+=== METRICS LOGGING TESTS ===
+Date: Fri Oct 24 00:50:38 CST 2025
+
+Test 1: Generate metrics with 10 requests
+  Request 1 completed
+  Request 2 completed
+  Request 3 completed
+  Request 4 completed
+  Request 5 completed
+  Request 6 completed
+  Request 7 completed
+  Request 8 completed
+  Request 9 completed
+  Request 10 completed
+
+Test 2: Check metrics in server log
+  Metrics logged: 0
+  ❌ FAIL: Expected at least 10 metrics, got 0
+
+Test 3: Sample metric entry
+
+Test 4: Metrics summary endpoint
+{
+  "totalRequests": 0,
+  "p95LatencyMs": 0,
+  "bufferSize": 0,
+  "timestamp": "2025-10-23T16:49:59.225Z"
+}
+
+Test 5: Test error handling (503)
+  (Skipped - would require killing MongoDB)
+
+Test 6: Extract latencies for p95 verification
+  P95 Latency (calculated): ms
+
+✅ Metrics evidence saved to docs/concierge_v1/launch_evidence/2025-10-24/metrics_log.jsonl

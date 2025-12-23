@@ -1,0 +1,87 @@
+{
+  "analytics": [
+    {
+      "event": "aurora_widget_open",
+      "originalEvent": "widget_open",
+      "sessionId": "58c88b7a-8b02-4e33-bf74-a401c5654ebd",
+      "requestId": "widget_open-076df135-b63e-455e-b58d-d3dd1f5b61cb",
+      "timestamp": 1760627475596
+    },
+    {
+      "event": "aurora_intent_detected",
+      "originalEvent": "intent_detected",
+      "intent": "return_exchange",
+      "source": "keyword",
+      "sessionId": "58c88b7a-8b02-4e33-bf74-a401c5654ebd",
+      "requestId": "return_exchange-1889e4cd-2cf7-4c17-9556-85f943b01591",
+      "timestamp": 1760627476664
+    },
+    {
+      "event": "aurora_intent_complete",
+      "originalEvent": "intent_complete",
+      "intent": "return_exchange",
+      "sessionId": "58c88b7a-8b02-4e33-bf74-a401c5654ebd",
+      "requestId": "return_exchange-1889e4cd-2cf7-4c17-9556-85f943b01591",
+      "timestamp": 1760627476666
+    },
+    {
+      "event": "aurora_return_initiated",
+      "originalEvent": "return_initiated",
+      "sessionId": "58c88b7a-8b02-4e33-bf74-a401c5654ebd",
+      "requestId": "return_exchange-1889e4cd-2cf7-4c17-9556-85f943b01591",
+      "timestamp": 1760627476666
+    },
+    {
+      "event": "aurora_intent_detected",
+      "originalEvent": "intent_detected",
+      "intent": "stylist_contact",
+      "source": "keyword",
+      "sessionId": "58c88b7a-8b02-4e33-bf74-a401c5654ebd",
+      "requestId": "stylist_contact-139e1dc0-29c7-48c0-93db-bf7fd1d44436",
+      "timestamp": 1760627477684
+    },
+    {
+      "event": "aurora_intent_complete",
+      "originalEvent": "intent_complete",
+      "intent": "stylist_contact",
+      "sessionId": "58c88b7a-8b02-4e33-bf74-a401c5654ebd",
+      "requestId": "stylist_contact-139e1dc0-29c7-48c0-93db-bf7fd1d44436",
+      "timestamp": 1760627477686
+    }
+  ],
+  "results": [
+    {
+      "scenario": {
+        "message": "Can you show ready to ship rings?",
+        "description": "should trigger find_product flow"
+      },
+      "lastMessages": [
+        "Can you show ready to ship rings?",
+        "I’m here for capsules, orders, care, or financing. Tap a quick journey below if you’d like a guided start.",
+        "I’m here for capsules, orders, care, or financing. Tap a quick journey below if you’d like a guided start."
+      ]
+    },
+    {
+      "scenario": {
+        "message": "I need to start a return for order GG-11982",
+        "description": "should trigger return_exchange flow"
+      },
+      "lastMessages": [
+        "Happy to help. Pick the option that fits best and I’ll take care of the paperwork instantly.",
+        "Choose an optionResize my ringComplimentary within 60 days.Start a returnWe’ll generate a prepaid label.Schedule a care refreshStudio clean & polish in five days.",
+        "Resize my ringComplimentary within 60 days.Start a returnWe’ll generate a prepaid label.Schedule a care refreshStudio clean & polish in five days."
+      ]
+    },
+    {
+      "scenario": {
+        "message": "Talk to a stylist please",
+        "description": "should trigger stylist_contact flow"
+      },
+      "lastMessages": [
+        "I’ll bring a human stylist into the loop. Share your best contact and any notes so we can tailor the session.",
+        "Introduce me to a stylistWe’ll reply within one studio hour with renders, pricing, and sizing confirmations.First nameEmailPreferred timeAnytimeMorningAfternoonEveningNotesSend my request",
+        "First nameEmailPreferred timeAnytimeMorningAfternoonEveningNotes"
+      ]
+    }
+  ]
+}

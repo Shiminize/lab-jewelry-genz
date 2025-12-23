@@ -1,0 +1,26 @@
+=== POST-NORMALIZATION TESTS ===
+Date: Fri Oct 24 01:03:14 CST 2025
+
+Test 1: Ready-to-ship rings
+  Saved 2 products
+
+Test 2: Gifts under $300
+  Saved 2 products
+
+Test 3: Verify all products have titles
+  ✅ PASS: All products have titles
+
+Test 4: Verify no products >= $300
+  ✅ PASS: All products < $300
+
+Test 5: Sample product structure
+{
+  "title": "Minimalist Band Ring",
+  "price": 299,
+  "imageUrl": "/images/category/rings/16023_RND_0075CT_Y_1_1600X1600.jpg",
+  "category": "ring",
+  "readyToShip": true
+}
+
+✅ Post-normalization tests complete
+📁 Evidence saved to docs/concierge_v1/launch_evidence/2025-10-24/

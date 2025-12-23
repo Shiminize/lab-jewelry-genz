@@ -1,0 +1,10 @@
+[
+  {
+    "type": "info",
+    "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold"
+  },
+  {
+    "type": "warning",
+    "text": "Image with src \"/images/support-hero.webp\" has \"fill\" prop and \"sizes\" prop of \"100vw\", but image is not rendered at full viewport width. Please adjust \"sizes\" to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes"
+  }
+]

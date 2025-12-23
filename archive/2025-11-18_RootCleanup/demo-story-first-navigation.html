@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowGlitch · Story-First Navigation Vision</title>
+  <style>
+    :root {
+      --ja-accent-primary: #ff5a5f;
+      --ja-accent-primary-rgb: 255 90 95;
+      --ja-accent-secondary: #2ec5ff;
+      --ja-accent-secondary-rgb: 46 197 255;
+      --ja-neutral-950: #0f172a;
+      --ja-neutral-950-rgb: 15 23 42;
+      --ja-neutral-900: #111b2f;
+      --ja-neutral-900-rgb: 17 27 47;
+      --ja-neutral-800: #1e293b;
+      --ja-neutral-800-rgb: 30 41 59;
+      --ja-neutral-700: #334155;
+      --ja-neutral-700-rgb: 51 65 85;
+      --ja-neutral-600: #475569;
+      --ja-neutral-600-rgb: 71 85 105;
+      --ja-neutral-500: #64748b;
+      --ja-neutral-500-rgb: 100 116 139;
+      --ja-neutral-300: #cbd5e1;
+      --ja-neutral-300-rgb: 203 213 225;
+      --ja-neutral-150: #edf2f7;
+      --ja-neutral-150-rgb: 237 242 247;
+      --ja-neutral-100: #f5f7fb;
+      --ja-neutral-100-rgb: 245 247 251;
+      --ja-surface-base: #ffffff;
+      --ja-surface-base-rgb: 255 255 255;
+      --ja-surface-page: #fffdf7;
+      --ja-surface-page-rgb: 255 253 247;
+      --ja-text-primary: var(--ja-neutral-950);
+      --ja-text-secondary: var(--ja-neutral-600);
+      --ja-text-muted: var(--ja-neutral-500);
+      --ja-border-subtle: var(--ja-neutral-150);
+      --ja-border-subtle-rgb: var(--ja-neutral-150-rgb);
+      --ja-border-strong: var(--ja-neutral-300);
+      --ja-border-strong-rgb: var(--ja-neutral-300-rgb);
+      --shadow-soft: 0 8px 24px rgba(18, 20, 24, 0.08);
+      --shadow-medium: 0 18px 40px rgba(18, 20, 24, 0.12);
+      --radius-card: 20px;
+      --radius-pill: 999px;
+      font-family: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--ja-surface-page);
+      color: var(--ja-text-secondary);
+      font-family: 'Commissioner', 'Helvetica Neue', Arial, sans-serif;
+      padding-bottom: 4rem;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(var(--ja-border-strong-rgb), 0.4);
+    }
+
+    .container {
+      width: min(1140px, 92vw);
+      margin: 0 auto;
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 1.1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-weight: 700;
+      font-size: 1.18rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--ja-text-primary);
+    }
+
+    .logo::before {
+      content: '';
+      display: inline-block;
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 18px;
+      background: var(--ja-accent-primary);
+      box-shadow: 0 10px 20px rgba(var(--ja-accent-primary-rgb), 0.22);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 1.5rem;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--ja-text-secondary);
+      font-weight: 500;
+      font-size: 0.96rem;
+      padding: 0.35rem 0;
+      letter-spacing: 0.018em;
+      transition: color 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: var(--ja-text-primary);
+    }
+
+    .utility {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .ghost-link {
+      color: var(--ja-text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .ghost-link:hover {
+      color: var(--ja-text-primary);
+    }
+
+    .cta {
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 0.65rem 1.45rem;
+      background: var(--ja-accent-primary);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 14px 34px rgba(var(--ja-accent-primary-rgb), 0.24);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(var(--ja-accent-primary-rgb), 0.28);
+    }
+
+    .dropdown-panel {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 88px;
+      display: none;
+      background: var(--ja-surface-base);
+      border-top: 1px solid rgba(var(--ja-border-subtle-rgb), 0.9);
+      border-bottom: 1px solid rgba(var(--ja-border-subtle-rgb), 1);
+      box-shadow: var(--shadow-medium);
+      padding: 2.2rem 0 2.8rem;
+    }
+
+    nav li:hover .dropdown-panel,
+    nav li:focus-within .dropdown-panel {
+      display: block;
+    }
+
+    .panel-content {
+      width: min(1140px, 92vw);
+      margin: 0 auto;
+      display: grid;
+      gap: 2rem;
+    }
+
+    .panel-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .panel-header .pill {
+      justify-self: start;
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-pill);
+      background: rgba(var(--ja-accent-secondary-rgb), 0.12);
+      color: var(--ja-accent-secondary);
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .panel-header p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: rgba(var(--ja-text-secondary-rgb), 0.95);
+    }
+
+    .panel-body {
+      display: flex;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+    }
+
+    .panel-columns {
+      flex: 1 1 60%;
+      display: grid;
+      gap: 1.6rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .panel-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .panel-heading {
+      color: var(--ja-text-primary);
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .panel-heading:hover {
+      color: var(--ja-accent-primary);
+    }
+
+    .panel-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .panel-link {
+      text-decoration: none;
+      color: var(--ja-text-secondary);
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+
+    .panel-link:hover {
+      color: var(--ja-text-primary);
+    }
+
+    .panel-placeholder {
+      flex: 1 1 280px;
+      min-width: 260px;
+      max-width: 360px;
+      background: rgba(var(--ja-neutral-100-rgb), 1);
+      border: 1px solid rgba(var(--ja-border-subtle-rgb), 1);
+      border-radius: 24px;
+      box-shadow: 0 18px 36px rgba(var(--ja-neutral-900-rgb), 0.08);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .panel-placeholder .placeholder-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: rgba(var(--ja-text-muted-rgb), 0.9);
+    }
+
+    .panel-placeholder h4 {
+      margin: 0;
+      color: var(--ja-text-primary);
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .panel-placeholder p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: rgba(var(--ja-text-secondary-rgb), 0.85);
+    }
+
+    .panel-placeholder .placeholder-spec {
+      margin-top: auto;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(var(--ja-text-muted-rgb), 0.85);
+    }
+
+    .panel-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
+      color: rgba(var(--ja-text-secondary-rgb), 0.82);
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(var(--ja-border-subtle-rgb), 0.9);
+    }
+
+    .panel-footer a {
+      color: var(--ja-accent-primary);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .hero-preview {
+      width: min(1140px, 92vw);
+      margin: 3.2rem auto 0;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      border: 1px solid rgba(var(--ja-border-subtle-rgb), 1);
+      box-shadow: 0 34px 68px rgba(18, 20, 24, 0.12);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+    }
+
+    .hero-copy {
+      padding: 3rem 3.4rem;
+      display: grid;
+      gap: 1.4rem;
+    }
+
+    .hero-copy .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(var(--ja-accent-primary-rgb), 0.9);
+    }
+
+    .hero-copy h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 3.2rem);
+      letter-spacing: -0.02em;
+      color: var(--ja-text-primary);
+      font-family: 'Spectral', 'Times New Roman', serif;
+      font-weight: 400;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-buttons a,
+    .hero-buttons button {
+      border-radius: var(--radius-pill);
+      padding: 0.65rem 1.5rem;
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .hero-buttons .primary {
+      background: var(--ja-accent-primary);
+      color: white;
+      box-shadow: 0 18px 38px rgba(var(--ja-accent-primary-rgb), 0.28);
+    }
+
+    .hero-buttons .secondary {
+      background: rgba(var(--ja-accent-secondary-rgb), 0.12);
+      color: var(--ja-accent-secondary);
+      border: 1px solid rgba(var(--ja-accent-secondary-rgb), 0.35);
+    }
+
+    .hero-media {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1516637090014-cb1ab0d08fc7?auto=format&fit=crop&w=900&q=80') center/cover;
+      min-height: 420px;
+    }
+
+    .hero-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(17, 23, 47, 0.45);
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 1.6rem;
+      left: 1.6rem;
+      right: 1.6rem;
+      padding: 1.1rem 1.4rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(var(--ja-border-subtle-rgb), 0.9);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 40px rgba(17, 23, 47, 0.18);
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .hero-badge strong {
+      font-size: 0.92rem;
+      color: var(--ja-text-primary);
+    }
+
+    .hero-badge span {
+      font-size: 0.8rem;
+      color: rgba(var(--ja-text-secondary-rgb), 0.85);
+    }
+
+    .grid-preview {
+      width: min(1140px, 92vw);
+      margin: 3rem auto 0;
+      display: grid;
+      gap: 1.6rem;
+    }
+
+    .grid-preview h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      color: var(--ja-text-primary);
+    }
+
+    .grid-preview p {
+      margin: 0;
+      font-size: 0.98rem;
+      color: rgba(var(--ja-text-secondary-rgb), 0.88);
+      max-width: 60ch;
+    }
+
+    .preview-cards {
+      display: grid;
+      gap: 1.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .preview-card {
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(var(--ja-border-subtle-rgb), 1);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: grid;
+      gap: 0;
+    }
+
+    .preview-card .preview-media {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .preview-card .preview-body {
+      padding: 1.4rem 1.6rem;
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .preview-card strong {
+      color: var(--ja-text-primary);
+      font-size: 1.1rem;
+    }
+
+    .preview-card span {
+      font-size: 0.92rem;
+      color: rgba(var(--ja-text-secondary-rgb), 0.88);
+    }
+
+    footer {
+      width: min(1140px, 92vw);
+      margin: 2.8rem auto 0;
+      text-align: center;
+      font-size: 0.84rem;
+      color: rgba(var(--ja-text-secondary-rgb), 0.75);
+    }
+
+    @media (max-width: 900px) {
+      .dropdown-panel {
+        top: 140px;
+      }
+
+      .hero-preview {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-media {
+        min-height: 360px;
+      }
+
+      .panel-body {
+        flex-direction: column;
+      }
+
+      .panel-placeholder {
+        max-width: none;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        position: static;
+      }
+
+      .nav-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.2rem;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .dropdown-panel {
+        position: static;
+        display: block;
+        box-shadow: none;
+        border: 1px solid rgba(var(--ja-border-subtle-rgb), 0.85);
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-bar">
+      <div class="logo">GlowGlitch</div>
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li>
+            <a href="#discover">Discover</a>
+            <div class="dropdown-panel" role="region" aria-label="Discover menu">
+              <div class="panel-content">
+                <div class="panel-header">
+                  <span class="pill">Discover</span>
+                  <p>Brand overview &amp; story.</p>
+                </div>
+                <div class="panel-body">
+                  <div class="panel-columns">
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/about">About GlowGlitch</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/about#story">Story</a></li>
+                        <li><a class="panel-link" href="/about#team">Team</a></li>
+                        <li><a class="panel-link" href="/about#press">Press</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/sustainability">Ethics &amp; Impact</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/sustainability#materials">Materials</a></li>
+                        <li><a class="panel-link" href="/sustainability#footprint">Footprint</a></li>
+                        <li><a class="panel-link" href="/sustainability#partners">Partners</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/creators">Creator Community</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/creators#program">Program</a></li>
+                        <li><a class="panel-link" href="/creators#success">Stories</a></li>
+                        <li><a class="panel-link" href="/creators#apply">Apply</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/#customizer">Inside the Studio</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/#customizer">Customizer Tour</a></li>
+                        <li><a class="panel-link" href="/support/help#concierge">Concierge Help</a></li>
+                        <li><a class="panel-link" href="/journal/materials">Tech Notes</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <aside class="panel-placeholder">
+                    <span class="placeholder-eyebrow">Visual placeholder</span>
+                    <h4>Drop a lifestyle hero 720 × 960</h4>
+                    <p>Swap this block with a brand photo or looping video still when assets are ready.</p>
+                    <span class="placeholder-spec">Right column · optional image</span>
+                  </aside>
+                </div>
+                <div class="panel-footer">
+                  <span>Give visitors the quickest read on GlowGlitch.</span>
+                  <a href="#">View narrative doc</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="#jewelry">Jewelry</a>
+            <div class="dropdown-panel" role="region" aria-label="Jewelry menu">
+              <div class="panel-content">
+                <div class="panel-header">
+                  <span class="pill">Shop</span>
+                  <p>Shop by category.</p>
+                </div>
+                <div class="panel-body">
+                  <div class="panel-columns">
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/catalog">Shop All</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/catalog?sort=featured">Featured</a></li>
+                        <li><a class="panel-link" href="/catalog?sort=new">New Arrivals</a></li>
+                        <li><a class="panel-link" href="/catalog?tag=back-in-stock">Back in Stock</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/catalog?category=engagement-rings">Rings</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/catalog?category=engagement-rings">Engagement</a></li>
+                        <li><a class="panel-link" href="/catalog?category=stacking-rings">Stacking</a></li>
+                        <li><a class="panel-link" href="/catalog?category=statement-rings">Statement</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/catalog?category=necklaces">Necklaces</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/catalog?category=necklaces">All Necklaces</a></li>
+                        <li><a class="panel-link" href="/catalog?category=pendants">Pendants</a></li>
+                        <li><a class="panel-link" href="/catalog?category=chains">Chains</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/catalog?category=earrings">Earrings</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/catalog?category=earrings">All Earrings</a></li>
+                        <li><a class="panel-link" href="/catalog?category=studs">Studs</a></li>
+                        <li><a class="panel-link" href="/catalog?category=hoops">Hoops</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/catalog?category=bracelets">Bracelets</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/catalog?category=bracelets">All Bracelets</a></li>
+                        <li><a class="panel-link" href="/catalog?category=bangles">Bangles</a></li>
+                        <li><a class="panel-link" href="/catalog?category=charms">Charm</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <aside class="panel-placeholder">
+                    <span class="placeholder-eyebrow">Visual placeholder</span>
+                    <h4>Showcase a capsule hero</h4>
+                    <p>Add a product trio or promo graphic at 720 × 960.</p>
+                    <span class="placeholder-spec">Right column · optional image</span>
+                  </aside>
+                </div>
+                <div class="panel-footer">
+                  <span>Make it easy to scan categories fast.</span>
+                  <a href="#">Merch strategy</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="#custom">Custom</a>
+            <div class="dropdown-panel" role="region" aria-label="Custom menu">
+              <div class="panel-content">
+                <div class="panel-header">
+                  <span class="pill">Customizer</span>
+                  <p>Personalize in minutes.</p>
+                </div>
+                <div class="panel-body">
+                  <div class="panel-columns">
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/customizer">Start Customizing</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/customizer">Launch Studio</a></li>
+                        <li><a class="panel-link" href="/customizer#variants">Preset Bases</a></li>
+                        <li><a class="panel-link" href="/customizer#saves">Saved Designs</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/#customizer">How It Works</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/#customizer">3-Step Flow</a></li>
+                        <li><a class="panel-link" href="/support/help#concierge">AR Try-On</a></li>
+                        <li><a class="panel-link" href="/journal/materials">Materials Guide</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/support/help#concierge">Need Help?</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/support/help">Support Hub</a></li>
+                        <li><a class="panel-link" href="mailto:concierge@glowglitch.com">Email Concierge</a></li>
+                        <li><a class="panel-link" href="https://cal.com/glowglitch/support">Book a Call</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <aside class="panel-placeholder">
+                    <span class="placeholder-eyebrow">Visual placeholder</span>
+                    <h4>Show the customizer UI</h4>
+                    <p>Upload a screen capture or short loop at 720 × 960.</p>
+                    <span class="placeholder-spec">Right column · optional image</span>
+                  </aside>
+                </div>
+                <div class="panel-footer">
+                  <span>Keep personalization paths obvious.</span>
+                  <a href="#">CX notes</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="#journal">Journal</a>
+            <div class="dropdown-panel" role="region" aria-label="Journal menu">
+              <div class="panel-content">
+                <div class="panel-header">
+                  <span class="pill">Journal</span>
+                  <p>Read the latest stories.</p>
+                </div>
+                <div class="panel-body">
+                  <div class="panel-columns">
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/journal/trends">Trends</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/journal/trends">Weekly Recap</a></li>
+                        <li><a class="panel-link" href="/journal/trends#style-notes">Style Notes</a></li>
+                        <li><a class="panel-link" href="/journal/trends#culture">Culture Watch</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/journal/styling">Styling</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/journal/styling#playbooks">Playbooks</a></li>
+                        <li><a class="panel-link" href="/journal/styling#gifts">Gift Guides</a></li>
+                        <li><a class="panel-link" href="/journal/styling#layering">Layering Tips</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/journal/creators">Creators</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/journal/creators#spotlights">Spotlights</a></li>
+                        <li><a class="panel-link" href="/journal/creators#behind-the-scenes">Behind the Scenes</a></li>
+                        <li><a class="panel-link" href="/journal/creators#drops">Capsule Drops</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/journal/materials">Tech &amp; Materials</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/journal/materials#labs">Lab Insights</a></li>
+                        <li><a class="panel-link" href="/journal/materials#updates">Product Updates</a></li>
+                        <li><a class="panel-link" href="/journal/drops">Drop Calendar</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <aside class="panel-placeholder">
+                    <span class="placeholder-eyebrow">Visual placeholder</span>
+                    <h4>Latest editorial cover</h4>
+                    <p>Replace with hero art for the newest story, 720 × 960.</p>
+                    <span class="placeholder-spec">Right column · optional image</span>
+                  </aside>
+                </div>
+                <div class="panel-footer">
+                  <span>Keep storytelling labels short and skimmable.</span>
+                  <a href="#">Editorial plan</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a href="#help">Help</a>
+            <div class="dropdown-panel" role="region" aria-label="Help menu">
+              <div class="panel-content">
+                <div class="panel-header">
+                  <span class="pill">Support</span>
+                  <p>Quick access to help.</p>
+                </div>
+                <div class="panel-body">
+                  <div class="panel-columns">
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/support/help">Get Support</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/support/help">Open Hub</a></li>
+                        <li><a class="panel-link" href="/support">FAQ Library</a></li>
+                        <li><a class="panel-link" href="/support/help#care-guide">Care Guide</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="mailto:concierge@glowglitch.com">Contact</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="mailto:concierge@glowglitch.com">Email Concierge</a></li>
+                        <li><a class="panel-link" href="https://cal.com/glowglitch/support">Book a Call</a></li>
+                        <li><a class="panel-link" href="/support/help#sizing-guide">Sizing Help</a></li>
+                      </ul>
+                    </div>
+                    <div class="panel-group">
+                      <a class="panel-heading" href="/account/orders">Orders</a>
+                      <ul class="panel-links">
+                        <li><a class="panel-link" href="/cart">Track Order</a></li>
+                        <li><a class="panel-link" href="/account">Account</a></li>
+                        <li><a class="panel-link" href="/support/help#returns">Returns</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <aside class="panel-placeholder">
+                    <span class="placeholder-eyebrow">Visual placeholder</span>
+                    <h4>Highlight concierge hours</h4>
+                    <p>Swap with a simple service graphic or team photo, 720 × 960.</p>
+                    <span class="placeholder-spec">Right column · optional image</span>
+                  </aside>
+                </div>
+                <div class="panel-footer">
+                  <span>Support touches live in one place.</span>
+                  <a href="#">Support CX</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="utility">
+        <a class="ghost-link" href="#">Sign in</a>
+        <button class="cta">Start designing</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero-preview">
+    <div class="hero-copy">
+      <span class="eyebrow">Story-led navigation</span>
+      <h1>Guide visitors through the GlowGlitch universe before they ever scroll.</h1>
+      <p>The Story-First navigation introduces visitors to the brand narrative, then channels them toward collections, customization, content, and concierge care. Each mega-panel is capped at six tiles so scanning stays effortless, and imagery mirrors the homepage hero for instant recognition.</p>
+      <div class="hero-buttons">
+        <button class="primary">See live build plan</button>
+        <button class="secondary">Download copy deck</button>
+      </div>
+      <div class="hero-stats" style="display: flex; gap: 1.6rem; flex-wrap: wrap; margin-top: 0.4rem;">
+        <div>
+          <strong style="display: block; color: var(--ja-text-primary); font-size: 1.4rem;">6</strong>
+          <span style="font-size: 0.85rem; color: rgba(var(--ja-text-secondary-rgb), 0.85);">Tiles max per panel</span>
+        </div>
+        <div>
+          <strong style="display: block; color: var(--ja-text-primary); font-size: 1.4rem;">30s</strong>
+          <span style="font-size: 0.85rem; color: rgba(var(--ja-text-secondary-rgb), 0.85);">To grasp the brand story</span>
+        </div>
+        <div>
+          <strong style="display: block; color: var(--ja-text-primary); font-size: 1.4rem;">1</strong>
+          <span style="font-size: 0.85rem; color: rgba(var(--ja-text-secondary-rgb), 0.85);">Primary CTA per intent</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="hero-badge">
+        <strong>Creator spotlight panel highlighted</strong>
+        <span>Seasonal imagery swaps keep the nav fresh without touching layout code.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-preview">
+    <div>
+      <h2>What stakeholders should review</h2>
+      <p>Hover through the navigation to confirm copy, imagery, and destinations. The cards below preview how marketing, CX, and merchandising collaborate inside the Story-First framework.</p>
+    </div>
+    <div class="preview-cards">
+      <div class="preview-card">
+        <div class="preview-media" style="background-image: url('https://images.unsplash.com/photo-1520962918287-7448c2878f65?auto=format&fit=crop&w=900&q=80');"></div>
+        <div class="preview-body">
+          <strong>Marketing Narrative</strong>
+          <span>Ensure Discover and Journal tiles have owners, copy decks, and imagery. Use this pass to flag any missing pages or placeholders before development.</span>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-media" style="background-image: url('https://images.unsplash.com/photo-1516637090014-cb1ab0d08fc7?auto=format&fit=crop&w=900&q=80');"></div>
+        <div class="preview-body">
+          <strong>Merchandising Focus</strong>
+          <span>Confirm the Shop panel ladders up to current campaign priorities and that Spotlight Capsules sync with homepage hero inventory.</span>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-media" style="background-image: url('https://images.unsplash.com/photo-1600180758890-6b94519a8ba1?auto=format&fit=crop&w=900&q=80');"></div>
+        <div class="preview-body">
+          <strong>Support &amp; CX</strong>
+          <span>Validate concierge SLAs, booking flows, and help-center anchors so the Help panel launches with accurate promises.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Story-First navigation prototype · GlowGlitch · Agent/UI-UX-Designer × Agent/Content-Marketer collaboration.
+  </footer>
+</body>
+</html>

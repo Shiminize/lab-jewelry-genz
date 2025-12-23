@@ -1,0 +1,17 @@
+# UAT Endpoint Probe — 2025-10-15
+# All requests executed against http://127.0.0.1:3002 API surface with REAL concierge env vars pointing to https://api.glowglitch.com/*.
+# Authorization header automatically set to Bearer stub-token by concierge services.
+
+## Summary
+- products → POST /api/support/products → 502 (PRODUCTS_FETCH_FAILED)
+- order status → POST /api/support/order-status → 502 (ORDER_STATUS_FETCH_FAILED)
+- returns → POST /api/support/returns (with x-idempotency-key) → 502 (RETURN_SUBMISSION_FAILED)
+- capsule → POST /api/support/capsule (with x-idempotency-key) → 502 (CAPSULE_RESERVATION_FAILED)
+- stylist → POST /api/support/stylist → 502 (STYLIST_REQUEST_FAILED)
+- csat → POST /api/support/csat → 502 (CSAT_SUBMISSION_FAILED)
+- inspiration → POST /api/support/inspiration (multipart) → 502 (INSPIRATION_UPLOAD_FAILED)
+
+## Notes
+- All upstream requests attempted against https://api.glowglitch.com; each responded with non-200 (likely authentication block).
+- Captured 502s indicate local proxy could not complete REAL handshake; mark TODO-CONFIRM with actual UAT credentials.
+- Guardrail testing will rely on these upstream behaviors; expect failures without valid API key.
