@@ -69,7 +69,7 @@ export function CustomizerExperience({
   const highlights = variant?.highlights ?? []
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start">
+    <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
       <div className="space-y-6">
         <div className="surface-panel space-y-6">
           <div className="flex flex-wrap items-start justify-between gap-4">

@@ -44,7 +44,7 @@ function ExperienceSection() {
         <div className="space-y-2 text-center">
           <Typography variant="title">Live customizer</Typography>
           <Typography variant="body" className="text-text-secondary">
-            Select a variant, pick your fit, and try material finishes. No dev notes—just the essentials.
+            Select a variant, pick your fit, and try material finishes.
           </Typography>
         </div>
         <CustomizerExperience
@@ -53,6 +53,6 @@ function ExperienceSection() {
           roadmapItems={[]}
         />
       </SectionContainer>
-    </section>
+    </section >
   )
 }
