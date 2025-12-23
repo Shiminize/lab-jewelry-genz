@@ -76,6 +76,7 @@ export async function handleFindProduct({ data, state, requestId }: HandlerArgs)
     image?: string
     tags?: string[]
     shippingPromise?: string
+    slug?: string
   }> = []
   let appliedReason: string | undefined
   let appliedFilters = normalizedFilters

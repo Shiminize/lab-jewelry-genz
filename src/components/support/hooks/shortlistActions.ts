@@ -168,8 +168,8 @@ export async function handleShortlistAction(
       const url =
         typeof window !== 'undefined'
           ? `${window.location.origin}/collections?shortlist=${encodeURIComponent(
-              shortlist.map((i) => i.id).join(',')
-            )}`
+            shortlist.map((i) => i.id).join(',')
+          )}`
           : ''
       try {
         if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText && url) {
@@ -208,8 +208,9 @@ export async function handleShortlistAction(
     case 'shortlist-view-links': {
       const title = typeof dataRecord?.title === 'string' ? dataRecord.title : 'this piece'
       const productId = typeof dataRecord?.productId === 'string' ? dataRecord.productId : ''
+      const slug = typeof dataRecord?.slug === 'string' ? dataRecord.slug : undefined
       const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
-      const pdpUrl = productId ? `${baseUrl}/products/${productId}` : `${baseUrl}/collections`
+      const pdpUrl = slug ? `${baseUrl}/products/${slug}` : productId ? `${baseUrl}/products/${productId}` : `${baseUrl}/collections`
       const collectionUrl = `${baseUrl}/collections?highlight=${encodeURIComponent(productId || 'shortlist')}`
 
       appendMessages([
@@ -308,16 +309,16 @@ export async function handleShortlistAction(
             ),
             shortlist.length > 0
               ? createMessage(
-                  'concierge',
-                  {
-                    type: 'shortlist-panel',
-                    id: 'shortlist-panel',
-                    title: 'My shortlist',
-                    items: shortlist,
-                    ctaLabel: 'Invite stylist to review',
-                  },
-                  originIntent
-                )
+                'concierge',
+                {
+                  type: 'shortlist-panel',
+                  id: 'shortlist-panel',
+                  title: 'My shortlist',
+                  items: shortlist,
+                  ctaLabel: 'Invite stylist to review',
+                },
+                originIntent
+              )
               : null,
           ].filter(Boolean) as ReturnType<typeof createMessage>[]
         )

@@ -46,7 +46,7 @@ export function ProductCarousel({ payload, onAction, disabled }: ProductCarousel
   }
 
   return (
-    <section id="results" className="space-y-0 border border-border-subtle bg-surface-base shadow-sm">
+    <section id="results" className="space-y-0 border border-border-subtle bg-surface-base">
       {/* Sort Controls */}
       <SortControls
         currentSort={currentSort}
@@ -60,9 +60,9 @@ export function ProductCarousel({ payload, onAction, disabled }: ProductCarousel
           <article
             key={product.id ?? `${product.title ?? 'product'}-${productIndex}`}
             data-testid="product-card"
-            className="flex items-start gap-3 border border-border-subtle bg-surface-base px-3 py-3 shadow-sm"
+            className="flex items-start gap-3 border border-border-subtle bg-surface-base px-3 py-3"
           >
-            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden bg-neutral-50">
+            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden bg-neutral-50 ring-1 ring-border-subtle">
               {product.image ? (
                 <Image
                   src={product.image}
@@ -97,7 +97,7 @@ export function ProductCarousel({ payload, onAction, disabled }: ProductCarousel
                 {product.tags?.map((tag, tagIndex) => (
                   <span
                     key={`${product.id ?? product.title ?? 'product'}-${tag}-${tagIndex}`}
-                    className="inline-flex items-center border border-border-subtle px-2 py-1 text-[11px]"
+                    className="inline-flex items-center border border-border-subtle px-2 py-1 text-[11px] uppercase tracking-wider"
                   >
                     {tag}
                   </span>
@@ -114,9 +114,9 @@ export function ProductCarousel({ payload, onAction, disabled }: ProductCarousel
                       data: { product },
                     })
                   }}
-                  className={`inline-flex items-center gap-2 border px-3 py-2.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60 ${shortlistedIds.has(product.id)
-                      ? 'border-accent-primary/60 bg-neutral-50 text-text-primary focus-visible:ring-accent-primary'
-                      : 'border-border-subtle bg-surface-base text-text-primary hover:border-accent-secondary focus-visible:ring-accent-secondary'
+                  className={`inline-flex items-center gap-2 border px-3 py-2.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-primary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60 ${shortlistedIds.has(product.id)
+                    ? 'border-accent-primary bg-neutral-50 text-text-primary'
+                    : 'border-border-subtle bg-surface-base text-text-primary hover:border-accent-secondary'
                     }`}
                 >
                   {shortlistedIds.has(product.id) ? (
@@ -139,7 +139,7 @@ export function ProductCarousel({ payload, onAction, disabled }: ProductCarousel
                       data: { product },
                     })
                   }
-                  className="inline-flex items-center gap-2 border border-border-subtle bg-surface-base px-3 py-2.5 text-xs font-semibold text-text-primary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex items-center gap-2 border border-border-subtle bg-surface-base px-3 py-2.5 text-xs font-semibold text-text-primary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   View details
                 </button>

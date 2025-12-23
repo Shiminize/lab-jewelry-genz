@@ -208,11 +208,11 @@ export function useWidgetActions({
         case 'offer-action':
           return
         case 'view-product': {
-          const product = dataRecord?.product as { id: string; title?: string } | undefined
+          const product = dataRecord?.product as { id: string; title?: string; slug?: string } | undefined
           trackEvent('product_view', { productId: product?.id })
           if (product && typeof window !== 'undefined') {
-            const searchQuery = product.title || product.id
-            window.open(`/collections?search=${encodeURIComponent(searchQuery)}`, '_blank', 'noopener')
+            const url = product.slug ? `/products/${product.slug}` : `/collections?search=${encodeURIComponent(product.title || product.id)}`
+            window.open(url, '_blank', 'noopener')
           }
           return
         }
@@ -266,10 +266,10 @@ export function useWidgetActions({
             isProductIntent && (!payloadFromChooser || Object.keys(payloadFromChooser).length === 0)
           const payload = isProductIntent
             ? {
-                source: 'intent-chooser',
-                ...(shouldDefaultReadyToShip ? { slug: 'ready-to-ship', filters: { readyToShip: true } } : {}),
-                ...payloadFromChooser,
-              }
+              source: 'intent-chooser',
+              ...(shouldDefaultReadyToShip ? { slug: 'ready-to-ship', filters: { readyToShip: true } } : {}),
+              ...payloadFromChooser,
+            }
             : { source: 'intent-chooser', ...payloadFromChooser }
 
           const confirmationCopy =

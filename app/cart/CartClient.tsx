@@ -53,35 +53,35 @@ type CartSummaryItem = CartSummary['items'][number]
 
 const RECOMMENDED_STACKS: RecommendedStackConfig[] = [
   {
-    id: 'solitaire-halo-duo',
-    title: 'Solitaire spotlight duo',
-    description: 'Layer our Classic Solitaire with the Halo Diamond Ring for a multi-angle glow that photographs beautifully.',
+    id: 'flux-series-set',
+    title: 'Flux Series Set',
+    description: 'Layer our signature bar studs with the floating bubble necklace for a complete Flux energy.',
     items: [
-      { slug: 'classic-solitaire', quantity: 1 },
-      { slug: 'halo-diamond-ring', quantity: 1 },
+      { slug: 'array-8-bar-studs', quantity: 1 },
+      { slug: 'orbital-flux-necklace-set', quantity: 1 },
     ],
   },
   {
-    id: 'studio-essentials',
-    title: 'Studio essentials set',
-    description: 'Tone-match your hero ring with sparkling studs to keep every neon-lit closeup balanced.',
+    id: 'everyday-texture',
+    title: 'Everyday Texture',
+    description: 'The essential link necklace paired with standard issue hoops. Your daily uniform.',
     items: [
-      { slug: 'three-stone-ring', quantity: 1 },
-      { slug: 'diamond-studs', quantity: 1 },
+      { slug: 'layering-link-stream', quantity: 1 },
+      { slug: 'standard-issue-hoops', quantity: 1 },
     ],
   },
   {
-    id: 'everyday-glow',
-    title: 'Everyday glow stack',
-    description: 'Pair the tennis necklace with our diamond pendant for layers that slip from shoot day to after hours effortlessly.',
+    id: 'statement-chaos',
+    title: 'Statement Chaos',
+    description: 'Embrace entropy with the mixed-metal Chaos Ring and the disrupted flow of the Cascade Chain.',
     items: [
-      { slug: 'tennis-necklace', quantity: 1 },
-      { slug: 'diamond-pendant', quantity: 1 },
+      { slug: 'chaos-ring', quantity: 1 },
+      { slug: 'cascade-chain', quantity: 1 },
     ],
   },
 ]
 
-const BEST_SELLERS = new Set(['classic-solitaire', 'halo-diamond-ring', 'three-stone-ring'])
+const BEST_SELLERS = new Set(['standard-issue-hoops', 'orbital-flux-necklace-set', 'chaos-ring'])
 
 export function CartClient({ initialCart, sampleProducts }: CartClientProps) {
   const [cart, setCart] = useState<CartSummary>(initialCart)

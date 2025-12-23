@@ -54,6 +54,7 @@ export interface ProductSummary {
   description?: string
   tags?: string[]
   shippingPromise?: string
+  slug?: string
 }
 
 export interface ProductCarouselPayload {

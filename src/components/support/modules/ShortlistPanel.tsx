@@ -20,7 +20,7 @@ export function ShortlistPanel({ payload, onAction, disabled }: ShortlistPanelPr
   }
 
   return (
-    <section className="w-full rounded-2xl border border-border-subtle bg-surface-base p-4 shadow-sm">
+    <section className="w-full border border-border-subtle bg-surface-base p-4 shadow-sm">
       <div className="flex items-center justify-between gap-2">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-text-muted">
@@ -31,13 +31,13 @@ export function ShortlistPanel({ payload, onAction, disabled }: ShortlistPanelPr
           </p>
         </div>
       </div>
-      <ul className="mt-3 space-y-2">
+      <ul className="mt-4 space-y-3">
         {items.map((item) => (
           <li
             key={item.id}
-            className="flex items-start justify-between gap-3 rounded-xl border border-border-subtle/70 bg-neutral-50 px-3 py-2"
+            className="flex items-start justify-between gap-3 border border-border-subtle/70 bg-neutral-50 px-3 py-3"
           >
-            <div className="flex flex-col">
+            <div className="flex flex-1 flex-col gap-1">
               <span className="text-sm font-semibold text-text-primary">{item.title}</span>
               {item.description ? (
                 <span className="text-xs text-text-secondary line-clamp-2">{item.description}</span>
@@ -45,26 +45,26 @@ export function ShortlistPanel({ payload, onAction, disabled }: ShortlistPanelPr
               <span className="text-xs font-semibold text-text-primary">
                 ${item.price?.toLocaleString?.() ?? '—'}
               </span>
+              {item.shippingPromise ? (
+                <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-secondary">
+                  {item.shippingPromise}
+                </span>
+              ) : null}
             </div>
-            {item.shippingPromise ? (
-              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent-secondary">
-                {item.shippingPromise}
-              </span>
-            ) : null}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2">
               <button
                 type="button"
                 disabled={disabled}
                 onClick={() => onAction({ type: 'view-product', data: { product: item } })}
-                className="inline-flex h-8 items-center justify-center rounded-full border border-border-subtle px-2 text-[11px] font-semibold text-text-primary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex h-8 items-center justify-center border border-border-subtle px-3 text-[11px] font-semibold text-text-primary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                View details
+                View
               </button>
               <button
                 type="button"
                 disabled={disabled}
                 onClick={() => onAction({ type: 'shortlist-remove', data: { productId: item.id } })}
-                className="inline-flex h-8 items-center justify-center rounded-full border border-border-subtle px-2 text-[11px] font-semibold text-text-secondary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex h-8 items-center justify-center border border-border-subtle px-3 text-[11px] font-semibold text-text-secondary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Remove
               </button>
@@ -72,46 +72,54 @@ export function ShortlistPanel({ payload, onAction, disabled }: ShortlistPanelPr
           </li>
         ))}
       </ul>
-      <div className="mt-4 flex flex-wrap gap-2">
-        <button
-          type="button"
-          disabled={disabled}
-          onClick={() => onAction({ type: 'shortlist-open-drawer' })}
-          className="inline-flex items-center justify-center gap-2 rounded-full border border-border-subtle bg-neutral-50 px-4 py-2.5 text-xs font-semibold text-text-primary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          View shortlist
-        </button>
+
+      {/* Primary Actions */}
+      <div className="mt-6 flex flex-col gap-3">
         <button
           type="button"
           disabled={disabled}
           onClick={() => onAction({ type: 'shortlist-escalate' })}
-          className="inline-flex items-center justify-center gap-2 rounded-full border border-accent-primary/50 bg-accent-primary px-4 py-2.5 text-xs font-semibold text-surface-base transition hover:border-accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex w-full items-center justify-center gap-2 border border-accent-primary bg-accent-primary px-4 py-3 text-xs font-semibold text-surface-base transition hover:bg-accent-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {payload.ctaLabel ?? 'Invite stylist to review'}
         </button>
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            disabled={disabled}
+            onClick={() => onAction({ type: 'shortlist-open-drawer' })}
+            className="inline-flex items-center justify-center gap-2 border border-border-subtle bg-neutral-50 px-4 py-2.5 text-xs font-semibold text-text-primary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            View full list
+          </button>
+          <button
+            type="button"
+            disabled={disabled}
+            onClick={() => onAction({ type: 'shortlist-checkout' })}
+            className="inline-flex items-center justify-center gap-2 border border-border-subtle bg-surface-base px-4 py-2.5 text-xs font-semibold text-text-primary transition hover:border-accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
+
+      {/* Utility Actions */}
+      <div className="mt-6 flex items-center justify-center gap-6 border-t border-border-subtle pt-4">
         <button
           type="button"
           disabled={disabled}
           onClick={() => onAction({ type: 'shortlist-share' })}
-          className="inline-flex items-center justify-center gap-2 rounded-full border border-border-subtle bg-surface-base px-4 py-2.5 text-xs font-semibold text-text-primary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+          className="text-[11px] font-semibold uppercase tracking-widest text-text-muted transition hover:text-text-primary disabled:opacity-40"
         >
-          Share shortlist
+          Share
         </button>
         <button
           type="button"
           disabled={disabled || items.length === 0}
           onClick={() => onAction({ type: 'shortlist-clear' })}
-          className="inline-flex items-center justify-center gap-2 rounded-full border border-border-subtle/80 bg-neutral-50 px-4 py-2.5 text-xs font-semibold text-text-secondary transition hover:border-border-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-subtle focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+          className="text-[11px] font-semibold uppercase tracking-widest text-text-muted transition hover:text-accent-secondary disabled:opacity-40"
         >
-          Remove all
-        </button>
-        <button
-          type="button"
-          disabled={disabled || items.length === 0}
-          onClick={() => onAction({ type: 'shortlist-checkout' })}
-          className="inline-flex items-center justify-center gap-2 rounded-full border border-accent-primary/70 bg-neutral-50 px-4 py-2.5 text-xs font-semibold text-text-primary transition hover:border-accent-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          Go to checkout
+          Clear All
         </button>
       </div>
     </section>

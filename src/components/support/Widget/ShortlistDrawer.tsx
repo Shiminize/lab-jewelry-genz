@@ -22,7 +22,7 @@ export function ShortlistDrawer({ items, isOpen, disabled, onAction, onClose }: 
   return (
     <div
       className={`
-        absolute inset-0 z-[120] flex items-end justify-end sm:static sm:inset-auto sm:z-auto sm:flex-none
+        fixed inset-0 z-[120] flex items-end justify-end sm:z-30 sm:inset-auto sm:bottom-20 sm:right-[500px] sm:h-[min(640px,88vh)] sm:w-[400px]
         ${!isOpen ? 'pointer-events-none' : ''}
       `}
     >
@@ -41,8 +41,8 @@ export function ShortlistDrawer({ items, isOpen, disabled, onAction, onClose }: 
       <div
         className={`
           relative m-4 w-[min(520px,calc(100vw-1.5rem))] max-w-[520px] overflow-hidden border border-border-subtle bg-surface-base shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-in-out
-          ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 sm:translate-y-0 sm:translate-x-4'}
-          sm:absolute sm:bottom-0 sm:right-[105%] sm:m-0 sm:h-full sm:w-[400px] sm:max-w-[400px]
+          ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 sm:translate-y-0 sm:translate-x-4 sm:opacity-0'}
+          sm:absolute sm:inset-0 sm:m-0 sm:h-full sm:w-full
           sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]
         `}
       >
@@ -126,6 +126,7 @@ export function ShortlistDrawer({ items, isOpen, disabled, onAction, onClose }: 
                       data: {
                         productId: item.id,
                         title: item.title,
+                        slug: item.slug,
                       },
                     })
                   }

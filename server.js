@@ -16,7 +16,7 @@ const { Server } = require('socket.io')
 
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = process.env.HOSTNAME || '127.0.0.1'
-const port = process.env.PORT || 3000
+const port = parseInt(process.env.PORT || '3000', 10)
 
 // Global error handlers for crash prevention
 process.on('unhandledRejection', (reason, promise) => {
@@ -54,8 +54,11 @@ app.prepare().then(() => {
 
   const httpServer = createServer(async (req, res) => {
     try {
-      const parsedUrl = parse(req.url, true)
-      await handle(req, res, parsedUrl)
+      if (dev) {
+        console.log(`[server] ${req.method} ${req.url}`)
+      }
+      // Let Next.js handle URL parsing
+      await handle(req, res)
     } catch (err) {
       console.error('Error occurred handling', req.url, err)
       res.statusCode = 500

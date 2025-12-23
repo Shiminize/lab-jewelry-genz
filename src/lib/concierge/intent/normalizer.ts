@@ -185,13 +185,21 @@ export function normalizeProductResponse(product: Record<string, unknown>) {
       ? product.name
       : 'Untitled Product'
 
+  const slug = typeof product.slug === 'string' && product.slug.length > 0
+    ? product.slug
+    : typeof product.handle === 'string' && product.handle.length > 0
+      ? product.handle
+      : undefined
+
   return {
     ...product,
+    id: String(product.id || ''),
     title,
     price,
     image,
     imageUrl: typeof product.imageUrl === 'string' ? product.imageUrl : image,
     readyToShip: 'readyToShip' in product ? Boolean(product.readyToShip) : undefined,
     tags,
+    slug,
   }
 }
