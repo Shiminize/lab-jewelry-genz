@@ -126,14 +126,20 @@ class ProtectionGates {
       }
 
       // Check bundle size
-      const stats = JSON.parse(fs.readFileSync('.next/analyze/client.json', 'utf8'));
-      const bundleSize = stats.parsed;
+      const analyzePath = '.next/analyze/client.json';
+      if (fs.existsSync(analyzePath)) {
+        const stats = JSON.parse(fs.readFileSync(analyzePath, 'utf8'));
+        const bundleSize = stats.parsed;
 
-      if (bundleSize > PROTECTION_RULES.BUILD_GATES.maxBundleSize) {
-        this.results.warnings.push(`Large bundle size: ${bundleSize} bytes`);
-        this.log(`Large bundle size: ${Math.round(bundleSize / 1024)}KB`, 'warning');
+        if (bundleSize > PROTECTION_RULES.BUILD_GATES.maxBundleSize) {
+          this.results.warnings.push(`Large bundle size: ${bundleSize} bytes`);
+          this.log(`Large bundle size: ${Math.round(bundleSize / 1024)}KB`, 'warning');
+        } else {
+          this.log(`Bundle size OK: ${Math.round(bundleSize / 1024)}KB`);
+        }
       } else {
-        this.log(`Bundle size OK: ${Math.round(bundleSize / 1024)}KB`);
+        this.log('Bundle analysis skipped: .next/analyze/client.json not found', 'warning');
+        this.results.warnings.push('Bundle analysis skipped (missing configuration)');
       }
 
     } catch (error) {
