@@ -3,14 +3,18 @@ import Link from 'next/link'
 import { listAdminProducts } from '@/services/admin/catalog'
 import { getCreatorPipelineStats } from '@/services/admin/creatorApplications'
 import { getAdminOrderStats } from '@/services/admin/orders'
+import { getAdminUserStats } from '@/services/admin/users'
+import { getActiveSessionStats } from '@/services/admin/analytics'
 import { getAdminSettings } from '@/services/admin/settings'
 import { Typography } from '@/components/ui'
 
 export default async function DashboardOverviewPage() {
-  const [products, settings, orderStats] = await Promise.all([
+  const [products, settings, orderStats, userStats, analyticsStats] = await Promise.all([
     listAdminProducts(50),
     getAdminSettings(),
     getAdminOrderStats(),
+    getAdminUserStats(),
+    getActiveSessionStats(),
   ])
   const creatorStats = await getCreatorPipelineStats({ slaHours: settings.mediaKitSlaHours })
 
@@ -31,11 +35,32 @@ export default async function DashboardOverviewPage() {
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <SummaryCard
+          label="Total Revenue"
+          value={`$${orderStats.totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
+          detail={`${orderStats.totalOrders} orders`}
+          href="/dashboard/orders"
+        />
+        <SummaryCard
+          label="Total Users"
+          value={userStats.totalUsers.toLocaleString()}
+          detail="Registered accounts"
+          href="/dashboard/users"
+        />
+        <SummaryCard
+          label="Active Sessions"
+          value={analyticsStats.activeSessions.toLocaleString()}
+          detail="Active in last 30m"
+          href="/dashboard/analytics"
+        />
+        <SummaryCard
           label="Active products"
           value={publishedCount}
           detail={`${featuredCount} featured capsules`}
           href="/dashboard/catalog"
         />
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <SummaryCard
           label="Draft or paused"
           value={products.length - publishedCount}
@@ -59,12 +84,6 @@ export default async function DashboardOverviewPage() {
                 : 'Send assets or resend if needed'
           }
           href="/dashboard/creators?filter=media-kit"
-        />
-        <SummaryCard
-          label="Revenue (30d)"
-          value={`$${orderStats.totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}
-          detail={`${orderStats.totalOrders} orders`}
-          href="/dashboard/orders"
         />
       </section>
 

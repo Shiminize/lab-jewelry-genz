@@ -2,28 +2,34 @@ import type { ConciergeDataProvider, ProductFilter, Product } from './types';
 import prisma from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 
+
+interface ProductMetadata {
+  readyToShip?: boolean;
+  tags?: string[];
+  shippingPromise?: string;
+  badges?: string[];
+  featuredInWidget?: boolean;
+  [key: string]: unknown;
+}
+
 function map(doc: any): Product {
   // Map Prisma Product to internal Product interface
+  const metadata = (doc.metadata as ProductMetadata) || {};
+
   return {
     id: doc.sku || doc.id,
     title: doc.name || 'Untitled Product',
+    slug: doc.slug,
     price: doc.basePrice ?? 0,
     currency: doc.currency ?? 'USD',
     imageUrl: doc.heroImage || (doc.gallery && doc.gallery[0]) || '',
     category: doc.category,
-    readyToShip: (doc.metadata as any)?.readyToShip ?? false, // Stored in metadata in new schema? Or does Product have readyToShip? 
-    // Schema check: Product has `status`, `featured`, `bestseller`. 
-    // `readyToShip` was not in Product schema I viewed? 
-    // Let me check Schema again.
-    // Product schema: inventory, metadata. 
-    // `readyToShip` was NOT in Product schema. 
-    // I need to ensure `readyToShip` is handled. In `bulk-update` I put it in `metadata`.
-    // So yes, `(doc.metadata as any)?.readyToShip`.
+    readyToShip: metadata.readyToShip ?? false,
 
-    tags: (doc.metadata as any)?.tags ?? [],
-    shippingPromise: (doc.metadata as any)?.shippingPromise,
-    badges: (doc.metadata as any)?.badges ?? [],
-    featuredInWidget: (doc.metadata as any)?.featuredInWidget ?? false,
+    tags: metadata.tags ?? [],
+    shippingPromise: metadata.shippingPromise,
+    badges: metadata.badges ?? [],
+    featuredInWidget: metadata.featuredInWidget ?? false,
   };
 }
 

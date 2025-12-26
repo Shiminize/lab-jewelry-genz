@@ -43,7 +43,7 @@ describe('cartSession', () => {
       'neon_cart_id',
       'generated-cart-id',
       expect.objectContaining({
-        httpOnly: true,
+        httpOnly: false,
         sameSite: 'lax',
         path: '/',
       }),

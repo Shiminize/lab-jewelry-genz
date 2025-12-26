@@ -7,6 +7,8 @@ export interface AdminSettings {
   slackWebhook: string
   autoSendMediaKit: boolean
   mediaKitSlaHours: number
+  announcementBar: string
+  maintenanceMode: boolean
 }
 
 export interface AdminSettingsUpdate {
@@ -14,6 +16,8 @@ export interface AdminSettingsUpdate {
   slackWebhook?: string
   autoSendMediaKit?: boolean
   mediaKitSlaHours?: number
+  announcementBar?: string
+  maintenanceMode?: boolean
 }
 
 const DEFAULT_SETTINGS: AdminSettings = {
@@ -21,6 +25,8 @@ const DEFAULT_SETTINGS: AdminSettings = {
   slackWebhook: '',
   autoSendMediaKit: true,
   mediaKitSlaHours: 72,
+  announcementBar: '',
+  maintenanceMode: false,
 }
 
 export async function getAdminSettings(): Promise<AdminSettings> {
@@ -38,6 +44,8 @@ export async function getAdminSettings(): Promise<AdminSettings> {
       slackWebhook: doc.slackWebhook ?? DEFAULT_SETTINGS.slackWebhook,
       autoSendMediaKit: doc.autoSendMediaKit ?? DEFAULT_SETTINGS.autoSendMediaKit,
       mediaKitSlaHours: doc.mediaKitSlaHours ?? DEFAULT_SETTINGS.mediaKitSlaHours,
+      announcementBar: doc.announcementBar ?? DEFAULT_SETTINGS.announcementBar,
+      maintenanceMode: doc.maintenanceMode ?? DEFAULT_SETTINGS.maintenanceMode,
     }
   } catch (error) {
     console.warn('Falling back to default admin settings', error)
@@ -69,6 +77,15 @@ export async function updateAdminSettings(updates: AdminSettingsUpdate) {
     data.mediaKitSlaHours = safeValue
   }
 
+  if (updates.announcementBar !== undefined) {
+    const trimmed = updates.announcementBar.trim()
+    data.announcementBar = trimmed || null
+  }
+
+  if (updates.maintenanceMode !== undefined) {
+    data.maintenanceMode = updates.maintenanceMode
+  }
+
   await prisma.adminSettings.upsert({
     where: { id: 'global' },
     update: data,
@@ -77,7 +94,9 @@ export async function updateAdminSettings(updates: AdminSettingsUpdate) {
       notifyEmail: (data.notifyEmail as string) ?? DEFAULT_SETTINGS.notifyEmail,
       slackWebhook: (data.slackWebhook as string) ?? DEFAULT_SETTINGS.slackWebhook,
       autoSendMediaKit: (data.autoSendMediaKit as boolean) ?? DEFAULT_SETTINGS.autoSendMediaKit,
-      mediaKitSlaHours: (data.mediaKitSlaHours as number) ?? DEFAULT_SETTINGS.mediaKitSlaHours
+      mediaKitSlaHours: (data.mediaKitSlaHours as number) ?? DEFAULT_SETTINGS.mediaKitSlaHours,
+      announcementBar: (data.announcementBar as string) ?? DEFAULT_SETTINGS.announcementBar,
+      maintenanceMode: (data.maintenanceMode as boolean) ?? DEFAULT_SETTINGS.maintenanceMode,
     }
   })
 

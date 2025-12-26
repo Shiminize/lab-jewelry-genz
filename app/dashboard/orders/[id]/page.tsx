@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getAdminOrder } from '@/services/admin/orders'
+import OrderActions from './OrderActions'
 
 interface OrderDetailPageProps {
   params: { id: string }
@@ -24,6 +25,33 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
           Status: <span className="capitalize">{order.status}</span> · Payment: <span className="capitalize">{order.paymentStatus}</span>
         </p>
       </header>
+
+      <section className="grid gap-6 md:grid-cols-2">
+        <InfoCard title="Actions">
+          <OrderActions
+            orderId={order.id}
+            status={order.status}
+            total={order.total}
+            paymentStatus={order.paymentStatus ?? 'pending'}
+          />
+        </InfoCard>
+        <InfoCard title="Status History">
+          {/* Assuming statusHistory is available on the order object. If not, we might need to cast it or update the interface. 
+               The interface AdminOrderDetail doesn't show statusHistory, checking implementation...
+               It seems getAdminOrder doesn't return statusHistory strictly typed or included in the implementation yet.
+               I should update getAdminOrder to include it.
+            */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <div className="h-2 w-2 rounded-full bg-accent-primary"></div>
+              <div>
+                <p className="text-sm font-medium capitalize">{order.status}</p>
+                <p className="text-xs text-text-secondary">Current Status</p>
+              </div>
+            </div>
+          </div>
+        </InfoCard>
+      </section>
 
       <section className="grid gap-6 md:grid-cols-2">
         <InfoCard title="Customer">
@@ -89,20 +117,19 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
             <span className="text-2xl">✨</span>
             <h2 className="text-lg font-semibold text-text-primary">Concierge Widget Interaction</h2>
           </div>
-          
+
           <div className="grid gap-4 md:grid-cols-2">
             {order.widgetData.csatRating ? (
               <div className="space-y-1">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">Customer Satisfaction</p>
                 <div className="flex items-center gap-2">
                   <span
-                    className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold ${
-                      order.widgetData.csatRating >= 4
-                        ? 'bg-green-50 text-green-700'
-                        : order.widgetData.csatRating === 3
-                          ? 'bg-yellow-50 text-yellow-700'
-                          : 'bg-red-50 text-red-700'
-                    }`}
+                    className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold ${order.widgetData.csatRating >= 4
+                      ? 'bg-green-50 text-green-700'
+                      : order.widgetData.csatRating === 3
+                        ? 'bg-yellow-50 text-yellow-700'
+                        : 'bg-red-50 text-red-700'
+                      }`}
                   >
                     {order.widgetData.csatRating}/5
                   </span>

@@ -23,7 +23,8 @@ export async function getProductBySlug(slug: string): Promise<ProductDetail | nu
         inStock: product.inventory > 0,
         materials: product.materials, // Ensure arrays are passed through
         dimensions: product.dimensions,
-        care: product.care
+        care: product.care,
+        price: product.basePrice, // Map 'basePrice' from DB to 'price' in UI
         // Add other necessary fields if missing from raw database object
     };
 

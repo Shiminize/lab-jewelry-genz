@@ -4,6 +4,7 @@ import { Header } from '@/components/ui/Header'
 import Footer from '@/components/footer/Footer'
 import { SupportWidget } from '@/components/support/SupportWidget'
 import { WidgetPrefetch } from '@/components/support/WidgetPrefetch'
+import { Providers } from './Providers'
 
 export const metadata: Metadata = {
   title: 'GlowGlitch | Neon Dream Jewelry Customization',
@@ -15,13 +16,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="relative flex min-h-screen flex-col bg-app text-body">
-        <Header />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <WidgetPrefetch />
-        <SupportWidget />
+        <Providers>
+          <Header />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <WidgetPrefetch />
+          <SupportWidget />
+        </Providers>
       </body>
     </html>
   )

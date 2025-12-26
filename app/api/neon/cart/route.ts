@@ -8,7 +8,7 @@ export async function POST() {
     name: CART_COOKIE_NAME,
     value: cartId,
     path: '/',
-    httpOnly: true,
+    httpOnly: false,
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 30,
   })

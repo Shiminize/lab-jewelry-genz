@@ -23,6 +23,7 @@ interface UseWidgetActionsParams {
   setProcessing: (value: boolean) => void
   setShowIntro?: (value: boolean) => void
   ensureOpen?: () => void
+  cartAddItem?: (slug: string, quantity?: number) => Promise<boolean>
 }
 
 export function useWidgetActions({
@@ -33,6 +34,7 @@ export function useWidgetActions({
   setProcessing,
   setShowIntro,
   ensureOpen,
+  cartAddItem,
 }: UseWidgetActionsParams) {
   const purgeModules = useCallback(() => {
     const currentMessages = stateRef.current?.messages ?? []
@@ -216,11 +218,71 @@ export function useWidgetActions({
           }
           return
         }
+        case 'shortlist-add-to-cart': {
+          const product = dataRecord?.product as { id: string; title?: string; slug?: string; price?: number } | undefined
+          if (!product?.slug || !cartAddItem) return
+          setProcessing(true)
+          try {
+            await cartAddItem(product.slug, 1)
+            appendMessages([createMessage('concierge', `Added ${product.title || 'item'} to your cart.`)])
+            trackEvent('shortlist_add_to_cart', {
+              productId: product.id,
+              slug: product.slug,
+              sessionId: stateRef.current?.session.id,
+            })
+          } catch (e) {
+            appendMessages([createMessage('concierge', `Could not add ${product.title} to cart right now.`)])
+          } finally {
+            setProcessing(false)
+          }
+          return
+        }
         case 'shortlist-checkout': {
+          const shortlist = stateRef.current?.session.shortlist || []
+          const sessionId = stateRef.current?.session.id
+
           trackEvent('shortlist_checkout_click', {
-            sessionId: stateRef.current?.session.id,
-            shortlistCount: stateRef.current?.session.shortlist.length,
+            sessionId,
+            shortlistCount: shortlist.length,
           })
+
+          if (cartAddItem && shortlist.length > 0) {
+            setProcessing(true)
+            appendMessages([createMessage('concierge', 'Adding your saved items to the cart...')])
+            try {
+              let successCount = 0
+              let failCount = 0
+              let missingSlugCount = 0
+
+              // Add all items sequentially to ensure order
+              for (const item of shortlist) {
+                if (item.slug) {
+                  const success = await cartAddItem(item.slug, 1)
+                  if (success) successCount++
+                  else failCount++
+                } else {
+                  missingSlugCount++
+                }
+              }
+
+              if (successCount > 0) {
+                appendMessages([createMessage('concierge', `Added ${successCount} item${successCount === 1 ? '' : 's'} to your cart. Heading to checkout.`)])
+              } else {
+                appendMessages([createMessage('concierge', 'Could not add items to cart. Taking you to cart anyway.')])
+              }
+
+              if (missingSlugCount > 0) {
+                console.warn(`Shortlist contains ${missingSlugCount} items without slugs.`)
+              }
+
+            } catch (e) {
+              console.error('Failed to add some shortlist items to cart', e)
+              appendMessages([createMessage('concierge', 'Some items might not have added, but taking you to cart now.')])
+            } finally {
+              setProcessing(false)
+            }
+          }
+
           if (typeof window !== 'undefined') {
             window.open('/cart', '_blank', 'noopener')
           }

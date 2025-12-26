@@ -39,7 +39,8 @@ function mapPrismaToPreview(doc: any, index: number): CatalogPreviewProduct {
     sortWeight: meta.sortWeight || meta.collectionOrder,
     limitedDrop: meta.limitedDrop === true,
     readyToShip: meta.readyToShip === true,
-    metal: meta.primaryMetal || (doc.materials && doc.materials[0])
+    metal: meta.primaryMetal || (doc.materials && doc.materials[0]),
+    bestseller: doc.bestseller
   }
 }
 

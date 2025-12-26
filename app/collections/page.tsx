@@ -107,7 +107,7 @@ function sanitizeFilters(params: URLSearchParams): SanitizeResult {
 
   if (minPrice !== undefined && maxPrice !== undefined && minPrice > maxPrice) {
     priceSwapped = true
-    ;[minPrice, maxPrice] = [maxPrice, minPrice]
+      ;[minPrice, maxPrice] = [maxPrice, minPrice]
   }
 
   if (minPrice !== undefined) {
@@ -336,11 +336,11 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
     .filter((value): value is string => typeof value === 'string' && value.length > 0)
 
   const metalsSet = new Set(requestedMetalSlugs)
-  
+
   // New filters: Limited Edition and Bestseller
   const selectedLimitedDrop = sanitizedParams.get('limited') === 'true'
   const selectedBestseller = sanitizedParams.get('bestseller') === 'true'
-  
+
   // Gemstone filter aggregation
   const gemstoneValues = Array.from(
     new Set(
@@ -355,12 +355,12 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         })
     )
   ).sort((a, b) => a.localeCompare(b))
-  
+
   const requestedGemstones = parseListParam(sanitizedParams.get('gemstone') ?? undefined)
     .map((value) => value.toLowerCase())
     .filter(Boolean)
   const gemstonesSet = new Set(requestedGemstones)
-  
+
   // Materials filter aggregation
   const materialValues = Array.from(
     new Set(
@@ -375,12 +375,12 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         })
     )
   ).sort((a, b) => a.localeCompare(b))
-  
+
   const requestedMaterials = parseListParam(sanitizedParams.get('material') ?? undefined)
     .map((value) => value.toLowerCase())
     .filter(Boolean)
   const materialsSet = new Set(requestedMaterials)
-  
+
   // Tags filter aggregation
   const tagValues = Array.from(
     new Set(
@@ -395,7 +395,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         })
     )
   ).sort((a, b) => a.localeCompare(b))
-  
+
   const requestedTags = parseListParam(sanitizedParams.get('tag') ?? undefined)
     .map((value) => value.toLowerCase())
     .filter(Boolean)
@@ -429,12 +429,12 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         return false
       }
     }
-    
+
     // Limited Edition filter
     if (selectedLimitedDrop && product.limitedDrop !== true) {
       return false
     }
-    
+
     // Bestseller filter (assuming metadata.bestseller exists)
     if (selectedBestseller) {
       const productWithMetadata = product as any
@@ -442,7 +442,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         return false
       }
     }
-    
+
     // Gemstone filter
     if (gemstonesSet.size > 0) {
       const productWithGems = product as any
@@ -453,7 +453,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         return false
       }
     }
-    
+
     // Materials filter
     if (materialsSet.size > 0) {
       const productWithMaterials = product as any
@@ -464,7 +464,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         return false
       }
     }
-    
+
     // Tags filter
     if (tagsSet.size > 0) {
       const productWithTags = product as any
@@ -534,7 +534,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
           </div>
         </div>
         <SectionContainer size="gallery" bleed className="mt-8 mb-10 px-4 sm:px-6 lg:px-10 xl:px-0">
-          <div className="overflow-hidden rounded-2xl border border-border-subtle/70 bg-surface-base/85 shadow-soft">
+          <div className="overflow-hidden rounded-none border-x-0 border-t-0 border-b border-border-subtle/30 bg-surface-base/85 shadow-soft">
             <div className="relative aspect-[21/9]">
               <Image
                 src="/images/catalog/Sora/collections/collections_hero_trio_21x9_ribbon.webp"

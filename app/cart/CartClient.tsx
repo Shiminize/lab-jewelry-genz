@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2, ChevronDown, ChevronUp, Minus, Plus, ShoppingBag, Undo2, X } from 'lucide-react'
@@ -8,6 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, Button, Typography } from '@
 import { ProductCard } from '@/components/ui/ProductCard'
 import { Section, SectionContainer } from '@/components/layout/Section'
 import { GalleryRail } from '@/components/layout/GalleryRail'
+import { useCartClient } from '@/features/cart/hooks/useCartClient'
 import type { CatalogPreviewProduct } from '@/config/catalogDefaults'
 import type { CartSummary } from '@/services/neon/cartService'
 import { cn } from '@/lib/utils'
@@ -15,11 +16,6 @@ import { cn } from '@/lib/utils'
 interface CartClientProps {
   initialCart: CartSummary
   sampleProducts: CatalogPreviewProduct[]
-}
-
-interface ApiCartResponse {
-  success: boolean
-  data: CartSummary
 }
 
 type ToastTone = 'success' | 'info' | 'error'
@@ -81,23 +77,20 @@ const RECOMMENDED_STACKS: RecommendedStackConfig[] = [
   },
 ]
 
-const BEST_SELLERS = new Set(['standard-issue-hoops', 'orbital-flux-necklace-set', 'chaos-ring'])
-
 export function CartClient({ initialCart, sampleProducts }: CartClientProps) {
-  const [cart, setCart] = useState<CartSummary>(initialCart)
-  const [isPending, startTransition] = useTransition()
+  const { items, addItem, updateItem, removeItem, clear, isLoading, error } = useCartClient()
   const [toast, setToast] = useState<ToastMessage | null>(null)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [isMobileSummaryOpen, setMobileSummaryOpen] = useState(false)
+  const isPending = isLoading // Map isLoading to local isPending for UI states
 
   const itemCount = useMemo(
-    () => cart.items.reduce((total, item) => total + item.quantity, 0),
-    [cart],
+    () => items.reduce((total, item) => total + item.quantity, 0),
+    [items],
   )
 
   const subtotal = useMemo(
-    () => cart.items.reduce((total, item) => total + item.price * item.quantity, 0),
-    [cart],
+    () => items.reduce((total, item) => total + item.price * item.quantity, 0),
+    [items],
   )
 
   const recommendedStacks = useMemo<EnrichedStack[]>(() => {
@@ -122,217 +115,97 @@ export function CartClient({ initialCart, sampleProducts }: CartClientProps) {
   }, [sampleProducts])
 
   useEffect(() => {
-    if (!cart.cartId) {
-      void ensureCart().then((summary) => {
-        if (summary) {
-          setCart(summary)
-        }
-      })
-    } else {
-      persistCartId(cart.cartId)
-    }
-  }, [cart.cartId])
-
-  useEffect(() => {
     if (!toast) return
     const timer = window.setTimeout(() => setToast(null), 4200)
     return () => window.clearTimeout(timer)
   }, [toast])
 
-  const mutateCart = useCallback(
-    (mutation: (cartId: string) => Promise<ApiCartResponse | null>, afterSuccess?: (summary: CartSummary) => void) => {
-      startTransition(async () => {
-        const current = await ensureCart()
-        if (!current?.cartId) {
-          setErrorMessage('We couldn\'t reach the Neon cart service. Please refresh and try again.')
-          return
-        }
-
-        const payload = await mutation(current.cartId)
-        if (!payload) {
-          setErrorMessage('We couldn\'t update your cart. Try again in a moment.')
-          return
-        }
-
-        if (payload.success) {
-          setCart(payload.data)
-          setErrorMessage(null)
-          afterSuccess?.(payload.data)
-        } else {
-          setErrorMessage('We couldn\'t update your cart. Try again in a moment.')
-        }
-      })
-    },
-    [startTransition],
-  )
-
   const handleAdd = useCallback(
-    (slug: string, quantity = 1) => {
-      const product = sampleProducts.find((item) => item.slug === slug)
-      mutateCart(
-        async (cartId) => {
-          const response = await fetch(`/api/neon/cart/${cartId}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ slug, quantity }),
-            credentials: 'include',
+    async (slug: string, quantity = 1) => {
+      try {
+        await addItem(slug, quantity)
+        const product = sampleProducts.find((item) => item.slug === slug)
+        if (product) {
+          setToast({
+            tone: 'success',
+            title: `${product.name} added`,
+            description: 'We saved this capsule to your cart.',
           })
-
-          if (!response.ok) {
-            return null
-          }
-
-          return (await response.json()) as ApiCartResponse
-        },
-        () => {
-          if (product) {
-            setToast({
-              tone: 'success',
-              title: `${product.name} added`,
-              description: 'We saved this capsule to your cart.',
-            })
-          } else {
-            setToast({ tone: 'success', title: 'Cart updated' })
-          }
-        },
-      )
+        } else {
+          setToast({ tone: 'success', title: 'Cart updated' })
+        }
+      } catch (err) {
+        setToast({ tone: 'error', title: 'Error', description: 'Failed to add item' })
+      }
     },
-    [mutateCart, sampleProducts],
+    [addItem, sampleProducts],
   )
 
   const handleRemove = useCallback(
-    (item: CartSummaryItem) => {
-      mutateCart(
-        async (cartId) => {
-          const response = await fetch(`/api/neon/cart/${cartId}`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ slug: item.slug }),
-            credentials: 'include',
-          })
-
-          if (!response.ok) {
-            return null
-          }
-
-          return (await response.json()) as ApiCartResponse
-        },
-        () => {
-          setToast({
-            tone: 'info',
-            title: `${item.name} removed`,
-            description: 'Undo in the next few seconds if that was accidental.',
-            action: {
-              label: 'Undo',
-              onClick: () => handleAdd(item.slug, item.quantity),
-            },
-          })
-        },
-      )
+    async (item: CartSummaryItem) => {
+      try {
+        await removeItem(item.slug)
+        setToast({
+          tone: 'info',
+          title: `${item.name} removed`,
+          description: 'Undo in the next few seconds if that was accidental.',
+          action: {
+            label: 'Undo',
+            onClick: () => handleAdd(item.slug, item.quantity),
+          },
+        })
+      } catch (err) {
+        setToast({ tone: 'error', title: 'Error', description: 'Failed to remove item' })
+      }
     },
-    [mutateCart, handleAdd],
+    [removeItem, handleAdd],
   )
 
   const handleQuantityChange = useCallback(
-    (item: CartSummaryItem, nextQuantity: number) => {
+    async (item: CartSummaryItem, nextQuantity: number) => {
       if (nextQuantity <= 0) {
         handleRemove(item)
         return
       }
-
-      const previousQuantity = item.quantity
-      const previousSnapshot: CartSummaryItem = { ...item }
-
-      mutateCart(
-        async (cartId) => {
-          const response = await fetch(`/api/neon/cart/${cartId}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ slug: item.slug, quantity: nextQuantity }),
-            credentials: 'include',
-          })
-
-          if (!response.ok) {
-            return null
-          }
-
-          return (await response.json()) as ApiCartResponse
-        },
-        () => {
-          setToast({
-            tone: 'info',
-            title: `${item.name} updated`,
-            description: `Quantity set to ${nextQuantity}.`,
-            action: {
-              label: 'Undo',
-              onClick: () => handleQuantityChange(previousSnapshot, previousQuantity),
-            },
-          })
-        },
-      )
+      try {
+        await updateItem(item.slug, nextQuantity)
+        // No success toast for simple quantity updates to avoid noise, 
+        // or we could show one. Used to show one with undo.
+        // Keeping it simple for now, or could re-add toast.
+      } catch (err) {
+        setToast({ tone: 'error', title: 'Error', description: 'Failed to update quantity' })
+      }
     },
-    [mutateCart, handleRemove],
+    [updateItem, handleRemove],
   )
 
-  const handleClear = useCallback(() => {
-    mutateCart(
-      async (cartId) => {
-        const response = await fetch(`/api/neon/cart/${cartId}`, {
-          method: 'DELETE',
-          credentials: 'include',
-        })
-
-        if (!response.ok) {
-          return null
-        }
-
-        return (await response.json()) as ApiCartResponse
-      },
-      () => {
-        setToast({ tone: 'info', title: 'Cart cleared' })
-      },
-    )
-  }, [mutateCart])
+  const handleClear = useCallback(async () => {
+    try {
+      await clear()
+      setToast({ tone: 'info', title: 'Cart cleared' })
+    } catch (err) {
+      setToast({ tone: 'error', title: 'Error', description: 'Failed to clear cart' })
+    }
+  }, [clear])
 
   const handleAddStack = useCallback(
-    (stack: EnrichedStack, multiplier = 1) => {
-      mutateCart(
-        async (cartId) => {
-          let latest: ApiCartResponse | null = null
-          const itemsToAdd = stack.items.map((item) => ({ slug: item.slug, quantity: item.quantity * multiplier }))
-
-          for (const entry of itemsToAdd) {
-            const response = await fetch(`/api/neon/cart/${cartId}`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(entry),
-              credentials: 'include',
-            })
-
-            if (!response.ok) {
-              return null
-            }
-
-            const payload = (await response.json()) as ApiCartResponse
-            if (!payload.success) {
-              return payload
-            }
-
-            latest = payload
-          }
-
-          return latest
-        },
-        () => {
-          const stackLabel = multiplier > 1 ? `${multiplier} × ${stack.title}` : stack.title
-          setToast({ tone: 'success', title: `${stackLabel} added`, description: 'We queued the full stack inside your lineup.' })
-        },
-      )
+    async (stack: EnrichedStack, multiplier = 1) => {
+      try {
+        const itemsToAdd = stack.items.map((item) => ({ slug: item.slug, quantity: item.quantity * multiplier }))
+        // We can parallelize or sequentialize. Sequential is safer for race conditions in simple context
+        for (const item of itemsToAdd) {
+          await addItem(item.slug, item.quantity)
+        }
+        const stackLabel = multiplier > 1 ? `${multiplier} × ${stack.title}` : stack.title
+        setToast({ tone: 'success', title: `${stackLabel} added`, description: 'We queued the full stack inside your lineup.' })
+      } catch (err) {
+        setToast({ tone: 'error', title: 'Error', description: 'Failed to add stack' })
+      }
     },
-    [mutateCart],
+    [addItem],
   )
 
-  const hasItems = cart.items.length > 0
+  const hasItems = items.length > 0
 
   return (
     <>
@@ -353,19 +226,19 @@ export function CartClient({ initialCart, sampleProducts }: CartClientProps) {
                   <Typography variant="body" className="max-w-2xl text-body" data-testid="cart-hero-body">
                     Pick a capsule to start curating your GlowGlitch stack. Add, remix, or remove pieces while totals update instantly for concierge checkout.
                   </Typography>
-                  {errorMessage && (
+                  {error && (
                     <div className="flex items-start gap-3 border border-accent-primary/30 bg-accent-muted/40 px-4 py-3 text-sm text-brand-ink">
                       <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center bg-accent-primary/20 font-semibold text-[0.625rem] uppercase tracking-wide text-accent-primary">
                         !
                       </span>
-                      <p>{errorMessage}</p>
+                      <p>{error}</p>
                     </div>
                   )}
                 </header>
 
                 <div className="space-y-6">
                   {hasItems ? (
-                    cart.items.map((item) => (
+                    items.map((item) => (
                       <CartItemCard
                         key={item.slug}
                         item={item}
@@ -436,53 +309,6 @@ export function CartClient({ initialCart, sampleProducts }: CartClientProps) {
   )
 }
 
-async function ensureCart(): Promise<CartSummary | null> {
-  const existing = readCartIdFromDocument()
-  if (existing) {
-    return { cartId: existing, items: [], createdAt: new Date(), updatedAt: new Date() }
-  }
-
-  const response = await fetch('/api/neon/cart', {
-    method: 'POST',
-    credentials: 'include',
-  })
-
-  if (!response.ok) {
-    return null
-  }
-
-  const payload = (await response.json()) as { success: boolean; data: { cartId: string } }
-  if (!payload.success) {
-    return null
-  }
-
-  persistCartId(payload.data.cartId)
-  return {
-    cartId: payload.data.cartId,
-    items: [],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  }
-}
-
-function readCartIdFromDocument(): string | undefined {
-  if (typeof document === 'undefined') {
-    return undefined
-  }
-  const match = document.cookie
-    .split(';')
-    .map((cookie) => cookie.trim())
-    .find((cookie) => cookie.startsWith('neon_cart_id='))
-  return match ? match.split('=')[1] : undefined
-}
-
-function persistCartId(cartId: string) {
-  if (typeof document === 'undefined') {
-    return
-  }
-  document.cookie = `neon_cart_id=${cartId}; Path=/; Max-Age=${60 * 60 * 24 * 30}`
-}
-
 function ToneBadge({ tone }: { tone: CartSummaryItem['tone'] }) {
   const toneCopy: Record<CartSummaryItem['tone'], string> = {
     volt: 'Volt',
@@ -551,9 +377,27 @@ function CartItemCard({
             <QuantityStepper value={item.quantity} onIncrease={onIncrease} onDecrease={onDecrease} disabled={isPending} />
           </div>
         </div>
-        <Button type="button" variant="outline" tone="ink" onClick={onRemove} disabled={isPending}>
-          Remove
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button type="button" variant="outline" tone="ink" onClick={() => {
+            // Create product from item for shortlist
+            const product = {
+              id: item.slug,
+              slug: item.slug,
+              title: item.name,
+              price: item.price,
+              description: item.tone ? `${item.tone} Tone` : undefined,
+              heroImage: item.heroImage
+            }
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new CustomEvent('widget:addToShortlist', { detail: { product } }))
+            }
+          }} disabled={isPending}>
+            Save to shortlist
+          </Button>
+          <Button type="button" variant="outline" tone="ink" onClick={onRemove} disabled={isPending}>
+            Remove
+          </Button>
+        </div>
       </CardContent>
     </Card>
   )
@@ -620,7 +464,7 @@ function SampleCapsuleGrid({
               tagline={product.tagline}
               customizeHref={null}
               detailsHref={`/products/${product.slug}`}
-              badges={BEST_SELLERS.has(product.slug) ? [{ label: 'Best seller', tone: 'ink' }] : undefined}
+              badges={product.bestseller ? [{ label: 'Best seller', tone: 'ink' }] : undefined}
               className="h-full"
               actions={
                 <div className="flex items-center gap-3">
@@ -783,9 +627,9 @@ function CartSummaryCard({ itemCount, subtotal, isPending, hasItems }: { itemCou
       </CardContent>
       <CardFooter className="flex flex-col gap-[var(--space-fluid-sm)] px-[var(--space-fluid-md)] pb-[var(--space-fluid-md)] pt-[var(--space-fluid-md)]">
         <Button
-          tone="ink"
-          variant="accent"
-          className="w-full justify-center text-base"
+          tone="coral"
+          variant="primary"
+          className="w-full justify-center text-base shadow-accent-glow"
           href="/checkout"
           disabled={ctaDisabled}
         >
@@ -829,10 +673,10 @@ function MobileSummaryBar({
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border-subtle bg-surface-base/95 backdrop-blur-xl">
       <button
         type="button"
-        className="flex w-full items-center justify-between px-5 py-4 text-left"
+        className="flex w-full items-center justify-center px-5 py-4 text-left"
         onClick={onToggle}
       >
-        <div>
+        <div className="flex-1">
           <p className="text-xs uppercase tracking-[0.3em] text-body-muted">Cart snapshot</p>
           <p className="text-sm font-semibold text-brand-ink">{itemCount} item{itemCount === 1 ? '' : 's'} · ${subtotal.toLocaleString()}</p>
         </div>

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Section, SectionContainer } from '@/components/layout/Section'
 import { Typography } from '@/components/ui/Typography'
 import { Button } from '@/components/ui/Button'
-import { ProductCard } from '@/components/ui/ProductCard'
+import { ProductCardWithCart } from '@/components/products/ProductCardWithCart'
 import { quizQuestions, calculateQuizResult, QUIZ_RESULTS } from '@/content/quiz'
 import { getQuizResultProduct } from '@/actions/quiz'
 import { type CatalogProductDetail } from '@/services/neon/catalogRepository'
@@ -221,7 +221,7 @@ export function QuizSection() {
                                     </div>
 
                                     <div className="order-1 md:order-2 h-[400px]">
-                                        <ProductCard
+                                        <ProductCardWithCart
                                             {...displayProduct}
                                             surfaceTone="veil"
                                             className="h-full border-none shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)]"

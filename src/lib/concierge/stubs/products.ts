@@ -10,6 +10,7 @@ export const catalog = [
     category: 'ring',
     readyToShip: true,
     metal: '14k_yellow',
+    slug: 'solaris-aura-ring',
   },
   {
     id: 'aurora-ear-constellation',
@@ -22,6 +23,7 @@ export const catalog = [
     category: 'earring',
     readyToShip: true,
     metal: '14k_white',
+    slug: 'constellation-ear-stack',
   },
   {
     id: 'aurora-necklace-lumina',
@@ -34,6 +36,7 @@ export const catalog = [
     category: 'necklace',
     readyToShip: true,
     metal: 'silver',
+    slug: 'lumina-pendant-necklace',
   },
   {
     id: 'aurora-rose-band',
@@ -46,6 +49,7 @@ export const catalog = [
     category: 'ring',
     readyToShip: true,
     metal: '14k_rose',
+    slug: 'rose-glow-band',
   },
   {
     id: 'aurora-rose-lariat',
@@ -58,6 +62,7 @@ export const catalog = [
     category: 'necklace',
     readyToShip: true,
     metal: '14k_rose',
+    slug: 'blush-lariat-necklace',
   },
 ]
 

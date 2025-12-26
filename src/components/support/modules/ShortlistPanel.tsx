@@ -63,6 +63,14 @@ export function ShortlistPanel({ payload, onAction, disabled }: ShortlistPanelPr
               <button
                 type="button"
                 disabled={disabled}
+                onClick={() => onAction({ type: 'shortlist-add-to-cart', data: { product: item } })}
+                className="inline-flex h-8 items-center justify-center border border-accent-secondary px-3 text-[11px] font-semibold text-accent-secondary transition hover:bg-accent-secondary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                Add
+              </button>
+              <button
+                type="button"
+                disabled={disabled}
                 onClick={() => onAction({ type: 'shortlist-remove', data: { productId: item.id } })}
                 className="inline-flex h-8 items-center justify-center border border-border-subtle px-3 text-[11px] font-semibold text-text-secondary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
               >

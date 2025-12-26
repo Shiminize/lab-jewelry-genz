@@ -90,6 +90,40 @@ export default async function DashboardSettingsPage({ searchParams }: SettingsPa
             </Field>
           </div>
 
+          <div className="space-y-2 pt-6 border-t border-border-subtle">
+            <Typography as="h2" variant="title" className="text-text-primary">
+              Storefront Configuration
+            </Typography>
+            <Typography variant="body" className="text-text-secondary">
+              Manage global site settings and status.
+            </Typography>
+          </div>
+
+          <Field label="Announcement Bar" htmlFor="announcementBar">
+            <input
+              id="announcementBar"
+              name="announcementBar"
+              defaultValue={settings.announcementBar}
+              placeholder="e.g., Free shipping on orders over $50!"
+              maxLength={100}
+              className="w-full rounded-xl border border-border-subtle bg-surface-panel px-4 py-3 text-sm text-text-primary shadow-soft focus:outline-none focus:ring-2 focus:ring-accent-secondary/40"
+            />
+            <span className="text-xs text-text-muted">Displayed at the top of every page. Max 100 characters.</span>
+          </Field>
+
+          <label className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-4 text-sm text-red-900 shadow-soft">
+            <input
+              type="checkbox"
+              name="maintenanceMode"
+              defaultChecked={settings.maintenanceMode}
+              className="mt-1 h-5 w-5 rounded border border-red-300 text-red-600 focus:ring-red-500"
+            />
+            <span>
+              <span className="block text-sm font-semibold text-red-800">Maintenance Mode</span>
+              If enabled, the storefront will be inaccessible to customers. Admins can still access the dashboard.
+            </span>
+          </label>
+
           <div className="pt-2">
             <button
               type="submit"
@@ -135,12 +169,16 @@ async function updateSettingsAction(formData: FormData) {
   const autoSendMediaKit = formData.get('autoSendMediaKit') === 'on'
   const mediaKitSlaHoursRaw = Number(formData.get('mediaKitSlaHours') ?? '')
   const mediaKitSlaHours = Number.isFinite(mediaKitSlaHoursRaw) && mediaKitSlaHoursRaw > 0 ? mediaKitSlaHoursRaw : 72
+  const announcementBar = String(formData.get('announcementBar') ?? '').trim()
+  const maintenanceMode = formData.get('maintenanceMode') === 'on'
 
   await updateAdminSettings({
     notifyEmail: notifyEmail.length ? notifyEmail : undefined,
     slackWebhook: slackWebhook.length ? slackWebhook : undefined,
     autoSendMediaKit,
     mediaKitSlaHours,
+    announcementBar,
+    maintenanceMode
   })
 
   revalidatePath('/dashboard/settings')

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowGlitch | Option 2: Minimal Sidebar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* GlowGlitch Design Tokens Simulation */
+        :root {
+            --radius-0: 0px;
+            --font-heading: 'Georgia', serif;
+            --font-body: 'Arial', sans-serif;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: #F8F8F8;
+            color: #111;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+        }
+
+        .zero-radius {
+            border-radius: var(--radius-0);
+        }
+
+        .filter-group-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            color: #111;
+            padding: 1rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-group-title:hover {
+            color: #555;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            color: #444;
+            cursor: pointer;
+        }
+
+        .checkbox-row:hover {
+            color: #000;
+        }
+
+        .checkbox-row input {
+            appearance: none;
+            width: 1rem;
+            height: 1rem;
+            border: 1px solid #CCC;
+            background: #FFF;
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-row input:checked {
+            background: #000;
+            border-color: #000;
+        }
+
+        .divider {
+            height: 1px;
+            background: #EEE;
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header Stub -->
+    <header class="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-8 sticky top-0 z-50">
+        <div class="font-bold tracking-widest uppercase">GlowGlitch</div>
+        <div class="text-xs uppercase tracking-widest text-gray-400">Option 2: Sidebar</div>
+        <div class="w-8 h-8 bg-gray-100 zero-radius"></div>
+    </header>
+
+    <div class="flex flex-grow">
+        <!-- SIDEBAR -->
+        <aside
+            class="w-[280px] flex-shrink-0 bg-white border-r border-gray-200 h-[calc(100vh-64px)] overflow-y-auto sticky top-16 p-8 hidden md:block">
+            <h3 class="mb-6 text-sm font-bold uppercase tracking-widest">Filters</h3>
+
+            <!-- Group: Sort (Visible by default in sidebar) -->
+            <div class="mb-6">
+                <div class="filter-group-title">Sort By</div>
+                <div class="space-y-1">
+                    <label class="checkbox-row"><input type="radio" name="sort" checked> Feature Picks</label>
+                    <label class="checkbox-row"><input type="radio" name="sort"> Price: Low to High</label>
+                    <label class="checkbox-row"><input type="radio" name="sort"> Price: High to Low</label>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Group: Category -->
+            <div class="mb-2">
+                <div class="filter-group-title">Category <span>-</span></div>
+                <div class="space-y-1">
+                    <label class="checkbox-row"><input type="checkbox"> Rings <span
+                            class="text-gray-300 ml-auto text-xs">42</span></label>
+                    <label class="checkbox-row"><input type="checkbox"> Necklaces <span
+                            class="text-gray-300 ml-auto text-xs">15</span></label>
+                    <label class="checkbox-row"><input type="checkbox"> Earrings <span
+                            class="text-gray-300 ml-auto text-xs">28</span></label>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Group: Price -->
+            <div class="mb-2">
+                <div class="filter-group-title">Price Range <span>-</span></div>
+                <div class="flex items-center gap-2 mb-2">
+                    <input type="number" placeholder="$0"
+                        class="w-full border border-gray-200 p-2 text-xs zero-radius focus:outline-none focus:border-black">
+                    <span class="text-gray-400">-</span>
+                    <input type="number" placeholder="$2000"
+                        class="w-full border border-gray-200 p-2 text-xs zero-radius focus:outline-none focus:border-black">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Group: Metal -->
+            <div class="mb-2">
+                <div class="filter-group-title">Metal <span>+</span></div>
+                <div class="space-y-1 hidden">
+                    <!-- contents would be here -->
+                </div>
+            </div>
+
+            <button
+                class="w-full mt-8 bg-black text-white py-3 text-xs uppercase tracking-widest zero-radius hover:bg-gray-800 transition-colors">Apply
+                Filters</button>
+            <button
+                class="w-full mt-2 text-gray-400 py-2 text-xs uppercase tracking-widest zero-radius hover:text-black">Reset
+                All</button>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-grow bg-white">
+            <!-- Mobile Filter Trigger (Visible only on mobile) -->
+            <div
+                class="md:hidden border-b border-gray-200 p-4 sticky top-16 bg-white z-40 flex justify-between items-center">
+                <h1 class="text-xl font-serif">Rings</h1>
+                <button
+                    class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest border border-gray-200 px-4 py-2 zero-radius">
+                    Filters / Sort
+                </button>
+            </div>
+
+            <!-- Hero / Title (Desktop) -->
+            <section class="py-12 px-8 border-b border-gray-100 hidden md:block">
+                <h1 class="text-5xl mb-2 font-light">Rings</h1>
+                <p class="text-xs uppercase tracking-widest text-gray-400">Displaying 12 of 85 products</p>
+            </section>
+
+            <!-- Product Grid -->
+            <div
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-px bg-gray-100 border-b border-gray-100 border-l border-gray-100 zero-radius overflow-hidden h-full content-start">
+                <!-- Product 1 -->
+                <div
+                    class="bg-white p-8 aspect-[3/4] flex flex-col justify-between group cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div
+                        class="w-full h-2/3 bg-gray-100 mb-4 mix-blend-multiply flex items-center justify-center text-gray-300 text-6xl font-thin group-hover:scale-95 transition-transform duration-500">
+                        Img</div>
+                    <div>
+                        <h3 class="font-serif text-xl">Void Ring</h3>
+                        <p class="text-sm text-gray-500 mt-1">$120</p>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div
+                    class="bg-white p-8 aspect-[3/4] flex flex-col justify-between group cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div
+                        class="w-full h-2/3 bg-gray-100 mb-4 mix-blend-multiply flex items-center justify-center text-gray-300 text-6xl font-thin group-hover:scale-95 transition-transform duration-500">
+                        Img</div>
+                    <div>
+                        <h3 class="font-serif text-xl">Nexus Hoop</h3>
+                        <p class="text-sm text-gray-500 mt-1">$85</p>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div
+                    class="bg-white p-8 aspect-[3/4] flex flex-col justify-between group cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div
+                        class="w-full h-2/3 bg-gray-100 mb-4 mix-blend-multiply flex items-center justify-center text-gray-300 text-6xl font-thin group-hover:scale-95 transition-transform duration-500">
+                        Img</div>
+                    <div>
+                        <h3 class="font-serif text-xl">Cyber Pendant</h3>
+                        <p class="text-sm text-gray-500 mt-1">$240</p>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div
+                    class="bg-white p-8 aspect-[3/4] flex flex-col justify-between group cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div
+                        class="w-full h-2/3 bg-gray-100 mb-4 mix-blend-multiply flex items-center justify-center text-gray-300 text-6xl font-thin group-hover:scale-95 transition-transform duration-500">
+                        Img</div>
+                    <div>
+                        <h3 class="font-serif text-xl">Glitch Choker</h3>
+                        <p class="text-sm text-gray-500 mt-1">$180</p>
+                    </div>
+                </div>
+                <!-- Product 5 -->
+                <div
+                    class="bg-white p-8 aspect-[3/4] flex flex-col justify-between group cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div
+                        class="w-full h-2/3 bg-gray-100 mb-4 mix-blend-multiply flex items-center justify-center text-gray-300 text-6xl font-thin group-hover:scale-95 transition-transform duration-500">
+                        Img</div>
+                    <div>
+                        <h3 class="font-serif text-xl">Flux EarCuff</h3>
+                        <p class="text-sm text-gray-500 mt-1">$95</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

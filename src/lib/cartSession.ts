@@ -18,7 +18,7 @@ export function ensureCartIdCookie(): string {
   const cartId = crypto.randomUUID()
   store.set(CART_COOKIE, cartId, {
     path: '/',
-    httpOnly: true,
+    httpOnly: false,
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 30,
   })

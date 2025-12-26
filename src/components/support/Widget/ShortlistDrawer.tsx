@@ -117,23 +117,7 @@ export function ShortlistDrawer({ items, isOpen, disabled, onAction, onClose }: 
                     {item.shippingPromise}
                   </span>
                 ) : null}
-                <button
-                  type="button"
-                  disabled={disabled}
-                  onClick={() =>
-                    onAction({
-                      type: 'shortlist-view-links',
-                      data: {
-                        productId: item.id,
-                        title: item.title,
-                        slug: item.slug,
-                      },
-                    })
-                  }
-                  className="inline-flex items-center justify-center border border-border-subtle px-3 py-1.5 text-[11px] font-semibold text-text-secondary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  Open PDP/collection
-                </button>
+
                 <button
                   type="button"
                   disabled={disabled}
@@ -141,6 +125,14 @@ export function ShortlistDrawer({ items, isOpen, disabled, onAction, onClose }: 
                   className="inline-flex items-center justify-center border border-border-subtle px-3 py-1.5 text-[11px] font-semibold text-text-primary transition hover:border-accent-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   View details
+                </button>
+                <button
+                  type="button"
+                  disabled={disabled}
+                  onClick={() => onAction({ type: 'shortlist-add-to-cart', data: { product: item } })}
+                  className="inline-flex items-center justify-center border border-accent-secondary px-3 py-1.5 text-[11px] font-semibold text-accent-secondary transition hover:bg-accent-secondary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-secondary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  Add to cart
                 </button>
                 <button
                   type="button"

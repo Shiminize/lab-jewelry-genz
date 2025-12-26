@@ -3,7 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
 import { getAdminProduct, updateAdminProduct } from '@/services/admin/catalog'
-import { Typography } from '@/components/ui'
+import { Typography, TagInput } from '@/components/ui'
 
 interface ProductEditPageProps {
   params: { id: string }
@@ -96,11 +96,11 @@ export default async function ProductEditPage({ params }: ProductEditPageProps) 
         </Field>
 
         <Field label="Collections (comma separated)" htmlFor="collections">
-          <input
+          <TagInput
             id="collections"
             name="collections"
-            defaultValue={product.collections.join(', ')}
-            className="w-full rounded-xl border border-border-subtle bg-surface-panel px-4 py-3 text-sm text-text-primary shadow-soft focus:outline-none focus:ring-2 focus:ring-accent-secondary/40"
+            defaultValue={product.collections}
+            placeholder="Add collection tag..."
           />
         </Field>
 

@@ -154,6 +154,8 @@ model AdminSettings {
   slackWebhook     String?
   autoSendMediaKit Boolean  @default(true)
   mediaKitSlaHours Int      @default(72)
+  announcementBar  String?
+  maintenanceMode  Boolean  @default(false)
   updatedAt        DateTime @updatedAt
 
   @@map("admin_settings")
@@ -210,6 +212,7 @@ model WidgetOrderSubscription {
 model WidgetAnalyticsEvent {
   id        String   @id @default(cuid())
   event     String
+  sessionId String?
   metadata  Json?
   createdAt DateTime @default(now())
 
@@ -225,6 +228,7 @@ model WidgetShortlist {
 
   @@map("widget_shortlists")
 }
+
 
 model StylistTicket {
   id             String   @id @default(cuid())
@@ -242,4 +246,24 @@ model StylistTicket {
   updatedAt      DateTime @updatedAt
 
   @@map("stylist_tickets")
+}
+
+model Promotion {
+  id           String   @id @default(cuid())
+  code         String   @unique
+  type         String   @default("PERCENTAGE") // "PERCENTAGE", "FIXED"
+  value        Float
+  minSpend     Float    @default(0)
+  maxDiscount  Float?   // Optional cap for percentage based
+  
+  isActive     Boolean  @default(true)
+  expiresAt    DateTime?
+  
+  currentUsage Int      @default(0)
+  maxUsage     Int?     // Null means unlimited
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("promotions")
 }

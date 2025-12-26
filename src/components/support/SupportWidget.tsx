@@ -5,6 +5,7 @@ import { isWidgetEnabled } from '@/lib/feature-flags'
 import type { ConciergeIntent } from '@/lib/concierge/types'
 import { useWidgetState } from './hooks/useWidgetState'
 import { useWidgetActions } from './hooks/useWidgetActions'
+import { useCart } from '@/features/cart/context/CartContext'
 import { WidgetShell } from './Widget/WidgetShell'
 import { WidgetConversation } from './Widget/WidgetConversation'
 import { WidgetComposer } from './Widget/WidgetComposer'
@@ -66,6 +67,7 @@ export function SupportWidget({ userId }: { userId?: string } = {}) {
   }
 
   // Actions
+  const { addItem: cartAddItem } = useCart()
   const actions = useWidgetActions({
     stateRef: widgetState.stateRef,
     appendMessages: widgetState.appendMessages,
@@ -74,6 +76,7 @@ export function SupportWidget({ userId }: { userId?: string } = {}) {
     setProcessing: widgetState.setProcessing,
     setShowIntro: dismissIntro,
     ensureOpen: widgetState.openWidget,
+    cartAddItem,
   })
 
   useEffect(() => {
@@ -86,13 +89,22 @@ export function SupportWidget({ userId }: { userId?: string } = {}) {
       })
     }
 
+    function handleAddToShortlist(event: Event) {
+      const custom = event as CustomEvent<{ product: import('@/lib/concierge/types').ProductSummary }>
+      if (!custom.detail?.product) return
+      actions.handleModuleAction({ type: 'shortlist-product', data: { product: custom.detail.product } })
+      widgetState.openWidget()
+    }
+
     if (typeof window !== 'undefined') {
       window.addEventListener('widget:setFilters', handleSetFilters as EventListener)
+      window.addEventListener('widget:addToShortlist', handleAddToShortlist as EventListener)
     }
 
     return () => {
       if (typeof window !== 'undefined') {
         window.removeEventListener('widget:setFilters', handleSetFilters as EventListener)
+        window.removeEventListener('widget:addToShortlist', handleAddToShortlist as EventListener)
       }
     }
   }, [actions])

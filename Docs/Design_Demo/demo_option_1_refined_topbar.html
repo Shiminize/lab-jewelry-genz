@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowGlitch | Option 1: Refined Top Bar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* GlowGlitch Design Tokens Simulation */
+        :root {
+            --radius-0: 0px;
+            --font-heading: 'Georgia', serif; /* Petrona proxy */
+            --font-body: 'Arial', sans-serif; /* Commissioner proxy */
+        }
+        body { font-family: var(--font-body); background-color: #F8F8F8; color: #111; }
+        h1, h2, h3 { font-family: var(--font-heading); }
+        .zero-radius { border-radius: var(--radius-0); }
+        .btn-filter {
+            border: 1px solid #E5E5E5;
+            background: #FFFFFF;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-filter:hover { border-color: #000; }
+        .btn-filter.active { background: #000; color: #fff; border-color: #000; }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #E5E5E5;
+            min-width: 200px;
+            z-index: 50;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #F0F0F0;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .chip button { color: #666; margin-left: 0.5rem; }
+        .chip button:hover { color: #000; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header Stub -->
+    <header class="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-8 sticky top-0 z-50">
+        <div class="font-bold tracking-widest uppercase">GlowGlitch</div>
+        <div class="text-xs uppercase tracking-widest text-gray-400">Option 1: Sticky Top Bar</div>
+        <div class="w-8 h-8 bg-gray-100 zero-radius"></div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="py-12 px-8 text-center bg-white border-b border-gray-100">
+        <h1 class="text-5xl mb-4 font-light">Rings</h1>
+        <p class="text-gray-500 max-w-lg mx-auto">Architectural pieces defined by clean lines and negative space.</p>
+    </section>
+
+    <!-- FILTER BAR (The Concept) -->
+    <div class="sticky top-16 z-40 bg-white/95 backdrop-blur border-b border-gray-200 px-8 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        
+        <!-- Left: Filter Groups -->
+        <div class="flex flex-wrap gap-2 items-center">
+            <span class="text-xs font-bold uppercase tracking-widest mr-4 text-gray-400">Filter</span>
+            
+            <!-- Category Dropdown -->
+            <div class="relative dropdown group">
+                <button class="btn-filter zero-radius flex items-center gap-2">
+                    Category
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="dropdown-content zero-radius p-2">
+                     <label class="flex items-center gap-2 p-2 hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" class="accent-black"> <span class="text-sm">Rings</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" class="accent-black"> <span class="text-sm">Necklaces</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" class="accent-black"> <span class="text-sm">Earrings</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Material Dropdown -->
+             <div class="relative dropdown group">
+                <button class="btn-filter zero-radius flex items-center gap-2">
+                    Material
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="dropdown-content zero-radius p-2">
+                     <label class="flex items-center gap-2 p-2 hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" class="accent-black"> <span class="text-sm">Gold (18k)</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" class="accent-black"> <span class="text-sm">Silver</span>
+                    </label>
+                     <label class="flex items-center gap-2 p-2 hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" class="accent-black"> <span class="text-sm">Rose Gold</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Price Dropdown -->
+            <div class="relative dropdown group">
+                <button class="btn-filter zero-radius flex items-center gap-2 active">
+                    Price: $0 - $500
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                 <div class="dropdown-content zero-radius p-4 min-w-[300px]">
+                    <div class="flex items-center gap-2 mb-4">
+                        <input type="number" placeholder="Min" class="w-full border border-gray-200 p-2 text-xs zero-radius focus:outline-none focus:border-black">
+                        <span>-</span>
+                        <input type="number" placeholder="Max" class="w-full border border-gray-200 p-2 text-xs zero-radius focus:outline-none focus:border-black">
+                    </div>
+                    <button class="w-full bg-black text-white py-2 text-xs uppercase tracking-widest zero-radius hover:bg-gray-800">Apply</button>
+                </div>
+            </div>
+            
+            <div class="w-px h-6 bg-gray-200 mx-2"></div>
+            
+             <!-- Toggle Switch for "Ready to Ship" -->
+            <label class="flex items-center gap-3 cursor-pointer group">
+                <div class="relative">
+                    <input type="checkbox" class="sr-only peer">
+                    <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-checked:bg-black transition-all zero-radius"></div>
+                    <div class="absolute top-[2px] left-[2px] bg-white w-4 h-4 transition-all peer-checked:translate-x-full zero-radius"></div>
+                </div>
+                <span class="text-xs uppercase tracking-widest text-gray-500 group-hover:text-black transition-colors">Ready to Ship</span>
+            </label>
+        </div>
+
+        <!-- Right: Sort & Count -->
+        <div class="flex items-center gap-4">
+             <span class="text-xs text-gray-400">12 Products</span>
+              <div class="relative dropdown group">
+                <button class="text-xs font-bold uppercase tracking-widest flex items-center gap-1 hover:text-gray-600">
+                    Sort: Featured
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Filters Row (Conditional) -->
+    <div class="px-8 py-3 bg-white border-b border-gray-100 flex gap-2 items-center">
+        <span class="text-[10px] uppercase text-gray-400">Active:</span>
+        <div class="chip zero-radius">Price: $0 - $500 <button>&times;</button></div>
+        <button class="text-[10px] uppercase underline ml-auto text-gray-400 hover:text-red-500">Clear All</button>
+    </div>
+
+    <!-- Product Grid Dummy -->
+    <main class="flex-grow bg-white px-8 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100 border border-gray-100 zero-radius overflow-hidden">
+            <!-- Product 1 -->
+            <div class="bg-white p-6 aspect-[3/4] flex flex-col justify-between group cursor-pointer hover:bg-gray-50 transition-colors">
+                <div class="w-full h-2/3 bg-gray-100 mb-4 mix-blend-multiply flex items-center justify-center text-gray-300 text-6xl font-thin group-hover:scale-95 transition-transform duration-500">Img</div>
+                <div>
+                     <h3 class="font-serif text-lg">Void Ring</h3>
+                     <p class="text-sm text-gray-500">$120</p>
+                </div>
+            </div>
+             <!-- Product 2 -->
+             <div class="bg-white p-6 aspect-[3/4] flex flex-col justify-between group cursor-pointer hover:bg-gray-50 transition-colors">
+                <div class="w-full h-2/3 bg-gray-100 mb-4 mix-blend-multiply flex items-center justify-center text-gray-300 text-6xl font-thin group-hover:scale-95 transition-transform duration-500">Img</div>
+                <div>
+                     <h3 class="font-serif text-lg">Nexus Hoop</h3>
+                     <p class="text-sm text-gray-500">$85</p>
+                </div>
+            </div>
+             <!-- Product 3 -->
+             <div class="bg-white p-6 aspect-[3/4] flex flex-col justify-between group cursor-pointer hover:bg-gray-50 transition-colors">
+                <div class="w-full h-2/3 bg-gray-100 mb-4 mix-blend-multiply flex items-center justify-center text-gray-300 text-6xl font-thin group-hover:scale-95 transition-transform duration-500">Img</div>
+                <div>
+                     <h3 class="font-serif text-lg">Cyber Pendant</h3>
+                     <p class="text-sm text-gray-500">$240</p>
+                </div>
+            </div>
+             <!-- Product 4 -->
+            <div class="bg-white p-6 aspect-[3/4] flex flex-col justify-between group cursor-pointer hover:bg-gray-50 transition-colors">
+                <div class="w-full h-2/3 bg-gray-100 mb-4 mix-blend-multiply flex items-center justify-center text-gray-300 text-6xl font-thin group-hover:scale-95 transition-transform duration-500">Img</div>
+                <div>
+                     <h3 class="font-serif text-lg">Glitch Choker</h3>
+                     <p class="text-sm text-gray-500">$180</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

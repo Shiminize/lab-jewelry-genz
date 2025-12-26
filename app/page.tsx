@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ProductCard, Typography } from '@/components/ui'
+import { Typography } from '@/components/ui'
 import { HeroSection as HomepageHeroSection } from '@/components/homepage/HeroSection'
 import { CollectionTypesSection } from '@/components/homepage/CollectionTypesSection'
 import { CustomizerOnboardingSection } from '@/components/homepage/CustomizerOnboardingSection'
@@ -12,6 +12,7 @@ import { SupportSection } from '@/components/homepage/SupportSection'
 import { getHomepageContent } from '@/services/homepageContent'
 import { CreatorCTASection } from '@/components/homepage/CreatorCTASection'
 import { QuizSection } from '@/components/homepage/QuizSection'
+import { SpotlightProductCard } from '@/components/homepage/SpotlightProductCard'
 
 export default async function HomePage() {
   const content = await getHomepageContent()
@@ -76,24 +77,4 @@ function SpotlightSection({ products }: { products: HomepageFeaturedProduct[] })
   )
 }
 
-function SpotlightProductCard({ product }: { product: HomepageFeaturedProduct }) {
-  const { src } = getPrimaryImage(product)
-  const galleryImages = (product.gallery ?? []).map((item) => item?.src).filter(Boolean) as string[]
-  const secondaryImage = galleryImages.find((image) => image && image !== src) ?? undefined
 
-  return (
-    <ProductCard
-      slug={product.slug}
-      name={product.name}
-      category={product.category}
-      price={product.price}
-      tone={product.tone}
-      heroImage={src ?? undefined}
-      secondaryImage={secondaryImage}
-      tagline={product.tagline}
-      detailsHref={`/products/${product.slug}`}
-      customizeHref={null}
-      surfaceTone="canvas"
-    />
-  )
-}

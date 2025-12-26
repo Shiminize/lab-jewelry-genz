@@ -113,6 +113,9 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                             <h1 className="heading-xl text-text-primary">
                                 {product.title}
                             </h1>
+                            <p className="heading-lg text-text-primary mt-2">
+                                {usdFormatter.format(currentPrice)}
+                            </p>
                             <p className="body-text text-text-secondary leading-relaxed">
                                 {product.description}
                             </p>
@@ -166,7 +169,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                                     variant="primary"
                                     className="w-full rounded-none"
                                 >
-                                    Add to Bag — {usdFormatter.format(currentPrice)}
+                                    Add to Bag
                                 </Button>
                                 <p className="mt-4 text-center text-xs text-text-muted">
                                     Free shipping & returns within Japan

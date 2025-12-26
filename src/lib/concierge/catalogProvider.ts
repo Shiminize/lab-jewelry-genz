@@ -15,6 +15,7 @@ type Product = {
   category?: string
   readyToShip?: boolean
   metal?: string
+  slug?: string
 }
 
 export interface ProductCatalogProvider {
@@ -77,13 +78,13 @@ async function fetchLocalDbProducts(filters: ProductFilters): Promise<Product[]>
       shippingPromise: p.shippingPromise,
       category: p.category,
       readyToShip: p.readyToShip,
-      metal: (p as any).metal // Pass through if exists
+      metal: (p as any).metal, // Pass through if exists
+      slug: p.slug
     }));
+
   } catch (error) {
-    console.warn('[catalogProvider] localDbProvider error, falling back to seed:', error);
-    // Seed fallback
-    const normalized = normalizeFilters(filters)
-    return stubCatalog.filter((product) => matches(product, normalized))
+    console.error('[catalogProvider] localDbProvider error:', error);
+    throw error;
   }
 }
 

@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import { type OrderWidgetData, enrichOrdersWithWidgetData, getOrderWidgetData } from './order-widget-enrichment'
+import { validateRefund, validateStatusChange } from './order-validation'
 
 export interface AdminOrderSummary {
   id: string
@@ -207,4 +208,51 @@ export async function getAdminOrderStats(): Promise<AdminOrderStats> {
       fulfilledOrders: 0,
     }
   }
+}
+
+export async function updateOrderStatus(id: string, newStatus: string) {
+  const order = await prisma.order.findUnique({ where: { id } })
+  if (!order) throw new Error('Order not found')
+
+  const check = validateStatusChange(order.status, newStatus)
+  if (!check.valid) throw new Error(check.reason)
+
+  await prisma.order.update({
+    where: { id },
+    data: {
+      status: newStatus,
+      statusHistory: {
+        push: { status: newStatus, changedAt: new Date() }
+      }
+    }
+  })
+}
+
+export async function refundOrder(id: string, amount: number) {
+  const order = await prisma.order.findUnique({ where: { id } })
+  if (!order) throw new Error('Order not found')
+
+  const payment = parseJson<any>(order.payment) || { status: 'pending', amount: 0 }
+  // Extract refunded amount from returnInfo if available
+  const returnInfo = parseJson<any>(order.returnInfo) || { refundedAmount: 0 }
+  const currentRefunded = returnInfo.refundedAmount || 0
+
+  const check = validateRefund({
+    total: order.total,
+    payment,
+    refundedAmount: currentRefunded
+  }, amount)
+
+  if (!check.valid) throw new Error(check.reason)
+
+  const newRefundTotal = currentRefunded + amount
+  const newPaymentStatus = newRefundTotal >= order.total ? 'refunded' : 'partially_refunded'
+
+  await prisma.order.update({
+    where: { id },
+    data: {
+      payment: { ...payment, status: newPaymentStatus, refundedAmount: newRefundTotal },
+      returnInfo: { ...returnInfo, refundedAmount: newRefundTotal, lastRefundAt: new Date() }
+    }
+  })
 }

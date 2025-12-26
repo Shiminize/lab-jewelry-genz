@@ -27,6 +27,7 @@ export type Product = {
   shippingPromise?: string;
   badges?: string[];
   featuredInWidget?: boolean;
+  slug?: string;
 };
 
 export interface ConciergeDataProvider {

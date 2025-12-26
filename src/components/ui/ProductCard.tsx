@@ -31,6 +31,8 @@ export interface ProductCardProps {
   wishlistEnabled?: boolean
   wishlistActive?: boolean
   onWishlistToggle?: () => void
+  onAddToCart?: () => void
+  isAddingToCart?: boolean
   actions?: ReactNode
 }
 
@@ -66,6 +68,8 @@ export function ProductCard({
   wishlistEnabled = false,
   wishlistActive = false,
   onWishlistToggle,
+  onAddToCart,
+  isAddingToCart = false,
   actions,
   surfaceTone = 'surface',
 }: ProductCardProps) {
@@ -233,9 +237,20 @@ export function ProductCard({
             >
               View details
             </Button>
-            {canCustomize ? (
+            {canCustomize && !onAddToCart ? (
               <Button tone="coral" size="sm" href={customizeHref ?? undefined} className="ml-auto">
                 Customize
+              </Button>
+            ) : null}
+            {onAddToCart ? (
+              <Button
+                tone="coral"
+                size="sm"
+                onClick={onAddToCart}
+                disabled={isAddingToCart}
+                className="ml-auto min-w-[100px]"
+              >
+                {isAddingToCart ? 'Adding...' : 'Add to Cart'}
               </Button>
             ) : null}
           </div>

@@ -15,6 +15,7 @@ export interface CatalogPreviewProduct {
   limitedDrop?: boolean
   readyToShip?: boolean
   metal?: string
+  bestseller?: boolean
 }
 
 export interface CatalogFallbackDetail extends CatalogPreviewProduct {

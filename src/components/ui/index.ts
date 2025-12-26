@@ -9,4 +9,4 @@ export * from './MegaNav'
 export * from './MobileNav'
 export * from './ProductCard'
 export * from './Typography'
-
+export * from './TagInput'

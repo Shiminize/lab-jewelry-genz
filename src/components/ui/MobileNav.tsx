@@ -148,19 +148,23 @@ export function MobileNav() {
     isOpen && hasMounted
       ? createPortal(
         <>
-          <div className="fixed inset-0 z-[55] bg-neutral-950/40 backdrop-blur-sm" aria-hidden onClick={handleClose} />
+          <div
+            className="fixed inset-0 z-[55] bg-brand-ink/20 backdrop-blur-sm transition-opacity"
+            aria-hidden="true"
+            onClick={handleClose}
+          />
           <div
             id={dialogId}
             role="dialog"
             aria-modal="true"
             aria-labelledby="mobile-nav-title"
-            className="fixed inset-0 z-[60] flex px-4 py-6"
+            className="fixed inset-y-0 right-0 z-[60] flex w-full max-w-sm flex-col border-l border-brand-ink/10 bg-surface-base shadow-2xl transition-transform duration-300 ease-in-out"
           >
-            <div className="relative mx-auto flex h-full w-full max-w-md flex-col overflow-hidden rounded-[32px] border border-border-subtle bg-surface-base/95 p-5 text-text-secondary shadow-soft">
+            <div className="flex h-full flex-col p-6">
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">Navigate</p>
-                  <h2 id="mobile-nav-title" className="text-lg font-semibold text-text-primary">
+                  <h2 id="mobile-nav-title" className="text-2xl font-serif font-medium text-text-primary">
                     Choose your lane
                   </h2>
                 </div>
@@ -168,14 +172,14 @@ export function MobileNav() {
                   ref={closeButtonRef}
                   type="button"
                   onClick={handleClose}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle text-text-primary"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-border-subtle text-text-primary hover:bg-brand-ink/5 transition-colors"
                   aria-label="Close menu"
                 >
-                  <X className="h-4 w-4" aria-hidden />
+                  <X className="h-5 w-5" aria-hidden />
                 </button>
               </div>
 
-              <label className="mt-4 flex items-center gap-3 rounded-2xl border border-border-subtle bg-surface-base px-3 py-2.5 text-sm text-text-secondary">
+              <label className="mt-8 flex items-center gap-3 border-b border-border-subtle py-3 text-sm text-text-secondary">
                 <Search className="h-4 w-4 text-text-muted" aria-hidden />
                 <span className="sr-only">Search navigation</span>
                 <input
@@ -190,16 +194,16 @@ export function MobileNav() {
                       handleClose()
                     }
                   }}
-                  className="flex-1 border-0 bg-transparent text-sm text-text-primary placeholder:text-text-muted focus:outline-none"
+                  className="flex-1 bg-transparent text-sm text-text-primary placeholder:text-text-muted focus:outline-none"
                 />
               </label>
 
-              <div className="mt-4 grid gap-3">
+              <div className="mt-8 grid gap-3">
                 <Button
                   href="/customizer"
                   tone="coral"
                   variant="accent"
-                  className="w-full justify-center"
+                  className="w-full justify-center rounded-none"
                   onClick={handleClose}
                 >
                   Start customizing
@@ -208,16 +212,16 @@ export function MobileNav() {
                   href="/support"
                   variant="outline"
                   tone="ink"
-                  className="w-full justify-center"
+                  className="w-full justify-center rounded-none"
                   onClick={handleClose}
                 >
                   Talk to concierge
                 </Button>
               </div>
 
-              <div className="mt-5 flex-1 overflow-y-auto pr-1 min-h-0">
+              <div className="mt-8 flex-1 overflow-y-auto pr-1 min-h-0">
                 {filteredSections.length === 0 ? (
-                  <p className="px-2 text-sm text-text-secondary">No matches found.</p>
+                  <p className="type-body text-text-secondary">No matches found.</p>
                 ) : (
                   filteredSections.map((section) => (
                     <NavSectionGroup
@@ -278,8 +282,8 @@ function NavSectionGroup({ section, isOpen, onToggle, onNavigate }: NavSectionGr
         </div>
         <span
           className={cn(
-            'inline-flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle text-lg transition-colors',
-            isOpen ? 'bg-accent-muted text-text-primary' : 'bg-transparent text-text-secondary',
+            'inline-flex h-9 w-9 items-center justify-center rounded-none border border-border-subtle text-lg transition-colors',
+            isOpen ? 'bg-brand-ink/5 text-text-primary' : 'bg-transparent text-text-secondary',
           )}
           aria-hidden
         >
@@ -329,7 +333,7 @@ function NavLinkItem({
         href={link.href}
         target={link.href.startsWith('http') ? '_blank' : undefined}
         rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-        className="flex flex-col gap-0.5 rounded-xl px-2 py-1 transition hover:bg-surface-base/70"
+        className="flex flex-col gap-0.5 rounded-none px-2 py-1 transition hover:bg-brand-ink/5"
         onClick={onNavigate}
       >
         {content}
@@ -340,7 +344,7 @@ function NavLinkItem({
   return (
     <Link
       href={link.href}
-      className="flex flex-col gap-0.5 rounded-xl px-2 py-1 transition hover:bg-surface-base/70"
+      className="flex flex-col gap-0.5 rounded-none px-2 py-1 transition hover:bg-brand-ink/5"
       onClick={onNavigate}
     >
       {content}
