@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: 'GlowGlitch | Neon Dream Jewelry Customization',
   description:
     'Design lab-grown diamond jewelry with our Neon Dream 3D customizer. Ethical, brilliant, and tailored to your style.',
+  icons: {
+    icon: 'https://res.cloudinary.com/dgyf0osrx/image/upload/v1766813032/icon_pk18hv.svg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
